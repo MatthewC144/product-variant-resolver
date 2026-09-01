@@ -1,0 +1,255 @@
+{
+  "ablation_raw_ranks": {
+    "dense": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "reranker": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "rrf": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "sparse": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "ablations": {
+    "dense": {
+      "mrr_at_10": 1.0,
+      "recall_at_25": 1.0,
+      "top1_accuracy": 1.0
+    },
+    "reranker": {
+      "mrr_at_10": 1.0,
+      "recall_at_25": 1.0,
+      "top1_accuracy": 1.0
+    },
+    "rrf": {
+      "mrr_at_10": 1.0,
+      "recall_at_25": 1.0,
+      "top1_accuracy": 1.0
+    },
+    "sparse": {
+      "mrr_at_10": 1.0,
+      "recall_at_25": 1.0,
+      "top1_accuracy": 1.0
+    }
+  },
+  "artifacts": {
+    "latency": "latency.svg",
+    "markdown": "evaluation-fixture-v1-test.md",
+    "precision_coverage": "precision-coverage.svg",
+    "reranker_comparison": "reranker-comparison.svg",
+    "retrieval_ablation": "retrieval-ablation.svg"
+  },
+  "comparisons": {
+    "reranker_top1_absolute_gain_over_rrf": 0.0
+  },
+  "configuration": {
+    "benchmark_sha256": "e46c5b4a405a5b3e9fbac35c9613d8e5945e2d4494ad8df9f3d8be1e352fc323",
+    "calibrator_artifact": "fixture-v1-rrf-logistic-v2",
+    "calibrator_model": "logistic-python-v1+rrf",
+    "candidate_k": 25,
+    "catalog_sha256": "0d3ea55eab414e3845bf3bf72635707210f2d5c20d96b3d6b5940eb0ffc7d261",
+    "default_ranker": "rrf",
+    "dense_model": "hashing-v1",
+    "disclaimer": "21 synthetic fixture test cases; results do not establish production accuracy, marketplace coverage, or production readiness.",
+    "external_cross_encoder_evaluated": false,
+    "machine": "arm64",
+    "pipeline_latency_method": "direct ResolverService wall clock with debug payload construction; sequential warmed process; service startup/index build excluded",
+    "pipeline_warmup_requests": 5,
+    "platform": "macOS-15.6.1-arm64-arm-64bit-Mach-O",
+    "policy_thresholds": {
+      "margin": 0.08,
+      "match": 0.67,
+      "max_conflicts": 2,
+      "no_match": 0.32
+    },
+    "policy_version": "fixture-v1-rrf-trained-v2",
+    "processor": "arm",
+    "reranker": "disabled",
+    "reranker_ablation_model": "heuristic-v1",
+    "reranker_runtime_enabled": false,
+    "runtime": "3.14.6",
+    "source_note": "Synthetic noisy titles; test labels must not be used for fitting or threshold selection.",
+    "split_strategy": "fixed mapping by casting_family; a family occurs in exactly one split"
+  },
+  "dataset": {
+    "catalog_version": "fixture-v1",
+    "dataset_version": "fixture-v1",
+    "matched_count": 12,
+    "sample_count": 21,
+    "split": "test"
+  },
+  "disclosure": {
+    "dataset_kind": "synthetic_fixture",
+    "notice": "This report covers exactly 21 synthetic fixture test cases. It does not establish production accuracy, marketplace coverage, or production readiness.",
+    "test_case_count": 21
+  },
+  "headline_metrics": {
+    "abstention_rate": 0.5238095238095238,
+    "coverage": 0.8333333333333334,
+    "false_match_rate": 0.0,
+    "hard_negative_accuracy": 1.0,
+    "http_p50_latency_ms": 2.129875007085502,
+    "http_p95_latency_ms": 7.952333893626928,
+    "mrr_at_10": 1.0,
+    "pipeline_p50_latency_ms": 1.3258750550448895,
+    "pipeline_p95_latency_ms": 1.552458037622273,
+    "precision": 1.0,
+    "recall_at_10": 1.0,
+    "recall_at_25": 1.0,
+    "recall_at_50": 1.0,
+    "top1_accuracy": 1.0
+  },
+  "latency_evidence": {
+    "container": {
+      "measured": false,
+      "reason": "Docker/container, TCP network, reverse-proxy, and concurrent-load latency were not measured by this report."
+    },
+    "http": {
+      "includes_container_runtime": false,
+      "includes_middleware_validation_serialization": true,
+      "includes_tcp_network": false,
+      "method": "sequential warmed POST /resolve requests through in-process TestClient; app construction and warm-up excluded",
+      "p50_latency_ms": 2.129875007085502,
+      "p95_latency_ms": 7.952333893626928,
+      "sample_count": 21,
+      "samples_ms": [
+        3.423042013309896,
+        8.032916928641498,
+        4.737416980788112,
+        7.952333893626928,
+        3.696291008964181,
+        2.7415830409154296,
+        2.1541250171139836,
+        1.785959000699222,
+        2.2931669373065233,
+        2.034875098615885,
+        2.1894589299336076,
+        1.8692499725148082,
+        1.8627920653671026,
+        2.644167048856616,
+        1.8987500807270408,
+        1.6372499521821737,
+        2.129875007085502,
+        1.4899999368935823,
+        1.491290982812643,
+        1.4372500590980053,
+        1.3644580030813813
+      ],
+      "transport": "FastAPI TestClient in-process ASGI",
+      "warmup_requests": 5
+    },
+    "pipeline": {
+      "method": "direct ResolverService wall clock with debug payload construction; sequential warmed process; service startup/index build excluded",
+      "p50_latency_ms": 1.3258750550448895,
+      "p95_latency_ms": 1.552458037622273,
+      "sample_count": 21,
+      "samples_ms": [
+        1.3615409843623638,
+        1.5189999248832464,
+        1.3258750550448895,
+        1.309916959144175,
+        1.30958401132375,
+        1.552458037622273,
+        1.4118750113993883,
+        1.347083947621286,
+        1.3648750027641654,
+        1.456541009247303,
+        1.2947499053552747,
+        1.346500008367002,
+        1.2695840559899807,
+        1.5335000352934003,
+        1.6120830550789833,
+        1.1477089719846845,
+        1.2608750257641077,
+        0.9174159495159984,
+        1.0140000376850367,
+        0.9336669463664293,
+        0.872958917170763
+      ]
+    }
+  },
+  "r13_http_smoke": {
+    "budget_ms": 1500.0,
+    "candidate_k": 25,
+    "container_latency_validated": false,
+    "observed_http_p95_ms": 7.952333893626928,
+    "passes_local_in_process_budget": true,
+    "scope": "warmed in-process ASGI HTTP boundary only"
+  },
+  "raw_counts": {
+    "correct_matches": 10,
+    "correct_top1": 12,
+    "false_matches": 0,
+    "hard_correct": 4,
+    "hard_total": 4,
+    "matched_cases": 12,
+    "nonmatch_cases": 9,
+    "predicted_matches": 10,
+    "reciprocal_rank_sum_at_10": 12.0,
+    "retrieved_at_10": 12,
+    "retrieved_at_25": 12,
+    "retrieved_at_50": 12,
+    "test_cases": 21,
+    "wrong_identity_matches": 0
+  },
+  "report_id": "evaluation-fixture-v1-test-rrf-default-v2",
+  "report_schema_version": "pvr-evaluation-report-v2",
+  "runtime_ranker_decision": {
+    "absolute_gain": 0.0,
+    "decision": "Keep heuristic-v1 out of the default runtime path because it adds zero Top-1 accuracy on the frozen fixture test; retain it only as an opt-in offline ablation.",
+    "external_cross_encoder_evaluated": false,
+    "external_model_conclusion": "No external cross-encoder was evaluated; this decision makes no claim about one.",
+    "heuristic_reranker_ablation_model": "heuristic-v1",
+    "heuristic_reranker_runtime_enabled": false,
+    "heuristic_reranker_top1_accuracy": 1.0,
+    "rrf_top1_accuracy": 1.0,
+    "selected_default": "rrf"
+  }
+}

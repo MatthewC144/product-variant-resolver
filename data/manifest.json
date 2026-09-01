@@ -1,0 +1,13 @@
+{
+  "benchmark_case_count": 100,
+  "benchmark_sha256": "e46c5b4a405a5b3e9fbac35c9613d8e5945e2d4494ad8df9f3d8be1e352fc323",
+  "benchmark_split_counts": {
+    "dev": 21,
+    "test": 21,
+    "train": 58
+  },
+  "catalog_sha256": "0d3ea55eab414e3845bf3bf72635707210f2d5c20d96b3d6b5940eb0ffc7d261",
+  "dataset_version": "fixture-v1",
+  "generator": "scripts/generate_fixture_data.py",
+  "product_count": 120
+}

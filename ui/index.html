@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
+    <title>Product Variant Resolver — Debug Console</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script defer src="./app.js"></script>
+  </head>
+  <body>
+    <div class="ambient ambient-left" aria-hidden="true"></div>
+    <div class="ambient ambient-right" aria-hidden="true"></div>
+
+    <main class="shell">
+      <header class="masthead">
+        <div>
+          <p class="eyebrow">Local diagnostic interface</p>
+          <h1>Product Variant <span>Resolver</span></h1>
+          <p class="lede">
+            Inspect the catalog-backed decision path for a noisy marketplace title.
+          </p>
+        </div>
+        <div class="mode-badge"><span aria-hidden="true"></span> Debug enabled</div>
+      </header>
+
+      <section class="query-card" aria-labelledby="query-heading">
+        <div class="section-heading">
+          <div>
+            <p class="step">01 / Query</p>
+            <h2 id="query-heading">Resolve a listing title</h2>
+          </div>
+          <p class="hint">The API owns every match and confidence decision.</p>
+        </div>
+
+        <form id="resolve-form" novalidate>
+          <label for="title">Marketplace title</label>
+          <textarea
+            id="title"
+            name="title"
+            rows="3"
+            maxlength="500"
+            required
+            spellcheck="false"
+            placeholder="e.g. Hot Wheels 2022 Chevy Nomad Red #101"
+          ></textarea>
+
+          <div class="form-footer">
+            <label class="limit-control" for="candidate-limit">
+              Candidate limit
+              <input id="candidate-limit" name="candidate-limit" type="number" min="1" max="25" value="10">
+            </label>
+            <div class="actions">
+              <button id="reset-button" class="button button-secondary" type="reset">Reset</button>
+              <button id="submit-button" class="button button-primary" type="submit">
+                <span class="button-label">Resolve variant</span>
+                <span class="button-loader" aria-hidden="true"></span>
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <p id="request-status" class="sr-only" role="status" aria-live="polite"></p>
+      </section>
+
+      <section id="empty-state" class="empty-state" aria-live="polite">
+        <div class="empty-glyph" aria-hidden="true">⌁</div>
+        <p>Submit a title to inspect its decision trace.</p>
+      </section>
+
+      <section id="error-panel" class="error-panel" role="alert" hidden>
+        <p class="step">Request error</p>
+        <h2>Unable to resolve this title</h2>
+        <p id="error-message"></p>
+        <p id="error-request-id" class="request-id"></p>
+      </section>
+
+      <div id="result" class="result" hidden>
+        <section class="decision-card" aria-labelledby="decision-heading">
+          <div class="section-heading compact">
+            <p class="step">02 / Decision</p>
+            <p id="query-echo" class="query-echo"></p>
+          </div>
+          <div class="decision-grid">
+            <div>
+              <p class="field-label">Resolution</p>
+              <div class="status-line">
+                <span id="decision-status" class="status-badge"></span>
+                <span id="decision-reason" class="reason"></span>
+              </div>
+            </div>
+            <div class="confidence-block">
+              <div class="confidence-copy">
+                <span class="field-label">Confidence</span>
+                <strong id="confidence-value"></strong>
+              </div>
+              <div class="confidence-track" aria-hidden="true">
+                <span id="confidence-bar"></span>
+              </div>
+            </div>
+          </div>
+
+          <dl id="identity-details" class="identity-details" hidden>
+            <div><dt>Canonical ID</dt><dd id="canonical-id"></dd></div>
+            <div><dt>UUID</dt><dd id="canonical-uuid"></dd></div>
+            <div><dt>Product</dt><dd id="product-summary"></dd></div>
+            <div><dt>Policy</dt><dd id="policy-version"></dd></div>
+          </dl>
+          <p id="abstention-note" class="abstention-note" hidden>
+            No canonical identity was asserted. Review the diagnostic evidence below.
+          </p>
+        </section>
+
+        <div id="debug-sections">
+          <section class="panel" aria-labelledby="signals-heading">
+            <div class="section-heading compact">
+              <div>
+                <p class="step">03 / Extraction</p>
+                <h2 id="signals-heading">Signals</h2>
+              </div>
+              <p id="catalog-version" class="version-label"></p>
+            </div>
+            <dl id="signals-grid" class="signals-grid"></dl>
+          </section>
+
+          <section class="panel candidates-panel" aria-labelledby="candidates-heading">
+            <div class="section-heading compact">
+              <div>
+                <p class="step">04 / Ranking</p>
+                <h2 id="candidates-heading">Candidates</h2>
+              </div>
+              <p id="candidate-count" class="version-label"></p>
+            </div>
+            <div id="candidates-empty" class="inline-empty" hidden>No candidates returned.</div>
+            <div id="candidates-table-wrap" class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">Candidate</th>
+                    <th scope="col">Sparse</th>
+                    <th scope="col">Dense</th>
+                    <th scope="col">Structured</th>
+                    <th scope="col">RRF</th>
+                    <th scope="col">Reranker</th>
+                    <th scope="col">Evidence</th>
+                  </tr>
+                </thead>
+                <tbody id="candidates-body"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel" aria-labelledby="timings-heading">
+            <div class="section-heading compact">
+              <div>
+                <p class="step">05 / Runtime</p>
+                <h2 id="timings-heading">Timings</h2>
+              </div>
+              <p id="model-versions" class="version-label"></p>
+            </div>
+            <div id="timings-grid" class="timings-grid"></div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

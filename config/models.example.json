@@ -1,0 +1,20 @@
+{
+  "dense": {
+    "provider": "sentence-transformers",
+    "model_id": "REPLACE_WITH_PINNED_PERMISSIVE_MODEL_ID",
+    "revision": "REPLACE_WITH_COMMIT_REVISION",
+    "artifact_path": "model-cache/embeddings",
+    "sha256": "REPLACE_AFTER_ACQUISITION",
+    "license": "VERIFY_BEFORE_USE"
+  },
+  "reranker": {
+    "runtime_default": false,
+    "evaluation_status": "not_evaluated",
+    "provider": "cross-encoder",
+    "model_id": "REPLACE_WITH_PINNED_PERMISSIVE_MODEL_ID",
+    "revision": "REPLACE_WITH_COMMIT_REVISION",
+    "artifact_path": "model-cache/reranker",
+    "sha256": "REPLACE_AFTER_ACQUISITION",
+    "license": "VERIFY_BEFORE_USE"
+  }
+}
