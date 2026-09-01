@@ -1,0 +1,102 @@
+{
+  "schema_version": "pvr-http-latency-v1",
+  "boundary": "host_to_docker_container_http",
+  "endpoint": "POST /resolve",
+  "method": {
+    "client": "Python urllib (3.14.6)",
+    "concurrency": 1,
+    "request_pattern": "sequential",
+    "connection_behavior": "one urllib request per sample; no explicit connection pool",
+    "warmup_requests": 10,
+    "measured_requests": 50,
+    "clock": "time.perf_counter_ns",
+    "percentile_method": "nearest-rank",
+    "included": [
+      "host loopback HTTP client",
+      "Docker Desktop port forwarding",
+      "Uvicorn and FastAPI",
+      "resolver pipeline",
+      "JSON serialization and parsing"
+    ],
+    "excluded": [
+      "container startup",
+      "warmup requests",
+      "TLS",
+      "reverse proxy",
+      "remote network",
+      "concurrent load"
+    ]
+  },
+  "environment": {
+    "host_platform": "macOS-15.6.1-arm64-arm-64bit-Mach-O",
+    "host_machine": "arm64",
+    "docker_server_version": "29.5.3",
+    "container_python_version": "3.12.14",
+    "base_url": "http://127.0.0.1:8000"
+  },
+  "request": {
+    "payload": {
+      "title": "2022 Chevy Nomad Red #101"
+    },
+    "observed_status": "matched"
+  },
+  "summary_ms": {
+    "minimum": 2.045958,
+    "median": 2.7867085,
+    "p95": 4.721208,
+    "maximum": 15.02275,
+    "mean": 3.14272922
+  },
+  "raw_samples_ms": [
+    2.748,
+    2.273792,
+    2.723459,
+    3.238083,
+    2.070625,
+    3.886916,
+    2.280875,
+    2.780667,
+    2.7855,
+    4.015875,
+    4.721208,
+    2.173334,
+    3.143959,
+    2.980709,
+    2.887416,
+    2.156209,
+    3.420125,
+    2.091334,
+    2.100458,
+    2.902,
+    3.565833,
+    2.485584,
+    2.883333,
+    2.919291,
+    3.809792,
+    2.858791,
+    2.398167,
+    2.4485,
+    2.871542,
+    2.099208,
+    2.596916,
+    2.787917,
+    2.06,
+    2.045958,
+    3.754792,
+    15.02275,
+    3.241875,
+    2.093834,
+    2.8725,
+    2.8765,
+    2.69875,
+    2.36525,
+    2.476584,
+    3.200458,
+    2.150667,
+    3.112792,
+    2.43325,
+    2.113167,
+    2.804666,
+    8.70725
+  ]
+}

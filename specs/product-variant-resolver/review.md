@@ -20,13 +20,26 @@ runtime ranker based on a traceable frozen-test comparison showing zero Top-1 ga
 heuristic reranker; and the report contains warmed in-process HTTP/ASGI `/resolve` samples with an
 explicit statement that container/TCP latency was not measured.
 
+An independent Docker runtime milestone now verifies the existing
+`product-variant-resolver:lite` image on Docker Desktop 29.5.3/aarch64: Python 3.12.14, non-root
+user `pvr` (UID 100), read-only root filesystem, writable tmpfs only, loopback-only published port,
+healthy readiness, UI assets, all three decision states, and missing-catalog fail-closed behavior.
+The checked-in host-to-container latency artifact is arithmetically traceable: 50 sequential raw
+samples after 10 warm-ups produce nearest-rank p95 `4.721208 ms`.
+
+Focused re-verification closed the prior runtime reporting dependency finding. `httpx2>=2,<3` is a
+reasonable runtime dependency because the shipped `pvr-report` CLI directly uses FastAPI
+TestClient. A no-cache rebuild resolved FastAPI 0.141.1, Starlette 1.6.0, httpx2 2.12.0, and
+httpcore2 2.12.0. In the rebuilt read-only image, `pvr-report` generated JSON, Markdown, and four
+SVGs, and all mounted API/reporting tests passed.
+
 This is not a full verification of every technology named in the MVP brief. PostgreSQL/pgvector
 resolution adapters and pinned external embedding/cross-encoder models remain explicitly deferred.
-The Docker daemon was not running, so no image build, container health check, migration, or live
-PostgreSQL test was performed. The new HTTP measurement crosses the FastAPI middleware,
-validation, dispatch, serialization, and response-header boundary through in-process TestClient,
-but excludes a real socket, Docker, reverse proxy, and concurrency. These limitations are disclosed
-in the README and generated report and must remain visible in any portfolio or repository claims.
+The Docker latency evidence is from one local arm64 machine over loopback with concurrency 1; it
+does not cover TLS, a reverse proxy, a remote network, concurrent load, or PostgreSQL. Dependency
+versions are bounded ranges without a committed lockfile or constraints file, so a future rebuild
+can resolve a different compatible set. These limitations must remain visible in any portfolio or
+repository claims.
 
 ## Requirement coverage
 
@@ -44,10 +57,10 @@ in the README and generated report and must remain visible in any portfolio or r
 | R10 Ranking gate | PASS | Fresh test evaluation: Top-1 `1.0`, hard-negative accuracy `1.0` (4/4). |
 | R11 Reranker value | PASS (alternative) | On the same 12 matched frozen test cases, RRF Top-1 `1.0` and heuristic-v1 Top-1 `1.0`, absolute gain `0.0`. The versioned report therefore selects RRF and omits the heuristic from the default runtime, while retaining an explicit opt-in/ablation path. It states that no external cross-encoder was evaluated. |
 | R12 Reliability gate | PASS | Precision `1.0`, false-match rate `0.0`, coverage `0.8333` on 21 synthetic fixture test cases. |
-| R13 CPU smoke budget | PASS (limited scope) | Fresh warmed in-process HTTP/ASGI p95 `2.45 ms`, K=25, macOS arm64/Python 3.14.6 (gate `<=1500 ms`). It includes middleware, validation, dispatch, serialization, and headers. Report schema enforces the disclosure that Docker/container, TCP network, reverse proxy, and concurrent load were not measured. |
+| R13 CPU smoke budget | PASS (limited scope) | Checked-in host-to-Docker loopback evidence has 50 sequential samples, 10 excluded warm-ups, K=25, and nearest-rank p95 `4.721208 ms` (gate `<=1500 ms`). Current runtime independently matches Docker 29.5.3/aarch64 and Python 3.12.14. Scope remains one machine, concurrency 1, offline-memory backend, without TLS/proxy/remote network/PostgreSQL. |
 | R14 API validation | PASS | Blank, 501-code-point, unknown-field, and limit=26 requests return structured 422; malformed JSON returns 400; unsupported media type returns 415; no tracebacks exposed. |
-| R15 Health/readiness | PASS WITH RISK | Missing catalog, PostgreSQL selection, external dense provider, and external reranker all produce health 503 and resolve 503 without identity. A simulated retriever failure fails closed, but live health transition after a runtime retriever failure is not verified. |
-| R16 Quality gate | PASS (available suites) | 38/38 tests pass and versioned JSON/Markdown/SVG report generation and schema validation pass. Live browser, Docker, PostgreSQL/pgvector, and external-model paths were not run. |
+| R15 Health/readiness | PASS WITH RISK | A dedicated read-only Docker container with `PVR_CATALOG_PATH=/app/data/missing.json` returned health 503/not-ready and resolve 503/`resolver_not_ready` with no identity, then was removed. PostgreSQL selection and unavailable external providers also fail closed. Live health transition after a dependency fails post-startup is not verified. |
+| R16 Quality gate | PASS | Host suite is 38/38 green. Rebuilt Python 3.12 image compile passes; `pvr-report` generates and validates all six expected artifacts under read-only runtime constraints; mounted container API tests are 8/8 and reporting tests 2/2 green. Earlier image runs also passed 10 unit, 7 integration, 4 evaluation-metric, and 5 fixture tests plus direct container evaluation. |
 
 ## Checked items and reproducible evidence
 
@@ -55,7 +68,7 @@ Executed from the project repository root:
 
 ```bash
 PYTHONPATH=src python3 -m unittest discover -s tests -p 'test_*.py' -v
-# Result: Ran 38 tests in 1.029s — OK
+# Latest focused rerun: Ran 38 tests in 0.928s — OK
 
 python3 -m compileall -q src tests scripts migrations
 # Result: exit 0
@@ -78,6 +91,59 @@ docker compose config --quiet
 docker compose --profile postgres config --quiet
 # Result: both exit 0 (static configuration only)
 ```
+
+Docker/Python 3.12 runtime milestone:
+
+```text
+Image: product-variant-resolver:lite
+Latest rebuilt image ID: sha256:f5df8cba0c0abaae77b1e01be9269cdbef2dd874be5b168da47aed5d365cc739
+Docker server / architecture: 29.5.3 / aarch64
+Container Python: 3.12.14
+Runtime user: uid=100(pvr), gid=101(pvr)
+ReadonlyRootfs: true
+Published port: 127.0.0.1:8000 -> 8000/tcp
+Compose state: healthy
+```
+
+- `/app` is not writable; `/tmp` tmpfs is writable.
+- Container source/migration compile passed using `/tmp` as the bytecode cache.
+- The prior runtime milestone's read-only mounted Python 3.12 runs passed 26 tests: 10 unit, 7 integration,
+  4 evaluation metrics, and 5 fixture tests.
+- That milestone's direct container evaluation remained green: Recall@25 `1.0`, Top-1 `1.0`, hard-negative
+  accuracy `1.0`, precision `1.0`, coverage `0.8333`, false-match rate `0.0`; container pipeline
+  p95 was `1.380833 ms` on this run.
+- Real host-to-container HTTP returned health 200/ready; `/`, `/app.js`, and `/styles.css` returned
+  200; `matched`, `ambiguous`, and `no_match` fixtures returned their expected states; the default
+  response omitted debug fields and supplied `x-request-id`.
+- A dedicated missing-catalog container returned health and resolve 503 without an identity and was
+  removed immediately after the check.
+- Compose logs contained normal startup, health, UI, and resolve access entries with no traceback or
+  application error.
+- `reports/runtime-validation/docker-python312-http-latency.json` has the exact expected v1 keys,
+  50 finite non-negative raw samples, and matching min/median/mean/max. Sorting the samples and
+  applying `ceil(0.95 * 50) - 1` reproduces p95 `4.721208 ms` exactly.
+- Runtime latency evidence is single-machine arm64, loopback, sequential, concurrency 1, and offline
+  memory only. It excludes TLS, proxying, remote networking, concurrent load, and PostgreSQL.
+
+Focused reporting dependency re-verification:
+
+- `pyproject.toml` now declares `httpx2>=2,<3` in runtime dependencies. This placement is justified
+  because `pvr-report` is installed in the runtime image and calls FastAPI TestClient directly.
+- A no-cache Docker rebuild succeeded and resolved: FastAPI `0.141.1`, Starlette `1.6.0`, httpx2
+  `2.12.0`, httpcore2 `2.12.0`, Pydantic `2.13.5`, and Uvicorn `0.52.4`.
+- Inside the rebuilt read-only/non-root container, `pvr-report --output-directory
+  /tmp/qa-runtime-report` generated exactly: one JSON, one Markdown, `retrieval-ablation.svg`,
+  `reranker-comparison.svg`, `precision-coverage.svg`, and `latency.svg`.
+- The generated JSON passed `validate_report_payload`, used schema
+  `pvr-evaluation-report-v2`, retained 21 HTTP samples, and preserved the exact 21-case synthetic
+  non-production disclosure plus `container.measured=false`.
+- Generated Markdown retained the non-production statement, no-external-cross-encoder statement,
+  and container-latency-not-measured statement. All four SVGs contain `<svg>` and `<title>`.
+- Rebuilt-image mounted tests: API 8/8 and reporting 2/2 passed. Live health/UI/three-state/default
+  response smoke also passed, and Compose logs contained no traceback or application error.
+- The dependency fix is not fully reproducible across time: dependency ranges remain broad and no
+  lockfile/constraints file freezes the resolved versions. The dev extra also still lists legacy
+  `httpx`, which produced a host-side deprecation warning, although all host tests passed.
 
 Additional audit results:
 
@@ -102,8 +168,9 @@ Additional audit results:
   private keys, or hardcoded production credentials were found.
 - `python3 -m pytest` was unavailable because pytest is not installed in the host interpreter;
   the same unittest-compatible suite was run directly and passed.
-- Package wheel build could not be verified offline because the host lacks setuptools and the uv
-  cache has no `setuptools>=75`; `compileall` passed. No dependency was downloaded for QA.
+- The host interpreter still cannot build a standalone wheel offline because it lacks setuptools
+  and the uv cache has no `setuptools>=75`; however, the no-cache Docker build downloaded its
+  declared dependencies and successfully built and installed the project wheel.
 
 ## Findings
 
@@ -121,26 +188,24 @@ None for demonstrating the explicitly documented offline fixture path.
    reranker is `heuristic-v1`. `config/models.example.json` still contains replacement placeholders;
    selecting an external provider fails closed. Do not describe the reported results as a
    sentence-transformer or cross-encoder benchmark.
-3. **Docker runtime is unverified.** `docker compose config` passes, but the daemon socket was absent.
-   Image build, Python 3.12 container execution, readiness probe, read-only filesystem behavior,
-   Alembic migration, and pgvector extension creation remain untested.
+3. **Rebuild dependencies are ranged rather than locked.** The focused build successfully resolved
+   and tested FastAPI 0.141.1 / Starlette 1.6.0 / httpx2 2.12.0, but the repository has no lockfile
+   or constraints file. Future builds can select different compatible releases. Freeze the tested
+   runtime set or add a controlled dependency-update workflow; also reconcile the dev extra's
+   legacy `httpx` entry with the runtime `httpx2` dependency.
 
 ### Later
 
-1. Run the suite on Python 3.12 as pinned by the project; current host verification used Python
-   3.14.6.
-2. Resolve the Starlette `TestClient` deprecation warning (`httpx` versus `httpx2`) before a future
-   dependency upgrade turns it into a failure.
-3. Add an actual browser smoke test if UI behavior beyond the Node DOM harness becomes release
+1. Add an actual browser smoke test if UI behavior beyond the Node DOM harness becomes release
    critical.
-4. Add readiness-state coverage for a retriever/model that fails after startup, not only missing or
+2. Add readiness-state coverage for a retriever/model that fails after startup, not only missing or
    unsupported dependencies at app creation.
 
 ## Recommended next task
 
-The requested R7, R11, and R13 corrections are QA-closed for the Lite offline fixture scope. The
-next highest-value task is to run the existing stack in Docker on Python 3.12 and preserve the
-container/TCP limitation until that evidence exists. PostgreSQL/pgvector and external neural model
-work can remain deferred only if the README, reports, and repository description continue to say so
-explicitly; otherwise implement and integration-test those adapters before claiming the original
-technology scope complete.
+The requested R7, R11, R13, Docker/Python 3.12 runtime, and runtime reporting dependency milestones
+are QA-closed for the Lite offline fixture scope. The next hardening task is to freeze or constrain
+the tested runtime dependency set and align the dev TestClient dependency. PostgreSQL/pgvector and
+external neural model work can remain deferred only if the README, reports, and repository
+description continue to say so explicitly; otherwise implement and integration-test those adapters
+before claiming the original technology scope complete.

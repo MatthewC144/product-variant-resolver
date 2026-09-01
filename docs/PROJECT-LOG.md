@@ -163,6 +163,119 @@ integration-test those adapters next; otherwise keep them explicitly deferred. R
 and marketplace-derived hard negatives are required before revisiting semantic retrieval,
 reranking, calibration, or production-accuracy claims.
 
+## 2026-09-01 — Docker/Python 3.12 runtime milestone
+
+### Context, problem, and observable outcome
+
+The preceding handoff had only static Docker Compose validation. The daemon was unavailable during
+that QA pass, so the documentation correctly treated image construction, Python 3.12 execution,
+container readiness, filesystem restrictions, real port forwarding, and the installed reporting
+CLI as unverified. That was the largest remaining gap in the default offline MVP: source-level and
+in-process evidence existed, but a user still could not point to a successful build-and-run record
+for the shipped container.
+
+This milestone closes that gap for the **default offline runtime**. A no-cache image build ran on
+Docker Desktop 29.5.3/aarch64, installed the project on Python 3.12.14, started healthy as non-root
+user `pvr` (UID 100) with a read-only root filesystem and writable `/tmp` tmpfs, and exposed only
+the loopback-bound API port. From the host, health, UI assets, `matched`, `ambiguous`, and
+`no_match` flows were observable; default responses omitted debug data and carried request IDs. A
+separate missing-catalog container returned health and resolve 503 without asserting an identity.
+The installed `pvr-report` command also generated and validated its JSON, Markdown, and four SVG
+artifacts inside the rebuilt read-only image.
+
+### Implementation trace
+
+The runtime work added `scripts/measure_http_latency.py` to give host→container timing a dedicated,
+repeatable measurement path instead of reusing the in-process TestClient numbers. Its output,
+`reports/runtime-validation/docker-python312-http-latency.json`, freezes the boundary, environment,
+warm-up/sample counts, percentile method, summary, raw samples, request payload, and explicit
+inclusions/exclusions. Keeping this result separate from `reports/fixture-v1/` prevents the fixture
+evaluation report's in-process ASGI latency from being mistaken for a container measurement.
+
+`pyproject.toml` added `httpx2>=2,<3` to runtime dependencies. The reason is operational rather than
+test-only: the installed `pvr-report` entry point directly uses FastAPI TestClient when it generates
+HTTP samples. The runtime image therefore needs the compatible client library even when development
+extras are not installed. The Dockerfile and default Compose configuration did not need a new
+product architecture; the milestone exercised their existing non-root, read-only, tmpfs,
+loopback-port, and healthcheck settings and captured evidence that those settings work together.
+
+### Technical choices, alternatives, and trade-offs
+
+Host→container latency is measured with a small standard-library HTTP script rather than folding a
+live socket test into the fixture evaluator. This keeps the artifact dependency-light and makes the
+boundary explicit: host `urllib`, Docker Desktop port forwarding, Uvicorn/FastAPI, resolver work,
+and JSON serialization/parsing are included. An in-container TestClient benchmark would be faster
+and more deterministic but would skip port forwarding; a full load tool behind TLS and a proxy
+would be closer to production but would add infrastructure and concurrency questions outside this
+Lite milestone. The selected sequential, concurrency-1 loopback smoke is therefore useful for
+runtime verification, not capacity planning.
+
+For reporting dependencies, alternatives included putting `pvr-report` behind a separate extra or
+image, rewriting its HTTP measurement to avoid TestClient, or leaving the HTTP client in the dev
+extra. Keeping `httpx2` in runtime dependencies makes the already-shipped CLI usable in the default
+image with the smallest code change. The trade-off is a larger runtime dependency surface and
+weaker rebuild reproducibility because versions are bounded but not locked.
+
+### Decision changes
+
+Before this milestone, Docker/Python 3.12 was documented as unverified and T23 remained partial;
+only Compose syntax had passed. After the successful build, health/UI/three-state flow,
+missing-catalog failure, filesystem/user checks, and host→container measurement, the default
+offline Docker runtime is now an evidenced deliverable and T23 is complete for that Lite boundary.
+This does not promote the optional PostgreSQL profile into a working resolver path.
+
+QA also found that the reporter's HTTP client could not be treated as merely a development concern:
+`pvr-report` is installed in the runtime image and invokes TestClient directly. The prior dependency
+boundary therefore did not guarantee a usable shipped CLI. After moving the compatible client to
+runtime requirements, a no-cache rebuild resolved FastAPI 0.141.1, Starlette 1.6.0, httpx2 2.12.0,
+and httpcore2 2.12.0; `pvr-report` then produced all six expected artifacts under the read-only,
+non-root constraints. The repository still has no lockfile or constraints file, and the dev extra
+still lists legacy `httpx`, so this is a runtime-boundary correction rather than complete dependency
+reproducibility.
+
+### Verification evidence
+
+The verified image was `product-variant-resolver:lite` with image ID
+`sha256:f5df8cba0c0abaae77b1e01be9269cdbef2dd874be5b168da47aed5d365cc739`.
+Docker reported version 29.5.3/aarch64; the container reported Python 3.12.14, UID/GID
+`100(pvr)/101(pvr)`, `ReadonlyRootfs=true`, and a healthy loopback publication at
+`127.0.0.1:8000`. `/app` was not writable and `/tmp` was writable. Container compile passed with
+bytecode directed to `/tmp`; mounted API tests passed 8/8 and reporting tests passed 2/2. Earlier
+runtime runs also passed 10 unit, 7 integration, 4 evaluation-metric, and 5 fixture tests, while
+direct container evaluation retained Recall@25 `1.0`, Top-1 `1.0`, hard-negative accuracy `1.0`,
+precision `1.0`, coverage `0.8333`, and false-match rate `0.0`.
+
+The checked-in [Docker latency artifact](../reports/runtime-validation/docker-python312-http-latency.json)
+contains 50 finite sequential samples after 10 warm-ups. Sorting those samples and applying the
+recorded nearest-rank rule, `ceil(0.95 * 50) - 1`, reproduces p95 **`4.721208 ms`**; median is
+`2.7867085 ms` and mean is `3.14272922 ms`. The test used one local macOS arm64 machine,
+concurrency 1, loopback, and the offline-memory backend. Container startup, warm-ups, TLS, reverse
+proxy, remote network, concurrent load, and PostgreSQL are excluded. This is a runtime smoke result,
+not production latency.
+
+The no-cache reporter verification generated exactly one JSON, one Markdown, and four SVG files.
+The JSON passed `validate_report_payload`, retained 21 in-process HTTP samples and the exact
+21-case synthetic disclaimer, and correctly kept `container.measured=false` because that report's
+latency is not the host→Docker artifact. The final [QA review](../specs/product-variant-resolver/review.md)
+records R13 as PASS for this limited boundary, R15 as PASS WITH RISK, and R16 as PASS; the full host
+suite remains 38/38 green.
+
+### Incomplete work, risks, and next step
+
+The verified boundary is intentionally narrow. PostgreSQL ingestion, FTS, exact pgvector search,
+migration-cycle E2E, external embeddings/cross-encoders, TLS, reverse proxy, remote network,
+concurrency/load, and post-start dependency failure transitions remain unverified. The runtime
+artifact comes from one Docker Desktop arm64 machine and cannot support a production latency or
+capacity claim. The UI still lacks a live-browser smoke beyond the Node harness, and no formal
+architect, security, or performance-agent review was performed.
+
+Dependency resolution is the next hardening priority. The successful image used compatible bounded
+ranges, but no committed lockfile or constraints file ensures the same versions on a future build;
+the dev extra's legacy `httpx` also continues to produce a host warning. The next highest-value step
+is to freeze or constrain the verified runtime set and reconcile the TestClient dependency across
+runtime and development. PostgreSQL/pgvector and external-model adapters should remain explicitly
+deferred unless they are implemented and integration-tested before being claimed.
+
 ## Required format for future entries
 
 Every future project-log entry must preserve the following traceability structure:

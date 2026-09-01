@@ -37,9 +37,8 @@ absolute Top-1 accuracy on the frozen test; enable it only for an explicit exper
 
 ## Start the offline path
 
-The project targets Python 3.12. Final host QA ran on Python 3.14.6, so Python 3.12 runtime evidence
-is still pending. QA exercised the source checkout directly; the editable package build was not
-verified offline because the required setuptools artifact was unavailable on that host.
+The source checkout remains convenient for development. Host QA used Python 3.14.6; the separately
+verified Docker runtime uses the project-targeted Python 3.12.14.
 
 ```bash
 python -m pip install -e '.[dev]'
@@ -76,7 +75,7 @@ Generated calibration and policy files can be selected with `PVR_CALIBRATION_ART
 The checked-in report covers exactly **21 synthetic fixture test cases** (12 matched) drawn from a
 120-product synthetic/curated catalog and a 100-case grouped benchmark.
 
-| Metric | fixture-v1 test result |
+| Metric | Evidence result |
 |---|---:|
 | Recall@25 | `1.0` |
 | Top-1 accuracy | `1.0` |
@@ -86,25 +85,46 @@ The checked-in report covers exactly **21 synthetic fixture test cases** (12 mat
 | Coverage | `0.8333` |
 | Heuristic reranker gain over RRF | `0.0` |
 | Warmed in-process ASGI p95 | `7.9523 ms` |
+| Host→Docker loopback p95 | `4.721208 ms` |
 
-The latency value uses 21 sequential in-process FastAPI/TestClient samples after five excluded
-warm-ups at K=25. A separate QA regeneration reported `2.45 ms`, illustrating expected smoke-run
-variance at this scale. Neither figure includes Docker,
-TCP/network, a reverse proxy, PostgreSQL, or concurrency. See the
+The in-process value uses 21 sequential FastAPI/TestClient samples after five excluded warm-ups at
+K=25. A separate QA regeneration reported `2.45 ms`, illustrating expected smoke-run variance at
+this scale. The host→Docker value is the separately scoped loopback artifact described below. See the
 [versioned report](reports/fixture-v1/evaluation-fixture-v1-test.md),
 [QA review](specs/product-variant-resolver/review.md), and
 [MVP evidence](docs/evidence/product-variant-resolver-mvp.md).
 
 ## Docker and PostgreSQL status
 
-The default Compose service is configured for the offline fixture path:
+The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with
+Python 3.12.14. The image ran as non-root `pvr` (UID 100), kept its root filesystem read-only,
+used `/tmp` as its writable tmpfs, published only `127.0.0.1:8000`, and reached healthy readiness.
+QA exercised the UI assets, all three decision states, default debug omission, request IDs, and a
+dedicated missing-catalog container that failed closed with health/resolve 503 and no identity.
 
 ```bash
 docker compose config --quiet
 docker compose build api
 docker compose up --wait api
+curl --fail http://127.0.0.1:8000/health
 docker compose down
 ```
+
+The installed `pvr-report` CLI is also verified inside the rebuilt read-only Python 3.12 image. It
+generated and validated JSON, Markdown, and four SVG files under writable `/tmp`:
+
+```bash
+docker compose run --rm --no-deps api \
+  pvr-report --output-directory /tmp/pvr-report
+```
+
+The report CLI's in-process ASGI samples still record `container.measured=false`; real
+host-to-container timing is a separate artifact. On the same single arm64 machine, 50 sequential
+loopback requests after 10 warm-ups produced nearest-rank p95 **`4.721208 ms`** at concurrency 1.
+The measurement includes the host HTTP client, Docker Desktop port forwarding, Uvicorn/FastAPI,
+the offline resolver, and JSON serialization/parsing. It excludes startup, TLS, reverse proxy,
+remote networking, concurrent load, and PostgreSQL, so it is not production latency evidence. See
+the [raw runtime artifact](reports/runtime-validation/docker-python312-http-latency.json).
 
 An optional `postgres` profile defines pgvector and Alembic migration services:
 
@@ -113,10 +133,9 @@ docker compose --profile postgres up --wait postgres migrate
 docker compose --profile postgres down
 ```
 
-Only static Compose configuration was verified; the Docker daemon was unavailable during QA.
-These commands are the intended next runtime check, not recorded successful evidence. The
-PostgreSQL profile does not switch API resolution: PostgreSQL ingestion, FTS, and exact pgvector
-execution remain deferred, and `PVR_BACKEND=postgres` intentionally fails readiness.
+The PostgreSQL profile itself is not a verified resolver path. It does not switch API resolution:
+PostgreSQL ingestion, FTS, exact pgvector execution, and migration-cycle E2E remain deferred, and
+`PVR_BACKEND=postgres` intentionally fails readiness.
 
 ## Limitations
 
@@ -124,8 +143,12 @@ execution remain deferred, and `PVR_BACKEND=postgres` intentionally fails readin
   Wheels coverage, or production readiness.
 - `hashing-v1` is a deterministic baseline, not a neural embedding model. No pinned external
   embedding or cross-encoder artifact was integrated or evaluated.
-- Docker/container, PostgreSQL/pgvector, external models, Python 3.12, real network latency, and
-  concurrent load were not runtime-verified.
+- The verified Docker/Python 3.12 runtime covers one local arm64 machine, loopback, concurrency 1,
+  and the offline-memory backend. TLS, proxying, remote networking, concurrent load, PostgreSQL,
+  and external models were not runtime-verified.
+- Runtime dependencies use bounded ranges without a committed lockfile or constraints file, so a
+  future build may resolve different compatible versions. `pvr-report` requires runtime
+  `httpx2>=2,<3`; the dev extra still carries legacy `httpx`, which emits a host-side warning.
 - UI behavior was verified with a Node DOM harness, not a live browser.
 - Architect, security, and performance-agent reviews were deferred under Lite/MVP Mode. The local
   loopback debug endpoint needs access control or disabling before non-local exposure.

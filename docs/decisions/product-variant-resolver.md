@@ -59,16 +59,36 @@
   dependency is integrated.
 - **Impact:** `PVR_BACKEND=offline`, `hashing-v1`, and RRF are the only verified defaults. The
   PostgreSQL profile reserves/migrates a future database path but does not switch API resolution.
-- **Deferred review:** Migration cycle, database integration/E2E, model license/checksum, offline
-  cache behavior, and missing-artifact readiness on Python 3.12 in Docker.
+- **Deferred review:** Migration cycle, database integration/E2E, model license/checksum, and
+  external-model cache behavior in Docker.
 
-## D6 — Measure only boundaries that were actually run
+## D6 — Measure and name each runtime boundary separately
 
-- **Choice:** Report direct pipeline and warmed in-process FastAPI/TestClient latency separately.
+- **Choice:** Report direct pipeline, warmed in-process FastAPI/TestClient, and host→Docker loopback
+  latency as separate artifacts.
 - **Reason:** This keeps the fixture CPU smoke reproducible and prevents it from being mislabeled as
   container or network performance.
-- **Alternatives:** Extrapolate Docker/TCP latency or omit latency entirely.
-- **Impact:** The latest checked-in HTTP p95 is `7.9523 ms` for 21 sequential samples after five warm-ups;
-  a separate QA regeneration reported `2.45 ms`. Container, TCP, reverse proxy, database, and concurrent
-  load were not measured.
-- **Deferred review:** Formal performance review and Docker/TCP/concurrency benchmark.
+- **Alternatives:** Publish one blended number; extrapolate loopback results to remote production;
+  omit latency until load testing.
+- **Impact:** The dedicated runtime artifact measures 50 sequential host→Docker loopback requests
+  after 10 warm-ups at concurrency 1 and records nearest-rank p95 `4.721208 ms`. It includes Docker
+  Desktop port forwarding but excludes startup, TLS, proxying, remote networking, concurrent load,
+  and PostgreSQL. The fixture report's in-process ASGI p95 remains a different boundary.
+- **Deferred review:** Formal performance review and TLS/proxy/remote/concurrency/PostgreSQL
+  benchmark on representative infrastructure.
+
+## D7 — Keep the reporter's HTTP client in runtime dependencies
+
+- **Choice:** Declare `httpx2>=2,<3` as a runtime dependency rather than relying on the dev extra.
+- **Reason:** The installed `pvr-report` CLI directly invokes FastAPI TestClient to collect its
+  in-process HTTP samples, so the HTTP client is required in the shipped image rather than only in
+  test environments. A no-cache rebuild with FastAPI 0.141.1, Starlette 1.6.0, httpx2 2.12.0, and
+  httpcore2 2.12.0 generated and validated all six report artifacts in the read-only container.
+- **Alternatives:** Move `pvr-report` to a separate reporting extra/image; replace TestClient with a
+  standard-library or live-socket measurement; keep the dependency dev-only and make the installed
+  CLI incomplete.
+- **Impact:** The default runtime image is self-contained for API service and report generation,
+  but carries an additional runtime dependency. Version ranges remain broad, and the dev extra's
+  legacy `httpx` still emits a host warning.
+- **Deferred review:** Add a lockfile or constraints file, reconcile `httpx` versus `httpx2`, and
+  define a controlled dependency-update/rebuild policy.

@@ -13,6 +13,7 @@ every required item has traceable evidence; a missing item is `not evaluated`, n
 | Abstention/reliability | Precision is `>=0.90`, false-match rate is `<=0.10`, and coverage is `>=0.50`. | Raw predicted/correct/false/non-match/matched counts. |
 | Latency honesty | Candidate K, hardware/runtime, warm-up, sample count, method, and excluded boundaries are disclosed; limited fixture p95 is `<=1500 ms`. | Raw latency samples and scope statement. |
 | Failure safety | Missing required data/provider and retriever failures do not fabricate a match; default response omits debug internals. | API/service tests and manual QA checks. |
+| Runtime boundary | Any container claim names the image runtime, architecture, user/filesystem constraints, measured transport, concurrency, and untested deployment boundaries. | QA runtime record plus a raw runtime artifact when latency is claimed. |
 
 ## Claim rules
 
@@ -22,6 +23,8 @@ every required item has traceable evidence; a missing item is `not evaluated`, n
 - In-process ASGI timing must not be called Docker, TCP, database, concurrency, or production
   latency.
 - Static Compose validation must not be called a successful container run.
+- A single-machine loopback Docker measurement must not be generalized to TLS, proxy, remote
+  networking, concurrent load, PostgreSQL, or production traffic.
 - A QA secret scan is not a formal security review; a CPU smoke measurement is not a formal
   performance review.
 
