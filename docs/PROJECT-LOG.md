@@ -276,6 +276,115 @@ is to freeze or constrain the verified runtime set and reconcile the TestClient 
 runtime and development. PostgreSQL/pgvector and external-model adapters should remain explicitly
 deferred unless they are implemented and integration-tested before being claimed.
 
+## 2026-09-02 — GitHub publication milestone
+
+### Context, problem, and observable outcome
+
+The publication requirement was narrower than “push the workspace.” The user explicitly wanted
+only `Product Variant Resolver/` to become the GitHub repository so that the parent workspace's
+`AGENTS.md`, `.codex/` agent configuration, and original `Product Variant Resolver.md` requirement
+document would not enter public history. Treating the parent directory as the Git root and relying
+on an ignore list would have made that boundary easier to misconfigure and harder to prove after
+the fact.
+
+Publication therefore used the existing independent Git repository rooted inside
+`Product Variant Resolver/`. That repository already contained two project commits:
+`5fef769` (`feat: establish offline product resolver MVP`) followed by `ad9b74a`
+(`test: validate Docker Python 3.12 runtime`). GitHub publication completed successfully to the
+public repository `MatthewC144/product-variant-resolver` on `main`. The local branch now tracks
+`origin/main`, and both pointed to `ad9b74a` when this milestone was verified. The project is
+publicly reviewable without placing the parent workspace's agent instructions or source brief in
+the published history.
+
+### Implementation trace
+
+No product code was changed to make publication work. The important implementation boundary is the
+nested repository itself: `/Users/yuchen/Desktop/resume project2/Product Variant Resolver/.git`
+owns only the project subtree, while the outer workspace remains outside that repository. The
+tracked-file inventory begins with project-owned files such as `.dockerignore`, `.env.example`,
+`.gitignore`, `Dockerfile`, `README.md`, configuration, fixture data, evidence, migrations, source,
+tests, and UI assets. A history-wide name check returned no tracked `AGENTS.md`, `.codex/` path, or
+parent-level `Product Variant Resolver.md` requirement document.
+
+The repository remote is the credential-free HTTPS URL
+`https://github.com/MatthewC144/product-variant-resolver.git` for both fetch and push. The local
+`main` branch was published and configured to track `origin/main`. This project-log entry records
+the publication workflow and its safety boundary; it does not copy any outer workspace content into
+the repository.
+
+### Technical choices, alternatives, and trade-offs
+
+An independent subdirectory repository was selected over initializing Git at the parent workspace
+and maintaining a large exclusion list. A parent repository plus `.gitignore` could also publish a
+single project, but one missed pattern or later `git add -f` could expose orchestration files. A
+subdirectory Git root makes the intended scope structural: normal Git commands cannot stage parent
+files because they are outside the work tree. The trade-off is operational discipline—contributors
+must run Git commands from this repository or explicitly pass its path, and parent-workspace tooling
+must not be assumed to manage this history.
+
+HTTPS was retained for the remote rather than placing a personal token in the URL or repository
+configuration. The GitHub plugin was useful for verifying the authenticated account
+`MatthewC144` and the public target repository, but it did not expose a create-repository
+capability. The local `gh` token was also no longer valid. Alternatives were to renew CLI
+authentication, switch to SSH after configuring a key, or wait for a plugin capability change.
+For this one-time bootstrap, the smallest authorized path was for the user to create an empty
+public repository in GitHub and then let standard Git publish the already-prepared local history.
+This added one manual step but avoided inventing unsupported plugin behavior or placing credentials
+in project files.
+
+### Decision changes
+
+The initial automation preference was to create and publish the repository through an available
+GitHub integration or the local `gh` CLI. Capability and authentication checks changed that plan:
+the plugin could validate the GitHub identity and repository state but could not create a
+repository, while the local CLI credential could not authorize creation. Continuing with either
+path would have required new authentication authority or an unsupported operation.
+
+After that evidence, repository creation was split from code publication. The user created the
+empty public `MatthewC144/product-variant-resolver` repository; the local independent repository
+then added the clean HTTPS remote and performed the first push to `main`. This preserved the
+subfolder-only history and avoided expanding the agent's credential or repository-creation
+authority. Now that `origin` exists and `main` tracks `origin/main`, future releases do not need the
+create-repository capability; they use the normal reviewed commit-and-push workflow.
+
+### Verification evidence
+
+The GitHub plugin verified the signed-in account as `MatthewC144` and the destination as the public
+repository `MatthewC144/product-variant-resolver`. Local Git independently showed:
+
+- `origin` fetch and push URLs are both
+  `https://github.com/MatthewC144/product-variant-resolver.git`;
+- the active branch is `main`, configured as `[origin/main]`;
+- `HEAD`, `main`, and `origin/main` resolved to `ad9b74a` after the successful first push;
+- the two published commits were `5fef769` and `ad9b74a`, in that order; and
+- `git ls-files` plus a history-wide path-name search found no `AGENTS.md`, `.codex/`, or parent
+  `Product Variant Resolver.md` content in tracked history.
+
+The first push completed successfully, and the local working tree was clean before this
+post-publication documentation entry was added. The remote URL contains no embedded token. This
+milestone did not rerun application tests because publication did not change product behavior; the
+quality and Docker evidence remain attached to the two published commits and the preceding log
+entries.
+
+### Incomplete work, risks, and next step
+
+The GitHub plugin still cannot create repositories, and the local `gh` credential remains
+unusable until the user deliberately reauthenticates it. Neither limitation blocks routine work on
+the existing `origin`, but a future repository bootstrap must again use an explicitly authorized
+creation path. The project is public, so future commits must continue to avoid credentials,
+machine-local files, external private data, and parent-workspace instructions. Publication does not
+change the previously documented product limitations around synthetic fixtures,
+PostgreSQL/pgvector, external models, or production readiness.
+
+For future remote updates, begin inside `Product Variant Resolver/`, confirm
+`git rev-parse --show-toplevel` resolves to that directory, inspect `git status` and the staged
+diff, and repeat the tracked-path check for `AGENTS.md`, `.codex/`, and the parent requirement file
+before committing. Push ordinary reviewed commits to `origin main`, then confirm local `main` and
+`origin/main` agree. Do not initialize or publish the parent workspace, embed tokens in remote URLs,
+or use force-push as a routine update mechanism. Documentation changes made after the initial
+two-commit publication, including this milestone record, should follow that same review, commit,
+push, and remote-verification sequence.
+
 ## Required format for future entries
 
 Every future project-log entry must preserve the following traceability structure:
