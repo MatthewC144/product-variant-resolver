@@ -58,6 +58,7 @@ This MVP is a portfolio-quality engineering validation, not evidence of producti
 - **R14 — API validation:** WHEN a request has a blank title, a title longer than 500 Unicode code points, an unsupported field, or an out-of-range debug limit, THE SYSTEM SHALL reject it with a structured 4xx response and no stack trace.
 - **R15 — Health/readiness:** WHEN catalog, sparse index, dense index, or required local model artifacts are unavailable, THE SYSTEM SHALL expose a non-ready health state and SHALL NOT return a fabricated match.
 - **R16 — Quality gate:** WHEN the MVP is proposed complete, THE SYSTEM SHALL have green unit, integration, API/E2E, and benchmark-gate suites plus a generated machine-readable and Markdown evaluation report.
+- **R17 — Human-label provenance:** WHEN a reviewed external name dataset is added, THE SYSTEM SHALL preserve the initial system name (including an explicit no-candidate outcome), the human-verified name fields, label confidence, source checksum, and usage limits without treating unmapped names as canonical catalog ground truth.
 
 The numeric gates above are deliberately modest fixture-MVP gates. Reports and README text must state dataset size, construction method, split strategy, hardware, model versions, and that the figures do not establish production accuracy.
 
@@ -239,6 +240,13 @@ The natural-key fingerprint used to detect duplicates includes every available v
 - `Decision`: status, nullable identity, confidence, reason, policy version.
 
 Runtime resolution traces are not persisted by default in the fixture MVP.
+
+### 8.7 `HumanLabeledNamePair`
+
+- `case_id`, `initial_output_status`, nullable `initial_name`, nullable `initial_confidence`.
+- Human-confirmed `human_label_name`, `human_label_casting`, brand, series, variant, and pricing keyword.
+- Stored pipeline keyword outputs and failure categories support later comparison without rewriting the original human answer.
+- These records are an auxiliary evaluation corpus. Until a record is mapped to an immutable catalog UUID/slug, it is excluded from canonical-resolution accuracy, calibration training, and threshold selection.
 
 ## 9. API contracts
 
@@ -555,6 +563,10 @@ Each task is intended to be independently committable and verifiable. `task_exec
 - [x] **T25 — Record MVP decisions, evidence, and limits** `[doc_curator]` _(R6, R8–R16)_  
   Update decisions, architecture/evaluation docs, AI-eval evidence, README result disclosures, and `PROJECT-LOG.md` without inventing unmeasured claims.  
   **Verify:** documentation check links dataset/model/config versions, raw result artifact, hardware, known limitations, and deferred work.
+
+- [x] **T26 — Import the reviewed real-noisy name-pair corpus** `[task_executor]` _(R8, R16, R17)_
+  Convert the confirmed local labeling queue into a portable repository-owned JSON corpus, retain explicit no-candidate failures, freeze source/output checksums, and keep the corpus outside canonical accuracy and calibration gates until catalog IDs are assigned.
+  **Verify:** importer reports 101 confirmed records, validators prove 91 paired initial names plus 10 explicit no-candidate cases, excluded source rows remain excluded, checksums match, and focused tests pass.
 
 ### Task order and handoff
 

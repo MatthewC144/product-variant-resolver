@@ -1,9 +1,9 @@
 # Product Variant Resolver — Lite MVP QA Review
 
 > Date: 2026-09-01  
-> Last focused update: 2026-09-06 (T04 PostgreSQL migration verification)
+> Last focused update: 2026-09-06 (T26 human-labeled name corpus)
 > QA mode: `.codex/agents/qa.toml` MVP Mode  
-> Scope: `specs/product-variant-resolver/mvp-brief.md` R1–R16  
+> Scope: `specs/product-variant-resolver/mvp-brief.md` R1–R17
 > Verdict: **PASS WITH RISKS**
 
 ## Verdict summary
@@ -20,6 +20,11 @@ derived from the catalog and a conflicting series remains a soft conflict; RRF i
 runtime ranker based on a traceable frozen-test comparison showing zero Top-1 gain from the local
 heuristic reranker; and the report contains warmed in-process HTTP/ASGI `/resolve` samples with an
 explicit statement that container/TCP latency was not measured.
+
+The T26 data addition passed the current host suite **45/45**, including four new corpus tests.
+The fixture validator now includes the auxiliary dataset checksum and label/status invariants;
+Python compilation and `git diff --check` also pass. These tests validate the imported artifact and
+its boundary, not canonical resolution accuracy on the newly imported names.
 
 An independent Docker runtime milestone now verifies the existing
 `product-variant-resolver:lite` image on Docker Desktop 29.5.3/aarch64: Python 3.12.14, non-root
@@ -71,6 +76,7 @@ visible in any portfolio or repository claims.
 | R14 API validation | PASS | Blank, 501-code-point, unknown-field, and limit=26 requests return structured 422; malformed JSON returns 400; unsupported media type returns 415; no tracebacks exposed. |
 | R15 Health/readiness | PASS WITH RISK | A dedicated read-only Docker container with `PVR_CATALOG_PATH=/app/data/missing.json` returned health 503/not-ready and resolve 503/`resolver_not_ready` with no identity, then was removed. PostgreSQL selection and unavailable external providers also fail closed. T04 additionally proves that the isolated PostgreSQL dependency can migrate empty → `0001` → base → `0001`, while a sentinel application table makes the runner refuse execution. Live health transition after a dependency fails post-startup and runtime PostgreSQL resolver readiness are not verified. |
 | R16 Quality gate | PASS | Fresh constrained Python 3.12 host suite is 41/41 green with warnings promoted to errors. The no-cache constrained image passed all 39 non-Node backend/API/evaluation/reporting/integration/unit/fixture tests and generated all six report artifacts under read-only runtime constraints. T04's strengthened runner passed its isolated migration cycle and sentinel safety check; Python compilation and `git diff --check` also passed. The complete 41-test container selection is not claimed: its UI controller test requires Node, which is intentionally absent from the runtime image and is verified on the host instead. |
+| R17 Human-label provenance | PASS | `human-labeled-real-noisy-v1` contains 101 confirmed human labels, including 91 initial-name/human-name pairs and 10 explicit `no_candidate` failures. Four source rows marked excluded were not imported. The frozen manifest records source and dataset checksums, and the corpus declares that it is excluded from canonical-resolution accuracy, calibration training, and threshold selection until catalog IDs are assigned. |
 
 ## Checked items and reproducible evidence
 

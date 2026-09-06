@@ -9,6 +9,19 @@ FastAPI.
 This is a portfolio-quality fixture validation, not evidence of production accuracy or marketplace
 coverage.
 
+## Human-labeled auxiliary data
+
+The repository also includes `data/human_labeled_names.json`, a frozen auxiliary corpus derived
+from real noisy scans reviewed by a human. It contains 101 confirmed labels: 91 records pair an
+initial recognition name with the human-verified name, while 10 retain an explicit `no_candidate`
+initial failure and the human answer. The source and generated-file checksums are recorded in
+`data/human_labeled_names_manifest.json`.
+
+This corpus is currently intended for candidate-name evaluation, name normalization, and future
+catalog alignment. It is deliberately excluded from the headline canonical-resolution metrics,
+calibration training, and threshold selection because its names have not yet been mapped to this
+repository's immutable catalog UUIDs and slugs.
+
 ## Architecture
 
 ```text
@@ -61,6 +74,7 @@ bounded explanation payload. UI values are rendered as text, and resolution logs
 ```bash
 PYTHONPATH=src python -m unittest discover -s tests -p 'test_*.py' -v
 python scripts/validate_fixture_data.py
+python scripts/import_human_labeled_names.py --source /path/to/labeling-queue.csv
 PYTHONPATH=src python -m product_variant_resolver.evaluation
 PYTHONPATH=src python scripts/train_calibration.py --output-directory artifacts
 PYTHONPATH=src python scripts/generate_evaluation_report.py \

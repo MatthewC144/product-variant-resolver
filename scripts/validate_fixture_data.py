@@ -23,6 +23,8 @@ def validate() -> list[str]:
     catalog = load("catalog.json")
     benchmark = load("benchmark.json")
     manifest = load("manifest.json")
+    human_names = load("human_labeled_names.json")
+    human_names_manifest = load("human_labeled_names_manifest.json")
     products = catalog.get("products", [])
     cases = benchmark.get("cases", [])
     if len(products) < 120:
@@ -91,12 +93,40 @@ def validate() -> list[str]:
     if manifest.get("benchmark_case_count") != len(cases):
         errors.append("manifest benchmark count mismatch")
 
+    human_records = human_names.get("records", [])
+    human_digest = hashlib.sha256(
+        (ROOT / "data" / "human_labeled_names.json").read_bytes()
+    ).hexdigest()
+    if human_names_manifest.get("dataset_sha256") != human_digest:
+        errors.append("human-labeled dataset checksum differs from frozen manifest")
+    if human_names_manifest.get("record_count") != len(human_records):
+        errors.append("human-labeled manifest record count mismatch")
+    if len(human_records) != 101:
+        errors.append(f"human-labeled corpus has {len(human_records)} records; expected 101")
+    if len({record.get("case_id") for record in human_records}) != len(human_records):
+        errors.append("human-labeled corpus has duplicate case IDs")
+    for record in human_records:
+        case_id = record.get("case_id")
+        if not record.get("human_label_name") or not record.get("human_label_casting"):
+            errors.append(f"human-labeled record is incomplete: {case_id}")
+        if record.get("human_label_confidence") != "confirmed":
+            errors.append(f"human-labeled record is not confirmed: {case_id}")
+        expected_status = "candidate" if record.get("initial_name") else "no_candidate"
+        if record.get("initial_output_status") != expected_status:
+            errors.append(f"human-labeled initial status mismatch: {case_id}")
+
     return errors
 
 
 def manifest_checksum() -> str:
     digest = hashlib.sha256()
-    for name in ("catalog.json", "benchmark.json", "manifest.json"):
+    for name in (
+        "catalog.json",
+        "benchmark.json",
+        "manifest.json",
+        "human_labeled_names.json",
+        "human_labeled_names_manifest.json",
+    ):
         digest.update((ROOT / "data" / name).read_bytes())
     return digest.hexdigest()
 

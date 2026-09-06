@@ -1,5 +1,74 @@
 # Project Log
 
+## 2026-09-06 — Human-labeled real-noisy names added as an auxiliary dataset
+
+### What was executed and what problem it solves
+
+The project previously relied on a 100-case synthetic/curated benchmark. That fixture is useful for
+proving the resolver architecture, but it does not show how recognition output differs from a
+person's verified answer on real noisy scans. This iteration imported the user-approved local
+labeling queue into `human-labeled-real-noisy-v1`. The new corpus contains 101 confirmed human
+labels: 91 records have both the original top recognition name and the human-verified name, and 10
+records preserve the fact that recognition returned no candidate while still retaining the human
+answer. Four rows explicitly excluded during the earlier human review were not imported.
+
+This solves two immediate problems. First, future work can measure name cleanup and candidate
+selection against real reviewed examples instead of relying only on generated titles. Second,
+failed recognition attempts are represented as data rather than disappearing from the sample,
+which prevents coverage from looking better simply because empty outputs were dropped.
+
+### Code and data changes, with reasons
+
+`scripts/import_human_labeled_names.py` was added as a deterministic CSV-to-JSON boundary. It
+requires the source columns used to distinguish `candidate_1` from `human_expected_candidate` and
+the normalized human casting/pricing fields. Included rows must have confirmed human labels;
+candidate confidence must be numeric and bounded; duplicate case IDs fail the import. The generated
+record uses the explicit fields `initial_name` and `human_label_name`, so a beginner reviewing the
+data can see the before/after pair without reconstructing meaning from the old labeling workbook.
+
+The importer writes `data/human_labeled_names.json` and a separate frozen manifest. The manifest
+records the source checksum and generated dataset checksum rather than a machine-specific absolute
+path. Local frame paths and images were not copied because the current Product Variant Resolver is
+a text-first Dual RAG project and the requested evidence is the name pair; omitting those paths also
+keeps this repository portable when only the `Product Variant Resolver/` folder is pushed.
+
+`scripts/validate_fixture_data.py` now validates the auxiliary corpus alongside the original
+catalog and benchmark. `tests/test_human_labeled_names.py` checks the 101 total records, the 91/10
+paired-versus-no-candidate split, confirmed human labels, unique IDs, checksum integrity, and the
+declared evaluation exclusions. The MVP brief adds R17 and completed task T26, while the QA review,
+README, decision record, and AI-eval evidence explain the data boundary and its limitations.
+
+### Technical and method choices
+
+JSON was selected as the checked-in runtime format because the existing project already uses
+versioned JSON fixtures and can validate them with Python's standard library. Keeping XLSX as the
+runtime source would add spreadsheet parsing dependencies and make automated validation harder;
+copying the CSV would retain many source-only workflow columns and local frame paths that this
+project does not need. A deterministic importer preserves the option to regenerate the compact
+artifact from the original review queue while allowing GitHub users to inspect the resulting data
+without the source project.
+
+The real-name corpus was not merged into `benchmark.json`. Those 101 labels describe reviewed
+names, but they have not yet been mapped to this repository's immutable canonical UUIDs and slugs.
+Using them immediately for canonical accuracy or calibration would turn text similarity into an
+unsupported identity claim and risk label leakage. They are therefore limited to candidate-name
+evaluation, name-normalization evaluation, and future catalog alignment. Once mappings and a
+casting-family grouped split exist, a qualified subset can be promoted into the formal benchmark.
+
+### Verification evidence and remaining limitation
+
+The central fixture validator passed with the new corpus included. Four focused human-label tests
+passed, and the complete host test suite passed 45/45 with `PYTHONPATH=src`. Python compilation and
+`git diff --check` also passed. A first complete-suite command omitted `PYTHONPATH=src` and therefore
+could not import the package; rerunning with the repository's documented module path passed, so
+that attempt is recorded as an invocation error rather than a product failure.
+
+Targeted Ruff and mypy were not rerun in this host interpreter because those optional development
+modules are not installed. An offline `uv` attempt could not access its external cache under the
+workspace sandbox. The added code is covered by compilation and behavioral tests, but static-tool
+verification should be repeated in the pinned development or Docker QA environment before a later
+release claim expands beyond this Lite data milestone.
+
 ## 2026-09-01 — Lite/MVP fixture implementation and handoff
 
 ### Context, problem, and observable outcome

@@ -1,0 +1,15 @@
+{
+  "dataset_file_name": "human_labeled_names.json",
+  "dataset_sha256": "68b5dfdb8d0fa4972328d172cc5a56d78ac8bf00bc740083b2bfc07eb2a91188",
+  "dataset_version": "human-labeled-real-noisy-v1",
+  "excluded_source_row_count": 4,
+  "missing_initial_name_count": 10,
+  "paired_initial_name_count": 91,
+  "record_count": 101,
+  "schema_version": "pvr-human-labeled-name-pairs-manifest-v1",
+  "source_dataset_id": "real-noisy-scans",
+  "source_file_name": "labeling-queue.csv",
+  "source_label_version": "human-labels-v1",
+  "source_row_count": 105,
+  "source_sha256": "52e135287c5c4b3beefb3fb32c6aa4be84bc29713dca13afb63365b250217ec0"
+}

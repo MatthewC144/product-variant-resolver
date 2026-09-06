@@ -92,3 +92,20 @@
   legacy `httpx` still emits a host warning.
 - **Deferred review:** Add a lockfile or constraints file, reconcile `httpx` versus `httpx2`, and
   define a controlled dependency-update/rebuild policy.
+
+## D8 — Keep reviewed real names separate until catalog alignment
+
+- **Choice:** Import the 101 confirmed real-noisy-scan labels as a repository-owned auxiliary
+  name-pair corpus, while excluding it from canonical-resolution accuracy, calibration training,
+  and threshold selection.
+- **Reason:** The source provides valuable initial-output versus human-verified-name evidence, but
+  it does not yet provide a trustworthy mapping to this repository's immutable catalog UUIDs and
+  slugs. Treating a matching text label as canonical ground truth would overstate what was verified
+  and could leak evaluation labels into policy selection.
+- **Alternatives:** Merge the records directly into `benchmark.json`; discard the 10 scans where
+  recognition returned no candidate; copy the entire source workbook and image collection.
+- **Impact:** The repository gains 91 directly comparable name pairs and 10 preserved recognition
+  failures without changing the existing fixture-v1 headline metrics. The portable JSON excludes
+  machine-specific frame paths and does not require the original workbook at runtime.
+- **Deferred review:** Map reviewed labels to catalog identities, decide a casting-family grouped
+  split, and only then promote an eligible subset into canonical resolver evaluation.
