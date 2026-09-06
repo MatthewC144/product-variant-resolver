@@ -5,6 +5,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PVR_CATALOG_PATH=/app/data/catalog.json \
+    PVR_HUMAN_CATALOG_PATH=/app/data/human_backed_catalog.json \
     PVR_BENCHMARK_PATH=/app/data/benchmark.json \
     PVR_BACKEND=offline \
     PVR_DENSE_PROVIDER=hashing-v1 \

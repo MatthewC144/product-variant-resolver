@@ -71,6 +71,12 @@ class ApiTests(unittest.TestCase):
         self.assertIn(body["status"], {"matched", "ambiguous", "no_match"})
         self.assertEqual(body["policy_version"], "fixture-v1-rrf-trained-v2")
         self.assertLessEqual(len(body["debug"]["candidates"]), 2)
+        self.assertLessEqual(len(body["debug"]["human_knowledge_candidates"]), 2)
+        self.assertEqual(body["debug"]["human_catalog_version"], "human-backed-catalog-v1")
+        self.assertEqual(
+            body["debug"]["model_versions"]["human_knowledge"],
+            "human-knowledge-hybrid-v1",
+        )
         self.assertEqual(body["debug"]["model_versions"]["reranker"], "disabled")
         self.assertEqual(body["debug"]["model_versions"]["reranker_ablation"], "heuristic-v1")
         self.assertTrue(all(candidate["reranker_rank"] is None
@@ -79,6 +85,14 @@ class ApiTests(unittest.TestCase):
         health = self.client.get("/health").json()
         self.assertEqual(health["dependencies"]["reranker"]["version"], "disabled")
         self.assertIn("ablation", health["dependencies"]["reranker"]["detail"])
+        self.assertEqual(
+            health["dependencies"]["human_catalog"]["version"],
+            "human-backed-catalog-v1",
+        )
+        self.assertEqual(
+            health["dependencies"]["human_knowledge_index"]["version"],
+            "human-knowledge-hybrid-v1",
+        )
 
     def test_reranker_is_explicit_opt_in(self):
         settings = Settings(
@@ -120,6 +134,19 @@ class ApiTests(unittest.TestCase):
         self.assertEqual(client.get("/health").status_code, 503)
         self.assertEqual(client.get("/").status_code, 200)
         response = client.post("/resolve", json={"title": "anything"})
+        self.assertEqual(response.status_code, 503)
+        self.assertIsNone(response.json().get("canonical_uuid"))
+
+    def test_missing_human_catalog_fails_closed(self):
+        settings = Settings(
+            catalog_path=ROOT / "data/catalog.json",
+            human_catalog_path=ROOT / "data/missing-human-catalog.json",
+            ui_path=ROOT / "ui",
+        )
+        client = TestClient(create_app(settings))
+        health = client.get("/health")
+        self.assertEqual(health.status_code, 503)
+        response = client.post("/resolve", json={"title": "BMW M3 GT2"})
         self.assertEqual(response.status_code, 503)
         self.assertIsNone(response.json().get("canonical_uuid"))
 

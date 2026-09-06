@@ -7,6 +7,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from product_variant_resolver.catalog import load_catalog
+from product_variant_resolver.human_knowledge import load_human_knowledge_catalog
 from product_variant_resolver.config import Settings
 from product_variant_resolver.observability import NoOpTracer, get_tracer
 from product_variant_resolver.schemas import ResolveRequest
@@ -55,7 +56,12 @@ class ObservabilityTests(unittest.TestCase):
 
     def test_stage_spans_have_correlation_without_raw_title(self) -> None:
         tracer = RecordingTracer()
-        service = ResolverService(self.settings, load_catalog(self.settings.catalog_path), tracer=tracer)
+        service = ResolverService(
+            self.settings,
+            load_catalog(self.settings.catalog_path),
+            load_human_knowledge_catalog(self.settings.human_catalog_path),
+            tracer=tracer,
+        )
         raw_title = "2022 Chevy Nomad Red #101 private-marker"
         with self.assertLogs("product_variant_resolver.resolver", level="INFO") as captured:
             response = service.resolve(
@@ -65,7 +71,8 @@ class ObservabilityTests(unittest.TestCase):
         self.assertEqual(response.status.value, "matched")
         names = [span.name for span in tracer.spans]
         self.assertEqual(names, [
-            "pvr.resolve", "pvr.signal_extraction", "pvr.sparse", "pvr.dense",
+            "pvr.resolve", "pvr.signal_extraction", "pvr.human_knowledge_retrieval",
+            "pvr.sparse", "pvr.dense",
             "pvr.structured", "pvr.fusion", "pvr.rerank", "pvr.calibration",
         ])
         attributes = repr([span.attributes for span in tracer.spans])
@@ -75,7 +82,8 @@ class ObservabilityTests(unittest.TestCase):
         self.assertNotIn(raw_title, attributes)
         self.assertNotIn(raw_title, logs)
         self.assertEqual(set(response.debug.timings_ms), {
-            "signal_extraction", "sparse", "dense", "structured", "fusion", "rerank",
+            "signal_extraction", "human_knowledge_retrieval", "sparse", "dense",
+            "structured", "fusion", "rerank",
             "calibration", "total",
         })
         self.assertTrue(all(value >= 0 for value in response.debug.timings_ms.values()))

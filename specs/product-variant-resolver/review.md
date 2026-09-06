@@ -1,9 +1,9 @@
 # Product Variant Resolver — Lite MVP QA Review
 
 > Date: 2026-09-01  
-> Last focused update: 2026-09-06 (T28 human-backed catalog draft)
+> Last focused update: 2026-09-06 (T29 dual-source human-knowledge retrieval)
 > QA mode: `.codex/agents/qa.toml` MVP Mode  
-> Scope: `specs/product-variant-resolver/mvp-brief.md` R1–R19
+> Scope: `specs/product-variant-resolver/mvp-brief.md` R1–R20
 > Verdict: **PASS WITH RISKS**
 
 ## Verdict summary
@@ -26,6 +26,13 @@ five alignment tests, and seven human-backed catalog tests. The fixture validato
 auxiliary dataset, alignment, and draft-catalog checksums plus label/status/identity invariants;
 Python compilation and `git diff --check` also pass. These tests validate the imported artifacts
 and their boundaries, not canonical resolution accuracy on the newly imported names.
+
+T29 executes an independent human-knowledge retrieval stage on every resolution request while
+preserving the canonical catalog as the only final-identity authority. The current host suite passes
+**64/64**. The reviewed BMW query ranks the expected provisional variant first but still returns
+`no_match` and a null canonical UUID; missing or review-bypassing human catalogs fail closed; debug
+results are bounded and omitted by default. This proves the dual-source execution and safety
+boundary, not accuracy on unseen real-world queries.
 
 An independent Docker runtime milestone now verifies the existing
 `product-variant-resolver:lite` image on Docker Desktop 29.5.3/aarch64: Python 3.12.14, non-root
@@ -80,6 +87,7 @@ visible in any portfolio or repository claims.
 | R17 Human-label provenance | PASS | `human-labeled-real-noisy-v1` contains 101 confirmed human labels, including 91 initial-name/human-name pairs and 10 explicit `no_candidate` failures. Four source rows marked excluded were not imported. The frozen manifest records source and dataset checksums, and the corpus declares that it is excluded from canonical-resolution accuracy, calibration training, and threshold selection until catalog IDs are assigned. |
 | R18 Conservative catalog alignment | PASS | The deterministic alignment covers all 101 reviewed records and freezes the human dataset, catalog, and output checksums. It reports 0 canonical mappings, 2 exact brand/casting family-only matches, and 99 unmapped records. Every unresolved record retains null UUID/slug; fuzzy matching is disabled. |
 | R19 Human-backed catalog draft | PASS | All 101 confirmed labels are preserved in 97 deterministic casting entities and 100 provisional variants. One exact structured duplicate merges while keeping both cases and aliases. Checksums and unique IDs validate, and every provisional variant remains `needs_canonical_review` and excluded from canonical responses and calibration. |
+| R20 Dual-source retrieval boundary | PASS (Lite scope) | Every request executes canonical retrieval plus an independent human-knowledge sparse/dense/RRF retrieval stage. Only canonical candidates enter ranking, policy, and final identity. A reviewed BMW query returns the expected provisional suggestion in bounded debug output while the canonical result stays `no_match`/null; unknown text returns no human suggestion; missing or review-bypassing human data fails closed; default responses omit both debug candidate sets. |
 
 ## Checked items and reproducible evidence
 
@@ -250,11 +258,12 @@ None for demonstrating the explicitly documented offline fixture path.
 ## Recommended next task
 
 The requested R7, R11, R13, Docker/Python 3.12 runtime, runtime reporting, selective dependency-
-constraint, T04 migration, and T26–T28 human-data milestones are QA-closed for their stated Lite
-scope. The next highest-value product task is to connect the human-backed draft as a second,
-explicitly non-canonical retrieval source and expose its matches as candidate/review evidence rather
-than final identities. T07 PostgreSQL ingestion remains the next database task once that retrieval
-boundary is frozen. A complete dependency-lock review remains deferred until the PostgreSQL runtime
-path is implemented; the current image does not include Node, so UI controller tests remain
-host-verified. PostgreSQL retrieval and external neural model work must continue to be described as
-deferred until their adapters are implemented and integration-tested.
+constraint, T04 migration, and T26–T29 human-data/Dual-RAG milestones are QA-closed for their stated
+Lite scope. The next highest-value product task is to freeze an independently written, casting-
+grouped holdout set for the human-knowledge path and report retrieval coverage/Recall@K without
+reusing indexed aliases as test queries. Until that evidence exists, the human source remains debug-
+only and must not influence canonical decisions. T07 PostgreSQL ingestion remains the next database
+task after this evaluation boundary. A complete dependency-lock review remains deferred until the
+PostgreSQL runtime path is implemented; the current image does not include Node, so UI controller
+tests remain host-verified. PostgreSQL retrieval and external neural model work must continue to be
+described as deferred until their adapters are implemented and integration-tested.

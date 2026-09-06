@@ -1,5 +1,84 @@
 # Project Log
 
+## 2026-09-06 — Human-backed catalog connected as the second RAG source
+
+### What was executed and what problem it solves
+
+The human-backed catalog previously existed only as a checked-in draft. This iteration connected it
+to the running resolver so the project now searches two distinct knowledge corpora for every title.
+The original canonical catalog path still owns final identity and abstention. The new human
+knowledge path searches reviewed real-world names and exposes provisional suggestions that explain
+what the system has seen before, especially when the small fixture catalog cannot return a product.
+
+For the smoke query `Hot Wheels BMW M3 GT2 Neon Speeders`, the human path ranks the reviewed BMW M3
+GT2 record first, but the final response remains `no_match` with null UUID because no canonical BMW
+exists in the fixture catalog. This is the intended safety boundary: the second RAG source improves
+knowledge retrieval without changing a draft label into a production identity.
+
+### Code changes and why they were made
+
+`src/product_variant_resolver/human_knowledge.py` adds a strict loader and an independent hybrid
+retriever over the 100 provisional variants. Sparse scoring uses IDF-weighted token overlap so rare
+model tokens contribute more than common words. Dense scoring reuses the deterministic `hashing-v1`
+embedding already shipped by the Lite runtime, and RRF combines the two ranks without directly
+adding incomparable scores. A shared-token gate prevents the non-semantic hashing baseline from
+returning candidates for wholly unrelated input.
+
+`ResolverService` loads both catalogs, runs `human_knowledge_retrieval` after shared signal
+extraction, records a separate timing/span and candidate count, and includes bounded human results
+only in debug payloads. The canonical candidate list alone continues into reranking, calibration,
+policy, and final product selection. `schemas.py` therefore gives human candidates explicitly
+provisional fields instead of reusing `CandidateDebug`, which would incorrectly imply canonical
+identity. `config.py`, `.env.example`, Dockerfile, and `/health` expose the new required catalog and
+index versions; a missing human catalog makes readiness fail rather than silently claiming Dual RAG.
+
+The debug UI now renders a separate Reviewed-name candidates table with a visible warning that the
+rows are retrieval evidence only. Human names and even markup-like text are assigned through
+`textContent`, preserving the existing untrusted-input boundary. Default API responses remain
+unchanged and continue to omit all debug data.
+
+### Technical choices, alternatives, and trade-offs
+
+The new source deliberately does not merge its provisional records into the canonical catalog and
+does not override `no_match`. Merging would make the existing calibrator and thresholds operate on a
+different identity space without training evidence. Allowing a human hit to override policy would
+produce apparent coverage immediately, but would erase the distinction between a reviewed name and
+a fully specified canonical variant.
+
+Running the second retrieval on every request makes the Dual RAG execution boundary observable and
+keeps timing evidence honest. The trade-off is additional CPU work even when debug is false; the
+catalog currently has only 100 provisional variants, so Lite mode accepts that cost while deferring
+performance optimization until a measured bottleneck exists. The output is shown only in debug to
+preserve the minimal consumer contract.
+
+No Top-1 or Recall@K claim is made for the new path. Its indexed aliases come from the same source
+cases, so evaluating those aliases against the index would measure memorization. A defensible metric
+requires a separate grouped holdout or independently written noisy queries. The next task should
+create that evaluation set or define the review-to-canonical promotion workflow before human
+evidence influences final decisions.
+
+### Verification evidence
+
+The focused backend, API, observability, and UI selection passed 25/25 tests after adding an explicit
+loader test that rejects any provisional variant whose status bypasses canonical review. The full
+host suite then passed **64/64**. `scripts/validate_fixture_data.py` reproduced manifest SHA-256
+`a4c851228939b3d12db7c879ce9c81e4ae008fd19d1032adb376b833e23c31b8`; Python compilation and
+`git diff --check` both passed.
+
+The integration evidence exercises the important product boundary, not only internal functions.
+`Hot Wheels BMW M3 GT2 Neon Speeders` retrieves `BMW M3 GT2` / `Neon Speeders` first from the human
+source while the API remains `no_match` with a null canonical identity. A known fixture query still
+resolves through the canonical source, and default responses omit debug evidence. Health metadata
+reports both human catalog and human retrieval-index versions. A missing human catalog prevents app
+readiness rather than silently falling back to a single-source system.
+
+These checks use the deterministic 100-document Lite catalog and `hashing-v1`; they do not establish
+semantic quality on unseen marketplace titles, production latency under load, or a neural embedding
+benchmark. The existing Starlette TestClient deprecation warning remains visible and non-failing in
+the host environment. The single highest-value next action is an independently authored, casting-
+grouped holdout evaluation so retrieval quality can be measured without testing the index against
+its own aliases.
+
 ## 2026-09-06 — Human-backed casting catalog and provisional variants
 
 ### What was executed and what problem it solves

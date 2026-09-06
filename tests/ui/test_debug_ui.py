@@ -70,7 +70,9 @@ def _assert_ui_controller_smoke_states_and_contract() -> None:
           "confidence-bar", "identity-details", "canonical-id", "canonical-uuid",
           "product-summary", "policy-version", "abstention-note", "debug-sections",
           "signals-grid", "catalog-version", "candidate-count", "candidates-empty",
-          "candidates-table-wrap", "candidates-body", "timings-grid", "model-versions"
+          "candidates-table-wrap", "candidates-body", "human-catalog-version",
+          "human-candidate-count", "human-candidates-empty", "human-candidates-table-wrap",
+          "human-candidates-body", "timings-grid", "model-versions"
         ];
 
         function makeDocument() {{
@@ -104,8 +106,22 @@ def _assert_ui_controller_smoke_states_and_contract() -> None:
             rrf_rank: 1, rrf_score: 0.04, reranker_rank: 1, reranker_score: 0.97,
             structured_matches: ["year"], structured_conflicts: [],
           }}],
+          human_knowledge_candidates: [{{
+            casting_uuid: "00000000-0000-0000-0000-000000000002",
+            casting_id: "human-hot-wheels-bmw-m3-gt2",
+            provisional_variant_uuid: "00000000-0000-0000-0000-000000000003",
+            provisional_variant_id: "human-hot-wheels-bmw-m3-gt2-neon-speeders",
+            identity_status: "needs_canonical_review", brand: "Hot Wheels",
+            casting: "BMW M3 GT2", series_label: "Neon Speeders",
+            variant_label: "Neon Speeders",
+            human_label_names: ['<img src=x onerror="global.pwned=true">'],
+            example_initial_names: ["BMW M3 GT2"], source_case_ids: ["case-1"],
+            sparse_rank: 1, sparse_score: 9.1, dense_rank: 1, dense_score: 0.9,
+            rrf_rank: 1, rrf_score: 0.03, matched_tokens: ["bmw", "m3", "gt2"],
+          }}],
           timings_ms: {{ total: 3.2 }}, catalog_version: "fixture-v1",
-          model_versions: {{ reranker: "heuristic-v1" }},
+          human_catalog_version: "human-backed-catalog-v1",
+          model_versions: {{ reranker: "heuristic-v1", human_knowledge: "human-knowledge-hybrid-v1" }},
         }};
 
         async function runSuccess(payload, title = "ordinary title") {{
@@ -146,17 +162,26 @@ def _assert_ui_controller_smoke_states_and_contract() -> None:
           assert.equal(match.document.elements["decision-status"].textContent, "matched");
           assert.equal(match.document.elements["identity-details"].hidden, false);
           assert.equal(match.document.elements["candidates-body"].children.length, 1);
+          assert.equal(match.document.elements["human-candidates-body"].children.length, 1);
+          assert.equal(
+            match.document.elements["human-candidates-body"].children[0].children[0].textContent,
+            markup,
+            "human-reviewed markup stays text",
+          );
           assert.equal(global.pwned, undefined);
 
           const abstention = await runSuccess({{
             status: "ambiguous", canonical_uuid: null, canonical_id: null, confidence: 0.61,
             reason: "top1_top2_margin_too_small", product: null,
-            policy_version: "fixture-v1", debug: {{ ...baseDebug, candidates: [] }},
+            policy_version: "fixture-v1", debug: {{
+              ...baseDebug, candidates: [], human_knowledge_candidates: [],
+            }},
           }});
           assert.equal(abstention.document.elements["decision-status"].textContent, "ambiguous");
           assert.equal(abstention.document.elements["identity-details"].hidden, true);
           assert.equal(abstention.document.elements["abstention-note"].hidden, false);
           assert.equal(abstention.document.elements["candidates-empty"].hidden, false);
+          assert.equal(abstention.document.elements["human-candidates-empty"].hidden, false);
 
           const errorDocument = makeDocument();
           errorDocument.elements.title.value = "x";

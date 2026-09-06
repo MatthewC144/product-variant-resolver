@@ -45,15 +45,15 @@ Debug UI / API client
         |
  generic signal extraction
         |
- sparse + hashing dense + structured candidates
+        +------------------------------+
+        |                              |
+ canonical catalog RAG          human knowledge RAG
+ sparse + dense + structured    sparse + hashing dense
+        |                              |
+ RRF + calibration/policy       provisional review evidence
+        +------------------------------+
         |
- RRF fusion (default)
-        |
- optional heuristic-v1 reranker (ablation only)
-        |
- calibration + decision policy
-        |
- matched | ambiguous | no_match
+ matched | ambiguous | no_match + debug evidence
 ```
 
 Product knowledge—aliases, colors, series, identifiers, and variant attributes—lives in the
@@ -61,6 +61,11 @@ catalog. Conflicting structured signals remain soft ranking evidence instead of 
 candidate. RRF stays on the default runtime path because the local heuristic reranker added `0.0`
 absolute Top-1 accuracy on the frozen test; enable it only for an explicit experiment with
 `PVR_RERANKER_ENABLED=true`. No external cross-encoder was evaluated.
+
+The runtime now uses two retrieval corpora. The canonical fixture catalog is the only source allowed
+to produce a final UUID. The human-backed catalog independently retrieves similar reviewed names and
+shows them as `needs_canonical_review` evidence in debug mode. A human-only hit can help explain a
+`no_match`, but cannot silently become a canonical product.
 
 ## Start the offline path
 

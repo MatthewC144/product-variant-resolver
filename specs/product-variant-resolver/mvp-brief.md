@@ -61,6 +61,7 @@ This MVP is a portfolio-quality engineering validation, not evidence of producti
 - **R17 — Human-label provenance:** WHEN a reviewed external name dataset is added, THE SYSTEM SHALL preserve the initial system name (including an explicit no-candidate outcome), the human-verified name fields, label confidence, source checksum, and usage limits without treating unmapped names as canonical catalog ground truth.
 - **R18 — Conservative catalog alignment:** WHEN human-labeled names are compared with the catalog, THE SYSTEM SHALL assign a canonical UUID only after a unique exact structured match, retain family-only and unmapped outcomes without asserted identities, and freeze the input/output checksums and alignment policy.
 - **R19 — Human-backed catalog draft:** WHEN confirmed human labels are converted into catalog knowledge, THE SYSTEM SHALL create stable casting and provisional-variant IDs, preserve every source case and label alias, deduplicate only exact normalized structured identities, and prevent unreviewed provisional variants from being returned as canonical ground truth.
+- **R20 — Dual-source retrieval boundary:** WHEN a title is resolved, THE SYSTEM SHALL search both the canonical catalog and the human-backed review catalog, use only canonical candidates for the final identity decision, and expose bounded human-knowledge candidates with review status only when debug output is requested.
 
 The numeric gates above are deliberately modest fixture-MVP gates. Reports and README text must state dataset size, construction method, split strategy, hardware, model versions, and that the figures do not establish production accuracy.
 
@@ -127,19 +128,19 @@ Debug UI / future FlipRadar consumer
                  |
            ResolverService
                  |
-   +-------------+-------------------+
-   |                                 |
-SignalExtractor              CandidateRetriever
-                           /        |           \
-                    Postgres FTS  pgvector   structured
-                           \        |           /
-                              RRF fusion
-                                  |
-                     local pointwise reranker
-                                  |
-                 logistic calibrator + policy
-                                  |
-               matched / ambiguous / no_match
+          SignalExtractor
+                 |
+   +-------------+-----------------------+
+   |                                     |
+Canonical catalog RAG             Human knowledge RAG
+sparse + dense + structured       sparse + hashing dense
+   |                                     |
+RRF + optional reranker           provisional suggestions
+   |                                     |
+calibrator + policy                       |
+   +-------------+-----------------------+
+                 |
+matched / ambiguous / no_match + bounded debug evidence
 ```
 
 Architectural rules:
@@ -262,6 +263,12 @@ Runtime resolution traces are not persisted by default in the fixture MVP.
 - Nested provisional variants group exact normalized series/variant labels and retain every human name, pricing keyword, initial name, failure category, and source case ID.
 - Every provisional variant has a stable UUID/ID but remains `needs_canonical_review`; these identifiers support review and retrieval indexing and are not API canonical identities.
 
+### 8.10 `HumanKnowledgeCandidate`
+
+- Casting and provisional-variant IDs, human name examples, source case IDs, reviewed series/variant labels, and mandatory `needs_canonical_review` status.
+- Sparse, dense, and RRF ranks/scores plus matched tokens for debug explanation.
+- Human candidates never populate `ResolveResponse.canonical_uuid`, `canonical_id`, or `product`; those fields remain controlled by the canonical catalog policy.
+
 ## 9. API contracts
 
 ### 9.1 `POST /resolve`
@@ -329,8 +336,10 @@ When `debug=true`, the response additionally contains:
   "debug": {
     "signals": {},
     "candidates": [],
+    "human_knowledge_candidates": [],
     "timings_ms": {
       "signal_extraction": 0,
+      "human_knowledge_retrieval": 0,
       "sparse": 0,
       "dense": 0,
       "structured": 0,
@@ -340,16 +349,20 @@ When `debug=true`, the response additionally contains:
       "total": 0
     },
     "catalog_version": "fixture-v1",
+    "human_catalog_version": "human-backed-catalog-v1",
     "model_versions": {}
   }
 }
 ```
 
-Candidate debug entries are bounded and expose sparse/dense/RRF/reranker ranks and scores plus structured matches/conflicts. They never include embedding vectors or internal stack traces.
+Canonical and human-knowledge debug entries share the request's `debug_candidate_limit`. Canonical
+entries expose sparse/dense/RRF/reranker ranks and scores plus structured matches/conflicts. Human
+entries expose reviewed names, provisional identity status, matched tokens, and hybrid retrieval
+ranks. They never include embedding vectors or internal stack traces.
 
 ### 9.2 `GET /health`
 
-- Returns liveness plus readiness of database, catalog version, sparse index, dense index, reranker artifact, and calibration artifact.
+- Returns liveness plus readiness of database, canonical catalog, human review catalog, both retrieval indexes, reranker artifact, and calibration artifact.
 - HTTP 200 when ready; HTTP 503 when alive but unable to resolve safely.
 
 ### 9.3 Deferred API
@@ -417,12 +430,14 @@ Pipeline rules:
 - Reranker feature serialization and calibration feature schema.
 - Decision policy for clear match, small margin, weak candidate, conflict, non-finite score, and artifact mismatch.
 - Pydantic request/response schemas and debug-field omission.
+- Human-knowledge loader validation, deterministic hybrid ordering, bounded results, and no-shared-token behavior.
 
 ### 12.3 Integration tests
 
 - Apply migrations, ingest fixture data idempotently, build exact vector and full-text indexes, and resolve known fixture cases against PostgreSQL/pgvector.
 - Verify that catalog-only changes add knowledge without product-specific code edits.
 - Verify readiness transitions for missing catalog/index/model/calibrator.
+- Verify the human review catalog is queried independently and cannot assert canonical identity.
 - Verify local model loading from the pinned artifact/cache and failure when the configured revision is absent.
 
 ### 12.4 API/E2E tests
@@ -589,6 +604,10 @@ Each task is intended to be independently committable and verifiable. `task_exec
 - [x] **T28 — Build a versioned human-backed catalog draft** `[backend]` _(R6, R16–R19)_
   Convert confirmed labels into deterministic casting entities and provisional variant groups, preserve source provenance and aliases, and keep the draft eligible for retrieval/review but excluded from canonical API responses and model calibration.
   **Verify:** 101 reviewed records produce 97 unique casting entities and 100 provisional variants; one exact structured duplicate is merged without losing either source; IDs and checksums are stable; all variants require canonical review; full tests pass.
+
+- [x] **T29 — Connect the human catalog as the second RAG source** `[backend/frontend]` _(R4–R6, R14–R16, R19–R20)_
+  Load and validate the human-backed draft at startup, build deterministic sparse+dense retrieval over provisional variants, execute it independently from canonical retrieval, expose bounded debug candidates and health metadata, and render the review-only evidence safely in the debug UI.
+  **Verify:** an exact reviewed BMW query ranks the correct provisional variant first while returning no canonical UUID; an unknown query returns no human suggestion; missing human catalog fails readiness; default responses omit debug evidence; traces/timings include the second retrieval stage; API/UI/full suites pass.
 
 ### Task order and handoff
 

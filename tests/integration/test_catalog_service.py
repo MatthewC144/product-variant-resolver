@@ -42,9 +42,23 @@ class CatalogServiceIntegrationTests(unittest.TestCase):
             self.assertEqual(result.status.value, expected_status)
             self.assertLessEqual(len(result.debug.candidates), 3)
             self.assertEqual(set(result.debug.timings_ms), {
-                "signal_extraction", "sparse", "dense", "structured", "fusion", "rerank",
-                "calibration", "total",
+                "signal_extraction", "human_knowledge_retrieval", "sparse", "dense",
+                "structured", "fusion", "rerank", "calibration", "total",
             })
+
+    def test_human_catalog_is_a_second_noncanonical_retrieval_source(self):
+        result = self.service.resolve(ResolveRequest(
+            title="Hot Wheels BMW M3 GT2 Neon Speeders",
+            debug=True,
+            debug_candidate_limit=3,
+        ))
+        self.assertTrue(result.debug.human_knowledge_candidates)
+        top = result.debug.human_knowledge_candidates[0]
+        self.assertEqual(top.casting, "BMW M3 GT2")
+        self.assertEqual(top.identity_status, "needs_canonical_review")
+        self.assertGreater(len(top.matched_tokens), 2)
+        self.assertIsNone(result.canonical_uuid)
+        self.assertIsNone(result.canonical_id)
 
     def test_catalog_color_addition_needs_no_code_branch(self):
         color = next(item.product.color for item in self.catalog.products if item.product.color)

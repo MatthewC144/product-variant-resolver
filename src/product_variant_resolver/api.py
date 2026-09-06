@@ -103,6 +103,18 @@ def create_app(
         )
         dependencies = {
             "catalog": catalog,
+            "human_catalog": DependencyHealth(
+                ready=ready,
+                version=service.human_catalog.version if service else None,
+                detail=(
+                    "human-reviewed draft; retrieval evidence only, not canonical identity"
+                    if ready else app.state.readiness_error
+                ),
+            ),
+            "human_knowledge_index": DependencyHealth(
+                ready=ready,
+                version=service.human_knowledge.version if service else None,
+            ),
             "sparse_index": DependencyHealth(ready=ready, version="token-index-v1" if ready else None),
             "dense_index": DependencyHealth(ready=ready, version=settings.dense_provider if ready else None),
             "reranker": DependencyHealth(

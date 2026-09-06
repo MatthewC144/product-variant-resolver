@@ -145,3 +145,22 @@
   retaining both human names and case IDs. No provisional UUID is exposed as canonical truth.
 - **Deferred review:** Add an explicit review queue for year, color, scale, series, edition, and
   collector number, then promote reviewed variants into a versioned canonical catalog.
+
+## D11 — Run human knowledge as a non-canonical second RAG source
+
+- **Choice:** Search the canonical fixture catalog and human-backed draft independently on every
+  resolution. Canonical candidates continue through calibration and policy; human candidates use a
+  separate sparse+dense RRF path and appear only as bounded debug/review evidence.
+- **Reason:** The second corpus contains valuable verified names but provisional identities. Keeping
+  the paths separate lets the system retrieve real casting knowledge without allowing incomplete
+  records to generate a false canonical UUID or contaminate the existing calibration artifact.
+- **Alternatives:** Merge provisional variants into the canonical catalog; run human retrieval only
+  in an offline script; let the strongest human hit override `no_match`; omit the second source
+  until every record is fully reviewed.
+- **Impact:** A query such as `Hot Wheels BMW M3 GT2 Neon Speeders` retrieves the matching reviewed
+  variant first while the API still returns `no_match` and null canonical identity. Debug output and
+  the UI distinguish canonical candidates from human-review candidates; health fails closed if the
+  required human catalog cannot load.
+- **Deferred review:** Measure retrieval on a non-tautological held-out set, define promotion from
+  provisional to canonical identity, and decide whether reviewed evidence may later influence—but
+  never bypass—the calibrated decision policy.

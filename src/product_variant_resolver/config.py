@@ -13,6 +13,7 @@ def _bool(name: str, default: bool) -> bool:
 @dataclass(frozen=True, slots=True)
 class Settings:
     catalog_path: Path = Path("data/catalog.json")
+    human_catalog_path: Path = Path("data/human_backed_catalog.json")
     benchmark_path: Path = Path("data/benchmark.json")
     ui_path: Path = Path("ui")
     database_url: str = "postgresql+psycopg://pvr:pvr@localhost:5432/pvr"
@@ -34,6 +35,9 @@ class Settings:
         policy_artifact = os.getenv("PVR_POLICY_ARTIFACT", "").strip()
         result = cls(
             catalog_path=Path(os.getenv("PVR_CATALOG_PATH", "data/catalog.json")),
+            human_catalog_path=Path(
+                os.getenv("PVR_HUMAN_CATALOG_PATH", "data/human_backed_catalog.json")
+            ),
             benchmark_path=Path(os.getenv("PVR_BENCHMARK_PATH", "data/benchmark.json")),
             ui_path=Path(os.getenv("PVR_UI_PATH", "ui")),
             database_url=os.getenv("PVR_DATABASE_URL", "postgresql+psycopg://pvr:pvr@localhost:5432/pvr"),

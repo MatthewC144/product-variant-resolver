@@ -9,6 +9,10 @@ from .calibration import (
 )
 from .catalog import Catalog, load_catalog
 from .config import Settings
+from .human_knowledge import (
+    HumanKnowledgeCandidate, HumanKnowledgeCatalog, HumanKnowledgeRetriever,
+    load_human_knowledge_catalog,
+)
 from .observability import Tracer, get_tracer, observed_stage
 from .policy import DecisionPolicy
 from .rerank import HeuristicPointwiseModel, PointwiseReranker
@@ -16,7 +20,9 @@ from .retrieval import (
     Candidate, CandidateRetrievalService, DenseRetriever, HashingEmbedding, SparseRetriever,
     StructuredRetriever,
 )
-from .schemas import CandidateDebug, DebugPayload, ResolveRequest, ResolveResponse
+from .schemas import (
+    CandidateDebug, DebugPayload, HumanKnowledgeCandidateDebug, ResolveRequest, ResolveResponse,
+)
 from .signals import extract_signals
 
 
@@ -28,7 +34,13 @@ LOGGER = logging.getLogger("product_variant_resolver.resolver")
 
 
 class ResolverService:
-    def __init__(self, settings: Settings, catalog: Catalog, tracer: Tracer | None = None) -> None:
+    def __init__(
+        self,
+        settings: Settings,
+        catalog: Catalog,
+        human_catalog: HumanKnowledgeCatalog,
+        tracer: Tracer | None = None,
+    ) -> None:
         self.settings = settings
         self.catalog = catalog
         self.color_vocabulary = {
@@ -42,6 +54,8 @@ class ResolverService:
         if settings.reranker_enabled and settings.reranker_provider != "heuristic-v1":
             raise DependencyUnavailable("external reranker provider is configured but not loaded")
         embedding = HashingEmbedding(settings.dense_dimensions)
+        self.human_catalog = human_catalog
+        self.human_knowledge = HumanKnowledgeRetriever(human_catalog, embedding)
         structured = StructuredRetriever(catalog)
         self.retrieval = CandidateRetrievalService(
             [SparseRetriever(catalog), DenseRetriever(catalog, embedding), structured], structured,
@@ -60,7 +74,11 @@ class ResolverService:
     def from_settings(cls, settings: Settings) -> "ResolverService":
         if settings.backend != "offline":
             raise DependencyUnavailable("postgres backend requires migrated database adapters")
-        return cls(settings, load_catalog(settings.catalog_path))
+        return cls(
+            settings,
+            load_catalog(settings.catalog_path),
+            load_human_knowledge_catalog(settings.human_catalog_path),
+        )
 
     def resolve(self, request: ResolveRequest, *, request_id: str | None = None) -> ResolveResponse:
         started = time.perf_counter()
@@ -76,6 +94,12 @@ class ResolverService:
                     signals = extract_signals(
                         request.title, self.color_vocabulary, self.series_vocabulary,
                     )
+
+                with observed_stage(self.tracer, "human_knowledge_retrieval", timings) as human_span:
+                    human_candidates = self.human_knowledge.retrieve(
+                        signals, self.settings.candidate_limit,
+                    )
+                    human_span.set_attribute("pvr.candidate_count", len(human_candidates))
 
                 candidates, retrieval_timings = self.retrieval.retrieve_with_timings(
                     signals, self.settings.candidate_limit, self.tracer,
@@ -111,8 +135,13 @@ class ResolverService:
             debug = DebugPayload(
                 signals=signals,
                 candidates=[_candidate_debug(item) for item in candidates[:request.debug_candidate_limit]],
+                human_knowledge_candidates=[
+                    _human_candidate_debug(item)
+                    for item in human_candidates[:request.debug_candidate_limit]
+                ],
                 timings_ms=timings,
                 catalog_version=self.catalog.version,
+                human_catalog_version=self.human_catalog.version,
                 model_versions={
                     "dense": "hashing-v1",
                     "reranker": (
@@ -121,6 +150,7 @@ class ResolverService:
                     ),
                     "reranker_ablation": self.reranker.model.version,
                     "calibrator": self.calibrator.artifact.artifact_version,
+                    "human_knowledge": self.human_knowledge.version,
                 },
             )
         response = ResolveResponse(
@@ -135,8 +165,9 @@ class ResolverService:
         )
         LOGGER.info(
             "resolution_completed request_id=%s status=%s title_length=%d "
-            "candidate_count=%d total_ms=%.4f",
-            correlation_id, status.value, len(request.title), len(candidates), timings["total"],
+            "candidate_count=%d human_candidate_count=%d total_ms=%.4f",
+            correlation_id, status.value, len(request.title), len(candidates),
+            len(human_candidates), timings["total"],
         )
         return response
 
@@ -156,4 +187,29 @@ def _candidate_debug(item: Candidate) -> CandidateDebug:
         rrf_rank=item.rrf_rank, rrf_score=item.rrf_score,
         reranker_rank=item.reranker_rank, reranker_score=item.reranker_score,
         structured_matches=item.matches, structured_conflicts=item.conflicts,
+    )
+
+
+def _human_candidate_debug(item: HumanKnowledgeCandidate) -> HumanKnowledgeCandidateDebug:
+    document = item.document
+    return HumanKnowledgeCandidateDebug(
+        casting_uuid=document.casting_uuid,
+        casting_id=document.casting_id,
+        provisional_variant_uuid=document.provisional_variant_uuid,
+        provisional_variant_id=document.provisional_variant_id,
+        identity_status=document.identity_status,
+        brand=document.brand,
+        casting=document.casting,
+        series_label=document.series_label,
+        variant_label=document.variant_label,
+        human_label_names=list(document.human_label_names[:3]),
+        example_initial_names=list(document.initial_names[:3]),
+        source_case_ids=list(document.source_case_ids[:5]),
+        sparse_rank=item.sparse_rank,
+        sparse_score=item.sparse_score,
+        dense_rank=item.dense_rank,
+        dense_score=item.dense_score,
+        rrf_rank=item.rrf_rank,
+        rrf_score=item.rrf_score,
+        matched_tokens=list(item.matched_tokens),
     )

@@ -90,6 +90,11 @@
       candidatesEmpty: documentObject.getElementById("candidates-empty"),
       candidatesTable: documentObject.getElementById("candidates-table-wrap"),
       candidatesBody: documentObject.getElementById("candidates-body"),
+      humanCatalogVersion: documentObject.getElementById("human-catalog-version"),
+      humanCandidateCount: documentObject.getElementById("human-candidate-count"),
+      humanCandidatesEmpty: documentObject.getElementById("human-candidates-empty"),
+      humanCandidatesTable: documentObject.getElementById("human-candidates-table-wrap"),
+      humanCandidatesBody: documentObject.getElementById("human-candidates-body"),
       timings: documentObject.getElementById("timings-grid"),
       modelVersions: documentObject.getElementById("model-versions"),
     };
@@ -117,6 +122,7 @@
       elements.errorRequestId.textContent = "";
       elements.queryEcho.textContent = "";
       elements.candidatesBody.replaceChildren();
+      elements.humanCandidatesBody.replaceChildren();
       elements.signals.replaceChildren();
       elements.timings.replaceChildren();
     }
@@ -221,6 +227,41 @@
       elements.candidatesTable.hidden = candidates.length === 0;
     }
 
+    function renderHumanCandidates(debugPayload) {
+      const candidates = Array.isArray(debugPayload.human_knowledge_candidates)
+        ? debugPayload.human_knowledge_candidates
+        : [];
+      elements.humanCandidatesBody.replaceChildren();
+      for (const candidate of candidates) {
+        const row = documentObject.createElement("tr");
+        const humanName = documentObject.createElement("td");
+        const casting = documentObject.createElement("td");
+        const variant = documentObject.createElement("td");
+        const sparse = documentObject.createElement("td");
+        const dense = documentObject.createElement("td");
+        const rrf = documentObject.createElement("td");
+        const tokens = documentObject.createElement("td");
+        const status = documentObject.createElement("td");
+        safeText(humanName, candidate.human_label_names);
+        safeText(casting, `${asText(candidate.brand)} · ${asText(candidate.casting)}`);
+        safeText(
+          variant,
+          `${asText(candidate.series_label)} · ${asText(candidate.variant_label)}`,
+        );
+        sparse.append(rankScoreCell(documentObject, candidate.sparse_rank, candidate.sparse_score));
+        dense.append(rankScoreCell(documentObject, candidate.dense_rank, candidate.dense_score));
+        rrf.append(rankScoreCell(documentObject, candidate.rrf_rank, candidate.rrf_score));
+        safeText(tokens, candidate.matched_tokens);
+        safeText(status, candidate.identity_status);
+        row.append(humanName, casting, variant, sparse, dense, rrf, tokens, status);
+        elements.humanCandidatesBody.append(row);
+      }
+      safeText(elements.humanCatalogVersion, `catalog ${asText(debugPayload.human_catalog_version)}`);
+      safeText(elements.humanCandidateCount, `${candidates.length} returned`);
+      elements.humanCandidatesEmpty.hidden = candidates.length !== 0;
+      elements.humanCandidatesTable.hidden = candidates.length === 0;
+    }
+
     function renderTimings(debugPayload) {
       const entries = Object.entries(debugPayload.timings_ms || {});
       const cards = entries.map(([name, value]) => {
@@ -249,6 +290,7 @@
       if (payload.debug) {
         renderSignals(payload.debug);
         renderCandidates(payload.debug);
+        renderHumanCandidates(payload.debug);
         renderTimings(payload.debug);
       }
       safeText(elements.requestStatus, `Resolution complete: ${asText(payload.status)}`);

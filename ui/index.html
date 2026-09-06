@@ -150,10 +150,46 @@
             </div>
           </section>
 
+          <section class="panel candidates-panel" aria-labelledby="human-candidates-heading">
+            <div class="section-heading compact">
+              <div>
+                <p class="step">05 / Human knowledge</p>
+                <h2 id="human-candidates-heading">Reviewed-name candidates</h2>
+              </div>
+              <div class="version-stack">
+                <p id="human-catalog-version" class="version-label"></p>
+                <p id="human-candidate-count" class="version-label"></p>
+              </div>
+            </div>
+            <p class="panel-note">
+              Retrieval evidence only. These provisional variants cannot become the final canonical answer.
+            </p>
+            <div id="human-candidates-empty" class="inline-empty" hidden>
+              No reviewed-name candidates returned.
+            </div>
+            <div id="human-candidates-table-wrap" class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">Human-reviewed name</th>
+                    <th scope="col">Casting</th>
+                    <th scope="col">Series / variant</th>
+                    <th scope="col">Sparse</th>
+                    <th scope="col">Dense</th>
+                    <th scope="col">RRF</th>
+                    <th scope="col">Matched tokens</th>
+                    <th scope="col">Identity status</th>
+                  </tr>
+                </thead>
+                <tbody id="human-candidates-body"></tbody>
+              </table>
+            </div>
+          </section>
+
           <section class="panel" aria-labelledby="timings-heading">
             <div class="section-heading compact">
               <div>
-                <p class="step">05 / Runtime</p>
+                <p class="step">06 / Runtime</p>
                 <h2 id="timings-heading">Timings</h2>
               </div>
               <p id="model-versions" class="version-label"></p>
