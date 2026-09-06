@@ -26,6 +26,7 @@ COPY config/ ./config/
 COPY ui/ ./ui/
 COPY migrations/ ./migrations/
 COPY alembic.ini ./alembic.ini
+COPY scripts/verify_postgres_migration.py ./scripts/verify_postgres_migration.py
 
 USER pvr
 EXPOSE 8000

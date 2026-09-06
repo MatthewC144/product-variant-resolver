@@ -17,6 +17,6 @@ postgres-data
 reports/generated
 specs
 tests
-scripts
+scripts/*
+!scripts/verify_postgres_migration.py
 docs
-

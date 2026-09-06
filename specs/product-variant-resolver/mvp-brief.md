@@ -446,11 +446,13 @@ Each task is intended to be independently committable and verifiable. `task_exec
   Implement UUID/slug minting, natural-key fingerprinting, collision rejection/suffixing, and immutability checks.  
   **Verify:** unit tests prove uniqueness across color/year/series/edition differences and stable IDs across descriptive corrections.
 
-- [ ] **T04 — Add PostgreSQL/pgvector schema migrations** `[backend]` _(R1, R6, R15)_  
+- [x] **T04 — Add PostgreSQL/pgvector schema migrations** `[backend]` _(R1, R6, R15)_
   Create product, alias, identifier, provenance, and index metadata tables plus constraints/indexes.  
   **Verify:** migration upgrade from empty DB and downgrade/upgrade cycle pass.
-  **Status:** Partial/deferred — the migration is present, but no live PostgreSQL upgrade or
-  downgrade/upgrade cycle was run.
+  **Status:** Complete — revision `0001` was verified on an isolated PostgreSQL 16/pgvector
+  database with an empty → upgrade → downgrade → upgrade cycle. The reproducible runner asserts
+  the seven application tables, primary/unique/check/cascade-FK constraints, required btree/GIN
+  indexes, `tsvector`, `vector(192)`, the vector extension, and the final Alembic revision.
 
 - [x] **T05 — Create the versioned fixture catalog** `[task_executor]` _(R1, R6)_  
   Curate at least 120 variants, 8 families, and 20 near-duplicate groups with explicit synthetic/curated provenance.  

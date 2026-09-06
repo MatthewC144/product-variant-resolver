@@ -1,6 +1,7 @@
 # Product Variant Resolver — Lite MVP QA Review
 
 > Date: 2026-09-01  
+> Last focused update: 2026-09-06 (T04 PostgreSQL migration verification)
 > QA mode: `.codex/agents/qa.toml` MVP Mode  
 > Scope: `specs/product-variant-resolver/mvp-brief.md` R1–R16  
 > Verdict: **PASS WITH RISKS**
@@ -34,6 +35,14 @@ remove legacy `httpx`, and hold AnyIO at 4.14.0 to avoid the alias warning expos
 with Starlette 1.6. A no-cache rebuild resolved the complete selected set and, in the rebuilt
 read-only image, `pvr-report` generated JSON, Markdown, and four SVGs successfully.
 
+T04 is now QA-closed as **PASS**. An isolated PostgreSQL 16/pgvector run completed the empty →
+upgrade `0001` → downgrade `base` → upgrade `0001` cycle and compared both upgraded schemas. The
+follow-up runner now proves index table/name/method/ordered columns, complete foreign-key
+source/target/delete behavior, and the full normalized release-year check expression; Alembic's
+script location is absolute. A sentinel application table caused the runner to refuse execution,
+closing the prior safety-check concern. This verifies migration behavior only: PostgreSQL fixture
+ingestion and retrieval adapters remain deferred.
+
 This is not a full verification of every technology named in the MVP brief. PostgreSQL/pgvector
 resolution adapters and pinned external embedding/cross-encoder models remain explicitly deferred.
 The Docker latency evidence is from one local arm64 machine over loopback with concurrency 1; it
@@ -60,8 +69,8 @@ visible in any portfolio or repository claims.
 | R12 Reliability gate | PASS | Precision `1.0`, false-match rate `0.0`, coverage `0.8333` on 21 synthetic fixture test cases. |
 | R13 CPU smoke budget | PASS (limited scope) | Checked-in host-to-Docker loopback evidence has 50 sequential samples, 10 excluded warm-ups, K=25, and nearest-rank p95 `4.721208 ms` (gate `<=1500 ms`). Current runtime independently matches Docker 29.5.3/aarch64 and Python 3.12.14. Scope remains one machine, concurrency 1, offline-memory backend, without TLS/proxy/remote network/PostgreSQL. |
 | R14 API validation | PASS | Blank, 501-code-point, unknown-field, and limit=26 requests return structured 422; malformed JSON returns 400; unsupported media type returns 415; no tracebacks exposed. |
-| R15 Health/readiness | PASS WITH RISK | A dedicated read-only Docker container with `PVR_CATALOG_PATH=/app/data/missing.json` returned health 503/not-ready and resolve 503/`resolver_not_ready` with no identity, then was removed. PostgreSQL selection and unavailable external providers also fail closed. Live health transition after a dependency fails post-startup is not verified. |
-| R16 Quality gate | PASS | Fresh constrained Python 3.12 host suite is 41/41 green with warnings promoted to errors. The no-cache constrained image passed all 39 non-Node backend/API/evaluation/reporting/integration/unit/fixture tests and generated all six report artifacts under read-only runtime constraints. The complete 41-test container selection is not claimed: its UI controller test requires Node, which is intentionally absent from the runtime image and is verified on the host instead. |
+| R15 Health/readiness | PASS WITH RISK | A dedicated read-only Docker container with `PVR_CATALOG_PATH=/app/data/missing.json` returned health 503/not-ready and resolve 503/`resolver_not_ready` with no identity, then was removed. PostgreSQL selection and unavailable external providers also fail closed. T04 additionally proves that the isolated PostgreSQL dependency can migrate empty → `0001` → base → `0001`, while a sentinel application table makes the runner refuse execution. Live health transition after a dependency fails post-startup and runtime PostgreSQL resolver readiness are not verified. |
+| R16 Quality gate | PASS | Fresh constrained Python 3.12 host suite is 41/41 green with warnings promoted to errors. The no-cache constrained image passed all 39 non-Node backend/API/evaluation/reporting/integration/unit/fixture tests and generated all six report artifacts under read-only runtime constraints. T04's strengthened runner passed its isolated migration cycle and sentinel safety check; Python compilation and `git diff --check` also passed. The complete 41-test container selection is not claimed: its UI controller test requires Node, which is intentionally absent from the runtime image and is verified on the host instead. |
 
 ## Checked items and reproducible evidence
 
@@ -151,6 +160,26 @@ Focused dependency-contract and reporting re-verification:
 - The selective constraints are not a complete transitive lock. PostgreSQL extras and unlisted
   transitive/build dependencies remain range-resolved.
 
+T04 PostgreSQL/pgvector migration verification:
+
+- The existing `0001` migration required no schema change. In isolated Compose project `pvr-t04`
+  on host port `55432`, PostgreSQL 16/pgvector passed empty → upgrade `0001` → downgrade `base` →
+  upgrade `0001`; the first and second upgraded snapshots matched and final revision was `0001`.
+- The strengthened runner verifies all seven application tables, primary/unique constraints, the
+  complete normalized release-year expression, every required foreign key from its source column
+  to `product_variant.canonical_uuid` with `ON DELETE CASCADE`, and each required index by table,
+  name, method, ordered columns, and column order. It also verifies `tsvector`, `vector(192)`, and
+  the installed `vector` extension. Its absolute Alembic `script_location` removes dependence on
+  the caller's current directory.
+- A sentinel application table present before invocation caused the runner to abort before any
+  downgrade, closing the destructive-use safety finding. The guard checks existing application
+  tables only; it does not inventory views, functions, custom types, or every possible schema
+  object, so the runner remains restricted to a disposable database.
+- The isolated container, network, and volume were removed after the checks. The responsible run
+  also reported the host suite **41/41 PASS**, runner/migration Python compilation **PASS**, and
+  `git diff --check` **PASS**. CI does not yet start PostgreSQL and execute this cycle automatically,
+  and extension creation may require database-administrator permission.
+
 Additional audit results:
 
 - Fixture: 120 products, 100 benchmark cases (`60 matched`, `20 ambiguous`, `20 no_match`),
@@ -186,10 +215,13 @@ None for demonstrating the explicitly documented offline fixture path.
 
 ### Important
 
-1. **PostgreSQL/pgvector is not a runtime resolver path.** Alembic schema and bound SQL constants
-   exist, but `PostgresRetrieverAdapter.execute_ranked` is unimplemented and selecting
+1. **PostgreSQL/pgvector is not yet a runtime resolver path.** T04's existing Alembic schema now
+   passes an isolated upgrade/downgrade/re-upgrade cycle with exact constraint, index, type,
+   extension, revision, and sentinel-safety assertions. However,
+   `PostgresRetrieverAdapter.execute_ranked` is unimplemented and selecting
    `PVR_BACKEND=postgres` intentionally makes readiness fail. The Compose profile can reserve and
-   migrate a database only; it does not exercise PostgreSQL FTS or exact pgvector retrieval.
+   migrate a database only; it does not yet ingest fixtures or exercise PostgreSQL FTS or exact
+   pgvector retrieval.
 2. **External neural models are not integrated.** The verified dense provider is `hashing-v1` and
    reranker is `heuristic-v1`. `config/models.example.json` still contains replacement placeholders;
    selecting an external provider fails closed. Do not describe the reported results as a
@@ -208,10 +240,11 @@ None for demonstrating the explicitly documented offline fixture path.
 
 ## Recommended next task
 
-The requested R7, R11, R13, Docker/Python 3.12 runtime, runtime reporting, and selective dependency-
-constraint milestones are QA-closed for the Lite offline fixture scope. The next dependency step is
-a deferred complete-lock review when the PostgreSQL runtime path is implemented; the current image
-does not include Node, so UI controller tests remain host-verified. PostgreSQL/pgvector and external
-neural model work can remain deferred only if the README, reports, and repository description
-continue to say so explicitly; otherwise implement and integration-test those adapters before
-claiming the original technology scope complete.
+The requested R7, R11, R13, Docker/Python 3.12 runtime, runtime reporting, selective dependency-
+constraint, and T04 migration milestones are QA-closed for their stated Lite scope. The next
+highest-value database task is T07 idempotent PostgreSQL fixture ingestion, including immutable-ID
+preservation, version metadata, repeat-load equality, and transactional rejection of invalid or
+colliding fixtures. A complete dependency-lock review remains deferred until the PostgreSQL runtime
+path is implemented; the current image does not include Node, so UI controller tests remain
+host-verified. PostgreSQL retrieval and external neural model work must continue to be described as
+deferred until their adapters are implemented and integration-tested.

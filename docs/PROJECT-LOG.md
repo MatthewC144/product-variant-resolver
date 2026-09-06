@@ -591,6 +591,120 @@ evidence. Until then, the selective constraints must not be described as a compl
 runtime image must not be expected to execute Node-based UI tests, and the existing whole-repository
 Ruff/mypy findings remain explicit maintenance debt.
 
+## 2026-09-06 — T04 PostgreSQL/pgvector migration-cycle verification
+
+### Context, problem, and observable outcome
+
+T04 already had an Alembic `0001` migration describing the PostgreSQL/pgvector catalog schema,
+but the repository did not yet contain runtime evidence that a new database could apply it,
+reverse it, and apply it again without schema drift. The task therefore closed the verification
+gap rather than redesigning the database: the existing migration schema required no changes.
+
+An isolated PostgreSQL 16/pgvector database now completed the full
+empty → upgrade `0001` → downgrade `base` → upgrade `0001` cycle. Both upgraded states were
+inspected and found equivalent. The observable result is a reproducible T04 check that verifies
+the seven application tables, their identity and integrity constraints, the required indexes and
+specialized PostgreSQL types, the `vector` extension, and final Alembic revision `0001`.
+
+### Implementation trace
+
+`scripts/verify_postgres_migration.py` was added as the executable verification boundary. Before
+making any migration change it requires an empty application schema, then drives Alembic through
+the complete cycle and inspects PostgreSQL metadata after each upgrade. The runner asserts all
+seven application tables; their primary keys; the required product, alias, and identifier unique
+constraints; the complete normalized release-year expression; and each cascade foreign key from
+its source column to `product_variant.canonical_uuid`. Index checks bind table, index name, access
+method, ordered columns, and column order rather than accepting a name/method match alone. The
+runner also verifies `product_search.search_document` as `tsvector`,
+`product_embedding.embedding` as `vector(192)`, removal of the application tables after
+downgrade, and final database revision `0001`. Alembic's `script_location` is resolved to an
+absolute repository path so execution does not depend on the caller's working directory.
+
+`Dockerfile` now includes this runner so the verification can execute from the same constrained
+project image used by the repository. `.dockerignore` was narrowed only enough to allow
+`scripts/verify_postgres_migration.py` into that build context; other scripts remain excluded.
+The existing `migrations/versions/0001_initial_catalog.py` schema was left unchanged because the
+runtime assertions matched its intended contract. No API, resolver, fixture, retrieval, or
+calibration code changed as part of T04.
+
+### Technical choices, alternatives, and trade-offs
+
+A committed, fail-fast runner was selected instead of documenting only a sequence of manual
+Alembic and `psql` commands. Manual commands could demonstrate one successful attempt, but they
+would leave important checks dependent on operator memory and make the downgrade/second-upgrade
+comparison difficult to repeat consistently. The runner turns the intended migration contract
+into executable assertions and produces a structured result that a future developer or CI job can
+re-run against a disposable database.
+
+The accepted trade-off is deliberate strictness: this runner is for isolated, empty databases and
+refuses to operate when application tables already exist. It is not a general database diagnostic
+or an upgrade tool for developer or production data. The empty-schema guard deliberately inspects
+application tables, not every possible schema object, so it must still be paired with a disposable
+database rather than treated as a universal safety detector. Schema assertions use PostgreSQL
+catalog and SQLAlchemy inspection rather than adding a second migration framework. No
+approximate-nearest-neighbor index was added because T04 only establishes the schema and the
+planned T10 path requires exact pgvector retrieval at MVP scale; an ANN structure would add
+maintenance and tuning without a current acceptance requirement.
+
+### Decision changes
+
+The prior project record treated PostgreSQL migration cycling as deferred because only migration
+files and static Compose configuration had been reviewed. Runtime evidence from the isolated
+cycle now promotes T04 itself to complete: the database can be created, downgraded, and recreated,
+and the resulting constraints, indexes, types, extension, and revision are explicitly checked.
+This does not promote the broader PostgreSQL resolver path, because ingestion and retrieval remain
+separate tasks.
+
+The downgrade policy intentionally removes the application schema while leaving the `vector`
+extension installed. Extensions can be shared by other schemas or applications in the same
+database, so automatically dropping it would create a wider destructive boundary than T04 needs.
+Consequently, the runner checks that application tables are gone after downgrade but does not
+misrepresent retention of the shared extension as a failed rollback.
+
+QA follow-up initially identified three ways a schema check could pass too loosely: indexes could
+match without proving their ordered columns, foreign keys could match without proving their target,
+and the release-year check could be accepted from partial numeric fragments. The runner was
+narrowed to compare complete index tuples, complete source/target/delete-action foreign-key tuples,
+and the normalized full check expression. The absolute Alembic script path additionally removes a
+working-directory assumption. Re-execution closed these verification risks without changing the
+`0001` migration itself.
+
+### Verification evidence
+
+The responsible implementation run used the isolated Compose project name `pvr-t04` and host port
+`55432`, keeping the verification separate from ordinary project services and local PostgreSQL
+ports. It reported a successful empty → upgrade `0001` → downgrade `base` → upgrade `0001` cycle
+and passed every schema assertion: seven tables, primary and unique constraints, the release-year
+check, fully targeted cascade foreign keys, btree/GIN index definitions including ordered columns,
+`tsvector`, `vector(192)`, the `vector` extension, and final revision `0001`. A separate sentinel
+safety check created an application table before invocation and confirmed that the runner refused
+to migrate or downgrade the non-empty schema. After verification, the temporary container,
+network, and volume were removed.
+
+The same implementation run reported **41/41 host tests PASS**, Python compilation of the added
+runner and migration sources **PASS**, and `git diff --check` **PASS**. These results support the
+migration runner, existing host behavior, and patch integrity. They do not constitute PostgreSQL
+fixture-ingestion, sparse-FTS, exact-vector-retrieval, resolver-E2E, production-data, or
+concurrent-load evidence.
+
+### Incomplete work, risks, and next step
+
+Creating the `vector` extension depends on database permissions; environments where the migration
+role cannot install extensions still need administrator provisioning or a documented preinstall
+step. The runner must remain restricted to disposable empty databases because its deliberate
+downgrade would remove all application tables. The guard detects existing application tables but
+does not inventory views, functions, types, or every other possible object in `public`, and CI does
+not yet provision PostgreSQL and run this cycle automatically. Its decision to preserve the shared
+`vector` extension also means the cycle does not prove complete database-level teardown. ANN
+indexing remains unnecessary for the exact-search MVP and has not been implemented or evaluated.
+
+T07, T09, and T10 remain incomplete: PostgreSQL fixture ingestion, PostgreSQL full-text search,
+and exact pgvector retrieval have not been exercised by this milestone. The single highest-value
+next action is **T07 — implement idempotent PostgreSQL fixture ingestion**, preserving immutable
+canonical IDs and catalog/index version metadata while proving that repeated loads are identical
+and invalid or colliding fixtures fail transactionally. Completing T07 will turn the verified
+empty schema into a populated, repeatable database foundation for the later retrieval tasks.
+
 ## Required format for future entries
 
 Every future project-log entry must preserve the following traceability structure:
