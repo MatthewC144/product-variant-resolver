@@ -161,16 +161,27 @@ the offline resolver, and JSON serialization/parsing. It excludes startup, TLS, 
 remote networking, concurrent load, and PostgreSQL, so it is not production latency evidence. See
 the [raw runtime artifact](reports/runtime-validation/docker-python312-http-latency.json).
 
-An optional `postgres` profile defines pgvector and Alembic migration services:
+An optional `postgres` profile defines pgvector, Alembic migration, and canonical-catalog
+ingestion services:
 
 ```bash
-docker compose --profile postgres up --wait postgres migrate
+docker compose --profile postgres up -d --wait postgres
+docker compose --profile postgres run --rm migrate
+docker compose --profile postgres run --rm ingest
+docker compose exec postgres psql -U pvr -d pvr \
+  -c 'SELECT COUNT(*) FROM product_variant;'
 docker compose --profile postgres down
 ```
 
-The PostgreSQL profile itself is not a verified resolver path. It does not switch API resolution:
-PostgreSQL ingestion, FTS, exact pgvector execution, and migration-cycle E2E remain deferred, and
-`PVR_BACKEND=postgres` intentionally fails readiness.
+The first `ingest` run writes all 120 fixture variants plus aliases, identifiers, provenance,
+full-text source documents, and version metadata in one transaction. Repeating it with the same
+catalog leaves the stored rows unchanged. Identity or identifier collisions roll back the entire
+attempt. `docker compose --profile postgres down` keeps the named local volume; adding `-v` deletes
+that volume and its data.
+
+The PostgreSQL profile is not yet a verified resolver path. Ingestion is implemented, but the API
+still uses the offline Dual-RAG runtime. PostgreSQL FTS and exact pgvector query adapters remain
+deferred, and `PVR_BACKEND=postgres` intentionally fails readiness until those adapters exist.
 
 ## Limitations
 

@@ -86,5 +86,23 @@ services:
       - head
     restart: "no"
 
+  ingest:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: product-variant-resolver:lite
+    profiles: ["postgres"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    environment:
+      PVR_CATALOG_PATH: /app/data/catalog.json
+      PVR_DATABASE_URL: postgresql+psycopg://pvr:pvr-local-only@postgres:5432/pvr
+    command:
+      - pvr-ingest
+    restart: "no"
+
 volumes:
   pvr-postgres-data:

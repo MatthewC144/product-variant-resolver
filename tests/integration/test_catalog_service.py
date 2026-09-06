@@ -2,7 +2,7 @@ import json
 import unittest
 from pathlib import Path
 
-from product_variant_resolver.catalog import load_catalog
+from product_variant_resolver.catalog import Catalog, catalog_checksum, load_catalog
 from product_variant_resolver.config import Settings
 from product_variant_resolver.ingestion import InMemoryCatalogRepository, ingest_catalog
 from product_variant_resolver.schemas import ResolveRequest
@@ -30,6 +30,47 @@ class CatalogServiceIntegrationTests(unittest.TestCase):
         ingest_catalog(self.catalog, repository)
         snapshot = (dict(repository.rows), repository.version, repository.checksum)
         ingest_catalog(self.catalog, repository)
+        self.assertEqual(snapshot, (repository.rows, repository.version, repository.checksum))
+
+    def test_catalog_checksum_changes_when_searchable_content_changes(self):
+        original = catalog_checksum(self.catalog)
+        first = self.catalog.products[0]
+        changed = first.product.model_copy(update={"color": "Checksum Test"})
+        modified = Catalog(self.catalog.version, [
+            type(first)(
+                canonical_uuid=first.canonical_uuid,
+                canonical_id=first.canonical_id,
+                product=changed,
+                aliases=first.aliases,
+                identifiers=first.identifiers,
+                provenance=first.provenance,
+                alias_records=first.alias_records,
+                identifier_records=first.identifier_records,
+            ),
+            *self.catalog.products[1:],
+        ])
+        self.assertNotEqual(original, catalog_checksum(modified))
+        reordered = Catalog(self.catalog.version, list(reversed(self.catalog.products)))
+        self.assertEqual(original, catalog_checksum(reordered))
+
+    def test_failed_ingestion_rolls_back_every_prior_change(self):
+        repository = InMemoryCatalogRepository()
+        ingest_catalog(self.catalog, repository)
+        snapshot = (dict(repository.rows), repository.version, repository.checksum)
+        first, second = self.catalog.products[:2]
+        invalid_second = type(second)(
+            canonical_uuid=second.canonical_uuid,
+            canonical_id=first.canonical_id,
+            product=second.product,
+            aliases=second.aliases,
+            identifiers=second.identifiers,
+            provenance=second.provenance,
+            alias_records=second.alias_records,
+            identifier_records=second.identifier_records,
+        )
+        invalid = Catalog("invalid", [first, invalid_second])
+        with self.assertRaises(ValueError):
+            ingest_catalog(invalid, repository)
         self.assertEqual(snapshot, (repository.rows, repository.version, repository.checksum))
 
     def test_fixture_known_cases_resolve_and_debug_is_bounded(self):

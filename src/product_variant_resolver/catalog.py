@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 from dataclasses import dataclass
 from pathlib import Path
@@ -18,6 +19,8 @@ class CatalogProduct:
     aliases: tuple[str, ...]
     identifiers: tuple[str, ...]
     provenance: tuple[dict[str, Any], ...]
+    alias_records: tuple[dict[str, str], ...] = ()
+    identifier_records: tuple[dict[str, str], ...] = ()
 
     @property
     def searchable_text(self) -> str:
@@ -69,9 +72,29 @@ def load_catalog(path: Path) -> Catalog:
         key = fingerprint(raw)
         if key in keys and keys[key] != canonical_id:
             raise ValueError(f"natural-key collision: {canonical_id} and {keys[key]}")
-        aliases = tuple(value for item in raw.get("aliases", []) if (value := _alias_text(item)))
+        raw_aliases = raw.get("aliases", [])
+        raw_identifiers = raw.get("identifiers", [])
+        aliases = tuple(value for item in raw_aliases if (value := _alias_text(item)))
         identifiers = tuple(
-            value for item in raw.get("identifiers", []) if (value := _identifier_text(item))
+            value for item in raw_identifiers if (value := _identifier_text(item))
+        )
+        alias_records = tuple(
+            {
+                "alias_text": value,
+                "alias_type": str(item.get("alias_type") or "catalog_alias"),
+                "source_id": str(item.get("source_id") or f"catalog://{canonical_id}"),
+            }
+            for item in raw_aliases
+            if isinstance(item, dict) and (value := _alias_text(item))
+        )
+        identifier_records = tuple(
+            {
+                "identifier_type": str(item.get("identifier_type") or "catalog_identifier"),
+                "identifier_value": value,
+                "source_id": str(item.get("source_id") or f"catalog://{canonical_id}"),
+            }
+            for item in raw_identifiers
+            if isinstance(item, dict) and (value := _identifier_text(item))
         )
         provenance = tuple(raw.get("provenance", []))
         if not provenance:
@@ -86,6 +109,8 @@ def load_catalog(path: Path) -> Catalog:
             aliases=aliases,
             identifiers=identifiers,
             provenance=provenance,
+            alias_records=alias_records,
+            identifier_records=identifier_records,
         ))
     if not products:
         raise ValueError("catalog contains no products")
@@ -93,9 +118,28 @@ def load_catalog(path: Path) -> Catalog:
 
 
 def catalog_checksum(catalog: Catalog) -> str:
-    import hashlib
-    rows = [f"{item.canonical_uuid}:{item.canonical_id}" for item in catalog.products]
-    return hashlib.sha256("\n".join(sorted(rows)).encode()).hexdigest()
+    def stable(values: Any) -> list[Any]:
+        return sorted(
+            values,
+            key=lambda value: json.dumps(
+                value, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+            ),
+        )
+
+    rows = [
+        {
+            "canonical_uuid": str(item.canonical_uuid),
+            "canonical_id": item.canonical_id,
+            "product": item.product.model_dump(mode="json"),
+            "aliases": stable(item.alias_records or list(item.aliases)),
+            "identifiers": stable(item.identifier_records or list(item.identifiers)),
+            "provenance": stable(item.provenance),
+        }
+        for item in catalog.products
+    ]
+    rows.sort(key=lambda row: row["canonical_uuid"])
+    payload = json.dumps(rows, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
 def catalog_tokens(product: CatalogProduct) -> set[str]:

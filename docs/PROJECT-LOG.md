@@ -1,5 +1,94 @@
 # Project Log
 
+## 2026-09-06 — Atomic PostgreSQL canonical-catalog ingestion
+
+### What was executed and what problem it solves
+
+The PostgreSQL schema had already passed its migration lifecycle, but the running project still had
+no implementation that could put catalog knowledge into those tables. T07 now installs a complete
+validated catalog snapshot through the same ingestion contract used by the in-memory tests. This
+closes the gap between “the database tables exist” and “the database contains a coherent catalog.”
+
+On the first fixture import PostgreSQL received 120 product variants, 240 aliases, 120 identifiers,
+120 provenance records, 120 sparse-search documents, and one catalog metadata record. Repeating the
+same import left every stored row unchanged. A deliberately conflicting import modified an early
+record before failing later, and the transaction restored the entire pre-import snapshot. A second
+negative case omitted one existing product and was rejected rather than silently deleting its
+canonical identity.
+
+### Code changes and why they were made
+
+`src/product_variant_resolver/postgres_ingestion.py` implements the existing `CatalogRepository`
+contract with SQLAlchemy 2 parameterized statements. One connection and transaction span every
+product plus the final metadata update. Parent product identity is checked by UUID, canonical slug,
+and natural-key fingerprint; aliases are reconciled by normalized text; identifiers are checked for
+ownership before update; provenance is replaced only when its complete ordered content changes;
+and `product_search` receives deterministic source text plus PostgreSQL's `simple` `tsvector`.
+
+`catalog.py` now preserves the structured alias and identifier type/source records that the prior
+in-memory resolver flattened into strings. The flattened values remain for retrieval compatibility,
+while PostgreSQL can retain `alias_type`, `identifier_type`, and source provenance. Its checksum now
+covers the complete normalized catalog representation instead of UUID/slug alone, because a casting,
+series, alias, or provenance correction must produce observable version evidence.
+
+The installed `pvr-ingest` command and Compose `ingest` service provide one documented operator
+path. Docker includes the isolated verification runner, while `.dockerignore` permits only that
+specific additional script. The API backend was deliberately not switched to PostgreSQL: writing
+catalog rows is T07, whereas querying FTS and pgvector safely belongs to T09/T10.
+
+### Technical choices, alternatives, and trade-offs
+
+Atomic full-snapshot ingestion was chosen over per-product commits and truncate/reload. Per-product
+commits could leave the database half-updated after record 2,500 of a future 3,000-row import.
+Truncation would temporarily remove all identities and recreate unchanged surrogate rows. The
+selected reconciliation keeps unchanged rows and timestamps stable but still makes all changes
+commit together.
+
+The importer also refuses to infer deletion from omission. This is intentionally conservative for
+future external sources: a disappeared Wiki row could mean a parsing or export problem rather than
+a retired Hot Wheels release. The cost is that genuine retirement will require a later explicit
+active/retired field and policy. `product_embedding` remains empty because inserting placeholder
+vectors would make T10 look complete without a versioned embedding model or checksum.
+
+### Decision changes
+
+T07 was previously marked partial because only `InMemoryCatalogRepository` implemented the
+transaction contract. It is now complete for the 120-product Lite fixture and real PostgreSQL 16
+runtime. PostgreSQL is still not the API resolver backend: this milestone promotes database
+persistence only, not database retrieval, latency, or 3,000-record external-catalog readiness.
+
+The first checksum implementation tracked only UUID and slug. That was sufficient to recognize an
+identity list but would miss corrected searchable fields. The checksum was expanded before accepting
+T07 so metadata changes whenever relevant catalog content changes. Structured alias/identifier
+records were preserved for the same reason: source and type are database facts, not disposable
+loading details.
+
+### Verification evidence
+
+The isolated Compose project `pvr-t07` used host port `55433` and a dedicated named volume. Alembic
+upgraded an empty PostgreSQL 16/pgvector database to revision `0001`. The production repository then
+passed first import, exact repeated-row comparison, mid-import canonical-ID collision rollback, and
+incomplete-snapshot refusal. Counts were 120 products, 240 aliases, 120 identifiers, 120 provenance
+rows, 120 search documents, one metadata row, and zero embeddings by design.
+
+The first verification attempt exposed a string-versus-`Path` mismatch in the verification
+entrypoint before any write occurred. Explicit environment-boundary conversion fixed it; the rebuilt
+image passed the complete scenario and the strengthened missing-row scenario. The host suite passed
+66/66 before documentation finalization, fixture checksum validation passed, Python compilation and
+Compose configuration passed, and the isolated containers, network, and volume were removed.
+
+### Incomplete work, risks, and next step
+
+The importer expects a migrated PostgreSQL database and a complete validated canonical snapshot. It
+does not crawl Fandom, create provisional identities, review licensing, materialize embeddings, or
+query PostgreSQL during `/resolve`. It also does not yet model retired products, so intentional
+deletion is refused. The local Compose password is development-only and must not be reused outside
+the loopback development environment.
+
+The single highest-value next action is **T09 — PostgreSQL sparse retrieval**. That task will query
+the populated `product_search` GIN index with bound parameters and prove that identifiers and rare
+casting terms recover the correct canonical candidates before pgvector is added.
+
 ## 2026-09-06 — Human-backed catalog connected as the second RAG source
 
 ### What was executed and what problem it solves

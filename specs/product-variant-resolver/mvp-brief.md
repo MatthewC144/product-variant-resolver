@@ -499,11 +499,14 @@ Each task is intended to be independently committable and verifiable. `task_exec
   Curate at least 90 labeled noisy titles with required status counts, failure categories, casting families, and deterministic group splits.  
   **Verify:** manifest tests prove class minima, valid expected identities, no family overlap, frozen version/checksum, and test-label isolation.
 
-- [ ] **T07 — Implement idempotent fixture ingestion** `[backend]` _(R6, R15)_  
+- [x] **T07 — Implement idempotent fixture ingestion** `[backend]` _(R6, R15)_
   Load validated catalog files into PostgreSQL, preserve immutable IDs, and record catalog/index version metadata.  
   **Verify:** first and repeated ingestion produce identical rows; invalid/colliding fixtures fail transactionally.
-  **Status:** Partial/deferred — in-memory fixture ingestion is idempotent and verified; PostgreSQL
-  ingestion and transactional failure behavior are not implemented or tested.
+  **Status:** Complete for the Lite fixture scope — the SQLAlchemy repository writes product,
+  alias, identifier, provenance, search-document, and version rows in one transaction. An isolated
+  PostgreSQL 16/pgvector run proved exact repeated-ingestion stability, collision rollback, and
+  refusal to interpret a missing snapshot row as an implicit product deletion. PostgreSQL query
+  adapters remain separate T09/T10 work.
 
 - [x] **T08 — Implement generic signal extraction** `[backend]` _(R6, R7)_  
   Extract normalized syntax signals and generic token hints without product-specific series/variant conditionals.  
@@ -577,8 +580,9 @@ Each task is intended to be independently committable and verifiable. `task_exec
   **Verify:** clean compose startup becomes ready, serves three E2E cases, and reports non-ready when an artifact is removed.
   **Status:** Complete for the Lite default offline runtime — the Python 3.12.14 image built and
   became healthy, served UI plus all three decision states, preserved non-root/read-only behavior,
-  and failed closed in a dedicated missing-catalog container. PostgreSQL ingestion/retrieval and
-  migration-cycle E2E remain deferred under T04/T07/T09/T10 rather than being claimed here.
+  and failed closed in a dedicated missing-catalog container. T04 now verifies PostgreSQL migration
+  lifecycle and T07 verifies fixture ingestion; PostgreSQL API retrieval remains deferred under
+  T09/T10 rather than being claimed here.
 
 - [x] **T24 — Run the full QA and benchmark gates** `[qa]` _(R1–R16)_  
   Execute unit, integration, API/E2E, UI smoke, data validation, and frozen benchmark suites on documented CPU hardware.  

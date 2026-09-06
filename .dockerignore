@@ -19,4 +19,5 @@ specs
 tests
 scripts/*
 !scripts/verify_postgres_migration.py
+!scripts/verify_postgres_ingestion.py
 docs

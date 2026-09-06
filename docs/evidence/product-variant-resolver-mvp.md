@@ -2,8 +2,8 @@
 
 > QA verdict: **PASS WITH RISKS** for the dependency-light offline fixture path (2026-09-01).
 > The default offline Docker/Python 3.12 runtime is verified on one local arm64 machine.
-> PostgreSQL/pgvector, external neural models, TLS/proxy/remote networking, and concurrent load
-> remain unverified.
+> PostgreSQL migration and ingestion are locally verified; PostgreSQL API retrieval, external
+> neural models, TLS/proxy/remote networking, and concurrent load remain unverified.
 
 ## Evidence index
 
@@ -11,7 +11,7 @@
 |---|---|---|
 | Requirements | [`specs/product-variant-resolver/review.md`](../../specs/product-variant-resolver/review.md) | R1–R14 and R16 passed within the Lite fixture scope; R15 passed with risk. |
 | Focused re-verification | Final QA review | Catalog-derived series soft conflicts, the RRF default decision, and the in-process HTTP disclosure were re-verified after correction. No separate agent-verification artifact was checked in. |
-| Test suite | QA review command transcript | Original 38/38 suite passed; a fresh constrained host Python 3.12 environment later passed the complete 41/41 suite with warnings promoted to errors. The constrained runtime image passed 39/39 non-Node tests; its UI controller test remains host-only because Node is not installed in the runtime image. |
+| Test suite | QA review command transcript | Original 38/38 suite passed; the current host suite passes 66/66. The earlier constrained runtime image passed 39/39 non-Node tests; its UI controller test remains host-only because Node is not installed in the runtime image. |
 | Compilation | QA review command transcript | `compileall` exited 0. An offline wheel build was not possible because the host lacked the required setuptools artifact. |
 | Fixture integrity | [`data/manifest.json`](../../data/manifest.json) | `fixture-v1`: 120 products; 100 cases; train/dev/test = 58/21/21; frozen catalog and benchmark SHA-256 values. |
 | Ranking/evaluation | [JSON](../../reports/fixture-v1/evaluation-fixture-v1-test.json) and [Markdown](../../reports/fixture-v1/evaluation-fixture-v1-test.md) | Report schema, raw derivations, disclosure, and generated SVG artifacts passed QA validation. |
@@ -20,7 +20,7 @@
 | Docker/Python 3.12 | QA review | No-cache constrained image `sha256:e67d64e95abab329c901bdb5946f86962a09dc7217e2048a3b1c0568ec8b9d75` was healthy on Docker Desktop 29.5.3/aarch64 with Python 3.12.14, user `pvr` (UID 100/GID 101), and a read-only root filesystem. Live health and all three API outcomes matched expectations; abstentions returned no identity. |
 | Container reporting | QA review | `pvr-report` generated one JSON, one Markdown, and four SVGs in the constrained read-only image; all 39 mounted tests not requiring Node passed. |
 | Host→container latency | [`reports/runtime-validation/docker-python312-http-latency.json`](../../reports/runtime-validation/docker-python312-http-latency.json) | 50 sequential samples after 10 warm-ups reproduce nearest-rank p95 `4.721208 ms`; one arm64 machine, loopback, concurrency 1, offline-memory backend. |
-| Compose/PostgreSQL | QA review | Default and PostgreSQL-profile static configuration passed, but PostgreSQL ingestion, retrieval, and migration-cycle E2E were not run. |
+| Compose/PostgreSQL | [T07 evidence](postgres-ingestion-t07.md) and QA review | PostgreSQL 16/pgvector migration lifecycle and transactional 120-product ingestion passed in isolated Compose runs. Repeated ingestion was identical; collision and incomplete-snapshot attempts rolled back. FTS/pgvector API retrieval remains deferred. |
 
 ## Frozen fixture-v1 test result
 
@@ -82,8 +82,9 @@ networking, concurrent load, and PostgreSQL. The raw artifact is
 
 ## Known limitations and deferred evidence
 
-- PostgreSQL/pgvector: schema and bound SQL exist; migration upgrade/downgrade, ingestion, FTS,
-  exact pgvector search, and database E2E have not been run.
+- PostgreSQL/pgvector: migration lifecycle and canonical fixture ingestion are verified in isolated
+  Docker runs. FTS retrieval, vector materialization/search, API database E2E, and database latency
+  have not been run.
 - External models: no pinned embedding model or cross-encoder has been integrated or evaluated;
   `hashing-v1` is not neural.
 - Runtime boundary: one local arm64 Docker/Python 3.12 default offline run is verified. TLS,

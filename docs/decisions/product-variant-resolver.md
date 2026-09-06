@@ -164,3 +164,23 @@
 - **Deferred review:** Measure retrieval on a non-tautological held-out set, define promotion from
   provisional to canonical identity, and decide whether reviewed evidence may later influence—but
   never bypass—the calibrated decision policy.
+
+## D12 — Treat PostgreSQL ingestion as an atomic full-snapshot installation
+
+- **Choice:** Import one validated canonical catalog inside one database transaction. Reconcile
+  product children without changing unchanged rows, reject identity/identifier collisions, and
+  refuse an incoming snapshot that silently omits an already stored product.
+- **Reason:** A partial commit would leave aliases, provenance, search documents, and catalog
+  metadata describing different catalog states. Automatic deletion is also unsafe because a
+  missing Wiki/export row may be a source error rather than an intentional product retirement.
+- **Alternatives:** Commit each product independently; truncate and reload every table; use
+  PostgreSQL conflict handling to reassign a Toy # to the latest product; automatically delete
+  database products absent from the input file.
+- **Impact:** First and repeated ingestion are identical, unchanged surrogate IDs/timestamps remain
+  stable, and any collision or incomplete full snapshot rolls back before catalog metadata changes.
+  Descriptive fields may be corrected under the same immutable UUID/slug. The trade-off is that a
+  future removal needs an explicit active/retired lifecycle design rather than disappearing during
+  import.
+- **Deferred review:** Define staging/review/promotion for licensed external data, add product
+  lifecycle state if retirement becomes necessary, and implement T09/T10 query adapters before
+  selecting `PVR_BACKEND=postgres`.
