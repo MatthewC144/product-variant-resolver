@@ -27,6 +27,8 @@ def validate() -> list[str]:
     human_names_manifest = load("human_labeled_names_manifest.json")
     human_alignment = load("human_labeled_catalog_alignment.json")
     human_alignment_manifest = load("human_labeled_catalog_alignment_manifest.json")
+    human_catalog = load("human_backed_catalog.json")
+    human_catalog_manifest = load("human_backed_catalog_manifest.json")
     products = catalog.get("products", [])
     cases = benchmark.get("cases", [])
     if len(products) < 120:
@@ -148,6 +150,42 @@ def validate() -> list[str]:
         else:
             errors.append(f"invalid alignment status: {alignment.get('case_id')}")
 
+    human_catalog_path = ROOT / "data" / "human_backed_catalog.json"
+    human_catalog_digest = hashlib.sha256(human_catalog_path.read_bytes()).hexdigest()
+    if human_catalog_manifest.get("catalog_sha256") != human_catalog_digest:
+        errors.append("human-backed catalog checksum differs from frozen manifest")
+    if human_catalog_manifest.get("source_dataset_sha256") != human_digest:
+        errors.append("human-backed catalog references a different human dataset")
+    human_castings = human_catalog.get("castings", [])
+    human_variants = [
+        variant
+        for casting in human_castings
+        for variant in casting.get("provisional_variants", [])
+    ]
+    if human_catalog_manifest.get("casting_count") != len(human_castings):
+        errors.append("human-backed catalog casting count mismatch")
+    if human_catalog_manifest.get("provisional_variant_count") != len(human_variants):
+        errors.append("human-backed catalog variant count mismatch")
+    if len({casting.get("casting_uuid") for casting in human_castings}) != len(human_castings):
+        errors.append("human-backed catalog has duplicate casting UUIDs")
+    if len({casting.get("casting_id") for casting in human_castings}) != len(human_castings):
+        errors.append("human-backed catalog has duplicate casting IDs")
+    if len({variant.get("provisional_variant_uuid") for variant in human_variants}) != len(
+        human_variants
+    ):
+        errors.append("human-backed catalog has duplicate provisional variant UUIDs")
+    catalog_source_ids = [
+        case_id for variant in human_variants for case_id in variant.get("source_case_ids", [])
+    ]
+    if len(catalog_source_ids) != len(human_records) or set(catalog_source_ids) != human_ids:
+        errors.append("human-backed catalog source coverage differs from human corpus")
+    for variant in human_variants:
+        if variant.get("identity_status") != "needs_canonical_review":
+            errors.append(
+                f"human-backed variant bypasses canonical review: "
+                f"{variant.get('provisional_variant_id')}"
+            )
+
     return errors
 
 
@@ -161,6 +199,8 @@ def manifest_checksum() -> str:
         "human_labeled_names_manifest.json",
         "human_labeled_catalog_alignment.json",
         "human_labeled_catalog_alignment_manifest.json",
+        "human_backed_catalog.json",
+        "human_backed_catalog_manifest.json",
     ):
         digest.update((ROOT / "data" / name).read_bytes())
     return digest.hexdigest()

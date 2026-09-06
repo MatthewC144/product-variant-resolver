@@ -60,6 +60,7 @@ This MVP is a portfolio-quality engineering validation, not evidence of producti
 - **R16 — Quality gate:** WHEN the MVP is proposed complete, THE SYSTEM SHALL have green unit, integration, API/E2E, and benchmark-gate suites plus a generated machine-readable and Markdown evaluation report.
 - **R17 — Human-label provenance:** WHEN a reviewed external name dataset is added, THE SYSTEM SHALL preserve the initial system name (including an explicit no-candidate outcome), the human-verified name fields, label confidence, source checksum, and usage limits without treating unmapped names as canonical catalog ground truth.
 - **R18 — Conservative catalog alignment:** WHEN human-labeled names are compared with the catalog, THE SYSTEM SHALL assign a canonical UUID only after a unique exact structured match, retain family-only and unmapped outcomes without asserted identities, and freeze the input/output checksums and alignment policy.
+- **R19 — Human-backed catalog draft:** WHEN confirmed human labels are converted into catalog knowledge, THE SYSTEM SHALL create stable casting and provisional-variant IDs, preserve every source case and label alias, deduplicate only exact normalized structured identities, and prevent unreviewed provisional variants from being returned as canonical ground truth.
 
 The numeric gates above are deliberately modest fixture-MVP gates. Reports and README text must state dataset size, construction method, split strategy, hardware, model versions, and that the figures do not establish production accuracy.
 
@@ -254,6 +255,12 @@ Runtime resolution traces are not persisted by default in the fixture MVP.
 - `case_id`, `status` (`mapped`, `casting_family_only`, or `unmapped`), and a machine-readable reason.
 - Nullable canonical UUID/slug, matched casting family, and bounded candidate canonical IDs.
 - Family alignment requires exact normalized brand and casting. Canonical alignment additionally requires one unique candidate after exact series and variant-discriminator comparison; fuzzy similarity alone never asserts identity.
+
+### 8.9 `HumanBackedCatalogDraft`
+
+- One casting entity per exact normalized brand/casting pair, with a deterministic `casting_uuid`, readable `casting_id`, and all contributing source case IDs.
+- Nested provisional variants group exact normalized series/variant labels and retain every human name, pricing keyword, initial name, failure category, and source case ID.
+- Every provisional variant has a stable UUID/ID but remains `needs_canonical_review`; these identifiers support review and retrieval indexing and are not API canonical identities.
 
 ## 9. API contracts
 
@@ -578,6 +585,10 @@ Each task is intended to be independently committable and verifiable. `task_exec
 - [x] **T27 — Align reviewed names to the fixture catalog conservatively** `[backend]` _(R6, R16–R18)_
   Build a deterministic alignment artifact with exact structured matching, explicit family-only and unmapped outcomes, null identities for unresolved records, and checksums for both source datasets and generated output.
   **Verify:** all 101 records receive one alignment status; current coverage is truthfully reported as 0 canonical mappings, 2 exact casting-family-only matches, and 99 unmapped records; no unresolved record asserts a UUID; regeneration and full tests pass.
+
+- [x] **T28 — Build a versioned human-backed catalog draft** `[backend]` _(R6, R16–R19)_
+  Convert confirmed labels into deterministic casting entities and provisional variant groups, preserve source provenance and aliases, and keep the draft eligible for retrieval/review but excluded from canonical API responses and model calibration.
+  **Verify:** 101 reviewed records produce 97 unique casting entities and 100 provisional variants; one exact structured duplicate is merged without losing either source; IDs and checksums are stable; all variants require canonical review; full tests pass.
 
 ### Task order and handoff
 

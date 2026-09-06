@@ -30,6 +30,12 @@ canonical mappings, 2 family-only matches, and 99 unmapped records. This low cov
 the fixture catalog has only 10 synthetic casting families, while the reviewed corpus contains 97
 real casting names.
 
+`data/human_backed_catalog.json` now turns those reviewed labels into a separate catalog draft:
+97 stable casting entities and 100 provisional variant groups derived from all 101 records. One
+exact duplicate structured label is merged while retaining both source cases and both human names.
+The draft is eligible for sparse/dense candidate retrieval and human review, but every variant is
+marked `needs_canonical_review`; it is not yet used for canonical API responses or calibration.
+
 ## Architecture
 
 ```text
@@ -84,6 +90,7 @@ PYTHONPATH=src python -m unittest discover -s tests -p 'test_*.py' -v
 python scripts/validate_fixture_data.py
 python scripts/import_human_labeled_names.py --source /path/to/labeling-queue.csv
 python scripts/align_human_labeled_names.py
+python scripts/build_human_backed_catalog.py
 PYTHONPATH=src python -m product_variant_resolver.evaluation
 PYTHONPATH=src python scripts/train_calibration.py --output-directory artifacts
 PYTHONPATH=src python scripts/generate_evaluation_report.py \

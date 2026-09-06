@@ -1,0 +1,13 @@
+{
+  "casting_count": 97,
+  "catalog_file": "human_backed_catalog.json",
+  "catalog_sha256": "d29b69cde8099cb229136a73b893ca99b6313d9652ead5ff4aea48c20242e74f",
+  "catalog_version": "human-backed-catalog-v1",
+  "merged_duplicate_record_count": 1,
+  "provisional_variant_count": 100,
+  "provisional_variants_needing_review": 100,
+  "schema_version": "pvr-human-backed-catalog-manifest-v1",
+  "source_dataset_file": "human_labeled_names.json",
+  "source_dataset_sha256": "68b5dfdb8d0fa4972328d172cc5a56d78ac8bf00bc740083b2bfc07eb2a91188",
+  "source_record_count": 101
+}

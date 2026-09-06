@@ -127,3 +127,21 @@
 - **Deferred review:** Define human-backed catalog provenance, deduplicate repeated scans, resolve
   uncertain series/variant semantics, and introduce a reviewable mapping workflow before expanding
   canonical ground truth.
+
+## D10 — Separate casting identity from provisional variant identity
+
+- **Choice:** Build a human-backed catalog with stable casting entities and nested provisional
+  variants. Exact normalized brand/casting creates a casting; exact normalized series/variant
+  groups source records into a draft variant. All draft variants require canonical review.
+- **Reason:** The 101 confirmed labels reliably name castings, but do not consistently provide
+  release year, collector number, color, scale, or edition as separate validated fields. Minting
+  production canonical variants from those incomplete labels would make stable IDs depend on
+  assumptions that may later be corrected.
+- **Alternatives:** Create 101 unrelated products; merge everything by casting and discard variant
+  differences; treat the free-text pricing keyword as a final natural key; wait until every field is
+  manually re-labeled before retaining any catalog structure.
+- **Impact:** All source evidence is usable for retrieval and review now: 101 cases become 97 casting
+  entities and 100 provisional variant groups. One exact Chevelle structured duplicate merges while
+  retaining both human names and case IDs. No provisional UUID is exposed as canonical truth.
+- **Deferred review:** Add an explicit review queue for year, color, scale, series, edition, and
+  collector number, then promote reviewed variants into a versioned canonical catalog.

@@ -1,0 +1,3579 @@
+{
+  "castings": [
+    {
+      "brand": "Auto World",
+      "casting": "2020 Ford F-150 Lariat",
+      "casting_id": "human-auto-world-2020-ford-f-150-lariat",
+      "casting_uuid": "f77932c2-be9d-503e-bd70-d521e4958553",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "casting_token_loss",
+            "series_mismatch",
+            "sold_zero_result",
+            "top1_wrong_top3_correct",
+            "wrong_casting",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "Auto World Speedway 2020 Ford F-150 Lariat"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "New-in-package die-cast metal toy truck. This orange and red vehicle is a Hot Wheels Cool Classics '29 Ford Pickup. It has a Spectrafrost finish and is part of"
+          ],
+          "pricing_keywords": [
+            "Auto World Speedway 2020 Ford F-150 Lariat red"
+          ],
+          "provisional_variant_id": "human-auto-world-2020-ford-f-150-lariat-auto-world-red",
+          "provisional_variant_uuid": "48f5b742-14d0-5d55-9139-f203372c5a52",
+          "series_label": "Auto World",
+          "source_case_ids": [
+            "ui-scan-ce94c79c-216a-4704-974f-46c19d5a273a"
+          ],
+          "variant_label": "red"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-ce94c79c-216a-4704-974f-46c19d5a273a"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "'08 Ford Focus",
+      "casting_id": "human-hot-wheels-08-ford-focus",
+      "casting_uuid": "41fea42f-1674-581c-834d-ff7e142e7b3a",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant"
+          ],
+          "human_label_names": [
+            "Hot Wheels 2021  Street Racers '08 Ford Focus"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels 2021 - Theme / Cult Street Racers # 1/5 - '08 Ford Focus - – KMJ Diecast II"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels 2021  Street Racers '08 Ford Focus"
+          ],
+          "provisional_variant_id": "human-hot-wheels-08-ford-focus-street-racers-street-racers",
+          "provisional_variant_uuid": "2de2463a-a888-5120-98d9-84385b31c1ae",
+          "series_label": "Street Racers",
+          "source_case_ids": [
+            "ui-scan-c35fb3c1-6ada-4fbd-a72d-c002f1a2e81e"
+          ],
+          "variant_label": "Street Racers"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-c35fb3c1-6ada-4fbd-a72d-c002f1a2e81e"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "08 Tesla Roadster",
+      "casting_id": "human-hot-wheels-08-tesla-roadster",
+      "casting_uuid": "8ebba72f-5470-5762-a1e0-6fe5c59f1128",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant"
+          ],
+          "human_label_names": [
+            "Hot Wheels 08 Tesla Roadster Greetings From Space 2019 | Desertcart INDIA"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels 08 Tesla Roadster Greetings From Space 2019 | Desertcart INDIA"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels 08 Tesla Roadster Greetings From Space 2019 | Desertcart INDIA"
+          ],
+          "provisional_variant_id": "human-hot-wheels-08-tesla-roadster-hot-wheels-tesla-greetings-from-space",
+          "provisional_variant_uuid": "e414ef07-58a4-5257-a574-97b0170819b8",
+          "series_label": "Hot wheels Tesla",
+          "source_case_ids": [
+            "ui-scan-216a6769-7380-40b3-970e-c23d9716426e"
+          ],
+          "variant_label": "Greetings From Space"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-216a6769-7380-40b3-970e-c23d9716426e"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "10 CAMARO SS",
+      "casting_id": "human-hot-wheels-10-camaro-ss",
+      "casting_uuid": "c16dba28-4f78-5d50-99f5-094882817e63",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "casting_token_loss",
+            "color_variant_mismatch",
+            "marketplace_wrapper_pollution",
+            "series_mismatch",
+            "sth_th_contamination",
+            "top1_wrong_top3_correct",
+            "wrong_casting",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "2013 Hot Wheels Treasure Hunt #17 HW City-HW Rescue ‘10 CAMARO SS Black"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels '70 Mustang Boss 429 Special Limited Edition Street Machines #4/4 MOMC - Etsy"
+          ],
+          "pricing_keywords": [
+            "2013 Hot Wheels Treasure Hunt #17 HW City-HW Rescue ‘10 CAMARO SS Black"
+          ],
+          "provisional_variant_id": "human-hot-wheels-10-camaro-ss-hw-city-treasure-hunt",
+          "provisional_variant_uuid": "03ddd793-177a-505d-897e-5979613b56c2",
+          "series_label": "HW City",
+          "source_case_ids": [
+            "ui-scan-94924827-a304-4b74-958d-5e9dff28a924"
+          ],
+          "variant_label": "Treasure Hunt"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-94924827-a304-4b74-958d-5e9dff28a924"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "16 Bugatti Chiron",
+      "casting_id": "human-hot-wheels-16-bugatti-chiron",
+      "casting_uuid": "d6299f3d-e0b3-50c0-af2a-a6c7fe7ea7b8",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch"
+          ],
+          "human_label_names": [
+            "2017 hot wheels HW exotics '16 Bugatti Chiron dark blue 7/10"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "2017 hot wheels HW exotics '16 Bugatti Chiron dark blue 7/10￼"
+          ],
+          "pricing_keywords": [
+            "2017 hot wheels HW exotics '16 Bugatti Chiron dark blue 7/10"
+          ],
+          "provisional_variant_id": "human-hot-wheels-16-bugatti-chiron-mainline-hw-exotics",
+          "provisional_variant_uuid": "c899ab91-3dcc-5f18-a830-560dd7a4b2de",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-d06d673b-239d-4e1b-91ef-bb2d2c0aa7c4"
+          ],
+          "variant_label": "HW exotics"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-d06d673b-239d-4e1b-91ef-bb2d2c0aa7c4"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "18 Dodge Challenger SRT Demon",
+      "casting_id": "human-hot-wheels-18-dodge-challenger-srt-demon",
+      "casting_uuid": "567ebcc1-016d-51a2-b1bc-337cb2c4d11e",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "mainline_premium_mismatch",
+            "series_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels Premium ‘18 Dodge Challenger SRT Demon  Power Trip"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot wheels car culture Power Trip 4/5 18 Dodge Challenger SRT Demon #4 – carolinasdiecast"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels Premium ‘18 Dodge Challenger SRT Demon  Power Trip"
+          ],
+          "provisional_variant_id": "human-hot-wheels-18-dodge-challenger-srt-demon-premium-power-trip",
+          "provisional_variant_uuid": "a59dd85f-4b9d-5ae4-9f2d-2409590f1f00",
+          "series_label": "Premium",
+          "source_case_ids": [
+            "ui-scan-8a492f32-a27a-4319-9d5c-76b47c781a48"
+          ],
+          "variant_label": "Power Trip"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-8a492f32-a27a-4319-9d5c-76b47c781a48"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "19 Chevy Silverado Trail Boss LT",
+      "casting_id": "human-hot-wheels-19-chevy-silverado-trail-boss-lt",
+      "casting_uuid": "3eabcfe8-0851-515c-943f-fa643b3831a5",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels ‘19 Chevy Silverado Trail Boss LT red edition"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels '19 Chevy Silverado Trail Boss LT, [red] Hot Trucks 299/365"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels ‘19 Chevy Silverado Trail Boss LT red edition"
+          ],
+          "provisional_variant_id": "human-hot-wheels-19-chevy-silverado-trail-boss-lt-mainline-red-edition",
+          "provisional_variant_uuid": "7756bd78-a0ef-521a-a2e8-a6ba5c2ca1a9",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-a2fc8081-1fc8-4ea6-9ca8-bc88a72d3993"
+          ],
+          "variant_label": "Red Edition"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-a2fc8081-1fc8-4ea6-9ca8-bc88a72d3993"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "1935 Cadillac",
+      "casting_id": "human-hot-wheels-1935-cadillac",
+      "casting_uuid": "6a85d336-0b21-5a31-a672-ed13a4950084",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch"
+          ],
+          "human_label_names": [
+            "2001 Hot Wheels 1935 Cadillac Gold"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "2001 Hot Wheels 1935 Cadillac Gold WSP 115 VHTF"
+          ],
+          "pricing_keywords": [
+            "2001 Hot Wheels 1935 Cadillac Gold"
+          ],
+          "provisional_variant_id": "human-hot-wheels-1935-cadillac-mainline-gold",
+          "provisional_variant_uuid": "83cf0482-3798-52b1-8048-425a2eefe663",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-9b62ca20-8c31-4842-8585-ff88fba64f11"
+          ],
+          "variant_label": "Gold"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-9b62ca20-8c31-4842-8585-ff88fba64f11"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "1969 Ford Mustang Boss 302",
+      "casting_id": "human-hot-wheels-1969-ford-mustang-boss-302",
+      "casting_uuid": "3cd8ec4d-9a94-57ec-b020-32c1dfacda2a",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant"
+          ],
+          "human_label_names": [
+            "Hot Wheels Premium 1969 Ford Mustang Boss 302 Fast & Furious 25 Years 3/5"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels Premium 1969 Ford Mustang Boss 302 Fast & Furious 25 Years 3/5"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels Premium 1969 Ford Mustang Boss 302 Fast & Furious 25 Years 3/5"
+          ],
+          "provisional_variant_id": "human-hot-wheels-1969-ford-mustang-boss-302-premium-premium-fast-and-furious",
+          "provisional_variant_uuid": "c2f45a71-030d-5e7a-8311-21ad7e3bde10",
+          "series_label": "Premium",
+          "source_case_ids": [
+            "ui-scan-ee27c498-fb8c-4a07-ab35-f06e77d8bd3f"
+          ],
+          "variant_label": "Premium, Fast and Furious"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-ee27c498-fb8c-4a07-ab35-f06e77d8bd3f"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "1969 Pontiac GTO",
+      "casting_id": "human-hot-wheels-1969-pontiac-gto",
+      "casting_uuid": "10634254-c24a-5fa6-a427-9abb887ffde9",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "all_candidates_wrong",
+            "casting_token_loss",
+            "lot_or_multipack",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels Classics #27 1969 Pontiac GTO"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "2005 Hot Wheels Classics Series 2 1967 Pontiac GTO Lot of 5 green red purple +++ 798627054673"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels Classics #27 1969 Pontiac GTO"
+          ],
+          "provisional_variant_id": "human-hot-wheels-1969-pontiac-gto-hot-wheels-classics-hot-wheels-classics",
+          "provisional_variant_uuid": "cdc6fc59-7574-5a33-a59e-85e61004c3e6",
+          "series_label": "Hot Wheels Classics",
+          "source_case_ids": [
+            "ui-scan-224c0224-cd7a-4314-ad17-91187de0dbb7"
+          ],
+          "variant_label": "Hot Wheels Classics"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-224c0224-cd7a-4314-ad17-91187de0dbb7"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "1970 Chevrolet Chevelle SS",
+      "casting_id": "human-hot-wheels-1970-chevrolet-chevelle-ss",
+      "casting_uuid": "2c5a80f4-e8cb-515b-9ca0-8fb22e9a2150",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "casting_token_loss",
+            "series_mismatch",
+            "sold_zero_result",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels Fast & Furious 1/4 Mile Muscle 1970 Chevrolet Chevelle SS",
+            "Hot Wheels Fast & Furious 1970 Chevrolet Chevelle SS"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels Fast & Furious 1/4 Mile Muscle 1970 Chevrolet Chevelle SS"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels Fast & Furious  1970 Chevrolet Chevelle SS 25 Years",
+            "Hot Wheels Fast & Furious 1970 Chevrolet Chevelle SS 1/5"
+          ],
+          "provisional_variant_id": "human-hot-wheels-1970-chevrolet-chevelle-ss-premium-premium-fast-and-furious",
+          "provisional_variant_uuid": "73a59942-603f-5210-a67b-6eb6b9606b6b",
+          "series_label": "Premium",
+          "source_case_ids": [
+            "ui-scan-03096ee6-dff5-4294-914b-0a60d3f78916",
+            "ui-scan-db2a9915-cf14-4c45-aaf3-93a6bbe8e28a"
+          ],
+          "variant_label": "Premium, Fast and Furious"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-03096ee6-dff5-4294-914b-0a60d3f78916",
+        "ui-scan-db2a9915-cf14-4c45-aaf3-93a6bbe8e28a"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "1970 Pontiac Firebird",
+      "casting_id": "human-hot-wheels-1970-pontiac-firebird",
+      "casting_uuid": "a5bde65b-073b-5bec-9962-ff4ff0baa2ac",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "color_variant_mismatch",
+            "custom_or_modified",
+            "mainline_premium_mismatch"
+          ],
+          "human_label_names": [
+            "2023 Hot Wheels Kroger Exclusive Orange 1970 Pontiac Firebird"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "2023 Hot Wheels 1970 Pontiac Firebird Kroger Exclusive Mainline HW Modified"
+          ],
+          "pricing_keywords": [
+            "2023 Hot Wheels Kroger Exclusive Orange 1970 Pontiac Firebird"
+          ],
+          "provisional_variant_id": "human-hot-wheels-1970-pontiac-firebird-mainline-kroger-exclusive",
+          "provisional_variant_uuid": "fb2882d7-a711-5f11-9ce2-b73b29f021eb",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-8b4e2fd0-07cd-48af-988b-6ad012a974ea"
+          ],
+          "variant_label": "Kroger Exclusive"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-8b4e2fd0-07cd-48af-988b-6ad012a974ea"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "1985 Honda City Turbo II",
+      "casting_id": "human-hot-wheels-1985-honda-city-turbo-ii",
+      "casting_uuid": "c886d448-0163-5757-8f38-4d6590fc6ea3",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "all_candidates_wrong",
+            "series_mismatch",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels Compact Kings 1985 Honda City Turbo II"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "HOT WHEELS Hotwheels 2026-85 Honda Turbo City Ii - Price, Reviews"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels Compact Kings 1985 Honda City Turbo II"
+          ],
+          "provisional_variant_id": "human-hot-wheels-1985-honda-city-turbo-ii-mainline-compact-kings",
+          "provisional_variant_uuid": "4e57e53b-4866-59d7-8602-0a8bfc53c190",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-ec9990a1-8781-4716-86f3-e441fa07c603"
+          ],
+          "variant_label": "Compact Kings"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-ec9990a1-8781-4716-86f3-e441fa07c603"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "1994 AMG-Mercedes C-Class DTM",
+      "casting_id": "human-hot-wheels-1994-amg-mercedes-c-class-dtm",
+      "casting_uuid": "445b9952-ac5c-5be9-8d4d-ec1baf2d1129",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels Car Culture Deutschland Design 1994 AMG-Mercedes C-Class DTM"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels 1994 AMG Mercedes C Class DTM Touring Car Deutschland Design Diecast"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels Car Culture Deutschland Design 1994 AMG-Mercedes C-Class DTM"
+          ],
+          "provisional_variant_id": "human-hot-wheels-1994-amg-mercedes-c-class-dtm-car-culture-premium-deutschland-design",
+          "provisional_variant_uuid": "0d1b71f2-4909-5688-921a-e05e7bba2043",
+          "series_label": "Car Culture, Premium",
+          "source_case_ids": [
+            "ui-scan-7ef3db2a-7d0a-4edb-a7b7-a7da74ac0aee"
+          ],
+          "variant_label": "Deutschland Design"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-7ef3db2a-7d0a-4edb-a7b7-a7da74ac0aee"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "1997 Toyota Supra HKS",
+      "casting_id": "human-hot-wheels-1997-toyota-supra-hks",
+      "casting_uuid": "f2031fc4-e504-5119-abdd-3a06cac82fdb",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "all_candidates_wrong",
+            "series_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels RLC 1997 Toyota Supra HKS"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels 1997 Toyota Supra Hot Tunerz"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels RLC 1997 Toyota Supra HKS"
+          ],
+          "provisional_variant_id": "human-hot-wheels-1997-toyota-supra-hks-rlc-hks",
+          "provisional_variant_uuid": "c23f4c2e-95ba-58ed-9621-8637be6a0c25",
+          "series_label": "RLC",
+          "source_case_ids": [
+            "ui-scan-83ff17e6-ceb0-4232-be7d-79e155f19b05"
+          ],
+          "variant_label": "HKS"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-83ff17e6-ceb0-4232-be7d-79e155f19b05"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "20 Toyota Tacoma",
+      "casting_id": "human-hot-wheels-20-toyota-tacoma",
+      "casting_uuid": "fa22dac4-9273-5def-b641-2cfd3334a860",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels '20 Toyota Tacoma Baja Blazers"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels #207 '20 Toyota Tacoma White Baja | Mercari"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels '20 Toyota Tacoma Baja Blazers"
+          ],
+          "provisional_variant_id": "human-hot-wheels-20-toyota-tacoma-mainline-white",
+          "provisional_variant_uuid": "be166078-68fe-51ea-94c6-48740b83aa1c",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-33e27f38-48f2-40ba-baf8-cbd5eb2a3f4f"
+          ],
+          "variant_label": "white"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-33e27f38-48f2-40ba-baf8-cbd5eb2a3f4f"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "2000 Chevy Nomad",
+      "casting_id": "human-hot-wheels-2000-chevy-nomad",
+      "casting_uuid": "1f8454af-4f76-58ef-8c86-572f62ec62f5",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels 2000 Chevy Nomad Orange #196 NIB"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels 2000 Chevy Nomad Orange #196 NIB"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels 2000 Chevy Nomad Orange"
+          ],
+          "provisional_variant_id": "human-hot-wheels-2000-chevy-nomad-mainline-orange",
+          "provisional_variant_uuid": "ee7b3635-6a6d-52fe-b58f-36180a9bd086",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-b74f75ef-7a03-4e03-ac75-9d0d74c8b919"
+          ],
+          "variant_label": "orange"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-b74f75ef-7a03-4e03-ac75-9d0d74c8b919"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "2012 Mustang Boss 302 Laguna Seca",
+      "casting_id": "human-hot-wheels-2012-mustang-boss-302-laguna-seca",
+      "casting_uuid": "7fa9f4a7-fb7b-592b-8b56-6ea7f246e7e1",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels 2012 New Models 2012 Mustang Boss 302 Laguna Seca Black and Red"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels 2012 New Models 2012 Mustang Boss 302 Laguna Seca Black and Red"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels 2012 New Models 2012 Mustang Boss 302 Laguna Seca Black and Red"
+          ],
+          "provisional_variant_id": "human-hot-wheels-2012-mustang-boss-302-laguna-seca-mainline-2012-new-model-black-and-red",
+          "provisional_variant_uuid": "fd31b1db-193d-54ea-891e-5c72257296ca",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-82f2bd8c-4a9f-46fa-8b69-b68489338f9e"
+          ],
+          "variant_label": "2012 New Model, Black and Red"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-82f2bd8c-4a9f-46fa-8b69-b68489338f9e"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "2018 Honda Civic Type R",
+      "casting_id": "human-hot-wheels-2018-honda-civic-type-r",
+      "casting_uuid": "233e6e66-00e1-5316-ab5f-2baabcdd0bb6",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "casting_token_loss",
+            "series_mismatch",
+            "sold_zero_result",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels - 2026 Nightspeed 3/10 2018 Honda Civic Type R"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [],
+          "pricing_keywords": [
+            "Hot Wheels - 2026 Nightspeed 3/10 2018 Honda Civic Type R"
+          ],
+          "provisional_variant_id": "human-hot-wheels-2018-honda-civic-type-r-mainline-nightspeed",
+          "provisional_variant_uuid": "029e8d5d-cc37-5ed1-83df-cffd5e7d7f97",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-310c1867-3a80-4e0a-bd0d-e3f6bdb55837"
+          ],
+          "variant_label": "Nightspeed"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-310c1867-3a80-4e0a-bd0d-e3f6bdb55837"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "55 CHEVY BEL AIR GASSER",
+      "casting_id": "human-hot-wheels-55-chevy-bel-air-gasser",
+      "casting_uuid": "ba6cfc51-f515-5c1f-853b-9a04603e8e6f",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels '55 CHEVY BEL AIR GASSER Orange"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "2015 Hot Wheels '55 CHEVY BEL AIR GASSER #207∞ Orange;flame∞Heat Fleet∞FACTORY ∞"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels '55 CHEVY BEL AIR GASSER Orange"
+          ],
+          "provisional_variant_id": "human-hot-wheels-55-chevy-bel-air-gasser-mainline-orange",
+          "provisional_variant_uuid": "c109fdfa-5b06-5d28-b811-848be503877e",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-a5ab7ace-fc75-43d0-bf09-b2bad1c0c9ed"
+          ],
+          "variant_label": "orange"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-a5ab7ace-fc75-43d0-bf09-b2bad1c0c9ed"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "62 Corvette Gasser",
+      "casting_id": "human-hot-wheels-62-corvette-gasser",
+      "casting_uuid": "2c80702f-0f98-50c0-93bf-89d3fc4a365b",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "color_variant_mismatch",
+            "series_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels '62 Corvette Gasser Red"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels '62 Corvette Gasser"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels '62 Corvette Gasser Red"
+          ],
+          "provisional_variant_id": "human-hot-wheels-62-corvette-gasser-mainline-red",
+          "provisional_variant_uuid": "f716a704-5f48-5618-869a-0b5a58732ba3",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-63b8ef7f-1eb2-42fc-ad62-a03babac6e41"
+          ],
+          "variant_label": "red"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-63b8ef7f-1eb2-42fc-ad62-a03babac6e41"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "65 Dodge Coronet",
+      "casting_id": "human-hot-wheels-65-dodge-coronet",
+      "casting_uuid": "b3d8aae2-e5d0-52db-a7a5-837f39ad992e",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels '65 Dodge Coronet, Car Culture"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels '65 Dodge Coronet, Car Culture 1/5"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels '65 Dodge Coronet, Car Culture"
+          ],
+          "provisional_variant_id": "human-hot-wheels-65-dodge-coronet-premium-car-culture",
+          "provisional_variant_uuid": "1d167a04-98ac-5c05-873c-25b32f6c870c",
+          "series_label": "Premium",
+          "source_case_ids": [
+            "ui-scan-392e8cb1-5db3-4471-8512-78cee25b2707"
+          ],
+          "variant_label": "Car Culture"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-392e8cb1-5db3-4471-8512-78cee25b2707"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "67 Chevrolet Camaro",
+      "casting_id": "human-hot-wheels-67-chevrolet-camaro",
+      "casting_uuid": "f287ba23-7333-5dba-8830-e16808432cda",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "casting_token_loss",
+            "mainline_premium_mismatch",
+            "series_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels Fast and Furious premium 1967 Chevrolet Camaro"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels Fast and Furious 1967 Chevrolet Camaro Gbw87"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels Fast and Furious premium 1967 Chevrolet Camaro"
+          ],
+          "provisional_variant_id": "human-hot-wheels-67-chevrolet-camaro-premium-premium-fast-and-furious",
+          "provisional_variant_uuid": "408c8d89-f0ee-5172-8735-7fe334e48c4e",
+          "series_label": "Premium",
+          "source_case_ids": [
+            "ui-scan-75476ed3-4e71-4882-8a52-c74bde5bb92f"
+          ],
+          "variant_label": "Premium, Fast and Furious"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-75476ed3-4e71-4882-8a52-c74bde5bb92f"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "'67 Chevy C10",
+      "casting_id": "human-hot-wheels-67-chevy-c10",
+      "casting_uuid": "68568b93-4dea-54f7-a549-59e48a4967cb",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels, HW Workshop, '67 Chevy C10 [Green]"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels, 2015 HW Workshop, '67 Chevy C10 [Green] Exclusive #208/250"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels, HW Workshop, '67 Chevy C10 [Green]"
+          ],
+          "provisional_variant_id": "human-hot-wheels-67-chevy-c10-hw-workshop-green",
+          "provisional_variant_uuid": "638e02dd-55c0-571a-b745-9ec910700fe2",
+          "series_label": "HW Workshop",
+          "source_case_ids": [
+            "ui-scan-fa7ff9d2-c47f-492e-87cd-aacd969b19be"
+          ],
+          "variant_label": "Green"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-fa7ff9d2-c47f-492e-87cd-aacd969b19be"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "70 Chevelle SS Wagon",
+      "casting_id": "human-hot-wheels-70-chevelle-ss-wagon",
+      "casting_uuid": "bc374bed-3529-52f8-b7d1-ecc5f2b31691",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "color_variant_mismatch",
+            "series_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels '70 Chevelle SS Wagon"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Chevrolet Chevelle SS 1970 Wagon Hot Wheels"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels '70 Chevelle SS Wagon blue"
+          ],
+          "provisional_variant_id": "human-hot-wheels-70-chevelle-ss-wagon-mainline-blue",
+          "provisional_variant_uuid": "32782cde-954a-5509-9fb1-11120045c986",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-d82cc222-caa5-4554-8141-63999ab392de"
+          ],
+          "variant_label": "blue"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-d82cc222-caa5-4554-8141-63999ab392de"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "70 Dodge Hemi Challenger",
+      "casting_id": "human-hot-wheels-70-dodge-hemi-challenger",
+      "casting_uuid": "cb6016d3-e4c0-5e5c-8a21-1e0a17cd0560",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch",
+            "top1_wrong_top3_correct",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "2012 Hot Wheels #174 '70 Dodge Hemi Challenger #/10 HW Racing '12"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "HOT WHEELS 70' DODGE HEMI CHALLENGER HW RACING '12 in CARD"
+          ],
+          "pricing_keywords": [
+            "2012 Hot Wheels #174 '70 Dodge Hemi Challenger #/10 HW Racing '12"
+          ],
+          "provisional_variant_id": "human-hot-wheels-70-dodge-hemi-challenger-mainline-hw-racing-12",
+          "provisional_variant_uuid": "ce8bb064-54f9-533b-ac6d-0d409e3ed6bb",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-f8a72c00-77b8-4d61-9f7d-9a2de6646064"
+          ],
+          "variant_label": "HW Racing '12"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-f8a72c00-77b8-4d61-9f7d-9a2de6646064"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "‘72 Ford Grab Torino",
+      "casting_id": "human-hot-wheels-72-ford-grab-torino",
+      "casting_uuid": "a948326d-e7d9-5785-8e85-c88eb55eff81",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "casting_token_loss",
+            "series_mismatch",
+            "sold_zero_result",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "2011 Hot Wheels ‘72 Ford Grab Torino Sport New Models"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [],
+          "pricing_keywords": [
+            "2011 Hot Wheels ‘72 Ford Grab Torino Sport New Models"
+          ],
+          "provisional_variant_id": "human-hot-wheels-72-ford-grab-torino-mainline-2011-new-models",
+          "provisional_variant_uuid": "25e04271-04c4-51f0-8884-53fb94f1fc3a",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-1a5ee824-ba7c-469d-9b23-b1b685087805"
+          ],
+          "variant_label": "2011 New Models"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-1a5ee824-ba7c-469d-9b23-b1b685087805"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "'72 Ford Ranchero",
+      "casting_id": "human-hot-wheels-72-ford-ranchero",
+      "casting_uuid": "0719c56c-2dae-5ffa-83c4-8fae6e1bbed2",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels '72 Ford Ranchero HW Art Cars 9/10 2023"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels '72 Ford Ranchero HW Art Cars 9/10 2023"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels '72 Ford Ranchero HW Art Cars 9/10 2023"
+          ],
+          "provisional_variant_id": "human-hot-wheels-72-ford-ranchero-mainline-hw-art-cars",
+          "provisional_variant_uuid": "e937f22f-a599-579b-adb6-fb623927266c",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-091acccd-fa26-4166-9045-276d18d9d2c1"
+          ],
+          "variant_label": "HW Art Cars"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-091acccd-fa26-4166-9045-276d18d9d2c1"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "83 Chevy Silverado",
+      "casting_id": "human-hot-wheels-83-chevy-silverado",
+      "casting_uuid": "f45ee740-cd70-5994-a453-4075bb958ca4",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "all_candidates_wrong",
+            "ambiguous_variant",
+            "color_variant_mismatch",
+            "lot_or_multipack",
+            "mainline_premium_mismatch",
+            "sold_zero_result",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels  '83 Chevy Silverado baby blue"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "2025 HOT WHEELS MAINLINE CASE H '83 CHEVY SILVERADO HW HOT TRUCKS"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels  '83 Chevy Silverado baby blue"
+          ],
+          "provisional_variant_id": "human-hot-wheels-83-chevy-silverado-mainline-baby-blue",
+          "provisional_variant_uuid": "542ce3ce-8215-5ac8-b9cd-c4e967746e7e",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-27e506f5-3603-4e8b-8b60-d1f43596e3b4"
+          ],
+          "variant_label": "baby blue"
+        },
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "color_variant_mismatch",
+            "series_mismatch",
+            "sold_zero_result",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels  '83 Chevy Silverado black"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels 2025 '83 Chevy Silverado New | Mercari"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels  '83 Chevy Silverado black"
+          ],
+          "provisional_variant_id": "human-hot-wheels-83-chevy-silverado-mainline-black",
+          "provisional_variant_uuid": "f24ded34-c29c-591b-8b41-aae5f049d6ad",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-effa5c4f-99e2-4f59-b980-78eaefebb84e"
+          ],
+          "variant_label": "black"
+        },
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "color_variant_mismatch",
+            "series_mismatch",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels -83 Chevy Silverado Blue"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "2024 Hot Wheels -83 Chevy Silverado- Then and Now 9/10 #249 (HTC73) – Extreme Hobbies"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels -83 Chevy Silverado Blue"
+          ],
+          "provisional_variant_id": "human-hot-wheels-83-chevy-silverado-mainline-blue",
+          "provisional_variant_uuid": "784a6750-bd5d-5a09-a4be-f60021a5023a",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-b2eb568c-75f1-4043-a381-47ff3becd275"
+          ],
+          "variant_label": "Blue"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-27e506f5-3603-4e8b-8b60-d1f43596e3b4",
+        "ui-scan-b2eb568c-75f1-4043-a381-47ff3becd275",
+        "ui-scan-effa5c4f-99e2-4f59-b980-78eaefebb84e"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "88 HONDA CR-X",
+      "casting_id": "human-hot-wheels-88-honda-cr-x",
+      "casting_uuid": "e258e58c-b522-5811-b975-cde38ee41f60",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "casting_token_loss",
+            "series_mismatch",
+            "sold_zero_result",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "2020 HOT WHEELS *STREET RACERS* *'88 HONDA CR-X"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [],
+          "pricing_keywords": [
+            "2020 HOT WHEELS *STREET RACERS* *'88 HONDA CR-X"
+          ],
+          "provisional_variant_id": "human-hot-wheels-88-honda-cr-x-street-racers-street-racers",
+          "provisional_variant_uuid": "9aa31d37-132e-5ff0-8bee-849f9f7ebbe2",
+          "series_label": "Street Racers",
+          "source_case_ids": [
+            "ui-scan-45031cd9-3720-4354-86fa-81a7f544e01c"
+          ],
+          "variant_label": "Street Racers"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-45031cd9-3720-4354-86fa-81a7f544e01c"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "'90 ACURA NSX",
+      "casting_id": "human-hot-wheels-90-acura-nsx",
+      "casting_uuid": "98b0107a-0444-5629-abac-163d5760096c",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "HOT WHEELS '90 ACURA NSX, WHITE"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "HOT WHEELS 2024 '90 ACURA NSX, WHITE, SHORT CARD."
+          ],
+          "pricing_keywords": [
+            "HOT WHEELS '90 ACURA NSX, WHITE"
+          ],
+          "provisional_variant_id": "human-hot-wheels-90-acura-nsx-mainline-white",
+          "provisional_variant_uuid": "1e8e8935-51fc-505b-bcaa-6ca1dc1cea8a",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-b8a54766-d125-4895-a9fb-379f30b9dab3"
+          ],
+          "variant_label": "WHITE"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-b8a54766-d125-4895-a9fb-379f30b9dab3"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "'96 Nissan 180SX Type X",
+      "casting_id": "human-hot-wheels-96-nissan-180sx-type-x",
+      "casting_uuid": "48e88f8e-2b48-5637-a612-d03cd3c2b59a",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "casting_token_loss",
+            "color_variant_mismatch",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels '96 Nissan 180SX Type X Blue HW Race Team"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "2017 Hot Wheels HW Race Team '96 Nissan 180SX | Mercari"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels '96 Nissan 180SX Type X Blue HW Race Team"
+          ],
+          "provisional_variant_id": "human-hot-wheels-96-nissan-180sx-type-x-hw-race-team-blue",
+          "provisional_variant_uuid": "d97ecc3c-4a7b-5aa5-a7fb-ac1872aedf67",
+          "series_label": "HW Race Team",
+          "source_case_ids": [
+            "ui-scan-d9b54952-3f3a-42c9-bb34-23169d09b333"
+          ],
+          "variant_label": "blue"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-d9b54952-3f3a-42c9-bb34-23169d09b333"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "ALFA ROMEO GTV6 3.0",
+      "casting_id": "human-hot-wheels-alfa-romeo-gtv6-3-0",
+      "casting_uuid": "98c9a35f-0547-51b6-9b7a-a56ccbcb7e5a",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant"
+          ],
+          "human_label_names": [
+            "HOT WHEELS PREMIUM CAR CULTURE WORLD TOUR SERIES ALFA ROMEO GTV6 3.0"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels Premium Car Culture World Tour Alfa Romeo GTV6 3.0"
+          ],
+          "pricing_keywords": [
+            "HOT WHEELS PREMIUM CAR CULTURE WORLD TOUR SERIES ALFA ROMEO GTV6 3.0"
+          ],
+          "provisional_variant_id": "human-hot-wheels-alfa-romeo-gtv6-3-0-car-culture-premium-world-tour-series",
+          "provisional_variant_uuid": "b82bbb96-bb61-5341-a86a-1b566499a1a7",
+          "series_label": "Car Culture, Premium",
+          "source_case_ids": [
+            "ui-scan-59932eae-59f1-416f-a4c6-8afe9ab768e4"
+          ],
+          "variant_label": "WORLD TOUR SERIES"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-59932eae-59f1-416f-a4c6-8afe9ab768e4"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Alien",
+      "casting_id": "human-hot-wheels-alien",
+      "casting_uuid": "11c432fd-fabc-5349-afe4-e359c25866cc",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels Alien Space Series"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels 1996/1998 Alien Collector #390/#729 New On Card B138"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels Alien Space Series"
+          ],
+          "provisional_variant_id": "human-hot-wheels-alien-mainline-space-series-space-series",
+          "provisional_variant_uuid": "978e4d8e-0826-5830-817d-c164332dab6d",
+          "series_label": "mainline, Space Series",
+          "source_case_ids": [
+            "ui-scan-703e69af-4cf0-4ffd-afea-7438a427947d"
+          ],
+          "variant_label": "Space Series"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-703e69af-4cf0-4ffd-afea-7438a427947d"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "ANGRY BIRDS MINION PIG",
+      "casting_id": "human-hot-wheels-angry-birds-minion-pig",
+      "casting_uuid": "eff24087-183d-5e35-b996-ff47ed83ccf9",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels 2012 ANGRY BIRDS MINION PIG"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "2012 HOT WHEELS ANGRY BIRDS MINION PIG, HW #35, 1ST RELEASE MODEL, NICE & VHTF"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels 2012 ANGRY BIRDS MINION PIG"
+          ],
+          "provisional_variant_id": "human-hot-wheels-angry-birds-minion-pig-mainline-angry-birds-minion-pig",
+          "provisional_variant_uuid": "2888ddde-18dc-59e9-a6a0-132c8b7caea4",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-36ce2013-d263-4ec8-bae0-414a36fb9647"
+          ],
+          "variant_label": "ANGRY BIRDS MINION PIG"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-36ce2013-d263-4ec8-bae0-414a36fb9647"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Bad To The Blade",
+      "casting_id": "human-hot-wheels-bad-to-the-blade",
+      "casting_uuid": "b4378ecd-a88f-5bca-bbf4-6dcba07bed71",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch"
+          ],
+          "human_label_names": [
+            "2013 Hot Wheels Bad To The Blade Treasure Hunt"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "2013 Hot Wheels Bad To The Blade Treasure Hunt 124/250"
+          ],
+          "pricing_keywords": [
+            "2013 Hot Wheels Bad To The Blade Treasure Hunt"
+          ],
+          "provisional_variant_id": "human-hot-wheels-bad-to-the-blade-hw-racing-treasure-hunts",
+          "provisional_variant_uuid": "6c28510f-b6eb-5e97-86e5-713123840e10",
+          "series_label": "HW Racing",
+          "source_case_ids": [
+            "ui-scan-371a2853-fdf9-4417-9be4-31131adc7372"
+          ],
+          "variant_label": "Treasure Hunts"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-371a2853-fdf9-4417-9be4-31131adc7372"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "birthday burner",
+      "casting_id": "human-hot-wheels-birthday-burner",
+      "casting_uuid": "01eca444-41f0-5292-813b-08cc9fb2431f",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch"
+          ],
+          "human_label_names": [
+            "2025 hot wheels  Treasure Hunt birthday burner Factory Sealed"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "2025 HOT WHEELS HW CELEBRATION RACERS 5/10 HW TREASURE HUNT BIRTHDAY BURNER"
+          ],
+          "pricing_keywords": [
+            "2025 hot wheels  Treasure Hunt birthday burner Factory Sealed"
+          ],
+          "provisional_variant_id": "human-hot-wheels-birthday-burner-mainline-treasure-hunt-factory-sealed",
+          "provisional_variant_uuid": "c831ac53-5ffe-50f6-936c-5f319ead19f2",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-992546b7-1b30-4f78-9298-1eeaa17cdf76"
+          ],
+          "variant_label": "Treasure Hunt , Factory Sealed"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-992546b7-1b30-4f78-9298-1eeaa17cdf76"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "BMW M1",
+      "casting_id": "human-hot-wheels-bmw-m1",
+      "casting_uuid": "2e12c468-4bd3-58a2-9864-e11784767588",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "all_candidates_wrong",
+            "casting_token_loss",
+            "color_variant_mismatch",
+            "series_mismatch",
+            "sold_zero_result",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels 2016 Walmart Exclusive Red BMW M1"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels 1:8 BMW Diecast Cars, Trucks & Vans"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels 2016 Walmart Exclusive Red BMW M1"
+          ],
+          "provisional_variant_id": "human-hot-wheels-bmw-m1-walmart-exclusive-walmart-exclusive-red",
+          "provisional_variant_uuid": "4cb5ae0b-5f99-5fd1-8b95-9cef42158ff9",
+          "series_label": "Walmart Exclusive",
+          "source_case_ids": [
+            "ui-scan-5b5d7152-42ea-42cf-bbaf-360395bc8da2"
+          ],
+          "variant_label": "Walmart Exclusive, red"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-5b5d7152-42ea-42cf-bbaf-360395bc8da2"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "BMW M3 GT2",
+      "casting_id": "human-hot-wheels-bmw-m3-gt2",
+      "casting_uuid": "98498418-43aa-56cb-9648-336dd7cebb1f",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "casting_token_loss",
+            "series_mismatch",
+            "sold_zero_result"
+          ],
+          "human_label_names": [
+            "Hot Wheels BMW M3 GT2 Neon Speeders"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [],
+          "pricing_keywords": [
+            "Hot Wheels BMW M3 GT2 Neon Speeders"
+          ],
+          "provisional_variant_id": "human-hot-wheels-bmw-m3-gt2-neon-speeders-neon-speeders",
+          "provisional_variant_uuid": "4721e966-c0ef-5009-8444-9d772a12f7ae",
+          "series_label": "Neon Speeders",
+          "source_case_ids": [
+            "ui-scan-82b18902-b4d1-43da-8e78-74c928038c8c"
+          ],
+          "variant_label": "Neon Speeders"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-82b18902-b4d1-43da-8e78-74c928038c8c"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Bugatti Veyron",
+      "casting_id": "human-hot-wheels-bugatti-veyron",
+      "casting_uuid": "a388e599-5e8d-5c5e-b4a4-368bd81a73e9",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "casting_token_loss",
+            "series_mismatch",
+            "sold_zero_result",
+            "top1_wrong_top3_correct",
+            "wrong_casting"
+          ],
+          "human_label_names": [
+            "Hot Wheels 1/4 Mile Finals Bugatti Veyron"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Rumah Hot Wheels Tegal Jual Hot Wheels Harga mulai dari 18rbuan JDM Nissan Toyota Honda Mazda Datsun BMW Mercedes cuman 35rbuan Lokasi : Jl. Raya ll Pagongan, S"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels 1/4 Mile Finals Bugatti Veyron"
+          ],
+          "provisional_variant_id": "human-hot-wheels-bugatti-veyron-1-4-mile-finals-1-4-mile-finals",
+          "provisional_variant_uuid": "4b7020dd-da61-560e-8aa5-9ffaa233cb4a",
+          "series_label": "1/4 Mile Finals",
+          "source_case_ids": [
+            "ui-scan-48c03ca0-bf7c-4511-8e58-6ab11b8c4674"
+          ],
+          "variant_label": "1/4 Mile Finals"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-48c03ca0-bf7c-4511-8e58-6ab11b8c4674"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Chevy Bel Air Gasser",
+      "casting_id": "human-hot-wheels-chevy-bel-air-gasser",
+      "casting_uuid": "7f0c2cc2-0db5-59b7-b2d0-fffd6720542e",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels HW Speed Graphics 1955 Chevy Bel Air Gasser"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "HOT WHEELS HW 2019 Speed Graphics '55 Chevy Bel Air Gasser short card NIB"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels HW Speed Graphics 1955 Chevy Bel Air Gasser"
+          ],
+          "provisional_variant_id": "human-hot-wheels-chevy-bel-air-gasser-mainline-speed-graphics",
+          "provisional_variant_uuid": "e4b4200d-1be3-585a-8c44-c770a6554096",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-96f1cb34-907e-49ca-a0d2-28b0dca6ab54"
+          ],
+          "variant_label": "Speed Graphics"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-96f1cb34-907e-49ca-a0d2-28b0dca6ab54"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Chrysler Pacifica",
+      "casting_id": "human-hot-wheels-chrysler-pacifica",
+      "casting_uuid": "9fc86053-35cc-59e6-beb5-32b5427b0748",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant"
+          ],
+          "human_label_names": [
+            "2021 Hot Wheels - Chrysler Pacifica - HW Metro Treasure Hunt"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "2021 Hot Wheels - Chrysler Pacifica - HW Metro 10/10 Treasure Hunt - Short Card"
+          ],
+          "pricing_keywords": [
+            "2021 Hot Wheels - Chrysler Pacifica - HW Metro Treasure Hunt"
+          ],
+          "provisional_variant_id": "human-hot-wheels-chrysler-pacifica-hw-metro-treasure-hunts",
+          "provisional_variant_uuid": "6d2af1cc-d11d-54a7-908f-c545d7161c9c",
+          "series_label": "HW Metro",
+          "source_case_ids": [
+            "ui-scan-09c195ee-d312-48ae-ba21-7dd3f6b1f12e"
+          ],
+          "variant_label": "Treasure Hunts"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-09c195ee-d312-48ae-ba21-7dd3f6b1f12e"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Crooze Bedtime",
+      "casting_id": "human-hot-wheels-crooze-bedtime",
+      "casting_uuid": "e6170161-fdb4-5e02-bc6a-3191af0d4af7",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch"
+          ],
+          "human_label_names": [
+            "2004 Hot Wheels Crooze Bedtime First Editions Series 52 OF 100 # 052"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "2004 Hot Wheels Crooze Bedtime First Editions Series 52 OF 100 # 052"
+          ],
+          "pricing_keywords": [
+            "2004 Hot Wheels Crooze Bedtime First Editions Series 52 OF 100 # 052"
+          ],
+          "provisional_variant_id": "human-hot-wheels-crooze-bedtime-mainline-first-editions",
+          "provisional_variant_uuid": "82ae266f-928b-5290-bfda-f3bb5eecd306",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-cd62c6f3-c85c-456b-b780-908614d1b29e"
+          ],
+          "variant_label": "First Editions"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-cd62c6f3-c85c-456b-b780-908614d1b29e"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Custom '01 Acura Integra GSR",
+      "casting_id": "human-hot-wheels-custom-01-acura-integra-gsr",
+      "casting_uuid": "f8490b2b-123b-5e68-b69a-551ffe7caa02",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "color_variant_mismatch",
+            "mainline_premium_mismatch",
+            "series_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels Premium Boulevard Custom '01 Acura Integra purplr"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels Custom '01 Acura Integra GSR"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels Premium Boulevard Custom '01 Acura Integra purplr"
+          ],
+          "provisional_variant_id": "human-hot-wheels-custom-01-acura-integra-gsr-premium-purple",
+          "provisional_variant_uuid": "ee48d6ec-3ed2-5bdf-91e5-070e5ace9976",
+          "series_label": "Premium",
+          "source_case_ids": [
+            "ui-scan-89c7805b-5226-494a-b7c1-767e6963fd70"
+          ],
+          "variant_label": "Purple"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-89c7805b-5226-494a-b7c1-767e6963fd70"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "CUSTOM '18 FORD MUSTANG GT",
+      "casting_id": "human-hot-wheels-custom-18-ford-mustang-gt",
+      "casting_uuid": "b0b82d27-d5fa-5953-8e8d-e0035a62f1ba",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "color_variant_mismatch",
+            "marketplace_wrapper_pollution",
+            "series_mismatch",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "HOT WHEELS 2025 CUSTOM '18 FORD MUSTANG GT BLUE 211/250 HYY94 MUSTANG 60"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Buy Hot Wheels Custom '18 Ford Mustang GT - Mustang 60th Online in India - Etsy"
+          ],
+          "pricing_keywords": [
+            "HOT WHEELS 2025 CUSTOM '18 FORD MUSTANG GT BLUE 211/250 HYY94 MUSTANG 60"
+          ],
+          "provisional_variant_id": "human-hot-wheels-custom-18-ford-mustang-gt-mainline-blue",
+          "provisional_variant_uuid": "7385f165-e9d2-5eb8-958c-3016a323f08c",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-a693ea4b-b1a3-42a7-bc1d-c972bc49aa64"
+          ],
+          "variant_label": "BLUE"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-a693ea4b-b1a3-42a7-bc1d-c972bc49aa64"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "De Tomaso Pantera Gruppo 4",
+      "casting_id": "human-hot-wheels-de-tomaso-pantera-gruppo-4",
+      "casting_uuid": "f58dcf65-59c4-5217-b643-4dbf1c2203a8",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "casting_token_loss",
+            "color_variant_mismatch",
+            "mainline_premium_mismatch",
+            "series_mismatch",
+            "sold_zero_result",
+            "top1_wrong_top3_correct",
+            "wrong_casting",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels 2024 Premium Boulevard De Tomaso Pantera Gruppo 4"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "1977 – MiniAuto"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels 2024 Premium Boulevard De Tomaso Pantera Gruppo 4"
+          ],
+          "provisional_variant_id": "human-hot-wheels-de-tomaso-pantera-gruppo-4-premium-yellow",
+          "provisional_variant_uuid": "0fa3db99-a9f7-5742-a6d9-12addfe311a9",
+          "series_label": "Premium",
+          "source_case_ids": [
+            "ui-scan-afecd2a8-c573-4ea1-8609-76a6771e1f29"
+          ],
+          "variant_label": "yellow"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-afecd2a8-c573-4ea1-8609-76a6771e1f29"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Dodge Challenger",
+      "casting_id": "human-hot-wheels-dodge-challenger",
+      "casting_uuid": "6eddf8a1-3da7-5669-8fdf-3954d46673ca",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels Dodge Challenger Drift Car HW Speed Graphics"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "2019 Hot Wheels Dodge Challenger Drift Car #179/250 Nightburnerz 6/10 Dark Red"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels Dodge Challenger Drift Car HW Speed Graphics"
+          ],
+          "provisional_variant_id": "human-hot-wheels-dodge-challenger-mainline-hw-speed-graphics",
+          "provisional_variant_uuid": "fe2ecfa4-20dc-5f5c-8819-1f9c04b04d89",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-f961e824-59c3-482e-8230-3709f42a573b"
+          ],
+          "variant_label": "HW Speed Graphics"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-f961e824-59c3-482e-8230-3709f42a573b"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Dodge Van",
+      "casting_id": "human-hot-wheels-dodge-van",
+      "casting_uuid": "7a1f853b-33e5-5398-beb3-40d4563a6c4c",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "color_variant_mismatch",
+            "series_mismatch",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels HW Metro 6/10 Dodge Van 55/250 Best Buy Exclusive Blue"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "2022 Hot Wheels Exclusive Dodge Van, Japan Race Series"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels HW Metro 6/10 Dodge Van 55/250 Best Buy Exclusive Blue"
+          ],
+          "provisional_variant_id": "human-hot-wheels-dodge-van-mainline-hw-metro-best-buy-exclusive",
+          "provisional_variant_uuid": "f69893d6-6738-5e04-b616-daf022aa9eea",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-cf9cd809-6318-4f28-a9cc-63e1e35e691c"
+          ],
+          "variant_label": "HW Metro, Best Buy Exclusive"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-cf9cd809-6318-4f28-a9cc-63e1e35e691c"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Fangster Car",
+      "casting_id": "human-hot-wheels-fangster-car",
+      "casting_uuid": "af65f8ec-3a25-5738-ae42-8cb26e8abf6b",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [],
+          "human_label_names": [
+            "2013 Hot Wheels Fangster Car Treasure Hunt TH HW City"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "RARE NEW 2013 Hot Wheels Fangster Car Treasure Hunt TH HW City 53/250"
+          ],
+          "pricing_keywords": [
+            "2013 Hot Wheels Fangster Car Treasure Hunt TH HW City"
+          ],
+          "provisional_variant_id": "human-hot-wheels-fangster-car-hw-city-treasure-hunts",
+          "provisional_variant_uuid": "1ab974b8-44b1-518d-8b57-33169bc35a9d",
+          "series_label": "HW City",
+          "source_case_ids": [
+            "ui-scan-7679d0e8-c4e2-4fd5-920a-0ff03d9754d9"
+          ],
+          "variant_label": "Treasure Hunts"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-7679d0e8-c4e2-4fd5-920a-0ff03d9754d9"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Ferrari SF90 Stradale",
+      "casting_id": "human-hot-wheels-ferrari-sf90-stradale",
+      "casting_uuid": "0911b196-8873-5e00-a6fa-ed1d94bda57b",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "mainline_premium_mismatch"
+          ],
+          "human_label_names": [
+            "2026 Hot Wheels Ferrari SF90 Stradale - Blue"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "2026 Hot wheels Mainline # Ferrari SF90 Stradale Blue Carded"
+          ],
+          "pricing_keywords": [
+            "2026 Hot Wheels Ferrari SF90 Stradale - Blue"
+          ],
+          "provisional_variant_id": "human-hot-wheels-ferrari-sf90-stradale-mainline-blue",
+          "provisional_variant_uuid": "2a8a89f2-9373-5410-9465-6e77704a89b3",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-d482e9f2-b037-4ade-8160-2b6272e01aa7"
+          ],
+          "variant_label": "Blue"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-d482e9f2-b037-4ade-8160-2b6272e01aa7"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Ford Bronco R & ’17 Ford F-150 Raptor",
+      "casting_id": "human-hot-wheels-ford-bronco-r-17-ford-f-150-raptor",
+      "casting_uuid": "9bd14e16-e3fb-59f9-8d11-7108c281d0eb",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "2024 Hot Wheels Premium Car Culture 2-Pack Ford Bronco R & ’17 Ford F-150 Raptor"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels Premium 2-Pack (2024) Ford Bronco R & '17 Ford F-150 Raptor"
+          ],
+          "pricing_keywords": [
+            "2024 Hot Wheels Premium Car Culture 2-Pack Ford Bronco R & ’17 Ford F-150 Raptor"
+          ],
+          "provisional_variant_id": "human-hot-wheels-ford-bronco-r-17-ford-f-150-raptor-2-pack-2-pack",
+          "provisional_variant_uuid": "c5a0ca35-28b3-58b0-845a-b9ed739ce5f3",
+          "series_label": "2 pack",
+          "source_case_ids": [
+            "ui-scan-f2c97ce7-17d1-400b-9b4c-fecd1e8ae891"
+          ],
+          "variant_label": "2 pack"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-f2c97ce7-17d1-400b-9b4c-fecd1e8ae891"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Ford Escort RS2000",
+      "casting_id": "human-hot-wheels-ford-escort-rs2000",
+      "casting_uuid": "82037c14-9626-5cd1-871d-864e35197fc3",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels Red Edition Ford Escort RS2000"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels 2023 Target Red Edition Ford Escort RS2000 *read*"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels Red Edition Ford Escort RS2000"
+          ],
+          "provisional_variant_id": "human-hot-wheels-ford-escort-rs2000-mainline-red-edition",
+          "provisional_variant_uuid": "dfd32e67-c62b-5202-bad1-e05dc46fb83f",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-65ac2a0e-76fd-4f0d-8812-5c31d8891186"
+          ],
+          "variant_label": "Red Edition"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-65ac2a0e-76fd-4f0d-8812-5c31d8891186"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Ford Shelby GT-500 Super Snake",
+      "casting_id": "human-hot-wheels-ford-shelby-gt-500-super-snake",
+      "casting_uuid": "d89b7e33-655f-5960-9a26-41072d8a8d1f",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "casting_token_loss",
+            "series_mismatch",
+            "sold_zero_result",
+            "sth_th_contamination"
+          ],
+          "human_label_names": [
+            "Hot Wheels Faster Than Ever  Ford Shelby GT-500 Super Snake"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [],
+          "pricing_keywords": [
+            "Hot Wheels Faster Than Ever  Ford Shelby GT-500 Super Snake"
+          ],
+          "provisional_variant_id": "human-hot-wheels-ford-shelby-gt-500-super-snake-mainline-faster-than-ever",
+          "provisional_variant_uuid": "40a02f33-9e0e-5b9b-b21b-15e71210a788",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-e34c1feb-68e7-4240-8293-6cba1bb810c2"
+          ],
+          "variant_label": "Faster Than Ever"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-e34c1feb-68e7-4240-8293-6cba1bb810c2"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Gangster Grin",
+      "casting_id": "human-hot-wheels-gangster-grin",
+      "casting_uuid": "97787d0b-0067-54c8-b4ff-3926bd1b6dc8",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "casting_token_loss",
+            "series_mismatch",
+            "sth_th_contamination",
+            "top1_wrong_top3_correct",
+            "wrong_casting",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "2010 Hot Wheels Treasure Hunts Gangster Grin cars 6/12"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Diecast treasure hunt cars auction"
+          ],
+          "pricing_keywords": [
+            "2010 Hot Wheels Treasure Hunts Gangster Grin cars 6/12"
+          ],
+          "provisional_variant_id": "human-hot-wheels-gangster-grin-mainline-treasure-hunts",
+          "provisional_variant_uuid": "f272b3e3-9b7d-52e5-bd6d-a22e9d9cd711",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-21d3cfb3-f593-4b09-af43-6724521f633d"
+          ],
+          "variant_label": "Treasure Hunts"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-21d3cfb3-f593-4b09-af43-6724521f633d"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Ground FX",
+      "casting_id": "human-hot-wheels-ground-fx",
+      "casting_uuid": "19ea7e7b-298a-59b0-a140-8dd90d045b3f",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant"
+          ],
+          "human_label_names": [
+            "2020 Hot Wheels The Muppets Animal Ground FX"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "2020 Hot Wheels The Muppets Animal Ground FX"
+          ],
+          "pricing_keywords": [
+            "2020 Hot Wheels Disney  The Muppets Animal Ground FX"
+          ],
+          "provisional_variant_id": "human-hot-wheels-ground-fx-hot-wheels-disney",
+          "provisional_variant_uuid": "25f8c9d7-dba5-5a27-881d-63ff2840923f",
+          "series_label": "Hot Wheels",
+          "source_case_ids": [
+            "ui-scan-52ba4511-fa35-4e75-b2ab-4f35db27610a"
+          ],
+          "variant_label": "disney"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-52ba4511-fa35-4e75-b2ab-4f35db27610a"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Hardnoze Chevy Monte Carlo 1974",
+      "casting_id": "human-hot-wheels-hardnoze-chevy-monte-carlo-1974",
+      "casting_uuid": "bfdaba07-c117-517b-8cb4-d2b826908fbb",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "2004 Hot Wheels First Editions Hardnoze Chevy Monte Carlo 1974"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hardnoze Chevy Monte Carlo 1974 2004 First Editions Hot Wheels"
+          ],
+          "pricing_keywords": [
+            "2004 Hot Wheels First Editions Hardnoze Chevy Monte Carlo 1974"
+          ],
+          "provisional_variant_id": "human-hot-wheels-hardnoze-chevy-monte-carlo-1974-mainline-first-editions",
+          "provisional_variant_uuid": "76ab4657-dfef-5252-b191-a85800bc0b6f",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-3414f93c-4289-4521-a77e-0249ba15dce6"
+          ],
+          "variant_label": "First Editions"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-3414f93c-4289-4521-a77e-0249ba15dce6"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Honda City Turbo ll",
+      "casting_id": "human-hot-wheels-honda-city-turbo-ll",
+      "casting_uuid": "f3bc94d7-265b-5f55-b245-c7229263b783",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "casting_token_loss",
+            "series_mismatch",
+            "sold_zero_result",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels 1985 Honda City Turbo ll"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [],
+          "pricing_keywords": [
+            "Hot Wheels 1985 Honda City Turbo ll"
+          ],
+          "provisional_variant_id": "human-hot-wheels-honda-city-turbo-ll-mainline-compact-king",
+          "provisional_variant_uuid": "e933c950-6e23-52d9-990e-156c921aead1",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-a5a2dd0e-759e-435e-8efb-193f6221c30c"
+          ],
+          "variant_label": "Compact King"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-a5a2dd0e-759e-435e-8efb-193f6221c30c"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "HONDA CIVIC EF",
+      "casting_id": "human-hot-wheels-honda-civic-ef",
+      "casting_uuid": "38492c17-64dc-5c71-ac36-4e9b8aef7428",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch"
+          ],
+          "human_label_names": [
+            "HOT WHEELS '90 HONDA CIVIC EF LIME GREEN HW JDM"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "HOT WHEELS '90 HONDA CIVIC EF LIME GREEN HW 70S VS 80S JDM VTEC"
+          ],
+          "pricing_keywords": [
+            "HOT WHEELS '90 HONDA CIVIC EF LIME GREEN HW JDM"
+          ],
+          "provisional_variant_id": "human-hot-wheels-honda-civic-ef-mainline-green-jdm",
+          "provisional_variant_uuid": "26be28dd-9f6f-5cbf-b974-3f6b13bb299e",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-ffc2b15f-3bb8-4138-822e-3312467a2def"
+          ],
+          "variant_label": "GREEN, JDM"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-ffc2b15f-3bb8-4138-822e-3312467a2def"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Honda Civic EG",
+      "casting_id": "human-hot-wheels-honda-civic-eg",
+      "casting_uuid": "57c9118e-fbaa-565a-86e3-8d96eb898c97",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "color_variant_mismatch",
+            "lot_or_multipack",
+            "series_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels Fast & Furious Honda Civic EG Yellow Diecast"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Honda Civic EG W PROTECTOR CASE Fast & Furious Hot Wheels Rare Car 4/5 Toy Gift"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels Fast & Furious Honda Civic EG Yellow Diecast"
+          ],
+          "provisional_variant_id": "human-hot-wheels-honda-civic-eg-premium-fast-furious",
+          "provisional_variant_uuid": "a89d4de3-69d2-5f8a-9256-4832b786a8fe",
+          "series_label": "Premium",
+          "source_case_ids": [
+            "ui-scan-ddf97277-6bd6-4855-b415-3ee0dca21712"
+          ],
+          "variant_label": "Fast & Furious"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-ddf97277-6bd6-4855-b415-3ee0dca21712"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Honda Civic Si",
+      "casting_id": "human-hot-wheels-honda-civic-si",
+      "casting_uuid": "c727e59c-0b41-570b-912c-34b3b14a8602",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "color_variant_mismatch",
+            "series_mismatch",
+            "sold_zero_result",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels Honda Civic Si Blue"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Honda Civic Si - Hot Wheels 2021 63/250 (E8-a4) | Aukro"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels Honda Civic Si Blue"
+          ],
+          "provisional_variant_id": "human-hot-wheels-honda-civic-si-mainline-blue",
+          "provisional_variant_uuid": "6cfea1c3-b434-521d-afce-8db1aba526fc",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-12a91fa3-06d3-4657-a0b4-e25d1d150285"
+          ],
+          "variant_label": "Blue"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-12a91fa3-06d3-4657-a0b4-e25d1d150285"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Honda CR-X",
+      "casting_id": "human-hot-wheels-honda-cr-x",
+      "casting_uuid": "908a826f-939e-5990-9187-961db4b94115",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant"
+          ],
+          "human_label_names": [
+            "Hot Wheels '85 Honda CR-X HW '24 Peanuts Silver Series 2/5"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels '85 Honda CR-X HW '24 Peanuts Silver Series 2/5 Flat Blue VHTF!"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels '85 Honda CR-X HW '24 Peanuts Silver Series 2/5"
+          ],
+          "provisional_variant_id": "human-hot-wheels-honda-cr-x-silver-series-peanuts",
+          "provisional_variant_uuid": "76228439-893c-5f89-9040-ac1d72cd05e1",
+          "series_label": "Silver Series",
+          "source_case_ids": [
+            "ui-scan-8fd894d8-9b68-4991-b1ea-9e38c2110faf"
+          ],
+          "variant_label": "Peanuts"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-8fd894d8-9b68-4991-b1ea-9e38c2110faf"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Hot Wheels High",
+      "casting_id": "human-hot-wheels-hot-wheels-high",
+      "casting_uuid": "ffe16107-e5fa-5516-baa4-ba5a6606eb60",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels Fast Transit 1/5 Hot Wheels High Green"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels High Green HW Fast Transit Number 5 New and Unopened"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels Fast Transit 1/5 Hot Wheels High Green"
+          ],
+          "provisional_variant_id": "human-hot-wheels-hot-wheels-high-mainline-fast-transit-green",
+          "provisional_variant_uuid": "634900c9-6ac9-539b-b9af-75480440369e",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-81e74836-de00-4ff4-a859-1b52d2781622"
+          ],
+          "variant_label": "Fast Transit, Green"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-81e74836-de00-4ff4-a859-1b52d2781622"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "HUMMER H1",
+      "casting_id": "human-hot-wheels-hummer-h1",
+      "casting_uuid": "43f92a46-81b9-5fe6-ad75-b4cc3d18105e",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "color_variant_mismatch",
+            "series_mismatch"
+          ],
+          "human_label_names": [
+            "HOT WHEELS  FAST & FURIOUS HUMMER H1 silver series"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "1/64 HOT WHEELS REAL RIDERS FAST & FURIOUS OFF ROAD HUMMER H1 PICKUP 5/5"
+          ],
+          "pricing_keywords": [
+            "HOT WHEELS  FAST & FURIOUS HUMMER H1 silver series"
+          ],
+          "provisional_variant_id": "human-hot-wheels-hummer-h1-silver-series-fast-furious",
+          "provisional_variant_uuid": "d4457197-efb9-5b4c-ae34-940a3907f0aa",
+          "series_label": "Silver Series",
+          "source_case_ids": [
+            "ui-scan-3864e6f9-dec1-44b1-824b-4cc463390a88"
+          ],
+          "variant_label": "FAST & FURIOUS"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-3864e6f9-dec1-44b1-824b-4cc463390a88"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "ICE CHARGER",
+      "casting_id": "human-hot-wheels-ice-charger",
+      "casting_uuid": "090ed00a-afa0-559a-89fd-a46f1e8b9cbe",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "color_variant_mismatch",
+            "series_mismatch",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "2017 Hot Wheels  HW Screen Time-The Fast of Furious ICE CHARGER Gray"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "2024 Hot Wheels Ice Charger Fast & Furious | Mercari"
+          ],
+          "pricing_keywords": [
+            "2017 Hot Wheels  HW Screen Time-The Fast of Furious ICE CHARGER Gray"
+          ],
+          "provisional_variant_id": "human-hot-wheels-ice-charger-hw-screen-time-hw-screen-time",
+          "provisional_variant_uuid": "cd69973c-1bbf-527a-b5e2-5cad3e6fcae5",
+          "series_label": "HW Screen Time",
+          "source_case_ids": [
+            "ui-scan-61d62252-0f5b-41a0-a952-2bcbd990a0d3"
+          ],
+          "variant_label": "HW Screen Time"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-61d62252-0f5b-41a0-a952-2bcbd990a0d3"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "K.I.T.T. Super Pursuit Mode",
+      "casting_id": "human-hot-wheels-k-i-t-t-super-pursuit-mode",
+      "casting_uuid": "28ffec10-70c6-50bb-ba7a-1d7132b32cb9",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "color_variant_mismatch",
+            "series_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels K.I.T.T. Super Pursuit Mode Knight Rider Black"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels Knight Rider K.I.T.T. Super Pursuit Mode"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels K.I.T.T. Super Pursuit Mode Knight Rider Black"
+          ],
+          "provisional_variant_id": "human-hot-wheels-k-i-t-t-super-pursuit-mode-hw-screen-time-hw-screen-time",
+          "provisional_variant_uuid": "37352381-fb31-562c-b49d-3383b0e21c12",
+          "series_label": "HW screen time",
+          "source_case_ids": [
+            "ui-scan-c6729a9b-d835-41a2-a24d-7484ca1bf078"
+          ],
+          "variant_label": "HW screen time"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-c6729a9b-d835-41a2-a24d-7484ca1bf078"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Lamborghini Sesto Elemento",
+      "casting_id": "human-hot-wheels-lamborghini-sesto-elemento",
+      "casting_uuid": "e30cc818-fd1f-5de9-bad6-c58a698e54b1",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels - Lamborghini Sesto Elemento - HW Exotics"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "2020 Hot Wheels Lamborghini Sesto Elemento HW Exotics:"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels - Lamborghini Sesto Elemento - HW Exotics"
+          ],
+          "provisional_variant_id": "human-hot-wheels-lamborghini-sesto-elemento-mainline-hw-exotics",
+          "provisional_variant_uuid": "1448af9f-78d7-55fe-adf8-5e21df6ade73",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-8430fd87-5194-43be-a189-ce396dc92858"
+          ],
+          "variant_label": "HW Exotics"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-8430fd87-5194-43be-a189-ce396dc92858"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "MAZDA RX7",
+      "casting_id": "human-hot-wheels-mazda-rx7",
+      "casting_uuid": "ce8f1c10-286d-598b-9030-1afe5919d81f",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch",
+            "sold_zero_result",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "HOT WHEELS HW J-IMPORTS MAZDA RX7 BLUE"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "HOT WHEELS 2022 HW J-IMPORTS 1/10 - MAZDA RX7 BLUE"
+          ],
+          "pricing_keywords": [
+            "HOT WHEELS HW J-IMPORTS MAZDA RX7 BLUE"
+          ],
+          "provisional_variant_id": "human-hot-wheels-mazda-rx7-mainline-blue",
+          "provisional_variant_uuid": "bfe91ce3-044b-5141-812a-0274f48560ce",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-bc2df878-0aa8-476e-ad86-a5c8670eb189"
+          ],
+          "variant_label": "Blue"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-bc2df878-0aa8-476e-ad86-a5c8670eb189"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "McLaren Elva",
+      "casting_id": "human-hot-wheels-mclaren-elva",
+      "casting_uuid": "538c6506-5a3f-5fec-bd00-e35429fe6e1b",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels 2023 HW Roadsters 6/10 Gold McLaren Elva"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels 2023 HW Roadsters 6/10 Gold McLaren Elva"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels 2023 HW Roadsters 6/10 Gold McLaren Elva"
+          ],
+          "provisional_variant_id": "human-hot-wheels-mclaren-elva-mainline-hw-roadsters-gold",
+          "provisional_variant_uuid": "d74f0729-1b65-5218-83a1-0921f0e7aa99",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-f6fcb910-2922-4502-8f59-413218d07600"
+          ],
+          "variant_label": "HW Roadsters, Gold"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-f6fcb910-2922-4502-8f59-413218d07600"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Mercedes-Benz Sprinter",
+      "casting_id": "human-hot-wheels-mercedes-benz-sprinter",
+      "casting_uuid": "93b2275c-337e-50ed-adba-1d152e3f3958",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "casting_token_loss",
+            "lot_or_multipack",
+            "series_mismatch",
+            "top1_wrong_top3_correct",
+            "wrong_casting"
+          ],
+          "human_label_names": [
+            "Hot Wheels Car Culture Mercedes-Benz Sprinter Deutschland Design Premium"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "HOT WHEELS DIE CAST PREMIUM SET DEUTSCHLAND DESIGN SET INC PORSCHE AUDI MERCEDES"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels Car Culture Mercedes-Benz Sprinter Deutschland Design Premium"
+          ],
+          "provisional_variant_id": "human-hot-wheels-mercedes-benz-sprinter-car-culture-premium-deutschland-design",
+          "provisional_variant_uuid": "3c179714-b537-59e6-a954-82720906012d",
+          "series_label": "Car Culture, Premium",
+          "source_case_ids": [
+            "ui-scan-0446b222-7094-400e-91d1-8a24faa4af26"
+          ],
+          "variant_label": "Deutschland Design"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-0446b222-7094-400e-91d1-8a24faa4af26"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Nissan 300ZX Twin Turbo 90s",
+      "casting_id": "human-hot-wheels-nissan-300zx-twin-turbo-90s",
+      "casting_uuid": "4db04458-458a-5faa-b100-803bd1c6f92e",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels Nissan 300ZX Twin Turbo 90s Street Scene"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "2024 Hot Wheels 90s Street Scene Nissan 300ZX Twin Turbo 3/5 - Free Protector"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels Nissan 300ZX Twin Turbo 90s Street Scene"
+          ],
+          "provisional_variant_id": "human-hot-wheels-nissan-300zx-twin-turbo-90s-silver-series-street-scene",
+          "provisional_variant_uuid": "4cc36bf7-1203-579c-a74a-2fddff23cbf3",
+          "series_label": "Silver series",
+          "source_case_ids": [
+            "ui-scan-d08ba3b1-547b-4140-99c1-dafb4d4fe2ba"
+          ],
+          "variant_label": "Street Scene"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-d08ba3b1-547b-4140-99c1-dafb4d4fe2ba"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Nissan Fairlady Z",
+      "casting_id": "human-hot-wheels-nissan-fairlady-z",
+      "casting_uuid": "35dcbf8c-d0cc-519f-a9f1-f64dc1256076",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "color_variant_mismatch"
+          ],
+          "human_label_names": [
+            "2026 Hot Wheels Silver Series Pantone  Blue Nissan Fairlady Z"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "2026 Hot Wheels Silver Series Nissan Fairlady Z — Pantone 533 (1/6)"
+          ],
+          "pricing_keywords": [
+            "2026 Hot Wheels Silver Series Pantone  Blue Nissan Fairlady Z"
+          ],
+          "provisional_variant_id": "human-hot-wheels-nissan-fairlady-z-silver-series-pantone-blue",
+          "provisional_variant_uuid": "7b7360f6-ffac-5b62-9f8d-c420d8c741c5",
+          "series_label": "Silver series",
+          "source_case_ids": [
+            "ui-scan-ecfcacca-7507-4700-828c-4177e41c3719"
+          ],
+          "variant_label": "pantone, blue"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-ecfcacca-7507-4700-828c-4177e41c3719"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "NISSAN LEAF NISMO RC",
+      "casting_id": "human-hot-wheels-nissan-leaf-nismo-rc",
+      "casting_uuid": "40241b29-95a5-57fa-a237-0c1d0aedd18b",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "lot_or_multipack",
+            "series_mismatch"
+          ],
+          "human_label_names": [
+            "2025 Hot Wheels Treasure Hunt NISSAN LEAF NISMO RC"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "2025 Hot Wheels Treasure Hunt NISSAN LEAF NISMO RC_02 EV | Lot Of 2 - NEW"
+          ],
+          "pricing_keywords": [
+            "2025 Hot Wheels Treasure Hunt NISSAN LEAF NISMO RC"
+          ],
+          "provisional_variant_id": "human-hot-wheels-nissan-leaf-nismo-rc-mainline-treasure-hunt",
+          "provisional_variant_uuid": "d284fa7d-d89d-5223-92ba-41cae44afa4c",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-78980d42-fbc0-40ef-ba33-01283b2f2643"
+          ],
+          "variant_label": "Treasure Hunt"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-78980d42-fbc0-40ef-ba33-01283b2f2643"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Nissan Skyline GTR (BNR34)",
+      "casting_id": "human-hot-wheels-nissan-skyline-gtr-bnr34",
+      "casting_uuid": "c175197d-9d41-54db-8c9f-530e48cecb41",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "color_variant_mismatch",
+            "series_mismatch"
+          ],
+          "human_label_names": [
+            "2026 Hot Wheels Nissan Skyline GTR (BNR34) K Case"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "2026 Hot Wheels Nissan Skyline GTR (BNR34) K Case,plastic Protector"
+          ],
+          "pricing_keywords": [
+            "2026 Hot Wheels Nissan Skyline GTR (BNR34) K Case"
+          ],
+          "provisional_variant_id": "human-hot-wheels-nissan-skyline-gtr-bnr34-mainline-blue-2026-k-case",
+          "provisional_variant_uuid": "ff06387d-a01d-5e4b-baae-180b8f3bab1c",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-36959286-f71c-4879-9a13-c918d4be177e"
+          ],
+          "variant_label": "blue, 2026 K Case"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-36959286-f71c-4879-9a13-c918d4be177e"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Nissan Skyline GTR (R34)",
+      "casting_id": "human-hot-wheels-nissan-skyline-gtr-r34",
+      "casting_uuid": "0241715a-b4b2-5435-84b3-fc2287cc60bb",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "all_candidates_wrong",
+            "mainline_premium_mismatch",
+            "series_mismatch",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels Premium Fast & Furious Fast Superstars 1/5 Nissan Skyline GTR (R34)"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "HOT WHEELS 2017 RETRO ENTERTAINMENT Fast & Furious Nissan Skyline GT-R R34"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels Premium Fast & Furious Fast Superstars 1/5 Nissan Skyline GTR (R34)"
+          ],
+          "provisional_variant_id": "human-hot-wheels-nissan-skyline-gtr-r34-premium-fast-furious-superstars",
+          "provisional_variant_uuid": "1e1be4a7-030e-5d53-9bc8-df4cd55ffde1",
+          "series_label": "Premium",
+          "source_case_ids": [
+            "ui-scan-e8f3d866-f804-481c-b9db-562328252906"
+          ],
+          "variant_label": "Fast & Furious , Superstars"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-e8f3d866-f804-481c-b9db-562328252906"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Nissan Skyline RS",
+      "casting_id": "human-hot-wheels-nissan-skyline-rs",
+      "casting_uuid": "67251200-ebe1-54ba-98e8-bdfbcab0a8b4",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [],
+          "human_label_names": [
+            "Hot Wheels the hot Ones Nissan Skyline RS"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels the hot Ones Nissan Skyline RS | Mercari"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels the hot Ones Nissan Skyline RS"
+          ],
+          "provisional_variant_id": "human-hot-wheels-nissan-skyline-rs-the-hot-ones-the-hot-ones",
+          "provisional_variant_uuid": "47fbe5d3-ac95-5c39-aea9-0b569c7acd4d",
+          "series_label": "the hot Ones",
+          "source_case_ids": [
+            "ui-scan-02913d6a-b421-41f1-9a6f-2aebbeaa8c78"
+          ],
+          "variant_label": "the hot Ones"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-02913d6a-b421-41f1-9a6f-2aebbeaa8c78"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Nissan Skyline RS (KDR30)",
+      "casting_id": "human-hot-wheels-nissan-skyline-rs-kdr30",
+      "casting_uuid": "ffa85306-614f-5e27-934e-6b279e3e09a0",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "color_variant_mismatch",
+            "series_mismatch",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels HW J-Imports Purple Nissan Skyline RS (KDR30)"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "2024 Hot Wheels Nissan Skyline RS KDR30 HW J-Imports Short Card 44/250 #1/10"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels HW J-Imports Purple Nissan Skyline RS (KDR30)"
+          ],
+          "provisional_variant_id": "human-hot-wheels-nissan-skyline-rs-kdr30-mainline-j-imports-purple",
+          "provisional_variant_uuid": "ede0706b-cfc7-5cca-a18a-973897cddd87",
+          "series_label": "mainline, J-Imports",
+          "source_case_ids": [
+            "ui-scan-21be5e58-1c6d-490e-872c-a5c93f438f35"
+          ],
+          "variant_label": "Purple"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-21be5e58-1c6d-490e-872c-a5c93f438f35"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Optimus Prime",
+      "casting_id": "human-hot-wheels-optimus-prime",
+      "casting_uuid": "0f022e64-62b6-50f4-bc3f-9a6eeb95c3d8",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "lot_or_multipack",
+            "sold_zero_result",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels Optimus Prime HW Screen Time"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "2025 Hot Wheels HW Screen Time Transformers Optimus Prime - “F” Case"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels Optimus Prime HW Screen Time"
+          ],
+          "provisional_variant_id": "human-hot-wheels-optimus-prime-hw-screen-time-hw-screen-time",
+          "provisional_variant_uuid": "f97b3a2d-b107-5f2f-9c95-9e143ba83d24",
+          "series_label": "HW screen time",
+          "source_case_ids": [
+            "ui-scan-251763c1-7fca-4ca2-a02d-1aedf699f4e6"
+          ],
+          "variant_label": "HW Screen Time"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-251763c1-7fca-4ca2-a02d-1aedf699f4e6"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Pink Black Widow '83 Chevy Silverado",
+      "casting_id": "human-hot-wheels-pink-black-widow-83-chevy-silverado",
+      "casting_uuid": "301f5178-e62b-5f76-998b-5f60662ddd69",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "casting_token_loss",
+            "color_variant_mismatch",
+            "custom_or_modified",
+            "series_mismatch",
+            "sold_zero_result",
+            "top1_wrong_top3_correct",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels Pink Black Widow '83 Chevy Silverado"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "2026 Hot Wheels '83 Chevy Silverado Un-Spun with Real Riders Wheels | Hotwheels® Die-Cast #1983 #chevy #silverado #hotwheels #mattel Source: Hobi.Shopee"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels Pink Black Widow '83 Chevy Silverado"
+          ],
+          "provisional_variant_id": "human-hot-wheels-pink-black-widow-83-chevy-silverado-mainline-pink-black-widow",
+          "provisional_variant_uuid": "cae68e86-4a5b-5919-a84f-848c54731122",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-d9599078-3553-4c43-8025-d9e3b09a8ef5"
+          ],
+          "variant_label": "Pink Black Widow"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-d9599078-3553-4c43-8025-d9e3b09a8ef5"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Porsche 911 Carrera RS 2.7",
+      "casting_id": "human-hot-wheels-porsche-911-carrera-rs-2-7",
+      "casting_uuid": "03bb3ae4-f18e-53f6-8376-bc857c76e5a3",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels Porsche 911 Carrera RS 2.7 Red"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels HTD08 2024 Factory Fresh 4/10 Porsche 911 Carrera RS 2.7 46/250 Red"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels Porsche 911 Carrera RS 2.7 Red"
+          ],
+          "provisional_variant_id": "human-hot-wheels-porsche-911-carrera-rs-2-7-mainline-red",
+          "provisional_variant_uuid": "d6bdcb43-ca8e-5503-9fe3-021f3fc41338",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-78a2b02a-cf4f-4f61-96af-e40f952455a6"
+          ],
+          "variant_label": "red"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-78a2b02a-cf4f-4f61-96af-e40f952455a6"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Purple Passion",
+      "casting_id": "human-hot-wheels-purple-passion",
+      "casting_uuid": "ee92a130-18db-5daf-9066-01bceca0679c",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "casting_token_loss",
+            "color_variant_mismatch",
+            "series_mismatch",
+            "sold_zero_result"
+          ],
+          "human_label_names": [
+            "2026Hot Wheels Purple Passion Pink"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [],
+          "pricing_keywords": [
+            "2026Hot Wheels Purple Passion Pink"
+          ],
+          "provisional_variant_id": "human-hot-wheels-purple-passion-mainline-pink",
+          "provisional_variant_uuid": "493365fb-691c-508a-8fa9-83b4ad9aefde",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-08095949-7c8f-44d3-8ca9-58cf691f3f91"
+          ],
+          "variant_label": "Pink"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-08095949-7c8f-44d3-8ca9-58cf691f3f91"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Range Rover Velar",
+      "casting_id": "human-hot-wheels-range-rover-velar",
+      "casting_uuid": "7b486ffa-0d13-51ab-af01-dd72ab490ba1",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels Range Rover Velar HW Turbo"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "2019 Hot Wheels Range Rover Velar Factory Fresh 4/10 #237/250"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels Range Rover Velar HW Turbo"
+          ],
+          "provisional_variant_id": "human-hot-wheels-range-rover-velar-mainline-hw-turbo",
+          "provisional_variant_uuid": "5125d870-c312-5bcf-9c54-ecda0f2616c3",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-ea48a43b-8d0b-4101-b182-7262e095a14c"
+          ],
+          "variant_label": "HW Turbo"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-ea48a43b-8d0b-4101-b182-7262e095a14c"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Shelby Cobra 427 S/C",
+      "casting_id": "human-hot-wheels-shelby-cobra-427-s-c",
+      "casting_uuid": "fbabcfd3-878e-5ec7-bfcd-69e77bad60b3",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "casting_token_loss",
+            "color_variant_mismatch",
+            "series_mismatch",
+            "sold_zero_result"
+          ],
+          "human_label_names": [
+            "Hot Wheels Retro Racers Shelby Cobra 427 S/C 1:64 Yellow"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [],
+          "pricing_keywords": [
+            "Hot Wheels Retro Racers Shelby Cobra 427 S/C 1:64 Yellow"
+          ],
+          "provisional_variant_id": "human-hot-wheels-shelby-cobra-427-s-c-mainline-yellow",
+          "provisional_variant_uuid": "d6bcef30-5752-5c98-ae5f-c2feff7dcfff",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-07cca827-b0af-47d0-a76b-aedcb54cc366"
+          ],
+          "variant_label": "Yellow"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-07cca827-b0af-47d0-a76b-aedcb54cc366"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Shelby Cobra Daytona Coupe",
+      "casting_id": "human-hot-wheels-shelby-cobra-daytona-coupe",
+      "casting_uuid": "1c7d6a2c-5693-5735-8b1c-bc39d64d502f",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "casting_token_loss",
+            "series_mismatch",
+            "sold_zero_result"
+          ],
+          "human_label_names": [
+            "Hot Wheels HW Race Day 5/10 Shelby Cobra Daytona Coupe"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [],
+          "pricing_keywords": [
+            "Hot Wheels HW Race Day 5/10 Shelby Cobra Daytona Coupe"
+          ],
+          "provisional_variant_id": "human-hot-wheels-shelby-cobra-daytona-coupe-mainline-hw-race-day-gulf",
+          "provisional_variant_uuid": "92d31881-4d32-5fe9-803e-148c9bf474bc",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-c2485278-8936-47f6-91da-684b4f6b0e7a"
+          ],
+          "variant_label": "HW Race Day, Gulf"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-c2485278-8936-47f6-91da-684b4f6b0e7a"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Silverado Trail Boss LT",
+      "casting_id": "human-hot-wheels-silverado-trail-boss-lt",
+      "casting_uuid": "99e3f716-8764-560c-91c7-97bc2369601b",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "color_variant_mismatch",
+            "series_mismatch",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels Silver Series Performance Trucks Silverado Trail Boss LT"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels 2019 Chevrolet Silverado Trail Boss Lt Toy Car - Light Brown for (3undefined14undefined) Online India, Buy at FirstCry.com - 24031181"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels Silver Series Performance Trucks Silverado Trail Boss LT"
+          ],
+          "provisional_variant_id": "human-hot-wheels-silverado-trail-boss-lt-silver-series-performance-trucks",
+          "provisional_variant_uuid": "7ead937d-ee21-50e7-8e1a-e3a41dc82f11",
+          "series_label": "Silver Series",
+          "source_case_ids": [
+            "ui-scan-86817101-e350-4786-9c1f-1bf804835881"
+          ],
+          "variant_label": "Performance Trucks"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-86817101-e350-4786-9c1f-1bf804835881"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Subaru Brat",
+      "casting_id": "human-hot-wheels-subaru-brat",
+      "casting_uuid": "92e1ecab-3715-5608-8ec8-cb5d8836fd12",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "color_variant_mismatch"
+          ],
+          "human_label_names": [
+            "2015 Hot Wheels HW Off Road - Kmart Exclusive - Subaru Brat - Pearl Yellow"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels, 2015 HW Off-Road, Subaru Brat [Tan] Die-Cast Vehicle #123/250"
+          ],
+          "pricing_keywords": [
+            "2015 Hot Wheels HW Off Road - Kmart Exclusive - Subaru Brat - Pearl Yellow"
+          ],
+          "provisional_variant_id": "human-hot-wheels-subaru-brat-hw-off-road-pearl-yellow-kmart-exclusive",
+          "provisional_variant_uuid": "c89257e3-9e9e-5340-b105-81a58987d4d6",
+          "series_label": "HW Off Road",
+          "source_case_ids": [
+            "ui-scan-09465b1e-ade5-4b2d-9677-b4360160b9e0"
+          ],
+          "variant_label": "Pearl Yellow, Kmart Exclusive"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-09465b1e-ade5-4b2d-9677-b4360160b9e0"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Subaru BRZ",
+      "casting_id": "human-hot-wheels-subaru-brz",
+      "casting_uuid": "23fc1d0c-2753-5030-8046-fca661bdb184",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels Subaru BRZ Walmart Exclusive Zamac"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "2025 Hot Wheels Subaru BRZ Walmart Exclusive Zamac"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels Subaru BRZ Walmart Exclusive Zamac"
+          ],
+          "provisional_variant_id": "human-hot-wheels-subaru-brz-walmart-exclusive-zamac-walmart-exclusive",
+          "provisional_variant_uuid": "3accc048-4d73-541f-8863-90170fef463f",
+          "series_label": "Walmart Exclusive",
+          "source_case_ids": [
+            "ui-scan-7e20ecfd-b69c-451d-97a9-6936c7597f12"
+          ],
+          "variant_label": "zamac, Walmart Exclusive"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-7e20ecfd-b69c-451d-97a9-6936c7597f12"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Surf Crate",
+      "casting_id": "human-hot-wheels-surf-crate",
+      "casting_uuid": "2d2d6818-4884-54e1-b941-65427d1b43e0",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "marketplace_wrapper_pollution",
+            "series_mismatch",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels 2000 First Editions Surf Crate"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "1999 Hot Wheels \"surf Crate\" Hot Rod - Etsy"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels 2000 First Editions Surf Crate"
+          ],
+          "provisional_variant_id": "human-hot-wheels-surf-crate-mainline-2000-first-editions-2000-first-editions",
+          "provisional_variant_uuid": "011b7e08-cce0-5b59-92b4-e2115d4c2032",
+          "series_label": "mainline,  2000 First Editions 2000 First Editions",
+          "source_case_ids": [
+            "ui-scan-74fcf754-8777-4592-86cc-5d86c0e5e219"
+          ],
+          "variant_label": null
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-74fcf754-8777-4592-86cc-5d86c0e5e219"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "SWITCHBACK",
+      "casting_id": "human-hot-wheels-switchback",
+      "casting_uuid": "ef822b4b-97c8-5641-ba49-1b26be0fdbd4",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "2003 Hot Wheels #17 First Editions  SWITCHBACK Orange"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels SHORT CARD 2000 HW SWITCHBACK ORANGE NO 5/42"
+          ],
+          "pricing_keywords": [
+            "2003 Hot Wheels #17 First Editions  SWITCHBACK Orange"
+          ],
+          "provisional_variant_id": "human-hot-wheels-switchback-first-editions-orange",
+          "provisional_variant_uuid": "ddb6132e-e724-5d17-a3e4-a84fc6cba424",
+          "series_label": "First Editions",
+          "source_case_ids": [
+            "ui-scan-286fe179-42b8-4120-806d-3b691ef63bab"
+          ],
+          "variant_label": "orange"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-286fe179-42b8-4120-806d-3b691ef63bab"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Tesla Model S Plaid",
+      "casting_id": "human-hot-wheels-tesla-model-s-plaid",
+      "casting_uuid": "ee4b281f-a3a6-518a-8446-9826ea2243ea",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels Tesla Model S Plaid - dark red"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels Tesla Model S Plaid - dark red"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels Tesla Model S Plaid - dark red"
+          ],
+          "provisional_variant_id": "human-hot-wheels-tesla-model-s-plaid-mainline-red",
+          "provisional_variant_uuid": "a9246e30-e08c-5d32-a3b4-045742e8aabc",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-a1e8085d-5473-4c03-8317-34aa9d1ac917"
+          ],
+          "variant_label": "Red"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-a1e8085d-5473-4c03-8317-34aa9d1ac917"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Toyota AE-86 Corolla",
+      "casting_id": "human-hot-wheels-toyota-ae-86-corolla",
+      "casting_uuid": "bbbf454c-e3b6-513e-a45a-e06b0fb417d8",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels 2015 HW Workshop Toyota AE-86 Corolla"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot Wheels 2015 HW Workshop Toyota AE-86 Corolla"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels 2015 HW Workshop Toyota AE-86 Corolla"
+          ],
+          "provisional_variant_id": "human-hot-wheels-toyota-ae-86-corolla-mainline-hw-workshop",
+          "provisional_variant_uuid": "c6aaeef5-44c1-5b9f-8b13-4e42d93bd1a2",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-d90db4c0-1d74-4573-aaaa-490dd36a914b"
+          ],
+          "variant_label": "HW Workshop"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-d90db4c0-1d74-4573-aaaa-490dd36a914b"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Toyota Off-Road Truck",
+      "casting_id": "human-hot-wheels-toyota-off-road-truck",
+      "casting_uuid": "2d5ffd84-24af-5553-b633-2b0840db7aff",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant"
+          ],
+          "human_label_names": [
+            "2025 Hot Wheels Silver Series Toyota Off-Road Truck Toyota Series 5/5 JCB75"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "2025 Hot Wheels Silver Series Toyota Off-Road Truck Toyota Series 5/5 JCB75"
+          ],
+          "pricing_keywords": [
+            "2025 Hot Wheels Silver Series Toyota Off-Road Truck Toyota Series 5/5 JCB75"
+          ],
+          "provisional_variant_id": "human-hot-wheels-toyota-off-road-truck-silver-series-silver-series",
+          "provisional_variant_uuid": "59dee4d5-7426-5e97-aed3-2268ad55d691",
+          "series_label": "Silver Series",
+          "source_case_ids": [
+            "ui-scan-1e00982c-797d-4c03-9150-84699497048f"
+          ],
+          "variant_label": "Silver Series"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-1e00982c-797d-4c03-9150-84699497048f"
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting": "Toyota Supra",
+      "casting_id": "human-hot-wheels-toyota-supra",
+      "casting_uuid": "471fe6c3-bd45-5156-a220-c1b977a4052e",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "mainline_premium_mismatch",
+            "series_mismatch"
+          ],
+          "human_label_names": [
+            "Hot Wheels XL Toyota Supra Greddy 1:43"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Hot wheels 82 Toyota Supra premium World Tour | Mercari"
+          ],
+          "pricing_keywords": [
+            "Hot Wheels XL Toyota Supra Greddy 1:43"
+          ],
+          "provisional_variant_id": "human-hot-wheels-toyota-supra-hot-wheels-xl-xl-greddy",
+          "provisional_variant_uuid": "62efa870-7aff-5807-8beb-71a69af113ec",
+          "series_label": "Hot Wheels XL",
+          "source_case_ids": [
+            "ui-scan-a8a505fa-fbfc-4696-a23c-3ff63b06258d"
+          ],
+          "variant_label": "XL, Greddy"
+        },
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "series_mismatch",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "HOT WHEELS 2013 MAINLINES Fast & Furious Toyota Supra"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "NEW 2024 Hot Wheels Fast & Furious Brian O'Conner TOYOTA SUPRA Silver Series"
+          ],
+          "pricing_keywords": [
+            "HOT WHEELS 2013 MAINLINES Fast & Furious Toyota Supra"
+          ],
+          "provisional_variant_id": "human-hot-wheels-toyota-supra-mainline-fast-furious",
+          "provisional_variant_uuid": "15713c2d-9ac3-5a7f-96a0-3acf9ff1f394",
+          "series_label": "mainline",
+          "source_case_ids": [
+            "ui-scan-78141b7c-64d9-4cbc-824e-3ce1db8d2aaa"
+          ],
+          "variant_label": "Fast & Furious"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-78141b7c-64d9-4cbc-824e-3ce1db8d2aaa",
+        "ui-scan-a8a505fa-fbfc-4696-a23c-3ff63b06258d"
+      ]
+    },
+    {
+      "brand": "M2",
+      "casting": "1954 Studebaker 3R Truck",
+      "casting_id": "human-m2-1954-studebaker-3r-truck",
+      "casting_uuid": "6b266301-9c52-55a4-a09b-bb772c69ed90",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant"
+          ],
+          "human_label_names": [
+            "M2 Machines Planters 1954 Studebaker 3R Truck"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Planters - 1954 Studebaker 3R Truck by M2 Machines - Etsy Ireland"
+          ],
+          "pricing_keywords": [
+            "M2 Machines Planters 1954 Studebaker 3R Truck"
+          ],
+          "provisional_variant_id": "human-m2-1954-studebaker-3r-truck-planters-planters",
+          "provisional_variant_uuid": "bc4b6601-a61b-509c-908a-e65620099f12",
+          "series_label": "Planters",
+          "source_case_ids": [
+            "ui-scan-db987544-a868-48aa-a82f-0d5c2e16e5b0"
+          ],
+          "variant_label": "Planters"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-db987544-a868-48aa-a82f-0d5c2e16e5b0"
+      ]
+    },
+    {
+      "brand": "M2",
+      "casting": "1956 Ford F-100 Truck",
+      "casting_id": "human-m2-1956-ford-f-100-truck",
+      "casting_uuid": "5cf1233c-57f6-57b5-a5e9-11400475777f",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "all_candidates_wrong",
+            "casting_token_loss",
+            "lot_or_multipack",
+            "wrong_casting",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "M2 Machine Target Exclusive 1956 Ford F-100 Truck"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "SET OF 6 NEW 2023 M2 MACHINES 1:64 DIE-CAST GROUND POUNDERS WITH STORAGE SLEEVE"
+          ],
+          "pricing_keywords": [
+            "M2 Machine Target Exclusive 1956 Ford F-100 Truck"
+          ],
+          "provisional_variant_id": "human-m2-1956-ford-f-100-truck-m2-target-exclusive",
+          "provisional_variant_uuid": "ba7ed284-9c38-589b-9960-43d74aaee1d3",
+          "series_label": "M2",
+          "source_case_ids": [
+            "ui-scan-89991151-a3cf-40a4-a6f7-73c6a60b95fa"
+          ],
+          "variant_label": "Target Exclusive"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-89991151-a3cf-40a4-a6f7-73c6a60b95fa"
+      ]
+    },
+    {
+      "brand": "M2",
+      "casting": "1959 VW Microbus Deluxe USA",
+      "casting_id": "human-m2-1959-vw-microbus-deluxe-usa",
+      "casting_uuid": "7b48064a-d6d6-53b5-9356-bab96f3634ac",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "all_candidates_wrong",
+            "casting_token_loss",
+            "series_mismatch",
+            "wrong_casting",
+            "year_mismatch"
+          ],
+          "human_label_names": [
+            "M2 Machines Coca Cola 1959 VW Microbus Deluxe USA Share A Coke With Mom"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "M2 Machines Vw Bus"
+          ],
+          "pricing_keywords": [
+            "M2 Machines Coca Cola 1959 VW Microbus Deluxe USA Share A Coke With Mom"
+          ],
+          "provisional_variant_id": "human-m2-1959-vw-microbus-deluxe-usa-coca-cola-share-a-coke-with-mom",
+          "provisional_variant_uuid": "3a1806aa-6c0d-5a56-b122-0b65887c4ac3",
+          "series_label": "Coca Cola",
+          "source_case_ids": [
+            "ui-scan-734393fd-6b6a-4e78-8f40-fea03f233693"
+          ],
+          "variant_label": "Share A Coke With Mom"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-734393fd-6b6a-4e78-8f40-fea03f233693"
+      ]
+    },
+    {
+      "brand": "Matchbox",
+      "casting": "2023 bmw m2",
+      "casting_id": "human-matchbox-2023-bmw-m2",
+      "casting_uuid": "6fb08d14-9b60-5046-836d-460e04052a5e",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "ambiguous_variant",
+            "color_variant_mismatch",
+            "series_mismatch",
+            "sold_zero_result"
+          ],
+          "human_label_names": [
+            "matchbox 2025 2023 bmw m2"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Matchbox 2025 - 2023 Bmw M2 [77/125] | MercadoLibre"
+          ],
+          "pricing_keywords": [
+            "matchbox 2025 2023 bmw m2"
+          ],
+          "provisional_variant_id": "human-matchbox-2023-bmw-m2-match-box-mainline-red",
+          "provisional_variant_uuid": "ad31f643-ca49-5653-8426-27d3bd8ec174",
+          "series_label": "Match box mainline",
+          "source_case_ids": [
+            "ui-scan-c515cf2a-a3fe-45f5-9eb6-439b4cc1f4ce"
+          ],
+          "variant_label": "red"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-c515cf2a-a3fe-45f5-9eb6-439b4cc1f4ce"
+      ]
+    },
+    {
+      "brand": "Racing Champions",
+      "casting": "1973 Plymouth Cuda NHRA Funny Car",
+      "casting_id": "human-racing-champions-1973-plymouth-cuda-nhra-funny-car",
+      "casting_uuid": "e7dcf17a-ef2d-5f73-ac0b-c7cf2b7020b0",
+      "identity_level": "casting",
+      "provisional_variants": [
+        {
+          "failure_categories": [
+            "sold_zero_result"
+          ],
+          "human_label_names": [
+            "Racing Champions 1:64 1973 Plymouth Cuda NHRA Funny Car Don Prudhomme Yellow"
+          ],
+          "identity_status": "needs_canonical_review",
+          "initial_names": [
+            "Racing Champions 1:64 1973 Plymouth Cuda NHRA Funny Car Don Prudhomme Yellow Di..."
+          ],
+          "pricing_keywords": [
+            "Racing Champions 1:64 1973 Plymouth Cuda NHRA Funny Car Don Prudhomme Yellow Di..."
+          ],
+          "provisional_variant_id": "human-racing-champions-1973-plymouth-cuda-nhra-funny-car-racing-champions-yellow",
+          "provisional_variant_uuid": "41d9d2fa-b5ef-5e73-817b-904a8f3ce0cc",
+          "series_label": "Racing Champions",
+          "source_case_ids": [
+            "ui-scan-071ea364-1334-41a3-a441-1dcd045ffdf3"
+          ],
+          "variant_label": "Yellow"
+        }
+      ],
+      "source_case_ids": [
+        "ui-scan-071ea364-1334-41a3-a441-1dcd045ffdf3"
+      ]
+    }
+  ],
+  "catalog_version": "human-backed-catalog-v1",
+  "eligible_for": [
+    "sparse_candidate_retrieval",
+    "dense_candidate_retrieval",
+    "human_catalog_review"
+  ],
+  "excluded_from": [
+    "canonical_variant_response",
+    "canonical_resolution_accuracy",
+    "calibration_training",
+    "threshold_selection"
+  ],
+  "identity_level": "casting_with_provisional_variants",
+  "schema_version": "pvr-human-backed-catalog-v1",
+  "status": "human_review_draft"
+}

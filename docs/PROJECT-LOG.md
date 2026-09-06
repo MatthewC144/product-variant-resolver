@@ -1,5 +1,70 @@
 # Project Log
 
+## 2026-09-06 — Human-backed casting catalog and provisional variants
+
+### What was executed and what problem it solves
+
+The conservative alignment proved that the 10-family synthetic fixture catalog cannot represent
+the 97 real castings in the reviewed dataset. This iteration therefore built a separate
+`human-backed-catalog-v1` instead of weakening alignment rules or overwriting the synthetic fixture.
+All 101 confirmed source records are now organized into 97 casting entities and 100 provisional
+variant groups that can support retrieval and a future human-review workflow.
+
+The count difference is intentional. Three `83 Chevy Silverado` records remain three variants
+because their labels distinguish blue, black, and baby-blue versions. Two `Toyota Supra` records
+remain separate because one is Hot Wheels XL/Greddy and the other is Mainline/Fast & Furious. Two
+`1970 Chevrolet Chevelle SS` records share the same normalized Premium/Fast and Furious structure,
+so they become one provisional variant while retaining both case IDs, names, and pricing keywords.
+
+### Code and data changes, with reasons
+
+`scripts/build_human_backed_catalog.py` creates `data/human_backed_catalog.json` and its checksum
+manifest. A casting key uses exact normalized brand and casting. A provisional variant key adds the
+reviewed series and variant labels. Both levels receive deterministic UUIDv5 and readable IDs so
+regeneration does not change references, while every variant remains explicitly
+`needs_canonical_review`.
+
+The catalog keeps all human names, pricing keywords, available initial names, failure categories,
+and source case IDs. It does not parse missing year, collector number, scale, color, or edition from
+free text. Those values may appear inside a human name, but automatically promoting them into typed
+identity fields would mix interpretation with verified evidence and could make later corrections
+silently remint an identity.
+
+Focused QA initially exposed inconsistent brand display casing: the reviewed source contains both
+`Hot wheels` and `Hot Wheels`, so choosing one complete spelling by frequency produced `Hot wheels`
+throughout the draft. The builder now derives a stable display form from the already normalized
+brand tokens, producing `Hot Wheels`, `Matchbox`, and `M2` consistently while retaining the original
+human strings inside name aliases. This changes presentation only; grouping keys and stable UUIDs
+remain based on the same normalized identity.
+
+`scripts/validate_fixture_data.py` now checks the new catalog checksum against the human dataset,
+count agreement, unique casting and provisional-variant identifiers, exact one-time coverage of all
+101 cases, and mandatory canonical-review status. Seven focused tests cover deterministic output,
+the 97/100/101 accounting, exact duplicate preservation, ID uniqueness, evaluation exclusions, and
+non-merging of similar-but-distinct names. R19 and T28 record the behavior; README, decision D10,
+QA, and AI-eval evidence explain why this catalog is retrieval-ready but not canonical truth.
+
+### Technical choice and next decision
+
+A two-level casting/variant draft was chosen over either extreme of creating 101 unrelated products
+or collapsing every record with the same casting into one product. It preserves known structure
+and repeated evidence without claiming that incomplete variant labels are production identifiers.
+The trade-off is an additional review state and a second catalog artifact, but this boundary makes
+future promotion auditable.
+
+The next step is to connect this draft as a second, explicitly non-canonical retrieval source in the
+Dual RAG pipeline. Results from that source must be presented as candidate knowledge or review
+suggestions until typed attributes are verified and a promotion process mints final canonical IDs.
+
+### Verification evidence
+
+The builder produced 97 castings and 100 provisional variants from all 101 source records, and the
+manifest recorded one merged duplicate source record. The central fixture validator passed. Seven
+focused catalog tests passed, the complete host suite passed 57/57 with `PYTHONPATH=src`, Python
+compilation passed, and `git diff --check` reported no whitespace errors. The already documented
+host TestClient deprecation warning remained non-failing and is unrelated to this data-only runtime
+boundary.
+
 ## 2026-09-06 — Conservative alignment exposes the real catalog-coverage gap
 
 ### What was executed and what problem it solves
