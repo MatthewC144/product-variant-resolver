@@ -385,6 +385,212 @@ or use force-push as a routine update mechanism. Documentation changes made afte
 two-commit publication, including this milestone record, should follow that same review, commit,
 push, and remote-verification sequence.
 
+## 2026-09-06 — Quantity `x` token-boundary correction
+
+### Context, problem, and observable outcome
+
+While reviewing the signal-extraction stage, a concrete false positive was reproduced from the
+title `box12 Nomad`: the quantity expression treated the trailing `x12` inside the word `box12` as
+an independent quantity marker. `extract_signals()` therefore returned `quantity=12` and
+`multipack_hint=true`, even though the title did not contain a quantity token. This could distort
+the structured evidence passed into retrieval and make an ordinary single-product title look like
+a multipack.
+
+The correction narrows only the `x` quantity syntax. After the change, an `x` must begin outside a
+word, so `box12` is no longer interpreted as a quantity while the intentionally supported forms
+`x12` and `x 12` continue to produce quantity 12. The observable behavior is therefore more
+precise without removing the compact marketplace notation that the resolver already accepted.
+
+### Implementation trace
+
+The regression was captured first in `tests/unit/test_identity_signals.py`. The new coverage
+asserts both sides of the contract: the embedded substring in `box12 Nomad` must not produce a
+quantity or multipack hint, while standalone `x12` and `x 12` remain valid. Writing the failing
+test before the fix preserved the original defect as evidence and prevented a narrow correction
+from silently breaking supported input.
+
+The product change is confined to the quantity pattern in
+`src/product_variant_resolver/signals.py`. Only the `x` branch of `QUANTITY_RE` changed, gaining the
+negative lookbehind `(?<!\w)`. No retrieval, ranking, calibration, policy, API, or catalog behavior
+was modified. This limited scope matches the root cause: the extractor lacked a left token
+boundary for one syntax branch rather than having a broader quantity-parsing design failure.
+
+### Technical choices, alternatives, and trade-offs
+
+The selected boundary, `(?<!\w)x`, rejects an `x` immediately preceded by a Unicode word
+character while still accepting `x12`, `x 12`, and an `x` preceded by punctuation or whitespace.
+It was chosen as the smallest rule that describes the intended semantic distinction: `x` is a
+quantity marker only when it starts a token-like expression, not when it is part of an existing
+word.
+
+A simple whitespace requirement was considered conceptually but would be unnecessarily strict:
+marketplace titles can place compact quantity markers after punctuation or at the beginning of a
+title. A broader parser or post-match tokenization layer could offer more control over multilingual
+and unusual listing formats, but it would enlarge the change surface without evidence that those
+formats are currently required. The accepted trade-off is that this remains a regex-based,
+English-oriented heuristic rather than a general quantity grammar.
+
+### Decision changes
+
+The earlier quantity rule implicitly allowed the `x` marker at any character position. Review
+evidence from `box12 Nomad` showed that this permissive behavior was not merely theoretical: it
+produced a false structured signal and a false multipack hint. The decision was therefore narrowed
+from “any `x` followed by digits may indicate quantity” to “only an `x` without a word character on
+its left may indicate quantity.”
+
+The supported configuration and public signal schema did not change. Existing `lot of`, `qty`,
+`quantity`, and pack-style branches were deliberately left untouched because the reproduced fault
+and regression coverage concern only the standalone `x` notation.
+
+### Verification evidence
+
+The responsible implementation run reported that the new unit test failed before the regex change
+and passed afterward. Following the correction, the signal-focused unit set passed **6/6**, the
+complete `unittest` suite passed **39/39**, and `git diff --check` reported **PASS**. These results
+verify the local Python test boundary and patch formatting; they do not add Docker, browser,
+PostgreSQL, external-model, or production accuracy evidence.
+
+The test run continued to emit the repository's existing Starlette/httpx deprecation warning. No
+new warning was attributed to this change, but the warning remains part of the active dependency
+maintenance risk and should not be represented as resolved by the passing suite.
+
+### Incomplete work, risks, and next step
+
+Quantity extraction still recognizes a deliberately small set of English-oriented patterns. This
+milestone did not expand coverage for other languages, locale-specific notation, Unicode
+multiplication symbols, or additional marketplace-specific quantity formats, and it did not
+replace regex extraction with a parser. Those cases remain deferred until real catalog or listing
+evidence justifies their complexity.
+
+The highest-value next action is to continue the planned Lite-mode product work while keeping new
+quantity formats evidence-driven: when a real false positive or false negative is found, add the
+smallest paired regression test before changing the grammar. Separately, the existing
+Starlette/httpx deprecation warning should be resolved through the already documented dependency
+reconciliation work rather than mixed into signal-extraction changes.
+
+## 2026-09-06 — Python 3.12 dependency contract hardening
+
+### Context, problem, and observable outcome
+
+The Lite runtime had already been exercised with Python 3.12 and Docker, but dependency resolution
+was still allowed to drift inside broad version ranges. The immediate symptom was a deprecation
+warning during TestClient use. Investigation traced the first cause to the development extra
+explicitly installing legacy `httpx`: with Starlette 1.3+/1.6 this allowed TestClient to take its
+legacy fallback path even though the project already depended on the current `httpx2` transport.
+Removing that duplicate transport exposed a second, independent compatibility warning in a fresh
+Python 3.12 environment: AnyIO 4.15.1 deprecated an alias still imported by Starlette 1.6.
+
+The dependency contract is now explicit for the compatibility-sensitive Python 3.12 web stack.
+Fresh constrained installation selects one TestClient transport and keeps its import warning-free;
+ordinary Docker builds consume the same constraints instead of silently choosing new FastAPI,
+Starlette, transport, AnyIO, Pydantic, or Uvicorn versions. This is dependency hardening for the
+existing Lite application, not a product-feature or retrieval-behavior change.
+
+### Implementation trace
+
+`pyproject.toml` removed legacy `httpx` from the `dev` extra. Runtime `httpx2` remains because the
+installed `pvr-report` command uses FastAPI TestClient, so this was not merely a test-only concern.
+The direct dependency declarations continue to express supported ranges; they were not replaced
+with exact pins in project metadata.
+
+`constraints/python312.txt` was added as the selective exact-version layer for the validated web
+stack: FastAPI 0.141.1, Starlette 1.6.0, `httpx2` 2.12.0, `httpcore2` 2.12.0, AnyIO 4.14.0,
+Pydantic 2.13.5, and Uvicorn 0.52.4. `constraints/README.md` explains the scope, local install
+command, coupled update procedure, and evidence required before promoting future versions.
+`Dockerfile` now uses `python:3.12.14-slim`, copies the constraints directory, and applies
+`constraints/python312.txt` through pip's `-c` option while installing the existing PostgreSQL
+extra.
+
+`tests/unit/test_dependency_constraints.py` adds executable contract checks rather than relying on
+documentation alone. It verifies that every direct runtime dependency is represented in the
+Python 3.12 constraints, that Docker applies the constraint file, and that development no longer
+installs legacy `httpx` while the selected TestClient transport and AnyIO compatibility pin remain
+present.
+
+### Technical choices, alternatives, and trade-offs
+
+A selective constraints file was chosen instead of converting `pyproject.toml` to exact versions.
+This preserves normal Python package semantics—direct dependencies still publish bounded supported
+ranges—while Docker and reproducible local verification can constrain the small stack whose
+versions demonstrably interact. The alternative of leaving only broad ranges was simpler, but a
+future install could reproduce either warning or introduce an unreviewed compatibility change.
+A complete transitive lock would provide stronger reproducibility, but it would also expand this
+Lite milestone into packaging, platform-marker, PostgreSQL, and build-tool resolution work that has
+not yet been runtime-validated.
+
+AnyIO 4.14.0 was pinned instead of suppressing the warning or accepting AnyIO 4.15.1. Warning
+suppression would hide compatibility drift without removing it, while changing Starlette or the
+TestClient transport again would disturb the already validated FastAPI stack. Keeping the known
+Starlette 1.6/`httpx2` 2.12 combination and constraining the smallest newly identified edge made
+the dependency decision evidence-driven. The fixed Docker patch tag similarly reduces unexpected
+Python drift, while deliberately avoiding an architecture-specific digest so the same Dockerfile
+continues to support ARM64 and AMD64.
+
+### Decision changes
+
+The first decision was to resolve the TestClient warning solely by removing legacy `httpx` from
+development dependencies and relying on the project's existing `httpx2` runtime dependency. A
+fresh Python 3.12 install showed that this was necessary but insufficient: once the legacy fallback
+was gone, AnyIO 4.15.1 produced a separate alias-deprecation warning through Starlette 1.6. The
+decision therefore changed from transport cleanup alone to a coupled, selectively constrained web
+stack with AnyIO fixed at 4.14.0.
+
+The runtime-image policy also narrowed from the moving `python:3.12-slim` family to the verified
+`python:3.12.14-slim` patch tag, and from unconstrained pip resolution to `pip -c`. These changes do
+not claim that every transitive package is locked: PostgreSQL extras and packaging dependencies
+remain range-resolved. Future updates must treat Starlette, AnyIO, `httpx2`, and `httpcore2` as a
+compatibility set and regenerate evidence rather than changing one pin in isolation.
+
+### Verification evidence
+
+The responsible implementation run created a fresh environment under `/private/tmp` with Python
+3.12.13 and installed the project successfully using the new constraints. Importing and using
+FastAPI TestClient was warning-free. The full suite passed **41/41** with warnings promoted to
+errors via `pytest -W error`; `pip check`, targeted Ruff, targeted strict mypy, Docker Compose
+configuration validation, and `git diff --check` all reported **PASS**. Docker Hub manifest
+inspection confirmed that the selected `python:3.12.14-slim` base is published for both ARM64 and
+AMD64.
+
+This initially proved constrained host installation and the static dependency/Docker contract. At
+that point the Docker daemon was not running, so the first record correctly stopped short of
+container validation. A subsequent closure run on Docker Desktop 29.5.3 completed
+`docker compose build --no-cache api` and produced image
+`sha256:e67d64e95abab329c901bdb5946f86962a09dc7217e2048a3b1c0568ec8b9d75`.
+The image reported Python 3.12.14, UID/GID `100(pvr)/101(pvr)`, FastAPI 0.141.1, Starlette 1.6.0,
+`httpx2`/`httpcore2` 2.12.0, AnyIO 4.14.0, Pydantic 2.13.5, and Uvicorn 0.52.4. A
+`python -W error` TestClient import completed without warnings, and legacy `httpx` was absent.
+
+With the repository mounted into a read-only container and writable paths supplied through tmpfs,
+the 39 backend/API/evaluation/reporting/integration/unit/fixture tests that do not require Node all
+passed. The attempted full 41-test container selection was not a 41/41 pass: the UI controller
+test errored because this runtime image intentionally has no Node executable. That is a validation-
+environment boundary, not evidence of a UI regression; the fresh constrained host Python 3.12
+environment remains the evidence for the complete 41/41 suite. In the same read-only container,
+`pvr-report` generated one JSON, one Markdown, and four SVG artifacts successfully. Compose reached
+healthy state; inspection confirmed `User=pvr` and `ReadonlyRootfs=true`; live HTTP checks returned
+ready health plus the expected `matched`, `ambiguous`, and `no_match` outcomes, with no identity in
+the latter two states.
+
+The container closure promotes the exact selected pins from host-only to container-verified for
+this Lite offline boundary. It does not change the earlier scope caveats: full-repository Ruff still
+reports 36 pre-existing findings, and whole-repository mypy debt also remains outside this focused
+dependency check.
+
+### Incomplete work, risks, and next step
+
+`constraints/python312.txt` is intentionally not a complete transitive lock. PostgreSQL extras,
+setuptools/build tooling, platform markers, and indirect packages outside the compatibility-
+sensitive web stack may still resolve differently, so this milestone does not establish fully
+reproducible builds. It also does not resolve the 36 existing whole-repository Ruff findings or
+change the previously deferred PostgreSQL runtime adapter.
+
+The no-cache container closure is now complete for the Lite offline path. The next dependency
+decision is deferred until the PostgreSQL runtime path is implemented: at that stage, evaluate a
+complete transitive lock that includes its extras and repeat the same constrained build/runtime
+evidence. Until then, the selective constraints must not be described as a complete lock, the
+runtime image must not be expected to execute Node-based UI tests, and the existing whole-repository
+Ruff/mypy findings remain explicit maintenance debt.
+
 ## Required format for future entries
 
 Every future project-log entry must preserve the following traceability structure:

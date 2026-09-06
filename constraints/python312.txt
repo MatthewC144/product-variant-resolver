@@ -1,0 +1,11 @@
+# Core versions come from the Python 3.12.14 Docker validation. AnyIO 4.14.0 was
+# subsequently host-verified on Python 3.12 to keep that Starlette stack warning-free.
+# Keep this file compatible with the bounded ranges in pyproject.toml.
+fastapi==0.141.1
+starlette==1.6.0
+httpx2==2.12.0
+httpcore2==2.12.0
+# AnyIO 4.15 deprecates an alias still imported by Starlette 1.6 TestClient.
+anyio==4.14.0
+pydantic==2.13.5
+uvicorn==0.52.4

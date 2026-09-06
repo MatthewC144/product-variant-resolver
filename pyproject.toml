@@ -19,7 +19,7 @@ dependencies = [
 postgres = ["sqlalchemy>=2.0,<3", "alembic>=1.14,<2", "psycopg[binary]>=3.2,<4", "pgvector>=0.3,<1"]
 ml = ["numpy>=2,<3", "scikit-learn>=1.6,<2", "sentence-transformers>=3.4,<4"]
 observability = ["opentelemetry-api>=1.29,<2", "opentelemetry-sdk>=1.29,<2"]
-dev = ["pytest>=8,<9", "httpx>=0.28,<1", "ruff>=0.9,<1", "mypy>=1.14,<2"]
+dev = ["pytest>=8,<9", "ruff>=0.9,<1", "mypy>=1.14,<2"]
 
 [project.scripts]
 pvr-evaluate = "product_variant_resolver.evaluation:main"

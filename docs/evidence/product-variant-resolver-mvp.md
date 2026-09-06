@@ -11,14 +11,14 @@
 |---|---|---|
 | Requirements | [`specs/product-variant-resolver/review.md`](../../specs/product-variant-resolver/review.md) | R1–R14 and R16 passed within the Lite fixture scope; R15 passed with risk. |
 | Focused re-verification | Final QA review | Catalog-derived series soft conflicts, the RRF default decision, and the in-process HTTP disclosure were re-verified after correction. No separate agent-verification artifact was checked in. |
-| Test suite | QA review command transcript | 38/38 unittest-compatible unit, integration, API, UI, fixture, training, evaluation, and reporting tests passed on macOS arm64 / Python 3.14.6. |
+| Test suite | QA review command transcript | Original 38/38 suite passed; a fresh constrained host Python 3.12 environment later passed the complete 41/41 suite with warnings promoted to errors. The constrained runtime image passed 39/39 non-Node tests; its UI controller test remains host-only because Node is not installed in the runtime image. |
 | Compilation | QA review command transcript | `compileall` exited 0. An offline wheel build was not possible because the host lacked the required setuptools artifact. |
 | Fixture integrity | [`data/manifest.json`](../../data/manifest.json) | `fixture-v1`: 120 products; 100 cases; train/dev/test = 58/21/21; frozen catalog and benchmark SHA-256 values. |
 | Ranking/evaluation | [JSON](../../reports/fixture-v1/evaluation-fixture-v1-test.json) and [Markdown](../../reports/fixture-v1/evaluation-fixture-v1-test.md) | Report schema, raw derivations, disclosure, and generated SVG artifacts passed QA validation. |
 | API/manual flow | QA review | `matched`, `ambiguous`, and `no_match`; default response omission; bounded debug output; structured 4xx; fail-closed 503 checks. |
 | UI | QA review | Node DOM harness covered loading, match, abstention/empty, and error states; safe text rendering checks passed. No live browser run. |
-| Docker/Python 3.12 | QA review | Rebuilt default image was healthy on Docker 29.5.3/aarch64 with Python 3.12.14, non-root UID 100, read-only root filesystem, loopback port, UI/three-state API flow, and missing-catalog fail-closed behavior. |
-| Container reporting | QA review | `pvr-report` generated and validated one JSON, one Markdown, and four SVGs in the rebuilt read-only image; container API tests passed 8/8 and reporting tests 2/2. |
+| Docker/Python 3.12 | QA review | No-cache constrained image `sha256:e67d64e95abab329c901bdb5946f86962a09dc7217e2048a3b1c0568ec8b9d75` was healthy on Docker Desktop 29.5.3/aarch64 with Python 3.12.14, user `pvr` (UID 100/GID 101), and a read-only root filesystem. Live health and all three API outcomes matched expectations; abstentions returned no identity. |
+| Container reporting | QA review | `pvr-report` generated one JSON, one Markdown, and four SVGs in the constrained read-only image; all 39 mounted tests not requiring Node passed. |
 | Host→container latency | [`reports/runtime-validation/docker-python312-http-latency.json`](../../reports/runtime-validation/docker-python312-http-latency.json) | 50 sequential samples after 10 warm-ups reproduce nearest-rank p95 `4.721208 ms`; one arm64 machine, loopback, concurrency 1, offline-memory backend. |
 | Compose/PostgreSQL | QA review | Default and PostgreSQL-profile static configuration passed, but PostgreSQL ingestion, retrieval, and migration-cycle E2E were not run. |
 
@@ -52,6 +52,15 @@ Desktop 29.5.3/aarch64 and Python 3.12.14, ran as UID 100 with a read-only root 
 became healthy on a loopback-only published port. QA observed UI assets, all three resolution
 states, default response minimization, request IDs, and missing-catalog fail-closed behavior.
 
+The later dependency closure rebuilt the API image without cache as
+`sha256:e67d64e95abab329c901bdb5946f86962a09dc7217e2048a3b1c0568ec8b9d75` and verified the exact
+selected stack: FastAPI 0.141.1, Starlette 1.6.0, `httpx2`/`httpcore2` 2.12.0, AnyIO 4.14.0,
+Pydantic 2.13.5, and Uvicorn 0.52.4. `python -W error` imported TestClient without warnings;
+legacy `httpx` was absent. The read-only/tmpfs-mounted run passed all 39 backend/API/evaluation/
+reporting/integration/unit/fixture tests that do not require Node. The complete 41-test selection
+is evidenced by the fresh constrained host environment, not the container: its UI controller test
+requires Node, which is intentionally absent from the runtime image.
+
 This boundary includes the host HTTP client, Docker Desktop port forwarding, Uvicorn/FastAPI, the
 offline resolver, and JSON serialization/parsing. It excludes startup, TLS, proxying, remote
 networking, concurrent load, and PostgreSQL. The raw artifact is
@@ -79,9 +88,14 @@ networking, concurrent load, and PostgreSQL. The raw artifact is
   `hashing-v1` is not neural.
 - Runtime boundary: one local arm64 Docker/Python 3.12 default offline run is verified. TLS,
   proxying, remote networks, concurrent load, and PostgreSQL are not.
-- Rebuild reproducibility: dependencies remain bounded ranges without a committed lockfile or
-  constraints file; the dev extra still lists legacy `httpx` and produces a host-side warning even
-  though the container runtime uses `httpx2`.
+- Rebuild reproducibility: `constraints/python312.txt` fixes the compatibility-sensitive web stack
+  and is verified by a no-cache container build, but it is selective rather than a complete
+  transitive lock. PostgreSQL extras and unlisted transitive/build dependencies remain range-
+  resolved.
+- UI test boundary: the runtime image intentionally omits Node, so its mounted container evidence is
+  39/39 non-Node tests; the Node UI controller test is covered by the fresh 41/41 host run.
+- Static-analysis debt: targeted dependency-scope Ruff/mypy checks passed, but existing whole-
+  repository Ruff/mypy findings remain unresolved; full Ruff currently reports 36 findings.
 - UI: no live-browser smoke test.
 - Reviews: there was no formal architect, security, or performance-agent review. QA's secret scan
   is evidence of that check only and is not a security sign-off.

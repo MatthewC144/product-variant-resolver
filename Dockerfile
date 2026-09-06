@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM python:3.12-slim AS runtime
+FROM python:3.12.14-slim AS runtime
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
@@ -17,8 +17,9 @@ WORKDIR /app
 RUN addgroup --system pvr && adduser --system --ingroup pvr --home /nonexistent pvr
 
 COPY pyproject.toml README.md ./
+COPY constraints/ ./constraints/
 COPY src/ ./src/
-RUN python -m pip install --no-cache-dir '.[postgres]'
+RUN python -m pip install --no-cache-dir -c constraints/python312.txt '.[postgres]'
 
 COPY data/ ./data/
 COPY config/ ./config/

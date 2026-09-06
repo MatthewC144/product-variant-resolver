@@ -7,8 +7,8 @@
 
 ## Verdict summary
 
-The dependency-light, offline fixture path is demonstrable and internally consistent. All 38
-available unit, integration, API, UI, fixture, training, evaluation, and reporting tests passed;
+The dependency-light, offline fixture path is demonstrable and internally consistent. The original
+38-test QA suite passed, and the later fresh constrained Python 3.12 host suite passed 41/41;
 Python compilation, fixture validation, report regeneration, report disclosure validation, and
 Docker Compose static configuration also passed. Manual API spot checks produced all three decision
 states, omitted debug data by default, bounded debug candidates, and failed closed for missing
@@ -29,17 +29,18 @@ samples after 10 warm-ups produce nearest-rank p95 `4.721208 ms`.
 
 Focused re-verification closed the prior runtime reporting dependency finding. `httpx2>=2,<3` is a
 reasonable runtime dependency because the shipped `pvr-report` CLI directly uses FastAPI
-TestClient. A no-cache rebuild resolved FastAPI 0.141.1, Starlette 1.6.0, httpx2 2.12.0, and
-httpcore2 2.12.0. In the rebuilt read-only image, `pvr-report` generated JSON, Markdown, and four
-SVGs, and all mounted API/reporting tests passed.
+TestClient. The selective Python 3.12 constraints freeze the compatibility-sensitive web stack,
+remove legacy `httpx`, and hold AnyIO at 4.14.0 to avoid the alias warning exposed by AnyIO 4.15.1
+with Starlette 1.6. A no-cache rebuild resolved the complete selected set and, in the rebuilt
+read-only image, `pvr-report` generated JSON, Markdown, and four SVGs successfully.
 
 This is not a full verification of every technology named in the MVP brief. PostgreSQL/pgvector
 resolution adapters and pinned external embedding/cross-encoder models remain explicitly deferred.
 The Docker latency evidence is from one local arm64 machine over loopback with concurrency 1; it
-does not cover TLS, a reverse proxy, a remote network, concurrent load, or PostgreSQL. Dependency
-versions are bounded ranges without a committed lockfile or constraints file, so a future rebuild
-can resolve a different compatible set. These limitations must remain visible in any portfolio or
-repository claims.
+does not cover TLS, a reverse proxy, a remote network, concurrent load, or PostgreSQL. The committed
+constraints are selective rather than a complete transitive lock; PostgreSQL extras and other
+unlisted indirect/build dependencies can still resolve differently. These limitations must remain
+visible in any portfolio or repository claims.
 
 ## Requirement coverage
 
@@ -60,7 +61,7 @@ repository claims.
 | R13 CPU smoke budget | PASS (limited scope) | Checked-in host-to-Docker loopback evidence has 50 sequential samples, 10 excluded warm-ups, K=25, and nearest-rank p95 `4.721208 ms` (gate `<=1500 ms`). Current runtime independently matches Docker 29.5.3/aarch64 and Python 3.12.14. Scope remains one machine, concurrency 1, offline-memory backend, without TLS/proxy/remote network/PostgreSQL. |
 | R14 API validation | PASS | Blank, 501-code-point, unknown-field, and limit=26 requests return structured 422; malformed JSON returns 400; unsupported media type returns 415; no tracebacks exposed. |
 | R15 Health/readiness | PASS WITH RISK | A dedicated read-only Docker container with `PVR_CATALOG_PATH=/app/data/missing.json` returned health 503/not-ready and resolve 503/`resolver_not_ready` with no identity, then was removed. PostgreSQL selection and unavailable external providers also fail closed. Live health transition after a dependency fails post-startup is not verified. |
-| R16 Quality gate | PASS | Host suite is 38/38 green. Rebuilt Python 3.12 image compile passes; `pvr-report` generates and validates all six expected artifacts under read-only runtime constraints; mounted container API tests are 8/8 and reporting tests 2/2 green. Earlier image runs also passed 10 unit, 7 integration, 4 evaluation-metric, and 5 fixture tests plus direct container evaluation. |
+| R16 Quality gate | PASS | Fresh constrained Python 3.12 host suite is 41/41 green with warnings promoted to errors. The no-cache constrained image passed all 39 non-Node backend/API/evaluation/reporting/integration/unit/fixture tests and generated all six report artifacts under read-only runtime constraints. The complete 41-test container selection is not claimed: its UI controller test requires Node, which is intentionally absent from the runtime image and is verified on the host instead. |
 
 ## Checked items and reproducible evidence
 
@@ -96,7 +97,7 @@ Docker/Python 3.12 runtime milestone:
 
 ```text
 Image: product-variant-resolver:lite
-Latest rebuilt image ID: sha256:f5df8cba0c0abaae77b1e01be9269cdbef2dd874be5b168da47aed5d365cc739
+Latest rebuilt image ID: sha256:e67d64e95abab329c901bdb5946f86962a09dc7217e2048a3b1c0568ec8b9d75
 Docker server / architecture: 29.5.3 / aarch64
 Container Python: 3.12.14
 Runtime user: uid=100(pvr), gid=101(pvr)
@@ -125,12 +126,14 @@ Compose state: healthy
 - Runtime latency evidence is single-machine arm64, loopback, sequential, concurrency 1, and offline
   memory only. It excludes TLS, proxying, remote networking, concurrent load, and PostgreSQL.
 
-Focused reporting dependency re-verification:
+Focused dependency-contract and reporting re-verification:
 
 - `pyproject.toml` now declares `httpx2>=2,<3` in runtime dependencies. This placement is justified
   because `pvr-report` is installed in the runtime image and calls FastAPI TestClient directly.
-- A no-cache Docker rebuild succeeded and resolved: FastAPI `0.141.1`, Starlette `1.6.0`, httpx2
-  `2.12.0`, httpcore2 `2.12.0`, Pydantic `2.13.5`, and Uvicorn `0.52.4`.
+- `constraints/python312.txt` selectively fixes FastAPI `0.141.1`, Starlette `1.6.0`, httpx2
+  `2.12.0`, httpcore2 `2.12.0`, AnyIO `4.14.0`, Pydantic `2.13.5`, and Uvicorn `0.52.4`.
+  Legacy `httpx` was removed from the dev extra. A no-cache Docker build succeeded with this exact
+  set; `python -W error` imported TestClient without warning and confirmed legacy `httpx` absent.
 - Inside the rebuilt read-only/non-root container, `pvr-report --output-directory
   /tmp/qa-runtime-report` generated exactly: one JSON, one Markdown, `retrieval-ablation.svg`,
   `reranker-comparison.svg`, `precision-coverage.svg`, and `latency.svg`.
@@ -139,11 +142,14 @@ Focused reporting dependency re-verification:
   non-production disclosure plus `container.measured=false`.
 - Generated Markdown retained the non-production statement, no-external-cross-encoder statement,
   and container-latency-not-measured statement. All four SVGs contain `<svg>` and `<title>`.
-- Rebuilt-image mounted tests: API 8/8 and reporting 2/2 passed. Live health/UI/three-state/default
-  response smoke also passed, and Compose logs contained no traceback or application error.
-- The dependency fix is not fully reproducible across time: dependency ranges remain broad and no
-  lockfile/constraints file freezes the resolved versions. The dev extra also still lists legacy
-  `httpx`, which produced a host-side deprecation warning, although all host tests passed.
+- Rebuilt-image mounted tests: all 39 tests not requiring Node passed across backend, API,
+  evaluation, reporting, integration, unit, and fixture scopes. The attempted full 41-test
+  selection errored only at the UI controller test because the runtime image has no Node; the
+  fresh constrained host environment is the 41/41 UI-inclusive evidence.
+- Compose became healthy; inspection showed `User=pvr` and `ReadonlyRootfs=true`. Live health and
+  three-state HTTP checks passed, and `ambiguous`/`no_match` returned no identity.
+- The selective constraints are not a complete transitive lock. PostgreSQL extras and unlisted
+  transitive/build dependencies remain range-resolved.
 
 Additional audit results:
 
@@ -188,11 +194,10 @@ None for demonstrating the explicitly documented offline fixture path.
    reranker is `heuristic-v1`. `config/models.example.json` still contains replacement placeholders;
    selecting an external provider fails closed. Do not describe the reported results as a
    sentence-transformer or cross-encoder benchmark.
-3. **Rebuild dependencies are ranged rather than locked.** The focused build successfully resolved
-   and tested FastAPI 0.141.1 / Starlette 1.6.0 / httpx2 2.12.0, but the repository has no lockfile
-   or constraints file. Future builds can select different compatible releases. Freeze the tested
-   runtime set or add a controlled dependency-update workflow; also reconcile the dev extra's
-   legacy `httpx` entry with the runtime `httpx2` dependency.
+3. **Dependency constraints are selective, not a complete lock.** The compatibility-sensitive
+   FastAPI/Starlette/TestClient/AnyIO/Pydantic/Uvicorn set is constrained and container-verified,
+   with legacy `httpx` removed. PostgreSQL extras and unlisted transitive/build dependencies remain
+   range-resolved and require a broader lock/reverification when the PostgreSQL path is implemented.
 
 ### Later
 
@@ -203,9 +208,10 @@ None for demonstrating the explicitly documented offline fixture path.
 
 ## Recommended next task
 
-The requested R7, R11, R13, Docker/Python 3.12 runtime, and runtime reporting dependency milestones
-are QA-closed for the Lite offline fixture scope. The next hardening task is to freeze or constrain
-the tested runtime dependency set and align the dev TestClient dependency. PostgreSQL/pgvector and
-external neural model work can remain deferred only if the README, reports, and repository
-description continue to say so explicitly; otherwise implement and integration-test those adapters
-before claiming the original technology scope complete.
+The requested R7, R11, R13, Docker/Python 3.12 runtime, runtime reporting, and selective dependency-
+constraint milestones are QA-closed for the Lite offline fixture scope. The next dependency step is
+a deferred complete-lock review when the PostgreSQL runtime path is implemented; the current image
+does not include Node, so UI controller tests remain host-verified. PostgreSQL/pgvector and external
+neural model work can remain deferred only if the README, reports, and repository description
+continue to say so explicitly; otherwise implement and integration-test those adapters before
+claiming the original technology scope complete.

@@ -51,6 +51,14 @@ class IdentitySignalTests(unittest.TestCase):
         self.assertIsNone(signals.year)
         self.assertIsNone(signals.quantity)
 
+    def test_quantity_x_marker_requires_left_token_boundary(self):
+        embedded_marker = extract_signals("box12 Nomad")
+        self.assertIsNone(embedded_marker.quantity)
+        self.assertFalse(embedded_marker.multipack_hint)
+
+        self.assertEqual(extract_signals("Nomad x12").quantity, 12)
+        self.assertEqual(extract_signals("Nomad x 12").quantity, 12)
+
 
 if __name__ == "__main__":
     unittest.main()

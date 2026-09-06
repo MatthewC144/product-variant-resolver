@@ -8,7 +8,10 @@ from .schemas import ExtractedSignals
 YEAR_RE = re.compile(r"(?<!\d)(19[6-9]\d|20[0-4]\d)(?!\d)")
 SERIES_POSITION_RE = re.compile(r"(?<!\d)(\d{1,3})\s*/\s*(\d{1,3})(?!\d)")
 COLLECTOR_RE = re.compile(r"(?:#|no\.?\s*)([a-z]?\d{1,5}[a-z]?)(?!\w)", re.IGNORECASE)
-QUANTITY_RE = re.compile(r"(?:lot\s+of|qty|quantity|x)\s*[:x]?\s*(\d{1,3})(?!\d)", re.IGNORECASE)
+QUANTITY_RE = re.compile(
+    r"(?:lot\s+of|qty|quantity|(?<!\w)x)\s*[:x]?\s*(\d{1,3})(?!\d)",
+    re.IGNORECASE,
+)
 PACK_RE = re.compile(r"(?<!\d)(\d{1,2})[ -]?(?:pack|pk)(?!\w)", re.IGNORECASE)
 NOISE_TOKENS = frozenset({"nib", "nip", "new", "sealed", "rare", "vhtf", "htf", "hotwheels"})
 
