@@ -109,3 +109,21 @@
   machine-specific frame paths and does not require the original workbook at runtime.
 - **Deferred review:** Map reviewed labels to catalog identities, decide a casting-family grouped
   split, and only then promote an eligible subset into canonical resolver evaluation.
+
+## D9 — Prefer explicit non-matches over fuzzy catalog assignments
+
+- **Choice:** Align casting families only through exact normalized brand and casting names, and
+  assign a canonical UUID only when exact series plus a variant discriminator leave one candidate.
+  Fuzzy matching is disabled for ground-truth creation.
+- **Reason:** The 120-item fixture catalog is synthetic and covers only 10 casting families, while
+  the human corpus contains 97 real casting names. A high string-similarity score could make names
+  such as `Dodge Challenger` appear close to `Dodge Charger` or collapse a chassis-specific Nissan
+  Skyline into a generic family, creating false labels rather than measuring the resolver.
+- **Alternatives:** Select the nearest text match for every row; manually force mappings based on
+  domain intuition; create new canonical products automatically from incomplete name fields.
+- **Impact:** The first alignment truthfully reports 0 canonical variants, 2 `Toyota Supra`
+  casting-family-only records, and 99 unmapped records. This does not improve headline metrics, but
+  it establishes exactly how much catalog work is required before real-data evaluation is valid.
+- **Deferred review:** Define human-backed catalog provenance, deduplicate repeated scans, resolve
+  uncertain series/variant semantics, and introduce a reviewable mapping workflow before expanding
+  canonical ground truth.

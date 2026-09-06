@@ -22,6 +22,14 @@ catalog alignment. It is deliberately excluded from the headline canonical-resol
 calibration training, and threshold selection because its names have not yet been mapped to this
 repository's immutable catalog UUIDs and slugs.
 
+The current conservative alignment is frozen in
+`data/human_labeled_catalog_alignment.json`. Exact normalized brand/casting matching finds two
+`Toyota Supra` records at casting-family level, but neither contains enough compatible variant
+evidence to select one of the 12 synthetic Toyota Supra variants. The result is therefore 0
+canonical mappings, 2 family-only matches, and 99 unmapped records. This low coverage is expected:
+the fixture catalog has only 10 synthetic casting families, while the reviewed corpus contains 97
+real casting names.
+
 ## Architecture
 
 ```text
@@ -75,6 +83,7 @@ bounded explanation payload. UI values are rendered as text, and resolution logs
 PYTHONPATH=src python -m unittest discover -s tests -p 'test_*.py' -v
 python scripts/validate_fixture_data.py
 python scripts/import_human_labeled_names.py --source /path/to/labeling-queue.csv
+python scripts/align_human_labeled_names.py
 PYTHONPATH=src python -m product_variant_resolver.evaluation
 PYTHONPATH=src python scripts/train_calibration.py --output-directory artifacts
 PYTHONPATH=src python scripts/generate_evaluation_report.py \

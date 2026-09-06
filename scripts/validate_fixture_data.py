@@ -25,6 +25,8 @@ def validate() -> list[str]:
     manifest = load("manifest.json")
     human_names = load("human_labeled_names.json")
     human_names_manifest = load("human_labeled_names_manifest.json")
+    human_alignment = load("human_labeled_catalog_alignment.json")
+    human_alignment_manifest = load("human_labeled_catalog_alignment_manifest.json")
     products = catalog.get("products", [])
     cases = benchmark.get("cases", [])
     if len(products) < 120:
@@ -115,6 +117,37 @@ def validate() -> list[str]:
         if record.get("initial_output_status") != expected_status:
             errors.append(f"human-labeled initial status mismatch: {case_id}")
 
+    alignment_records = human_alignment.get("alignments", [])
+    alignment_digest = hashlib.sha256(
+        (ROOT / "data" / "human_labeled_catalog_alignment.json").read_bytes()
+    ).hexdigest()
+    if human_alignment_manifest.get("alignment_sha256") != alignment_digest:
+        errors.append("human catalog alignment checksum differs from frozen manifest")
+    if human_alignment_manifest.get("human_dataset_sha256") != human_digest:
+        errors.append("human catalog alignment references a different human dataset")
+    if human_alignment_manifest.get("catalog_sha256") != catalog_digest:
+        errors.append("human catalog alignment references a different catalog")
+    if len(alignment_records) != len(human_records):
+        errors.append("human catalog alignment count differs from human corpus")
+    alignment_ids = {record.get("case_id") for record in alignment_records}
+    human_ids = {record.get("case_id") for record in human_records}
+    if alignment_ids != human_ids:
+        errors.append("human catalog alignment case IDs differ from human corpus")
+    catalog_by_uuid = {product.get("canonical_uuid"): product for product in products}
+    for alignment in alignment_records:
+        status = alignment.get("status")
+        canonical_uuid = alignment.get("canonical_uuid")
+        canonical_id = alignment.get("canonical_id")
+        if status == "mapped":
+            product = catalog_by_uuid.get(canonical_uuid)
+            if product is None or product.get("canonical_id") != canonical_id:
+                errors.append(f"invalid mapped catalog identity: {alignment.get('case_id')}")
+        elif status in {"casting_family_only", "unmapped"}:
+            if canonical_uuid is not None or canonical_id is not None:
+                errors.append(f"non-mapped alignment asserts identity: {alignment.get('case_id')}")
+        else:
+            errors.append(f"invalid alignment status: {alignment.get('case_id')}")
+
     return errors
 
 
@@ -126,6 +159,8 @@ def manifest_checksum() -> str:
         "manifest.json",
         "human_labeled_names.json",
         "human_labeled_names_manifest.json",
+        "human_labeled_catalog_alignment.json",
+        "human_labeled_catalog_alignment_manifest.json",
     ):
         digest.update((ROOT / "data" / name).read_bytes())
     return digest.hexdigest()

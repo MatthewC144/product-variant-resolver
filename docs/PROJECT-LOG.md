@@ -1,5 +1,66 @@
 # Project Log
 
+## 2026-09-06 — Conservative alignment exposes the real catalog-coverage gap
+
+### What was executed and what problem it solves
+
+The newly imported 101-record human-label corpus could not yet participate in canonical resolver
+evaluation because the labels had no verified links to this repository's UUIDs. This iteration ran
+the requested catalog-alignment step and created a deterministic, reviewable status for every
+record. The outcome is 0 canonical mappings, 2 exact casting-family-only matches, and 99 unmapped
+records. The two partial matches are `Toyota Supra`; each still has 12 possible synthetic variants,
+so neither receives a UUID.
+
+This result identifies the actual constraint rather than hiding it behind a similarity score. The
+current fixture catalog contains 10 synthetic casting families, while the human corpus contains 97
+real casting names. The next accuracy bottleneck is catalog coverage and variant provenance, not
+the mechanics of matching the two JSON files.
+
+### Code and data changes, with reasons
+
+`scripts/align_human_labeled_names.py` builds
+`data/human_labeled_catalog_alignment.json` plus a checksum manifest. Each row retains its human
+name fields, alignment status, reason, nullable canonical identity, matched family, and possible
+canonical IDs. Exact Unicode/punctuation-normalized brand and casting are required for a family
+match. A UUID additionally requires exact series and one variant discriminator—color, edition, or
+rarity tier—to reduce the family to one unique product.
+
+Fuzzy string matching was intentionally excluded from label creation. It would be useful as a
+retrieval signal, but unsafe as ground truth: for example, `Dodge Challenger` versus `Dodge
+Charger`, a chassis-specific Skyline versus a generic Skyline family, or a real 2000 Chevy Nomad
+versus synthetic 2022/2023 variants can look textually close while representing different product
+identities. The conservative policy allows those items to remain visible as unmapped instead of
+silently assigning an incorrect UUID.
+
+`scripts/validate_fixture_data.py` now verifies the alignment checksum, source dataset checksum,
+catalog checksum, complete case-ID coverage, status values, and UUID/slug integrity. Five focused
+tests cover the current 0/2/99 result, the 12-candidate Toyota Supra families, null identities for
+unmapped rows, frozen inputs/output, and deterministic regeneration. R18 and completed task T27
+were added to the Lite brief; README, QA review, decision D9, and the AI-eval evidence document now
+state that this is a catalog-coverage measurement rather than an accuracy result.
+
+### Technical choice and next decision
+
+The method uses standard-library normalization and exact structured fields instead of adding an
+embedding model or fuzzy-matching dependency. This keeps the alignment deterministic, auditable,
+and appropriate for the Lite workflow. The trade-off is deliberately low automatic coverage: it
+prefers a review queue over false canonical labels.
+
+The next data task should not weaken the threshold. It should define how reviewed names become a
+separately versioned, human-backed catalog: deduplicate repeated scans, settle whether series and
+variant fields describe the product or marketplace listing, add provenance, mint stable IDs, and
+then create a casting-family grouped evaluation split. PostgreSQL ingestion T07 remains valuable,
+but loading a broader catalog should follow a clear source-of-truth decision.
+
+### Verification evidence
+
+The alignment command processed all 101 records and reproduced the frozen 0 mapped / 2
+casting-family-only / 99 unmapped counts. The central fixture validator passed with both input and
+output checksums linked. Five focused alignment tests passed, the complete host suite passed 50/50
+with `PYTHONPATH=src`, Python compilation passed, and `git diff --check` reported no whitespace
+errors. The existing host TestClient deprecation warning remains an environment/dependency warning
+already documented by the project; it did not cause a test failure.
+
 ## 2026-09-06 — Human-labeled real-noisy names added as an auxiliary dataset
 
 ### What was executed and what problem it solves

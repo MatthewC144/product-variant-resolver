@@ -1,9 +1,9 @@
 # Product Variant Resolver — Lite MVP QA Review
 
 > Date: 2026-09-01  
-> Last focused update: 2026-09-06 (T26 human-labeled name corpus)
+> Last focused update: 2026-09-06 (T27 conservative catalog alignment)
 > QA mode: `.codex/agents/qa.toml` MVP Mode  
-> Scope: `specs/product-variant-resolver/mvp-brief.md` R1–R17
+> Scope: `specs/product-variant-resolver/mvp-brief.md` R1–R18
 > Verdict: **PASS WITH RISKS**
 
 ## Verdict summary
@@ -21,10 +21,11 @@ runtime ranker based on a traceable frozen-test comparison showing zero Top-1 ga
 heuristic reranker; and the report contains warmed in-process HTTP/ASGI `/resolve` samples with an
 explicit statement that container/TCP latency was not measured.
 
-The T26 data addition passed the current host suite **45/45**, including four new corpus tests.
-The fixture validator now includes the auxiliary dataset checksum and label/status invariants;
-Python compilation and `git diff --check` also pass. These tests validate the imported artifact and
-its boundary, not canonical resolution accuracy on the newly imported names.
+The T26/T27 data additions passed the current host suite **50/50**, including four corpus tests and
+five alignment tests. The fixture validator now includes both auxiliary dataset and alignment
+checksums plus label/status/identity invariants; Python compilation and `git diff --check` also
+pass. These tests validate the imported artifacts and their boundaries, not canonical resolution
+accuracy on the newly imported names.
 
 An independent Docker runtime milestone now verifies the existing
 `product-variant-resolver:lite` image on Docker Desktop 29.5.3/aarch64: Python 3.12.14, non-root
@@ -77,6 +78,7 @@ visible in any portfolio or repository claims.
 | R15 Health/readiness | PASS WITH RISK | A dedicated read-only Docker container with `PVR_CATALOG_PATH=/app/data/missing.json` returned health 503/not-ready and resolve 503/`resolver_not_ready` with no identity, then was removed. PostgreSQL selection and unavailable external providers also fail closed. T04 additionally proves that the isolated PostgreSQL dependency can migrate empty → `0001` → base → `0001`, while a sentinel application table makes the runner refuse execution. Live health transition after a dependency fails post-startup and runtime PostgreSQL resolver readiness are not verified. |
 | R16 Quality gate | PASS | Fresh constrained Python 3.12 host suite is 41/41 green with warnings promoted to errors. The no-cache constrained image passed all 39 non-Node backend/API/evaluation/reporting/integration/unit/fixture tests and generated all six report artifacts under read-only runtime constraints. T04's strengthened runner passed its isolated migration cycle and sentinel safety check; Python compilation and `git diff --check` also passed. The complete 41-test container selection is not claimed: its UI controller test requires Node, which is intentionally absent from the runtime image and is verified on the host instead. |
 | R17 Human-label provenance | PASS | `human-labeled-real-noisy-v1` contains 101 confirmed human labels, including 91 initial-name/human-name pairs and 10 explicit `no_candidate` failures. Four source rows marked excluded were not imported. The frozen manifest records source and dataset checksums, and the corpus declares that it is excluded from canonical-resolution accuracy, calibration training, and threshold selection until catalog IDs are assigned. |
+| R18 Conservative catalog alignment | PASS | The deterministic alignment covers all 101 reviewed records and freezes the human dataset, catalog, and output checksums. It reports 0 canonical mappings, 2 exact brand/casting family-only matches, and 99 unmapped records. Every unresolved record retains null UUID/slug; fuzzy matching is disabled. |
 
 ## Checked items and reproducible evidence
 
@@ -247,10 +249,12 @@ None for demonstrating the explicitly documented offline fixture path.
 ## Recommended next task
 
 The requested R7, R11, R13, Docker/Python 3.12 runtime, runtime reporting, selective dependency-
-constraint, and T04 migration milestones are QA-closed for their stated Lite scope. The next
-highest-value database task is T07 idempotent PostgreSQL fixture ingestion, including immutable-ID
-preservation, version metadata, repeat-load equality, and transactional rejection of invalid or
-colliding fixtures. A complete dependency-lock review remains deferred until the PostgreSQL runtime
+constraint, T04 migration, T26 dataset, and T27 alignment milestones are QA-closed for their stated
+Lite scope. The next highest-value data task is to expand a separately versioned, human-backed
+catalog from the reviewed labels, after defining deduplication and variant-identity rules; the
+current synthetic catalog covers only two reviewed records at casting-family level and none at
+canonical-variant level. T07 PostgreSQL ingestion remains the next database task once the intended
+catalog source is settled. A complete dependency-lock review remains deferred until the PostgreSQL runtime
 path is implemented; the current image does not include Node, so UI controller tests remain
 host-verified. PostgreSQL retrieval and external neural model work must continue to be described as
 deferred until their adapters are implemented and integration-tested.

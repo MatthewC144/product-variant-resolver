@@ -59,6 +59,7 @@ This MVP is a portfolio-quality engineering validation, not evidence of producti
 - **R15 — Health/readiness:** WHEN catalog, sparse index, dense index, or required local model artifacts are unavailable, THE SYSTEM SHALL expose a non-ready health state and SHALL NOT return a fabricated match.
 - **R16 — Quality gate:** WHEN the MVP is proposed complete, THE SYSTEM SHALL have green unit, integration, API/E2E, and benchmark-gate suites plus a generated machine-readable and Markdown evaluation report.
 - **R17 — Human-label provenance:** WHEN a reviewed external name dataset is added, THE SYSTEM SHALL preserve the initial system name (including an explicit no-candidate outcome), the human-verified name fields, label confidence, source checksum, and usage limits without treating unmapped names as canonical catalog ground truth.
+- **R18 — Conservative catalog alignment:** WHEN human-labeled names are compared with the catalog, THE SYSTEM SHALL assign a canonical UUID only after a unique exact structured match, retain family-only and unmapped outcomes without asserted identities, and freeze the input/output checksums and alignment policy.
 
 The numeric gates above are deliberately modest fixture-MVP gates. Reports and README text must state dataset size, construction method, split strategy, hardware, model versions, and that the figures do not establish production accuracy.
 
@@ -247,6 +248,12 @@ Runtime resolution traces are not persisted by default in the fixture MVP.
 - Human-confirmed `human_label_name`, `human_label_casting`, brand, series, variant, and pricing keyword.
 - Stored pipeline keyword outputs and failure categories support later comparison without rewriting the original human answer.
 - These records are an auxiliary evaluation corpus. Until a record is mapped to an immutable catalog UUID/slug, it is excluded from canonical-resolution accuracy, calibration training, and threshold selection.
+
+### 8.8 `HumanCatalogAlignment`
+
+- `case_id`, `status` (`mapped`, `casting_family_only`, or `unmapped`), and a machine-readable reason.
+- Nullable canonical UUID/slug, matched casting family, and bounded candidate canonical IDs.
+- Family alignment requires exact normalized brand and casting. Canonical alignment additionally requires one unique candidate after exact series and variant-discriminator comparison; fuzzy similarity alone never asserts identity.
 
 ## 9. API contracts
 
@@ -567,6 +574,10 @@ Each task is intended to be independently committable and verifiable. `task_exec
 - [x] **T26 — Import the reviewed real-noisy name-pair corpus** `[task_executor]` _(R8, R16, R17)_
   Convert the confirmed local labeling queue into a portable repository-owned JSON corpus, retain explicit no-candidate failures, freeze source/output checksums, and keep the corpus outside canonical accuracy and calibration gates until catalog IDs are assigned.
   **Verify:** importer reports 101 confirmed records, validators prove 91 paired initial names plus 10 explicit no-candidate cases, excluded source rows remain excluded, checksums match, and focused tests pass.
+
+- [x] **T27 — Align reviewed names to the fixture catalog conservatively** `[backend]` _(R6, R16–R18)_
+  Build a deterministic alignment artifact with exact structured matching, explicit family-only and unmapped outcomes, null identities for unresolved records, and checksums for both source datasets and generated output.
+  **Verify:** all 101 records receive one alignment status; current coverage is truthfully reported as 0 canonical mappings, 2 exact casting-family-only matches, and 99 unmapped records; no unresolved record asserts a UUID; regeneration and full tests pass.
 
 ### Task order and handoff
 

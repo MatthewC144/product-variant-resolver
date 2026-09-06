@@ -1,0 +1,16 @@
+{
+  "alignment_count": 101,
+  "alignment_file": "human_labeled_catalog_alignment.json",
+  "alignment_sha256": "d1a6d3798dec7a5e1258a74b95294bd2f50e81d7c78db2eb29a151917e7499b6",
+  "alignment_version": "human-labeled-real-noisy-to-fixture-v1",
+  "catalog_file": "catalog.json",
+  "catalog_sha256": "0d3ea55eab414e3845bf3bf72635707210f2d5c20d96b3d6b5940eb0ffc7d261",
+  "human_dataset_file": "human_labeled_names.json",
+  "human_dataset_sha256": "68b5dfdb8d0fa4972328d172cc5a56d78ac8bf00bc740083b2bfc07eb2a91188",
+  "schema_version": "pvr-human-catalog-alignment-manifest-v1",
+  "status_counts": {
+    "casting_family_only": 2,
+    "mapped": 0,
+    "unmapped": 99
+  }
+}
