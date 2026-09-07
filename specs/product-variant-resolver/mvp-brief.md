@@ -505,8 +505,8 @@ Each task is intended to be independently committable and verifiable. `task_exec
   **Status:** Complete for the Lite fixture scope — the SQLAlchemy repository writes product,
   alias, identifier, provenance, search-document, and version rows in one transaction. An isolated
   PostgreSQL 16/pgvector run proved exact repeated-ingestion stability, collision rollback, and
-  refusal to interpret a missing snapshot row as an implicit product deletion. PostgreSQL query
-  adapters remain separate T09/T10 work.
+  refusal to interpret a missing snapshot row as an implicit product deletion. T09 and T10 later
+  added the separately verified sparse and exact-dense query paths.
 
 - [x] **T08 — Implement generic signal extraction** `[backend]` _(R6, R7)_  
   Extract normalized syntax signals and generic token hints without product-specific series/variant conditionals.  
@@ -522,12 +522,15 @@ Each task is intended to be independently committable and verifiable. `task_exec
   real HTTP resolution, and checksum-mismatch readiness failure. Dense retrieval remains the
   in-memory T10 baseline.
 
-- [ ] **T10 — Implement exact dense retrieval** `[backend]` _(R5, R9, R13, R15)_  
+- [x] **T10 — Implement exact dense retrieval** `[backend]` _(R5, R9, R13, R15)_
   Add pinned local CPU embeddings, deterministic catalog text construction, materialization/version checks, and exact pgvector search.  
   **Verify:** repeatable embeddings/index version, semantic-alias retrieval, offline execution, and missing-artifact readiness failure pass.
-  **Status:** Partial/deferred — exact in-memory retrieval with deterministic `hashing-v1` is
-  verified; it is not a neural embedding model, and pinned external artifacts plus pgvector search
-  remain unimplemented.
+  **Status:** Complete for the Lite deterministic baseline — the versioned `hashing-v1` catalog
+  vectors are materialized transactionally into `vector(192)` rows and queried with exact cosine
+  distance. Startup validates dense metadata plus every expected UUID/version/checksum. An isolated
+  PostgreSQL 16.14 run proved 120/120 rows, identical repeated materialization, catalog-alias
+  retrieval, 12/12 Recall@25, missing-row readiness failure, and real HTTP resolution. This is not
+  a neural embedding model; external model selection remains deferred.
 
 - [x] **T11 — Implement structured candidate scoring** `[backend]` _(R5, R7, R9)_  
   Produce explicit match/conflict features and soft boosts/expansion without destructive attribute filters.  
@@ -585,17 +588,17 @@ Each task is intended to be independently committable and verifiable. `task_exec
   **Status:** Complete for the Lite default offline runtime — the Python 3.12.14 image built and
   became healthy, served UI plus all three decision states, preserved non-root/read-only behavior,
   and failed closed in a dedicated missing-catalog container. T04 now verifies PostgreSQL migration
-  lifecycle and T07 verifies fixture ingestion; PostgreSQL API retrieval remains deferred under
-  T09/T10 rather than being claimed here.
+  lifecycle, T07 verifies fixture ingestion, and T09/T10 verify PostgreSQL sparse+dense API
+  retrieval in separate isolated runs.
 
 - [x] **T24 — Run the full QA and benchmark gates** `[qa]` _(R1–R16)_  
   Execute unit, integration, API/E2E, UI smoke, data validation, and frozen benchmark suites on documented CPU hardware.  
   **Verify:** publish PASS/FAIL coverage mapping from every requirement to test/result; any failed metric remains visible.
   **Status:** Complete for the accepted Lite fixture scope — QA published **PASS WITH RISKS**, mapped
   R1–R16, kept the host suite 38/38 green, verified the Python 3.12 default container, reran mounted
-  API/reporting suites, and validated frozen benchmark/report artifacts. PostgreSQL/pgvector,
-  external models, live-browser UI, TLS/proxy/remote networking, and concurrency remain outside this
-  completion claim.
+  API/reporting suites, and validated frozen benchmark/report artifacts. Later isolated checks cover
+  PostgreSQL FTS and exact pgvector at 120 rows; external models, live-browser UI,
+  TLS/proxy/remote networking, concurrency, and 3,000-row performance remain outside this claim.
 
 - [x] **T25 — Record MVP decisions, evidence, and limits** `[doc_curator]` _(R6, R8–R16)_  
   Update decisions, architecture/evaluation docs, AI-eval evidence, README result disclosures, and `PROJECT-LOG.md` without inventing unmeasured claims.  

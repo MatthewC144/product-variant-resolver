@@ -203,3 +203,22 @@
 - **Deferred review:** Implement T10 vector materialization/exact pgvector retrieval, benchmark the
   database pipeline at approximately 3,000 catalog rows, and reconsider token/query weighting only
   from held-out retrieval evidence.
+
+## D14 — Materialize the deterministic baseline before selecting a neural model
+
+- **Choice:** Persist the existing 192-dimensional `hashing-v1` catalog vectors with a composite
+  model/dimension/text-contract version, then execute exact cosine-distance search through pgvector
+  when the PostgreSQL backend is selected.
+- **Reason:** This closes and tests the durable vector lifecycle independently from model download,
+  licensing, cache, and hardware decisions. The same adapter boundary can later accept a pinned
+  neural embedding implementation without changing RRF or the API contract.
+- **Alternatives:** Add a sentence-transformer and pgvector in one change; keep dense search in
+  process; add an approximate HNSW/IVFFlat index at 120 rows; trust only a metadata row without
+  checking per-product identity/version/checksum records.
+- **Impact:** `pvr-materialize-embeddings` writes a complete artifact in one transaction and is
+  idempotent for the same catalog. PostgreSQL startup regenerates expected checksums and refuses
+  missing or stale rows. Exact `<=>` search avoids approximation variables at MVP scale. The cost is
+  startup checksum work and a lexical hashing baseline whose scores are not neural semantics.
+- **Deferred review:** Select a licensed pinned neural embedding artifact only with an independently
+  written holdout evaluation. Measure exact-query latency at approximately 3,000 rows before adding
+  an approximate index.

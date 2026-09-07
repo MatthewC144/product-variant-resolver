@@ -120,7 +120,10 @@ def create_app(
                 ready=ready,
                 version=service.sparse_retriever.version if service else None,
             ),
-            "dense_index": DependencyHealth(ready=ready, version=settings.dense_provider if ready else None),
+            "dense_index": DependencyHealth(
+                ready=ready,
+                version=service.dense_retriever.version if service else None,
+            ),
             "reranker": DependencyHealth(
                 ready=ready,
                 version=(settings.reranker_provider if settings.reranker_enabled else "disabled")
@@ -136,7 +139,7 @@ def create_app(
                 ready=ready,
                 version=service.database_version if service else None,
                 detail=(
-                    "canonical sparse retrieval uses PostgreSQL; dense retrieval remains in-memory"
+                    "canonical sparse and exact dense retrieval use PostgreSQL"
                     if ready and settings.backend == "postgres" else None
                 ),
             ),

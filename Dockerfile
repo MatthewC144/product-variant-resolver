@@ -30,6 +30,7 @@ COPY alembic.ini ./alembic.ini
 COPY scripts/verify_postgres_migration.py ./scripts/verify_postgres_migration.py
 COPY scripts/verify_postgres_ingestion.py ./scripts/verify_postgres_ingestion.py
 COPY scripts/verify_postgres_sparse_retrieval.py ./scripts/verify_postgres_sparse_retrieval.py
+COPY scripts/verify_postgres_dense_retrieval.py ./scripts/verify_postgres_dense_retrieval.py
 
 USER pvr
 EXPOSE 8000

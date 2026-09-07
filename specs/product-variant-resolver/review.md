@@ -1,7 +1,7 @@
 # Product Variant Resolver — Lite MVP QA Review
 
 > Date: 2026-09-01  
-> Last focused update: 2026-09-07 (T09 PostgreSQL sparse retrieval)
+> Last focused update: 2026-09-07 (T10 PostgreSQL exact dense retrieval)
 > QA mode: `.codex/agents/qa.toml` MVP Mode  
 > Scope: `specs/product-variant-resolver/mvp-brief.md` R1–R20
 > Verdict: **PASS WITH RISKS**
@@ -46,8 +46,15 @@ isolated PostgreSQL 16.14 run recovered all 12 matched frozen-test targets withi
 an exact identifier at Top-1, used the existing GIN index under a forced index-compatible plan, and
 kept an injection-shaped title in bound parameters. The PostgreSQL-backed API passed both
 in-process and real HTTP resolution, while a corrupted catalog checksum failed readiness with 503.
-The final host suite passes **71/71**. Dense retrieval remains `hashing-v1` in memory; exact
-pgvector execution is still T10 work.
+The host suite at that milestone passed **71/71**.
+
+T10 now materializes the versioned 192-dimensional `hashing-v1` catalog vectors and performs exact
+cosine-distance retrieval with pgvector. The isolated PostgreSQL 16.14 run stored 120/120 vectors,
+proved identical repeated materialization, recovered a catalog alias plus all 12 matched test
+targets within Top-25, and rejected an intentionally missing row at readiness. A real HTTP request
+reported both PostgreSQL candidate sources ready and kept the expected Nomad identity first in
+sparse, dense, structured, and fused ranks. The final host suite passes **77/77**. This verifies the
+database vector lifecycle, not a neural embedding model.
 
 An independent Docker runtime milestone now verifies the existing
 `product-variant-resolver:lite` image on Docker Desktop 29.5.3/aarch64: Python 3.12.14, non-root
@@ -68,12 +75,12 @@ upgrade `0001` → downgrade `base` → upgrade `0001` cycle and compared both u
 follow-up runner now proves index table/name/method/ordered columns, complete foreign-key
 source/target/delete behavior, and the full normalized release-year check expression; Alembic's
 script location is absolute. A sentinel application table caused the runner to refuse execution,
-closing the prior safety-check concern. T07 separately verifies fixture ingestion, and T09 verifies
-the PostgreSQL FTS query adapter. Exact-vector query execution remains deferred.
+closing the prior safety-check concern. T07 separately verifies fixture ingestion, T09 verifies the
+PostgreSQL FTS query adapter, and T10 verifies versioned exact-vector query execution.
 
-This is not a full verification of every technology named in the MVP brief. PostgreSQL sparse
-resolution is verified, while exact pgvector retrieval and pinned external embedding/cross-encoder
-models remain explicitly deferred.
+This is not a full verification of every technology named in the MVP brief. PostgreSQL sparse and
+exact dense resolution are verified with deterministic `hashing-v1`, while external neural
+embedding/cross-encoder models remain explicitly deferred.
 The Docker latency evidence is from one local arm64 machine over loopback with concurrency 1; it
 does not cover TLS, a reverse proxy, a remote network, concurrent load, or PostgreSQL. The committed
 constraints are selective rather than a complete transitive lock; PostgreSQL extras and other
@@ -88,18 +95,18 @@ visible in any portfolio or repository claims.
 | R2 Ambiguity | PASS | Manual fixture check returned `ambiguous`, null identity, and machine-readable reason `confidence_below_match_threshold`. |
 | R3 Unknown entity | PASS | Manual fixture check returned `no_match`, null identity, reason `no_candidate_above_threshold`. |
 | R4 Default minimization | PASS | Default response keys exclude `debug`, candidates, ranks, scores, and timings. |
-| R5 Explainability | PASS | Debug response contains extracted signals, bounded candidates, sparse/dense/structured/RRF/reranker fields, conflicts/matches, model versions, and all component timings. It reports the selected sparse implementation (`token-index-v1` or `postgres-fts-simple-v1`). With the R11 default decision, reranker fields are present as null and the debug/health metadata explicitly says `disabled`; opt-in mode populates them. |
+| R5 Explainability | PASS | Debug response contains extracted signals, bounded candidates, sparse/dense/structured/RRF/reranker fields, conflicts/matches, model versions, and all component timings. It reports selected sparse and dense implementations, including PostgreSQL exact-dense artifact version. With the R11 default decision, reranker fields are null and metadata says `disabled`; opt-in mode populates them. |
 | R6 Syntax/knowledge boundary | PASS (fixture path) | Generic catalog ingestion is idempotent and PostgreSQL-runtime verified. Structured alias/identifier source data is preserved, the full searchable catalog is checksummed, and catalog-derived color addition needs no product-specific branch. T09 moves only canonical sparse retrieval into PostgreSQL; the independent human-knowledge source cannot issue canonical identity. External Wiki ingestion/review remains deferred. |
 | R7 Soft conflicts | PASS | Catalog-derived `series_hints` is implemented without a product-specific branch. Manual and integration checks show a target with the wrong catalog series remains in the top 25 and records `series` in `structured_conflicts`; year/color retention and collector-number logic remain intact. |
 | R8 Reproducible split | PASS | 100 cases; `split_seed=240901`; version `fixture-v1`; 14 families occur in exactly one split; train/dev access guards pass; test labels are recorded as untouched by training. |
-| R9 Retrieval gate | PASS | Fresh offline evaluation and the isolated PostgreSQL FTS verifier each achieved Recall@25 `1.0` on the same 12 matched test cases (gate `>=0.95`). |
+| R9 Retrieval gate | PASS | Fresh offline evaluation, PostgreSQL FTS, and exact pgvector each achieved Recall@25 `1.0` on the same 12 matched test cases (gate `>=0.95`). |
 | R10 Ranking gate | PASS | Fresh test evaluation: Top-1 `1.0`, hard-negative accuracy `1.0` (4/4). |
 | R11 Reranker value | PASS (alternative) | On the same 12 matched frozen test cases, RRF Top-1 `1.0` and heuristic-v1 Top-1 `1.0`, absolute gain `0.0`. The versioned report therefore selects RRF and omits the heuristic from the default runtime, while retaining an explicit opt-in/ablation path. It states that no external cross-encoder was evaluated. |
 | R12 Reliability gate | PASS | Precision `1.0`, false-match rate `0.0`, coverage `0.8333` on 21 synthetic fixture test cases. |
-| R13 CPU smoke budget | PASS (limited scope) | Checked-in host-to-Docker loopback evidence has 50 sequential samples, 10 excluded warm-ups, K=25, and nearest-rank p95 `4.721208 ms` (gate `<=1500 ms`). Current runtime independently matches Docker 29.5.3/aarch64 and Python 3.12.14. Scope remains one machine, concurrency 1, offline-memory backend, without TLS/proxy/remote network/PostgreSQL. |
+| R13 CPU smoke budget | PASS (limited scope) | Checked-in host-to-Docker loopback evidence has 50 sequential samples, 10 excluded warm-ups, K=25, and nearest-rank p95 `4.721208 ms` (gate `<=1500 ms`). That measurement remains offline-only. PostgreSQL exact retrieval passed sequential functionality checks, but database latency, concurrency, TLS/proxy, and remote networking were not measured. |
 | R14 API validation | PASS | Blank, 501-code-point, unknown-field, and limit=26 requests return structured 422; malformed JSON returns 400; unsupported media type returns 415; no tracebacks exposed. |
-| R15 Health/readiness | PASS WITH RISK | Missing catalogs and unavailable external providers fail closed. PostgreSQL startup verifies server reachability, catalog version/checksum, and product/search-document counts; a checksum mismatch produces health 503, and a retrieval-time database failure maps to 503. Health is a startup snapshot rather than an active database poll, so a post-startup loss is detected on the next retrieval request. |
-| R16 Quality gate | PASS | The latest host suite passes 71/71; fixture validation, Python compilation, default/PostgreSQL Compose configuration, and `git diff --check` pass. T04 migration, T07 ingestion, and T09 sparse retrieval passed isolated PostgreSQL 16/pgvector runtime verification. Offline remains the default; PostgreSQL sparse is opt-in and exact pgvector retrieval remains incomplete. |
+| R15 Health/readiness | PASS WITH RISK | Missing catalogs and unavailable external providers fail closed. PostgreSQL startup verifies server/catalog state plus dense metadata and every expected UUID/version/checksum; catalog checksum corruption or one missing vector produces health 503, and retrieval-time database failure maps to 503. Health remains a startup snapshot, so post-startup loss is detected on retrieval. |
+| R16 Quality gate | PASS | The latest host suite passes 77/77; fixture validation, Python compilation, default/PostgreSQL Compose configuration, and `git diff --check` pass. T04 migration, T07 ingestion, T09 sparse, and T10 exact dense retrieval passed isolated PostgreSQL 16/pgvector verification. Offline remains the default; PostgreSQL canonical sparse+dense is opt-in. |
 | R17 Human-label provenance | PASS | `human-labeled-real-noisy-v1` contains 101 confirmed human labels, including 91 initial-name/human-name pairs and 10 explicit `no_candidate` failures. Four source rows marked excluded were not imported. The frozen manifest records source and dataset checksums, and the corpus declares that it is excluded from canonical-resolution accuracy, calibration training, and threshold selection until catalog IDs are assigned. |
 | R18 Conservative catalog alignment | PASS | The deterministic alignment covers all 101 reviewed records and freezes the human dataset, catalog, and output checksums. It reports 0 canonical mappings, 2 exact brand/casting family-only matches, and 99 unmapped records. Every unresolved record retains null UUID/slug; fuzzy matching is disabled. |
 | R19 Human-backed catalog draft | PASS | All 101 confirmed labels are preserved in 97 deterministic casting entities and 100 provisional variants. One exact structured duplicate merges while keeping both cases and aliases. Checksums and unique IDs validate, and every provisional variant remains `needs_canonical_review` and excluded from canonical responses and calibration. |
@@ -248,10 +255,10 @@ None for demonstrating the explicitly documented offline fixture path.
 
 ### Important
 
-1. **Only the sparse half of canonical PostgreSQL retrieval is implemented.** T04 verifies the
-   schema lifecycle, T07 installs the catalog transactionally, and T09 executes parameterized FTS
-   through the API. Dense retrieval still uses the in-memory deterministic `hashing-v1` provider;
-   vector materialization and exact pgvector query execution remain deferred to T10.
+1. **The PostgreSQL vector path uses a deterministic lexical baseline, not a neural model.** T10
+   verifies materialization, version/readiness checks, and exact pgvector execution with
+   `hashing-v1`. Its positive alias/fixture results must not be described as sentence-transformer
+   semantic quality, and database latency at the planned 3,000-row scale is not measured.
 2. **External neural models are not integrated.** The verified dense provider is `hashing-v1` and
    reranker is `heuristic-v1`. `config/models.example.json` still contains replacement placeholders;
    selecting an external provider fails closed. Do not describe the reported results as a
@@ -271,10 +278,10 @@ None for demonstrating the explicitly documented offline fixture path.
 ## Recommended next task
 
 The requested R7, R11, R13, Docker/Python 3.12 runtime, runtime reporting, selective dependency-
-constraint, T04/T07/T09 database milestones, and T26–T29 human-data/Dual-RAG milestones are
-QA-closed for their stated Lite scope. The next highest-value database task is **T10 exact pgvector
-retrieval**, beginning with deterministic versioned embedding materialization.
+constraint, T04/T07/T09/T10 database milestones, and T26–T29 human-data/Dual-RAG milestones are
+QA-closed for their stated Lite scope. The next highest-value database work is expanding the
+reviewable catalog toward 3,000 variants and measuring exact pgvector quality and latency.
 The next human-knowledge evaluation task remains an independently written, casting-grouped holdout
 set; until that evidence exists, the human source stays debug-only. A complete dependency-lock
-review, active post-startup database health polling, exact pgvector retrieval, and external neural
-models remain deferred until their adapters are implemented and integration-tested.
+review, active post-startup database health polling, external neural models, and a justified T14
+reranker remain deferred until held-out evidence supports them.

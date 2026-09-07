@@ -24,6 +24,7 @@ dev = ["pytest>=8,<9", "ruff>=0.9,<1", "mypy>=1.14,<2"]
 [project.scripts]
 pvr-evaluate = "product_variant_resolver.evaluation:main"
 pvr-ingest = "product_variant_resolver.postgres_ingestion:main"
+pvr-materialize-embeddings = "product_variant_resolver.postgres_embeddings:main"
 pvr-report = "product_variant_resolver.reporting:main"
 
 [tool.setuptools.packages.find]

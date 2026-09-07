@@ -19,7 +19,8 @@ from .postgres_retrieval import SQLAlchemyPostgresRetrieverAdapter
 from .rerank import HeuristicPointwiseModel, PointwiseReranker
 from .retrieval import (
     Candidate, CandidateRetrievalService, DenseRetriever, HashingEmbedding,
-    PostgresSparseRetriever, Retriever, SparseRetriever, StructuredRetriever,
+    PostgresDenseRetriever, PostgresSparseRetriever, Retriever, SparseRetriever,
+    StructuredRetriever,
 )
 from .schemas import (
     CandidateDebug, DebugPayload, HumanKnowledgeCandidateDebug, ResolveRequest, ResolveResponse,
@@ -42,6 +43,7 @@ class ResolverService:
         human_catalog: HumanKnowledgeCatalog,
         tracer: Tracer | None = None,
         sparse_retriever: Retriever | None = None,
+        dense_retriever: Retriever | None = None,
         database_version: str = "offline-memory",
     ) -> None:
         self.settings = settings
@@ -61,9 +63,10 @@ class ResolverService:
         self.human_knowledge = HumanKnowledgeRetriever(human_catalog, embedding)
         structured = StructuredRetriever(catalog)
         self.sparse_retriever = sparse_retriever or SparseRetriever(catalog)
+        self.dense_retriever = dense_retriever or DenseRetriever(catalog, embedding)
         self.database_version = database_version
         self.retrieval = CandidateRetrievalService(
-            [self.sparse_retriever, DenseRetriever(catalog, embedding), structured], structured,
+            [self.sparse_retriever, self.dense_retriever, structured], structured,
         )
         self.reranker = PointwiseReranker(HeuristicPointwiseModel())
         artifact = (CalibrationArtifact.load(settings.calibration_artifact)
@@ -84,19 +87,22 @@ class ResolverService:
         adapter: SQLAlchemyPostgresRetrieverAdapter | None = None
         try:
             adapter = SQLAlchemyPostgresRetrieverAdapter(settings.database_url)
-            state = adapter.verify_catalog(catalog)
+            catalog_state = adapter.verify_catalog(catalog)
+            embedding = HashingEmbedding(settings.dense_dimensions)
+            adapter.verify_dense_index(catalog, embedding)
         except Exception as error:
             if adapter is not None:
                 adapter.dispose()
             raise DependencyUnavailable(
-                "PostgreSQL canonical sparse retrieval is unavailable"
+                "PostgreSQL canonical retrieval is unavailable"
             ) from error
         return cls(
             settings,
             catalog,
             human_catalog,
             sparse_retriever=PostgresSparseRetriever(catalog, adapter),
-            database_version=state.database_version,
+            dense_retriever=PostgresDenseRetriever(catalog, adapter, embedding),
+            database_version=catalog_state.database_version,
         )
 
     def resolve(self, request: ResolveRequest, *, request_id: str | None = None) -> ResolveResponse:
@@ -163,7 +169,7 @@ class ResolverService:
                 human_catalog_version=self.human_catalog.version,
                 model_versions={
                     "sparse": self.sparse_retriever.version,
-                    "dense": "hashing-v1",
+                    "dense": self.dense_retriever.version,
                     "reranker": (
                         self.reranker.model.version
                         if self.settings.reranker_enabled else "disabled"

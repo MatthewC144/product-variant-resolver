@@ -168,23 +168,25 @@ ingestion services:
 docker compose --profile postgres up -d --wait postgres
 docker compose --profile postgres run --rm migrate
 docker compose --profile postgres run --rm ingest
+docker compose --profile postgres run --rm materialize
 docker compose exec postgres psql -U pvr -d pvr \
-  -c 'SELECT COUNT(*) FROM product_variant;'
+  -c 'SELECT COUNT(*) FROM product_embedding;'
 PVR_BACKEND=postgres docker compose --profile postgres up -d --wait api
 docker compose --profile postgres down
 ```
 
 The first `ingest` run writes all 120 fixture variants plus aliases, identifiers, provenance,
-full-text source documents, and version metadata in one transaction. Repeating it with the same
-catalog leaves the stored rows unchanged. Identity or identifier collisions roll back the entire
-attempt. `docker compose --profile postgres down` keeps the named local volume; adding `-v` deletes
-that volume and its data.
+full-text source documents, and version metadata in one transaction. `materialize` deterministically
+encodes the same 120 catalog documents into versioned 192-dimensional vectors and stores them in
+pgvector. Repeating either operation with the same catalog leaves the logical rows unchanged.
+Identity or identifier collisions roll back the entire ingestion attempt. `docker compose
+--profile postgres down` keeps the named local volume; adding `-v` deletes that volume and its data.
 
-The default remains the fully offline Dual-RAG runtime. Setting `PVR_BACKEND=postgres` now moves the
-canonical sparse candidate source to PostgreSQL FTS after validating catalog version, checksum, and
-row counts at startup. Dense canonical retrieval still uses the in-memory `hashing-v1` baseline,
-and human-knowledge retrieval remains a separate non-canonical source. Exact pgvector execution is
-deferred to T10.
+The default remains the fully offline Dual-RAG runtime. Setting `PVR_BACKEND=postgres` moves both
+canonical candidate sources to the database: PostgreSQL FTS supplies sparse candidates and exact
+pgvector cosine distance supplies dense candidates. Startup validates catalog and embedding
+versions, checksums, identities, and row counts. Human-knowledge retrieval remains a separate
+non-canonical source.
 
 ## Limitations
 
@@ -192,12 +194,12 @@ deferred to T10.
   Wheels coverage, or production readiness.
 - `hashing-v1` is a deterministic baseline, not a neural embedding model. No pinned external
   embedding or cross-encoder artifact was integrated or evaluated.
-- The verified PostgreSQL sparse path covers one local arm64 machine, 120 fixture products, and
-  sequential smoke requests. TLS, proxying, remote networking, concurrent load, PostgreSQL latency,
-  pgvector execution, and external models were not measured.
-- Runtime dependencies use bounded ranges without a committed lockfile or constraints file, so a
-  future build may resolve different compatible versions. `pvr-report` requires runtime
-  `httpx2>=2,<3`; the dev extra still carries legacy `httpx`, which emits a host-side warning.
+- The verified PostgreSQL sparse+dense path covers one local arm64 machine, 120 fixture products,
+  and sequential smoke requests. TLS, proxying, remote networking, concurrent load, PostgreSQL
+  latency at 3,000 rows, approximate vector indexes, and external models were not measured.
+- Runtime dependencies use bounded ranges plus a selective Python 3.12 constraints file, not a
+  complete transitive lock. PostgreSQL extras and build dependencies may still resolve differently
+  in a future build. `pvr-report` requires runtime `httpx2>=2,<3`.
 - UI behavior was verified with a Node DOM harness, not a live browser.
 - Architect, security, and performance-agent reviews were deferred under Lite/MVP Mode. The local
   loopback debug endpoint needs access control or disabling before non-local exposure.

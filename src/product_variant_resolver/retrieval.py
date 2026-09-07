@@ -7,6 +7,11 @@ from typing import Protocol
 from uuid import UUID
 
 from .catalog import Catalog, CatalogProduct, catalog_tokens
+from .embedding_artifacts import (
+    VersionedEmbedding,
+    embedding_artifact_version,
+    vector_literal,
+)
 from .identity import normalize_text
 from .observability import NOOP_TRACER, Tracer, observed_stage
 from .schemas import ExtractedSignals
@@ -99,6 +104,7 @@ class DenseRetriever:
     def __init__(self, catalog: Catalog, embedding: EmbeddingModel) -> None:
         self.catalog = catalog
         self.embedding = embedding
+        self.version = embedding.version
         self._vectors = {item.canonical_uuid: embedding.encode(item.searchable_text)
                          for item in catalog.products}
 
@@ -232,6 +238,7 @@ PGVECTOR_EXACT_SQL = """
 SELECT canonical_uuid, 1 - (embedding <=> CAST(:embedding AS vector)) AS score
 FROM product_embedding
 WHERE embedding_version = :embedding_version
+  AND 1 - (embedding <=> CAST(:embedding AS vector)) > 0
 ORDER BY embedding <=> CAST(:embedding AS vector), canonical_uuid ASC
 LIMIT :limit
 """.strip()
@@ -265,6 +272,51 @@ class PostgresSparseRetriever:
         rows = self.adapter.execute_ranked(
             POSTGRES_FTS_SQL,
             {"query": query, "limit": limit},
+        )
+        results: list[tuple[CatalogProduct, float]] = []
+        for canonical_uuid, score in rows:
+            product = self.catalog.by_uuid.get(canonical_uuid)
+            if product is None:
+                raise RuntimeError(
+                    "PostgreSQL returned an identity absent from the loaded catalog"
+                )
+            results.append((product, score))
+        return results
+
+
+class PostgresDenseRetriever:
+    """Exact canonical dense candidates from versioned pgvector rows."""
+
+    name = "dense"
+
+    def __init__(
+        self,
+        catalog: Catalog,
+        adapter: PostgresRetrieverAdapter,
+        embedding: VersionedEmbedding,
+    ) -> None:
+        self.catalog = catalog
+        self.adapter = adapter
+        self.embedding = embedding
+        self.embedding_version = embedding_artifact_version(embedding)
+        self.version = f"postgres-exact-{self.embedding_version}"
+
+    def retrieve(
+        self, signals: ExtractedSignals, limit: int
+    ) -> list[tuple[CatalogProduct, float]]:
+        if not 1 <= limit <= 25:
+            raise ValueError("PostgreSQL dense limit must be between 1 and 25")
+        if not signals.normalized_title:
+            return []
+        rows = self.adapter.execute_ranked(
+            PGVECTOR_EXACT_SQL,
+            {
+                "embedding": vector_literal(
+                    self.embedding.encode(signals.normalized_title)
+                ),
+                "embedding_version": self.embedding_version,
+                "limit": limit,
+            },
         )
         results: list[tuple[CatalogProduct, float]] = []
         for canonical_uuid, score in rows:

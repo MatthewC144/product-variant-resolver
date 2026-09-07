@@ -79,6 +79,7 @@ class ApiTests(unittest.TestCase):
             "human-knowledge-hybrid-v1",
         )
         self.assertEqual(body["debug"]["model_versions"]["sparse"], "token-index-v1")
+        self.assertEqual(body["debug"]["model_versions"]["dense"], "hashing-v1")
         self.assertEqual(body["debug"]["model_versions"]["reranker"], "disabled")
         self.assertEqual(body["debug"]["model_versions"]["reranker_ablation"], "heuristic-v1")
         self.assertTrue(all(candidate["reranker_rank"] is None

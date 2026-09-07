@@ -12,8 +12,13 @@ from fastapi.testclient import TestClient
 from product_variant_resolver.api import create_app
 from product_variant_resolver.catalog import catalog_checksum, load_catalog
 from product_variant_resolver.config import Settings
+from product_variant_resolver.postgres_embeddings import materialize_embeddings
 from product_variant_resolver.postgres_retrieval import SQLAlchemyPostgresRetrieverAdapter
-from product_variant_resolver.retrieval import POSTGRES_FTS_SQL, PostgresSparseRetriever
+from product_variant_resolver.retrieval import (
+    POSTGRES_FTS_SQL,
+    HashingEmbedding,
+    PostgresSparseRetriever,
+)
 from product_variant_resolver.signals import extract_signals
 
 
@@ -35,6 +40,7 @@ def main() -> None:
     human_catalog_path = Path(_required("PVR_HUMAN_CATALOG_PATH"))
     ui_path = Path(_required("PVR_UI_PATH"))
     catalog = load_catalog(catalog_path)
+    materialize_embeddings(catalog, database_url, HashingEmbedding(192))
     adapter = SQLAlchemyPostgresRetrieverAdapter(database_url)
     state = adapter.verify_catalog(catalog)
     retriever = PostgresSparseRetriever(catalog, adapter)

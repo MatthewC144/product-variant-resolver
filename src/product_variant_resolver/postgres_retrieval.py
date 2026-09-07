@@ -5,6 +5,12 @@ from typing import Any
 from uuid import UUID
 
 from .catalog import Catalog, catalog_checksum
+from .embedding_artifacts import (
+    VersionedEmbedding,
+    build_embedding_rows,
+    embedding_artifact_version,
+    embedding_index_checksum,
+)
 
 
 def _sqlalchemy() -> Any:
@@ -26,11 +32,20 @@ class PostgresCatalogState:
     search_document_count: int
 
 
+@dataclass(frozen=True, slots=True)
+class PostgresDenseIndexState:
+    catalog_version: str
+    embedding_version: str
+    index_checksum: str
+    embedding_count: int
+
+
 class SQLAlchemyPostgresRetrieverAdapter:
     """Execute fixed retrieval statements and validate the installed catalog snapshot."""
 
     def __init__(self, database_url: str) -> None:
         sa = _sqlalchemy()
+        self.sqlalchemy = sa
         self.engine = sa.create_engine(database_url, pool_pre_ping=True)
 
     def verify_catalog(self, catalog: Catalog) -> PostgresCatalogState:
@@ -65,6 +80,52 @@ class SQLAlchemyPostgresRetrieverAdapter:
             catalog_checksum=row["checksum"],
             product_count=row["product_count"],
             search_document_count=row["search_document_count"],
+        )
+
+    def verify_dense_index(
+        self, catalog: Catalog, model: VersionedEmbedding
+    ) -> PostgresDenseIndexState:
+        expected_rows = build_embedding_rows(catalog, model)
+        expected_version = embedding_artifact_version(model)
+        expected_checksum = embedding_index_checksum(expected_rows)
+        sa = self.sqlalchemy
+        with self.engine.connect() as connection:
+            metadata = connection.execute(
+                sa.text(
+                    "SELECT catalog_version, artifact_version, checksum "
+                    "FROM index_metadata WHERE index_name=:index_name"
+                ),
+                {"index_name": "canonical_dense"},
+            ).mappings().first()
+            stored_rows = connection.execute(
+                sa.text(
+                    "SELECT canonical_uuid, embedding_version, checksum "
+                    "FROM product_embedding ORDER BY canonical_uuid"
+                )
+            ).mappings().all()
+        if metadata is None:
+            raise RuntimeError("canonical dense-index metadata is missing")
+        if metadata["catalog_version"] != catalog.version:
+            raise RuntimeError("PostgreSQL dense catalog version does not match")
+        if metadata["artifact_version"] != expected_version:
+            raise RuntimeError("PostgreSQL embedding version does not match")
+        if metadata["checksum"] != expected_checksum:
+            raise RuntimeError("PostgreSQL dense-index checksum does not match")
+        stored = {
+            row["canonical_uuid"]: (row["embedding_version"], row["checksum"])
+            for row in stored_rows
+        }
+        expected = {
+            row.canonical_uuid: (row.embedding_version, row.checksum)
+            for row in expected_rows
+        }
+        if stored != expected:
+            raise RuntimeError("PostgreSQL embedding rows are incomplete or stale")
+        return PostgresDenseIndexState(
+            catalog_version=metadata["catalog_version"],
+            embedding_version=metadata["artifact_version"],
+            index_checksum=metadata["checksum"],
+            embedding_count=len(stored_rows),
         )
 
     def execute_ranked(

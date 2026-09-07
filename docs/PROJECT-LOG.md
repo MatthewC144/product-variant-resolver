@@ -1,5 +1,111 @@
 # Project Log
 
+## 2026-09-07 — Exact pgvector completes the PostgreSQL canonical retrieval pair
+
+### What was executed and what problem it solves
+
+T09 moved canonical text candidate generation into PostgreSQL, but dense candidates still came from
+vectors calculated and searched inside each API process. T10 now gives the same deterministic
+catalog vectors a durable lifecycle: a command materializes them into PostgreSQL, startup proves
+that the complete expected artifact is present, and each PostgreSQL-backed request performs exact
+cosine-distance retrieval through pgvector. Canonical sparse and dense sources therefore share the
+database boundary while the independent human-knowledge RAG remains non-canonical.
+
+The change solves more than storage. Previously a database could be catalog-ready while containing
+zero vector rows, and the API had no way to distinguish that incomplete state. It now refuses
+readiness if dense metadata is missing, the catalog/model/text version differs, the artifact
+checksum changes, or even one expected UUID/version/checksum row is absent.
+
+### Code changes and why they were made
+
+`embedding_artifacts.py` defines a stable catalog-text contract, composite embedding version,
+pgvector literal encoding, per-product checksum, and whole-index checksum. These values are derived
+from sorted canonical UUIDs so the artifact does not change merely because catalog file order
+changes. The vector is included in each row checksum so a change to input text or deterministic
+encoding output changes the recorded artifact.
+
+`postgres_embeddings.py` adds the `pvr-materialize-embeddings` command. It first verifies the T07
+canonical catalog, then writes every `vector(192)` row and the `canonical_dense` metadata row inside
+one transaction. `ON CONFLICT` makes an identical rerun safe, while identities outside the loaded
+catalog are rejected instead of silently deleted. A post-commit verification ensures the command
+does not report success for an incomplete artifact.
+
+`PostgresDenseRetriever` encodes the normalized query with the same versioned model and sends the
+vector, version, and limit as SQLAlchemy-bound parameters to the existing exact `<=>` query. The
+database returns UUIDs and cosine similarity scores; every UUID must map back to the checksum-matched
+catalog. `ResolverService` now injects both PostgreSQL sparse and dense retrievers when that backend
+is selected. Debug and health output report the actual dense implementation rather than a generic
+configuration label.
+
+Compose gained a separate `materialize` job after migration and ingestion. Keeping this step
+separate makes data lifecycle failures visible and lets a future model upgrade rebuild vectors
+without pretending it is ordinary catalog ingestion. Unit tests cover repeatability, content-driven
+checksum changes, bound query parameters, limits, empty input, and unknown UUID failure. A dedicated
+T10 verifier covers the real database and API boundary.
+
+### Technical choices, alternatives, and trade-offs
+
+The accepted Lite implementation deliberately materializes `hashing-v1` before introducing a
+sentence-transformer. This model is local, deterministic, CPU-only, and already used by the verified
+offline path. It lets the project test versioning, transactional materialization, readiness, and
+pgvector querying without mixing those concerns with model downloads, licensing, caches, or a new
+quality claim. It remains a lexical hashing baseline and is not described as neural semantic search.
+
+Exact cosine search was retained instead of adding HNSW or IVFFlat. With 120 current rows—and the
+planned first scale check near 3,000 rows—exact search provides deterministic complete comparison
+and avoids index build/tuning/recall trade-offs that have not been justified by measurements. An
+approximate index becomes a valid option only after observed latency or scale requires it.
+
+The alternative of trusting only one metadata checksum was rejected. Startup compares the expected
+identity, embedding version, and checksum for every row. This costs one deterministic catalog
+encoding pass during startup, but catches incomplete or stale materializations instead of letting
+the API operate on a silently partial dense index.
+
+### Decision changes
+
+T09 intentionally left PostgreSQL mode hybrid: database sparse retrieval plus in-memory dense
+retrieval. That temporary boundary is now removed for the canonical catalog. In PostgreSQL mode,
+both candidate sources execute in PostgreSQL; offline mode remains unchanged and requires no
+database.
+
+T10 originally requested a pinned local embedding artifact and was marked partial because only the
+in-memory hashing implementation existed. Under the accepted Lite scope, the deterministic model
+identifier, dimensions, catalog-text contract, vectors, and checksums now form the pinned artifact.
+The task is complete for plumbing and exact retrieval, while the materially different claim of a
+neural embedding model remains deferred and explicit.
+
+### Verification evidence
+
+The isolated `pvr-t10` environment used host PostgreSQL port `55435`, PostgreSQL 16.14, and the
+rebuilt Python 3.12 project image. Migration and ingestion completed before 120/120 embeddings were
+materialized with version `hashing-v1-d192-catalog-searchable-text-v1` and index checksum
+`557d7153b077624f64cdc7bd2ada824df90a683216f7c67159e22a68f20d2464`. Repeating the command produced
+the same logical rows and result.
+
+Exact dense retrieval recovered a catalog alias and all 12 matched frozen-test targets within
+Top-25, for Recall@25 `1.0`. Deleting one embedding row made a newly constructed API fail readiness
+with 503; rerunning materialization restored the artifact. A real Uvicorn service on
+`127.0.0.1:18010` reported both PostgreSQL sparse and exact dense dependencies ready and resolved
+`2022 Chevy Nomad Red #101` to `hot-wheels-chevy-nomad-2022-mainline-red-101`. Its correct candidate
+ranked first in sparse, dense, structured, and RRF sources. Separate frozen examples preserved all
+three policy outcomes: `matched`, `ambiguous`, and `no_match`. The final host suite passed 77/77,
+including rejection of an embedding dimension that does not match the `vector(192)` schema.
+
+### Incomplete work, risks, and next step
+
+No PostgreSQL latency benchmark was taken, so the earlier offline/container p95 numbers must not be
+applied to this path. Startup recomputes expected deterministic vectors and checksums, which is
+acceptable at 120 rows but should be measured near 3,000. Row checksums prove expected provenance
+and version metadata; they do not independently hash PostgreSQL's stored float bytes. Runtime health
+remains a startup snapshot, although a later database loss fails the next retrieval request with
+503.
+
+The next evidence-driven action is to expand the licensed/reviewed catalog toward approximately
+3,000 variants and measure exact pgvector latency and retrieval quality. A neural embedding model
+or approximate vector index should be selected only if that held-out evidence shows a real gain or
+performance need. The remaining T14 external pointwise reranker is likewise not justified by the
+current fixture, where the existing heuristic produced zero Top-1 gain over RRF.
+
 ## 2026-09-07 — PostgreSQL sparse retrieval enters the canonical RAG path
 
 ### What was executed and what problem it solves

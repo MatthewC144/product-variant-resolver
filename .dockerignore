@@ -21,4 +21,5 @@ scripts/*
 !scripts/verify_postgres_migration.py
 !scripts/verify_postgres_ingestion.py
 !scripts/verify_postgres_sparse_retrieval.py
+!scripts/verify_postgres_dense_retrieval.py
 docs
