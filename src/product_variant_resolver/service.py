@@ -15,10 +15,11 @@ from .human_knowledge import (
 )
 from .observability import Tracer, get_tracer, observed_stage
 from .policy import DecisionPolicy
+from .postgres_retrieval import SQLAlchemyPostgresRetrieverAdapter
 from .rerank import HeuristicPointwiseModel, PointwiseReranker
 from .retrieval import (
-    Candidate, CandidateRetrievalService, DenseRetriever, HashingEmbedding, SparseRetriever,
-    StructuredRetriever,
+    Candidate, CandidateRetrievalService, DenseRetriever, HashingEmbedding,
+    PostgresSparseRetriever, Retriever, SparseRetriever, StructuredRetriever,
 )
 from .schemas import (
     CandidateDebug, DebugPayload, HumanKnowledgeCandidateDebug, ResolveRequest, ResolveResponse,
@@ -40,6 +41,8 @@ class ResolverService:
         catalog: Catalog,
         human_catalog: HumanKnowledgeCatalog,
         tracer: Tracer | None = None,
+        sparse_retriever: Retriever | None = None,
+        database_version: str = "offline-memory",
     ) -> None:
         self.settings = settings
         self.catalog = catalog
@@ -57,8 +60,10 @@ class ResolverService:
         self.human_catalog = human_catalog
         self.human_knowledge = HumanKnowledgeRetriever(human_catalog, embedding)
         structured = StructuredRetriever(catalog)
+        self.sparse_retriever = sparse_retriever or SparseRetriever(catalog)
+        self.database_version = database_version
         self.retrieval = CandidateRetrievalService(
-            [SparseRetriever(catalog), DenseRetriever(catalog, embedding), structured], structured,
+            [self.sparse_retriever, DenseRetriever(catalog, embedding), structured], structured,
         )
         self.reranker = PointwiseReranker(HeuristicPointwiseModel())
         artifact = (CalibrationArtifact.load(settings.calibration_artifact)
@@ -72,12 +77,26 @@ class ResolverService:
 
     @classmethod
     def from_settings(cls, settings: Settings) -> "ResolverService":
-        if settings.backend != "offline":
-            raise DependencyUnavailable("postgres backend requires migrated database adapters")
+        catalog = load_catalog(settings.catalog_path)
+        human_catalog = load_human_knowledge_catalog(settings.human_catalog_path)
+        if settings.backend == "offline":
+            return cls(settings, catalog, human_catalog)
+        adapter: SQLAlchemyPostgresRetrieverAdapter | None = None
+        try:
+            adapter = SQLAlchemyPostgresRetrieverAdapter(settings.database_url)
+            state = adapter.verify_catalog(catalog)
+        except Exception as error:
+            if adapter is not None:
+                adapter.dispose()
+            raise DependencyUnavailable(
+                "PostgreSQL canonical sparse retrieval is unavailable"
+            ) from error
         return cls(
             settings,
-            load_catalog(settings.catalog_path),
-            load_human_knowledge_catalog(settings.human_catalog_path),
+            catalog,
+            human_catalog,
+            sparse_retriever=PostgresSparseRetriever(catalog, adapter),
+            database_version=state.database_version,
         )
 
     def resolve(self, request: ResolveRequest, *, request_id: str | None = None) -> ResolveResponse:
@@ -143,6 +162,7 @@ class ResolverService:
                 catalog_version=self.catalog.version,
                 human_catalog_version=self.human_catalog.version,
                 model_versions={
+                    "sparse": self.sparse_retriever.version,
                     "dense": "hashing-v1",
                     "reranker": (
                         self.reranker.model.version

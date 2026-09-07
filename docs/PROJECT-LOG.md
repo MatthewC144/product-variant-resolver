@@ -1,5 +1,100 @@
 # Project Log
 
+## 2026-09-07 — PostgreSQL sparse retrieval enters the canonical RAG path
+
+### What was executed and what problem it solves
+
+T07 made the canonical catalog durable in PostgreSQL, but every API lookup still searched only the
+JSON-backed in-memory index. T09 now lets an explicitly selected PostgreSQL backend retrieve
+canonical sparse candidates from the installed `product_search` documents. The default offline
+mode remains unchanged, while `PVR_BACKEND=postgres` is now a working, readiness-checked option
+instead of an intentionally unavailable placeholder.
+
+The observable result was verified over real HTTP. A PostgreSQL-backed API reported database
+version `16.14`, sparse retriever `postgres-fts-simple-v1`, and ready health, then resolved
+`2022 Chevy Nomad Red #101` to the expected canonical ID. The same database retriever recovered all
+12 frozen matched test targets within Top-25 and returned an exact catalog identifier at Top-1.
+
+### Code changes and why they were made
+
+`retrieval.py` now defines `PostgresSparseRetriever` behind the same retriever protocol used by the
+in-memory sparse implementation. It converts already normalized title tokens into a bound
+`websearch_to_tsquery` value, executes the existing fixed SQL statement, and maps returned UUIDs to
+typed `CatalogProduct` objects. Returning an unknown UUID is an error rather than silently accepting
+a database/catalog mismatch.
+
+`postgres_retrieval.py` owns SQLAlchemy engine execution and startup verification. It checks the
+installed catalog version, full-content checksum, product count, and search-document count before a
+service becomes ready. `service.py` selects only the sparse implementation according to
+`PVR_BACKEND`; dense and structured retrieval, RRF, calibration, policy, and the independent human
+knowledge source retain their existing contracts. Debug metadata identifies the actual sparse
+version. `api.py` reports the database/index versions and maps a runtime retrieval dependency loss
+to HTTP 503 rather than an internal-error 500.
+
+Compose now passes the backend switch and database URL into the API service. Docker packages the
+T09 verifier, while unit tests record the SQL statement and parameters without needing a database.
+The README documents migration, ingestion, and the opt-in PostgreSQL API start order.
+
+### Technical choices, alternatives, and trade-offs
+
+The PostgreSQL path was introduced at one retrieval boundary rather than moving sparse, dense, and
+structured logic together. This makes failures attributable and leaves T10's vector model/version
+questions independent. It creates a temporary hybrid canonical path—PostgreSQL sparse plus
+in-memory dense/structured—but avoids pretending that empty `product_embedding` rows are a working
+pgvector system.
+
+Normalized tokens are joined with web-search `OR` for candidate generation. An all-`AND` query
+would let one irrelevant seller token remove the correct product entirely; candidate retrieval
+instead favors recall, while RRF, calibration, and abstention control precision later. PostgreSQL's
+built-in `ts_rank_cd` was retained rather than adding a BM25 extension, matching the Lite scope and
+avoiding another deployment dependency before 3,000-row evidence exists.
+
+All title content and limits remain SQLAlchemy-bound parameters. Only a fixed repository-owned SQL
+constant is executed; raw titles are never interpolated into SQL or identifier names. This matters
+even though `websearch_to_tsquery` is designed for user-style input, because SQL parameterization is
+the actual boundary preventing a title from becoming executable database syntax.
+
+### Decision changes
+
+The earlier fail-closed decision rejected every `PVR_BACKEND=postgres` configuration because no
+query adapter existed. That decision is narrowed: PostgreSQL mode is now accepted only after T07
+metadata and row-count verification succeeds, and only canonical sparse retrieval moves to the
+database. Missing/stale data still fails readiness. Exact dense pgvector retrieval remains deferred
+and the ordinary default remains `offline`.
+
+The project also previously described PostgreSQL as entirely outside the API runtime evidence.
+That is no longer accurate for sparse retrieval: both in-process API and real container HTTP paths
+passed. Existing latency numbers remain offline-only, so no PostgreSQL latency or concurrency claim
+was added.
+
+### Verification evidence
+
+The final host suite passed 71/71, including two additional API fail-closed tests. The isolated
+Compose project `pvr-t09` used port `55434`, migrated PostgreSQL 16.14, and ingested all 120 fixture
+products. T09 verification reported identifier Top-1, 12/12 Recall@25 (`1.0`), a forced query plan
+using `ix_product_search_document`, injection-shaped bound-input safety, API readiness, and checksum
+mismatch health 503. A real Uvicorn container on `127.0.0.1:18009` returned the expected matched
+canonical ID and PostgreSQL sparse version.
+
+Unit tests additionally prove that query and limit values are parameters, SQL text never contains
+the injection-shaped title, invalid limits are rejected, empty token sets avoid database work, and
+unknown database UUIDs fail closed. Fixture validation, Python compilation, both default and
+PostgreSQL-profile Compose configuration, and `git diff --check` also passed. All isolated T09
+containers, network, and volume were removed.
+
+### Incomplete work, risks, and next step
+
+Startup verifies database consistency, but health does not yet actively re-query PostgreSQL on every
+request; a database lost after startup is detected on retrieval and returned as 503. OR-based FTS
+was measured only on 120 synthetic/curated products, and its ranking quality or latency may change
+with 3,000 real variants. The FTS score is not BM25, dense retrieval remains in memory, and no
+external Wiki catalog has been imported.
+
+The single highest-value next action is **T10 — materialize versioned deterministic embeddings and
+execute exact pgvector retrieval**. After both PostgreSQL candidate sources work, the project can
+benchmark the complete database-backed canonical path before scaling the licensed catalog toward
+3,000 records.
+
 ## 2026-09-06 — Atomic PostgreSQL canonical-catalog ingestion
 
 ### What was executed and what problem it solves

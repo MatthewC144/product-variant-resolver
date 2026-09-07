@@ -5,6 +5,7 @@ from fastapi.testclient import TestClient
 
 from product_variant_resolver.api import create_app
 from product_variant_resolver.config import Settings
+from product_variant_resolver.retrieval import RetrievalUnavailable
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -77,6 +78,7 @@ class ApiTests(unittest.TestCase):
             body["debug"]["model_versions"]["human_knowledge"],
             "human-knowledge-hybrid-v1",
         )
+        self.assertEqual(body["debug"]["model_versions"]["sparse"], "token-index-v1")
         self.assertEqual(body["debug"]["model_versions"]["reranker"], "disabled")
         self.assertEqual(body["debug"]["model_versions"]["reranker_ablation"], "heuristic-v1")
         self.assertTrue(all(candidate["reranker_rank"] is None
@@ -149,6 +151,34 @@ class ApiTests(unittest.TestCase):
         response = client.post("/resolve", json={"title": "BMW M3 GT2"})
         self.assertEqual(response.status_code, 503)
         self.assertIsNone(response.json().get("canonical_uuid"))
+
+    def test_postgres_backend_without_database_fails_readiness(self):
+        settings = Settings(
+            catalog_path=ROOT / "data/catalog.json",
+            human_catalog_path=ROOT / "data/human_backed_catalog.json",
+            ui_path=ROOT / "ui",
+            database_url="postgresql+psycopg://pvr:pvr@127.0.0.1:1/pvr",
+            backend="postgres",
+        )
+        client = TestClient(create_app(settings))
+        self.assertEqual(client.get("/health").status_code, 503)
+        self.assertEqual(
+            client.post("/resolve", json={"title": "Nomad"}).status_code,
+            503,
+        )
+
+    def test_runtime_retrieval_failure_maps_to_dependency_unavailable(self):
+        class FailingService:
+            def resolve(self, payload, *, request_id=None):
+                raise RetrievalUnavailable("database connection lost")
+
+        client = TestClient(create_app(
+            Settings(ui_path=ROOT / "ui"),
+            service_factory=lambda _settings: FailingService(),  # type: ignore[arg-type]
+        ))
+        response = client.post("/resolve", json={"title": "Nomad"})
+        self.assertEqual(response.status_code, 503)
+        self.assertEqual(response.json()["error"]["code"], "dependency_unavailable")
 
 
 if __name__ == "__main__":

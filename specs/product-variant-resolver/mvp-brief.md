@@ -512,11 +512,15 @@ Each task is intended to be independently committable and verifiable. `task_exec
   Extract normalized syntax signals and generic token hints without product-specific series/variant conditionals.  
   **Verify:** parser unit suite covers noisy, missing, conflicting, Unicode, and multipack examples.
 
-- [ ] **T09 — Implement PostgreSQL sparse retrieval** `[backend]` _(R5, R6, R9)_  
+- [x] **T09 — Implement PostgreSQL sparse retrieval** `[backend]` _(R5, R6, R9)_
   Index canonical text and aliases with built-in full-text search and return ranked, typed candidates.  
   **Verify:** integration tests recover exact identifiers/rare terms and use parameterized queries.
-  **Status:** Deferred — the verified sparse path is an in-memory token baseline. Parameterized SQL
-  constants exist, but PostgreSQL FTS execution is not implemented or integration-tested.
+  **Status:** Complete for the Lite fixture scope — `PVR_BACKEND=postgres` validates installed
+  catalog metadata and row counts, then uses parameter-bound `websearch_to_tsquery` plus
+  `ts_rank_cd` for canonical sparse candidates. An isolated PostgreSQL 16 run verified identifier
+  Top-1, 12/12 matched-case Recall@25, GIN-index compatibility, injection-shaped input safety,
+  real HTTP resolution, and checksum-mismatch readiness failure. Dense retrieval remains the
+  in-memory T10 baseline.
 
 - [ ] **T10 — Implement exact dense retrieval** `[backend]` _(R5, R9, R13, R15)_  
   Add pinned local CPU embeddings, deterministic catalog text construction, materialization/version checks, and exact pgvector search.  

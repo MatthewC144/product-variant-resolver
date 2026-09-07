@@ -184,3 +184,22 @@
 - **Deferred review:** Define staging/review/promotion for licensed external data, add product
   lifecycle state if retirement becomes necessary, and implement T09/T10 query adapters before
   selecting `PVR_BACKEND=postgres`.
+
+## D13 — Introduce PostgreSQL through the sparse candidate boundary first
+
+- **Choice:** When `PVR_BACKEND=postgres`, replace only the canonical sparse retriever with
+  PostgreSQL built-in FTS. Keep dense and structured canonical sources in memory and keep the human
+  catalog as an independent, non-canonical RAG source.
+- **Reason:** T09 can prove database retrieval without coupling it to unfinished vector
+  materialization. Retrieval remains a candidate-generation step; RRF, calibration, and abstention
+  retain authority over the final result.
+- **Alternatives:** Block all PostgreSQL API use until pgvector is complete; move all retrieval
+  sources at once; let FTS Top-1 directly become the final identity; construct SQL or tsquery text
+  by interpolating raw titles.
+- **Impact:** PostgreSQL FTS uses a fixed parameterized statement, OR-combines normalized tokens for
+  candidate recall, ranks with `ts_rank_cd`, and maps returned UUIDs back to the checksum-matched
+  catalog. Startup refuses missing/stale metadata, and runtime database retrieval errors return 503.
+  The accepted trade-off is a temporary hybrid backend and no PostgreSQL latency claim.
+- **Deferred review:** Implement T10 vector materialization/exact pgvector retrieval, benchmark the
+  database pipeline at approximately 3,000 catalog rows, and reconsider token/query weighting only
+  from held-out retrieval evidence.

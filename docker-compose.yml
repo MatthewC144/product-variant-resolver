@@ -14,7 +14,8 @@ services:
       PVR_CATALOG_PATH: /app/data/catalog.json
       PVR_BENCHMARK_PATH: /app/data/benchmark.json
       PVR_UI_PATH: /app/ui
-      PVR_BACKEND: offline
+      PVR_BACKEND: ${PVR_BACKEND:-offline}
+      PVR_DATABASE_URL: postgresql+psycopg://pvr:pvr-local-only@postgres:5432/pvr
       PVR_DENSE_PROVIDER: hashing-v1
       PVR_DENSE_DIMENSIONS: "192"
       PVR_RERANKER_PROVIDER: heuristic-v1

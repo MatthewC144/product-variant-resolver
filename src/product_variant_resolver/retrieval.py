@@ -27,6 +27,7 @@ class Candidate:
 
 class Retriever(Protocol):
     name: str
+    version: str
 
     def retrieve(self, signals: ExtractedSignals, limit: int) -> list[tuple[CatalogProduct, float]]: ...
 
@@ -46,6 +47,7 @@ class SparseRetriever:
     """Deterministic token baseline; PostgresSparseRetriever is the production adapter boundary."""
 
     name = "sparse"
+    version = "token-index-v1"
 
     def __init__(self, catalog: Catalog) -> None:
         self.catalog = catalog
@@ -235,8 +237,41 @@ LIMIT :limit
 """.strip()
 
 
-class PostgresRetrieverAdapter:
-    """Interface for SQLAlchemy execution. Parameters must be bound; no interpolation is allowed."""
-
+class PostgresRetrieverAdapter(Protocol):
     def execute_ranked(self, statement: str, parameters: dict[str, object]) -> list[tuple[UUID, float]]:
-        raise NotImplementedError("configure SQLAlchemy/psycopg and a migrated PostgreSQL database")
+        ...
+
+
+class PostgresSparseRetriever:
+    """Canonical sparse candidates from PostgreSQL full-text search."""
+
+    name = "sparse"
+    version = "postgres-fts-simple-v1"
+
+    def __init__(self, catalog: Catalog, adapter: PostgresRetrieverAdapter) -> None:
+        self.catalog = catalog
+        self.adapter = adapter
+
+    def retrieve(
+        self, signals: ExtractedSignals, limit: int
+    ) -> list[tuple[CatalogProduct, float]]:
+        if not 1 <= limit <= 25:
+            raise ValueError("PostgreSQL sparse limit must be between 1 and 25")
+        if not signals.tokens:
+            return []
+        # websearch_to_tsquery understands OR, while the value remains a bound SQL
+        # parameter. Quoting each normalized token keeps punctuation out of tsquery syntax.
+        query = " OR ".join(f'"{token}"' for token in dict.fromkeys(signals.tokens))
+        rows = self.adapter.execute_ranked(
+            POSTGRES_FTS_SQL,
+            {"query": query, "limit": limit},
+        )
+        results: list[tuple[CatalogProduct, float]] = []
+        for canonical_uuid, score in rows:
+            product = self.catalog.by_uuid.get(canonical_uuid)
+            if product is None:
+                raise RuntimeError(
+                    "PostgreSQL returned an identity absent from the loaded catalog"
+                )
+            results.append((product, score))
+        return results

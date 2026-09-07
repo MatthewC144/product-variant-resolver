@@ -12,6 +12,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import ValidationError
 
 from .config import Settings
+from .retrieval import RetrievalUnavailable
 from .schemas import (
     DependencyHealth, ErrorBody, ErrorResponse, HealthResponse, ResolveRequest, ResolveResponse,
 )
@@ -87,7 +88,7 @@ def create_app(
             return _error(503, "resolver_not_ready", "resolver dependencies are unavailable", request.state.request_id)
         try:
             return service.resolve(payload, request_id=request.state.request_id)
-        except DependencyUnavailable:
+        except (DependencyUnavailable, RetrievalUnavailable):
             return _error(503, "dependency_unavailable", "a required dependency is unavailable", request.state.request_id)
         except Exception:
             LOGGER.exception("resolve_failed request_id=%s title_length=%d", request.state.request_id, len(payload.title))
@@ -115,7 +116,10 @@ def create_app(
                 ready=ready,
                 version=service.human_knowledge.version if service else None,
             ),
-            "sparse_index": DependencyHealth(ready=ready, version="token-index-v1" if ready else None),
+            "sparse_index": DependencyHealth(
+                ready=ready,
+                version=service.sparse_retriever.version if service else None,
+            ),
             "dense_index": DependencyHealth(ready=ready, version=settings.dense_provider if ready else None),
             "reranker": DependencyHealth(
                 ready=ready,
@@ -129,9 +133,12 @@ def create_app(
                 version=service.calibrator.artifact.artifact_version if service else None,
             ),
             "database": DependencyHealth(
-                ready=ready if settings.backend == "offline" else False,
-                version="offline-memory" if settings.backend == "offline" and ready else None,
-                detail=None if settings.backend == "offline" else "postgres adapter not connected",
+                ready=ready,
+                version=service.database_version if service else None,
+                detail=(
+                    "canonical sparse retrieval uses PostgreSQL; dense retrieval remains in-memory"
+                    if ready and settings.backend == "postgres" else None
+                ),
             ),
         }
         result = HealthResponse(alive=True, ready=ready and all(item.ready for item in dependencies.values()),

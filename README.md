@@ -170,6 +170,7 @@ docker compose --profile postgres run --rm migrate
 docker compose --profile postgres run --rm ingest
 docker compose exec postgres psql -U pvr -d pvr \
   -c 'SELECT COUNT(*) FROM product_variant;'
+PVR_BACKEND=postgres docker compose --profile postgres up -d --wait api
 docker compose --profile postgres down
 ```
 
@@ -179,9 +180,11 @@ catalog leaves the stored rows unchanged. Identity or identifier collisions roll
 attempt. `docker compose --profile postgres down` keeps the named local volume; adding `-v` deletes
 that volume and its data.
 
-The PostgreSQL profile is not yet a verified resolver path. Ingestion is implemented, but the API
-still uses the offline Dual-RAG runtime. PostgreSQL FTS and exact pgvector query adapters remain
-deferred, and `PVR_BACKEND=postgres` intentionally fails readiness until those adapters exist.
+The default remains the fully offline Dual-RAG runtime. Setting `PVR_BACKEND=postgres` now moves the
+canonical sparse candidate source to PostgreSQL FTS after validating catalog version, checksum, and
+row counts at startup. Dense canonical retrieval still uses the in-memory `hashing-v1` baseline,
+and human-knowledge retrieval remains a separate non-canonical source. Exact pgvector execution is
+deferred to T10.
 
 ## Limitations
 
@@ -189,9 +192,9 @@ deferred, and `PVR_BACKEND=postgres` intentionally fails readiness until those a
   Wheels coverage, or production readiness.
 - `hashing-v1` is a deterministic baseline, not a neural embedding model. No pinned external
   embedding or cross-encoder artifact was integrated or evaluated.
-- The verified Docker/Python 3.12 runtime covers one local arm64 machine, loopback, concurrency 1,
-  and the offline-memory backend. TLS, proxying, remote networking, concurrent load, PostgreSQL,
-  and external models were not runtime-verified.
+- The verified PostgreSQL sparse path covers one local arm64 machine, 120 fixture products, and
+  sequential smoke requests. TLS, proxying, remote networking, concurrent load, PostgreSQL latency,
+  pgvector execution, and external models were not measured.
 - Runtime dependencies use bounded ranges without a committed lockfile or constraints file, so a
   future build may resolve different compatible versions. `pvr-report` requires runtime
   `httpx2>=2,<3`; the dev extra still carries legacy `httpx`, which emits a host-side warning.
