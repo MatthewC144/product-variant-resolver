@@ -1,0 +1,3052 @@
+{
+  "policy": {
+    "automatic_promotion": false,
+    "family_match": "exact normalized brand and casting only",
+    "fuzzy_matching": false,
+    "identifier_only_matching": false,
+    "meaning_of_match": "candidate casting-family relationship only",
+    "normalization": "NFKD ASCII, casefold, alphanumeric tokens"
+  },
+  "review_version": "fandom-2025-pilot-cross-catalog-review-v1",
+  "reviews": [
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Mazda MX-5 Miata",
+      "collector_number": "001",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "mazda mx 5 miata"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Dream Garage",
+      "source_record_id": "fandom-row-53333b0feb531ebc",
+      "source_row": 1,
+      "toy_number": "HYW18",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Mazda MX-5 Miata",
+      "collector_number": "001",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "mazda mx 5 miata"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Dream Garage",
+      "source_record_id": "fandom-row-7e1a3b3ad2244c80",
+      "source_row": 2,
+      "toy_number": "HYX57",
+      "variant_note": "2nd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Batman and Robin Batmobile",
+      "collector_number": "002",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "batman and robin batmobile"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "Batman",
+      "source_record_id": "fandom-row-0f409e88d53811fb",
+      "source_row": 3,
+      "toy_number": "HYW60",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Batman and Robin Batmobile",
+      "collector_number": "002",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "batman and robin batmobile"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "Batman",
+      "source_record_id": "fandom-row-89bb41519f4dd897",
+      "source_row": 4,
+      "toy_number": "HYX61",
+      "variant_note": "2nd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Monster High Ghoul Mobile",
+      "collector_number": "003",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "monster high ghoul mobile"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Screen Time",
+      "source_record_id": "fandom-row-250ad379488a1f5c",
+      "source_row": 5,
+      "toy_number": "HYW61",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Monster High Ghoul Mobile",
+      "collector_number": "003",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "monster high ghoul mobile"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Screen Time",
+      "source_record_id": "fandom-row-897b87e7ffac6681",
+      "source_row": 6,
+      "toy_number": "HYX62",
+      "variant_note": "2nd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Nissan Skyline GT-R (BNR32)",
+      "collector_number": "004",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "nissan skyline gt r bnr32"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Screen Time",
+      "source_record_id": "fandom-row-67d5071e02b5feae",
+      "source_row": 7,
+      "toy_number": "HYY72",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Purple Passion",
+      "collector_number": "005",
+      "human_casting_candidate_ids": [
+        "human-hot-wheels-purple-passion"
+      ],
+      "human_variant_candidate_ids": [
+        "human-hot-wheels-purple-passion-mainline-pink"
+      ],
+      "match_reason": "exact normalized brand and casting exist in the human-backed draft",
+      "match_status": "exact_human_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "purple passion"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_existing_human_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Designed By",
+      "source_record_id": "fandom-row-5a5fae5205d803dd",
+      "source_row": 8,
+      "toy_number": "HYW63",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Purple Passion",
+      "collector_number": "005",
+      "human_casting_candidate_ids": [
+        "human-hot-wheels-purple-passion"
+      ],
+      "human_variant_candidate_ids": [
+        "human-hot-wheels-purple-passion-mainline-pink"
+      ],
+      "match_reason": "exact normalized brand and casting exist in the human-backed draft",
+      "match_status": "exact_human_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "purple passion"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_existing_human_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Designed By",
+      "source_record_id": "fandom-row-7c496dd932ae4a0d",
+      "source_row": 9,
+      "toy_number": "HYX55",
+      "variant_note": "2nd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Kowloon'd Hypervan",
+      "collector_number": "006",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "kowloon d hypervan"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Metro",
+      "source_record_id": "fandom-row-04b36ccd1dd4f2da",
+      "source_row": 10,
+      "toy_number": "HYW64",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Kowloon'd Hypervan",
+      "collector_number": "006",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "kowloon d hypervan"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Metro",
+      "source_record_id": "fandom-row-7cc2b9e0de80d3ba",
+      "source_row": 11,
+      "toy_number": "HYX75",
+      "variant_note": "2nd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Small Bloc",
+      "collector_number": "007",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "small bloc"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Metro",
+      "source_record_id": "fandom-row-2675314e80d7829e",
+      "source_row": 12,
+      "toy_number": "HYW65",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Small Bloc",
+      "collector_number": "007",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "small bloc"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "Red Edition",
+      "source_record_id": "fandom-row-ffc85d1ddcdc7f53",
+      "source_row": 13,
+      "toy_number": "HYY40",
+      "variant_note": "2nd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Small Bloc",
+      "collector_number": "007",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "small bloc"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Metro",
+      "source_record_id": "fandom-row-831b6df53c1c6e1b",
+      "source_row": 14,
+      "toy_number": "HYX56",
+      "variant_note": "3rd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Mazda Autozam",
+      "collector_number": "008",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "mazda autozam"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Dream Garage",
+      "source_record_id": "fandom-row-a69d24d7e300d639",
+      "source_row": 15,
+      "toy_number": "HYW66",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Mazda Autozam",
+      "collector_number": "008",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "mazda autozam"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Dream Garage",
+      "source_record_id": "fandom-row-592082e49745a19f",
+      "source_row": 16,
+      "toy_number": "HYY10",
+      "variant_note": "2nd Color - Zamac"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Mazda Autozam",
+      "collector_number": "008",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "mazda autozam"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Dream Garage",
+      "source_record_id": "fandom-row-0b280377b913e854",
+      "source_row": 17,
+      "toy_number": "HYX45",
+      "variant_note": "3rd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Tesla Model S Plaid",
+      "collector_number": "009",
+      "human_casting_candidate_ids": [
+        "human-hot-wheels-tesla-model-s-plaid"
+      ],
+      "human_variant_candidate_ids": [
+        "human-hot-wheels-tesla-model-s-plaid-mainline-red"
+      ],
+      "match_reason": "exact normalized brand and casting exist in the human-backed draft",
+      "match_status": "exact_human_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "tesla model s plaid"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_existing_human_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW EV",
+      "source_record_id": "fandom-row-f77070792ccdeff4",
+      "source_row": 18,
+      "toy_number": "HYW86",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Tesla Model S Plaid",
+      "collector_number": "009",
+      "human_casting_candidate_ids": [
+        "human-hot-wheels-tesla-model-s-plaid"
+      ],
+      "human_variant_candidate_ids": [
+        "human-hot-wheels-tesla-model-s-plaid-mainline-red"
+      ],
+      "match_reason": "exact normalized brand and casting exist in the human-backed draft",
+      "match_status": "exact_human_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "tesla model s plaid"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_existing_human_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW EV",
+      "source_record_id": "fandom-row-9b17c7f92555a700",
+      "source_row": 19,
+      "toy_number": "HYX58",
+      "variant_note": "2nd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Deora III",
+      "collector_number": "010",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "deora iii"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW EV",
+      "source_record_id": "fandom-row-26100035cc8b6fdb",
+      "source_row": 20,
+      "toy_number": "HYW67",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Deora III",
+      "collector_number": "010",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "deora iii"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW EV",
+      "source_record_id": "fandom-row-8336b7c87b5eb490",
+      "source_row": 21,
+      "toy_number": "HYX47",
+      "variant_note": "2nd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Kei Swap",
+      "collector_number": "011",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "kei swap"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Art Cars",
+      "source_record_id": "fandom-row-60d6c54834c65bf8",
+      "source_row": 22,
+      "toy_number": "HYW14",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Kei Swap",
+      "collector_number": "011",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "kei swap"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Art Cars",
+      "source_record_id": "fandom-row-a0c755183c4b14e6",
+      "source_row": 23,
+      "toy_number": "HYX95",
+      "variant_note": "2nd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Custom '53 Chevy",
+      "collector_number": "012",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "custom 53 chevy"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Art Cars",
+      "source_record_id": "fandom-row-dd6e25487f1fb565",
+      "source_row": 24,
+      "toy_number": "HYW68",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Custom '53 Chevy",
+      "collector_number": "012",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "custom 53 chevy"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Art Cars",
+      "source_record_id": "fandom-row-0d0e45a858499d4f",
+      "source_row": 25,
+      "toy_number": "HYY11",
+      "variant_note": "2nd Color - Zamac"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Nerve Hammer",
+      "collector_number": "013",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "nerve hammer"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "X-Raycers",
+      "source_record_id": "fandom-row-836deb653eb8fd16",
+      "source_row": 26,
+      "toy_number": "HYW69",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Nerve Hammer",
+      "collector_number": "013",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "nerve hammer"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "X-Raycers",
+      "source_record_id": "fandom-row-623ed15bf6ba1bac",
+      "source_row": 27,
+      "toy_number": "HYX66",
+      "variant_note": "2nd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Draftnator",
+      "collector_number": "014",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "draftnator"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "X-Raycers",
+      "source_record_id": "fandom-row-20f16ad2c5417006",
+      "source_row": 28,
+      "toy_number": "HYW70",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Draftnator",
+      "collector_number": "014",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "draftnator"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "X-Raycers",
+      "source_record_id": "fandom-row-e5b00b0411a6187d",
+      "source_row": 29,
+      "toy_number": "HYY31",
+      "variant_note": "2nd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Draftnator",
+      "collector_number": "014",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "draftnator"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "X-Raycers",
+      "source_record_id": "fandom-row-710c84b99e8c2e48",
+      "source_row": 30,
+      "toy_number": "HYX67",
+      "variant_note": "3rd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Morgan Super 3",
+      "collector_number": "015",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "morgan super 3"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "Factory Fresh",
+      "source_record_id": "fandom-row-75cd82288d943dce",
+      "source_row": 31,
+      "toy_number": "HYW13",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Morgan Super 3",
+      "collector_number": "015",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "morgan super 3"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "Factory Fresh",
+      "source_record_id": "fandom-row-eb74e3eebcc4dcf4",
+      "source_row": 32,
+      "toy_number": "HYY33",
+      "variant_note": "2nd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Morgan Super 3",
+      "collector_number": "015",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "morgan super 3"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "Factory Fresh",
+      "source_record_id": "fandom-row-38aa30ce0eed34ca",
+      "source_row": 33,
+      "toy_number": "HYX48",
+      "variant_note": "3rd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "'87 Audi quattro",
+      "collector_number": "016",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "87 audi quattro"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "Factory Fresh",
+      "source_record_id": "fandom-row-987feb62698aa51b",
+      "source_row": 34,
+      "toy_number": "HYW72",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "'87 Audi quattro",
+      "collector_number": "016",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "87 audi quattro"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "Factory Fresh",
+      "source_record_id": "fandom-row-65987b3eab315de1",
+      "source_row": 35,
+      "toy_number": "JBC35",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Ford Performance SuperVan 4",
+      "collector_number": "017",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "ford performance supervan 4"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW First Response",
+      "source_record_id": "fandom-row-e1251210f33f7a0b",
+      "source_row": 36,
+      "toy_number": "JBC20",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Alpha Pursuit",
+      "collector_number": "018",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "alpha pursuit"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW First Response",
+      "source_record_id": "fandom-row-209edcac98175d67",
+      "source_row": 37,
+      "toy_number": "HYW71",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Alpha Pursuit",
+      "collector_number": "018",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "alpha pursuit"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW First Response",
+      "source_record_id": "fandom-row-5069d8985c948de3",
+      "source_row": 38,
+      "toy_number": "HYX49",
+      "variant_note": "2nd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Super Twin Mill",
+      "collector_number": "019",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "super twin mill"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "Hot Wheels Let's Race",
+      "source_record_id": "fandom-row-e8a55e777b5c4d19",
+      "source_row": 39,
+      "toy_number": "HYW12",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Super Twin Mill",
+      "collector_number": "019",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "super twin mill"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "Hot Wheels Let's Race",
+      "source_record_id": "fandom-row-05f599c1217223d6",
+      "source_row": 40,
+      "toy_number": "JBB72",
+      "variant_note": "2nd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "'21 Ford Bronco",
+      "collector_number": "020",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "21 ford bronco"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Hot Trucks",
+      "source_record_id": "fandom-row-3a6c7c2b9a6429fa",
+      "source_row": 41,
+      "toy_number": "HYW73",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "'21 Ford Bronco",
+      "collector_number": "020",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "21 ford bronco"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Hot Trucks",
+      "source_record_id": "fandom-row-2a5c961e0bb57c99",
+      "source_row": 42,
+      "toy_number": "HYY32",
+      "variant_note": "2nd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "'21 Ford Bronco",
+      "collector_number": "020",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "21 ford bronco"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Hot Trucks",
+      "source_record_id": "fandom-row-d9d82c60489c0456",
+      "source_row": 43,
+      "toy_number": "HYX50",
+      "variant_note": "3rd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "'67 Chevy C10",
+      "collector_number": "021",
+      "human_casting_candidate_ids": [
+        "human-hot-wheels-67-chevy-c10"
+      ],
+      "human_variant_candidate_ids": [
+        "human-hot-wheels-67-chevy-c10-hw-workshop-green"
+      ],
+      "match_reason": "exact normalized brand and casting exist in the human-backed draft",
+      "match_status": "exact_human_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "67 chevy c10"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_existing_human_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Hot Trucks",
+      "source_record_id": "fandom-row-b1eb9903dbe19730",
+      "source_row": 44,
+      "toy_number": "HYW74",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "'67 Chevy C10",
+      "collector_number": "021",
+      "human_casting_candidate_ids": [
+        "human-hot-wheels-67-chevy-c10"
+      ],
+      "human_variant_candidate_ids": [
+        "human-hot-wheels-67-chevy-c10-hw-workshop-green"
+      ],
+      "match_reason": "exact normalized brand and casting exist in the human-backed draft",
+      "match_status": "exact_human_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "67 chevy c10"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_existing_human_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Hot Trucks",
+      "source_record_id": "fandom-row-622e5e7a8ee4839b",
+      "source_row": 45,
+      "toy_number": "HYX51",
+      "variant_note": "2nd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Bogzilla",
+      "collector_number": "022",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "bogzilla"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Ride-Ons",
+      "source_record_id": "fandom-row-7bfd171f396dc2f0",
+      "source_row": 46,
+      "toy_number": "HYW75",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Power Wheels Dune Racer",
+      "collector_number": "022",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "power wheels dune racer"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Ride-Ons",
+      "source_record_id": "fandom-row-0f6e974c4951c87f",
+      "source_row": 47,
+      "toy_number": "HYX52",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Kick Kart",
+      "collector_number": "023",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "kick kart"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Ride-Ons",
+      "source_record_id": "fandom-row-48762e1374f8884c",
+      "source_row": 48,
+      "toy_number": "HYW76",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Kick Kart",
+      "collector_number": "023",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "kick kart"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Ride-Ons",
+      "source_record_id": "fandom-row-97cf85bb2e745c98",
+      "source_row": 49,
+      "toy_number": "JBB90",
+      "variant_note": "2nd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Custom Cadillac Fleetwood",
+      "collector_number": "024",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "custom cadillac fleetwood"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "Rod Squad",
+      "source_record_id": "fandom-row-b3385d8522d08801",
+      "source_row": 50,
+      "toy_number": "HYW77",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Custom Cadillac Fleetwood",
+      "collector_number": "024",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "custom cadillac fleetwood"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "Red Edition",
+      "source_record_id": "fandom-row-9797292e2c41a0f6",
+      "source_row": 51,
+      "toy_number": "HYY39",
+      "variant_note": "2nd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Max Steel",
+      "collector_number": "025",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "max steel"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "Rod Squad",
+      "source_record_id": "fandom-row-e248d537782b057f",
+      "source_row": 52,
+      "toy_number": "HYW78",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Max Steel",
+      "collector_number": "025",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "max steel"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "Rod Squad",
+      "source_record_id": "fandom-row-afc7fec167ae18e5",
+      "source_row": 53,
+      "toy_number": "HYX53",
+      "variant_note": "2nd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Nissan Skyline 2000GT-R LBWK",
+      "collector_number": "026",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "nissan skyline 2000gt r lbwk"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW J-Imports",
+      "source_record_id": "fandom-row-77ecedc5e3db3f77",
+      "source_row": 54,
+      "toy_number": "HYW79",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Nissan Skyline 2000GT-R LBWK",
+      "collector_number": "026",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "nissan skyline 2000gt r lbwk"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW J-Imports",
+      "source_record_id": "fandom-row-ebf5fc720ec1d06d",
+      "source_row": 55,
+      "toy_number": "HYY30",
+      "variant_note": "2nd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Nissan Skyline 2000GT-R LBWK",
+      "collector_number": "026",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "nissan skyline 2000gt r lbwk"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW J-Imports",
+      "source_record_id": "fandom-row-27fe2c9ab41942b8",
+      "source_row": 56,
+      "toy_number": "HYX54",
+      "variant_note": "3rd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Twin Mill Gen-E",
+      "collector_number": "027",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "twin mill gen e"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Celebration Racers 'Chinese New Year'",
+      "source_record_id": "fandom-row-e79dc1122db78db4",
+      "source_row": 57,
+      "toy_number": "HYW80",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "'90 Honda Civic EF",
+      "collector_number": "028",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "90 honda civic ef"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW: '70s vs. '90s",
+      "source_record_id": "fandom-row-796bacefcce35e1a",
+      "source_row": 58,
+      "toy_number": "HYW81",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "'90 Honda Civic EF",
+      "collector_number": "028",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "90 honda civic ef"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "Red Edition",
+      "source_record_id": "fandom-row-41d0a9ce8cd980ab",
+      "source_row": 59,
+      "toy_number": "HYY38",
+      "variant_note": "2nd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "'90 Honda Civic EF",
+      "collector_number": "028",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "90 honda civic ef"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW: '70s vs. '90s",
+      "source_record_id": "fandom-row-49995a7ea6dd3a47",
+      "source_row": 60,
+      "toy_number": "HYX90",
+      "variant_note": "3rd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "'94 Audi Avant RS2",
+      "collector_number": "029",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "94 audi avant rs2"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW: '70s vs. '90s",
+      "source_record_id": "fandom-row-8a699e33b2a57f5f",
+      "source_row": 61,
+      "toy_number": "HYW82",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "'94 Audi Avant RS2",
+      "collector_number": "029",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "94 audi avant rs2"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW: '70s vs. '90s",
+      "source_record_id": "fandom-row-e61fea607485be72",
+      "source_row": 62,
+      "toy_number": "HYX60",
+      "variant_note": "2nd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Standard Kart",
+      "collector_number": "030",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "standard kart"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Screen Time",
+      "source_record_id": "fandom-row-65e33120f261eb88",
+      "source_row": 63,
+      "toy_number": "HYW83",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "X-34 Landspeeder",
+      "collector_number": "031",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "x 34 landspeeder"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Screen Time",
+      "source_record_id": "fandom-row-3b134fe021c10ce6",
+      "source_row": 64,
+      "toy_number": "HYW84",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Fish'd & Chip'd",
+      "collector_number": "032",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "fish d chip d"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Designed By",
+      "source_record_id": "fandom-row-9a220e8c7b969b1c",
+      "source_row": 65,
+      "toy_number": "JBC21",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Fiat 500e",
+      "collector_number": "033",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "fiat 500e"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW EV",
+      "source_record_id": "fandom-row-df93f5053c8dca31",
+      "source_row": 66,
+      "toy_number": "HYW85",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Ford Mustang GTD",
+      "collector_number": "034",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "ford mustang gtd"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "Mustang 60th",
+      "source_record_id": "fandom-row-0b44f14c89935509",
+      "source_row": 67,
+      "toy_number": "HYW19",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Ford Mustang GTD",
+      "collector_number": "034",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "ford mustang gtd"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "Mustang 60th",
+      "source_record_id": "fandom-row-ad5faf905e5a7dd1",
+      "source_row": 68,
+      "toy_number": "JBB93",
+      "variant_note": "2nd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "The Vanster",
+      "collector_number": "035",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "the vanster"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Art Cars",
+      "source_record_id": "fandom-row-2021960048d5f118",
+      "source_row": 69,
+      "toy_number": "HYY87",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "The Vanster",
+      "collector_number": "035",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "the vanster"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Art Cars",
+      "source_record_id": "fandom-row-60dcd5be8c1b6ed6",
+      "source_row": 70,
+      "toy_number": "HYX65",
+      "variant_note": "2nd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "DMC DeLorean",
+      "collector_number": "036",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "dmc delorean"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Art Cars",
+      "source_record_id": "fandom-row-6139d05aef5c1dc6",
+      "source_row": 71,
+      "toy_number": "HYW88",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "DMC DeLorean",
+      "collector_number": "036",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "dmc delorean"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Art Cars",
+      "source_record_id": "fandom-row-689175401e12a630",
+      "source_row": 72,
+      "toy_number": "HYX59",
+      "variant_note": "2nd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Crescendo",
+      "collector_number": "037",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "crescendo"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "X-Raycers",
+      "source_record_id": "fandom-row-262f359ddabb0a91",
+      "source_row": 73,
+      "toy_number": "HYW89",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Crescendo",
+      "collector_number": "037",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "crescendo"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "X-Raycers",
+      "source_record_id": "fandom-row-f9e286ed14a527f6",
+      "source_row": 74,
+      "toy_number": "HYX85",
+      "variant_note": "2nd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Proton Saga",
+      "collector_number": "038",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "proton saga"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "Factory Fresh",
+      "source_record_id": "fandom-row-34711bf24338421c",
+      "source_row": 75,
+      "toy_number": "HYW90",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "2020 Ram 1500 Rebel",
+      "collector_number": "039",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "2020 ram 1500 rebel"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW First Response",
+      "source_record_id": "fandom-row-80232a264f67c0c8",
+      "source_row": 76,
+      "toy_number": "HYW91",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "2020 Ram 1500 Rebel",
+      "collector_number": "039",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "2020 ram 1500 rebel"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "Red Edition",
+      "source_record_id": "fandom-row-ca419011a40ec36a",
+      "source_row": 77,
+      "toy_number": "HYY42",
+      "variant_note": "2nd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Donut Drifter",
+      "collector_number": "040",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "donut drifter"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "Hot Wheels Let's Race",
+      "source_record_id": "fandom-row-2dd212263d030d59",
+      "source_row": 78,
+      "toy_number": "HYW92",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Lamborghini Huracán Sterrato",
+      "collector_number": "041",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "lamborghini huracan sterrato"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "Safari Mode",
+      "source_record_id": "fandom-row-cd91a09d2fb2f780",
+      "source_row": 79,
+      "toy_number": "HYW93",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Lamborghini Huracán Sterrato",
+      "collector_number": "041",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "lamborghini huracan sterrato"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "Red Edition",
+      "source_record_id": "fandom-row-ccf12c7503be5c7c",
+      "source_row": 80,
+      "toy_number": "HYY45",
+      "variant_note": "2nd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Lamborghini Huracán Sterrato",
+      "collector_number": "041",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "lamborghini huracan sterrato"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "Safari Mode",
+      "source_record_id": "fandom-row-5334ae3b3e4446e6",
+      "source_row": 81,
+      "toy_number": "JBB86",
+      "variant_note": "3rd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Haulerback",
+      "collector_number": "042",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "haulerback"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Hot Trucks",
+      "source_record_id": "fandom-row-b7e0a2175e5db4df",
+      "source_row": 82,
+      "toy_number": "HYW17",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Haulerback",
+      "collector_number": "042",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "haulerback"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Hot Trucks",
+      "source_record_id": "fandom-row-8b11bc31d1ae1d8d",
+      "source_row": 83,
+      "toy_number": "HYX68",
+      "variant_note": "2nd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "'80 El Camino",
+      "collector_number": "043",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "80 el camino"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Hot Trucks",
+      "source_record_id": "fandom-row-d86f3c4d9f0eff81",
+      "source_row": 84,
+      "toy_number": "HYW94",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "1988 Jeep Wagoneer",
+      "collector_number": "044",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "1988 jeep wagoneer"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Hot Trucks",
+      "source_record_id": "fandom-row-6c37cddecd001ee6",
+      "source_row": 85,
+      "toy_number": "HYW95",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "1988 Jeep Wagoneer",
+      "collector_number": "044",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "1988 jeep wagoneer"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Hot Trucks",
+      "source_record_id": "fandom-row-525f191306c292f5",
+      "source_row": 86,
+      "toy_number": "HYY13",
+      "variant_note": "2nd Color - Zamac"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "'55 Chevy",
+      "collector_number": "045",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "55 chevy"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "Rod Squad",
+      "source_record_id": "fandom-row-b6b574b3872aa959",
+      "source_row": 87,
+      "toy_number": "HYW96",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "'55 Chevy",
+      "collector_number": "045",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "55 chevy"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "Rod Squad",
+      "source_record_id": "fandom-row-7bc54e355e7bc1a5",
+      "source_row": 88,
+      "toy_number": "HYY15",
+      "variant_note": "2nd Color - Zamac"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Hirohata Merc",
+      "collector_number": "046",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "hirohata merc"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "Rod Squad",
+      "source_record_id": "fandom-row-df2509418335ba23",
+      "source_row": 89,
+      "toy_number": "HYW97",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Hirohata Merc",
+      "collector_number": "046",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "hirohata merc"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "Rod Squad",
+      "source_record_id": "fandom-row-7fb7ab0e9a352d53",
+      "source_row": 90,
+      "toy_number": "JBC36",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Mazda REPU",
+      "collector_number": "047",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "mazda repu"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW J-Imports",
+      "source_record_id": "fandom-row-475c3a3f51bdfe72",
+      "source_row": 91,
+      "toy_number": "HYW98",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Subaru BRZ",
+      "collector_number": "048",
+      "human_casting_candidate_ids": [
+        "human-hot-wheels-subaru-brz"
+      ],
+      "human_variant_candidate_ids": [
+        "human-hot-wheels-subaru-brz-walmart-exclusive-zamac-walmart-exclusive"
+      ],
+      "match_reason": "exact normalized brand and casting exist in the human-backed draft",
+      "match_status": "exact_human_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "subaru brz"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_existing_human_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW J-Imports",
+      "source_record_id": "fandom-row-78748248e56441f5",
+      "source_row": 92,
+      "toy_number": "HYW99",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Subaru BRZ",
+      "collector_number": "048",
+      "human_casting_candidate_ids": [
+        "human-hot-wheels-subaru-brz"
+      ],
+      "human_variant_candidate_ids": [
+        "human-hot-wheels-subaru-brz-walmart-exclusive-zamac-walmart-exclusive"
+      ],
+      "match_reason": "exact normalized brand and casting exist in the human-backed draft",
+      "match_status": "exact_human_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "subaru brz"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_existing_human_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW J-Imports",
+      "source_record_id": "fandom-row-3aa2e8967b2f55bf",
+      "source_row": 93,
+      "toy_number": "HYY12",
+      "variant_note": "2nd Color - Zamac"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Subaru BRZ",
+      "collector_number": "048",
+      "human_casting_candidate_ids": [
+        "human-hot-wheels-subaru-brz"
+      ],
+      "human_variant_candidate_ids": [
+        "human-hot-wheels-subaru-brz-walmart-exclusive-zamac-walmart-exclusive"
+      ],
+      "match_reason": "exact normalized brand and casting exist in the human-backed draft",
+      "match_status": "exact_human_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "subaru brz"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_existing_human_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW J-Imports",
+      "source_record_id": "fandom-row-26b0ba519bca3a01",
+      "source_row": 94,
+      "toy_number": "JBB55",
+      "variant_note": "3rd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "'22 Ford Maverick Custom",
+      "collector_number": "049",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "22 ford maverick custom"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Modified",
+      "source_record_id": "fandom-row-1a29735d90640ea9",
+      "source_row": 95,
+      "toy_number": "HYX00",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "'66 Buick Riviera",
+      "collector_number": "050",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "66 buick riviera"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Modified",
+      "source_record_id": "fandom-row-2abe77341cf21836",
+      "source_row": 96,
+      "toy_number": "HYW16",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "'66 Buick Riviera",
+      "collector_number": "050",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "66 buick riviera"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Modified",
+      "source_record_id": "fandom-row-6e5ac667b0e8c051",
+      "source_row": 97,
+      "toy_number": "JBB56",
+      "variant_note": "2nd Color"
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "'69 Corvette Racer",
+      "collector_number": "051",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "69 corvette racer"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW Celebration Racers 'Valentine's Day'",
+      "source_record_id": "fandom-row-b06da2aa6ca34282",
+      "source_row": 98,
+      "toy_number": "HYX01",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Mercedes-Benz 500 E",
+      "collector_number": "052",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "mercedes benz 500 e"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "HW: '70s vs. '90s",
+      "source_record_id": "fandom-row-c968a9ef89a80e5b",
+      "source_row": 99,
+      "toy_number": "HYX02",
+      "variant_note": null
+    },
+    {
+      "brand": "Hot Wheels",
+      "canonical_family_candidate_ids": [],
+      "canonical_id": null,
+      "canonical_uuid": null,
+      "casting_name": "Mercedes-Benz 500 E",
+      "collector_number": "052",
+      "human_casting_candidate_ids": [],
+      "human_variant_candidate_ids": [],
+      "match_reason": "no exact normalized brand and casting exist in either reviewed catalog",
+      "match_status": "no_exact_casting_family",
+      "normalized_family_key": {
+        "brand": "hot wheels",
+        "casting": "mercedes benz 500 e"
+      },
+      "promotion_decision": "hold_for_human_review",
+      "promotion_eligible": false,
+      "recommended_action": "review_possible_new_casting_family",
+      "release_year": 2025,
+      "review_requirements": [
+        "confirm_casting_identity",
+        "classify_release_or_variant",
+        "resolve_color_without_image_inference"
+      ],
+      "series": "Red Edition",
+      "source_record_id": "fandom-row-578b315a37680769",
+      "source_row": 100,
+      "toy_number": "HYY43",
+      "variant_note": "2nd Color"
+    }
+  ],
+  "schema_version": "pvr-fandom-catalog-review-v1",
+  "source_dataset_version": "fandom-hot-wheels-2025-pilot-r790665-v1",
+  "status": "human_review_required"
+}

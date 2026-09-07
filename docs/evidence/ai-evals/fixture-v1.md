@@ -33,8 +33,10 @@
   3,000-row behavior, concurrency/load, TLS, reverse proxy, and remote network are not evaluated.
 - The 100-row Hot Wheels Wiki pilot is excluded from this evaluation, training, calibration, and
   canonical retrieval. Its staging validator proves integrity and provenance only; it makes no
-  model-quality, source-accuracy, or identity-mapping claim. See
-  [`fandom-catalog-pilot-t30.md`](../fandom-catalog-pilot-t30.md).
+  model-quality, source-accuracy, or identity-mapping claim. The deterministic cross-catalog review
+  only identifies exact family candidates and is also excluded. See
+  [`fandom-catalog-pilot-t30.md`](../fandom-catalog-pilot-t30.md) and
+  [`fandom-catalog-review-t31.md`](../fandom-catalog-review-t31.md).
 - Rebuild reproducibility across time is not guaranteed; the Python 3.12 constraints are selective,
   not a complete transitive lock, and PostgreSQL extras/build dependencies remain range-resolved.
 - Production accuracy, marketplace coverage, and production readiness: no claim.

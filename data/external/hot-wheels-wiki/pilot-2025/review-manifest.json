@@ -1,0 +1,34 @@
+{
+  "canonical_promotion_count": 0,
+  "family_match_status_counts": {
+    "exact_human_casting_family": 4,
+    "no_exact_casting_family": 49
+  },
+  "inputs": {
+    "canonical_catalog": {
+      "file": "catalog.json",
+      "sha256": "0d3ea55eab414e3845bf3bf72635707210f2d5c20d96b3d6b5940eb0ffc7d261"
+    },
+    "human_catalog": {
+      "file": "human_backed_catalog.json",
+      "sha256": "d29b69cde8099cb229136a73b893ca99b6313d9652ead5ff4aea48c20242e74f"
+    },
+    "staging": {
+      "file": "normalized.json",
+      "sha256": "e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6"
+    }
+  },
+  "promotion_decision_counts": {
+    "hold_for_human_review": 100
+  },
+  "review_file": "review.json",
+  "review_row_count": 100,
+  "review_sha256": "720292870a04656df0a7a61ab7d649457990e09a19172b450f4557ad878f0c4e",
+  "review_version": "fandom-2025-pilot-cross-catalog-review-v1",
+  "row_match_status_counts": {
+    "exact_human_casting_family": 9,
+    "no_exact_casting_family": 91
+  },
+  "schema_version": "pvr-fandom-catalog-review-manifest-v1",
+  "unique_staging_casting_family_count": 53
+}

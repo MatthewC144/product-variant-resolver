@@ -243,3 +243,22 @@
 - **Deferred review:** Define human promotion rules for casting versus release identity, resolve
   missing color without image inference, and review the 100 pilot rows before fetching more years.
   A formal security/legal review is still required before unattended recurring synchronization.
+
+## D16 — Match external candidates at family level before variant promotion
+
+- **Choice:** Compare Wiki candidates with both catalogs using exact normalized brand plus casting
+  only. Record all exact family candidates, but keep every row at `hold_for_human_review`; disable
+  fuzzy matching, collector-number-only matching, and automatic UUID assignment.
+- **Reason:** The staging table reliably names a casting but has no verified color, while repeated
+  collector numbers and suffixes such as “2nd Color” describe releases rather than unique identity.
+  Family-level comparison safely reduces manual work without pretending variant identity is known.
+- **Alternatives:** Fuzzy-match similar names; use collector number as a global identifier; merge an
+  exact human family automatically; classify every unmatched normalized name as a confirmed new
+  casting; skip cross-source comparison and review all 100 rows from scratch.
+- **Impact:** The 100 rows collapse to 53 family keys. Nine rows across four families point to an
+  exact human-backed family, 91 rows across 49 families need possible-new-family review, and no row
+  matches the synthetic canonical fixture. The report freezes candidate IDs and checksums but
+  creates no database rows and changes no resolver output.
+- **Deferred review:** A person must adjudicate the four existing-human-family groups first, then
+  validate the 49 unmatched family names against reliable source context. Variant/color decisions
+  and canonical UUID creation remain separate later steps.

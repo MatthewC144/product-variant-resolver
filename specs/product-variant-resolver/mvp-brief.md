@@ -41,6 +41,8 @@ This MVP is a portfolio-quality engineering validation, not evidence of producti
 - Unit, integration, API/E2E, and benchmark-gate tests.
 - A 100-row, text-only Hot Wheels Wiki pilot frozen as review-only staging data with source
   revision, CC-BY-SA attribution, checksums, and no automatic canonical promotion.
+- A deterministic cross-catalog review that separates exact existing-family candidates from
+  possible new families while keeping every Wiki row on human-review hold.
 
 ### 2.2 EARS acceptance requirements
 
@@ -65,6 +67,7 @@ This MVP is a portfolio-quality engineering validation, not evidence of producti
 - **R19 — Human-backed catalog draft:** WHEN confirmed human labels are converted into catalog knowledge, THE SYSTEM SHALL create stable casting and provisional-variant IDs, preserve every source case and label alias, deduplicate only exact normalized structured identities, and prevent unreviewed provisional variants from being returned as canonical ground truth.
 - **R20 — Dual-source retrieval boundary:** WHEN a title is resolved, THE SYSTEM SHALL search both the canonical catalog and the human-backed review catalog, use only canonical candidates for the final identity decision, and expose bounded human-knowledge candidates with review status only when debug output is requested.
 - **R21 — Governed external catalog pilot:** WHEN an external Wiki table is imported, THE SYSTEM SHALL use a documented API and identifiable client, freeze source revision/license/checksums, omit non-text media, retain unknown fields as null, and mark every record review-only without changing canonical resolution or evaluation labels.
+- **R22 — Conservative external-catalog review:** WHEN staged Wiki records are compared with existing catalogs, THE SYSTEM SHALL use only exact normalized brand/casting family matches, expose candidate IDs and reasons, freeze all input/output checksums, disable fuzzy and identifier-only promotion, and retain null canonical identity until a human decision is recorded.
 
 The numeric gates above are deliberately modest fixture-MVP gates. Reports and README text must state dataset size, construction method, split strategy, hardware, model versions, and that the figures do not establish production accuracy.
 
@@ -283,6 +286,17 @@ Runtime resolution traces are not persisted by default in the fixture MVP.
   value prevent the external table from becoming implicit ground truth.
 - Raw wikitext, normalized JSON, and a manifest are frozen separately with SHA-256 checksums. Photo
   columns are omitted and no image request is made.
+
+### 8.12 `ExternalCatalogReviewRecord`
+
+- Repeats the source row ID and review-relevant product fields, plus its normalized brand/casting
+  family key.
+- Records exact canonical-family IDs, exact human casting/variant IDs, match status, reason, and a
+  recommended human-review action. Candidate IDs are evidence, not assigned identity.
+- `promotion_decision=hold_for_human_review`, `promotion_eligible=false`, and null canonical fields
+  remain mandatory until a separately reviewed promotion decision exists.
+- The review manifest freezes the staging, canonical, human-backed, and review JSON checksums and
+  reports both row-level and distinct-family-level counts.
 
 ## 9. API contracts
 
@@ -646,6 +660,17 @@ Each task is intended to be independently committable and verifiable. `task_exec
   identified requests retrieved rights metadata and one 93 KB revision rather than crawling 100
   item pages. The normalized dataset contains 100 records, including 45 explicit variant notes,
   and remains excluded from canonical resolution, calibration, and evaluation.
+
+- [x] **T31 — Build the 100-row cross-catalog promotion review** `[backend]` _(R6, R16, R22)_
+  Compare every Wiki staging row with the canonical fixture and human-backed draft using exact
+  normalized brand/casting keys; freeze row-level reasons, candidate IDs, review actions, and all
+  input/output checksums without issuing an identity or database write.
+  **Verify:** the deterministic builder and checked-in report agree; 100 rows map to 53 distinct
+  casting families; 9 rows / 4 families have exact human-family candidates; 91 rows / 49 families
+  have no exact candidate; all 100 remain held and canonical promotion count is zero.
+  **Status:** Complete. There are no exact canonical-fixture family matches. The four exact
+  human-backed families are `'67 Chevy C10`, `Purple Passion`, `Subaru BRZ`, and
+  `Tesla Model S Plaid`; their existing IDs are review evidence only.
 
 ### Task order and handoff
 

@@ -1,5 +1,99 @@
 # Project Log
 
+## 2026-09-07 — Cross-catalog review turns 100 Wiki rows into 53 review groups
+
+### What was executed and what problem it solves
+
+T30 produced a safe 100-row staging dataset, but a reviewer would still have needed to open three
+large JSON files and compare every name manually. T31 builds the missing bridge: a deterministic
+row-level report that checks each Wiki candidate against both the canonical fixture and the
+human-backed draft, while preserving the rule that only a person may approve identity promotion.
+
+The result also exposes why “100 imported rows” is not the same as “100 new car models.” Those rows
+collapse to 53 distinct normalized casting families because many models have a base release and a
+second-color or other variation. Nine rows, representing four families, already have an exact
+human-backed family candidate. Ninety-one rows, representing 49 families, have no exact candidate
+in either reviewed catalog. None exactly match the intentionally narrow synthetic canonical
+fixture.
+
+### Code changes and why they were made
+
+`review_fandom_catalog_pilot.py` loads the frozen Wiki staging file, `catalog.json`, and
+`human_backed_catalog.json`. It builds indexes on normalized brand plus casting and emits a review
+record for every source row. Each result includes the input fields needed for review, normalized
+family key, match reason, exact canonical/human candidate IDs, recommended review action, and three
+remaining checks: confirm casting identity, classify release versus variant, and resolve color
+without image inference.
+
+The same command supports `--check`. In build mode it writes `review.json` and a manifest; in check
+mode it regenerates both entirely in memory and requires byte-for-byte equality with the committed
+files. The manifest hashes all three inputs and the output, so changing the Wiki snapshot or either
+catalog makes the old review demonstrably stale instead of silently reusing it.
+
+Five tests freeze row coverage, source order, status/family counts, the four current human-family
+names, candidate boundaries, disabled unsafe matching options, all-hold decisions, checksums, and
+determinism. README, attribution, MVP requirements, QA review, AI-eval exclusions, evidence, and the
+decision log were updated so the report cannot be mistaken for model evaluation or database
+ingestion.
+
+### Technical choices, alternatives, and trade-offs
+
+The matcher uses NFKD ASCII normalization, case folding, and alphanumeric tokens, then requires an
+exact brand/casting key. This mirrors the project's conservative human-label alignment philosophy
+and handles harmless punctuation differences such as curly apostrophes. It deliberately does not
+use embedding similarity or fuzzy edit distance. Those methods could surface useful suggestions,
+but without a verified threshold they could merge related yet distinct Skyline, Camaro, or model-
+year castings and make a review shortcut look like ground truth.
+
+Collector number was also rejected as a stand-alone identity key. In the Wiki data, multiple color
+rows share collector numbers, and the canonical fixture uses a different synthetic scope. A number
+match without matching source semantics would therefore be a coincidence, not sufficient identity
+evidence.
+
+Even exact human-family matches remain non-promoting. The human catalog itself is provisional, and
+the Wiki row still lacks verified color. The report consequently chooses
+`review_existing_human_family` as a recommended action while keeping canonical UUID/ID null. For
+unmatched rows it says `review_possible_new_casting_family`, not “new casting,” because absence of
+an exact match may be caused by spelling or coverage gaps.
+
+### Decision changes
+
+The previous next-step wording proposed a promote/merge/reject review of all 100 rows. Implementation
+showed that automatic final decisions would overstate the available evidence. T31 therefore splits
+review into two stages: deterministic pre-classification now, human adjudication later. This still
+reduces the workload to 53 family groups and gives every decision an evidence trail, without
+claiming that code can replace source-aware review.
+
+This also changes the practical review order. The four exact human-family groups should be examined
+first because they already have related human-labelled evidence. The 49 unmatched groups follow as
+possible new families. Release/color classification remains separate within each family so a
+second-color row cannot accidentally create a second casting.
+
+### Verification evidence
+
+The frozen report contains 100 rows across 53 families. Row counts are 9
+`exact_human_casting_family` and 91 `no_exact_casting_family`; family counts are 4 and 49. The
+matched families are `'67 Chevy C10`, `Purple Passion`, `Subaru BRZ`, and `Tesla Model S Plaid`.
+All 100 decisions are `hold_for_human_review`, and canonical promotion count is zero.
+
+The report checksum is
+`720292870a04656df0a7a61ab7d649457990e09a19172b450f4557ad878f0c4e`. The `--check` regeneration
+passed, five focused tests passed, and the complete host suite passed 84/84. Fixture validation,
+Wiki staging validation, Python compilation, both Compose configurations, and patch whitespace
+checks also passed. T31 made no network request and no PostgreSQL or runtime-catalog write.
+
+### Incomplete work, risks, and next step
+
+The report is machine pre-review, not human verification. Exact spelling does not prove that a
+2025 release belongs to the same variant, and no exact spelling does not prove that a family is
+new. Color remains unresolved for all 100 source rows. The human-backed catalog is itself a review
+draft, so its four matches cannot grant canonical identity.
+
+The next step is human adjudication beginning with those four matched family groups. Each group
+needs a recorded merge/hold/reject decision and reasoning, followed by the 49 possible-new-family
+groups. Only approved rows should feed a separate promotion artifact and PostgreSQL transaction;
+the raw review JSON must never be ingested directly.
+
 ## 2026-09-07 — A governed 100-row Wiki pilot starts catalog expansion
 
 ### What was executed and what problem it solves

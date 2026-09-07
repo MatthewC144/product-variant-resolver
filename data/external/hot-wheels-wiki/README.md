@@ -21,3 +21,11 @@ images. These source-derived data files remain subject to the source CC-BY-SA te
 
 No image or other non-text media file was downloaded. Fandom states that non-text files must not be
 assumed to use the same license as Wiki text.
+
+## Cross-catalog review
+
+`pilot-2025/review.json` compares all 100 staged rows with the repository's canonical fixture and
+human-backed draft. It uses exact normalized brand and casting names only; fuzzy and
+identifier-only matching are disabled. An exact match means “review this existing casting family,”
+not “promote this release.” All 100 decisions remain `hold_for_human_review` with null canonical
+identity. `review-manifest.json` freezes all three inputs and the review output by SHA-256.

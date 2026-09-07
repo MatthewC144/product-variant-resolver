@@ -151,6 +151,20 @@ revision, transformation notes, contributor attribution, and CC-BY-SA terms are 
 requests—site rights plus one page revision—and should be performed only after rechecking the
 source access and license conditions.
 
+The deterministic cross-catalog review compares every staged row with both the canonical fixture
+and the human-backed draft using exact normalized brand and casting names only. The current report
+covers 100 rows / 53 distinct casting families: 9 rows across 4 families have an exact
+human-catalog candidate, while 91 rows across 49 families have no exact candidate. None are
+automatically promoted.
+
+```bash
+python3 scripts/review_fandom_catalog_pilot.py --check
+```
+
+The full row-level decisions and frozen input/output checksums are in
+[`review.json`](data/external/hot-wheels-wiki/pilot-2025/review.json) and
+[`review-manifest.json`](data/external/hot-wheels-wiki/pilot-2025/review-manifest.json).
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with
