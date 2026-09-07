@@ -129,6 +129,28 @@ this scale. The host→Docker value is the separately scoped loopback artifact d
 [QA review](specs/product-variant-resolver/review.md), and
 [MVP evidence](docs/evidence/product-variant-resolver-mvp.md).
 
+## Review-only Hot Wheels Wiki pilot
+
+The repository includes a 100-row text-only staging pilot from the 2025 Hot Wheels Wiki mainline
+list. It was fetched with an identified client through the MediaWiki API and frozen at revision
+`790665`. All records remain `needs_canonical_review`, have null canonical UUIDs, and are excluded
+from resolver accuracy, calibration, and threshold training. The API and Docker runtime do not load
+this directory.
+
+Validate the checked-in snapshot or rebuild normalized data without another network request:
+
+```bash
+PYTHONPATH=src python3 scripts/validate_fandom_catalog_pilot.py
+PYTHONPATH=src python3 scripts/fetch_fandom_catalog_pilot.py \
+  --raw-input data/external/hot-wheels-wiki/pilot-2025/raw.json
+```
+
+The normalized data omits the photo column and does not infer color from filenames. Source,
+revision, transformation notes, contributor attribution, and CC-BY-SA terms are documented in the
+[external-data README](data/external/hot-wheels-wiki/README.md). A live refresh uses two API
+requests—site rights plus one page revision—and should be performed only after rechecking the
+source access and license conditions.
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with

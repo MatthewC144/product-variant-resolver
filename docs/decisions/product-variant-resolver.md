@@ -222,3 +222,24 @@
 - **Deferred review:** Select a licensed pinned neural embedding artifact only with an independently
   written holdout evaluation. Measure exact-query latency at approximately 3,000 rows before adding
   an approximate index.
+
+## D15 — Treat Wiki expansion as a revision-frozen review queue
+
+- **Choice:** Start external catalog expansion with 100 text rows from one completed yearly list,
+  fetched through the official MediaWiki API using an identified client. Freeze raw wikitext,
+  revision/license metadata, normalized review records, checksums, and attribution. Do not insert
+  these records into the canonical catalog or PostgreSQL product tables.
+- **Reason:** The main risk at this stage is not query volume but silently converting community
+  table rows into incorrect product identities. A small review queue makes table semantics,
+  duplicate rules, missing fields, and license obligations inspectable before scaling to 3,000.
+- **Alternatives:** Crawl individual casting pages and images; import all available years at once;
+  infer colors from image filenames; assign canonical UUIDs automatically; wait for a separate
+  hand-created CSV and build no reproducible source adapter.
+- **Impact:** The importer makes two bounded API requests, checks the expected CC-BY-SA rights
+  response, URL-encodes the page parameter, uses a 30-second timeout and 3 MB response limit, and
+  downloads no media. The 2025 pilot contains 100 unique toy numbers and 45 explicit color-variant
+  labels, but all 100 color fields remain null and all canonical UUIDs remain null. Source-derived
+  data in its directory retains attribution and share-alike notice.
+- **Deferred review:** Define human promotion rules for casting versus release identity, resolve
+  missing color without image inference, and review the 100 pilot rows before fetching more years.
+  A formal security/legal review is still required before unattended recurring synchronization.

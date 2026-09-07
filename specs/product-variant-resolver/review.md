@@ -1,9 +1,9 @@
 # Product Variant Resolver — Lite MVP QA Review
 
 > Date: 2026-09-01  
-> Last focused update: 2026-09-07 (T10 PostgreSQL exact dense retrieval)
+> Last focused update: 2026-09-07 (T30 governed Hot Wheels Wiki pilot)
 > QA mode: `.codex/agents/qa.toml` MVP Mode  
-> Scope: `specs/product-variant-resolver/mvp-brief.md` R1–R20
+> Scope: `specs/product-variant-resolver/mvp-brief.md` R1–R21
 > Verdict: **PASS WITH RISKS**
 
 ## Verdict summary
@@ -56,6 +56,13 @@ reported both PostgreSQL candidate sources ready and kept the expected Nomad ide
 sparse, dense, structured, and fused ranks. The final host suite passes **77/77**. This verifies the
 database vector lifecycle, not a neural embedding model.
 
+T30 adds a revision-frozen, text-only intake path for external catalog expansion without weakening
+the canonical-identity boundary. Two identified MediaWiki API requests captured the source license
+and revision `790665`; the importer normalized exactly 100 rows from the 2025 list. Validation found
+100 unique toy numbers, 45 explicit variant notes, 100 unknown colors, and zero canonical
+promotions. The final host suite passes **79/79**. This proves repeatable staging and attribution,
+not that these rows are canonical identities or that Wiki coverage is accurate enough for release.
+
 An independent Docker runtime milestone now verifies the existing
 `product-variant-resolver:lite` image on Docker Desktop 29.5.3/aarch64: Python 3.12.14, non-root
 user `pvr` (UID 100), read-only root filesystem, writable tmpfs only, loopback-only published port,
@@ -96,7 +103,7 @@ visible in any portfolio or repository claims.
 | R3 Unknown entity | PASS | Manual fixture check returned `no_match`, null identity, reason `no_candidate_above_threshold`. |
 | R4 Default minimization | PASS | Default response keys exclude `debug`, candidates, ranks, scores, and timings. |
 | R5 Explainability | PASS | Debug response contains extracted signals, bounded candidates, sparse/dense/structured/RRF/reranker fields, conflicts/matches, model versions, and all component timings. It reports selected sparse and dense implementations, including PostgreSQL exact-dense artifact version. With the R11 default decision, reranker fields are null and metadata says `disabled`; opt-in mode populates them. |
-| R6 Syntax/knowledge boundary | PASS (fixture path) | Generic catalog ingestion is idempotent and PostgreSQL-runtime verified. Structured alias/identifier source data is preserved, the full searchable catalog is checksummed, and catalog-derived color addition needs no product-specific branch. T09 moves only canonical sparse retrieval into PostgreSQL; the independent human-knowledge source cannot issue canonical identity. External Wiki ingestion/review remains deferred. |
+| R6 Syntax/knowledge boundary | PASS (fixture path) | Generic catalog ingestion is idempotent and PostgreSQL-runtime verified. Structured alias/identifier source data is preserved, the full searchable catalog is checksummed, and catalog-derived color addition needs no product-specific branch. T09 moves only canonical sparse retrieval into PostgreSQL; the independent human-knowledge source cannot issue canonical identity. T30 verifies external Wiki intake only; human review and canonical promotion remain deferred. |
 | R7 Soft conflicts | PASS | Catalog-derived `series_hints` is implemented without a product-specific branch. Manual and integration checks show a target with the wrong catalog series remains in the top 25 and records `series` in `structured_conflicts`; year/color retention and collector-number logic remain intact. |
 | R8 Reproducible split | PASS | 100 cases; `split_seed=240901`; version `fixture-v1`; 14 families occur in exactly one split; train/dev access guards pass; test labels are recorded as untouched by training. |
 | R9 Retrieval gate | PASS | Fresh offline evaluation, PostgreSQL FTS, and exact pgvector each achieved Recall@25 `1.0` on the same 12 matched test cases (gate `>=0.95`). |
@@ -106,11 +113,12 @@ visible in any portfolio or repository claims.
 | R13 CPU smoke budget | PASS (limited scope) | Checked-in host-to-Docker loopback evidence has 50 sequential samples, 10 excluded warm-ups, K=25, and nearest-rank p95 `4.721208 ms` (gate `<=1500 ms`). That measurement remains offline-only. PostgreSQL exact retrieval passed sequential functionality checks, but database latency, concurrency, TLS/proxy, and remote networking were not measured. |
 | R14 API validation | PASS | Blank, 501-code-point, unknown-field, and limit=26 requests return structured 422; malformed JSON returns 400; unsupported media type returns 415; no tracebacks exposed. |
 | R15 Health/readiness | PASS WITH RISK | Missing catalogs and unavailable external providers fail closed. PostgreSQL startup verifies server/catalog state plus dense metadata and every expected UUID/version/checksum; catalog checksum corruption or one missing vector produces health 503, and retrieval-time database failure maps to 503. Health remains a startup snapshot, so post-startup loss is detected on retrieval. |
-| R16 Quality gate | PASS | The latest host suite passes 77/77; fixture validation, Python compilation, default/PostgreSQL Compose configuration, and `git diff --check` pass. T04 migration, T07 ingestion, T09 sparse, and T10 exact dense retrieval passed isolated PostgreSQL 16/pgvector verification. Offline remains the default; PostgreSQL canonical sparse+dense is opt-in. |
+| R16 Quality gate | PASS | The latest host suite passes 79/79; fixture and Wiki-pilot validation, Python compilation, default/PostgreSQL Compose configuration, and `git diff --check` pass. T04 migration, T07 ingestion, T09 sparse, and T10 exact dense retrieval passed isolated PostgreSQL 16/pgvector verification. Offline remains the default; PostgreSQL canonical sparse+dense is opt-in. |
 | R17 Human-label provenance | PASS | `human-labeled-real-noisy-v1` contains 101 confirmed human labels, including 91 initial-name/human-name pairs and 10 explicit `no_candidate` failures. Four source rows marked excluded were not imported. The frozen manifest records source and dataset checksums, and the corpus declares that it is excluded from canonical-resolution accuracy, calibration training, and threshold selection until catalog IDs are assigned. |
 | R18 Conservative catalog alignment | PASS | The deterministic alignment covers all 101 reviewed records and freezes the human dataset, catalog, and output checksums. It reports 0 canonical mappings, 2 exact brand/casting family-only matches, and 99 unmapped records. Every unresolved record retains null UUID/slug; fuzzy matching is disabled. |
 | R19 Human-backed catalog draft | PASS | All 101 confirmed labels are preserved in 97 deterministic casting entities and 100 provisional variants. One exact structured duplicate merges while keeping both cases and aliases. Checksums and unique IDs validate, and every provisional variant remains `needs_canonical_review` and excluded from canonical responses and calibration. |
 | R20 Dual-source retrieval boundary | PASS (Lite scope) | Every request executes canonical retrieval plus an independent human-knowledge sparse/dense/RRF retrieval stage. Only canonical candidates enter ranking, policy, and final identity. A reviewed BMW query returns the expected provisional suggestion in bounded debug output while the canonical result stays `no_match`/null; unknown text returns no human suggestion; missing or review-bypassing human data fails closed; default responses omit both debug candidate sets. |
+| R21 Governed external catalog pilot | PASS WITH RISK | A single revision-frozen MediaWiki response produced exactly 100 text-only staging records with checksums, attribution, sequential source rows, unique toy numbers, null colors, null canonical UUIDs, and `needs_canonical_review` status. No images were requested and no staged row enters runtime retrieval. Source accuracy, canonical mapping, formal legal/security review, and 3,000-row behavior remain unverified. |
 
 ## Checked items and reproducible evidence
 
@@ -267,6 +275,10 @@ None for demonstrating the explicitly documented offline fixture path.
    FastAPI/Starlette/TestClient/AnyIO/Pydantic/Uvicorn set is constrained and container-verified,
    with legacy `httpx` removed. PostgreSQL extras and unlisted transitive/build dependencies remain
    range-resolved and require a broader lock/reverification before a production database release.
+4. **The external Wiki pilot is a review queue, not a catalog expansion claim.** Its 100 rows are
+   source-attributed and reproducible, but all lack verified colors and canonical UUIDs. The
+   source-derived text remains subject to CC BY-SA, and no formal legal or security sign-off was
+   performed in this Lite milestone.
 
 ### Later
 
@@ -278,9 +290,12 @@ None for demonstrating the explicitly documented offline fixture path.
 ## Recommended next task
 
 The requested R7, R11, R13, Docker/Python 3.12 runtime, runtime reporting, selective dependency-
-constraint, T04/T07/T09/T10 database milestones, and T26–T29 human-data/Dual-RAG milestones are
-QA-closed for their stated Lite scope. The next highest-value database work is expanding the
-reviewable catalog toward 3,000 variants and measuring exact pgvector quality and latency.
+constraint, T04/T07/T09/T10 database milestones, T26–T29 human-data/Dual-RAG milestones, and the
+T30 100-row external-data pilot are QA-closed for their stated Lite scope. The next highest-value
+step is reviewing the 100 staged rows against the canonical and human-backed catalogs, recording
+explicit promote/merge/reject decisions, and only then importing additional completed yearly lists
+toward 3,000 reviewable variants. Exact pgvector quality and latency must be remeasured at that
+scale.
 The next human-knowledge evaluation task remains an independently written, casting-grouped holdout
 set; until that evidence exists, the human source stays debug-only. A complete dependency-lock
 review, active post-startup database health polling, external neural models, and a justified T14

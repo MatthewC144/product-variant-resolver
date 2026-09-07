@@ -39,6 +39,8 @@ This MVP is a portfolio-quality engineering validation, not evidence of producti
 - Reproducible evaluation for Recall@10/25/50, Top-1 accuracy, MRR@10, hard-negative accuracy, precision, coverage, false-match rate, abstention rate, and p50/p95 latency.
 - Docker Compose for the API and PostgreSQL/pgvector dependency.
 - Unit, integration, API/E2E, and benchmark-gate tests.
+- A 100-row, text-only Hot Wheels Wiki pilot frozen as review-only staging data with source
+  revision, CC-BY-SA attribution, checksums, and no automatic canonical promotion.
 
 ### 2.2 EARS acceptance requirements
 
@@ -62,12 +64,14 @@ This MVP is a portfolio-quality engineering validation, not evidence of producti
 - **R18 — Conservative catalog alignment:** WHEN human-labeled names are compared with the catalog, THE SYSTEM SHALL assign a canonical UUID only after a unique exact structured match, retain family-only and unmapped outcomes without asserted identities, and freeze the input/output checksums and alignment policy.
 - **R19 — Human-backed catalog draft:** WHEN confirmed human labels are converted into catalog knowledge, THE SYSTEM SHALL create stable casting and provisional-variant IDs, preserve every source case and label alias, deduplicate only exact normalized structured identities, and prevent unreviewed provisional variants from being returned as canonical ground truth.
 - **R20 — Dual-source retrieval boundary:** WHEN a title is resolved, THE SYSTEM SHALL search both the canonical catalog and the human-backed review catalog, use only canonical candidates for the final identity decision, and expose bounded human-knowledge candidates with review status only when debug output is requested.
+- **R21 — Governed external catalog pilot:** WHEN an external Wiki table is imported, THE SYSTEM SHALL use a documented API and identifiable client, freeze source revision/license/checksums, omit non-text media, retain unknown fields as null, and mark every record review-only without changing canonical resolution or evaluation labels.
 
 The numeric gates above are deliberately modest fixture-MVP gates. Reports and README text must state dataset size, construction method, split strategy, hardware, model versions, and that the figures do not establish production accuracy.
 
 ## 3. Out-of-scope / deferred scope
 
-- Ingestion, crawling, or synchronization of the proposed 8,000–30,000 real-world catalog.
+- Bulk ingestion or synchronization of the proposed 8,000–30,000 real-world catalog beyond the
+  accepted 100-row review-only pilot.
 - Claims of production readiness, broad marketplace coverage, or externally valid accuracy.
 - Multiple product categories or real-time catalog synchronization.
 - OpenSearch or another distributed search cluster.
@@ -268,6 +272,17 @@ Runtime resolution traces are not persisted by default in the fixture MVP.
 - Casting and provisional-variant IDs, human name examples, source case IDs, reviewed series/variant labels, and mandatory `needs_canonical_review` status.
 - Sparse, dense, and RRF ranks/scores plus matched tokens for debug explanation.
 - Human candidates never populate `ResolveResponse.canonical_uuid`, `canonical_id`, or `product`; those fields remain controlled by the canonical catalog policy.
+
+### 8.11 `ExternalCatalogStagingRecord`
+
+- Stable source-record ID, source table row, brand, year, toy/collector numbers, model label,
+  parsed casting, optional variant note, series, series position, and intentionally nullable color.
+- Source page/revision/timestamp/license metadata is repeated per record so exported review rows
+  retain attribution.
+- `canonical_uuid=null`, `review_status=needs_canonical_review`, and an explicit staging-only usage
+  value prevent the external table from becoming implicit ground truth.
+- Raw wikitext, normalized JSON, and a manifest are frozen separately with SHA-256 checksums. Photo
+  columns are omitted and no image request is made.
 
 ## 9. API contracts
 
@@ -619,6 +634,18 @@ Each task is intended to be independently committable and verifiable. `task_exec
 - [x] **T29 — Connect the human catalog as the second RAG source** `[backend/frontend]` _(R4–R6, R14–R16, R19–R20)_
   Load and validate the human-backed draft at startup, build deterministic sparse+dense retrieval over provisional variants, execute it independently from canonical retrieval, expose bounded debug candidates and health metadata, and render the review-only evidence safely in the debug UI.
   **Verify:** an exact reviewed BMW query ranks the correct provisional variant first while returning no canonical UUID; an unknown query returns no human suggestion; missing human catalog fails readiness; default responses omit debug evidence; traces/timings include the second retrieval stage; API/UI/full suites pass.
+
+- [x] **T30 — Import a governed 100-row Hot Wheels Wiki pilot** `[backend]` _(R6, R16, R21)_
+  Fetch one completed yearly list through the MediaWiki API, freeze its revision and license, parse
+  the first 100 valid text rows into review-only staging records, and produce attribution plus
+  checksum evidence without downloading images or changing the canonical catalog.
+  **Verify:** parser tests cover markup, series, color-variant suffixes, markers, determinism, bounds,
+  and image omission; the frozen validator proves 100 unique toy numbers, 100 null colors, 0
+  canonical promotions, sequential source rows, and matching raw/normalized checksums.
+  **Status:** Complete for the 2025 pilot at revision `790665`. The API reported `CC-BY-SA`; two
+  identified requests retrieved rights metadata and one 93 KB revision rather than crawling 100
+  item pages. The normalized dataset contains 100 records, including 45 explicit variant notes,
+  and remains excluded from canonical resolution, calibration, and evaluation.
 
 ### Task order and handoff
 

@@ -1,5 +1,107 @@
 # Project Log
 
+## 2026-09-07 — A governed 100-row Wiki pilot starts catalog expansion
+
+### What was executed and what problem it solves
+
+The project previously had two useful but deliberately limited sources: 120 synthetic/curated
+canonical variants and 101 human-reviewed noisy names whose identities mostly remain provisional.
+Neither source tests how a larger public catalog would enter the system. T30 introduces the first
+external catalog intake without prematurely treating community data as canonical truth.
+
+The Hot Wheels Wiki robots endpoint returned HTTP 403, so the work did not begin an HTML crawler or
+try to bypass that response. A single identified MediaWiki site-information request was used to
+confirm the API and its reported `CC-BY-SA` rights metadata. A second request retrieved the complete
+2025 mainline list at frozen revision `790665`. Because the revision response contained the whole
+table in roughly 93 KB, the pilot required no individual model-page or image requests.
+
+### Code changes and why they were made
+
+`fandom_ingestion.py` contains the bounded network adapter and pure table parser. The adapter uses a
+fixed HTTPS API origin, URL-encoded parameters, an identifying User-Agent, a 30-second timeout, a
+3 MB response ceiling, and strict response/license checks. The parser selects the first sortable
+table, cleans Wiki and HTML presentation syntax, preserves source markers, and splits descriptions
+such as “2nd Color - Zamac” into a separate variant note. It never reads the photo cell into the
+normalized record.
+
+`fetch_fandom_catalog_pilot.py` writes three artifacts: the raw revision, 100 normalized staging
+records, and a checksum manifest. Its `--raw-input` mode can rebuild normalized output from the
+frozen revision without another network call. This was added after the first fetch so parser fixes
+or schema reviews do not create unnecessary requests or silently move to a newer Wiki revision.
+
+`validate_fandom_catalog_pilot.py` enforces the accepted boundary: exactly 100 records and unique toy
+numbers, sequential source rows, matching raw/normalized checksums, the expected license, null
+colors, null canonical UUIDs, review-only status, and no copied `File:` reference in normalized
+records. Parser tests cover Wiki links, HTML, templates, series values, color-variation suffixes,
+determinism, limit errors, and insufficient table rows.
+
+The source attribution README links the exact revision and contributor history, describes every
+normalization change, and states that the source-derived files retain CC-BY-SA terms. The external
+directory is excluded from the runtime Docker build: the repo retains review evidence, while the
+shipping API cannot accidentally load the staging snapshot.
+
+### Technical choices, alternatives, and trade-offs
+
+The pilot uses one completed yearly list instead of walking thousands of casting pages. A yearly
+table is closer to the required product-variant grain because it includes year, toy number,
+collector number, series, and series position in one revision. It also sharply reduces load and
+makes the exact source reproducible. The trade-off is that the table does not contain a trustworthy
+text color field and some suffixes describe release variations without fully defining their color.
+
+Unknown color therefore remains null. Inferring “green” or “red” from a photo filename would turn
+presentation metadata into unreviewed product truth, while downloading the image would introduce a
+different copyright boundary because Fandom explicitly warns that media need not share the Wiki
+text license. This reduces immediate field completeness but prevents a much harder-to-detect data
+quality and licensing failure.
+
+The records were not appended to `data/catalog.json` and were not inserted into PostgreSQL. A Wiki
+row is a release/variation candidate, not automatically a unique casting or a canonical identity.
+The accepted architecture treats collection as reversible staging and promotion as a later human
+decision. This preserves the existing resolver benchmark and prevents external knowledge from
+leaking into test labels.
+
+### Decision changes
+
+The earlier plan described future catalog expansion at approximately 3,000 rows but had no accepted
+source adapter or promotion boundary. That is now narrowed into two separate milestones: first
+prove revision-frozen, attributed, review-only intake; only then define promotion and scale. The
+project can now reproduce external extraction, but it still cannot claim a 220- or 3,000-row
+canonical catalog.
+
+The first generated parser counted the header chunk when assigning `source_row`, making the first
+data record appear as row 2. Review caught that ambiguity before acceptance. The parser now numbers
+valid data rows from 1, the raw revision remains unchanged, and normalized/checksum artifacts were
+regenerated offline. This decision makes source-row references understandable without another API
+request.
+
+### Verification evidence
+
+The accepted dataset is `fandom-hot-wheels-2025-pilot-r790665-v1`. It contains 100 records with 100
+unique toy numbers, sequential rows 1–100, and 45 explicit variant notes. All 100 colors and
+canonical UUIDs are null. The raw checksum is
+`67521e8544de2dd15527e6d2234598c7c70a1e6d9e6597fde06c88bf95854510`; the normalized checksum is
+`e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6`.
+
+The dedicated frozen validator passed, the complete host suite passed 79/79, Python compilation
+passed, and patch whitespace checks passed. No image file was downloaded. The checked-in raw and
+normalized files total under 200 KB, and neither is part of the Docker runtime context.
+
+### Incomplete work, risks, and next step
+
+The 100 rows still need human review before promotion. The largest unresolved field is color, and
+the identity policy must distinguish a new casting, an ordinary yearly release, a second color, a
+store exclusive, Treasure Hunt, and Super Treasure Hunt. Assigning UUIDs before those rules exist
+would produce durable but potentially wrong identities.
+
+CC-BY-SA attribution/share-alike obligations apply to the source-derived directory, and this record
+is not legal advice. The bounded importer has implementation safeguards but did not receive a formal
+security or legal sign-off. It is intentionally a manual one-shot command, not recurring scraping.
+
+The next step is to create a review/promotion artifact for these 100 rows: compare them with the
+existing canonical and human-backed catalogs, classify exact casting-family matches versus new
+families, and leave unresolved records unpromoted. Only after reviewing that report should the same
+revision-frozen method fetch additional completed years toward 3,000 variants.
+
 ## 2026-09-07 — Exact pgvector completes the PostgreSQL canonical retrieval pair
 
 ### What was executed and what problem it solves

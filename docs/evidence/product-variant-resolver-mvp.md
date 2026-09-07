@@ -5,14 +5,16 @@
 > PostgreSQL migration, ingestion, sparse FTS, and exact pgvector API retrieval are locally
 > verified; external neural models, TLS/proxy/remote networking, concurrent load, and 3,000-row
 > database performance remain unverified.
+> The 100-row Hot Wheels Wiki pilot is attributed, frozen, and validated as review-only staging;
+> it is not part of the canonical catalog or AI evaluation set.
 
 ## Evidence index
 
 | Area | Evidence | Result |
 |---|---|---|
-| Requirements | [`specs/product-variant-resolver/review.md`](../../specs/product-variant-resolver/review.md) | R1–R14 and R16 passed within the Lite fixture scope; R15 passed with risk. |
+| Requirements | [`specs/product-variant-resolver/review.md`](../../specs/product-variant-resolver/review.md) | R1–R14 and R16–R20 passed within their Lite scopes; R15 and R21 passed with documented risks. |
 | Focused re-verification | Final QA review | Catalog-derived series soft conflicts, the RRF default decision, and the in-process HTTP disclosure were re-verified after correction. No separate agent-verification artifact was checked in. |
-| Test suite | QA review command transcript | Original 38/38 suite passed; the current host suite passes 77/77. The earlier constrained runtime image passed 39/39 non-Node tests; its UI controller test remains host-only because Node is not installed in the runtime image. |
+| Test suite | QA review command transcript | Original 38/38 suite passed; the current host suite passes 79/79. The earlier constrained runtime image passed 39/39 non-Node tests; its UI controller test remains host-only because Node is not installed in the runtime image. |
 | Compilation | QA review command transcript | `compileall` exited 0. An offline wheel build was not possible because the host lacked the required setuptools artifact. |
 | Fixture integrity | [`data/manifest.json`](../../data/manifest.json) | `fixture-v1`: 120 products; 100 cases; train/dev/test = 58/21/21; frozen catalog and benchmark SHA-256 values. |
 | Ranking/evaluation | [JSON](../../reports/fixture-v1/evaluation-fixture-v1-test.json) and [Markdown](../../reports/fixture-v1/evaluation-fixture-v1-test.md) | Report schema, raw derivations, disclosure, and generated SVG artifacts passed QA validation. |
@@ -22,6 +24,7 @@
 | Container reporting | QA review | `pvr-report` generated one JSON, one Markdown, and four SVGs in the constrained read-only image; all 39 mounted tests not requiring Node passed. |
 | Host→container latency | [`reports/runtime-validation/docker-python312-http-latency.json`](../../reports/runtime-validation/docker-python312-http-latency.json) | 50 sequential samples after 10 warm-ups reproduce nearest-rank p95 `4.721208 ms`; one arm64 machine, loopback, concurrency 1, offline-memory backend. |
 | Compose/PostgreSQL | [T07](postgres-ingestion-t07.md), [T09](postgres-sparse-retrieval-t09.md), [T10](postgres-dense-retrieval-t10.md), and QA review | Migration, transactional ingestion, FTS, exact pgvector, artifact-readiness validation, and real HTTP resolution passed in isolated Compose runs. |
+| External catalog pilot | [T30 evidence](fandom-catalog-pilot-t30.md), [attribution](../../data/external/hot-wheels-wiki/README.md), and [manifest](../../data/external/hot-wheels-wiki/pilot-2025/manifest.json) | 100 revision-frozen, text-only rows passed staging validation; 45 variant notes, 100 null colors, and zero canonical promotions. |
 
 ## Frozen fixture-v1 test result
 
@@ -84,6 +87,9 @@ networking, concurrent load, and PostgreSQL. The raw artifact is
 
 ## Known limitations and deferred evidence
 
+- External catalog: the 100 Hot Wheels Wiki rows are a review queue only. They have no verified
+  color or canonical UUID, do not enter API retrieval, and do not support an accuracy or 3,000-row
+  coverage claim. Canonical promotion rules and formal legal/security review remain deferred.
 - PostgreSQL/pgvector: migration lifecycle, canonical fixture ingestion, FTS candidate retrieval,
   GIN-plan compatibility, 120 deterministic vector rows, exact cosine retrieval, and real API HTTP
   resolution are verified in isolated Docker runs. Neural embeddings, 3,000-row evaluation,

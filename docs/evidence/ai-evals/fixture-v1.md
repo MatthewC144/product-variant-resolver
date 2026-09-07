@@ -31,6 +31,10 @@
 - Pinned external embedding/cross-encoder models: not evaluated.
 - PostgreSQL ingestion and retrieval are functionally evaluated at 120 rows; database latency,
   3,000-row behavior, concurrency/load, TLS, reverse proxy, and remote network are not evaluated.
+- The 100-row Hot Wheels Wiki pilot is excluded from this evaluation, training, calibration, and
+  canonical retrieval. Its staging validator proves integrity and provenance only; it makes no
+  model-quality, source-accuracy, or identity-mapping claim. See
+  [`fandom-catalog-pilot-t30.md`](../fandom-catalog-pilot-t30.md).
 - Rebuild reproducibility across time is not guaranteed; the Python 3.12 constraints are selective,
   not a complete transitive lock, and PostgreSQL extras/build dependencies remain range-resolved.
 - Production accuracy, marketplace coverage, and production readiness: no claim.

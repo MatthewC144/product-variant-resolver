@@ -1,0 +1,24 @@
+{
+  "dataset_version": "fandom-hot-wheels-2025-pilot-r790665-v1",
+  "files": {
+    "normalized.json": {
+      "sha256": "e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6"
+    },
+    "raw.json": {
+      "sha256": "67521e8544de2dd15527e6d2234598c7c70a1e6d9e6597fde06c88bf95854510"
+    }
+  },
+  "license": {
+    "name": "CC-BY-SA",
+    "url": "https://www.fandom.com/licensing"
+  },
+  "record_count": 100,
+  "schema_version": "fandom-pilot-manifest-v1",
+  "source_revision_id": 790665,
+  "usage_limits": [
+    "needs_canonical_review",
+    "not_canonical_ground_truth",
+    "not_evaluation_or_threshold_training",
+    "text_only_no_images_downloaded"
+  ]
+}
