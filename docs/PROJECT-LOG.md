@@ -1,5 +1,114 @@
 # Project Log
 
+## 2026-09-08 — Batch-03 research becomes an attributable owner decision layer
+
+### What was executed and what problem it solves
+
+T39 ended with an exact ten-family proposal and explained that the next step, T40, would accept
+those `create_new_casting` recommendations only at casting-family scope. The project owner then
+asked to execute that step. T40 records this bounded authorization instead of leaving it as an
+implicit conversation state or pretending that machine research was already a human decision.
+
+All ten T39 families are now completed owner decisions: Draftnator, Fiat 500e, Fish'd & Chip'd,
+Ford Mustang GTD, Ford Performance SuperVan 4, Haulerback, Hirohata Merc, Kei Swap, Kick Kart, and
+Kowloon'd Hypervan. Their eighteen release rows remain variant-held. The cumulative queue advances
+from twenty-four completed / twenty-nine pending families to thirty-four completed / nineteen
+pending, while promotion eligibility stays zero.
+
+### Code changes and why they were made
+
+`priority-2-batch-03-decisions.json` stores the authorization as its own immutable input. The batch
+identifies `project_owner`, records the UTC decision time and conversational provenance, and covers
+every frozen T39 packet exactly once. Each item repeats the approved `create_new_casting` outcome,
+uses `casting_family_only` scope, leaves `target_family_id` null, holds variants, gives a
+family-specific reason, and references both its packet and source evidence. Fiat 500e and Hirohata
+Merc also retain the related-casting links that motivated T39's lineage boundary.
+
+`apply_fandom_priority_two_decisions.py` now supports `--batch 3`. The new option binds the T38
+cumulative queue and manifest, T39 research and manifest, and T40 decision file, then emits a
+batch-03 queue, report, and checksum manifest. It reuses the existing validation path so the same
+requirements apply to all priority-2 owner batches: exact packet coverage, outcome agreement,
+valid reviewer/time/provenance, held variants, no existing-family target, evidence, and no duplicate
+history ID.
+
+The readable report previously described a fixed nine-create/one-hold split because that was true
+for batches 01 and 02. The rendering branch now gives batch 03 accurate ten-create/zero-hold wording
+without rewriting the two earlier reports. Batch 01 remains the default CLI behavior, batch 02 keeps
+its original input mapping and Batman explanation, and checks prove their frozen bytes did not
+change.
+
+The derived `priority-2-batch-03-adjudicated-queue.json` is a copy-on-write checkpoint rather than
+an edit to the T38 queue. Its manifest freezes every input and output hash. A new six-test module
+checks the cumulative summary, all-ten approval, current eighteen-row variant hold, project-owner
+attribution, preservation of the three prior batches and four-entry history, rejection of changed,
+incomplete, and duplicate batches, and deterministic output reproduction.
+
+### Technical choices, alternatives, and trade-offs
+
+Approval remains an append-only adjudication layer instead of immediate materialization into
+`human_backed_catalog.json`, the canonical fixture, or PostgreSQL. Immediate insertion would make
+the newly researched names searchable sooner, but the owner only confirmed casting-family
+existence. Stable entity IDs, alias policy, release grouping, color, and canonical variant identity
+remain separate decisions. Preserving that boundary costs another later materialization step but
+prevents family-level evidence from silently becoming variant ground truth.
+
+The implementation continues to use one batch-aware applier instead of one script per batch. A
+configuration-driven arbitrary batch engine was considered, but three explicit, validated CLI
+choices remain easier to audit in Lite mode and fail closed on unknown filenames. Reuse reduces
+drift in validation logic; the compatibility cost is handled by running `--check` on every earlier
+batch whenever the shared code changes.
+
+Complete batch coverage is mandatory even though all ten outcomes are identical. Allowing partial
+application might look more flexible, but the owner's response referred to the displayed packet as
+a whole. Requiring all ten exactly once proves that no family was silently omitted, substituted, or
+assigned a wider scope. A batch ID already present in history is rejected to prevent accidental
+double application.
+
+### Decision changes
+
+The ten T39 packets move from pending machine recommendations to completed project-owner family
+decisions. No item changes its recommended outcome: all ten are accepted as new review-layer
+casting families. This raises the cumulative accepted-new-family count from eighteen to
+twenty-eight. The four earlier existing-family merges and the two earlier holds remain unchanged.
+
+The history now contains four ordered owner events: priority 1, priority-2 batch 01, priority-2
+batch 02, and priority-2 batch 03. Sixty-four Wiki release rows sit under completed family
+decisions, but every one still has a variant hold. Therefore the catalog size, PostgreSQL contents,
+Dual-RAG candidate sources, calibration data, evaluation labels, and runtime outputs are unchanged.
+
+### Verification evidence
+
+The T40 focused suite passed 6/6. It verified 34 completed / 19 pending families, 4 merges, 28
+accepted new-family decisions, 2 holds, 64 held release rows, four ordered decision batches, and
+zero promotion. Negative cases altered a creation to a hold, removed one decision, and reused the
+batch-02 ID; all failed closed.
+
+The complete host suite passed 135/135 in 1.425 seconds on the available Python 3.14.6 interpreter.
+Fixture and 100-row Wiki-pilot validation, deterministic review/queue/priority-one evidence, all
+three priority-two research batches, all three cumulative priority-two decision checkpoints,
+Python compilation, default and PostgreSQL-profile Compose configuration, and `git diff --check`
+all passed. The known machine-wide Starlette TestClient warning for legacy `httpx` remains; the
+project's constrained Python 3.12 runtime was previously verified with `httpx2`.
+
+The owner decision checksum is
+`ecd3af4c0b003d3458e719109eff9b41c546787d3cd5c5bb5d313dd4d316dd8c`; the cumulative queue is
+`edee360faccb43b4bea58a91d5be67b511d9e41ea6a76f21ec4648bae83190b9`; the readable result is
+`523af3b17045ee2f3322fdad57d5666f9fbc0c634d957aad7c32e32bc41d7bde`; and the manifest is
+`8adc3ba56d7b55e03958de335c2c8a82c351094636fd496d54cd430422b00704`.
+
+### Incomplete work, risks, and next step
+
+Conversation provenance is auditable in the repository but is not a cryptographic signature. The
+twenty-eight accepted new families still have no stable review-catalog IDs and cannot be retrieved
+by either Dual-RAG source. The sixty-four held release rows have not gained verified color or
+canonical variant identity, and no new PostgreSQL-scale accuracy or latency evidence was produced.
+
+The next immediate task is T41: research the next ten of nineteen pending priority-2 families from
+the new T40 cumulative queue using the same two-source, disambiguation, homonym, and related-lineage
+safeguards. Only after all priority-2 family decisions are attributable should the project design
+how accepted families become stable review-catalog entities before expanding toward the planned
+3,000-row dataset.
+
 ## 2026-09-08 — Batch 03 researches related castings without turning research into approval
 
 ### What was executed and what problem it solves

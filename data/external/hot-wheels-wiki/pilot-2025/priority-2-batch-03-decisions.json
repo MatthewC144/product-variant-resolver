@@ -1,0 +1,141 @@
+{
+  "batch_id": "fandom-priority-2-batch-03-owner-decisions-v1",
+  "decided_at": "2026-09-08T19:42:28Z",
+  "decided_by": "project_owner",
+  "decision_provenance": "The project owner explicitly requested execution of T40 after receiving the complete T39 outcome and exact ten-family list: accept all ten create_new_casting family recommendations while keeping all eighteen release variants held.",
+  "decisions": [
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-03-research.json#fandom-family-d816204cf649a0c0",
+        "https://hotwheels.fandom.com/wiki/Draftnator",
+        "https://orangetrackdiecast.com/hot-wheels-casting-database/"
+      ],
+      "family_review_id": "fandom-family-d816204cf649a0c0",
+      "reason": "A dedicated casting page and an independent exact-name casting database support accepting Draftnator as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-03-research.json#fandom-family-85226ac5ac0d3f77",
+        "https://hotwheels.fandom.com/wiki/Fiat_500e",
+        "https://hotwheels.fandom.com/wiki/Fiat_500",
+        "https://allhotwheels.com/car/2025/mainline/hyw85/fiat-500e"
+      ],
+      "family_review_id": "fandom-family-85226ac5ac0d3f77",
+      "reason": "The dedicated Fiat 500e page and independent HYW85 record support a distinct family while the related Fiat 500 page preserves the separate-lineage boundary.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-03-research.json#fandom-family-356e4ef63275a661",
+        "https://hotwheels.fandom.com/wiki/Fish%27d_%26_Chip%27d",
+        "https://www.southtexasdiecast.com/hwguide/fishdchipd.html"
+      ],
+      "family_review_id": "fandom-family-356e4ef63275a661",
+      "reason": "A dedicated casting page and independent casting guide support accepting Fish'd & Chip'd as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-03-research.json#fandom-family-b31d285560d8a242",
+        "https://hotwheels.fandom.com/wiki/Ford_Mustang_GTD",
+        "https://catalog.hwcollectorsnews.com/SeriesDefinitions/Details/1944"
+      ],
+      "family_review_id": "fandom-family-b31d285560d8a242",
+      "reason": "A dedicated casting page and independent HYW19/JBB93 records support accepting Ford Mustang GTD as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-03-research.json#fandom-family-a1b198f7d235f778",
+        "https://hotwheels.fandom.com/wiki/Ford_Performance_SuperVan_4",
+        "https://archive.hwcollectorsnews.com/wp-content/uploads/2024/07/2024-M-Case-Assortment.pdf"
+      ],
+      "family_review_id": "fandom-family-a1b198f7d235f778",
+      "reason": "A dedicated casting page and independent case-assortment record support accepting Ford Performance SuperVan 4 as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-03-research.json#fandom-family-440103f8ef3c6b70",
+        "https://hotwheels.fandom.com/wiki/Haulerback",
+        "https://catalog.hwcollectorsnews.com/SeriesDefinitions/Details/1919"
+      ],
+      "family_review_id": "fandom-family-440103f8ef3c6b70",
+      "reason": "A dedicated casting page and independent HYW17/HYX68 records support accepting Haulerback as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-03-research.json#fandom-family-4bf5341a133d433b",
+        "https://hotwheels.fandom.com/wiki/Hirohata_Merc",
+        "https://hotwheels.fandom.com/wiki/%2751_Merc",
+        "https://www.oldcarsweekly.com/features/hot-wheels-offers-new-1951-hirohata-merc-for-2024"
+      ],
+      "family_review_id": "fandom-family-4bf5341a133d433b",
+      "reason": "The dedicated current page and independent feature support accepting Hirohata Merc as a distinct family while retaining the older, differently named '51 Merc as related lineage evidence.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-03-research.json#fandom-family-c655fb5244c584ae",
+        "https://hotwheels.fandom.com/wiki/Kei_Swap",
+        "https://hotwheelsdb.com/production-year/2025"
+      ],
+      "family_review_id": "fandom-family-c655fb5244c584ae",
+      "reason": "A dedicated casting page and independent exact-name production catalog support accepting Kei Swap as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-03-research.json#fandom-family-3c9f928f085efaae",
+        "https://hotwheels.fandom.com/wiki/Kick_Kart",
+        "https://www.allhotwheels.com/car/2018/hw-ride-ons/fjv83/kick-kart"
+      ],
+      "family_review_id": "fandom-family-3c9f928f085efaae",
+      "reason": "A dedicated casting page and independent FJV83 record support accepting Kick Kart as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-03-research.json#fandom-family-89930c384be2e8bf",
+        "https://hotwheels.fandom.com/wiki/Kowloon%27d_Hypervan",
+        "https://www.allhotwheels.com/car/2024/hw-metro/hry84/kowloon-d-hypervan"
+      ],
+      "family_review_id": "fandom-family-89930c384be2e8bf",
+      "reason": "A dedicated casting page and independent HRY84 record support accepting Kowloon'd Hypervan as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    }
+  ],
+  "schema_version": "pvr-fandom-family-decisions-v1"
+}

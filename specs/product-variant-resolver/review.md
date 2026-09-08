@@ -1,7 +1,7 @@
 # Product Variant Resolver — Lite MVP QA Review
 
 > Date: 2026-09-01  
-> Last focused update: 2026-09-08 (T39 priority-2 batch-03 research)
+> Last focused update: 2026-09-08 (T40 priority-2 batch-03 owner decisions)
 > QA mode: `.codex/agents/qa.toml` MVP Mode  
 > Scope: `specs/product-variant-resolver/mvp-brief.md` R1–R30
 > Verdict: **PASS WITH RISKS**
@@ -130,6 +130,14 @@ host suite to **129/129** and prove cumulative selection, two-host evidence, rel
 distinctions, pending reviewer state, variant hold, zero promotion, frozen hashes, and deterministic
 reproduction of all three research batches.
 
+T40 records the owner's follow-up authorization in a separate batch-03 decision file. All ten T39
+creation recommendations become completed family-only decisions while their eighteen release rows
+remain variant-held. The derived queue preserves the prior twenty-four decisions and all four
+ordered owner events, reporting 34 completed / 19 pending families, 4 merges, 28 accepted new
+families, 2 holds, 64 held release rows, and zero promotion. Six new tests bring the host suite to
+**135/135**; changed outcomes, incomplete coverage, reused batch IDs, history preservation, hashes,
+and deterministic reproduction are covered.
+
 An independent Docker runtime milestone now verifies the existing
 `product-variant-resolver:lite` image on Docker Desktop 29.5.3/aarch64: Python 3.12.14, non-root
 user `pvr` (UID 100), read-only root filesystem, writable tmpfs only, loopback-only published port,
@@ -180,7 +188,7 @@ visible in any portfolio or repository claims.
 | R13 CPU smoke budget | PASS (limited scope) | Checked-in host-to-Docker loopback evidence has 50 sequential samples, 10 excluded warm-ups, K=25, and nearest-rank p95 `4.721208 ms` (gate `<=1500 ms`). That measurement remains offline-only. PostgreSQL exact retrieval passed sequential functionality checks, but database latency, concurrency, TLS/proxy, and remote networking were not measured. |
 | R14 API validation | PASS | Blank, 501-code-point, unknown-field, and limit=26 requests return structured 422; malformed JSON returns 400; unsupported media type returns 415; no tracebacks exposed. |
 | R15 Health/readiness | PASS WITH RISK | Missing catalogs and unavailable external providers fail closed. PostgreSQL startup verifies server/catalog state plus dense metadata and every expected UUID/version/checksum; catalog checksum corruption or one missing vector produces health 503, and retrieval-time database failure maps to 503. Health remains a startup snapshot, so post-startup loss is detected on retrieval. |
-| R16 Quality gate | PASS | The latest host suite passes 129/129; fixture and Wiki-pilot validation, deterministic Wiki review/queue/evidence/three research batches/three decision layers, Python compilation, default/PostgreSQL Compose configuration, and `git diff --check` pass. T04 migration, T07 ingestion, T09 sparse, and T10 exact dense retrieval passed isolated PostgreSQL 16/pgvector verification. Offline remains the default; PostgreSQL canonical sparse+dense is opt-in. |
+| R16 Quality gate | PASS | The latest host suite passes 135/135; fixture and Wiki-pilot validation, deterministic Wiki review/queue/evidence/three research batches/four decision layers, Python compilation, default/PostgreSQL Compose configuration, and `git diff --check` pass. T04 migration, T07 ingestion, T09 sparse, and T10 exact dense retrieval passed isolated PostgreSQL 16/pgvector verification. Offline remains the default; PostgreSQL canonical sparse+dense is opt-in. |
 | R17 Human-label provenance | PASS | `human-labeled-real-noisy-v1` contains 101 confirmed human labels, including 91 initial-name/human-name pairs and 10 explicit `no_candidate` failures. Four source rows marked excluded were not imported. The frozen manifest records source and dataset checksums, and the corpus declares that it is excluded from canonical-resolution accuracy, calibration training, and threshold selection until catalog IDs are assigned. |
 | R18 Conservative catalog alignment | PASS | The deterministic alignment covers all 101 reviewed records and freezes the human dataset, catalog, and output checksums. It reports 0 canonical mappings, 2 exact brand/casting family-only matches, and 99 unmapped records. Every unresolved record retains null UUID/slug; fuzzy matching is disabled. |
 | R19 Human-backed catalog draft | PASS | All 101 confirmed labels are preserved in 97 deterministic casting entities and 100 provisional variants. One exact structured duplicate merges while keeping both cases and aliases. Checksums and unique IDs validate, and every provisional variant remains `needs_canonical_review` and excluded from canonical responses and calibration. |
@@ -193,8 +201,8 @@ visible in any portfolio or repository claims.
 | R26 Bounded new-family research | PASS WITH RISK | Batch 01 deterministically selects ten pending priority-2 families / nineteen Wiki rows. Nine dedicated casting pages have exact-name confirmation from a non-Fandom publisher; one disambiguated name is held. Source notes and outputs are checksum-frozen, same-host evidence is rejected, reviewer fields remain pending, every variant is held, and promotion remains zero. Remote sources can change and the recommendations still require owner adjudication. |
 | R27 Validated priority-2 decision application | PASS WITH RISK | A separate project-owner batch covers all ten frozen research packets exactly once and agrees with their nine-create/one-hold recommendations. The derived queue preserves four earlier merges and both batch records, reports 14 completed / 39 pending families and 28 held variants, and keeps promotion zero. Changed outcomes and incomplete coverage fail closed. The approval is conversation-attributed rather than cryptographically signed, and accepted new families are not materialized catalog entities. |
 | R28 Cumulative priority-2 research sequencing | PASS WITH RISK | Batch 02 verifies the T36 cumulative queue and selects the next ten still-pending families, excluding completed batch-01 work. Nine creations and one homonymous-tool hold are source-backed and checksum-frozen; both batch generators reproduce. The external sources can change, Batman's exact 2025 tool lineage is unresolved, and every result remains an unconfirmed machine recommendation. |
-| R29 Cumulative priority-2 owner decisions | PASS WITH RISK | A separate attributable batch covers all ten T37 packets exactly once and matches nine-create/one-hold recommendations. The derived queue preserves all fourteen prior decisions and three ordered batch records, reports 24 completed / 29 pending families and 46 held variants, and keeps promotion zero. The approval remains conversation-attributed, and accepted families are not materialized catalog entities. |
-| R30 Related-casting identity boundary | PASS WITH RISK | Batch 03 retains explicit related-page distinctions for Fiat 500e/Fiat 500 and Hirohata Merc/`'51 Merc` while classifying the exact queued current names as single castings. The rule avoids both false holds and accidental lineage collapse, but remains source-backed machine research rather than physical-tool verification or owner approval. |
+| R29 Cumulative priority-2 owner decisions | PASS WITH RISK | Three separate priority-2 owner batches cover their frozen packets exactly once and preserve the four earlier priority-1 decisions plus four ordered history records. The latest queue reports 34 completed / 19 pending families and 64 held variants, with zero promotion. Changed/incomplete/duplicate batches fail closed. Approval remains conversation-attributed, and accepted families are not materialized catalog entities. |
+| R30 Related-casting identity boundary | PASS WITH RISK | Batch 03 retains explicit related-page distinctions for Fiat 500e/Fiat 500 and Hirohata Merc/`'51 Merc` while classifying the exact queued current names as single castings. T40 preserves those links in its reasons/evidence without expanding to variant approval. The rule avoids both false holds and accidental lineage collapse, but is not physical-tool verification. |
 
 ## Checked items and reproducible evidence
 
@@ -202,7 +210,7 @@ Executed from the project repository root:
 
 ```bash
 PYTHONPATH=src python3 -m unittest discover -s tests -p 'test_*.py' -v
-# Latest full host rerun: Ran 129 tests — OK
+# Latest full host rerun: Ran 135 tests — OK
 # Host Python 3.14.6 emitted the known legacy-httpx TestClient warning; the constrained
 # Python 3.12 runtime was previously verified with httpx2 and warnings-as-errors.
 
@@ -234,7 +242,8 @@ python3 scripts/build_fandom_priority_two_research.py --batch 3 --check
 
 python3 scripts/apply_fandom_priority_two_decisions.py --batch 1 --check
 python3 scripts/apply_fandom_priority_two_decisions.py --batch 2 --check
-# Result: both cumulative priority-two decision checkpoints are deterministic and current
+python3 scripts/apply_fandom_priority_two_decisions.py --batch 3 --check
+# Result: all three cumulative priority-two decision checkpoints are deterministic and current
 ```
 
 Docker/Python 3.12 runtime milestone:
@@ -393,6 +402,9 @@ None for demonstrating the explicitly documented offline fixture path.
 13. **T39 is a recommendation packet, not a decision batch.** All ten researched names satisfy the
     current two-source rule, but none is accepted or searchable. Related-page evidence reduces name
     confusion; it does not prove release colors, variants, or physical identity on its own.
+14. **T40 accepts family outcomes, not catalog objects.** The ten new approvals are attributable and
+    cumulative, but they do not mint stable review IDs, canonical variants, PostgreSQL rows, or
+    runtime candidates. All eighteen current release rows remain variant-held.
 
 ### Later
 
@@ -405,10 +417,11 @@ None for demonstrating the explicitly documented offline fixture path.
 
 The requested R7, R11, R13, Docker/Python 3.12 runtime, runtime reporting, selective dependency-
 constraint, T04/T07/T09/T10 database milestones, T26–T29 human-data/Dual-RAG milestones, and the
-T30–T39 external-data intake/pre-review/queue/evidence/research/decision milestones are QA-closed
-for their stated Lite scope. The next highest-value step is T40: present the exact frozen batch-03
-packet to the project owner and record any approved family-only outcomes in a separate attributable
-decision layer. Only after all 49 priority-2 families have attributable outcomes should the project
+T30–T40 external-data intake/pre-review/queue/evidence/research/decision milestones are QA-closed
+for their stated Lite scope. The next highest-value step is T41: research the next ten of nineteen
+pending priority-2 families from the T40 cumulative queue with the existing two-source,
+homonym/disambiguation, and related-lineage safeguards. Only after all 49 priority-2 families have
+attributable outcomes should the project
 import additional completed yearly lists
 toward 3,000 reviewable variants. Exact pgvector quality and latency must be remeasured at that
 scale.

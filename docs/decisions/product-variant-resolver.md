@@ -434,3 +434,25 @@
 - **Deferred review:** T40 should present the exact frozen batch-03 packet to the project owner and
   record any approved family-only decisions separately. Stable catalog materialization and variant
   verification remain later design work.
+
+## D25 — Apply the complete batch-03 authorization without widening family scope
+
+- **Choice:** Interpret the owner's “execute the next step” response against the immediately
+  preceding T39 result and exact ten-family list as approval of all ten `create_new_casting`
+  recommendations. Record that authority in a separate batch-03 decision file, append it to the
+  prior three-event history, and derive a new cumulative queue while keeping every release variant
+  held.
+- **Reason:** The prior response explicitly identified T40 as the next step, displayed all ten
+  names, stated the exact ten-create/zero-hold recommendation, and explained that acceptance would
+  remain family-only. The follow-up therefore authorizes that bounded action, but does not authorize
+  stable IDs, release/color claims, runtime retrieval, PostgreSQL insertion, or canonical promotion.
+- **Alternatives:** Leave approval only in conversation history; rewrite the T38 queue in place;
+  replace prior decision history; mint searchable review entities immediately; or treat the owner
+  response as variant verification. Each alternative loses auditability, reproducibility, history,
+  or the explicit family-versus-variant boundary.
+- **Impact:** The cumulative queue now records thirty-four completed and nineteen pending family
+  decisions: four accepted existing-family merges, twenty-eight accepted new-family decisions, and
+  two holds. Four ordered owner-decision events are preserved. Sixty-four release rows belong to
+  completed family decisions, but all remain variant-held and promotion eligibility remains zero.
+- **Deferred review:** T41 should research the next ten pending priority-2 families from the T40
+  cumulative queue. Materialization of accepted review families remains a later, separate design.

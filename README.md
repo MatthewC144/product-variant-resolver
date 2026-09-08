@@ -254,6 +254,17 @@ enters the canonical catalog, PostgreSQL, or runtime.
 python3 scripts/build_fandom_priority_two_research.py --batch 3 --check
 ```
 
+The owner's follow-up authorization for all ten batch-03 family recommendations is stored in
+[`priority-2-batch-03-decisions.json`](data/external/hot-wheels-wiki/pilot-2025/priority-2-batch-03-decisions.json).
+The validated cumulative queue preserves all prior history and now reports 34 completed / 19
+pending families: 4 existing-family merges, 28 accepted new-family decisions, and 2 holds. All 64
+release rows represented by completed family decisions remain variant-held. The acceptance still
+does not create stable catalog IDs, canonical variants, PostgreSQL rows, or runtime identities.
+
+```bash
+python3 scripts/apply_fandom_priority_two_decisions.py --batch 3 --check
+```
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with

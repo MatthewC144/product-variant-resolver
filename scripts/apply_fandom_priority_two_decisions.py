@@ -261,12 +261,21 @@ def build_markdown(
         for family in result["families"]
         if family["reviewer_decision"].get("decision_batch_id") == batch_id
     ]
+    if batch_label == "03":
+        overview_lines = [
+            "> Ten casting families are accepted as new review-layer families. Every release",
+            "> variant stays held; canonical and PostgreSQL data remain unchanged.",
+        ]
+    else:
+        overview_lines = [
+            "> Nine casting families are accepted as new review-layer families and one ambiguous",
+            "> name remains held. Every release variant stays held; canonical and PostgreSQL data",
+            "> remain unchanged.",
+        ]
     lines = [
         f"# Priority 2 Batch {batch_label} — Adjudication Result",
         "",
-        "> Nine casting families are accepted as new review-layer families and one ambiguous",
-        "> name remains held. Every release variant stays held; canonical and PostgreSQL data",
-        "> remain unchanged.",
+        *overview_lines,
         "",
         "## Cumulative queue state",
         "",
@@ -306,15 +315,23 @@ def build_markdown(
             "UUID, no verified release/color identity, and no PostgreSQL row. `'55 Chevy` remains",
             "held until the 2025 rows can be linked to one of its distinct casting tools.",
         ]
-    else:
+        new_family_count = "nine"
+    elif batch_label == "02":
         hold_lines = [
             "UUID, no verified release/color identity, and no PostgreSQL row. `Batman and Robin",
             "Batmobile` remains held until HYW60/HYX61 can be linked to one specific casting tool.",
         ]
+        new_family_count = "nine"
+    else:
+        hold_lines = [
+            "UUID, no verified release/color identity, and no PostgreSQL row. Batch 03 has no",
+            "family-level hold, but all eighteen release variants remain held.",
+        ]
+        new_family_count = "ten"
     lines.extend(
         [
             "",
-            "The nine new families exist only as accepted review decisions. They have no canonical",
+            f"The {new_family_count} new families exist only as accepted review decisions. They have no canonical",
             *hold_lines,
             "",
         ]
@@ -349,7 +366,7 @@ def main() -> None:
         description="Apply or verify a priority-two family-decision batch"
     )
     parser.add_argument("--check", action="store_true")
-    parser.add_argument("--batch", choices=("1", "2"), default="1")
+    parser.add_argument("--batch", choices=("1", "2", "3"), default="1")
     parser.add_argument("--directory", type=Path, default=directory)
     arguments = parser.parse_args()
     output = arguments.directory
@@ -357,10 +374,14 @@ def main() -> None:
         batch_label = "01"
         result_version = RESULT_VERSION
         queue_prefix = ""
-    else:
+    elif arguments.batch == "2":
         batch_label = "02"
         result_version = "fandom-2025-priority-two-batch-02-adjudicated-v1"
         queue_prefix = "priority-2-batch-01-"
+    else:
+        batch_label = "03"
+        result_version = "fandom-2025-priority-two-batch-03-adjudicated-v1"
+        queue_prefix = "priority-2-batch-02-"
     prefix = f"priority-2-batch-{batch_label}"
     built = apply_priority_two_decisions(
         output / f"{queue_prefix}adjudicated-queue.json",

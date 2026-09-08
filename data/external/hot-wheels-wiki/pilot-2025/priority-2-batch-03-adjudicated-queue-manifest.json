@@ -1,0 +1,41 @@
+{
+  "accepted_family_merges": 4,
+  "accepted_new_casting_families": 28,
+  "completed_decisions": 34,
+  "family_count": 53,
+  "held_family_decisions": 2,
+  "held_release_variants": 64,
+  "inputs": {
+    "adjudicated_queue": {
+      "file": "priority-2-batch-02-adjudicated-queue.json",
+      "sha256": "81911e948fd00e76e6da7255ab1174c1697871ac59c3bf674dc5bae645fbc497"
+    },
+    "adjudicated_queue_manifest": {
+      "file": "priority-2-batch-02-adjudicated-queue-manifest.json",
+      "sha256": "a96524eb48925d32343c4e20de81ebe417d76c41fa74373e55f8554d3fb55c2d"
+    },
+    "decisions": {
+      "file": "priority-2-batch-03-decisions.json",
+      "sha256": "ecd3af4c0b003d3458e719109eff9b41c546787d3cd5c5bb5d313dd4d316dd8c"
+    },
+    "research": {
+      "file": "priority-2-batch-03-research.json",
+      "sha256": "1d38a7bbffbf905283d4c7be6a24495547df425723ef610539c1f3eee07c432d"
+    },
+    "research_manifest": {
+      "file": "priority-2-batch-03-research-manifest.json",
+      "sha256": "92dae730213f9928dd5811d8a43657038a037bd85462653fc2639db44a33e97b"
+    }
+  },
+  "pending_decisions": 19,
+  "priority_1_existing_candidate_families": 4,
+  "priority_2_possible_new_families": 49,
+  "promotion_eligible_families": 0,
+  "report_file": "priority-2-batch-03-adjudication-result.md",
+  "report_sha256": "523af3b17045ee2f3322fdad57d5666f9fbc0c634d957aad7c32e32bc41d7bde",
+  "result_file": "priority-2-batch-03-adjudicated-queue.json",
+  "result_sha256": "edee360faccb43b4bea58a91d5be67b511d9e41ea6a76f21ec4648bae83190b9",
+  "result_version": "fandom-2025-priority-two-batch-03-adjudicated-v1",
+  "schema_version": "pvr-fandom-priority-two-adjudicated-manifest-v1",
+  "source_row_count": 100
+}

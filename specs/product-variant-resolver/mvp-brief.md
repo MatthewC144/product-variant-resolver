@@ -820,7 +820,7 @@ Each task is intended to be independently committable and verifiable. `task_exec
   **Status:** Complete. Batch 03 is research only. No owner decision, stable catalog entity,
   canonical UUID, PostgreSQL row, runtime behavior, calibration input, or evaluation label changed.
 
-- [ ] **T40 — Apply project-owner priority-2 batch-03 decisions** `[backend]` _(R6, R16, R27, R29, R30)_
+- [x] **T40 — Apply project-owner priority-2 batch-03 decisions** `[backend]` _(R6, R16, R27, R29, R30)_
   After the project owner reviews the exact frozen T39 packet, record only the explicitly approved
   family outcomes in a separate attributable decision file and derive the next cumulative queue
   while preserving all prior decision history and variant holds.
@@ -828,8 +828,19 @@ Each task is intended to be independently committable and verifiable. `task_exec
   outcome; prior twenty-four decisions remain unchanged; changed, incomplete, duplicate, or widened
   decisions fail closed; no stable catalog ID, PostgreSQL row, or promotion-eligible variant is
   created.
-  **Status:** Pending the project owner's review of the displayed T39 recommendations; no
-  decision artifact should be authored from machine research alone.
+  **Status:** Complete. The owner's ten family-only approvals are recorded in a separate decision
+  layer. No release variant, stable catalog ID, canonical UUID, PostgreSQL row, runtime result,
+  calibration input, or evaluation label was created.
+
+- [ ] **T41 — Research priority-2 family batch 04 from the cumulative queue** `[backend]` _(R6, R16, R26, R28, R30)_
+  Verify the T40 cumulative queue checksum and research the next ten of nineteen pending
+  priority-2 families with the same dedicated-page, independent exact-name, homonym, and related-
+  lineage safeguards.
+  **Verify:** completed families are skipped; exactly the next bounded queue slice is represented;
+  source observations and hashes are frozen; reviewer confirmation remains pending; every release
+  variant stays held; and earlier research and decision artifacts reproduce unchanged.
+  **Status:** Pending. This task is research only and must not infer owner decisions or materialize
+  accepted family entities.
 
 ### Task order and handoff
 

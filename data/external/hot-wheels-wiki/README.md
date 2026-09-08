@@ -82,3 +82,10 @@ distinctions for Fiat 500e versus Fiat 500 and for the newer Hirohata Merc versu
 Merc` tool; a differently named predecessor is supporting lineage context, not a same-name
 homonym. The JSON, Markdown report, and manifest remain unconfirmed machine research. Every release
 variant is held, promotion eligibility is zero, and no catalog or PostgreSQL record is created.
+
+`pilot-2025/priority-2-batch-03-decisions.json` records the project owner's follow-up approval of
+all ten batch-03 family recommendations. The derived batch-03 cumulative queue preserves all four
+ordered decision events and reports 34 completed / 19 pending family decisions, 4 accepted merges,
+28 accepted new families, 2 holds, 64 held release variants, and zero promotion eligibility. The
+decision file and derived outputs are checksum-frozen. These accepted family outcomes still do not
+exist as catalog entities or PostgreSQL/runtime records.
