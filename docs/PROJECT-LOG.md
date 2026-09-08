@@ -1,5 +1,96 @@
 # Project Log
 
+## 2026-09-08 — Four owner-approved family links are recorded without variant promotion
+
+### What was executed and what problem it solves
+
+T33 ended with a precise proposal: connect four exact-name Wiki groups to their existing
+human-backed casting families, but keep all nine release variants held. The project owner then asked
+to execute the next step. T34 records that follow-up authorization as an auditable decision batch
+and applies it through a validator rather than silently editing generated queue data.
+
+The resulting state now distinguishes three facts. Four casting-family relationships are completed
+decisions; 49 possible-new-family decisions remain pending; and none of the Wiki releases is a
+verified canonical variant. This lets the project honestly say some manual family review has
+occurred without overstating the catalog or changing Dual-RAG output.
+
+### Code changes and why they were made
+
+`priority-1-decisions.json` records a batch ID, `project_owner` reviewer role, UTC timestamp,
+conversation provenance, and four family-specific decisions. Each includes the stable family-review
+ID, exact human target, `casting_family_only` scope, `variant_decision=hold`, a reason explaining
+the release differences, and references to the evidence packet, human family, and every relevant
+Wiki source row.
+
+`apply_fandom_adjudication_decisions.py` validates both upstream checksums before reading the batch.
+It requires a supported schema, named batch/reviewer, valid UTC timestamp, provenance, unique known
+family IDs, permitted outcome, written reason, evidence references, family-only scope, and variant
+hold. For a merge, the target must already be one of that family's exact pre-review candidates.
+The original all-pending queue is deep-copied rather than modified.
+
+The derived `adjudicated-queue.json` marks those four reviewer decisions completed, retains all
+other entries as pending, and keeps `promotion_eligible=false` everywhere. A readable result and
+manifest capture the 4 completed / 49 pending / 9 variant-held / 0 promotion-eligible counts and
+freeze the queue, evidence, decision input, and outputs. Tests also inject a wrong merge target and
+prove that application fails closed.
+
+### Technical choices, alternatives, and trade-offs
+
+Decisions are stored as data separate from both the machine-generated queue and the resulting
+state. This event-like design adds files, but it preserves the before state, reviewer action, and
+after state independently. Editing `adjudication-queue.json` in place would be shorter yet destroy
+deterministic regeneration and make it hard to tell whether a field came from code or a reviewer.
+
+The reviewer is recorded as the role `project_owner`, not an invented personal name. The provenance
+accurately states that the owner requested execution after receiving the explicit merge/hold
+proposal. This is traceable repository evidence, although it is not a cryptographic signature or
+external identity proof.
+
+Completing a family merge still does not make the family promotion eligible. That may look
+conservative, but the human target is itself provisional and the Wiki rows still lack verified
+colors. The accepted outcome is therefore a knowledge relationship inside the review layer, not a
+new canonical entity.
+
+### Decision changes
+
+T32's queue contract allowed four outcomes, while T34 deliberately narrows this particular batch to
+family scope with variant hold. This prevents a broadly worded follow-up request from accidentally
+granting release-level approval. Future priority-2 batches may use create/hold/reject, but they must
+pass their own evidence requirements.
+
+The project also moves from “zero human decisions” to “four project-owner family decisions,” while
+leaving the accuracy/evaluation boundary unchanged. Documentation now distinguishes family linkage,
+variant verification, canonical promotion, and evaluation labels as separate states.
+
+### Verification evidence
+
+Four completed decisions target the exact human candidates for `'67 Chevy C10`, `Purple Passion`,
+`Subaru BRZ`, and `Tesla Model S Plaid`. Forty-nine decisions remain pending. Nine Wiki release
+variants remain held, and promotion-eligible and newly canonical records both remain zero.
+
+The decision checksum is
+`ef17632c486850ab8f39604462e474c8c0e97894a8a8fc0003aef58b5fab03f0`; the adjudicated queue
+checksum is `6ab11ddef990e31918e507372c451cc0bfce531d7c9ec41e91ecc680288d0082`;
+the readable result checksum is
+`bd916df6b82866f87766c5ab038646d6aee90c4dd69e93a57120aef91cbaf023`.
+
+Five focused tests passed, including the invalid-target failure. The complete host suite passed
+99/99. T30–T33 deterministic checks, fixture validation, Python compilation, both Compose
+configurations, and whitespace checks passed. T34 made no network request, PostgreSQL write,
+canonical catalog edit, runtime change, or AI-evaluation mutation.
+
+### Incomplete work, risks, and next step
+
+The four relationships point to a provisional human-backed catalog, not the canonical catalog.
+They cannot yet answer which 2025 toy number corresponds to which color or whether a Wiki release
+matches the existing human provisional variant. The conversation-based owner provenance is
+auditable but not signed.
+
+The remaining work is the 49 priority-2 families. Before any `create_new_casting` decision, the
+project needs independent text-source confirmation that the normalized Wiki name is a real distinct
+casting rather than an alias, punctuation difference, or incomplete catalog coverage. That research
+should be performed in bounded batches before any database scaling.
+
 ## 2026-09-08 — Four side-by-side packets make the first decisions reviewable
 
 ### What was executed and what problem it solves

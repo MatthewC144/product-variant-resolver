@@ -184,6 +184,15 @@ level hold for all four; reviewer confirmation remains empty.
 python3 scripts/build_fandom_priority_one_evidence.py --check
 ```
 
+The project owner's follow-up authorization is recorded separately in
+[`priority-1-decisions.json`](data/external/hot-wheels-wiki/pilot-2025/priority-1-decisions.json).
+The validated result accepts four casting-family links, keeps all nine release variants held, and
+leaves 49 family decisions pending. It still creates no canonical identity or PostgreSQL row.
+
+```bash
+python3 scripts/apply_fandom_adjudication_decisions.py --check
+```
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with

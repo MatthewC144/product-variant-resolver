@@ -47,6 +47,8 @@ This MVP is a portfolio-quality engineering validation, not evidence of producti
   prioritizes exact candidates, and requires attributable evidence before promotion.
 - A priority-1 evidence packet that presents Wiki releases and retained human-label evidence side
   by side while separating family-merge recommendations from unverified variants.
+- A fail-closed decision applier that records attributable family confirmations separately from the
+  original queue and cannot turn held variants into canonical or PostgreSQL records.
 
 ### 2.2 EARS acceptance requirements
 
@@ -74,6 +76,7 @@ This MVP is a portfolio-quality engineering validation, not evidence of producti
 - **R22 — Conservative external-catalog review:** WHEN staged Wiki records are compared with existing catalogs, THE SYSTEM SHALL use only exact normalized brand/casting family matches, expose candidate IDs and reasons, freeze all input/output checksums, disable fuzzy and identifier-only promotion, and retain null canonical identity until a human decision is recorded.
 - **R23 — Attributable human-adjudication queue:** WHEN external pre-review is prepared for a person, THE SYSTEM SHALL group every source row exactly once by normalized casting family, prioritize exact existing-family candidates, permit only merge/create/hold/reject decisions, require reviewer/time/reason/evidence for completion, and keep every pending group ineligible for promotion.
 - **R24 — Priority-1 family evidence:** WHEN a reviewer examines an exact existing-family candidate, THE SYSTEM SHALL show all contributing Wiki release rows, original and human-verified label evidence, target family ID, observed series/variant differences, a family-scoped recommendation, an explicit variant hold, and an empty reviewer confirmation without making the item promotion eligible.
+- **R25 — Validated family-decision application:** WHEN an attributable reviewer decision batch is applied, THE SYSTEM SHALL require a permitted decision, valid timestamp, reviewer, provenance, reason, evidence, casting-family-only scope, held variants, and an exact candidate target for merges; update completed/pending counts in a derived artifact; and reject invalid targets without modifying the original queue or creating promotion-eligible records.
 
 The numeric gates above are deliberately modest fixture-MVP gates. Reports and README text must state dataset size, construction method, split strategy, hardware, model versions, and that the figures do not establish production accuracy.
 
@@ -324,6 +327,17 @@ Runtime resolution traces are not persisted by default in the fixture MVP.
   tokens, and `variant_identity_verified=false`.
 - Machine recommendation may propose `merge_existing_family` at `casting_family_only` scope, while
   reviewer confirmation stays pending and the variant decision stays `hold`.
+
+### 8.15 `ExternalCatalogFamilyDecisionBatch`
+
+- Batch ID, reviewer role, UTC decision timestamp, and conversation/source provenance apply to a
+  bounded set of family decisions.
+- Each decision references one stable family-review ID, a permitted decision, written reason,
+  evidence references, `casting_family_only` scope, and `variant_decision=hold`.
+- `merge_existing_family` requires its target to be an exact pre-review candidate; invalid,
+  duplicate, unknown, anonymous, unsupported, or incomplete decisions fail closed.
+- The derived adjudicated queue records completed and pending counts while retaining
+  `promotion_eligible=false`; the original all-pending queue remains immutable.
 
 ## 9. API contracts
 
@@ -721,6 +735,17 @@ Each task is intended to be independently committable and verifiable. `task_exec
   **Status:** Complete. The evidence supports proposing family-level merge for all four exact-name
   candidates, but differing or incomplete year/series/color evidence prevents any release-variant
   promotion. The project owner must still accept or reject each family recommendation.
+
+- [x] **T34 — Apply the project-owner priority-1 family decisions** `[backend]` _(R6, R16, R25)_
+  Record the project owner's follow-up authorization in a separate decision batch, validate every
+  merge against its exact human-family candidate and evidence, and derive an adjudicated queue
+  without changing the original queue, release variants, canonical catalog, or database.
+  **Verify:** four decisions complete as attributable family-only merges; nine Wiki release rows
+  remain held; 49 family decisions remain pending; promotion eligibility stays zero; an invalid
+  merge target fails closed; hashes and `--check` deterministic regeneration pass.
+  **Status:** Complete. The accepted targets are the existing human-backed families for `'67 Chevy
+  C10`, `Purple Passion`, `Subaru BRZ`, and `Tesla Model S Plaid`. This records family linkage only;
+  it creates no canonical UUID and grants no release-variant identity.
 
 ### Task order and handoff
 

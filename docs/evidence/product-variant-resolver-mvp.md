@@ -7,16 +7,16 @@
 > database performance remain unverified.
 > The 100-row Hot Wheels Wiki pilot is attributed, frozen, and validated as review-only staging;
 > its deterministic cross-catalog review also remains outside the canonical catalog and AI
-> evaluation set. The 53-family adjudication queue and four priority-1 evidence packets contain no
-> completed human decisions.
+> evaluation set. Four attributable casting-family links are now accepted; all related variants
+> remain held and supply no canonical or evaluation labels.
 
 ## Evidence index
 
 | Area | Evidence | Result |
 |---|---|---|
-| Requirements | [`specs/product-variant-resolver/review.md`](../../specs/product-variant-resolver/review.md) | R1–R14 and R16–R20 passed within their Lite scopes; R15 and R21–R24 passed with documented risks. |
+| Requirements | [`specs/product-variant-resolver/review.md`](../../specs/product-variant-resolver/review.md) | R1–R14 and R16–R20 passed within their Lite scopes; R15 and R21–R25 passed with documented risks. |
 | Focused re-verification | Final QA review | Catalog-derived series soft conflicts, the RRF default decision, and the in-process HTTP disclosure were re-verified after correction. No separate agent-verification artifact was checked in. |
-| Test suite | QA review command transcript | Original 38/38 suite passed; the current host suite passes 94/94. The earlier constrained runtime image passed 39/39 non-Node tests; its UI controller test remains host-only because Node is not installed in the runtime image. |
+| Test suite | QA review command transcript | Original 38/38 suite passed; the current host suite passes 99/99. The earlier constrained runtime image passed 39/39 non-Node tests; its UI controller test remains host-only because Node is not installed in the runtime image. |
 | Compilation | QA review command transcript | `compileall` exited 0. An offline wheel build was not possible because the host lacked the required setuptools artifact. |
 | Fixture integrity | [`data/manifest.json`](../../data/manifest.json) | `fixture-v1`: 120 products; 100 cases; train/dev/test = 58/21/21; frozen catalog and benchmark SHA-256 values. |
 | Ranking/evaluation | [JSON](../../reports/fixture-v1/evaluation-fixture-v1-test.json) and [Markdown](../../reports/fixture-v1/evaluation-fixture-v1-test.md) | Report schema, raw derivations, disclosure, and generated SVG artifacts passed QA validation. |
@@ -30,6 +30,7 @@
 | External catalog review | [T31 evidence](fandom-catalog-review-t31.md) and [review manifest](../../data/external/hot-wheels-wiki/pilot-2025/review-manifest.json) | 100 rows / 53 families reviewed deterministically: 4 exact human-family candidates, 49 possible-new-family groups, and zero promotions. |
 | Human adjudication queue | [T32 evidence](fandom-adjudication-queue-t32.md) and [worksheet](../../data/external/hot-wheels-wiki/pilot-2025/adjudication-queue.md) | All 100 rows occur once across 53 pending family decisions; actor/time/reason/evidence are required and promotion eligibility is zero. |
 | Priority-1 evidence | [T33 evidence](fandom-priority-one-evidence-t33.md) and [review packet](../../data/external/hot-wheels-wiki/pilot-2025/priority-1-evidence.md) | Four side-by-side packets cover nine Wiki rows; family merges are proposed, variants remain held, confirmations remain empty, and promotions remain zero. |
+| Priority-1 decisions | [T34 evidence](fandom-priority-one-decisions-t34.md) and [result](../../data/external/hot-wheels-wiki/pilot-2025/adjudication-result.md) | Four exact-target casting-family links are accepted; 49 decisions and all release variants remain held/pending, promotion eligibility is zero, and invalid targets fail closed. |
 
 ## Frozen fixture-v1 test result
 
@@ -96,7 +97,8 @@ networking, concurrent load, and PostgreSQL. The raw artifact is
   color or canonical UUID, do not enter API retrieval, and do not support an accuracy or 3,000-row
   coverage claim. T31 provides exact family-level pre-review only; human adjudication, canonical
   promotion rules, and formal legal/security review remain deferred. T32 prepares an attributable
-  queue and T33 prepares four evidence packets, but neither counts any item as human-verified.
+  queue, T33 prepares evidence, and T34 records four family-only owner decisions. These still do
+  not create canonical or release-variant labels.
 - PostgreSQL/pgvector: migration lifecycle, canonical fixture ingestion, FTS candidate retrieval,
   GIN-plan compatibility, 120 deterministic vector rows, exact cosine retrieval, and real API HTTP
   resolution are verified in isolated Docker runs. Neural embeddings, 3,000-row evaluation,

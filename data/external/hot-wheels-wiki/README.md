@@ -39,3 +39,8 @@ reason, and evidence; all checked-in decisions remain pending and promotion-inel
 with their Wiki release rows and retained human-label evidence. Its JSON and manifest preserve the
 same comparison for validation. Family merge is a machine recommendation only; all reviewer
 confirmations and variant decisions remain pending/held.
+
+`pilot-2025/priority-1-decisions.json` records the project owner's follow-up authorization for the
+four family-only merges. `adjudicated-queue.json` is the validated result: four completed family
+relationships, 49 pending families, nine held Wiki variants, and zero promotion-eligible families.
+The original pending queue stays unchanged as an auditable pre-decision artifact.

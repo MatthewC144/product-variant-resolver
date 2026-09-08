@@ -35,12 +35,13 @@
   canonical retrieval. Its staging validator proves integrity and provenance only; it makes no
   model-quality, source-accuracy, or identity-mapping claim. The deterministic cross-catalog review
   only identifies exact family candidates and is also excluded. Its 53-family adjudication queue
-  and four priority-1 evidence packets have no completed human decisions and supply no evaluation
-  labels. See
+  and four priority-1 evidence packets are excluded. T34 accepts four casting-family links, but all
+  release variants remain held and none become canonical or evaluation labels. See
   [`fandom-catalog-pilot-t30.md`](../fandom-catalog-pilot-t30.md) and
   [`fandom-catalog-review-t31.md`](../fandom-catalog-review-t31.md), plus
   [`fandom-adjudication-queue-t32.md`](../fandom-adjudication-queue-t32.md), plus
-  [`fandom-priority-one-evidence-t33.md`](../fandom-priority-one-evidence-t33.md).
+  [`fandom-priority-one-evidence-t33.md`](../fandom-priority-one-evidence-t33.md) and
+  [`fandom-priority-one-decisions-t34.md`](../fandom-priority-one-decisions-t34.md).
 - Rebuild reproducibility across time is not guaranteed; the Python 3.12 constraints are selective,
   not a complete transitive lock, and PostgreSQL extras/build dependencies remain range-resolved.
 - Production accuracy, marketplace coverage, and production readiness: no claim.

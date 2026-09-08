@@ -299,3 +299,21 @@
 - **Deferred review:** The project owner must accept or reject the four family recommendations with
   attributable evidence. Variant identity requires a separate source-backed review even after a
   family merge is accepted.
+
+## D19 — Preserve decisions as a separate, validated layer
+
+- **Choice:** Store reviewer decisions in their own immutable input file and apply them to a derived
+  adjudicated queue. Keep the original all-pending queue unchanged. For this batch, allow only
+  exact-target family merges with `variant_decision=hold` and promotion eligibility false.
+- **Reason:** Editing generated pre-review output in place would erase the distinction between
+  machine organization and reviewer action, break deterministic regeneration, and make later audit
+  or rollback difficult. A separate decision layer preserves who decided what and from which inputs.
+- **Alternatives:** Edit queue JSON manually; regenerate the base queue with decisions embedded;
+  treat follow-up authorization as variant approval; immediately update the human catalog or
+  PostgreSQL; accept arbitrary target IDs; keep decisions only in chat history.
+- **Impact:** Four family decisions are completed under `project_owner` provenance, 49 remain
+  pending, nine Wiki releases remain variant-held, and zero families become promotion eligible.
+  Invalid merge targets fail closed, and all inputs/outputs are checksum-frozen.
+- **Deferred review:** Research and adjudicate the 49 priority-2 families. If variant promotion is
+  later desired, introduce a separate source-backed variant decision schema and transactional
+  importer rather than widening this family-only batch.

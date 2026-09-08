@@ -1,0 +1,66 @@
+{
+  "batch_id": "fandom-2025-priority-1-owner-confirmation-v1",
+  "decided_at": "2026-09-08T14:06:18Z",
+  "decided_by": "project_owner",
+  "decision_provenance": "Project owner requested the next step after receiving the explicit four-family merge / variant-hold proposal.",
+  "decisions": [
+    {
+      "decision": "merge_existing_family",
+      "evidence_references": [
+        "priority-1-evidence.json#fandom-family-aa499ddb791c6991",
+        "human_backed_catalog.json#human-hot-wheels-67-chevy-c10",
+        "normalized.json#fandom-row-b1eb9903dbe19730",
+        "normalized.json#fandom-row-622e5e7a8ee4839b"
+      ],
+      "family_review_id": "fandom-family-aa499ddb791c6991",
+      "reason": "Accept the exact normalized Hot Wheels / '67 Chevy C10 casting-family relationship. The 2015 human variant and 2025 Wiki releases remain distinct and unverified.",
+      "scope": "casting_family_only",
+      "target_family_id": "human-hot-wheels-67-chevy-c10",
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "merge_existing_family",
+      "evidence_references": [
+        "priority-1-evidence.json#fandom-family-04829924a36830a6",
+        "human_backed_catalog.json#human-hot-wheels-purple-passion",
+        "normalized.json#fandom-row-5a5fae5205d803dd",
+        "normalized.json#fandom-row-7c496dd932ae4a0d"
+      ],
+      "family_review_id": "fandom-family-04829924a36830a6",
+      "reason": "Accept the exact normalized Hot Wheels / Purple Passion casting-family relationship. The 2026 pink human variant is not treated as either 2025 Wiki release.",
+      "scope": "casting_family_only",
+      "target_family_id": "human-hot-wheels-purple-passion",
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "merge_existing_family",
+      "evidence_references": [
+        "priority-1-evidence.json#fandom-family-b60363832032d566",
+        "human_backed_catalog.json#human-hot-wheels-subaru-brz",
+        "normalized.json#fandom-row-78748248e56441f5",
+        "normalized.json#fandom-row-3aa2e8967b2f55bf",
+        "normalized.json#fandom-row-26b0ba519bca3a01"
+      ],
+      "family_review_id": "fandom-family-b60363832032d566",
+      "reason": "Accept the exact normalized Hot Wheels / Subaru BRZ casting-family relationship. The shared Zamac clue does not resolve the differing series labels or prove variant identity.",
+      "scope": "casting_family_only",
+      "target_family_id": "human-hot-wheels-subaru-brz",
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "merge_existing_family",
+      "evidence_references": [
+        "priority-1-evidence.json#fandom-family-6062af64f2e5a66c",
+        "human_backed_catalog.json#human-hot-wheels-tesla-model-s-plaid",
+        "normalized.json#fandom-row-f77070792ccdeff4",
+        "normalized.json#fandom-row-9b17c7f92555a700"
+      ],
+      "family_review_id": "fandom-family-6062af64f2e5a66c",
+      "reason": "Accept the exact normalized Hot Wheels / Tesla Model S Plaid casting-family relationship. The red human variant is not assigned to either color-unknown 2025 Wiki release.",
+      "scope": "casting_family_only",
+      "target_family_id": "human-hot-wheels-tesla-model-s-plaid",
+      "variant_decision": "hold"
+    }
+  ],
+  "schema_version": "pvr-fandom-family-decisions-v1"
+}

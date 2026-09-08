@@ -1,9 +1,9 @@
 # Product Variant Resolver — Lite MVP QA Review
 
 > Date: 2026-09-01  
-> Last focused update: 2026-09-08 (T33 priority-1 family evidence)
+> Last focused update: 2026-09-08 (T34 priority-1 family decisions)
 > QA mode: `.codex/agents/qa.toml` MVP Mode  
-> Scope: `specs/product-variant-resolver/mvp-brief.md` R1–R24
+> Scope: `specs/product-variant-resolver/mvp-brief.md` R1–R25
 > Verdict: **PASS WITH RISKS**
 
 ## Verdict summary
@@ -83,6 +83,12 @@ machine family-merge recommendation and a separate variant hold. Subaru exposes 
 token but remains unverified at variant level. Five tests bring the host suite to **94/94**. This
 passes evidence preparation, not reviewer confirmation or promotion.
 
+T34 records the project owner's follow-up authorization as a separate, attributable decision batch
+and derives a new adjudicated queue without editing the original. Four exact-target family merges
+are completed, 49 family decisions remain pending, all nine affected Wiki release variants remain
+held, and promotion eligibility stays zero. An invalid target fails closed. Five tests bring the
+host suite to **99/99**. This passes family-decision recording, not canonical or variant promotion.
+
 An independent Docker runtime milestone now verifies the existing
 `product-variant-resolver:lite` image on Docker Desktop 29.5.3/aarch64: Python 3.12.14, non-root
 user `pvr` (UID 100), read-only root filesystem, writable tmpfs only, loopback-only published port,
@@ -133,7 +139,7 @@ visible in any portfolio or repository claims.
 | R13 CPU smoke budget | PASS (limited scope) | Checked-in host-to-Docker loopback evidence has 50 sequential samples, 10 excluded warm-ups, K=25, and nearest-rank p95 `4.721208 ms` (gate `<=1500 ms`). That measurement remains offline-only. PostgreSQL exact retrieval passed sequential functionality checks, but database latency, concurrency, TLS/proxy, and remote networking were not measured. |
 | R14 API validation | PASS | Blank, 501-code-point, unknown-field, and limit=26 requests return structured 422; malformed JSON returns 400; unsupported media type returns 415; no tracebacks exposed. |
 | R15 Health/readiness | PASS WITH RISK | Missing catalogs and unavailable external providers fail closed. PostgreSQL startup verifies server/catalog state plus dense metadata and every expected UUID/version/checksum; catalog checksum corruption or one missing vector produces health 503, and retrieval-time database failure maps to 503. Health remains a startup snapshot, so post-startup loss is detected on retrieval. |
-| R16 Quality gate | PASS | The latest host suite passes 94/94; fixture and Wiki-pilot validation, deterministic Wiki review/queue/evidence regeneration, Python compilation, default/PostgreSQL Compose configuration, and `git diff --check` pass. T04 migration, T07 ingestion, T09 sparse, and T10 exact dense retrieval passed isolated PostgreSQL 16/pgvector verification. Offline remains the default; PostgreSQL canonical sparse+dense is opt-in. |
+| R16 Quality gate | PASS | The latest host suite passes 99/99; fixture and Wiki-pilot validation, deterministic Wiki review/queue/evidence/decision regeneration, Python compilation, default/PostgreSQL Compose configuration, and `git diff --check` pass. T04 migration, T07 ingestion, T09 sparse, and T10 exact dense retrieval passed isolated PostgreSQL 16/pgvector verification. Offline remains the default; PostgreSQL canonical sparse+dense is opt-in. |
 | R17 Human-label provenance | PASS | `human-labeled-real-noisy-v1` contains 101 confirmed human labels, including 91 initial-name/human-name pairs and 10 explicit `no_candidate` failures. Four source rows marked excluded were not imported. The frozen manifest records source and dataset checksums, and the corpus declares that it is excluded from canonical-resolution accuracy, calibration training, and threshold selection until catalog IDs are assigned. |
 | R18 Conservative catalog alignment | PASS | The deterministic alignment covers all 101 reviewed records and freezes the human dataset, catalog, and output checksums. It reports 0 canonical mappings, 2 exact brand/casting family-only matches, and 99 unmapped records. Every unresolved record retains null UUID/slug; fuzzy matching is disabled. |
 | R19 Human-backed catalog draft | PASS | All 101 confirmed labels are preserved in 97 deterministic casting entities and 100 provisional variants. One exact structured duplicate merges while keeping both cases and aliases. Checksums and unique IDs validate, and every provisional variant remains `needs_canonical_review` and excluded from canonical responses and calibration. |
@@ -142,6 +148,7 @@ visible in any portfolio or repository claims.
 | R22 Conservative external-catalog review | PASS WITH RISK | All 100 staged rows were compared with both catalogs using exact normalized brand/casting keys. The frozen report includes candidate IDs, reasons, actions, and checksums; fuzzy, identifier-only, and automatic promotion are disabled. Every row stays held/null. The 4 matched and 49 unmatched families still require human adjudication. |
 | R23 Attributable human-adjudication queue | PASS WITH RISK | All 100 source rows occur exactly once in 53 stable family items. Four exact-candidate families are priority 1 and 49 research-required families priority 2. Merge/create/hold/reject is the closed decision set; reviewer/time/reason/evidence are required. All current decisions are pending and promotion-ineligible. No actual human adjudication has occurred. |
 | R24 Priority-1 family evidence | PASS WITH RISK | Four deterministic packets cover all nine priority-1 Wiki rows and retain the corresponding initial/human labels, structured fields, source IDs, and exact family targets. Family merge is recommended while all variants remain held and reviewer fields empty. The evidence is sufficient to ask the reviewer a bounded family question, not to claim the answer or promote data. |
+| R25 Validated family-decision application | PASS WITH RISK | A separate attributable batch completes four exact-target family-only merges while preserving variant hold, zero promotion eligibility, and the immutable original queue. Missing/invalid target evidence fails closed and outputs are checksum-frozen. The decision provenance is the project owner's conversation follow-up rather than a signed external identity. |
 
 ## Checked items and reproducible evidence
 
@@ -311,6 +318,9 @@ None for demonstrating the explicitly documented offline fixture path.
 7. **T33 still requires the project owner's confirmation.** Exact family names justify a bounded
    merge recommendation, but differing years/series and unknown Wiki colors prevent variant-level
    mapping. Even Subaru's shared Zamac token remains supporting evidence rather than proof.
+8. **T34 accepts family links only.** The recorded conversation authorization is traceable inside
+   the repository but is not cryptographically signed. None of the four decisions may be described
+   as canonical variant verification or used as evaluation labels.
 
 ### Later
 
@@ -323,10 +333,9 @@ None for demonstrating the explicitly documented offline fixture path.
 
 The requested R7, R11, R13, Docker/Python 3.12 runtime, runtime reporting, selective dependency-
 constraint, T04/T07/T09/T10 database milestones, T26–T29 human-data/Dual-RAG milestones, and the
-T30–T33 external-data intake/pre-review/queue/evidence milestones are QA-closed for their stated
-Lite scope. The next highest-value step is the project owner's accept/reject response for the four
-family-only merge recommendations, followed by
-the 49 possible-new-family groups, recording explicit promote/merge/reject decisions. Only then
+T30–T34 external-data intake/pre-review/queue/evidence/family-decision milestones are QA-closed for
+their stated Lite scope. The next highest-value step is source research and adjudication for the 49
+possible-new-family groups, recording explicit create/hold/reject decisions. Only then
 should the project import additional completed yearly lists
 toward 3,000 reviewable variants. Exact pgvector quality and latency must be remeasured at that
 scale.
