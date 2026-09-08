@@ -174,6 +174,16 @@ decisions are initially pending, and the queue cannot be used as a promotion fil
 python3 scripts/build_fandom_adjudication_queue.py --check
 ```
 
+The four priority-1 families also have a compact
+[`side-by-side evidence report`](data/external/hot-wheels-wiki/pilot-2025/priority-1-evidence.md).
+It shows every Wiki release row beside the original and human-verified names already stored in the
+human-backed catalog. The machine recommendation is family-level merge for all four and variant-
+level hold for all four; reviewer confirmation remains empty.
+
+```bash
+python3 scripts/build_fandom_priority_one_evidence.py --check
+```
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with

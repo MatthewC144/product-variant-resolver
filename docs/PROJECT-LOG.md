@@ -1,5 +1,98 @@
 # Project Log
 
+## 2026-09-08 — Four side-by-side packets make the first decisions reviewable
+
+### What was executed and what problem it solves
+
+T32 created a clean 53-family queue, but the four priority-1 entries still pointed to IDs rather
+than showing why a reviewer should accept or reject them. T33 assembles the evidence needed for
+those first bounded decisions. For each exact-name family it places every Wiki release row beside
+the retained human label, original source name when available, structured series/variant fields,
+source case IDs, provisional variant ID, and target human casting ID/UUID.
+
+The evidence reveals an important boundary that a name-only table hides. All four pairs clearly
+refer to the same named casting family, but their releases are not automatically the same variant.
+The 2015 green `'67 Chevy C10` human record differs from the 2025 HW Hot Trucks rows; the Purple
+Passion human label says 2026/pink while the Wiki rows are 2025 HW Designed By; Tesla's human red
+label lacks matching Wiki color evidence. Subaru BRZ shares a 2025/Zamac clue, but its human series
+is Walmart Exclusive while the Wiki series is HW J-Imports.
+
+### Code changes and why they were made
+
+`build_fandom_priority_one_evidence.py` validates the T32 queue checksum and pending-state boundary,
+requires exactly one human casting candidate per priority-1 family, rechecks normalized brand and
+casting equality, and joins the family with `human_backed_catalog.json`. It retains both
+`human_label_names` and `initial_names`; this matters because the initial text carries year or
+listing context that a cleaned human label may omit.
+
+The builder emits `priority-1-evidence.json`, a human-readable Markdown report, and a manifest that
+freezes the queue, queue manifest, human catalog, and both outputs. It calculates only explicit
+facts: source rows, release years, series sets, exact normalized family equality, and shared tokens
+between the Wiki variant notes and human variant labels. It does not infer colors, dates, or release
+identity from the prose.
+
+Each packet contains two deliberately separate recommendations. The casting-family recommendation
+is `merge_existing_family`, targeting the exact human casting. The variant recommendation is
+`hold`, with `variant_identity_verified=false`. Reviewer confirmation fields remain empty, and the
+family remains promotion-ineligible. Five tests freeze the four families, nine Wiki rows, exact
+targets, retained evidence, Subaru `zamac` fact, family/variant boundary, hashes, and deterministic
+regeneration.
+
+### Technical choices, alternatives, and trade-offs
+
+The evidence packet reuses frozen repository inputs rather than fetching four more web pages. The
+purpose of this decision is to judge whether the two already-governed sources refer to the same
+casting family; the exact names and recorded provenance are sufficient to pose that limited
+question. Additional web research would be necessary for release/color promotion, which is
+explicitly outside this packet.
+
+The code reports shared variant tokens but does not turn them into a match score. A score would look
+precise without a validated relationship to correctness. Showing `zamac` directly for Subaru is
+more honest: it helps the reviewer understand why the release may be related, while differing
+series labels and null Wiki color keep the variant held.
+
+A single yes/no family question per packet was chosen instead of asking the user to interpret raw
+UUIDs or decide every Wiki release at once. This keeps the immediate review small without weakening
+the audit boundary. The trade-off is that even an accepted family merge will not increase the
+canonical release count yet.
+
+### Decision changes
+
+The previous queue treated all evidence references as future reviewer work. T33 now pre-assembles
+the repository evidence for priority 1 so the reviewer does not need to search across files. It
+does not populate the reviewer's evidence field, because selecting which evidence justifies a
+decision remains part of the reviewer-owned act.
+
+The earlier shorthand “merge these four” is also narrowed to “recommend merging the casting family
+only.” Variant identity remains held even for Subaru. This prevents a valid family conclusion from
+silently granting invalid year/color/series equivalence.
+
+### Verification evidence
+
+Four packets cover nine unique Wiki source rows and exactly four human casting targets. Each target
+passes exact normalized brand/casting equality, has retained human source cases and provisional
+variant evidence, recommends a family-only merge, holds the variant, and remains pending and
+promotion-ineligible. Only Subaru has a shared explicit variant token: `zamac`; its series sets are
+not exact.
+
+The packet checksum is
+`4d6ede8ba1bbb3447f2d403885d4d68bb9d71893cbf012994b2be37e77ad8294`; the Markdown checksum is
+`077d9b078514b8628b99244936f426652a46679f4e74642858c00c8067db98ab`.
+The deterministic `--check` passed, five focused tests passed, and the complete host suite passed
+94/94. T30–T32 checks, fixture validation, Python compilation, both Compose configurations, and
+whitespace checks passed. No network request or database/runtime mutation occurred.
+
+### Incomplete work, risks, and next step
+
+No human decision has been recorded. The evidence packet uses stored labels and does not prove the
+source listings themselves are still available. Exact family naming can support the proposed
+family relationship but cannot establish individual release identities or resolve missing colors.
+
+The next step is for the project owner to accept or reject the four family-only recommendations.
+Acceptance means only “these Wiki rows and this human draft belong to the same named casting
+family”; all nine release rows remain variant-held. Once the answers are given, a validator can
+record reviewer/time/reason/evidence and update the queue without creating canonical database rows.
+
 ## 2026-09-08 — A 53-family queue makes human adjudication explicit
 
 ### What was executed and what problem it solves

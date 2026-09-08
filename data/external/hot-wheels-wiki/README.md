@@ -34,3 +34,8 @@ identity. `review-manifest.json` freezes all three inputs and the review output 
 The accompanying `adjudication-queue.md` is the human-readable worksheet, and its manifest freezes
 the review input plus both queue outputs. A completed decision must identify the reviewer, time,
 reason, and evidence; all checked-in decisions remain pending and promotion-ineligible.
+
+`pilot-2025/priority-1-evidence.md` presents the first four exact family candidates side by side
+with their Wiki release rows and retained human-label evidence. Its JSON and manifest preserve the
+same comparison for validation. Family merge is a machine recommendation only; all reviewer
+confirmations and variant decisions remain pending/held.

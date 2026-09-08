@@ -1,0 +1,26 @@
+{
+  "confirmed_reviewer_decisions": 0,
+  "inputs": {
+    "adjudication_queue": {
+      "file": "adjudication-queue.json",
+      "sha256": "638f35d36bbf25ec0767210c038e6ee3c1e097f4f3e67d78a9bbef4a8dd45558"
+    },
+    "adjudication_queue_manifest": {
+      "file": "adjudication-queue-manifest.json",
+      "sha256": "9b55c9933641611089ef7c2302d2872fc870297c24ddeafd00836a8b7ade2b93"
+    },
+    "human_catalog": {
+      "file": "human_backed_catalog.json",
+      "sha256": "d29b69cde8099cb229136a73b893ca99b6313d9652ead5ff4aea48c20242e74f"
+    }
+  },
+  "packet_count": 4,
+  "packet_file": "priority-1-evidence.json",
+  "packet_sha256": "4d6ede8ba1bbb3447f2d403885d4d68bb9d71893cbf012994b2be37e77ad8294",
+  "packet_version": "fandom-2025-priority-one-family-evidence-v1",
+  "promotion_eligible_families": 0,
+  "report_file": "priority-1-evidence.md",
+  "report_sha256": "077d9b078514b8628b99244936f426652a46679f4e74642858c00c8067db98ab",
+  "schema_version": "pvr-fandom-priority-one-evidence-manifest-v1",
+  "wiki_source_row_count": 9
+}

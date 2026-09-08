@@ -280,3 +280,22 @@
 - **Deferred review:** The project owner or another named reviewer must adjudicate the four priority
   1 groups and then the 49 priority 2 groups. A later validator must reject incomplete or invalid
   completed decisions before any promotion artifact is generated.
+
+## D18 — Separate family recommendations from variant verification
+
+- **Choice:** For the four priority-1 groups, recommend an exact-name family merge while holding
+  every release variant. Present Wiki rows, retained initial/human labels, series and variant
+  fields, candidate IDs, and explicit token overlaps without filling reviewer-confirmation fields.
+- **Reason:** Exact brand/casting names support a relationship between casting families, but they
+  do not prove that releases from different years, series, or colors share a variant identity. The
+  strongest overlap—Subaru BRZ with `zamac`—still has differing series labels and no verified color
+  record from the Wiki table.
+- **Alternatives:** Promote the four families automatically; merge both family and variants; show
+  only normalized names and hide original evidence; require the reviewer to inspect raw JSON;
+  refuse to make any recommendation despite exact cross-source family names.
+- **Impact:** Four readable packets cover nine Wiki rows and four human provisional variants. Each
+  proposes the existing human casting as a family target, preserves variant hold, and remains
+  promotion-ineligible. No network, database, canonical catalog, or runtime behavior changes.
+- **Deferred review:** The project owner must accept or reject the four family recommendations with
+  attributable evidence. Variant identity requires a separate source-backed review even after a
+  family merge is accepted.

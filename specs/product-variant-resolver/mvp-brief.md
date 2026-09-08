@@ -45,6 +45,8 @@ This MVP is a portfolio-quality engineering validation, not evidence of producti
   possible new families while keeping every Wiki row on human-review hold.
 - A human-adjudication queue that groups repeated releases into one casting-family decision,
   prioritizes exact candidates, and requires attributable evidence before promotion.
+- A priority-1 evidence packet that presents Wiki releases and retained human-label evidence side
+  by side while separating family-merge recommendations from unverified variants.
 
 ### 2.2 EARS acceptance requirements
 
@@ -71,6 +73,7 @@ This MVP is a portfolio-quality engineering validation, not evidence of producti
 - **R21 — Governed external catalog pilot:** WHEN an external Wiki table is imported, THE SYSTEM SHALL use a documented API and identifiable client, freeze source revision/license/checksums, omit non-text media, retain unknown fields as null, and mark every record review-only without changing canonical resolution or evaluation labels.
 - **R22 — Conservative external-catalog review:** WHEN staged Wiki records are compared with existing catalogs, THE SYSTEM SHALL use only exact normalized brand/casting family matches, expose candidate IDs and reasons, freeze all input/output checksums, disable fuzzy and identifier-only promotion, and retain null canonical identity until a human decision is recorded.
 - **R23 — Attributable human-adjudication queue:** WHEN external pre-review is prepared for a person, THE SYSTEM SHALL group every source row exactly once by normalized casting family, prioritize exact existing-family candidates, permit only merge/create/hold/reject decisions, require reviewer/time/reason/evidence for completion, and keep every pending group ineligible for promotion.
+- **R24 — Priority-1 family evidence:** WHEN a reviewer examines an exact existing-family candidate, THE SYSTEM SHALL show all contributing Wiki release rows, original and human-verified label evidence, target family ID, observed series/variant differences, a family-scoped recommendation, an explicit variant hold, and an empty reviewer confirmation without making the item promotion eligible.
 
 The numeric gates above are deliberately modest fixture-MVP gates. Reports and README text must state dataset size, construction method, split strategy, hardware, model versions, and that the figures do not establish production accuracy.
 
@@ -310,6 +313,17 @@ Runtime resolution traces are not persisted by default in the fixture MVP.
   requires reviewer, timestamp, written reason, and evidence references before completion.
 - Pending decisions have null decision fields and `promotion_eligible=false`. The queue JSON,
   human-readable worksheet, and manifest are deterministically reproducible.
+
+### 8.14 `PriorityOneFamilyEvidencePacket`
+
+- Links one priority-1 family-review ID to its exact human casting ID/UUID and all contributing Wiki
+  rows.
+- Retains human label, initial source name, series, variant, failure categories, and source case IDs
+  from each provisional human variant.
+- Separately records exact family-name evidence, observed series equality, shared explicit variant
+  tokens, and `variant_identity_verified=false`.
+- Machine recommendation may propose `merge_existing_family` at `casting_family_only` scope, while
+  reviewer confirmation stays pending and the variant decision stays `hold`.
 
 ## 9. API contracts
 
@@ -695,6 +709,18 @@ Each task is intended to be independently committable and verifiable. `task_exec
   **Status:** Complete. No source or database request occurs. The decision contract permits only
   merge/create/hold/reject and requires reviewer, time, reason, and evidence. This milestone
   prepares human work but does not claim a human has completed it.
+
+- [x] **T33 — Assemble priority-1 side-by-side family evidence** `[backend]` _(R6, R16, R24)_
+  Join the four priority-1 queue groups with their retained human-backed source evidence, preserve
+  all nine Wiki release rows, calculate only explicit comparison facts, and render deterministic
+  JSON plus a readable Markdown reviewer packet.
+  **Verify:** exactly four packets cover nine unique source rows; each has one exact human target;
+  original/human names and source IDs are retained; Subaru's shared `zamac` token is visible but
+  not treated as variant confirmation; all family recommendations are merge-only, all variant
+  recommendations are hold, reviewer confirmations are empty, and output checksums regenerate.
+  **Status:** Complete. The evidence supports proposing family-level merge for all four exact-name
+  candidates, but differing or incomplete year/series/color evidence prevents any release-variant
+  promotion. The project owner must still accept or reject each family recommendation.
 
 ### Task order and handoff
 
