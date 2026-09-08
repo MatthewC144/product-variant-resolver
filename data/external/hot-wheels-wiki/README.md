@@ -60,3 +60,10 @@ queue preserves the four earlier family merges and reports 14 completed / 39 pen
 decisions, 28 held release variants, and zero promotion eligibility. The validator requires every
 research packet exactly once, rejects an outcome that differs from the approved recommendation,
 and refuses variant promotion. No canonical catalog or PostgreSQL record is created.
+
+`pilot-2025/priority-2-batch-02-source-notes.json` continues from that cumulative queue and freezes
+research for the next ten still-pending families / eighteen release rows. Nine names meet the same
+two-source creation-recommendation rule. `Batman and Robin Batmobile` remains held because a
+separate 2004 100% Hot Wheels casting tool uses the same display name, so the queued text is not a
+tool-unique identity. The batch-02 JSON, Markdown report, and manifest remain machine research:
+reviewer confirmations are pending, variants are held, and promotion eligibility is zero.

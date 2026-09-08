@@ -58,7 +58,11 @@ def _validate_source_note(note: dict[str, Any], family: dict[str, Any]) -> None:
         raise ValueError("each family requires Wiki and independent source sections")
     if _host(str(wiki.get("url", ""))) != "hotwheels.fandom.com":
         raise ValueError("Wiki casting evidence must come from hotwheels.fandom.com")
-    if wiki.get("page_classification") not in {"single_casting", "disambiguation"}:
+    if wiki.get("page_classification") not in {
+        "single_casting",
+        "disambiguation",
+        "homonymous_castings",
+    }:
         raise ValueError("Wiki page classification is unsupported")
     if not isinstance(wiki.get("observed_claim"), str) or not wiki["observed_claim"].strip():
         raise ValueError("Wiki evidence requires a concise observed claim")
@@ -79,6 +83,9 @@ def build_research(
     adjudicated_queue_path: Path,
     adjudicated_manifest_path: Path,
     source_notes_path: Path,
+    *,
+    batch_version: str = BATCH_VERSION,
+    batch_label: str = "01",
 ) -> tuple[dict[str, Any], dict[str, Any], str]:
     queue = _load(adjudicated_queue_path)
     queue_manifest = _load(adjudicated_manifest_path)
@@ -101,7 +108,9 @@ def build_research(
         and family.get("reviewer_decision", {}).get("status") == "pending"
     ][:BATCH_SIZE]
     if len(selected) != BATCH_SIZE or len(notes) != BATCH_SIZE:
-        raise ValueError(f"batch 01 requires exactly {BATCH_SIZE} pending families")
+        raise ValueError(
+            f"batch {batch_label} requires exactly {BATCH_SIZE} pending families"
+        )
 
     packets: list[dict[str, Any]] = []
     for family, note in zip(selected, notes, strict=True):
@@ -115,11 +124,17 @@ def build_research(
                 "the queue name resolves to one dedicated Wiki casting page and at least one "
                 "separate publisher confirms the exact Hot Wheels casting name"
             )
-        else:
+        elif page_classification == "disambiguation":
             proposed_decision = "hold"
             decision_reason = (
                 "the queue name resolves to a disambiguation page covering multiple casting "
                 "tools, so the 2025 row must be mapped to one lineage before family creation"
+            )
+        else:
+            proposed_decision = "hold"
+            decision_reason = (
+                "the queued display name is also used by a separate casting tool, so the source "
+                "rows need a tool-specific identity before family creation"
             )
         packets.append(
             {
@@ -161,7 +176,7 @@ def build_research(
     hold_count = len(packets) - create_count
     payload = {
         "schema_version": SCHEMA_VERSION,
-        "batch_version": BATCH_VERSION,
+        "batch_version": batch_version,
         "status": "awaiting_reviewer_confirmation",
         "selection_rule": "first 10 pending priority-2 families in adjudicated queue order",
         "decision_policy": {
@@ -184,7 +199,7 @@ def build_research(
     }
     manifest = {
         "schema_version": "pvr-fandom-priority-two-research-manifest-v1",
-        "batch_version": BATCH_VERSION,
+        "batch_version": batch_version,
         "inputs": {
             "adjudicated_queue": _file_reference(adjudicated_queue_path),
             "adjudicated_queue_manifest": _file_reference(adjudicated_manifest_path),
@@ -192,13 +207,13 @@ def build_research(
         },
         **payload["summary"],
     }
-    return payload, manifest, build_markdown(payload)
+    return payload, manifest, build_markdown(payload, batch_label=batch_label)
 
 
-def build_markdown(payload: dict[str, Any]) -> str:
+def build_markdown(payload: dict[str, Any], *, batch_label: str = "01") -> str:
     summary = payload["summary"]
     lines = [
-        "# Priority 2 Family Research — Batch 01",
+        f"# Priority 2 Family Research — Batch {batch_label}",
         "",
         "> Source-backed machine recommendations only. Reviewer confirmation remains pending,",
         "> every release variant stays held, and no canonical or PostgreSQL record is created.",
@@ -289,22 +304,40 @@ def expected_outputs(
 def main() -> None:
     directory = ROOT / "data" / "external" / "hot-wheels-wiki" / "pilot-2025"
     parser = argparse.ArgumentParser(
-        description="Build or verify priority-two source-research batch 01"
+        description="Build or verify a priority-two source-research batch"
     )
     parser.add_argument("--check", action="store_true")
+    parser.add_argument("--batch", choices=("1", "2"), default="1")
     parser.add_argument("--directory", type=Path, default=directory)
     arguments = parser.parse_args()
     output = arguments.directory
+    if arguments.batch == "1":
+        batch_label = "01"
+        batch_version = BATCH_VERSION
+        queue_name = "adjudicated-queue.json"
+        queue_manifest_name = "adjudicated-queue-manifest.json"
+    else:
+        batch_label = "02"
+        batch_version = "fandom-2025-priority-two-research-batch-02-v1"
+        queue_name = "priority-2-batch-01-adjudicated-queue.json"
+        queue_manifest_name = "priority-2-batch-01-adjudicated-queue-manifest.json"
+    prefix = f"priority-2-batch-{batch_label}"
     built = build_research(
-        output / "adjudicated-queue.json",
-        output / "adjudicated-queue-manifest.json",
-        output / "priority-2-batch-01-source-notes.json",
+        output / queue_name,
+        output / queue_manifest_name,
+        output / f"{prefix}-source-notes.json",
+        batch_version=batch_version,
+        batch_label=batch_label,
     )
-    expected = expected_outputs(*built)
+    expected = expected_outputs(
+        *built,
+        research_file_name=f"{prefix}-research.json",
+        report_file_name=f"{prefix}-research.md",
+    )
     paths = (
-        output / "priority-2-batch-01-research.json",
-        output / "priority-2-batch-01-research-manifest.json",
-        output / "priority-2-batch-01-research.md",
+        output / f"{prefix}-research.json",
+        output / f"{prefix}-research-manifest.json",
+        output / f"{prefix}-research.md",
     )
     if arguments.check:
         if any(not path.exists() for path in paths):
@@ -312,7 +345,7 @@ def main() -> None:
         actual = tuple(path.read_text(encoding="utf-8") for path in paths)
         if actual != expected:
             raise ValueError("priority-two research outputs are stale")
-        print("priority-two research batch 01 is deterministic and current")
+        print(f"priority-two research batch {batch_label} is deterministic and current")
         return
     output.mkdir(parents=True, exist_ok=True)
     for path, content in zip(paths, expected, strict=True):

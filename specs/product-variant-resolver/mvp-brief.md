@@ -85,6 +85,7 @@ This MVP is a portfolio-quality engineering validation, not evidence of producti
 - **R25 — Validated family-decision application:** WHEN an attributable reviewer decision batch is applied, THE SYSTEM SHALL require a permitted decision, valid timestamp, reviewer, provenance, reason, evidence, casting-family-only scope, held variants, and an exact candidate target for merges; update completed/pending counts in a derived artifact; and reject invalid targets without modifying the original queue or creating promotion-eligible records.
 - **R26 — Bounded new-family research:** WHEN priority-2 possible-new families are researched, THE SYSTEM SHALL select a deterministic bounded batch, require a dedicated casting page and an exact-name confirmation from at least one non-Fandom publisher before recommending `create_new_casting`, hold disambiguated or insufficient identities, preserve source URLs and concise observed claims, keep reviewer confirmation pending, hold every release variant, and create no canonical or PostgreSQL record.
 - **R27 — Validated priority-2 decision application:** WHEN the project owner approves a priority-2 research batch, THE SYSTEM SHALL record reviewer/time/provenance/reason/evidence in a separate decision file, require complete one-time coverage of the frozen research packets, require each outcome to match the approved recommendation, reject unsupported creation or widened variant scope, preserve earlier completed decisions, derive cumulative completed/pending/create/hold counts, and keep all affected families ineligible for canonical or PostgreSQL promotion.
+- **R28 — Cumulative priority-2 research sequencing:** WHEN a later priority-2 research batch is built, THE SYSTEM SHALL verify and use the latest checksum-frozen cumulative adjudication queue, skip every completed family, select the next bounded pending families in queue order, hold a display name that maps to distinct homonymous casting tools, preserve two-source evidence and reviewer/variant/promotion boundaries, and reproduce both the earlier and current batch outputs deterministically.
 
 The numeric gates above are deliberately modest fixture-MVP gates. Reports and README text must state dataset size, construction method, split strategy, hardware, model versions, and that the figures do not establish production accuracy.
 
@@ -778,6 +779,18 @@ Each task is intended to be independently committable and verifiable. `task_exec
   deterministic regeneration pass.
   **Status:** Complete. New casting outcomes are accepted review-layer decisions only. They do not
   yet mint canonical UUIDs, verify release variants, or create PostgreSQL rows.
+
+- [x] **T37 — Research priority-2 family batch 02 from the cumulative queue** `[backend]` _(R6, R16, R26, R28)_
+  Verify the T36 adjudicated-queue checksum, select the next ten still-pending priority-2 families,
+  record Wiki and non-Fandom exact-name evidence, distinguish one-page identities from homonymous
+  casting tools, and freeze readable and machine-readable recommendations without applying them.
+  **Verify:** exactly ten families / eighteen Wiki rows are selected after all fourteen completed
+  families; nine meet the evidence rule for `create_new_casting`; `Batman and Robin Batmobile`
+  remains held because the display name also identifies a separate 2004 100% Hot Wheels tool; all
+  reviewer confirmations remain pending, all variants remain held, promotion stays zero, both
+  batch checks regenerate, and checksums are frozen.
+  **Status:** Complete. Batch 02 is research only. No reviewer decision, stable catalog entity,
+  canonical UUID, PostgreSQL row, runtime behavior, calibration input, or evaluation label changed.
 
 ### Task order and handoff
 

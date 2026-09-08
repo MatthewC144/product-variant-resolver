@@ -1,0 +1,203 @@
+{
+  "families": [
+    {
+      "casting_name": "'94 Audi Avant RS2",
+      "family_review_id": "fandom-family-1555c05ceeb491cb",
+      "independent_sources": [
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "Mattel's instruction sheet identifies a Hot Wheels '94 Audi Avant RS2 1:64 die-cast designed by Ryu Asada.",
+          "publisher": "Mattel Consumer Services",
+          "source_type": "manufacturer_instruction_pdf",
+          "url": "https://service.mattel.com/instruction_sheets/JGR28.pdf"
+        }
+      ],
+      "wiki_casting_page": {
+        "observed_claim": "A dedicated page identifies the casting, its 2021 debut, GRX27 tool number, and HYW82/HYX60 2025 releases.",
+        "page_classification": "single_casting",
+        "publisher": "Hot Wheels Wiki contributors",
+        "url": "https://hotwheels.fandom.com/wiki/%2794_Audi_Avant_RS2"
+      }
+    },
+    {
+      "casting_name": "Alpha Pursuit",
+      "family_review_id": "fandom-family-d90841788b1d98a2",
+      "independent_sources": [
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "The casting database records Alpha Pursuit with a 2020 debut and designer Charlie Angulo.",
+          "publisher": "Orange Track Diecast",
+          "source_type": "independent_casting_database",
+          "url": "https://orangetrackdiecast.com/hot-wheels-casting-database/"
+        }
+      ],
+      "wiki_casting_page": {
+        "observed_claim": "A dedicated page identifies the casting, its 2020 debut, GHB75 tool number, and HYW71/HYX49 2025 releases.",
+        "page_classification": "single_casting",
+        "publisher": "Hot Wheels Wiki contributors",
+        "url": "https://hotwheels.fandom.com/wiki/Alpha_Pursuit"
+      }
+    },
+    {
+      "casting_name": "Batman and Robin Batmobile",
+      "family_review_id": "fandom-family-8d24c626a51b1804",
+      "independent_sources": [
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "The collector index lists the 2025 HYW60 mainline release under the exact Batman and Robin Batmobile name.",
+          "publisher": "164Custom",
+          "source_type": "independent_collector_index",
+          "url": "https://164custom.com/batman_series.html"
+        }
+      ],
+      "wiki_casting_page": {
+        "observed_claim": "The current mainline page uses this exact name, but a separate 2004 100% Hot Wheels tool also uses the Batman & Robin Batmobile name; the display name alone is therefore not tool-unique.",
+        "page_classification": "homonymous_castings",
+        "publisher": "Hot Wheels Wiki contributors",
+        "related_casting_pages": [
+          {
+            "distinction": "Separate 2004 100% Hot Wheels casting tool G5513 designed by Terry Choy.",
+            "url": "https://hotwheels.fandom.com/wiki/Batman_%26_Robin_Batmobile_%28100%25%29"
+          }
+        ],
+        "url": "https://hotwheels.fandom.com/wiki/Batman_and_Robin_Batmobile"
+      }
+    },
+    {
+      "casting_name": "Bogzilla",
+      "family_review_id": "fandom-family-8a07157f2af2ddd5",
+      "independent_sources": [
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "The variation catalog records Bogzilla HYW75 as a 2025 Hot Wheels release.",
+          "publisher": "Hot Wheels Collectors News Catalog",
+          "source_type": "independent_variation_catalog",
+          "url": "https://catalog.hwcollectorsnews.com/Variation/Details/25974"
+        }
+      ],
+      "wiki_casting_page": {
+        "observed_claim": "A dedicated page identifies the casting, its 2018 debut, FJV61 tool number, and HYW75 2025 release.",
+        "page_classification": "single_casting",
+        "publisher": "Hot Wheels Wiki contributors",
+        "url": "https://hotwheels.fandom.com/wiki/Bogzilla"
+      }
+    },
+    {
+      "casting_name": "Crescendo",
+      "family_review_id": "fandom-family-4d2de6db3d5bba63",
+      "independent_sources": [
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "The vehicle catalog records Crescendo HYW89 as a 2025 X-Raycers release.",
+          "publisher": "Hot Wheels Database",
+          "source_type": "independent_vehicle_catalog",
+          "url": "https://hotwheelsdb.com/vehicles/crescendo-2025"
+        }
+      ],
+      "wiki_casting_page": {
+        "observed_claim": "A dedicated page identifies the casting, its 2017 debut, DTX04 tool number, and HYW89/HYX85 2025 releases.",
+        "page_classification": "single_casting",
+        "publisher": "Hot Wheels Wiki contributors",
+        "url": "https://hotwheels.fandom.com/wiki/Crescendo"
+      }
+    },
+    {
+      "casting_name": "Custom '53 Chevy",
+      "family_review_id": "fandom-family-fd96307f2dc8b421",
+      "independent_sources": [
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "The collector guide identifies Custom '53 Chevy as a casting that debuted in the 2007 New Models series.",
+          "publisher": "HW Treasure",
+          "source_type": "independent_collector_guide",
+          "url": "https://www.hwtreasure.com/2024-2/custom-53-chevy/"
+        }
+      ],
+      "wiki_casting_page": {
+        "observed_claim": "A dedicated page identifies the casting, its 2007 debut, K6166 tool number, and HYW68/HYY11 2025 releases.",
+        "page_classification": "single_casting",
+        "publisher": "Hot Wheels Wiki contributors",
+        "url": "https://hotwheels.fandom.com/wiki/Custom_%2753_Chevy"
+      }
+    },
+    {
+      "casting_name": "Custom Cadillac Fleetwood",
+      "family_review_id": "fandom-family-45af5b93f3f6650f",
+      "independent_sources": [
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "The vehicle catalog records Custom Cadillac Fleetwood HYW77 as a 2025 release.",
+          "publisher": "Hot Wheels Database",
+          "source_type": "independent_vehicle_catalog",
+          "url": "https://hotwheelsdb.com/vehicles/custom-cadillac-fleetwood-2025"
+        }
+      ],
+      "wiki_casting_page": {
+        "observed_claim": "A dedicated page identifies the casting, its 2013 debut, X1635 tool number, and HYW77/HYY39 2025 releases.",
+        "page_classification": "single_casting",
+        "publisher": "Hot Wheels Wiki contributors",
+        "url": "https://hotwheels.fandom.com/wiki/Custom_Cadillac_Fleetwood"
+      }
+    },
+    {
+      "casting_name": "Deora III",
+      "family_review_id": "fandom-family-8cce01fa7d44112a",
+      "independent_sources": [
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "The casting database records Deora III with a 2019 debut and designer Mark Jones.",
+          "publisher": "Orange Track Diecast",
+          "source_type": "independent_casting_database",
+          "url": "https://orangetrackdiecast.com/hot-wheels-casting-database/"
+        }
+      ],
+      "wiki_casting_page": {
+        "observed_claim": "A dedicated page identifies the casting, its 2019 debut, FYB43 tool number, and HYW67/HYX47 2025 releases.",
+        "page_classification": "single_casting",
+        "publisher": "Hot Wheels Wiki contributors",
+        "url": "https://hotwheels.fandom.com/wiki/Deora_III"
+      }
+    },
+    {
+      "casting_name": "DMC DeLorean",
+      "family_review_id": "fandom-family-a8e0dec4abdc4131",
+      "independent_sources": [
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "A Hot Wheels case-assortment newsletter lists DMC DeLorean by exact name.",
+          "publisher": "Hot Wheels Collectors News",
+          "source_type": "collector_newsletter_pdf",
+          "url": "https://hwcollectorsnews.com/wp-content/uploads/2023/03/Hot-Wheels-2023-E-CASE-ASSORTMENT.pdf"
+        }
+      ],
+      "wiki_casting_page": {
+        "observed_claim": "A dedicated 1:64 casting page records the DMC DeLorean line and HYW88/HYX59 2025 releases separately from the RLC DeLorean DMC-12 page.",
+        "page_classification": "single_casting",
+        "publisher": "Hot Wheels Wiki contributors",
+        "url": "https://hotwheels.fandom.com/wiki/DMC_DeLorean"
+      }
+    },
+    {
+      "casting_name": "Donut Drifter",
+      "family_review_id": "fandom-family-9069156ec909a92e",
+      "independent_sources": [
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "The collector guide identifies Donut Drifter as a casting that debuted in the 2020 Fast Foodie series.",
+          "publisher": "HW Treasure",
+          "source_type": "independent_collector_guide",
+          "url": "https://www.hwtreasure.com/2023-2/donut-drifter/"
+        }
+      ],
+      "wiki_casting_page": {
+        "observed_claim": "A dedicated 1:64 page identifies the casting, its 2020 debut, GHB63 tool number, and HYW92 2025 release; the separately named Hot Wheels XL page is a different product scale.",
+        "page_classification": "single_casting",
+        "publisher": "Hot Wheels Wiki contributors",
+        "url": "https://hotwheels.fandom.com/wiki/Donut_Drifter"
+      }
+    }
+  ],
+  "research_date": "2026-09-08",
+  "research_method": "AI-assisted bounded text-source review; no images downloaded and no identity decision attributed to a human reviewer",
+  "schema_version": "pvr-fandom-priority-two-source-notes-v1"
+}

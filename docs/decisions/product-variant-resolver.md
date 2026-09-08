@@ -360,3 +360,29 @@
 - **Deferred review:** Batch 02 should research the next ten pending families from the T36 queue.
   A later, separate catalog materialization design must decide how accepted review families receive
   stable entity IDs without becoming canonical variants prematurely.
+
+## D22 — Continue research from cumulative state and treat homonyms as an identity conflict
+
+- **Choice:** Build priority-2 batch 02 from the checksum-verified T36 cumulative queue, not the
+  original all-pending queue. Continue to require a dedicated Wiki page and non-Fandom exact-name
+  evidence for creation recommendations, but classify an exact display name shared by a separate
+  historical casting tool as `homonymous_castings` and force `hold`.
+- **Reason:** Once batch 01 has owner decisions, selecting again from the original queue would
+  duplicate completed work. Exact spelling also does not guarantee one physical family: the
+  current Batman and Robin Batmobile mainline and the separate 2004 100% Hot Wheels casting share
+  a display name. A tool-unique identity is required before either lineage can safely become a new
+  family entity.
+- **Alternatives:** Reuse the original queue and manually skip names; treat every dedicated current
+  page as sufficient even when another tool has the same name; merge both Batman tools into one
+  family; or require manufacturer-only evidence for every historical casting. The first three lose
+  determinism or identity precision, while the last would stop useful bounded research where
+  reliable independent collector records are the available corroboration.
+- **Impact:** Batch 02 covers the next ten pending families and eighteen staged release rows. Nine
+  receive machine `create_new_casting` recommendations; Batman and Robin Batmobile remains held.
+  The builder now supports batches 01 and 02 from one validated implementation, and both frozen
+  outputs reproduce byte for byte. Reviewer fields remain pending, variants remain held, and no
+  catalog, PostgreSQL, runtime, calibration, or evaluation artifact is promoted.
+- **Deferred review:** The project owner must accept or reject these ten recommendations in a
+  separate decision batch. Resolving the Batman hold requires a tool-specific mapping for HYW60
+  and HYX61. After owner adjudication, batch 03 should select the next ten pending families from
+  the newly derived cumulative queue.

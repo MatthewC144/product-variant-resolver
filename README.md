@@ -217,6 +217,19 @@ a review-layer decision, not a canonical UUID or database row.
 python3 scripts/apply_fandom_priority_two_decisions.py --check
 ```
 
+Priority-2 batch 02 continues from that cumulative 14-completed / 39-pending queue rather than
+restarting from the original list. Its
+[`batch-02 research report`](data/external/hot-wheels-wiki/pilot-2025/priority-2-batch-02-research.md)
+covers the next ten families and eighteen Wiki releases. Nine receive machine
+`create_new_casting` recommendations. `Batman and Robin Batmobile` remains held because the exact
+display name is also used by a separate 2004 100% Hot Wheels casting tool, so the staged name is
+not sufficient to choose one lineage. Reviewer confirmation is still pending for all ten; every
+release remains variant-held and none enters the canonical catalog, PostgreSQL, or runtime.
+
+```bash
+python3 scripts/build_fandom_priority_two_research.py --batch 2 --check
+```
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with

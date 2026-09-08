@@ -1,5 +1,119 @@
 # Project Log
 
+## 2026-09-08 — Batch 02 advances the queue and catches a same-name casting conflict
+
+### What was executed and what problem it solves
+
+T36 left a cumulative review queue with fourteen completed family decisions and thirty-nine still
+pending. T37 continues the research from that exact checkpoint. It selects the first ten pending
+priority-2 families in the T36 queue, examines one casting-specific Hot Wheels Wiki page plus at
+least one publisher outside Fandom for each name, and emits a new frozen review packet. This avoids
+both re-researching the ten batch-01 families and treating “not found in our small catalog” as
+proof that a new casting should be created.
+
+The observable result is a ten-family / eighteen-release batch. Nine names have sufficient
+two-source, exact-name evidence for a machine `create_new_casting` recommendation. The tenth,
+`Batman and Robin Batmobile`, demonstrates why exact text is not enough: the current mainline name
+is also used by a separate 2004 100% Hot Wheels casting tool G5513. That family remains held until
+the staged releases can be mapped to a tool-specific lineage. All ten reviewer confirmations are
+still pending, every release variant is held, and promotion eligibility remains zero.
+
+### Code changes and why they were made
+
+`priority-2-batch-02-source-notes.json` is the human-readable research input in structured form. It
+keeps the queue family ID and exact name beside concise observations and HTTPS evidence. Sources
+include Mattel Consumer Services and independent collector/catalog publishers such as Orange Track
+Diecast, 164Custom, Hot Wheels Collectors News, Hot Wheels Database, and HW Treasure. The Batman
+record additionally stores the related 2004 page and its G5513 distinction, so the hold is based on
+an explicit conflicting identity rather than a vague lack of confidence.
+
+`build_fandom_priority_two_research.py` was extended from a batch-01-only command to a shared
+batch-aware builder. `--batch 2` binds the input to
+`priority-2-batch-01-adjudicated-queue.json` and its manifest, then names the outputs with the
+batch-02 prefix and version. Default invocation remains batch 01, so the existing frozen contract
+and checksums remain compatible. The validator now accepts `homonymous_castings` as a distinct
+source classification and maps it to a mandatory hold; the older `disambiguation` wording remains
+unchanged so batch 01 reproduces byte for byte.
+
+The generated JSON stores the ten machine recommendations, complete source rows, evidence hosts,
+pending reviewer blocks, and explicit family-versus-variant scope. The Markdown report presents
+the same information for owner review. The manifest binds the T36 queue, its manifest, the new
+source notes, research JSON, and report with SHA-256 checksums. A dedicated six-test module verifies
+later-batch selection, counts, evidence hosts, the Batman homonym, non-promotion boundaries, and
+deterministic outputs without weakening the six existing batch-01 tests.
+
+### Technical choices, alternatives, and trade-offs
+
+The later batch reads the latest cumulative queue instead of the original T34 queue. A manual
+“skip the first ten” convention would be shorter code, but it would become wrong as soon as a hold
+is revisited or batches are applied in a different order. Selecting records whose actual reviewer
+status is still `pending` lets the decision artifact, rather than positional memory, define what
+work remains. The trade-off is that each research batch is cryptographically coupled to the latest
+queue checkpoint and must be rebuilt or deliberately migrated if that upstream artifact changes.
+
+The evidence policy remains two-source rather than manufacturer-only. Manufacturer documentation
+is preferred where available, but historical and fantasy castings are often documented more
+completely by established collector catalogs. Requiring an exact-name corroboration outside
+Fandom reduces single-source dependence without falsely claiming those publishers independently
+verified every physical detail. Remote pages can change, which is why the repository freezes URLs,
+claims, date, transformed outputs, and checksums rather than pretending it owns an immutable copy
+of every source page.
+
+`homonymous_castings` is separate from `disambiguation`. A disambiguation page openly lists several
+tools under one title; a homonym can have a dedicated page for the current tool while another page
+uses effectively the same display name. Treating both as safe creations would collapse physical
+lineages. Treating every related scale or premium release as a conflict would be overly strict, so
+the hold is used only where evidence shows a separate casting tool with the same name; Donut
+Drifter's separately named Hot Wheels XL product, for example, does not erase the dedicated 1:64
+identity.
+
+### Decision changes
+
+Before T37, the builder understood only a dedicated single-casting page or an explicit
+disambiguation page, and only batch 01 could be selected from the command line. It now models a
+third failure-safe case—distinct tools sharing a display name—and can deterministically build
+either research batch from its proper upstream queue. This is a schema-compatible extension:
+batch-01 data and output hashes did not change.
+
+Nine new names now have source-backed machine recommendations, but none has moved to completed
+review status: `'94 Audi Avant RS2`, `Alpha Pursuit`, `Bogzilla`, `Crescendo`, `Custom '53 Chevy`,
+`Custom Cadillac Fleetwood`, `Deora III`, `DMC DeLorean`, and `Donut Drifter`. Batman and Robin
+Batmobile is explicitly held. The cumulative adjudication queue itself remains at fourteen
+completed / thirty-nine pending because research does not impersonate an owner decision.
+
+### Verification evidence
+
+The combined batch-01 and batch-02 focused suite passed 12/12. It proves that batch 02 equals the
+next ten pending items in the T36 queue and excludes a completed batch-01 family; that the output
+contains ten families, eighteen rows, nine proposed creations, and one homonymous hold; that the
+separate 2004 G5513 tool is retained in evidence; that creation recommendations span Fandom plus a
+different host; and that all reviewer, variant, and promotion boundaries remain closed.
+
+Both `python3 scripts/build_fandom_priority_two_research.py --batch 1 --check` and `--batch 2
+--check` passed. The batch-02 research checksum is
+`e0814c8017361049c2fa3b712198a22968e9818c2db273c49af668c2639050dc`; its readable report checksum
+is `86444256ded953b6ed5e329dccfdf531e5f2565df7212370178fb1a45d81a7ca`; and its upstream T36 queue
+checksum is `2b82ca5023439857f186aa0ab122f0b4511290bb4d1303ac533df5c96fbc6790`.
+
+The complete host suite passed 117/117 on the available Python 3.14.6 interpreter. Fixture and
+Wiki-pilot validation, T31–T37 deterministic regeneration, Python compilation, default and
+PostgreSQL-profile Compose configuration, and `git diff --check` all passed. The host suite emitted
+the already documented Starlette TestClient deprecation warning because this machine-wide Python
+3.14 environment still exposes legacy `httpx`; the project's constrained Python 3.12 environment
+uses `httpx2` and was previously verified warning-free. T37 changed no runtime dependency, and this
+research run does not upgrade web-page review into live database or resolver evidence.
+
+### Incomplete work, risks, and next step
+
+These are AI-assisted research recommendations, not human labels. Source accuracy and future page
+changes remain risks, and the Batman evidence proves only that the name is ambiguous between tools;
+it does not yet prove which tool HYW60 and HYX61 represent. No accepted catalog family, stable
+entity ID, canonical variant, PostgreSQL row, or searchable Dual-RAG record was created.
+
+The next immediate task is T38: present this exact ten-item batch to the project owner, record the
+owner's accept/hold decisions in a separate attributable file, validate complete agreement and
+scope, and derive a new cumulative queue. Only then should batch 03 select the next pending ten.
+
 ## 2026-09-08 — Owner approval converts batch-01 research into ten attributable family decisions
 
 ### What was executed and what problem it solves
