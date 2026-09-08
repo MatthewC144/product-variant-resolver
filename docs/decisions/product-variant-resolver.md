@@ -386,3 +386,26 @@
   separate decision batch. Resolving the Batman hold requires a tool-specific mapping for HYW60
   and HYX61. After owner adjudication, batch 03 should select the next ten pending families from
   the newly derived cumulative queue.
+
+## D23 — Append batch-02 approval to the decision history without materializing catalog data
+
+- **Choice:** Interpret the owner's “execute the next step” response against the immediately
+  preceding T37 proposal: accept the nine `create_new_casting` recommendations, retain the Batman
+  hold, and keep all eighteen release rows variant-held. Store that authority in a separate
+  batch-02 decision file and append it to the existing two-entry decision history in a new
+  cumulative queue artifact.
+- **Reason:** The prior message named the exact ten-family outcome and said owner confirmation was
+  the required next step, so the follow-up provides bounded authorization. Replacing the history
+  or writing directly to the human/canonical catalog would erase provenance and broaden a
+  family-level approval into an unrequested identity or persistence decision.
+- **Alternatives:** Overwrite the batch-01 queue; store only the latest batch in history; accept the
+  nine creations but omit the hold; materialize eighteen searchable families/variants immediately;
+  or leave authorization only in conversation history. Each alternative loses cumulative audit
+  state, complete batch coverage, or the family-versus-variant boundary.
+- **Impact:** The cumulative queue now contains twenty-four completed decisions and twenty-nine
+  pending families: four existing-family merges, eighteen accepted new-family decisions, and two
+  holds. All three owner-decision events remain ordered and checksum-bound. Forty-six release rows
+  under completed family decisions remain held and promotion eligibility remains zero.
+- **Deferred review:** T39 should research the next ten pending priority-2 families from the T38
+  cumulative queue. A separate later design must assign stable review-catalog entity IDs to
+  accepted families without inventing colors, releases, or canonical UUIDs.

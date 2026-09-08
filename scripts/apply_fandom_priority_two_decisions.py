@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate and apply the first source-backed priority-two family decisions."""
+"""Validate and apply a source-backed priority-two family-decision batch."""
 
 from __future__ import annotations
 
@@ -68,6 +68,7 @@ def _validate_decision(
     decision: dict[str, Any],
     family: dict[str, Any],
     research: dict[str, Any],
+    research_file_name: str,
 ) -> None:
     outcome = decision.get("decision")
     recommendation = research["machine_recommendation"]["family_decision"]
@@ -84,9 +85,7 @@ def _validate_decision(
     if not isinstance(decision.get("reason"), str) or not decision["reason"].strip():
         raise ValueError("completed decision requires a written reason")
     references = decision.get("evidence_references")
-    expected_packet = (
-        "priority-2-batch-01-research.json#" + family["family_review_id"]
-    )
+    expected_packet = research_file_name + "#" + family["family_review_id"]
     if not isinstance(references, list) or expected_packet not in references:
         raise ValueError("completed decision must reference its research packet")
     if not all(isinstance(reference, str) and reference.strip() for reference in references):
@@ -113,6 +112,9 @@ def apply_priority_two_decisions(
     research_path: Path,
     research_manifest_path: Path,
     decisions_path: Path,
+    *,
+    result_version: str = RESULT_VERSION,
+    batch_label: str = "01",
 ) -> tuple[dict[str, Any], dict[str, Any], str]:
     queue = _load(adjudicated_queue_path)
     queue_manifest = _load(adjudicated_manifest_path)
@@ -133,7 +135,7 @@ def apply_priority_two_decisions(
 
     result = copy.deepcopy(queue)
     result["schema_version"] = RESULT_SCHEMA_VERSION
-    result["queue_version"] = RESULT_VERSION
+    result["queue_version"] = result_version
     result["status"] = "partially_adjudicated"
     families = result.get("families")
     packets = research.get("packets")
@@ -159,7 +161,7 @@ def apply_priority_two_decisions(
             raise ValueError("decision references an unknown family")
         if family["casting_name"] != packet["casting_name"]:
             raise ValueError("research packet name differs from the queue")
-        _validate_decision(decision, family, packet)
+        _validate_decision(decision, family, packet, research_path.name)
         family["reviewer_decision"] = {
             "status": "completed",
             "decision": decision["decision"],
@@ -204,6 +206,19 @@ def apply_priority_two_decisions(
         "promotion_eligible_families": 0,
     }
     previous_batch = result.pop("decision_batch", None)
+    previous_batches = result.pop("decision_batches", [])
+    if not isinstance(previous_batches, list):
+        raise ValueError("prior decision batch history must be a list")
+    batch_history = [
+        *previous_batches,
+        *([previous_batch] if isinstance(previous_batch, dict) else []),
+    ]
+    if not all(isinstance(item, dict) for item in batch_history):
+        raise ValueError("prior decision batch history contains an invalid item")
+    if decisions["batch_id"] in {
+        item.get("batch_id") for item in batch_history
+    }:
+        raise ValueError("decision batch ID already exists in prior history")
     current_batch = {
         "batch_id": decisions["batch_id"],
         "decided_by": decisions["decided_by"],
@@ -212,12 +227,12 @@ def apply_priority_two_decisions(
         "decision_file_sha256": hashlib.sha256(decisions_path.read_bytes()).hexdigest(),
     }
     result["decision_batches"] = [
-        *([previous_batch] if isinstance(previous_batch, dict) else []),
+        *batch_history,
         current_batch,
     ]
     manifest = {
         "schema_version": "pvr-fandom-priority-two-adjudicated-manifest-v1",
-        "result_version": RESULT_VERSION,
+        "result_version": result_version,
         "inputs": {
             "adjudicated_queue": _file_reference(adjudicated_queue_path),
             "adjudicated_queue_manifest": _file_reference(adjudicated_manifest_path),
@@ -227,10 +242,19 @@ def apply_priority_two_decisions(
         },
         **result["summary"],
     }
-    return result, manifest, build_markdown(result, decisions["batch_id"])
+    return result, manifest, build_markdown(
+        result,
+        decisions["batch_id"],
+        batch_label=batch_label,
+    )
 
 
-def build_markdown(result: dict[str, Any], batch_id: str) -> str:
+def build_markdown(
+    result: dict[str, Any],
+    batch_id: str,
+    *,
+    batch_label: str = "01",
+) -> str:
     summary = result["summary"]
     current = [
         family
@@ -238,7 +262,7 @@ def build_markdown(result: dict[str, Any], batch_id: str) -> str:
         if family["reviewer_decision"].get("decision_batch_id") == batch_id
     ]
     lines = [
-        "# Priority 2 Batch 01 — Adjudication Result",
+        f"# Priority 2 Batch {batch_label} — Adjudication Result",
         "",
         "> Nine casting families are accepted as new review-layer families and one ambiguous",
         "> name remains held. Every release variant stays held; canonical and PostgreSQL data",
@@ -256,7 +280,7 @@ def build_markdown(result: dict[str, Any], batch_id: str) -> str:
         f"| Held Wiki release variants | `{summary['held_release_variants']}` |",
         f"| Promotion-eligible families | `{summary['promotion_eligible_families']}` |",
         "",
-        "## Batch 01 decisions",
+        f"## Batch {batch_label} decisions",
         "",
         "| Casting family | Family decision | Scope | Variant state | Reviewer | Time |",
         "|---|---|---|---|---|---|",
@@ -277,12 +301,21 @@ def build_markdown(result: dict[str, Any], batch_id: str) -> str:
             )
             + " |"
         )
+    if batch_label == "01":
+        hold_lines = [
+            "UUID, no verified release/color identity, and no PostgreSQL row. `'55 Chevy` remains",
+            "held until the 2025 rows can be linked to one of its distinct casting tools.",
+        ]
+    else:
+        hold_lines = [
+            "UUID, no verified release/color identity, and no PostgreSQL row. `Batman and Robin",
+            "Batmobile` remains held until HYW60/HYX61 can be linked to one specific casting tool.",
+        ]
     lines.extend(
         [
             "",
             "The nine new families exist only as accepted review decisions. They have no canonical",
-            "UUID, no verified release/color identity, and no PostgreSQL row. `'55 Chevy` remains",
-            "held until the 2025 rows can be linked to one of its distinct casting tools.",
+            *hold_lines,
             "",
         ]
     )
@@ -313,24 +346,40 @@ def expected_outputs(
 def main() -> None:
     directory = ROOT / "data" / "external" / "hot-wheels-wiki" / "pilot-2025"
     parser = argparse.ArgumentParser(
-        description="Apply or verify priority-two batch-01 family decisions"
+        description="Apply or verify a priority-two family-decision batch"
     )
     parser.add_argument("--check", action="store_true")
+    parser.add_argument("--batch", choices=("1", "2"), default="1")
     parser.add_argument("--directory", type=Path, default=directory)
     arguments = parser.parse_args()
     output = arguments.directory
+    if arguments.batch == "1":
+        batch_label = "01"
+        result_version = RESULT_VERSION
+        queue_prefix = ""
+    else:
+        batch_label = "02"
+        result_version = "fandom-2025-priority-two-batch-02-adjudicated-v1"
+        queue_prefix = "priority-2-batch-01-"
+    prefix = f"priority-2-batch-{batch_label}"
     built = apply_priority_two_decisions(
-        output / "adjudicated-queue.json",
-        output / "adjudicated-queue-manifest.json",
-        output / "priority-2-batch-01-research.json",
-        output / "priority-2-batch-01-research-manifest.json",
-        output / "priority-2-batch-01-decisions.json",
+        output / f"{queue_prefix}adjudicated-queue.json",
+        output / f"{queue_prefix}adjudicated-queue-manifest.json",
+        output / f"{prefix}-research.json",
+        output / f"{prefix}-research-manifest.json",
+        output / f"{prefix}-decisions.json",
+        result_version=result_version,
+        batch_label=batch_label,
     )
-    expected = expected_outputs(*built)
+    expected = expected_outputs(
+        *built,
+        result_file_name=f"{prefix}-adjudicated-queue.json",
+        report_file_name=f"{prefix}-adjudication-result.md",
+    )
     paths = (
-        output / "priority-2-batch-01-adjudicated-queue.json",
-        output / "priority-2-batch-01-adjudicated-queue-manifest.json",
-        output / "priority-2-batch-01-adjudication-result.md",
+        output / f"{prefix}-adjudicated-queue.json",
+        output / f"{prefix}-adjudicated-queue-manifest.json",
+        output / f"{prefix}-adjudication-result.md",
     )
     if arguments.check:
         if any(not path.exists() for path in paths):
@@ -338,9 +387,10 @@ def main() -> None:
         actual = tuple(path.read_text(encoding="utf-8") for path in paths)
         if actual != expected:
             raise ValueError("priority-two adjudication outputs are stale")
+        summary = built[0]["summary"]
         print(
-            "verified 14 completed family decisions; 39 pending; "
-            "promotion eligible=0"
+            f"verified {summary['completed_decisions']} completed family decisions; "
+            f"{summary['pending_decisions']} pending; promotion eligible=0"
         )
         return
     output.mkdir(parents=True, exist_ok=True)

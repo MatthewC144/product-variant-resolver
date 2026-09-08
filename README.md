@@ -230,6 +230,17 @@ release remains variant-held and none enters the canonical catalog, PostgreSQL, 
 python3 scripts/build_fandom_priority_two_research.py --batch 2 --check
 ```
 
+The owner's follow-up approval is recorded in
+[`priority-2-batch-02-decisions.json`](data/external/hot-wheels-wiki/pilot-2025/priority-2-batch-02-decisions.json).
+The validated batch-02 cumulative queue preserves all earlier decision history and now reports 24
+completed / 29 pending families: 4 existing-family merges, 18 accepted new-family decisions, and 2
+holds. All 46 represented release rows remain variant-held, and accepted families still have no
+canonical UUID, PostgreSQL row, or runtime identity.
+
+```bash
+python3 scripts/apply_fandom_priority_two_decisions.py --batch 2 --check
+```
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with

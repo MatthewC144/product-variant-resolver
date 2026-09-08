@@ -1,5 +1,118 @@
 # Project Log
 
+## 2026-09-08 — Batch-02 recommendations become attributable owner family decisions
+
+### What was executed and what problem it solves
+
+T37 produced ten source-backed recommendations but intentionally left every reviewer field
+pending. The project owner then asked to execute the explicitly stated next step after being shown
+the exact outcome: accept nine `create_new_casting` recommendations and keep `Batman and Robin
+Batmobile` held. T38 records that bounded authorization and applies it to the latest cumulative
+queue.
+
+This solves two different audit problems. First, a machine recommendation is no longer confused
+with the owner's choice: the recommendation file remains unchanged and the approval has its own
+actor, time, provenance, reasons, and evidence. Second, batch 02 does not overwrite the fourteen
+earlier decisions. The resulting checkpoint contains twenty-four completed family decisions and
+twenty-nine pending families while retaining the full three-event decision history.
+
+### Code changes and why they were made
+
+`priority-2-batch-02-decisions.json` records the `project_owner` decision batch at
+`2026-09-08T18:55:38Z`. It covers every T37 family exactly once. Nine records accept
+`create_new_casting`; the Batman record accepts `hold` and cites both the current page and the
+separate 2004 100% Hot Wheels tool page. Every record says `casting_family_only`, leaves
+`target_family_id` null, holds release variants, provides a family-specific reason, and links to
+its frozen research packet plus source evidence.
+
+`apply_fandom_priority_two_decisions.py` was generalized from a batch-01-only command to a
+batch-aware applier. `--batch 2` binds the T36 cumulative queue, T37 research and manifest, and the
+new owner decision file. It derives batch-02-specific queue/report filenames and version metadata.
+The validation method now receives the actual research filename so evidence references cannot
+silently point to batch 01.
+
+The history logic was also corrected for a true cumulative input. Batch 01 begins with a legacy
+single `decision_batch` object and converts it to a list; batch 02 begins with the existing
+`decision_batches` list. The applier now accepts either representation, preserves every prior item,
+and appends the current batch. It rejects a malformed prior history instead of replacing it. The
+same batch ID is also rejected if it already exists in history. The default batch-01 behavior and
+frozen report wording remain unchanged, while batch 02 renders the Batman-specific unresolved
+lineage.
+
+The derived `priority-2-batch-02-adjudicated-queue.json`, readable result, and manifest capture the
+new cumulative state and checksum every input/output. A dedicated six-test module checks counts,
+the nine-create/one-hold split, attribution and scope, preservation of both earlier decision sets,
+three-entry history, fail-closed changed/incomplete batches, and deterministic regeneration.
+
+### Technical choices, alternatives, and trade-offs
+
+Approval is kept as an append-only decision layer rather than inserted directly into
+`human_backed_catalog.json` or PostgreSQL. This means accepted families are not searchable yet,
+which is a deliberate cost: family existence, stable entity materialization, and release-variant
+identity are separate claims with different evidence. The current owner response authorizes only
+the first claim.
+
+The applier reuses one validated implementation for both priority-2 batches instead of copying a
+nearly identical batch-02 script. Reuse reduces divergent validation rules, but it requires
+explicit batch configuration and backward-compatibility checks. Both batch outputs are therefore
+tested byte for byte. A fully generic arbitrary-batch configuration file was considered
+unnecessary at two batches; adding only the two validated CLI choices keeps Lite scope small and
+prevents accidental application against an unreviewed filename.
+
+Complete ten-packet coverage remains mandatory. A partial approval format could support more
+granular owner choices, but the actual authorization referred to the entire displayed proposal.
+Requiring all ten exactly once ensures that the hold is recorded rather than silently omitted and
+that no creation outcome changes while the batch is applied.
+
+### Decision changes
+
+Nine T37 families have moved from machine recommendation to completed project-owner family
+decisions: `'94 Audi Avant RS2`, `Alpha Pursuit`, `Bogzilla`, `Crescendo`, `Custom '53 Chevy`,
+`Custom Cadillac Fleetwood`, `Deora III`, `DMC DeLorean`, and `Donut Drifter`. `Batman and Robin
+Batmobile` has moved from proposed hold to an accepted hold because HYW60/HYX61 still lack a
+tool-specific mapping.
+
+Across all owner batches, the cumulative state is now four accepted existing-family merges,
+eighteen accepted new-family decisions, and two held family decisions. Twenty-nine families remain
+pending. Forty-six release rows belong to completed family decisions, but all forty-six remain
+variant-held and no family is promotion eligible. These numbers describe the adjudication layer,
+not a catalog-size increase.
+
+### Verification evidence
+
+The combined batch-01 and batch-02 focused decision suite passed 12/12. It verified 24 completed /
+29 pending counts, 4 merges, 18 accepted new families, 2 holds, 46 held releases, and zero
+promotion. It also proved that the current batch contains exactly nine creations plus the Batman
+hold, all records are attributable and family-only, the prior four plus ten decisions remain
+unchanged, and history has three ordered entries.
+
+Negative tests changed an approved creation to hold, removed one decision, and reused the prior
+batch ID; the applier rejected all three cases. Batch-01 and batch-02 `--check` commands both
+passed. The new cumulative queue checksum is
+`81911e948fd00e76e6da7255ab1174c1697871ac59c3bf674dc5bae645fbc497`; the report checksum is
+`f6bad5ae831d17bf1ab279c55a46a0dfe176755acfb8c20f512c504af884a392`; and the owner decision file
+checksum is `7350ad739d80999690a74ca1713e86e9509f3c88b038158da45a25e67f094481`.
+
+The complete host suite passed 123/123 in 1.422 seconds on the available Python 3.14.6
+interpreter. Fixture and Wiki-pilot validation, T31–T38 deterministic regeneration, Python
+compilation, default and PostgreSQL-profile Compose configuration, and `git diff --check` all
+passed. The host suite emitted the already documented Starlette TestClient warning because the
+machine-wide Python 3.14 environment exposes legacy `httpx`; the previously verified constrained
+Python 3.12 runtime uses `httpx2` warning-free. This task did not execute PostgreSQL, change
+resolver behavior, or add evaluation labels.
+
+### Incomplete work, risks, and next step
+
+Conversation provenance is auditable in this repository but is not a cryptographic signature.
+The eighteen accepted new-family decisions across both batches still lack stable catalog entity
+IDs, and no accepted family can be returned by the runtime. The Batman hold is unresolved at the
+tool level, and no release has verified color or canonical variant identity.
+
+The next immediate task is T39: research the next ten of twenty-nine pending families using the
+T38 cumulative queue. After all priority-2 families have attributable outcomes, a separate
+materialization design can decide how accepted family entities enter the review catalog without
+inventing release data or bypassing canonical review.
+
 ## 2026-09-08 — Batch 02 advances the queue and catches a same-name casting conflict
 
 ### What was executed and what problem it solves

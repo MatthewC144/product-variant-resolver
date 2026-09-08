@@ -1,0 +1,140 @@
+{
+  "batch_id": "fandom-priority-2-batch-02-owner-decisions-v1",
+  "decided_at": "2026-09-08T18:55:38Z",
+  "decided_by": "project_owner",
+  "decision_provenance": "The project owner explicitly requested execution of the next step after receiving the T37 proposal: accept nine create_new_casting family recommendations, keep Batman and Robin Batmobile on hold, and hold all release variants.",
+  "decisions": [
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-02-research.json#fandom-family-1555c05ceeb491cb",
+        "https://hotwheels.fandom.com/wiki/%2794_Audi_Avant_RS2",
+        "https://service.mattel.com/instruction_sheets/JGR28.pdf"
+      ],
+      "family_review_id": "fandom-family-1555c05ceeb491cb",
+      "reason": "A dedicated casting page and Mattel's exact-name 1:64 documentation support treating '94 Audi Avant RS2 as a distinct review-layer casting family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-02-research.json#fandom-family-d90841788b1d98a2",
+        "https://hotwheels.fandom.com/wiki/Alpha_Pursuit",
+        "https://orangetrackdiecast.com/hot-wheels-casting-database/"
+      ],
+      "family_review_id": "fandom-family-d90841788b1d98a2",
+      "reason": "A dedicated casting page and an independent exact-name casting database support treating Alpha Pursuit as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "hold",
+      "evidence_references": [
+        "priority-2-batch-02-research.json#fandom-family-8d24c626a51b1804",
+        "https://hotwheels.fandom.com/wiki/Batman_and_Robin_Batmobile",
+        "https://hotwheels.fandom.com/wiki/Batman_%26_Robin_Batmobile_%28100%25%29",
+        "https://164custom.com/batman_series.html"
+      ],
+      "family_review_id": "fandom-family-8d24c626a51b1804",
+      "reason": "Batman and Robin Batmobile is also used by a separate 2004 100% Hot Wheels casting tool G5513; HYW60/HYX61 need a tool-specific lineage before family creation.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-02-research.json#fandom-family-8a07157f2af2ddd5",
+        "https://hotwheels.fandom.com/wiki/Bogzilla",
+        "https://catalog.hwcollectorsnews.com/Variation/Details/25974"
+      ],
+      "family_review_id": "fandom-family-8a07157f2af2ddd5",
+      "reason": "A dedicated casting page and an independent HYW75 variation record support treating Bogzilla as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-02-research.json#fandom-family-4d2de6db3d5bba63",
+        "https://hotwheels.fandom.com/wiki/Crescendo",
+        "https://hotwheelsdb.com/vehicles/crescendo-2025"
+      ],
+      "family_review_id": "fandom-family-4d2de6db3d5bba63",
+      "reason": "A dedicated casting page and an independent HYW89 vehicle record support treating Crescendo as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-02-research.json#fandom-family-fd96307f2dc8b421",
+        "https://hotwheels.fandom.com/wiki/Custom_%2753_Chevy",
+        "https://www.hwtreasure.com/2024-2/custom-53-chevy/"
+      ],
+      "family_review_id": "fandom-family-fd96307f2dc8b421",
+      "reason": "A dedicated casting page and an independent debut guide support treating Custom '53 Chevy as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-02-research.json#fandom-family-45af5b93f3f6650f",
+        "https://hotwheels.fandom.com/wiki/Custom_Cadillac_Fleetwood",
+        "https://hotwheelsdb.com/vehicles/custom-cadillac-fleetwood-2025"
+      ],
+      "family_review_id": "fandom-family-45af5b93f3f6650f",
+      "reason": "A dedicated casting page and an independent HYW77 vehicle record support treating Custom Cadillac Fleetwood as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-02-research.json#fandom-family-8cce01fa7d44112a",
+        "https://hotwheels.fandom.com/wiki/Deora_III",
+        "https://orangetrackdiecast.com/hot-wheels-casting-database/"
+      ],
+      "family_review_id": "fandom-family-8cce01fa7d44112a",
+      "reason": "A dedicated casting page and an independent exact-name casting database support treating Deora III as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-02-research.json#fandom-family-a8e0dec4abdc4131",
+        "https://hotwheels.fandom.com/wiki/DMC_DeLorean",
+        "https://hwcollectorsnews.com/wp-content/uploads/2023/03/Hot-Wheels-2023-E-CASE-ASSORTMENT.pdf"
+      ],
+      "family_review_id": "fandom-family-a8e0dec4abdc4131",
+      "reason": "A dedicated 1:64 casting page and an independent exact-name case document support treating DMC DeLorean as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-02-research.json#fandom-family-9069156ec909a92e",
+        "https://hotwheels.fandom.com/wiki/Donut_Drifter",
+        "https://www.hwtreasure.com/2023-2/donut-drifter/"
+      ],
+      "family_review_id": "fandom-family-9069156ec909a92e",
+      "reason": "A dedicated 1:64 casting page and an independent debut guide support treating Donut Drifter as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    }
+  ],
+  "schema_version": "pvr-fandom-family-decisions-v1"
+}

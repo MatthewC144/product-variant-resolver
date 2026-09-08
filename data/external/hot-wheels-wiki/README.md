@@ -67,3 +67,9 @@ two-source creation-recommendation rule. `Batman and Robin Batmobile` remains he
 separate 2004 100% Hot Wheels casting tool uses the same display name, so the queued text is not a
 tool-unique identity. The batch-02 JSON, Markdown report, and manifest remain machine research:
 reviewer confirmations are pending, variants are held, and promotion eligibility is zero.
+
+`pilot-2025/priority-2-batch-02-decisions.json` records the owner's follow-up approval of the nine
+creation recommendations and the Batman hold. The derived batch-02 cumulative queue preserves all
+three decision batches and reports 24 completed / 29 pending family decisions, 18 accepted new
+families, 2 holds, 46 held release variants, and zero promotion eligibility. This is still an
+adjudication layer rather than a searchable catalog or PostgreSQL import.
