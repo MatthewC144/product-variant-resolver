@@ -265,6 +265,19 @@ does not create stable catalog IDs, canonical variants, PostgreSQL rows, or runt
 python3 scripts/apply_fandom_priority_two_decisions.py --batch 3 --check
 ```
 
+Priority-2 batch 04 continues from the 34-completed / 19-pending cumulative queue. Its
+[`batch-04 research report`](data/external/hot-wheels-wiki/pilot-2025/priority-2-batch-04-research.md)
+covers the next ten families and twenty-three Wiki release rows. Eight names meet the two-source
+creation rule. `Mazda MX-5 Miata` remains held because distinct 1991 and 2025 1:64 tools use that
+display name; `Nissan Skyline 2000GT-R LBWK` remains held because the regular and Tooned tools share
+the name, with this batch's HYW79/HYY30/HYX54 rows belonging to the Tooned page. Reviewer
+confirmation is pending, every variant remains held, and no catalog, PostgreSQL, or runtime record
+is created.
+
+```bash
+python3 scripts/build_fandom_priority_two_research.py --batch 4 --check
+```
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with

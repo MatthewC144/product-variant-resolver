@@ -832,15 +832,26 @@ Each task is intended to be independently committable and verifiable. `task_exec
   layer. No release variant, stable catalog ID, canonical UUID, PostgreSQL row, runtime result,
   calibration input, or evaluation label was created.
 
-- [ ] **T41 — Research priority-2 family batch 04 from the cumulative queue** `[backend]` _(R6, R16, R26, R28, R30)_
+- [x] **T41 — Research priority-2 family batch 04 from the cumulative queue** `[backend]` _(R6, R16, R26, R28, R30)_
   Verify the T40 cumulative queue checksum and research the next ten of nineteen pending
   priority-2 families with the same dedicated-page, independent exact-name, homonym, and related-
   lineage safeguards.
   **Verify:** completed families are skipped; exactly the next bounded queue slice is represented;
   source observations and hashes are frozen; reviewer confirmation remains pending; every release
   variant stays held; and earlier research and decision artifacts reproduce unchanged.
-  **Status:** Pending. This task is research only and must not infer owner decisions or materialize
-  accepted family entities.
+  **Status:** Complete. Eight families receive machine creation recommendations; Mazda MX-5 Miata
+  and Nissan Skyline 2000GT-R LBWK remain held at family scope because their display names span
+  separate same-scale casting tools. No owner decision or catalog/database/runtime data changed.
+
+- [ ] **T42 — Apply project-owner priority-2 batch-04 decisions** `[backend]` _(R6, R16, R27, R29, R30)_
+  After the owner reviews the exact frozen T41 packet, record only the explicitly approved eight-
+  create/two-hold family outcomes in a separate attributable decision file and append the result to
+  cumulative history without widening variant scope.
+  **Verify:** all ten research packets are covered exactly once; outcomes match authorization; all
+  prior decisions and history remain unchanged; altered, incomplete, duplicate, or widened batches
+  fail closed; all twenty-three current release rows remain held; promotion stays zero.
+  **Status:** Pending the project owner's review. Machine research must not be converted into owner
+  decisions automatically.
 
 ### Task order and handoff
 

@@ -456,3 +456,28 @@
   completed family decisions, but all remain variant-held and promotion eligibility remains zero.
 - **Deferred review:** T41 should research the next ten pending priority-2 families from the T40
   cumulative queue. Materialization of accepted review families remains a later, separate design.
+
+## D26 — Hold same-name same-scale tools while retaining retools and scale-qualified products
+
+- **Choice:** Build batch 04 from the checksum-verified T40 cumulative queue. Recommend creation
+  when one dedicated casting lineage plus non-Fandom exact-name evidence exists, including ordinary
+  retools kept on that page. Hold a grouped name when separate same-scale tools reuse the display
+  name. Retain separately suffixed scale-product pages as context without automatically treating
+  them as same-family conflicts.
+- **Reason:** `Mazda MX-5 Miata` identifies both the 1991–2003 tool and a distinct 2025 Chimera tool.
+  `Nissan Skyline 2000GT-R LBWK` identifies both the regular 2022 tool and a separate 2024 Tooned
+  tool; HYW79/HYY30/HYX54 belong to the latter. A name-only family decision would hide those tool
+  boundaries. In contrast, Nerve Hammer's documented retools remain one continuous page/lineage,
+  and Mercedes-Benz 500 E's separately suffixed Hot Wheels XL page clearly represents an upscaled
+  1:43 product rather than the queued 1:64 mainline record.
+- **Alternatives:** Treat every retool as a new family; merge all exact display-name matches; hold
+  any related page regardless of scale or suffix; or rely on toy numbers to silently pick a lineage
+  without preserving the name conflict. These respectively fragment one lineage, collapse distinct
+  tools, over-block clear identities, or make the family decision unsafe for later name retrieval.
+- **Impact:** Batch 04 covers ten families and twenty-three release rows. Eight receive machine
+  `create_new_casting` recommendations. Mazda MX-5 Miata and Nissan Skyline 2000GT-R LBWK receive
+  holds with the conflicting pages and tool numbers preserved. Reviewer confirmation remains
+  pending, all variants are held, and promotion remains zero.
+- **Deferred review:** T42 must present this exact frozen split to the project owner. Resolving the
+  two holds requires tool-qualified family naming or another explicit lineage key; materialization
+  remains deferred.

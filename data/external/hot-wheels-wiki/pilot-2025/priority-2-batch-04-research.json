@@ -1,0 +1,686 @@
+{
+  "batch_version": "fandom-2025-priority-two-research-batch-04-v1",
+  "decision_policy": {
+    "create_new_casting": "one dedicated Wiki casting page plus at least one non-Fandom publisher that confirms the exact Hot Wheels casting name",
+    "hold": "ambiguous/disambiguated identity or insufficient independent evidence",
+    "variant_boundary": "every release variant remains held"
+  },
+  "packets": [
+    {
+      "brand": "Hot Wheels",
+      "casting_name": "Lamborghini Huracán Sterrato",
+      "family_review_id": "fandom-family-174efb9bce3a441e",
+      "machine_recommendation": {
+        "family_decision": "create_new_casting",
+        "reason": "the queue name resolves to one dedicated Wiki casting page and at least one separate publisher confirms the exact Hot Wheels casting name",
+        "scope": "casting_family_only",
+        "variant_decision": "hold"
+      },
+      "promotion_eligible": false,
+      "research_evidence": {
+        "distinct_source_hosts": [
+          "catalog.hwcollectorsnews.com",
+          "hotwheels.fandom.com"
+        ],
+        "independent_source_count": 1,
+        "independent_sources": [
+          {
+            "confirms_exact_casting_name": true,
+            "observed_claim": "The casting catalog records Lamborghini Huracán Sterrato and its HYW93 2025 release under the exact name.",
+            "publisher": "Hot Wheels Collectors News Catalog",
+            "source_type": "independent_casting_catalog",
+            "url": "https://catalog.hwcollectorsnews.com/Castings/Details/dc9e9612-131c-4191-9352-fddd4609402d"
+          }
+        ],
+        "wiki_casting_page": {
+          "observed_claim": "A dedicated page identifies the casting, its 2024 debut, HRY87 tool number, and HYW93/HYY45/JBB86 2025 releases.",
+          "page_classification": "single_casting",
+          "publisher": "Hot Wheels Wiki contributors",
+          "url": "https://hotwheels.fandom.com/wiki/Lamborghini_Hurac%C3%A1n_Sterrato"
+        }
+      },
+      "reviewer_confirmation": {
+        "decided_at": null,
+        "decided_by": null,
+        "evidence_references": [],
+        "reason": null,
+        "status": "pending"
+      },
+      "source_row_count": 3,
+      "source_rows": [
+        {
+          "collector_number": "041",
+          "release_year": 2025,
+          "series": "Safari Mode",
+          "source_record_id": "fandom-row-cd91a09d2fb2f780",
+          "source_row": 79,
+          "toy_number": "HYW93",
+          "variant_note": null
+        },
+        {
+          "collector_number": "041",
+          "release_year": 2025,
+          "series": "Red Edition",
+          "source_record_id": "fandom-row-ccf12c7503be5c7c",
+          "source_row": 80,
+          "toy_number": "HYY45",
+          "variant_note": "2nd Color"
+        },
+        {
+          "collector_number": "041",
+          "release_year": 2025,
+          "series": "Safari Mode",
+          "source_record_id": "fandom-row-5334ae3b3e4446e6",
+          "source_row": 81,
+          "toy_number": "JBB86",
+          "variant_note": "3rd Color"
+        }
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting_name": "Max Steel",
+      "family_review_id": "fandom-family-0573861db69878eb",
+      "machine_recommendation": {
+        "family_decision": "create_new_casting",
+        "reason": "the queue name resolves to one dedicated Wiki casting page and at least one separate publisher confirms the exact Hot Wheels casting name",
+        "scope": "casting_family_only",
+        "variant_decision": "hold"
+      },
+      "promotion_eligible": false,
+      "research_evidence": {
+        "distinct_source_hosts": [
+          "archive.hwcollectorsnews.com",
+          "hotwheels.fandom.com"
+        ],
+        "independent_source_count": 1,
+        "independent_sources": [
+          {
+            "confirms_exact_casting_name": true,
+            "observed_claim": "The case-assortment newsletter lists Max Steel by exact casting name as a Hot Wheels release.",
+            "publisher": "Hot Wheels Collectors News",
+            "source_type": "collector_newsletter_pdf",
+            "url": "https://archive.hwcollectorsnews.com/wp-content/uploads/2024/07/2024-M-Case-Assortment.pdf"
+          }
+        ],
+        "wiki_casting_page": {
+          "observed_claim": "A dedicated page identifies the unrelated-to-the-franchise hot-rod casting, its 2022 debut, HCT29 tool number, and HYW78/HYX53 2025 releases.",
+          "page_classification": "single_casting",
+          "publisher": "Hot Wheels Wiki contributors",
+          "url": "https://hotwheels.fandom.com/wiki/Max_Steel"
+        }
+      },
+      "reviewer_confirmation": {
+        "decided_at": null,
+        "decided_by": null,
+        "evidence_references": [],
+        "reason": null,
+        "status": "pending"
+      },
+      "source_row_count": 2,
+      "source_rows": [
+        {
+          "collector_number": "025",
+          "release_year": 2025,
+          "series": "Rod Squad",
+          "source_record_id": "fandom-row-e248d537782b057f",
+          "source_row": 52,
+          "toy_number": "HYW78",
+          "variant_note": null
+        },
+        {
+          "collector_number": "025",
+          "release_year": 2025,
+          "series": "Rod Squad",
+          "source_record_id": "fandom-row-afc7fec167ae18e5",
+          "source_row": 53,
+          "toy_number": "HYX53",
+          "variant_note": "2nd Color"
+        }
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting_name": "Mazda Autozam",
+      "family_review_id": "fandom-family-e7d4d8cf1dd8c6e1",
+      "machine_recommendation": {
+        "family_decision": "create_new_casting",
+        "reason": "the queue name resolves to one dedicated Wiki casting page and at least one separate publisher confirms the exact Hot Wheels casting name",
+        "scope": "casting_family_only",
+        "variant_decision": "hold"
+      },
+      "promotion_eligible": false,
+      "research_evidence": {
+        "distinct_source_hosts": [
+          "catalog.hwcollectorsnews.com",
+          "hotwheels.fandom.com"
+        ],
+        "independent_source_count": 1,
+        "independent_sources": [
+          {
+            "confirms_exact_casting_name": true,
+            "observed_claim": "The variation catalog records Mazda Autozam toy numbers HYW66, HYY10, and HYX45 as 2025 releases.",
+            "publisher": "Hot Wheels Collectors News Catalog",
+            "source_type": "independent_variation_catalog",
+            "url": "https://catalog.hwcollectorsnews.com/SeriesDefinitions/Details/1927"
+          }
+        ],
+        "wiki_casting_page": {
+          "observed_claim": "A dedicated page identifies the Texas Toot-based casting, its 2024 debut, HRY51 tool number, and HYW66/HYY10/HYX45 2025 releases.",
+          "page_classification": "single_casting",
+          "publisher": "Hot Wheels Wiki contributors",
+          "url": "https://hotwheels.fandom.com/wiki/Mazda_Autozam"
+        }
+      },
+      "reviewer_confirmation": {
+        "decided_at": null,
+        "decided_by": null,
+        "evidence_references": [],
+        "reason": null,
+        "status": "pending"
+      },
+      "source_row_count": 3,
+      "source_rows": [
+        {
+          "collector_number": "008",
+          "release_year": 2025,
+          "series": "HW Dream Garage",
+          "source_record_id": "fandom-row-a69d24d7e300d639",
+          "source_row": 15,
+          "toy_number": "HYW66",
+          "variant_note": null
+        },
+        {
+          "collector_number": "008",
+          "release_year": 2025,
+          "series": "HW Dream Garage",
+          "source_record_id": "fandom-row-592082e49745a19f",
+          "source_row": 16,
+          "toy_number": "HYY10",
+          "variant_note": "2nd Color - Zamac"
+        },
+        {
+          "collector_number": "008",
+          "release_year": 2025,
+          "series": "HW Dream Garage",
+          "source_record_id": "fandom-row-0b280377b913e854",
+          "source_row": 17,
+          "toy_number": "HYX45",
+          "variant_note": "3rd Color"
+        }
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting_name": "Mazda MX-5 Miata",
+      "family_review_id": "fandom-family-c639dc688e21d33b",
+      "machine_recommendation": {
+        "family_decision": "hold",
+        "reason": "the queued display name is also used by a separate casting tool, so the source rows need a tool-specific identity before family creation",
+        "scope": "casting_family_only",
+        "variant_decision": "hold"
+      },
+      "promotion_eligible": false,
+      "research_evidence": {
+        "distinct_source_hosts": [
+          "catalog.hwcollectorsnews.com",
+          "hotwheels.fandom.com"
+        ],
+        "independent_source_count": 1,
+        "independent_sources": [
+          {
+            "confirms_exact_casting_name": true,
+            "observed_claim": "The variation catalog records HYW18 and HYX57 under the exact Mazda MX-5 Miata name as 2025 releases.",
+            "publisher": "Hot Wheels Collectors News Catalog",
+            "source_type": "independent_variation_catalog",
+            "url": "https://catalog.hwcollectorsnews.com/SeriesDefinitions/Details/1927"
+          }
+        ],
+        "wiki_casting_page": {
+          "observed_claim": "The 2025 dedicated page maps HYW18/HYX57 to the new Chimera tool, but a separate 1991-era 1:64 casting page uses the same Mazda MX-5 Miata display name; the grouped name is not tool-unique.",
+          "page_classification": "homonymous_castings",
+          "publisher": "Hot Wheels Wiki contributors",
+          "related_casting_pages": [
+            {
+              "distinction": "Separate 1991–2003 1:64 casting tool 2920 designed by Larry Wood under the same Mazda MX-5 Miata display name.",
+              "url": "https://hotwheels.fandom.com/wiki/Mazda_MX-5_Miata_%281991%29"
+            }
+          ],
+          "url": "https://hotwheels.fandom.com/wiki/Mazda_MX-5_Miata_%282025%29"
+        }
+      },
+      "reviewer_confirmation": {
+        "decided_at": null,
+        "decided_by": null,
+        "evidence_references": [],
+        "reason": null,
+        "status": "pending"
+      },
+      "source_row_count": 2,
+      "source_rows": [
+        {
+          "collector_number": "001",
+          "release_year": 2025,
+          "series": "HW Dream Garage",
+          "source_record_id": "fandom-row-53333b0feb531ebc",
+          "source_row": 1,
+          "toy_number": "HYW18",
+          "variant_note": null
+        },
+        {
+          "collector_number": "001",
+          "release_year": 2025,
+          "series": "HW Dream Garage",
+          "source_record_id": "fandom-row-7e1a3b3ad2244c80",
+          "source_row": 2,
+          "toy_number": "HYX57",
+          "variant_note": "2nd Color"
+        }
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting_name": "Mazda REPU",
+      "family_review_id": "fandom-family-aec11693bfe04245",
+      "machine_recommendation": {
+        "family_decision": "create_new_casting",
+        "reason": "the queue name resolves to one dedicated Wiki casting page and at least one separate publisher confirms the exact Hot Wheels casting name",
+        "scope": "casting_family_only",
+        "variant_decision": "hold"
+      },
+      "promotion_eligible": false,
+      "research_evidence": {
+        "distinct_source_hosts": [
+          "allhotwheels.com",
+          "hotwheels.fandom.com"
+        ],
+        "independent_source_count": 1,
+        "independent_sources": [
+          {
+            "confirms_exact_casting_name": true,
+            "observed_claim": "The collector catalog records Mazda REPU HYW98 as a 2025 HW J-Imports 1:64 release.",
+            "publisher": "All Hot Wheels",
+            "source_type": "independent_collector_catalog",
+            "url": "https://allhotwheels.com/car/2025/mainline/hyw98/mazda-repu"
+          }
+        ],
+        "wiki_casting_page": {
+          "observed_claim": "A dedicated page identifies the rotary pickup casting, its 2017 debut, DTX00 tool number, and HYW98 2025 release.",
+          "page_classification": "single_casting",
+          "publisher": "Hot Wheels Wiki contributors",
+          "url": "https://hotwheels.fandom.com/wiki/Mazda_REPU"
+        }
+      },
+      "reviewer_confirmation": {
+        "decided_at": null,
+        "decided_by": null,
+        "evidence_references": [],
+        "reason": null,
+        "status": "pending"
+      },
+      "source_row_count": 1,
+      "source_rows": [
+        {
+          "collector_number": "047",
+          "release_year": 2025,
+          "series": "HW J-Imports",
+          "source_record_id": "fandom-row-475c3a3f51bdfe72",
+          "source_row": 91,
+          "toy_number": "HYW98",
+          "variant_note": null
+        }
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting_name": "Mercedes-Benz 500 E",
+      "family_review_id": "fandom-family-1b2a4227b4e5decd",
+      "machine_recommendation": {
+        "family_decision": "create_new_casting",
+        "reason": "the queue name resolves to one dedicated Wiki casting page and at least one separate publisher confirms the exact Hot Wheels casting name",
+        "scope": "casting_family_only",
+        "variant_decision": "hold"
+      },
+      "promotion_eligible": false,
+      "research_evidence": {
+        "distinct_source_hosts": [
+          "hotwheels.fandom.com",
+          "www.lastdodo.com"
+        ],
+        "independent_source_count": 1,
+        "independent_sources": [
+          {
+            "confirms_exact_casting_name": true,
+            "observed_claim": "The collector catalog records Mercedes-Benz 500 E HYX02 as a 2025 Hot Wheels release under the exact name.",
+            "publisher": "LastDodo",
+            "source_type": "independent_collector_catalog",
+            "url": "https://www.lastdodo.com/en/items/11230373-mercedes-benz-500-e"
+          }
+        ],
+        "wiki_casting_page": {
+          "observed_claim": "A dedicated 1:64 page identifies the casting, its 2021 debut, GRX59 tool number, and HYX02/HYY43 2025 releases; the separately suffixed Hot Wheels XL page is an upscaled product line.",
+          "page_classification": "single_casting",
+          "publisher": "Hot Wheels Wiki contributors",
+          "related_casting_pages": [
+            {
+              "distinction": "Separately suffixed Hot Wheels XL page documents a 1:43 upscaled product, not the queued 1:64 mainline tool.",
+              "url": "https://hotwheels.fandom.com/wiki/Mercedes-Benz_500_E_%28Hot_Wheels_XL%29"
+            }
+          ],
+          "url": "https://hotwheels.fandom.com/wiki/Mercedes-Benz_500_E"
+        }
+      },
+      "reviewer_confirmation": {
+        "decided_at": null,
+        "decided_by": null,
+        "evidence_references": [],
+        "reason": null,
+        "status": "pending"
+      },
+      "source_row_count": 2,
+      "source_rows": [
+        {
+          "collector_number": "052",
+          "release_year": 2025,
+          "series": "HW: '70s vs. '90s",
+          "source_record_id": "fandom-row-c968a9ef89a80e5b",
+          "source_row": 99,
+          "toy_number": "HYX02",
+          "variant_note": null
+        },
+        {
+          "collector_number": "052",
+          "release_year": 2025,
+          "series": "Red Edition",
+          "source_record_id": "fandom-row-578b315a37680769",
+          "source_row": 100,
+          "toy_number": "HYY43",
+          "variant_note": "2nd Color"
+        }
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting_name": "Monster High Ghoul Mobile",
+      "family_review_id": "fandom-family-2357e7eb6b4e62b8",
+      "machine_recommendation": {
+        "family_decision": "create_new_casting",
+        "reason": "the queue name resolves to one dedicated Wiki casting page and at least one separate publisher confirms the exact Hot Wheels casting name",
+        "scope": "casting_family_only",
+        "variant_decision": "hold"
+      },
+      "promotion_eligible": false,
+      "research_evidence": {
+        "distinct_source_hosts": [
+          "hotwheels.fandom.com",
+          "www.footballstickipedia.co.uk"
+        ],
+        "independent_source_count": 1,
+        "independent_sources": [
+          {
+            "confirms_exact_casting_name": true,
+            "observed_claim": "The independent trading-card checklist lists Monster High Ghoul Mobile by exact Hot Wheels casting name.",
+            "publisher": "Football Stickipedia",
+            "source_type": "independent_checklist_pdf",
+            "url": "https://www.footballstickipedia.co.uk/generated/checklists/fs_panini_entertainment_panini_hot_wheels_on_the_road_trading_card_collection.pdf"
+          }
+        ],
+        "wiki_casting_page": {
+          "observed_claim": "A dedicated page identifies the casting, its 2024 debut, HRY45 tool number, and HYW61/HYX62 2025 releases.",
+          "page_classification": "single_casting",
+          "publisher": "Hot Wheels Wiki contributors",
+          "url": "https://hotwheels.fandom.com/wiki/Monster_High_Ghoul_Mobile"
+        }
+      },
+      "reviewer_confirmation": {
+        "decided_at": null,
+        "decided_by": null,
+        "evidence_references": [],
+        "reason": null,
+        "status": "pending"
+      },
+      "source_row_count": 2,
+      "source_rows": [
+        {
+          "collector_number": "003",
+          "release_year": 2025,
+          "series": "HW Screen Time",
+          "source_record_id": "fandom-row-250ad379488a1f5c",
+          "source_row": 5,
+          "toy_number": "HYW61",
+          "variant_note": null
+        },
+        {
+          "collector_number": "003",
+          "release_year": 2025,
+          "series": "HW Screen Time",
+          "source_record_id": "fandom-row-897b87e7ffac6681",
+          "source_row": 6,
+          "toy_number": "HYX62",
+          "variant_note": "2nd Color"
+        }
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting_name": "Morgan Super 3",
+      "family_review_id": "fandom-family-aaafff57ac4d4daa",
+      "machine_recommendation": {
+        "family_decision": "create_new_casting",
+        "reason": "the queue name resolves to one dedicated Wiki casting page and at least one separate publisher confirms the exact Hot Wheels casting name",
+        "scope": "casting_family_only",
+        "variant_decision": "hold"
+      },
+      "promotion_eligible": false,
+      "research_evidence": {
+        "distinct_source_hosts": [
+          "catalog.hwcollectorsnews.com",
+          "hotwheels.fandom.com"
+        ],
+        "independent_source_count": 1,
+        "independent_sources": [
+          {
+            "confirms_exact_casting_name": true,
+            "observed_claim": "The variation catalog records Morgan Super 3 toy numbers HYW13, HYY33, and HYX48 as 2025 releases.",
+            "publisher": "Hot Wheels Collectors News Catalog",
+            "source_type": "independent_variation_catalog",
+            "url": "https://catalog.hwcollectorsnews.com/SeriesDefinitions/Details/1913"
+          }
+        ],
+        "wiki_casting_page": {
+          "observed_claim": "A dedicated page identifies the casting, its 2025 debut, HYW13 tool number, and HYW13/HYY33/HYX48 releases.",
+          "page_classification": "single_casting",
+          "publisher": "Hot Wheels Wiki contributors",
+          "url": "https://hotwheels.fandom.com/wiki/Morgan_Super_3"
+        }
+      },
+      "reviewer_confirmation": {
+        "decided_at": null,
+        "decided_by": null,
+        "evidence_references": [],
+        "reason": null,
+        "status": "pending"
+      },
+      "source_row_count": 3,
+      "source_rows": [
+        {
+          "collector_number": "015",
+          "release_year": 2025,
+          "series": "Factory Fresh",
+          "source_record_id": "fandom-row-75cd82288d943dce",
+          "source_row": 31,
+          "toy_number": "HYW13",
+          "variant_note": null
+        },
+        {
+          "collector_number": "015",
+          "release_year": 2025,
+          "series": "Factory Fresh",
+          "source_record_id": "fandom-row-eb74e3eebcc4dcf4",
+          "source_row": 32,
+          "toy_number": "HYY33",
+          "variant_note": "2nd Color"
+        },
+        {
+          "collector_number": "015",
+          "release_year": 2025,
+          "series": "Factory Fresh",
+          "source_record_id": "fandom-row-38aa30ce0eed34ca",
+          "source_row": 33,
+          "toy_number": "HYX48",
+          "variant_note": "3rd Color"
+        }
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting_name": "Nerve Hammer",
+      "family_review_id": "fandom-family-4d00e96d12341b4d",
+      "machine_recommendation": {
+        "family_decision": "create_new_casting",
+        "reason": "the queue name resolves to one dedicated Wiki casting page and at least one separate publisher confirms the exact Hot Wheels casting name",
+        "scope": "casting_family_only",
+        "variant_decision": "hold"
+      },
+      "promotion_eligible": false,
+      "research_evidence": {
+        "distinct_source_hosts": [
+          "hotwheels.fandom.com",
+          "hotwheelsdb.com"
+        ],
+        "independent_source_count": 1,
+        "independent_sources": [
+          {
+            "confirms_exact_casting_name": true,
+            "observed_claim": "The vehicle catalog records Nerve Hammer HYW69 as a 2025 X-Raycers release.",
+            "publisher": "Hot Wheels Database",
+            "source_type": "independent_vehicle_catalog",
+            "url": "https://hotwheelsdb.com/vehicles/nerve-hammer-2025"
+          }
+        ],
+        "wiki_casting_page": {
+          "observed_claim": "One dedicated casting page keeps the original and two documented retools in a continuous Nerve Hammer lineage and lists HYW69/HYX66 for 2025.",
+          "page_classification": "single_casting",
+          "publisher": "Hot Wheels Wiki contributors",
+          "url": "https://hotwheels.fandom.com/wiki/Nerve_Hammer"
+        }
+      },
+      "reviewer_confirmation": {
+        "decided_at": null,
+        "decided_by": null,
+        "evidence_references": [],
+        "reason": null,
+        "status": "pending"
+      },
+      "source_row_count": 2,
+      "source_rows": [
+        {
+          "collector_number": "013",
+          "release_year": 2025,
+          "series": "X-Raycers",
+          "source_record_id": "fandom-row-836deb653eb8fd16",
+          "source_row": 26,
+          "toy_number": "HYW69",
+          "variant_note": null
+        },
+        {
+          "collector_number": "013",
+          "release_year": 2025,
+          "series": "X-Raycers",
+          "source_record_id": "fandom-row-623ed15bf6ba1bac",
+          "source_row": 27,
+          "toy_number": "HYX66",
+          "variant_note": "2nd Color"
+        }
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting_name": "Nissan Skyline 2000GT-R LBWK",
+      "family_review_id": "fandom-family-369b0be5855c0a1c",
+      "machine_recommendation": {
+        "family_decision": "hold",
+        "reason": "the queued display name is also used by a separate casting tool, so the source rows need a tool-specific identity before family creation",
+        "scope": "casting_family_only",
+        "variant_decision": "hold"
+      },
+      "promotion_eligible": false,
+      "research_evidence": {
+        "distinct_source_hosts": [
+          "diecastradar.app",
+          "hotwheels.fandom.com"
+        ],
+        "independent_source_count": 1,
+        "independent_sources": [
+          {
+            "confirms_exact_casting_name": true,
+            "observed_claim": "The collector record maps HYX54 to the Nissan Skyline 2000GT-R LBWK (Tooned) casting and its 2025 HW J-Imports release.",
+            "publisher": "Diecast Radar",
+            "source_type": "independent_collector_catalog",
+            "url": "https://diecastradar.app/product/hot-wheels-nissan-skyline-2000gt-r-lbwk-tooned-metalflake-blue-hyx54"
+          }
+        ],
+        "wiki_casting_page": {
+          "observed_claim": "HYW79/HYY30/HYX54 belong to the dedicated Tooned page, but a separate same-scale non-Tooned tool also uses the Nissan Skyline 2000GT-R LBWK display name; the grouped name is not tool-unique.",
+          "page_classification": "homonymous_castings",
+          "publisher": "Hot Wheels Wiki contributors",
+          "related_casting_pages": [
+            {
+              "distinction": "Separate non-Tooned 1:64 tool HCW32 designed by Ryu Asada and introduced in 2022 under the same display name.",
+              "url": "https://hotwheels.fandom.com/wiki/Nissan_Skyline_2000GT-R_LBWK"
+            }
+          ],
+          "url": "https://hotwheels.fandom.com/wiki/Nissan_Skyline_2000GT-R_LBWK_%28Tooned%29"
+        }
+      },
+      "reviewer_confirmation": {
+        "decided_at": null,
+        "decided_by": null,
+        "evidence_references": [],
+        "reason": null,
+        "status": "pending"
+      },
+      "source_row_count": 3,
+      "source_rows": [
+        {
+          "collector_number": "026",
+          "release_year": 2025,
+          "series": "HW J-Imports",
+          "source_record_id": "fandom-row-77ecedc5e3db3f77",
+          "source_row": 54,
+          "toy_number": "HYW79",
+          "variant_note": null
+        },
+        {
+          "collector_number": "026",
+          "release_year": 2025,
+          "series": "HW J-Imports",
+          "source_record_id": "fandom-row-ebf5fc720ec1d06d",
+          "source_row": 55,
+          "toy_number": "HYY30",
+          "variant_note": "2nd Color"
+        },
+        {
+          "collector_number": "026",
+          "release_year": 2025,
+          "series": "HW J-Imports",
+          "source_record_id": "fandom-row-27fe2c9ab41942b8",
+          "source_row": 56,
+          "toy_number": "HYX54",
+          "variant_note": "3rd Color"
+        }
+      ]
+    }
+  ],
+  "schema_version": "pvr-fandom-priority-two-research-v1",
+  "selection_rule": "first 10 pending priority-2 families in adjudicated queue order",
+  "status": "awaiting_reviewer_confirmation",
+  "summary": {
+    "confirmed_reviewer_decisions": 0,
+    "promotion_eligible_families": 0,
+    "proposed_holds": 2,
+    "proposed_new_castings": 8,
+    "represented_wiki_rows": 23,
+    "researched_families": 10
+  }
+}

@@ -89,3 +89,13 @@ ordered decision events and reports 34 completed / 19 pending family decisions, 
 28 accepted new families, 2 holds, 64 held release variants, and zero promotion eligibility. The
 decision file and derived outputs are checksum-frozen. These accepted family outcomes still do not
 exist as catalog entities or PostgreSQL/runtime records.
+
+`pilot-2025/priority-2-batch-04-source-notes.json` continues from the 34-completed / 19-pending
+cumulative queue and freezes research for ten families / twenty-three release rows. Eight names
+meet the dedicated-page plus non-Fandom exact-name rule. Mazda MX-5 Miata is held because separate
+1991 and 2025 1:64 tools share the display name. Nissan Skyline 2000GT-R LBWK is held because the
+regular and Tooned same-scale tools share the name; the current toy numbers map to the Tooned page,
+but the name-only family key remains ambiguous. The packet treats Nerve Hammer's documented retools
+as one continuous lineage and retains the separately suffixed 1:43 Mercedes-Benz 500 E XL page as
+scale context. All results are machine recommendations with pending reviewer fields, held variants,
+zero promotion, and no catalog/PostgreSQL/runtime mutation.

@@ -1,5 +1,116 @@
 # Project Log
 
+## 2026-09-08 — Batch 04 separates same-name tools from retools and scale-qualified products
+
+### What was executed and what problem it solves
+
+T41 advances research from the exact T40 cumulative checkpoint. It verifies the latest queue and
+manifest, skips all thirty-four completed decisions, and selects the next ten still-pending
+priority-2 families in queue order. This keeps research aligned with actual adjudication state and
+prevents earlier families from being selected again.
+
+The batch covers twenty-three Wiki release rows across Lamborghini Huracán Sterrato, Max Steel,
+Mazda Autozam, Mazda MX-5 Miata, Mazda REPU, Mercedes-Benz 500 E, Monster High Ghoul Mobile, Morgan
+Super 3, Nerve Hammer, and Nissan Skyline 2000GT-R LBWK. Eight names have a dedicated casting
+lineage plus non-Fandom exact-name corroboration and receive machine `create_new_casting`
+recommendations. Mazda MX-5 Miata and Nissan Skyline 2000GT-R LBWK remain held because each display
+name is reused by separate same-scale casting tools.
+
+### Code changes and why they were made
+
+`priority-2-batch-04-source-notes.json` records the bounded research input. Each family keeps its
+stable queue ID, exact display name, a dedicated Wiki-page observation, and at least one concise
+observation from another publisher. The non-Fandom evidence comes from Hot Wheels Collectors News,
+All Hot Wheels, LastDodo, Football Stickipedia, Hot Wheels Database, and Diecast Radar. Only URLs
+and paraphrased text claims are stored; no external images or full pages were copied.
+
+The Mazda MX-5 record links the 2025 HYW18/HYX57 Chimera page to the separate 1991–2003 1:64 tool
+2920 that uses the same displayed casting name. The Nissan record maps HYW79/HYY30/HYX54 to the
+2024 Tooned page while retaining the regular 2022 HCW32 tool, which uses the same display name at
+the same scale. Both are classified `homonymous_castings`, forcing family-level holds even though
+the individual toy numbers explain which current page contains the staged rows.
+
+Two contrasting cases are also made explicit. Nerve Hammer has multiple documented retools, but
+one dedicated page treats them as a continuous lineage, so ordinary tooling revisions do not
+create artificial families. Mercedes-Benz 500 E has a related Hot Wheels XL page, but that page is
+explicitly suffixed and documents a 1:43 upscaled product; the queued releases and main page are
+1:64. The relationship remains visible without turning a scale-qualified product into a false
+same-tool conflict.
+
+`build_fandom_priority_two_research.py` now accepts `--batch 4`, binding the build to
+`priority-2-batch-03-adjudicated-queue.json` and its manifest and assigning batch-04 output names
+and version metadata. The same builder still defaults to batch 01 and retains the explicit mappings
+for batches 02 and 03, so all research batches share one validation policy without losing frozen
+compatibility.
+
+`test_fandom_priority_two_research_batch_four.py` adds six tests. They verify the next-ten queue
+slice, ten-family/twenty-three-row/eight-create/two-hold totals, both conflicting pages and tool
+numbers, two-host creation evidence, Mercedes scale context, Nerve Hammer retool continuity,
+pending reviewer state, variant hold, zero promotion, checksums, and deterministic regeneration.
+
+### Technical choices, alternatives, and trade-offs
+
+Family identity remains stricter than release-page lookup. The Nissan toy numbers clearly identify
+the Tooned page, and the Mazda numbers identify the 2025 page, but the current adjudication key is a
+normalized display name intended for later retrieval. Accepting a name-only family while that same
+name denotes another 1:64 tool would preserve the current rows but create an ambiguous future
+entity. Holding the family costs review velocity but avoids encoding a collision that would later
+need migration.
+
+Retools are not automatically split. Treating every body/base revision as a new family would make
+Nerve Hammer several identities even though the source catalog maintains one lineage. Conversely,
+merging every exact display name would collapse the two Mazda and two Nissan tools. The chosen
+method uses dedicated source-page lineage, scale, suffix, tool number, and exact queued name
+together, rather than relying on text equality alone.
+
+The research stays a ten-family bounded packet instead of crawling the remaining nineteen or a new
+year in one run. Smaller batches keep sources and edge cases reviewable, but require more owner
+round trips. That is appropriate in Lite mode because the highest-risk operation is identity
+assignment, not fetching large quantities of strings quickly.
+
+### Decision changes
+
+No project-owner decision changed. The cumulative adjudication queue remains thirty-four completed
+and nineteen pending families, including four existing-family merges, twenty-eight accepted new-
+family decisions, and two holds. Sixty-four release rows under completed decisions remain variant-
+held and promotion remains zero.
+
+Within the unconfirmed research layer, eight families now have creation recommendations:
+Lamborghini Huracán Sterrato, Max Steel, Mazda Autozam, Mazda REPU, Mercedes-Benz 500 E, Monster
+High Ghoul Mobile, Morgan Super 3, and Nerve Hammer. Mazda MX-5 Miata and Nissan Skyline 2000GT-R
+LBWK receive proposed holds. These statuses must not be counted as new human labels until T42
+records an explicit owner response.
+
+### Verification evidence
+
+The T41 focused module passed 6/6. The complete host suite passed 141/141 in 1.491 seconds on the
+available Python 3.14.6 interpreter. Fixture and 100-row Wiki-pilot validation, deterministic
+review/queue/priority-one evidence, all four priority-two research batches, all three cumulative
+priority-two decision checkpoints, Python compilation, default and PostgreSQL-profile Compose
+configuration, and `git diff --check` all passed.
+
+The batch-04 source-notes checksum is
+`06616c879b3d8fa5d293338669b9497a29703a8055d44fce45c115e82efd6761`; research JSON is
+`07ae79197f81f3595b5323a38834fbfd776fd7043180bd3f6961c3a03d2c9673`; the readable report is
+`cb9ae7e45b670d64ae6c2d4831a13eee4d6a70d5f9edf3aa16a032f8a98415c4`; and the manifest is
+`930f6bd72361501e93a792dae493d8b762325fe8df5a11625cd57f08b7a38923`. All four research `--check`
+commands passed without changing the first three artifacts. The host suite emitted the documented
+legacy-`httpx` Starlette TestClient warning on machine-wide Python 3.14; the constrained Python
+3.12 runtime was previously verified with `httpx2`.
+
+### Incomplete work, risks, and next step
+
+All ten T41 reviewer blocks remain pending. The eight creation recommendations have no stable
+review-catalog IDs and are not searchable through Dual-RAG. The two holds require a tool-qualified
+family name or explicit lineage key; toy number alone does not repair the current name-key
+collision. No color, release-level identity, catalog entity, PostgreSQL row, runtime behavior,
+calibration data, or evaluation label changed.
+
+The next immediate task is T42: present the exact eight-create/two-hold packet to the project owner
+and, only if authorized, record it as a separate decision file. Nine priority-2 families will remain
+after that batch, allowing one final bounded research packet before designing materialization and
+the later expansion toward approximately 3,000 reviewable records.
+
 ## 2026-09-08 — Batch-03 research becomes an attributable owner decision layer
 
 ### What was executed and what problem it solves
