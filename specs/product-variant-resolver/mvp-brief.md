@@ -49,6 +49,9 @@ This MVP is a portfolio-quality engineering validation, not evidence of producti
   by side while separating family-merge recommendations from unverified variants.
 - A fail-closed decision applier that records attributable family confirmations separately from the
   original queue and cannot turn held variants into canonical or PostgreSQL records.
+- A bounded priority-2 research packet that requires a dedicated casting page plus exact-name
+  confirmation from a non-Fandom publisher before recommending a new family, while holding
+  ambiguous names and every release variant.
 
 ### 2.2 EARS acceptance requirements
 
@@ -77,6 +80,7 @@ This MVP is a portfolio-quality engineering validation, not evidence of producti
 - **R23 — Attributable human-adjudication queue:** WHEN external pre-review is prepared for a person, THE SYSTEM SHALL group every source row exactly once by normalized casting family, prioritize exact existing-family candidates, permit only merge/create/hold/reject decisions, require reviewer/time/reason/evidence for completion, and keep every pending group ineligible for promotion.
 - **R24 — Priority-1 family evidence:** WHEN a reviewer examines an exact existing-family candidate, THE SYSTEM SHALL show all contributing Wiki release rows, original and human-verified label evidence, target family ID, observed series/variant differences, a family-scoped recommendation, an explicit variant hold, and an empty reviewer confirmation without making the item promotion eligible.
 - **R25 — Validated family-decision application:** WHEN an attributable reviewer decision batch is applied, THE SYSTEM SHALL require a permitted decision, valid timestamp, reviewer, provenance, reason, evidence, casting-family-only scope, held variants, and an exact candidate target for merges; update completed/pending counts in a derived artifact; and reject invalid targets without modifying the original queue or creating promotion-eligible records.
+- **R26 — Bounded new-family research:** WHEN priority-2 possible-new families are researched, THE SYSTEM SHALL select a deterministic bounded batch, require a dedicated casting page and an exact-name confirmation from at least one non-Fandom publisher before recommending `create_new_casting`, hold disambiguated or insufficient identities, preserve source URLs and concise observed claims, keep reviewer confirmation pending, hold every release variant, and create no canonical or PostgreSQL record.
 
 The numeric gates above are deliberately modest fixture-MVP gates. Reports and README text must state dataset size, construction method, split strategy, hardware, model versions, and that the figures do not establish production accuracy.
 
@@ -746,6 +750,18 @@ Each task is intended to be independently committable and verifiable. `task_exec
   **Status:** Complete. The accepted targets are the existing human-backed families for `'67 Chevy
   C10`, `Purple Passion`, `Subaru BRZ`, and `Tesla Model S Plaid`. This records family linkage only;
   it creates no canonical UUID and grants no release-variant identity.
+
+- [x] **T35 — Research priority-2 family batch 01** `[backend]` _(R6, R16, R26)_
+  Select the first ten pending priority-2 families, record their dedicated Wiki casting-page
+  status and non-Fandom exact-name evidence, derive conservative family-level recommendations,
+  and freeze readable and machine-readable evidence without applying a reviewer decision.
+  **Verify:** exactly ten families / nineteen Wiki rows are represented in queue order; nine have
+  the evidence required for a `create_new_casting` recommendation; `'55 Chevy` is held because its
+  source title disambiguates three casting tools; all reviewer confirmations remain pending, all
+  variants remain held, promotion stays zero, invalid same-host evidence fails closed, and hashes
+  plus deterministic regeneration pass.
+  **Status:** Complete. The results are machine recommendations only. No catalog, PostgreSQL,
+  runtime, calibration, or evaluation artifact changed.
 
 ### Task order and handoff
 

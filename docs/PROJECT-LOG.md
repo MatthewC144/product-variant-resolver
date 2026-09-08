@@ -1,5 +1,101 @@
 # Project Log
 
+## 2026-09-08 — The first ten possible-new families now have bounded source evidence
+
+### What was executed and what problem it solves
+
+T34 left 49 priority-2 names in the honest state “not found in our current catalogs.” That state
+does not prove a name represents a new casting: it can also mean the local catalog is incomplete,
+the name is an alias, or one display name hides several physical casting tools. T35 researches the
+first ten pending families in the adjudicated queue instead of treating absence as proof.
+
+The research found nine names that each resolve to one dedicated Hot Wheels Wiki casting page and
+also appear under the exact Hot Wheels casting name at a publisher outside Fandom. It also found a
+counterexample that validates the need for this step. `'55 Chevy` is a disambiguation title for
+three distinct tools introduced in 1982, 1998, and 2006; creating one family from that name would
+erase a real identity distinction. Batch 01 therefore proposes nine `create_new_casting` outcomes
+and one `hold`, while leaving all ten reviewer confirmations pending.
+
+### Code changes and why they were made
+
+`priority-2-batch-01-source-notes.json` records the bounded research input: stable queue ID, exact
+casting name, dedicated Wiki page classification, non-Fandom publisher, source type, HTTPS URL,
+and a concise paraphrase of the observed claim. The file states that the process was AI-assisted
+and does not attribute any identity decision to a human. It stores text notes only and downloads no
+images.
+
+`build_fandom_priority_two_research.py` first verifies that the derived T34 queue still matches its
+manifest. It then selects exactly the first ten priority-2 families whose reviewer status is still
+pending. The source notes must cover those same IDs and names in the same order. Each family must
+have a Fandom casting-page classification and at least one exact-name source from another host; a
+Fandom URL presented as “independent” is rejected.
+
+The recommendation is derived from this narrow rule rather than typed into the notes. One
+`single_casting` page plus the independent confirmation yields `create_new_casting`; a
+`disambiguation` page yields `hold`. The generated JSON, readable Markdown report, and manifest
+preserve the 19 staged release rows, source links, decision reason, pending reviewer block, variant
+hold, and zero promotion eligibility. Six tests lock selection, counts, the `'55 Chevy` exception,
+source independence, fail-closed behavior, checksums, and deterministic regeneration.
+
+### Technical choices, alternatives, and trade-offs
+
+A two-source rule was chosen because the yearly list and each casting page share the same community
+ecosystem. Requiring another publisher does not make the evidence infallible, but it is materially
+stronger than copying a name from one table. Manufacturer evidence is preferred when available;
+established collector databases and archived Hot Wheels case documents are used for older or less
+visible models where a current Mattel product page is not available.
+
+The batch size is ten so a non-programmer can inspect the report without reviewing all 49 names in
+one sitting. The cost is more batches and manifests. That cost is intentional: small diffs make it
+easier to notice exceptions such as the three `'55 Chevy` tools before an incorrect family becomes
+part of the catalog.
+
+Remote pages were not copied wholesale. The repository freezes concise observations and URLs,
+which avoids unnecessary third-party content duplication and keeps the evidence readable. The
+trade-off is that a later audit may find that a remote page has changed or disappeared; the research
+date and checksummed notes make that limitation visible instead of implying a permanent snapshot.
+
+### Decision changes
+
+Before T35, all 49 unmatched groups had the same undifferentiated “research required” state. The
+first ten now have evidence-backed machine recommendations, but they have not become reviewer
+decisions. This distinction matters: the project owner has not yet accepted the nine creations or
+the one hold, so the adjudicated queue correctly continues to show 49 pending priority-2 decisions.
+
+The identity boundary is unchanged. A proposed family creation answers only whether a distinct
+casting family appears to exist. It does not validate the 2025 color, series, collector number,
+toy-number release identity, or any canonical UUID. All 19 release rows therefore remain held.
+
+### Verification evidence
+
+The new batch contains exactly 10 families and 19 Wiki rows in deterministic queue order. Nine
+packets propose `create_new_casting`; the single `hold` is `'55 Chevy`. All packets have at least
+two distinct source hosts, reviewer status `pending`, variant decision `hold`, and
+`promotion_eligible=false`. The focused tests passed 6/6, and the full host suite passed 105/105.
+
+Fixture validation, Wiki staging validation, T31–T35 deterministic checks, Python compilation,
+both default and PostgreSQL Compose configurations, and whitespace checks passed. The research JSON
+checksum is `a802f64478b73a0c40f43c1d43fa44b182ebdbcde9f67d3d0c97f237c92a241c`; the readable report
+checksum is `acdd94dc89abee72f0c2e197bf4392fc2c13671b2282cc68e5765d6dbca9669f`.
+
+Ruff and mypy were not rerun in this host session because they are not installed in the global
+Python environment and the sandboxed `uv` attempt could not reach PyPI. This did not prevent the
+105-test suite, compilation, data validators, deterministic checks, Compose checks, or whitespace
+check from completing.
+
+### Incomplete work, risks, and next step
+
+The strongest remaining risk is confusing source agreement with owner approval. Collector sources
+can repeat each other's errors, and the remote pages are not immutable. The nine recommendations
+are suitable for an explicit family-level review, not for automatic canonical promotion. The
+`'55 Chevy` rows need additional identifier evidence that maps the 2025 release to one of the three
+known casting lineages.
+
+The next step is to present these ten outcomes to the project owner for acceptance or correction.
+Once the owner provides an explicit decision, a priority-2 decision applier can record the nine
+family creations and one hold—still with all release variants held. Batch 02 can then research the
+next ten of the 39 priority-2 families not yet examined.
+
 ## 2026-09-08 — Four owner-approved family links are recorded without variant promotion
 
 ### What was executed and what problem it solves

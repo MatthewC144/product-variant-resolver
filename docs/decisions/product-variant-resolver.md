@@ -317,3 +317,25 @@
 - **Deferred review:** Research and adjudicate the 49 priority-2 families. If variant promotion is
   later desired, introduce a separate source-backed variant decision schema and transactional
   importer rather than widening this family-only batch.
+
+## D20 — Require two-source family evidence and hold disambiguated names
+
+- **Choice:** Research priority-2 work in deterministic batches of ten. Recommend
+  `create_new_casting` only when the queued name has one dedicated Hot Wheels Wiki casting page and
+  at least one publisher outside Fandom confirms the exact Hot Wheels casting name. A
+  disambiguation page forces `hold`, and every release variant remains held regardless of the
+  family recommendation.
+- **Reason:** “No exact family in our small catalog” proves only a coverage gap. The second-source
+  rule reduces the risk of creating aliases as new families, while explicit disambiguation catches
+  names such as `'55 Chevy` that refer to multiple physical casting tools.
+- **Alternatives:** Treat every unmatched normalized name as new; rely only on the yearly Wiki
+  table; demand manufacturer-only evidence for every historical model; research all 49 in one
+  unreviewable change; or use image resemblance to choose a casting lineage.
+- **Impact:** Batch 01 covers ten families and nineteen staged rows. Nine receive source-backed
+  machine creation recommendations; `'55 Chevy` stays held because its 1982, 1998, and 2006 tools
+  cannot be distinguished from the staged family name. The research is checksum-frozen and
+  reproducible from its repository notes, but it does not complete a reviewer decision or mutate
+  any catalog/database.
+- **Deferred review:** The project owner must accept or reject the nine proposed family creations
+  and keep/resolve the `'55 Chevy` hold. After attributable application, research batch 02 can take
+  the next ten pending families. Release/color identity requires a separate evidence contract.

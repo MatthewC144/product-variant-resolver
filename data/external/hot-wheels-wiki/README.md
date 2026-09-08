@@ -44,3 +44,12 @@ confirmations and variant decisions remain pending/held.
 four family-only merges. `adjudicated-queue.json` is the validated result: four completed family
 relationships, 49 pending families, nine held Wiki variants, and zero promotion-eligible families.
 The original pending queue stays unchanged as an auditable pre-decision artifact.
+
+`pilot-2025/priority-2-batch-01-source-notes.json` freezes concise, AI-assisted text-source notes
+for the first ten pending priority-2 families. The derived JSON/Markdown research packet requires
+one dedicated Wiki casting page and exact-name evidence from at least one non-Fandom publisher
+before recommending `create_new_casting`. It recommends nine creations and holds `'55 Chevy`
+because the source title is a disambiguation page covering three casting tools. These remain
+machine recommendations with empty reviewer confirmations; all 19 release rows remain held and no
+canonical or PostgreSQL record is created. Linked external pages retain their own terms; the notes
+store only URLs and concise paraphrased observations, and no images were downloaded.

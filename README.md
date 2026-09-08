@@ -193,6 +193,19 @@ leaves 49 family decisions pending. It still creates no canonical identity or Po
 python3 scripts/apply_fandom_adjudication_decisions.py --check
 ```
 
+Priority-2 research now has a first bounded batch instead of treating all 49 unmatched names as
+automatically new. The readable
+[`batch-01 research report`](data/external/hot-wheels-wiki/pilot-2025/priority-2-batch-01-research.md)
+checks the first ten pending families against a dedicated Wiki casting page and at least one
+non-Fandom publisher. Nine meet the evidence rule for a machine `create_new_casting`
+recommendation. `'55 Chevy` remains on hold because that title covers three distinct casting tools.
+These are not reviewer decisions: all 19 represented releases remain variant-held and no record is
+written to the canonical catalog or PostgreSQL.
+
+```bash
+python3 scripts/build_fandom_priority_two_research.py --check
+```
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with

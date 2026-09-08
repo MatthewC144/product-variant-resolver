@@ -1,0 +1,211 @@
+{
+  "families": [
+    {
+      "casting_name": "1988 Jeep Wagoneer",
+      "family_review_id": "fandom-family-08cb7fadb9fed12d",
+      "independent_sources": [
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "The catalog records a 2025 Hot Wheels 1988 Jeep Wagoneer with model number HYW95.",
+          "publisher": "SmartWheelers Diecast Catalog",
+          "source_type": "independent_collector_catalog",
+          "url": "https://www.smartwheelers.com/catalog/2025/hot-wheels/1988-jeep-wagoneer/mainline/cmqtkpg3v024bqn60exyfz05a"
+        }
+      ],
+      "wiki_casting_page": {
+        "observed_claim": "A dedicated page identifies the casting, its 2013 debut, and 2025 HYW95/HYY13 releases.",
+        "page_classification": "single_casting",
+        "publisher": "Hot Wheels Wiki contributors",
+        "url": "https://hotwheels.fandom.com/wiki/1988_Jeep_Wagoneer"
+      }
+    },
+    {
+      "casting_name": "2020 Ram 1500 Rebel",
+      "family_review_id": "fandom-family-99200212d1475ef2",
+      "independent_sources": [
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "A Hot Wheels case-assortment newsletter lists the 2020 Ram 1500 Rebel by exact name.",
+          "publisher": "Hot Wheels Collectors News",
+          "source_type": "collector_newsletter_pdf",
+          "url": "https://hwcollectorsnews.com/wp-content/uploads/2021/06/Hot-Wheels-2021-K-Case-Assortment.pdf"
+        }
+      ],
+      "wiki_casting_page": {
+        "observed_claim": "A dedicated page identifies the casting, its 2020 debut, and GHB31 tool number.",
+        "page_classification": "single_casting",
+        "publisher": "Hot Wheels Wiki contributors",
+        "url": "https://hotwheels.fandom.com/wiki/2020_Ram_1500_Rebel"
+      }
+    },
+    {
+      "casting_name": "'21 Ford Bronco",
+      "family_review_id": "fandom-family-aab5350cb90d72ed",
+      "independent_sources": [
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "Mattel sells an RLC release under the exact Hot Wheels '21 Ford Bronco family name.",
+          "publisher": "Mattel Creations",
+          "source_type": "manufacturer_product_page",
+          "url": "https://creations.mattel.com/products/hot-wheels-rlc-exclusive-21-ford-bronco-with-chase-version-jjy74"
+        },
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "The casting database records '21 Ford Bronco with a 2021 debut and designer Dmitriy Shakhmatov.",
+          "publisher": "Orange Track Diecast",
+          "source_type": "independent_casting_database",
+          "url": "https://orangetrackdiecast.com/hot-wheels-casting-database/"
+        }
+      ],
+      "wiki_casting_page": {
+        "observed_claim": "A dedicated page identifies the casting, its 2021 debut, and GRX28 tool number.",
+        "page_classification": "single_casting",
+        "publisher": "Hot Wheels Wiki contributors",
+        "url": "https://hotwheels.fandom.com/wiki/%2721_Ford_Bronco"
+      }
+    },
+    {
+      "casting_name": "'22 Ford Maverick Custom",
+      "family_review_id": "fandom-family-db3fe3a0103099ec",
+      "independent_sources": [
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "A 2024 Hot Wheels case-assortment document lists '22 Ford Maverick Custom as a 2024 new model.",
+          "publisher": "Hot Wheels Collectors News archive",
+          "source_type": "collector_newsletter_pdf",
+          "url": "https://archive.hwcollectorsnews.com/wp-content/uploads/2024/05/2024-L-Case-Assortment.pdf"
+        }
+      ],
+      "wiki_casting_page": {
+        "observed_claim": "A dedicated page identifies the casting, its 2024 debut, and HRY78 tool number.",
+        "page_classification": "single_casting",
+        "publisher": "Hot Wheels Wiki contributors",
+        "url": "https://hotwheels.fandom.com/wiki/%2722_Ford_Maverick_Custom"
+      }
+    },
+    {
+      "casting_name": "'55 Chevy",
+      "family_review_id": "fandom-family-089ff8645b5f2de7",
+      "independent_sources": [
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "The guide documents releases under the '55 Chevy name, but the name alone does not distinguish the later casting tools.",
+          "publisher": "South Texas Diecast Collectors",
+          "source_type": "independent_casting_guide",
+          "url": "https://www.southtexasdiecast.com/hwguide/55chevy.html"
+        }
+      ],
+      "wiki_casting_page": {
+        "observed_claim": "The title is a disambiguation page covering distinct 1982, 1998, and 2006 casting versions.",
+        "page_classification": "disambiguation",
+        "publisher": "Hot Wheels Wiki contributors",
+        "url": "https://hotwheels.fandom.com/wiki/%2755_Chevy"
+      }
+    },
+    {
+      "casting_name": "'66 Buick Riviera",
+      "family_review_id": "fandom-family-a2097eead3bd8db9",
+      "independent_sources": [
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "The collector news page identifies '66 Buick Riviera as an all-new 2025 Hot Wheels casting.",
+          "publisher": "HW Headline",
+          "source_type": "independent_collector_news",
+          "url": "https://hwheadline.com/66-buick-riviera-more-2025-hot-wheels-mainlines/"
+        }
+      ],
+      "wiki_casting_page": {
+        "observed_claim": "A dedicated page identifies the casting, its 2025 debut, and HYW16 tool number.",
+        "page_classification": "single_casting",
+        "publisher": "Hot Wheels Wiki contributors",
+        "url": "https://hotwheels.fandom.com/wiki/%2766_Buick_Riviera"
+      }
+    },
+    {
+      "casting_name": "'69 Corvette Racer",
+      "family_review_id": "fandom-family-b3cd4f5a5f7e196a",
+      "independent_sources": [
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "The collector news page lists '69 Corvette Racer by exact name in the 2025 mainline releases.",
+          "publisher": "HW Headline",
+          "source_type": "independent_collector_news",
+          "url": "https://hwheadline.com/66-buick-riviera-more-2025-hot-wheels-mainlines/"
+        }
+      ],
+      "wiki_casting_page": {
+        "observed_claim": "A dedicated page identifies the casting, its 2016 debut, and DWH81 tool number.",
+        "page_classification": "single_casting",
+        "publisher": "Hot Wheels Wiki contributors",
+        "url": "https://hotwheels.fandom.com/wiki/%2769_Corvette_Racer"
+      }
+    },
+    {
+      "casting_name": "'80 El Camino",
+      "family_review_id": "fandom-family-526b697937fde7cc",
+      "independent_sources": [
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "The guide records M0517 '80 El Camino in the 2008 Modern Classics line.",
+          "publisher": "South Texas Diecast Collectors",
+          "source_type": "independent_casting_guide",
+          "url": "https://southtexasdiecast.com/hwguide/modernclassics.html"
+        }
+      ],
+      "wiki_casting_page": {
+        "observed_claim": "A dedicated page and the 2008 new-casting list identify '80 El Camino as a distinct Hot Wheels casting.",
+        "page_classification": "single_casting",
+        "publisher": "Hot Wheels Wiki contributors",
+        "url": "https://hotwheels.fandom.com/wiki/%2780_El_Camino"
+      }
+    },
+    {
+      "casting_name": "'87 Audi quattro",
+      "family_review_id": "fandom-family-18e55e067083dbd1",
+      "independent_sources": [
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "The guide identifies JBC35 as a 2025 Super Treasure Hunt using the '87 Audi quattro casting, which debuted in 2024.",
+          "publisher": "HW Treasure",
+          "source_type": "independent_collector_guide",
+          "url": "https://www.hwtreasure.com/2025-super/87-audi-quattro/"
+        }
+      ],
+      "wiki_casting_page": {
+        "observed_claim": "A dedicated page identifies the casting, its 2024 debut, and HRY55 tool number.",
+        "page_classification": "single_casting",
+        "publisher": "Hot Wheels Wiki contributors",
+        "url": "https://hotwheels.fandom.com/wiki/%2787_Audi_quattro"
+      }
+    },
+    {
+      "casting_name": "'90 Honda Civic EF",
+      "family_review_id": "fandom-family-d114c33db6fa215b",
+      "independent_sources": [
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "Mattel's instruction sheet states that Hot Wheels released the 1:64 Honda Civic EF die-cast in the Nightburnerz series.",
+          "publisher": "Mattel Consumer Services",
+          "source_type": "manufacturer_instruction_pdf",
+          "url": "https://service.mattel.com/instruction_sheets/AD-JHF62-19A02_R00_LR.pdf"
+        },
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "The guide records BDC77 as the 2014 new casting named 1990 Honda Civic EF.",
+          "publisher": "South Texas Diecast Collectors",
+          "source_type": "independent_casting_guide",
+          "url": "https://southtexasdiecast.com/hwguide/1990hondacivicef.html"
+        }
+      ],
+      "wiki_casting_page": {
+        "observed_claim": "A dedicated page identifies the casting, its 2014 debut, and BDC77 tool number.",
+        "page_classification": "single_casting",
+        "publisher": "Hot Wheels Wiki contributors",
+        "url": "https://hotwheels.fandom.com/wiki/%2790_Honda_Civic_EF"
+      }
+    }
+  ],
+  "research_date": "2026-09-08",
+  "research_method": "AI-assisted bounded text-source review; no images downloaded and no identity decision attributed to a human reviewer",
+  "schema_version": "pvr-fandom-priority-two-source-notes-v1"
+}

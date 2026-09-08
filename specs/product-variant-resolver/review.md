@@ -1,9 +1,9 @@
 # Product Variant Resolver — Lite MVP QA Review
 
 > Date: 2026-09-01  
-> Last focused update: 2026-09-08 (T34 priority-1 family decisions)
+> Last focused update: 2026-09-08 (T35 priority-2 research batch 01)
 > QA mode: `.codex/agents/qa.toml` MVP Mode  
-> Scope: `specs/product-variant-resolver/mvp-brief.md` R1–R25
+> Scope: `specs/product-variant-resolver/mvp-brief.md` R1–R26
 > Verdict: **PASS WITH RISKS**
 
 ## Verdict summary
@@ -89,6 +89,14 @@ are completed, 49 family decisions remain pending, all nine affected Wiki releas
 held, and promotion eligibility stays zero. An invalid target fails closed. Five tests bring the
 host suite to **99/99**. This passes family-decision recording, not canonical or variant promotion.
 
+T35 researches the first ten pending priority-2 families in queue order. Dedicated Wiki casting
+pages are checked against exact-name evidence from at least one non-Fandom publisher. Nine families
+meet the source rule for a machine `create_new_casting` recommendation; `'55 Chevy` remains held
+because its title disambiguates 1982, 1998, and 2006 casting tools. Six focused tests bring the host
+suite to **105/105** and prove deterministic order, hashes, same-host rejection, pending reviewer
+state, variant hold, and zero promotion. This passes bounded research, not owner adjudication or
+catalog/database creation.
+
 An independent Docker runtime milestone now verifies the existing
 `product-variant-resolver:lite` image on Docker Desktop 29.5.3/aarch64: Python 3.12.14, non-root
 user `pvr` (UID 100), read-only root filesystem, writable tmpfs only, loopback-only published port,
@@ -139,16 +147,17 @@ visible in any portfolio or repository claims.
 | R13 CPU smoke budget | PASS (limited scope) | Checked-in host-to-Docker loopback evidence has 50 sequential samples, 10 excluded warm-ups, K=25, and nearest-rank p95 `4.721208 ms` (gate `<=1500 ms`). That measurement remains offline-only. PostgreSQL exact retrieval passed sequential functionality checks, but database latency, concurrency, TLS/proxy, and remote networking were not measured. |
 | R14 API validation | PASS | Blank, 501-code-point, unknown-field, and limit=26 requests return structured 422; malformed JSON returns 400; unsupported media type returns 415; no tracebacks exposed. |
 | R15 Health/readiness | PASS WITH RISK | Missing catalogs and unavailable external providers fail closed. PostgreSQL startup verifies server/catalog state plus dense metadata and every expected UUID/version/checksum; catalog checksum corruption or one missing vector produces health 503, and retrieval-time database failure maps to 503. Health remains a startup snapshot, so post-startup loss is detected on retrieval. |
-| R16 Quality gate | PASS | The latest host suite passes 99/99; fixture and Wiki-pilot validation, deterministic Wiki review/queue/evidence/decision regeneration, Python compilation, default/PostgreSQL Compose configuration, and `git diff --check` pass. T04 migration, T07 ingestion, T09 sparse, and T10 exact dense retrieval passed isolated PostgreSQL 16/pgvector verification. Offline remains the default; PostgreSQL canonical sparse+dense is opt-in. |
+| R16 Quality gate | PASS | The latest host suite passes 105/105; fixture and Wiki-pilot validation, deterministic Wiki review/queue/evidence/decision/research regeneration, Python compilation, default/PostgreSQL Compose configuration, and `git diff --check` pass. T04 migration, T07 ingestion, T09 sparse, and T10 exact dense retrieval passed isolated PostgreSQL 16/pgvector verification. Offline remains the default; PostgreSQL canonical sparse+dense is opt-in. |
 | R17 Human-label provenance | PASS | `human-labeled-real-noisy-v1` contains 101 confirmed human labels, including 91 initial-name/human-name pairs and 10 explicit `no_candidate` failures. Four source rows marked excluded were not imported. The frozen manifest records source and dataset checksums, and the corpus declares that it is excluded from canonical-resolution accuracy, calibration training, and threshold selection until catalog IDs are assigned. |
 | R18 Conservative catalog alignment | PASS | The deterministic alignment covers all 101 reviewed records and freezes the human dataset, catalog, and output checksums. It reports 0 canonical mappings, 2 exact brand/casting family-only matches, and 99 unmapped records. Every unresolved record retains null UUID/slug; fuzzy matching is disabled. |
 | R19 Human-backed catalog draft | PASS | All 101 confirmed labels are preserved in 97 deterministic casting entities and 100 provisional variants. One exact structured duplicate merges while keeping both cases and aliases. Checksums and unique IDs validate, and every provisional variant remains `needs_canonical_review` and excluded from canonical responses and calibration. |
 | R20 Dual-source retrieval boundary | PASS (Lite scope) | Every request executes canonical retrieval plus an independent human-knowledge sparse/dense/RRF retrieval stage. Only canonical candidates enter ranking, policy, and final identity. A reviewed BMW query returns the expected provisional suggestion in bounded debug output while the canonical result stays `no_match`/null; unknown text returns no human suggestion; missing or review-bypassing human data fails closed; default responses omit both debug candidate sets. |
 | R21 Governed external catalog pilot | PASS WITH RISK | A single revision-frozen MediaWiki response produced exactly 100 text-only staging records with checksums, attribution, sequential source rows, unique toy numbers, null colors, null canonical UUIDs, and `needs_canonical_review` status. No images were requested and no staged row enters runtime retrieval. Source accuracy, canonical mapping, formal legal/security review, and 3,000-row behavior remain unverified. |
 | R22 Conservative external-catalog review | PASS WITH RISK | All 100 staged rows were compared with both catalogs using exact normalized brand/casting keys. The frozen report includes candidate IDs, reasons, actions, and checksums; fuzzy, identifier-only, and automatic promotion are disabled. Every row stays held/null. The 4 matched and 49 unmatched families still require human adjudication. |
-| R23 Attributable human-adjudication queue | PASS WITH RISK | All 100 source rows occur exactly once in 53 stable family items. Four exact-candidate families are priority 1 and 49 research-required families priority 2. Merge/create/hold/reject is the closed decision set; reviewer/time/reason/evidence are required. All current decisions are pending and promotion-ineligible. No actual human adjudication has occurred. |
+| R23 Attributable human-adjudication queue | PASS WITH RISK | All 100 source rows occur exactly once in 53 stable family items. Four exact-candidate families are priority 1 and 49 research-required families priority 2. Merge/create/hold/reject is the closed decision set; reviewer/time/reason/evidence are required. The immutable base queue remains all-pending; the derived adjudicated queue records four owner decisions. All families remain promotion-ineligible. |
 | R24 Priority-1 family evidence | PASS WITH RISK | Four deterministic packets cover all nine priority-1 Wiki rows and retain the corresponding initial/human labels, structured fields, source IDs, and exact family targets. Family merge is recommended while all variants remain held and reviewer fields empty. The evidence is sufficient to ask the reviewer a bounded family question, not to claim the answer or promote data. |
 | R25 Validated family-decision application | PASS WITH RISK | A separate attributable batch completes four exact-target family-only merges while preserving variant hold, zero promotion eligibility, and the immutable original queue. Missing/invalid target evidence fails closed and outputs are checksum-frozen. The decision provenance is the project owner's conversation follow-up rather than a signed external identity. |
+| R26 Bounded new-family research | PASS WITH RISK | Batch 01 deterministically selects ten pending priority-2 families / nineteen Wiki rows. Nine dedicated casting pages have exact-name confirmation from a non-Fandom publisher; one disambiguated name is held. Source notes and outputs are checksum-frozen, same-host evidence is rejected, reviewer fields remain pending, every variant is held, and promotion remains zero. Remote sources can change and the recommendations still require owner adjudication. |
 
 ## Checked items and reproducible evidence
 
@@ -321,6 +330,9 @@ None for demonstrating the explicitly documented offline fixture path.
 8. **T34 accepts family links only.** The recorded conversation authorization is traceable inside
    the repository but is not cryptographically signed. None of the four decisions may be described
    as canonical variant verification or used as evaluation labels.
+9. **T35 is research, not a human label.** Nine source-backed creation recommendations and one hold
+   are easier to review, but none may be counted as an accepted family until an attributable owner
+   decision is validated. Source pages may change after the recorded research date.
 
 ### Later
 
@@ -333,10 +345,11 @@ None for demonstrating the explicitly documented offline fixture path.
 
 The requested R7, R11, R13, Docker/Python 3.12 runtime, runtime reporting, selective dependency-
 constraint, T04/T07/T09/T10 database milestones, T26–T29 human-data/Dual-RAG milestones, and the
-T30–T34 external-data intake/pre-review/queue/evidence/family-decision milestones are QA-closed for
-their stated Lite scope. The next highest-value step is source research and adjudication for the 49
-possible-new-family groups, recording explicit create/hold/reject decisions. Only then
-should the project import additional completed yearly lists
+T30–T35 external-data intake/pre-review/queue/evidence/family-decision/research milestones are
+QA-closed for their stated Lite scope. The next highest-value step is owner adjudication of the ten
+batch-01 recommendations, followed by source research for the next ten of the remaining 39
+unresearched priority-2 families. Only after all 49 have attributable outcomes should the project
+import additional completed yearly lists
 toward 3,000 reviewable variants. Exact pgvector quality and latency must be remeasured at that
 scale.
 The next human-knowledge evaluation task remains an independently written, casting-grouped holdout
