@@ -66,6 +66,19 @@ def _validate_source_note(note: dict[str, Any], family: dict[str, Any]) -> None:
         raise ValueError("Wiki page classification is unsupported")
     if not isinstance(wiki.get("observed_claim"), str) or not wiki["observed_claim"].strip():
         raise ValueError("Wiki evidence requires a concise observed claim")
+    related_pages = wiki.get("related_casting_pages", [])
+    if not isinstance(related_pages, list):
+        raise ValueError("related casting pages must be a list")
+    for related in related_pages:
+        if not isinstance(related, dict):
+            raise ValueError("each related casting page must be an object")
+        _host(str(related.get("url", "")))
+        if not isinstance(related.get("distinction"), str) or not related[
+            "distinction"
+        ].strip():
+            raise ValueError("related casting evidence requires an explicit distinction")
+    if wiki.get("page_classification") == "homonymous_castings" and not related_pages:
+        raise ValueError("homonymous casting evidence requires the conflicting tool page")
     if not independent:
         raise ValueError("each family requires at least one independent source")
     for source in independent:
@@ -307,7 +320,7 @@ def main() -> None:
         description="Build or verify a priority-two source-research batch"
     )
     parser.add_argument("--check", action="store_true")
-    parser.add_argument("--batch", choices=("1", "2"), default="1")
+    parser.add_argument("--batch", choices=("1", "2", "3"), default="1")
     parser.add_argument("--directory", type=Path, default=directory)
     arguments = parser.parse_args()
     output = arguments.directory
@@ -316,11 +329,16 @@ def main() -> None:
         batch_version = BATCH_VERSION
         queue_name = "adjudicated-queue.json"
         queue_manifest_name = "adjudicated-queue-manifest.json"
-    else:
+    elif arguments.batch == "2":
         batch_label = "02"
         batch_version = "fandom-2025-priority-two-research-batch-02-v1"
         queue_name = "priority-2-batch-01-adjudicated-queue.json"
         queue_manifest_name = "priority-2-batch-01-adjudicated-queue-manifest.json"
+    else:
+        batch_label = "03"
+        batch_version = "fandom-2025-priority-two-research-batch-03-v1"
+        queue_name = "priority-2-batch-02-adjudicated-queue.json"
+        queue_manifest_name = "priority-2-batch-02-adjudicated-queue-manifest.json"
     prefix = f"priority-2-batch-{batch_label}"
     built = build_research(
         output / queue_name,

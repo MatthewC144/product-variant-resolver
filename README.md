@@ -241,6 +241,19 @@ canonical UUID, PostgreSQL row, or runtime identity.
 python3 scripts/apply_fandom_priority_two_decisions.py --batch 2 --check
 ```
 
+Priority-2 batch 03 continues from the 24-completed / 29-pending cumulative queue. Its
+[`batch-03 research report`](data/external/hot-wheels-wiki/pilot-2025/priority-2-batch-03-research.md)
+covers the next ten families and eighteen Wiki releases. All ten exact names have a dedicated Wiki
+casting page plus independent corroboration and therefore receive machine `create_new_casting`
+recommendations. The evidence explicitly keeps Fiat 500e separate from Fiat 500 and the newer
+Hirohata Merc separate from the earlier, differently named `'51 Merc` tool. These are not owner
+decisions: reviewer confirmation remains pending, all eighteen variants remain held, and nothing
+enters the canonical catalog, PostgreSQL, or runtime.
+
+```bash
+python3 scripts/build_fandom_priority_two_research.py --batch 3 --check
+```
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with

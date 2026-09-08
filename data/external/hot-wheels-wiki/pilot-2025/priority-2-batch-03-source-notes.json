@@ -1,0 +1,209 @@
+{
+  "families": [
+    {
+      "casting_name": "Draftnator",
+      "family_review_id": "fandom-family-d816204cf649a0c0",
+      "independent_sources": [
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "The casting database records Draftnator with a 2021 debut and designer Ryu Asada.",
+          "publisher": "Orange Track Diecast",
+          "source_type": "independent_casting_database",
+          "url": "https://orangetrackdiecast.com/hot-wheels-casting-database/"
+        }
+      ],
+      "wiki_casting_page": {
+        "observed_claim": "A dedicated page identifies the casting, its 2021 debut, GRX53 tool number, and HYW70/HYY31/HYX67 2025 releases.",
+        "page_classification": "single_casting",
+        "publisher": "Hot Wheels Wiki contributors",
+        "url": "https://hotwheels.fandom.com/wiki/Draftnator"
+      }
+    },
+    {
+      "casting_name": "Fiat 500e",
+      "family_review_id": "fandom-family-85226ac5ac0d3f77",
+      "independent_sources": [
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "The collector catalog records Fiat 500e toy number HYW85 as a 2025 HW EV release.",
+          "publisher": "All Hot Wheels",
+          "source_type": "independent_collector_catalog",
+          "url": "https://allhotwheels.com/car/2025/mainline/hyw85/fiat-500e"
+        }
+      ],
+      "wiki_casting_page": {
+        "observed_claim": "A dedicated page identifies the electric Fiat 500e casting, its 2019 debut, FXB29 tool number, and HYW85 2025 release independently from the Fiat 500 casting.",
+        "page_classification": "single_casting",
+        "publisher": "Hot Wheels Wiki contributors",
+        "related_casting_pages": [
+          {
+            "distinction": "The separately named Fiat 500 page represents a different casting lineage; the queued Fiat 500e name resolves to the dedicated electric-model page.",
+            "url": "https://hotwheels.fandom.com/wiki/Fiat_500"
+          }
+        ],
+        "url": "https://hotwheels.fandom.com/wiki/Fiat_500e"
+      }
+    },
+    {
+      "casting_name": "Fish'd & Chip'd",
+      "family_review_id": "fandom-family-356e4ef63275a661",
+      "independent_sources": [
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "The collector guide records Fish'd & Chip'd as a Fraser Campbell casting introduced in the 2003 First Editions series.",
+          "publisher": "South Texas Diecast Collectors",
+          "source_type": "independent_casting_guide",
+          "url": "https://www.southtexasdiecast.com/hwguide/fishdchipd.html"
+        }
+      ],
+      "wiki_casting_page": {
+        "observed_claim": "A dedicated page identifies the casting, its 2003 debut, 56356 tool number, and JBC21 2025 release.",
+        "page_classification": "single_casting",
+        "publisher": "Hot Wheels Wiki contributors",
+        "url": "https://hotwheels.fandom.com/wiki/Fish%27d_%26_Chip%27d"
+      }
+    },
+    {
+      "casting_name": "Ford Mustang GTD",
+      "family_review_id": "fandom-family-b31d285560d8a242",
+      "independent_sources": [
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "The variation catalog records Ford Mustang GTD toy numbers HYW19 and JBB93 as 2025 Mustang 60th releases.",
+          "publisher": "Hot Wheels Collectors News Catalog",
+          "source_type": "independent_variation_catalog",
+          "url": "https://catalog.hwcollectorsnews.com/SeriesDefinitions/Details/1944"
+        }
+      ],
+      "wiki_casting_page": {
+        "observed_claim": "A dedicated page identifies the casting, its 2025 debut, HYW19 tool number, and HYW19/JBB93 releases.",
+        "page_classification": "single_casting",
+        "publisher": "Hot Wheels Wiki contributors",
+        "url": "https://hotwheels.fandom.com/wiki/Ford_Mustang_GTD"
+      }
+    },
+    {
+      "casting_name": "Ford Performance SuperVan 4",
+      "family_review_id": "fandom-family-a1b198f7d235f778",
+      "independent_sources": [
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "The 2024 M-case assortment lists Ford Performance SuperVan 4 by exact casting name.",
+          "publisher": "Hot Wheels Collectors News",
+          "source_type": "collector_newsletter_pdf",
+          "url": "https://archive.hwcollectorsnews.com/wp-content/uploads/2024/07/2024-M-Case-Assortment.pdf"
+        }
+      ],
+      "wiki_casting_page": {
+        "observed_claim": "A dedicated page identifies the casting, its 2024 debut, HRY90 tool number, and JBC20 2025 release.",
+        "page_classification": "single_casting",
+        "publisher": "Hot Wheels Wiki contributors",
+        "url": "https://hotwheels.fandom.com/wiki/Ford_Performance_SuperVan_4"
+      }
+    },
+    {
+      "casting_name": "Haulerback",
+      "family_review_id": "fandom-family-440103f8ef3c6b70",
+      "independent_sources": [
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "The variation catalog records Haulerback toy numbers HYW17 and HYX68 as 2025 HW Hot Trucks releases.",
+          "publisher": "Hot Wheels Collectors News Catalog",
+          "source_type": "independent_variation_catalog",
+          "url": "https://catalog.hwcollectorsnews.com/SeriesDefinitions/Details/1919"
+        }
+      ],
+      "wiki_casting_page": {
+        "observed_claim": "A dedicated page identifies the casting, its 2025 debut, HYW17 tool number, and HYW17/HYX68 releases.",
+        "page_classification": "single_casting",
+        "publisher": "Hot Wheels Wiki contributors",
+        "url": "https://hotwheels.fandom.com/wiki/Haulerback"
+      }
+    },
+    {
+      "casting_name": "Hirohata Merc",
+      "family_review_id": "fandom-family-4bf5341a133d433b",
+      "independent_sources": [
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "The automotive feature identifies the new 2024 mainline Hirohata Merc and distinguishes it from Hot Wheels' earlier, differently named '51 Merc tool.",
+          "publisher": "Old Cars Weekly",
+          "source_type": "independent_automotive_feature",
+          "url": "https://www.oldcarsweekly.com/features/hot-wheels-offers-new-1951-hirohata-merc-for-2024"
+        }
+      ],
+      "wiki_casting_page": {
+        "observed_claim": "A dedicated page identifies the current Hirohata Merc casting, its 2024 debut, HRY69 tool number, and HYW97/JBC36 2025 releases; it describes the older '51 Merc as a prior, differently named tool.",
+        "page_classification": "single_casting",
+        "publisher": "Hot Wheels Wiki contributors",
+        "related_casting_pages": [
+          {
+            "distinction": "The older detailed casting used the distinct stored name '51 Merc; the queued Hirohata Merc name uniquely identifies the newer 2024 mainline tool.",
+            "url": "https://hotwheels.fandom.com/wiki/%2751_Merc"
+          }
+        ],
+        "url": "https://hotwheels.fandom.com/wiki/Hirohata_Merc"
+      }
+    },
+    {
+      "casting_name": "Kei Swap",
+      "family_review_id": "fandom-family-c655fb5244c584ae",
+      "independent_sources": [
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "The 2025 production-year catalog lists Kei Swap toy numbers HYW14 and HYX95 by exact casting name.",
+          "publisher": "Hot Wheels Database",
+          "source_type": "independent_vehicle_catalog",
+          "url": "https://hotwheelsdb.com/production-year/2025"
+        }
+      ],
+      "wiki_casting_page": {
+        "observed_claim": "A dedicated page identifies the casting, its 2025 debut, HYW14 tool number, and HYW14/HYX95 releases.",
+        "page_classification": "single_casting",
+        "publisher": "Hot Wheels Wiki contributors",
+        "url": "https://hotwheels.fandom.com/wiki/Kei_Swap"
+      }
+    },
+    {
+      "casting_name": "Kick Kart",
+      "family_review_id": "fandom-family-3c9f928f085efaae",
+      "independent_sources": [
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "The collector catalog records Kick Kart toy number FJV83 as a 2018 HW Ride-Ons release.",
+          "publisher": "All Hot Wheels",
+          "source_type": "independent_collector_catalog",
+          "url": "https://www.allhotwheels.com/car/2018/hw-ride-ons/fjv83/kick-kart"
+        }
+      ],
+      "wiki_casting_page": {
+        "observed_claim": "A dedicated page identifies the casting, its 2018 debut, FJV83 tool number, and HYW76/JBB90 2025 releases.",
+        "page_classification": "single_casting",
+        "publisher": "Hot Wheels Wiki contributors",
+        "url": "https://hotwheels.fandom.com/wiki/Kick_Kart"
+      }
+    },
+    {
+      "casting_name": "Kowloon'd Hypervan",
+      "family_review_id": "fandom-family-89930c384be2e8bf",
+      "independent_sources": [
+        {
+          "confirms_exact_casting_name": true,
+          "observed_claim": "The collector catalog records Kowloon'd Hypervan toy number HRY84 as a 2024 HW Metro release.",
+          "publisher": "All Hot Wheels",
+          "source_type": "independent_collector_catalog",
+          "url": "https://www.allhotwheels.com/car/2024/hw-metro/hry84/kowloon-d-hypervan"
+        }
+      ],
+      "wiki_casting_page": {
+        "observed_claim": "A dedicated page identifies the casting, its 2024 debut, HRY84 tool number, and HYW64/HYX75 2025 releases.",
+        "page_classification": "single_casting",
+        "publisher": "Hot Wheels Wiki contributors",
+        "url": "https://hotwheels.fandom.com/wiki/Kowloon%27d_Hypervan"
+      }
+    }
+  ],
+  "research_date": "2026-09-08",
+  "research_method": "AI-assisted bounded text-source review; no images downloaded and no identity decision attributed to a human reviewer",
+  "schema_version": "pvr-fandom-priority-two-source-notes-v1"
+}

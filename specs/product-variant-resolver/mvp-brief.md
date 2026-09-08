@@ -87,6 +87,7 @@ This MVP is a portfolio-quality engineering validation, not evidence of producti
 - **R27 — Validated priority-2 decision application:** WHEN the project owner approves a priority-2 research batch, THE SYSTEM SHALL record reviewer/time/provenance/reason/evidence in a separate decision file, require complete one-time coverage of the frozen research packets, require each outcome to match the approved recommendation, reject unsupported creation or widened variant scope, preserve earlier completed decisions, derive cumulative completed/pending/create/hold counts, and keep all affected families ineligible for canonical or PostgreSQL promotion.
 - **R28 — Cumulative priority-2 research sequencing:** WHEN a later priority-2 research batch is built, THE SYSTEM SHALL verify and use the latest checksum-frozen cumulative adjudication queue, skip every completed family, select the next bounded pending families in queue order, hold a display name that maps to distinct homonymous casting tools, preserve two-source evidence and reviewer/variant/promotion boundaries, and reproduce both the earlier and current batch outputs deterministically.
 - **R29 — Cumulative priority-2 owner decisions:** WHEN the project owner approves a later priority-2 research batch, THE SYSTEM SHALL bind that authorization to the exact frozen research packet, require complete recommendation-matching family-only decisions, append rather than replace all earlier decision-batch history, derive a new checksum-frozen cumulative queue, reject changed or incomplete outcomes, and keep every release variant and catalog/database promotion held.
+- **R30 — Related-casting identity boundary:** WHEN a researched name has a related predecessor or similarly named casting page, THE SYSTEM SHALL retain the related page and an explicit distinction, classify the queued family by whether its exact name uniquely identifies the current casting tool, hold same-name homonyms, and avoid treating a differently named predecessor as either an automatic merge or an automatic hold.
 
 The numeric gates above are deliberately modest fixture-MVP gates. Reports and README text must state dataset size, construction method, split strategy, hardware, model versions, and that the figures do not establish production accuracy.
 
@@ -805,6 +806,30 @@ Each task is intended to be independently committable and verifiable. `task_exec
   **Status:** Complete. The owner decisions accept only casting-family outcomes. No stable catalog
   ID, canonical variant, PostgreSQL row, runtime result, calibration input, or evaluation label was
   created.
+
+- [x] **T39 — Research priority-2 family batch 03 from the cumulative queue** `[backend]` _(R6, R16, R26, R28, R30)_
+  Verify the T38 cumulative queue checksum, select the next ten still-pending priority-2 families,
+  retain Wiki plus non-Fandom exact-name evidence, and record related-casting distinctions where a
+  nearby or predecessor tool could otherwise be confused with the queued family.
+  **Verify:** exactly ten families / eighteen Wiki rows are selected after all twenty-four completed
+  decisions; all ten have a dedicated exact-name casting page plus independent corroboration and
+  receive machine `create_new_casting` recommendations; Fiat 500e remains distinct from Fiat 500,
+  and the newer Hirohata Merc remains distinct from the earlier differently named `'51 Merc` tool;
+  all reviewer confirmations remain pending, every variant remains held, promotion stays zero,
+  and all three research batches regenerate with frozen hashes.
+  **Status:** Complete. Batch 03 is research only. No owner decision, stable catalog entity,
+  canonical UUID, PostgreSQL row, runtime behavior, calibration input, or evaluation label changed.
+
+- [ ] **T40 — Apply project-owner priority-2 batch-03 decisions** `[backend]` _(R6, R16, R27, R29, R30)_
+  After the project owner reviews the exact frozen T39 packet, record only the explicitly approved
+  family outcomes in a separate attributable decision file and derive the next cumulative queue
+  while preserving all prior decision history and variant holds.
+  **Verify:** authorization covers all ten frozen packets exactly once and matches the approved
+  outcome; prior twenty-four decisions remain unchanged; changed, incomplete, duplicate, or widened
+  decisions fail closed; no stable catalog ID, PostgreSQL row, or promotion-eligible variant is
+  created.
+  **Status:** Pending the project owner's review of the displayed T39 recommendations; no
+  decision artifact should be authored from machine research alone.
 
 ### Task order and handoff
 

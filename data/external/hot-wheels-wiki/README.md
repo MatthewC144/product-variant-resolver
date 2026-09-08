@@ -73,3 +73,12 @@ creation recommendations and the Batman hold. The derived batch-02 cumulative qu
 three decision batches and reports 24 completed / 29 pending family decisions, 18 accepted new
 families, 2 holds, 46 held release variants, and zero promotion eligibility. This is still an
 adjudication layer rather than a searchable catalog or PostgreSQL import.
+
+`pilot-2025/priority-2-batch-03-source-notes.json` continues from that cumulative checkpoint and
+freezes research for the next ten pending families / eighteen release rows. Every name has a
+dedicated Wiki casting page and at least one non-Fandom exact-name confirmation, so the derived
+packet proposes ten new casting families and zero holds. The notes preserve related-casting
+distinctions for Fiat 500e versus Fiat 500 and for the newer Hirohata Merc versus the earlier `'51
+Merc` tool; a differently named predecessor is supporting lineage context, not a same-name
+homonym. The JSON, Markdown report, and manifest remain unconfirmed machine research. Every release
+variant is held, promotion eligibility is zero, and no catalog or PostgreSQL record is created.

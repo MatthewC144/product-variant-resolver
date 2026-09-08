@@ -409,3 +409,28 @@
 - **Deferred review:** T39 should research the next ten pending priority-2 families from the T38
   cumulative queue. A separate later design must assign stable review-catalog entity IDs to
   accepted families without inventing colors, releases, or canonical UUIDs.
+
+## D24 — Distinguish differently named predecessors from same-name homonyms
+
+- **Choice:** Build priority-2 batch 03 from the checksum-verified T38 cumulative queue and preserve
+  the existing two-source creation rule. When a dedicated current casting has a related but
+  differently named predecessor, retain that relationship as evidence but classify the exact
+  queued name as `single_casting`; continue to hold cases where separate tools share the same
+  display name.
+- **Reason:** The newer `Hirohata Merc` is documented as related to the earlier, differently named
+  `'51 Merc`, while `Fiat 500e` has its own dedicated identity apart from `Fiat 500`. Treating any
+  related page as a homonym would create false holds. Ignoring related pages would lose the lineage
+  distinction needed to prevent future accidental merging. The identity question is whether the
+  exact queued name uniquely selects one tool, not whether any related casting exists.
+- **Alternatives:** Automatically hold every family with a related page; merge predecessor and
+  current tools; omit the relation because the names differ; or accept exact Wiki naming without
+  independent corroboration. These options respectively over-block review, collapse physical
+  tools, discard useful audit context, or weaken the established evidence rule.
+- **Impact:** Batch 03 covers ten families and eighteen staged releases. All ten have a dedicated
+  exact-name Wiki page plus at least one non-Fandom confirmation and therefore receive machine
+  `create_new_casting` recommendations. Related Fiat and Mercury pages remain explicit evidence.
+  Reviewer confirmation is still pending, every release variant is held, and promotion remains
+  zero.
+- **Deferred review:** T40 should present the exact frozen batch-03 packet to the project owner and
+  record any approved family-only decisions separately. Stable catalog materialization and variant
+  verification remain later design work.

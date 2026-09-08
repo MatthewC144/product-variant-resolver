@@ -1,5 +1,116 @@
 # Project Log
 
+## 2026-09-08 — Batch 03 researches related castings without turning research into approval
+
+### What was executed and what problem it solves
+
+T39 advances the external-data review from the T38 cumulative checkpoint rather than returning to
+the original 53-family queue. It verifies the latest queue checksum, skips all twenty-four
+completed family decisions, and researches the next ten pending priority-2 families in their
+existing deterministic order. This prevents duplicate work and keeps every new conclusion tied to
+the exact adjudication state that produced it.
+
+The batch covers eighteen 2025 Wiki release rows across Draftnator, Fiat 500e, Fish'd & Chip'd,
+Ford Mustang GTD, Ford Performance SuperVan 4, Haulerback, Hirohata Merc, Kei Swap, Kick Kart, and
+Kowloon'd Hypervan. Each name has a dedicated Hot Wheels Wiki casting page and at least one
+non-Fandom source confirming the exact casting name. The resulting packet therefore recommends
+ten `create_new_casting` family outcomes and zero holds. These are deliberately still machine
+recommendations: reviewer confirmation remains pending, all eighteen release variants remain
+held, and promotion eligibility remains zero.
+
+### Code changes and why they were made
+
+`priority-2-batch-03-source-notes.json` is the structured research input. Every record repeats the
+stable family review ID and exact queue name, then stores a concise observation from the dedicated
+Wiki page and a separate exact-name observation from another publisher. The sources include Orange
+Track Diecast, All Hot Wheels, South Texas Diecast Collectors, Hot Wheels Collectors News, Old Cars
+Weekly, and Hot Wheels Database. Only HTTPS URLs and short paraphrased claims are stored; no images
+or full third-party pages were copied into the repository.
+
+Two records preserve extra identity context. Fiat 500e retains the separate Fiat 500 page so a
+future reviewer does not collapse the electric-model casting into a nearby name. Hirohata Merc
+retains the older `'51 Merc` page and a source explanation that the current mainline release uses a
+newer tool. The code classifies both current exact names as `single_casting` because neither queued
+name is shared by the related tool. This differs from the batch-02 Batman case, where separate tools
+use the same display name and must remain held.
+
+`build_fandom_priority_two_research.py` now accepts `--batch 3`. That option binds the research to
+`priority-2-batch-02-adjudicated-queue.json` and its manifest, applies the existing rule to the first
+ten still-pending priority-2 families, and emits batch-03-specific JSON, Markdown, and manifest
+files. The default remains batch 01 and batch 02 keeps its previous input mapping, so the extension
+does not alter earlier frozen artifacts or introduce a second implementation with different
+validation behavior.
+
+`test_fandom_priority_two_research_batch_three.py` adds six focused tests. They prove that batch 03
+is exactly the next ten items after T38; freeze the ten-family, eighteen-row, ten-create result;
+require Fandom plus a distinct source host; retain both related-casting distinctions; keep every
+reviewer, variant, and promotion boundary closed; and reproduce the JSON, report, manifest, and
+hashes byte for byte.
+
+### Technical choices, alternatives, and trade-offs
+
+The project continues to use a small, auditable source packet rather than a broad autonomous web
+crawl. A crawler could gather more pages quickly, but it would increase licensing, page-quality,
+rate-limit, and identity-matching risks before the current 100-row workflow is fully adjudicated.
+The bounded approach costs manual research time but makes the exact evidence and transformation
+easy to review and reproduce in Lite mode.
+
+The creation rule remains a dedicated Wiki page plus exact-name evidence from at least one
+publisher outside Fandom. This is not a claim that collector sites are authoritative for every
+paint, base, or release detail; it is a cross-source check that the casting name is not merely an
+unmatched string in the local catalog. Requiring manufacturer-only documents was considered too
+restrictive for historical and fantasy models, while accepting Fandom alone would create a
+single-source failure point.
+
+Related pages are treated as lineage evidence rather than a universal hold trigger. Automatically
+holding every related casting would block legitimate uniquely named tools such as Fiat 500e and
+Hirohata Merc. Automatically merging them would erase physical-tool distinctions. The chosen rule
+looks at whether the exact queued display name uniquely selects the current tool, while recording
+the related page for later human review. The trade-off is that this remains text-source identity
+evidence, not inspection of the physical casting.
+
+### Decision changes
+
+No project-owner decision changed in T39. The cumulative adjudication state remains twenty-four
+completed and twenty-nine pending families, with four existing-family merges, eighteen accepted
+new-family decisions, two holds, forty-six held variants under completed decisions, and zero
+promotion. Batch 03 is a separate research artifact layered on top of that unchanged state.
+
+What did change is the research policy's documented boundary. Batch 02 established that distinct
+tools sharing one display name must be held. Batch 03 now records the complementary case: a related
+or predecessor tool with a different stored name does not automatically invalidate a unique exact
+current name. The relation must remain visible, but a family creation recommendation can proceed
+when the current identity still meets the two-source rule.
+
+### Verification evidence
+
+The new T39 module passed 6/6. The complete host suite passed 129/129 in 1.499 seconds on the
+available Python 3.14.6 interpreter. Fixture and 100-row Wiki-pilot validation, deterministic
+review/queue/priority-one evidence, all three priority-two research batches, both cumulative
+priority-two decision checkpoints, Python compilation, default and PostgreSQL-profile Compose
+configuration, and `git diff --check` all passed.
+
+The batch-03 source-notes checksum is
+`6f2753b7e736145970096660ba07ce4553ebd423b1f551c7780dc7b91274cf86`; research JSON is
+`1d38a7bbffbf905283d4c7be6a24495547df425723ef610539c1f3eee07c432d`; the readable report is
+`44472564cac68bb3073c0ceeab2dbc663994cb859318a7cab5f5f0f5b3d4c940`; and the manifest is
+`92dae730213f9928dd5811d8a43657038a037bd85462653fc2639db44a33e97b`. All three research-batch
+`--check` commands passed without changing the two earlier hashes. The host suite emitted the
+already documented legacy-`httpx` Starlette TestClient warning on machine-wide Python 3.14; the
+project's constrained Python 3.12 runtime was previously verified with `httpx2`.
+
+### Incomplete work, risks, and next step
+
+The ten recommendations have not been approved by the project owner and are not searchable family
+entities. None has a stable review-catalog ID, verified color, canonical release variant, or
+PostgreSQL row. Remote source pages can change after the recorded research date, and the stored
+paraphrases do not replace physical-casting verification.
+
+The next immediate task is T40: present this exact frozen ten-family result to the project owner.
+Only an explicit response to that packet should be translated into a separate attributable
+batch-03 decision file. If approved, the decision applier can then derive a new cumulative queue
+while still keeping all release variants and catalog/database promotion held.
+
 ## 2026-09-08 — Batch-02 recommendations become attributable owner family decisions
 
 ### What was executed and what problem it solves
