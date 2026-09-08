@@ -1,0 +1,141 @@
+{
+  "batch_id": "fandom-priority-2-batch-01-owner-decisions-v1",
+  "decided_at": "2026-09-08T17:16:27Z",
+  "decided_by": "project_owner",
+  "decision_provenance": "The project owner explicitly requested execution of the next step after receiving the T35 proposal: approve nine create_new_casting family decisions, keep '55 Chevy on hold, and hold all release variants.",
+  "decisions": [
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-01-research.json#fandom-family-08cb7fadb9fed12d",
+        "https://hotwheels.fandom.com/wiki/1988_Jeep_Wagoneer",
+        "https://www.smartwheelers.com/catalog/2025/hot-wheels/1988-jeep-wagoneer/mainline/cmqtkpg3v024bqn60exyfz05a"
+      ],
+      "family_review_id": "fandom-family-08cb7fadb9fed12d",
+      "reason": "A dedicated casting page and an independent exact-name catalog entry support treating 1988 Jeep Wagoneer as a distinct review-layer casting family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-01-research.json#fandom-family-99200212d1475ef2",
+        "https://hotwheels.fandom.com/wiki/2020_Ram_1500_Rebel",
+        "https://hwcollectorsnews.com/wp-content/uploads/2021/06/Hot-Wheels-2021-K-Case-Assortment.pdf"
+      ],
+      "family_review_id": "fandom-family-99200212d1475ef2",
+      "reason": "A dedicated casting page and an independent exact-name case document support treating 2020 Ram 1500 Rebel as a distinct review-layer casting family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-01-research.json#fandom-family-aab5350cb90d72ed",
+        "https://hotwheels.fandom.com/wiki/%2721_Ford_Bronco",
+        "https://creations.mattel.com/products/hot-wheels-rlc-exclusive-21-ford-bronco-with-chase-version-jjy74",
+        "https://orangetrackdiecast.com/hot-wheels-casting-database/"
+      ],
+      "family_review_id": "fandom-family-aab5350cb90d72ed",
+      "reason": "A dedicated casting page, Mattel product evidence, and an independent casting database support treating '21 Ford Bronco as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-01-research.json#fandom-family-db3fe3a0103099ec",
+        "https://hotwheels.fandom.com/wiki/%2722_Ford_Maverick_Custom",
+        "https://archive.hwcollectorsnews.com/wp-content/uploads/2024/05/2024-L-Case-Assortment.pdf"
+      ],
+      "family_review_id": "fandom-family-db3fe3a0103099ec",
+      "reason": "A dedicated casting page and an independent new-model case document support treating '22 Ford Maverick Custom as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "hold",
+      "evidence_references": [
+        "priority-2-batch-01-research.json#fandom-family-089ff8645b5f2de7",
+        "https://hotwheels.fandom.com/wiki/%2755_Chevy",
+        "https://www.southtexasdiecast.com/hwguide/55chevy.html"
+      ],
+      "family_review_id": "fandom-family-089ff8645b5f2de7",
+      "reason": "The '55 Chevy title covers distinct 1982, 1998, and 2006 casting tools; the staged 2025 rows need lineage evidence before a family can be created.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-01-research.json#fandom-family-a2097eead3bd8db9",
+        "https://hotwheels.fandom.com/wiki/%2766_Buick_Riviera",
+        "https://hwheadline.com/66-buick-riviera-more-2025-hot-wheels-mainlines/"
+      ],
+      "family_review_id": "fandom-family-a2097eead3bd8db9",
+      "reason": "A dedicated casting page and an independent new-casting report support treating '66 Buick Riviera as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-01-research.json#fandom-family-b3cd4f5a5f7e196a",
+        "https://hotwheels.fandom.com/wiki/%2769_Corvette_Racer",
+        "https://hwheadline.com/66-buick-riviera-more-2025-hot-wheels-mainlines/"
+      ],
+      "family_review_id": "fandom-family-b3cd4f5a5f7e196a",
+      "reason": "A dedicated casting page and an independent exact-name release report support treating '69 Corvette Racer as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-01-research.json#fandom-family-526b697937fde7cc",
+        "https://hotwheels.fandom.com/wiki/%2780_El_Camino",
+        "https://southtexasdiecast.com/hwguide/modernclassics.html"
+      ],
+      "family_review_id": "fandom-family-526b697937fde7cc",
+      "reason": "A dedicated casting page and an independent M0517 Modern Classics record support treating '80 El Camino as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-01-research.json#fandom-family-18e55e067083dbd1",
+        "https://hotwheels.fandom.com/wiki/%2787_Audi_quattro",
+        "https://www.hwtreasure.com/2025-super/87-audi-quattro/"
+      ],
+      "family_review_id": "fandom-family-18e55e067083dbd1",
+      "reason": "A dedicated casting page and an independent exact-name collector guide support treating '87 Audi quattro as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-01-research.json#fandom-family-d114c33db6fa215b",
+        "https://hotwheels.fandom.com/wiki/%2790_Honda_Civic_EF",
+        "https://service.mattel.com/instruction_sheets/AD-JHF62-19A02_R00_LR.pdf",
+        "https://southtexasdiecast.com/hwguide/1990hondacivicef.html"
+      ],
+      "family_review_id": "fandom-family-d114c33db6fa215b",
+      "reason": "A dedicated casting page, Mattel documentation, and an independent casting guide support treating '90 Honda Civic EF as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    }
+  ],
+  "schema_version": "pvr-fandom-family-decisions-v1"
+}

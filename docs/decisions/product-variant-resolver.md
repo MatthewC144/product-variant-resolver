@@ -339,3 +339,24 @@
 - **Deferred review:** The project owner must accept or reject the nine proposed family creations
   and keep/resolve the `'55 Chevy` hold. After attributable application, research batch 02 can take
   the next ten pending families. Release/color identity requires a separate evidence contract.
+
+## D21 — Apply owner approval as a cumulative decision layer, not a catalog write
+
+- **Choice:** Store the owner's T35 response as a separate ten-item decision batch and apply it to
+  the T34 adjudicated queue. Require every research packet exactly once, require the approved
+  outcome to match its frozen recommendation, retain family-only scope and variant hold, and emit a
+  new cumulative queue rather than editing either earlier queue artifact.
+- **Reason:** The user's short “execute the next step” follows an explicit nine-create/one-hold
+  proposal, so it can be recorded truthfully as approval of that bounded set. It cannot be expanded
+  into approval of release identities, canonical UUIDs, PostgreSQL insertion, or the other 39
+  priority-2 families.
+- **Alternatives:** Modify the T34 queue in place; immediately append entities to the human or
+  canonical catalog; accept only the nine creations and omit the hold; allow partial batches; or
+  rerun research with reviewer fields filled by code.
+- **Impact:** Four prior merges plus ten new decisions yield fourteen completed and thirty-nine
+  pending families. Nine are accepted as new review-layer casting-family decisions, one remains a
+  family hold, and all twenty-eight release rows under completed decisions remain variant-held.
+  Both decision batches and every input/output checksum remain auditable.
+- **Deferred review:** Batch 02 should research the next ten pending families from the T36 queue.
+  A later, separate catalog materialization design must decide how accepted review families receive
+  stable entity IDs without becoming canonical variants prematurely.

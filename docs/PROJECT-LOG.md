@@ -1,5 +1,98 @@
 # Project Log
 
+## 2026-09-08 — Owner approval converts batch-01 research into ten attributable family decisions
+
+### What was executed and what problem it solves
+
+T35 answered the research question for ten possible-new families, but deliberately left the
+reviewer fields empty. The project owner then asked to execute the stated next step after being
+shown the exact proposal: approve nine `create_new_casting` family outcomes and keep `'55 Chevy`
+on hold. T36 records that response as a separate decision event and calculates the new cumulative
+queue state.
+
+This closes the gap between “a machine found supporting sources” and “the project owner accepted
+the family decision.” It also prevents the short approval message from being interpreted too
+broadly. The resulting authority covers exactly the ten displayed recommendations and only casting
+family identity; it does not approve colors, releases, canonical UUIDs, database rows, or the other
+39 families.
+
+### Code changes and why they were made
+
+`priority-2-batch-01-decisions.json` records the stable batch ID, `project_owner` role, UTC time,
+conversation provenance, and ten decisions. Each item cites its T35 research packet and external
+evidence, states a family-specific reason, uses `casting_family_only`, has no existing-family
+target, and keeps `variant_decision=hold`.
+
+`apply_fandom_priority_two_decisions.py` verifies both the T34 queue checksum and T35 research
+checksum before accepting the decision file. It requires valid batch attribution, unique complete
+coverage of all research packets, an outcome identical to the approved recommendation, a direct
+packet reference, family-only scope, and variant hold. For each creation it rechecks that the Wiki
+page was classified as one casting, at least one independent source exists, evidence spans two
+hosts, and the earlier exact-match indexes contain no catalog family.
+
+The applier deep-copies the T34 queue and preserves its four priority-1 merge decisions. It replaces
+the older single batch field with an ordered two-entry decision history, applies the ten new
+decisions, recalculates cumulative counts, and writes a new batch-specific queue, Markdown result,
+and checksum manifest. The older all-pending and T34 four-decision queues remain unchanged, so each
+stage can be reproduced and compared.
+
+### Technical choices, alternatives, and trade-offs
+
+The code treats approval as an append-only decision layer instead of immediately materializing
+nine catalog objects. This adds another artifact in the chain, but it keeps three very different
+claims separate: a family probably exists, the owner accepts that conclusion, and a canonical
+variant is safe for runtime matching. Collapsing those claims would make source review look like
+product-level ground truth.
+
+Complete batch coverage is required rather than accepting a partial list. The user's authorization
+referred to the previously displayed ten-item proposal as one set, so all ten outcomes must be
+present exactly once. A future correction can use another explicit decision event; silently
+dropping an item or changing one recommendation during application is rejected.
+
+The new output has an explicit filename rather than overwriting `adjudicated-queue.json`. This is
+slightly more verbose for downstream scripts, but it gives Git a clear audit trail and lets T37
+select from the true latest queue without destroying the T34 checkpoint.
+
+### Decision changes
+
+Nine families have moved from machine recommendation to accepted project-owner decisions: 1988
+Jeep Wagoneer, 2020 Ram 1500 Rebel, `'21 Ford Bronco`, `'22 Ford Maverick Custom`, `'66 Buick
+Riviera`, `'69 Corvette Racer`, `'80 El Camino`, `'87 Audi quattro`, and `'90 Honda Civic EF`.
+`'55 Chevy` has moved from proposed hold to an accepted hold because the exact casting lineage is
+still unresolved.
+
+The cumulative review queue now contains fourteen completed decisions: four merges from T34, nine
+new-family decisions, and one hold. Thirty-nine priority-2 families remain pending. This is not yet
+a catalog-count increase; the nine accepted families still exist only as decisions attached to
+their source rows.
+
+### Verification evidence
+
+Six focused tests verify the 14/39 cumulative counts, nine-create/one-hold batch, attribution,
+family/variant boundary, preservation of all four earlier merges and both decision batches,
+fail-closed changed outcome, fail-closed incomplete coverage, hashes, and deterministic rebuild.
+The first focused run failed because the new test expected the wrong historical Priority 1 batch
+ID. Inspection showed that the product data correctly retained
+`fandom-2025-priority-1-owner-confirmation-v1`; the test expectation was corrected and all focused
+tests then passed 6/6.
+
+The complete host suite passed 111/111. Fixture and Fandom staging validation, T31–T36 deterministic
+checks, Python compilation, default and PostgreSQL Compose configuration, and whitespace checks all
+passed. The new cumulative queue checksum is
+`2b82ca5023439857f186aa0ab122f0b4511290bb4d1303ac533df5c96fbc6790`; its readable report checksum
+is `fe00de56e8c425fa5f80c06722deb702f4fb357d1e40495efb4548830bcfaff9`.
+
+### Incomplete work, risks, and next step
+
+The conversation provenance is auditable inside the repository but not a cryptographic signature.
+The underlying external sources can also change. More importantly, the accepted creations have not
+been assigned separate catalog entity IDs or made searchable; doing so safely needs its own schema
+and must not turn unknown release colors into canonical variants.
+
+The next immediate task is T37: use the T36 cumulative queue to research the next ten of the 39
+pending priority-2 families. Keeping research and adjudication in repeated small batches will expose
+more ambiguous names before any larger catalog materialization or 3,000-row ingestion begins.
+
 ## 2026-09-08 — The first ten possible-new families now have bounded source evidence
 
 ### What was executed and what problem it solves

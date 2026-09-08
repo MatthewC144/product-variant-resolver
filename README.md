@@ -206,6 +206,17 @@ written to the canonical catalog or PostgreSQL.
 python3 scripts/build_fandom_priority_two_research.py --check
 ```
 
+The project owner's follow-up approval is stored separately in
+[`priority-2-batch-01-decisions.json`](data/external/hot-wheels-wiki/pilot-2025/priority-2-batch-01-decisions.json).
+The validator accepts all nine proposed new-family decisions, keeps `'55 Chevy` held, preserves the
+four earlier family merges, and derives a cumulative 14-completed / 39-pending queue. The 28 release
+rows represented by completed family decisions still remain variant-held; “accepted new family” is
+a review-layer decision, not a canonical UUID or database row.
+
+```bash
+python3 scripts/apply_fandom_priority_two_decisions.py --check
+```
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with

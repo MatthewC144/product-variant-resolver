@@ -52,6 +52,9 @@ This MVP is a portfolio-quality engineering validation, not evidence of producti
 - A bounded priority-2 research packet that requires a dedicated casting page plus exact-name
   confirmation from a non-Fandom publisher before recommending a new family, while holding
   ambiguous names and every release variant.
+- A fail-closed priority-2 decision layer that applies the project owner's batch response only
+  when it covers and agrees with the frozen research packet, while preserving prior decisions and
+  keeping new family decisions outside canonical and PostgreSQL storage.
 
 ### 2.2 EARS acceptance requirements
 
@@ -81,6 +84,7 @@ This MVP is a portfolio-quality engineering validation, not evidence of producti
 - **R24 — Priority-1 family evidence:** WHEN a reviewer examines an exact existing-family candidate, THE SYSTEM SHALL show all contributing Wiki release rows, original and human-verified label evidence, target family ID, observed series/variant differences, a family-scoped recommendation, an explicit variant hold, and an empty reviewer confirmation without making the item promotion eligible.
 - **R25 — Validated family-decision application:** WHEN an attributable reviewer decision batch is applied, THE SYSTEM SHALL require a permitted decision, valid timestamp, reviewer, provenance, reason, evidence, casting-family-only scope, held variants, and an exact candidate target for merges; update completed/pending counts in a derived artifact; and reject invalid targets without modifying the original queue or creating promotion-eligible records.
 - **R26 — Bounded new-family research:** WHEN priority-2 possible-new families are researched, THE SYSTEM SHALL select a deterministic bounded batch, require a dedicated casting page and an exact-name confirmation from at least one non-Fandom publisher before recommending `create_new_casting`, hold disambiguated or insufficient identities, preserve source URLs and concise observed claims, keep reviewer confirmation pending, hold every release variant, and create no canonical or PostgreSQL record.
+- **R27 — Validated priority-2 decision application:** WHEN the project owner approves a priority-2 research batch, THE SYSTEM SHALL record reviewer/time/provenance/reason/evidence in a separate decision file, require complete one-time coverage of the frozen research packets, require each outcome to match the approved recommendation, reject unsupported creation or widened variant scope, preserve earlier completed decisions, derive cumulative completed/pending/create/hold counts, and keep all affected families ineligible for canonical or PostgreSQL promotion.
 
 The numeric gates above are deliberately modest fixture-MVP gates. Reports and README text must state dataset size, construction method, split strategy, hardware, model versions, and that the figures do not establish production accuracy.
 
@@ -762,6 +766,18 @@ Each task is intended to be independently committable and verifiable. `task_exec
   plus deterministic regeneration pass.
   **Status:** Complete. The results are machine recommendations only. No catalog, PostgreSQL,
   runtime, calibration, or evaluation artifact changed.
+
+- [x] **T36 — Apply project-owner priority-2 batch-01 decisions** `[backend]` _(R6, R16, R27)_
+  Record the owner's follow-up approval in a separate decision batch, validate complete agreement
+  with all ten frozen research packets, preserve the four prior family merges, and derive a new
+  cumulative queue without mutating the T34 queue or any catalog/database.
+  **Verify:** nine `create_new_casting` decisions and the `'55 Chevy` hold complete under
+  `project_owner`; the cumulative queue reports fourteen completed / thirty-nine pending, four
+  prior merges, nine accepted new-family decisions, one family hold, twenty-eight held variants,
+  and zero promotion eligibility; changed outcomes and incomplete batches fail closed; hashes and
+  deterministic regeneration pass.
+  **Status:** Complete. New casting outcomes are accepted review-layer decisions only. They do not
+  yet mint canonical UUIDs, verify release variants, or create PostgreSQL rows.
 
 ### Task order and handoff
 

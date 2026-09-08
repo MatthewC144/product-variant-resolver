@@ -53,3 +53,10 @@ because the source title is a disambiguation page covering three casting tools. 
 machine recommendations with empty reviewer confirmations; all 19 release rows remain held and no
 canonical or PostgreSQL record is created. Linked external pages retain their own terms; the notes
 store only URLs and concise paraphrased observations, and no images were downloaded.
+
+`pilot-2025/priority-2-batch-01-decisions.json` records the project owner's follow-up approval of
+the nine new-family recommendations and the `'55 Chevy` hold. The derived batch-01 adjudicated
+queue preserves the four earlier family merges and reports 14 completed / 39 pending family
+decisions, 28 held release variants, and zero promotion eligibility. The validator requires every
+research packet exactly once, rejects an outcome that differs from the approved recommendation,
+and refuses variant promotion. No canonical catalog or PostgreSQL record is created.
