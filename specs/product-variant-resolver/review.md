@@ -1,9 +1,9 @@
 # Product Variant Resolver — Lite MVP QA Review
 
 > Date: 2026-09-01  
-> Last focused update: 2026-09-07 (T31 cross-catalog Wiki review)
+> Last focused update: 2026-09-08 (T32 human-adjudication queue)
 > QA mode: `.codex/agents/qa.toml` MVP Mode  
-> Scope: `specs/product-variant-resolver/mvp-brief.md` R1–R22
+> Scope: `specs/product-variant-resolver/mvp-brief.md` R1–R23
 > Verdict: **PASS WITH RISKS**
 
 ## Verdict summary
@@ -70,6 +70,12 @@ synthetic canonical fixture. All 100 decisions remain held with null canonical i
 tests bring the complete host suite to **84/84**; the check command reproduces both frozen outputs
 byte for byte. This is conservative pre-review evidence, not completed human adjudication.
 
+T32 makes the remaining human work explicit and auditable. It groups all 100 source rows exactly
+once into 53 stable family decisions, orders the 4 exact existing-family candidates before the 49
+research-required groups, and produces both JSON and a readable Markdown worksheet. All reviewer
+fields remain empty, all decisions remain pending, and promotion eligibility is zero. Five focused
+tests bring the complete host suite to **89/89**. This passes queue preparation, not human review.
+
 An independent Docker runtime milestone now verifies the existing
 `product-variant-resolver:lite` image on Docker Desktop 29.5.3/aarch64: Python 3.12.14, non-root
 user `pvr` (UID 100), read-only root filesystem, writable tmpfs only, loopback-only published port,
@@ -120,13 +126,14 @@ visible in any portfolio or repository claims.
 | R13 CPU smoke budget | PASS (limited scope) | Checked-in host-to-Docker loopback evidence has 50 sequential samples, 10 excluded warm-ups, K=25, and nearest-rank p95 `4.721208 ms` (gate `<=1500 ms`). That measurement remains offline-only. PostgreSQL exact retrieval passed sequential functionality checks, but database latency, concurrency, TLS/proxy, and remote networking were not measured. |
 | R14 API validation | PASS | Blank, 501-code-point, unknown-field, and limit=26 requests return structured 422; malformed JSON returns 400; unsupported media type returns 415; no tracebacks exposed. |
 | R15 Health/readiness | PASS WITH RISK | Missing catalogs and unavailable external providers fail closed. PostgreSQL startup verifies server/catalog state plus dense metadata and every expected UUID/version/checksum; catalog checksum corruption or one missing vector produces health 503, and retrieval-time database failure maps to 503. Health remains a startup snapshot, so post-startup loss is detected on retrieval. |
-| R16 Quality gate | PASS | The latest host suite passes 84/84; fixture and Wiki-pilot validation, deterministic Wiki review regeneration, Python compilation, default/PostgreSQL Compose configuration, and `git diff --check` pass. T04 migration, T07 ingestion, T09 sparse, and T10 exact dense retrieval passed isolated PostgreSQL 16/pgvector verification. Offline remains the default; PostgreSQL canonical sparse+dense is opt-in. |
+| R16 Quality gate | PASS | The latest host suite passes 89/89; fixture and Wiki-pilot validation, deterministic Wiki review/queue regeneration, Python compilation, default/PostgreSQL Compose configuration, and `git diff --check` pass. T04 migration, T07 ingestion, T09 sparse, and T10 exact dense retrieval passed isolated PostgreSQL 16/pgvector verification. Offline remains the default; PostgreSQL canonical sparse+dense is opt-in. |
 | R17 Human-label provenance | PASS | `human-labeled-real-noisy-v1` contains 101 confirmed human labels, including 91 initial-name/human-name pairs and 10 explicit `no_candidate` failures. Four source rows marked excluded were not imported. The frozen manifest records source and dataset checksums, and the corpus declares that it is excluded from canonical-resolution accuracy, calibration training, and threshold selection until catalog IDs are assigned. |
 | R18 Conservative catalog alignment | PASS | The deterministic alignment covers all 101 reviewed records and freezes the human dataset, catalog, and output checksums. It reports 0 canonical mappings, 2 exact brand/casting family-only matches, and 99 unmapped records. Every unresolved record retains null UUID/slug; fuzzy matching is disabled. |
 | R19 Human-backed catalog draft | PASS | All 101 confirmed labels are preserved in 97 deterministic casting entities and 100 provisional variants. One exact structured duplicate merges while keeping both cases and aliases. Checksums and unique IDs validate, and every provisional variant remains `needs_canonical_review` and excluded from canonical responses and calibration. |
 | R20 Dual-source retrieval boundary | PASS (Lite scope) | Every request executes canonical retrieval plus an independent human-knowledge sparse/dense/RRF retrieval stage. Only canonical candidates enter ranking, policy, and final identity. A reviewed BMW query returns the expected provisional suggestion in bounded debug output while the canonical result stays `no_match`/null; unknown text returns no human suggestion; missing or review-bypassing human data fails closed; default responses omit both debug candidate sets. |
 | R21 Governed external catalog pilot | PASS WITH RISK | A single revision-frozen MediaWiki response produced exactly 100 text-only staging records with checksums, attribution, sequential source rows, unique toy numbers, null colors, null canonical UUIDs, and `needs_canonical_review` status. No images were requested and no staged row enters runtime retrieval. Source accuracy, canonical mapping, formal legal/security review, and 3,000-row behavior remain unverified. |
 | R22 Conservative external-catalog review | PASS WITH RISK | All 100 staged rows were compared with both catalogs using exact normalized brand/casting keys. The frozen report includes candidate IDs, reasons, actions, and checksums; fuzzy, identifier-only, and automatic promotion are disabled. Every row stays held/null. The 4 matched and 49 unmatched families still require human adjudication. |
+| R23 Attributable human-adjudication queue | PASS WITH RISK | All 100 source rows occur exactly once in 53 stable family items. Four exact-candidate families are priority 1 and 49 research-required families priority 2. Merge/create/hold/reject is the closed decision set; reviewer/time/reason/evidence are required. All current decisions are pending and promotion-ineligible. No actual human adjudication has occurred. |
 
 ## Checked items and reproducible evidence
 
@@ -290,6 +297,9 @@ None for demonstrating the explicitly documented offline fixture path.
 5. **T31 reduces review work but does not perform human verification.** Exact family-name matches
    are useful candidate links, while unmatched names are only possible new families. Neither case
    establishes a release variant, color, or canonical UUID without a reviewer decision.
+6. **T32 is a queue, not a completed label set.** Its suggested actions are machine-generated and
+   cannot be reported as human labels. The 53 pending entries require a named reviewer and evidence
+   before a later promotion validator may accept them.
 
 ### Later
 
@@ -302,8 +312,8 @@ None for demonstrating the explicitly documented offline fixture path.
 
 The requested R7, R11, R13, Docker/Python 3.12 runtime, runtime reporting, selective dependency-
 constraint, T04/T07/T09/T10 database milestones, T26–T29 human-data/Dual-RAG milestones, and the
-T30–T31 external-data intake/pre-review milestones are QA-closed for their stated Lite scope. The
-next highest-value step is human adjudication of the 4 exact human-family candidates followed by
+T30–T32 external-data intake/pre-review/queue milestones are QA-closed for their stated Lite scope.
+The next highest-value step is human adjudication of the 4 exact human-family candidates followed by
 the 49 possible-new-family groups, recording explicit promote/merge/reject decisions. Only then
 should the project import additional completed yearly lists
 toward 3,000 reviewable variants. Exact pgvector quality and latency must be remeasured at that

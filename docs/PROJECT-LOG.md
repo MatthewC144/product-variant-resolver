@@ -1,5 +1,93 @@
 # Project Log
 
+## 2026-09-08 — A 53-family queue makes human adjudication explicit
+
+### What was executed and what problem it solves
+
+T31 reduced 100 Wiki rows to 53 casting-family relationships, but its row-level JSON was still a
+machine pre-review rather than a practical human workflow. T32 prepares the actual adjudication
+queue. It groups every source row under one stable family-review ID, puts the four exact
+human-catalog candidates first, places the remaining 49 research-required groups second, and emits
+both a machine-readable queue and a Markdown worksheet that a non-programmer can inspect.
+
+This solves two different risks. First, it prevents a reviewer from issuing the same casting
+decision two or three times merely because one model has several release/color rows. Second, it
+makes the absence of completed human review visible: all 53 decision objects are pending, their
+reviewer fields are empty, and none is eligible for promotion or PostgreSQL ingestion.
+
+### Code changes and why they were made
+
+`build_fandom_adjudication_queue.py` validates the T31 report against its manifest, rejects
+duplicate source IDs or rows that have already crossed the review boundary, groups by the frozen
+normalized family key, unions exact candidate IDs, preserves every contributing toy/collector/
+series/variant row, and assigns stable SHA-derived family-review IDs. Exact-candidate groups receive
+priority 1; groups requiring source research receive priority 2.
+
+The generated `adjudication-queue.json` defines a closed decision contract:
+`merge_existing_family`, `create_new_casting`, `hold`, or `reject`. A completed decision must state
+who decided it, when, why, and which evidence supports it. Creating a new casting additionally
+requires independent source confirmation. `adjudication-queue.md` renders the same queue as two
+plain tables, making the work accessible without editing or understanding the larger JSON files.
+
+The queue manifest freezes both T31 input files plus the JSON and Markdown outputs. Build mode
+writes all three outputs; `--check` rebuilds them in memory and rejects any byte difference. Five
+tests verify complete one-time source coverage, stable unique family IDs, priority ordering, the
+four exact human candidates, the closed decision contract, all-pending safety, hashes, and
+determinism.
+
+### Technical choices, alternatives, and trade-offs
+
+The unit of human work is a casting family, not a Wiki row. This reduces the decision count from 100
+to 53 while retaining nested release evidence. It does not merge the releases themselves: a family
+decision can confirm that two sources discuss `Subaru BRZ`, but color, series, toy number, edition,
+and rarity remain separate variant questions.
+
+The queue is stored as JSON plus Markdown instead of adding a database admin UI. JSON provides a
+strict future automation contract; Markdown gives the project owner a readable worksheet and clean
+Git diff. A full UI could improve ergonomics later, but building authentication, concurrent edits,
+and audit storage before validating the decision model would expand this Lite milestone without
+improving identity evidence.
+
+No entries were filled on behalf of the user. Although an AI can suggest that an exact name should
+be reviewed for merge, recording that as `human verified` would create false provenance. Empty
+reviewer fields are intentionally treated as meaningful safety state, not incomplete formatting.
+
+### Decision changes
+
+The prior next step was described broadly as human adjudication. Implementation clarified that the
+project first needed an artifact a human could actually adjudicate. T32 therefore completes queue
+preparation while leaving the substantive decisions open. This is a narrower claim, but it creates
+a defensible separation between AI-assisted organization and human-owned labels.
+
+The decision contract also changed from an informal request for a reason to a required four-part
+audit record: reviewer, timestamp, reason, and evidence references. This makes future promotion
+decisions reproducible and allows a validator to reject anonymous or unsupported approvals.
+
+### Verification evidence
+
+The queue contains 53 stable family IDs and nests all 100 unique source rows exactly once. Four
+families are priority 1 and 49 are priority 2. Completed decisions and promotion-eligible families
+are both zero. The queue checksum is
+`638f35d36bbf25ec0767210c038e6ee3c1e097f4f3e67d78a9bbef4a8dd45558`; the worksheet checksum is
+`748ce49c0c54afe0b60e2cc7d25275a990462f8116060f105059c4dc000acd36`.
+
+The queue's deterministic `--check` passed, five focused tests passed, and the complete host suite
+passed 89/89. Fixture validation, T30 staging validation, T31 review verification, Python
+compilation, both Docker Compose configurations, and whitespace checks passed. The milestone made
+no network request, database write, catalog mutation, or AI-evaluation change.
+
+### Incomplete work, risks, and next step
+
+Every substantive decision remains pending. The Markdown worksheet is readable but not a multi-user
+approval interface, and the current builder deliberately refuses to infer human identity. A later
+decision validator still needs to enforce target IDs for merges, evidence for new castings, and the
+required audit fields before a promotion artifact can exist.
+
+The next step now genuinely requires reviewer input, beginning with the four priority 1 families.
+After those decisions are recorded, the 49 priority 2 names require independent source checking.
+Only validated decisions—not the queue or pre-review suggestions—may feed future canonical and
+PostgreSQL ingestion.
+
 ## 2026-09-07 — Cross-catalog review turns 100 Wiki rows into 53 review groups
 
 ### What was executed and what problem it solves

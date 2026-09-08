@@ -165,6 +165,15 @@ The full row-level decisions and frozen input/output checksums are in
 [`review.json`](data/external/hot-wheels-wiki/pilot-2025/review.json) and
 [`review-manifest.json`](data/external/hot-wheels-wiki/pilot-2025/review-manifest.json).
 
+For actual human adjudication, the 100 rows are grouped into a 53-family queue. The readable
+[`adjudication worksheet`](data/external/hot-wheels-wiki/pilot-2025/adjudication-queue.md) puts the
+four exact existing-family candidates first and the 49 research-required families second. All
+decisions are initially pending, and the queue cannot be used as a promotion file.
+
+```bash
+python3 scripts/build_fandom_adjudication_queue.py --check
+```
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with

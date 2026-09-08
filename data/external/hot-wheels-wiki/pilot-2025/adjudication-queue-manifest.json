@@ -1,0 +1,25 @@
+{
+  "completed_decisions": 0,
+  "family_count": 53,
+  "inputs": {
+    "review": {
+      "file": "review.json",
+      "sha256": "720292870a04656df0a7a61ab7d649457990e09a19172b450f4557ad878f0c4e"
+    },
+    "review_manifest": {
+      "file": "review-manifest.json",
+      "sha256": "ae62e795c2cecc22bb29edb549fa2f3362a8ff19368b67e414eca6eb63c12c93"
+    }
+  },
+  "pending_decisions": 53,
+  "priority_1_existing_candidate_families": 4,
+  "priority_2_possible_new_families": 49,
+  "promotion_eligible_families": 0,
+  "queue_file": "adjudication-queue.json",
+  "queue_sha256": "638f35d36bbf25ec0767210c038e6ee3c1e097f4f3e67d78a9bbef4a8dd45558",
+  "queue_version": "fandom-2025-pilot-adjudication-queue-v1",
+  "schema_version": "pvr-fandom-adjudication-queue-manifest-v1",
+  "source_row_count": 100,
+  "worksheet_file": "adjudication-queue.md",
+  "worksheet_sha256": "748ce49c0c54afe0b60e2cc7d25275a990462f8116060f105059c4dc000acd36"
+}

@@ -262,3 +262,21 @@
 - **Deferred review:** A person must adjudicate the four existing-human-family groups first, then
   validate the 49 unmatched family names against reliable source context. Variant/color decisions
   and canonical UUID creation remain separate later steps.
+
+## D17 — Make adjudication family-based, attributable, and promotion-ineligible by default
+
+- **Choice:** Group the 100 row-level pre-reviews into 53 stable casting-family review items. Put
+  exact existing-family candidates in priority 1, possible-new families in priority 2, expose only
+  four permitted reviewer outcomes, and require actor/time/reason/evidence for completion.
+- **Reason:** A reviewer should decide a casting relationship once rather than repeat it for every
+  color or release row. At the same time, a machine suggestion must remain visibly different from
+  a human decision, especially because the human-backed catalog is itself provisional.
+- **Alternatives:** Ask for 100 independent decisions; mark exact matches merged automatically;
+  allow free-form statuses; omit reviewer attribution; build a database admin UI before validating
+  the decision contract; treat an AI-authored recommendation as human verification.
+- **Impact:** The queue retains every source row exactly once, reduces the immediate workload to 53
+  decisions, and provides a readable worksheet. All 53 decisions start pending and all families
+  remain promotion-ineligible. The artifact can be regenerated without network or database access.
+- **Deferred review:** The project owner or another named reviewer must adjudicate the four priority
+  1 groups and then the 49 priority 2 groups. A later validator must reject incomplete or invalid
+  completed decisions before any promotion artifact is generated.

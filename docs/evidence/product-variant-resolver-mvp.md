@@ -7,15 +7,15 @@
 > database performance remain unverified.
 > The 100-row Hot Wheels Wiki pilot is attributed, frozen, and validated as review-only staging;
 > its deterministic cross-catalog review also remains outside the canonical catalog and AI
-> evaluation set.
+> evaluation set. The 53-family adjudication queue contains no completed human decisions.
 
 ## Evidence index
 
 | Area | Evidence | Result |
 |---|---|---|
-| Requirements | [`specs/product-variant-resolver/review.md`](../../specs/product-variant-resolver/review.md) | R1–R14 and R16–R20 passed within their Lite scopes; R15 and R21–R22 passed with documented risks. |
+| Requirements | [`specs/product-variant-resolver/review.md`](../../specs/product-variant-resolver/review.md) | R1–R14 and R16–R20 passed within their Lite scopes; R15 and R21–R23 passed with documented risks. |
 | Focused re-verification | Final QA review | Catalog-derived series soft conflicts, the RRF default decision, and the in-process HTTP disclosure were re-verified after correction. No separate agent-verification artifact was checked in. |
-| Test suite | QA review command transcript | Original 38/38 suite passed; the current host suite passes 84/84. The earlier constrained runtime image passed 39/39 non-Node tests; its UI controller test remains host-only because Node is not installed in the runtime image. |
+| Test suite | QA review command transcript | Original 38/38 suite passed; the current host suite passes 89/89. The earlier constrained runtime image passed 39/39 non-Node tests; its UI controller test remains host-only because Node is not installed in the runtime image. |
 | Compilation | QA review command transcript | `compileall` exited 0. An offline wheel build was not possible because the host lacked the required setuptools artifact. |
 | Fixture integrity | [`data/manifest.json`](../../data/manifest.json) | `fixture-v1`: 120 products; 100 cases; train/dev/test = 58/21/21; frozen catalog and benchmark SHA-256 values. |
 | Ranking/evaluation | [JSON](../../reports/fixture-v1/evaluation-fixture-v1-test.json) and [Markdown](../../reports/fixture-v1/evaluation-fixture-v1-test.md) | Report schema, raw derivations, disclosure, and generated SVG artifacts passed QA validation. |
@@ -27,6 +27,7 @@
 | Compose/PostgreSQL | [T07](postgres-ingestion-t07.md), [T09](postgres-sparse-retrieval-t09.md), [T10](postgres-dense-retrieval-t10.md), and QA review | Migration, transactional ingestion, FTS, exact pgvector, artifact-readiness validation, and real HTTP resolution passed in isolated Compose runs. |
 | External catalog pilot | [T30 evidence](fandom-catalog-pilot-t30.md), [attribution](../../data/external/hot-wheels-wiki/README.md), and [manifest](../../data/external/hot-wheels-wiki/pilot-2025/manifest.json) | 100 revision-frozen, text-only rows passed staging validation; 45 variant notes, 100 null colors, and zero canonical promotions. |
 | External catalog review | [T31 evidence](fandom-catalog-review-t31.md) and [review manifest](../../data/external/hot-wheels-wiki/pilot-2025/review-manifest.json) | 100 rows / 53 families reviewed deterministically: 4 exact human-family candidates, 49 possible-new-family groups, and zero promotions. |
+| Human adjudication queue | [T32 evidence](fandom-adjudication-queue-t32.md) and [worksheet](../../data/external/hot-wheels-wiki/pilot-2025/adjudication-queue.md) | All 100 rows occur once across 53 pending family decisions; actor/time/reason/evidence are required and promotion eligibility is zero. |
 
 ## Frozen fixture-v1 test result
 
@@ -92,7 +93,8 @@ networking, concurrent load, and PostgreSQL. The raw artifact is
 - External catalog: the 100 Hot Wheels Wiki rows are a review queue only. They have no verified
   color or canonical UUID, do not enter API retrieval, and do not support an accuracy or 3,000-row
   coverage claim. T31 provides exact family-level pre-review only; human adjudication, canonical
-  promotion rules, and formal legal/security review remain deferred.
+  promotion rules, and formal legal/security review remain deferred. T32 prepares an attributable
+  queue but does not count any item as human-verified.
 - PostgreSQL/pgvector: migration lifecycle, canonical fixture ingestion, FTS candidate retrieval,
   GIN-plan compatibility, 120 deterministic vector rows, exact cosine retrieval, and real API HTTP
   resolution are verified in isolated Docker runs. Neural embeddings, 3,000-row evaluation,

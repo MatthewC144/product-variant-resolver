@@ -43,6 +43,8 @@ This MVP is a portfolio-quality engineering validation, not evidence of producti
   revision, CC-BY-SA attribution, checksums, and no automatic canonical promotion.
 - A deterministic cross-catalog review that separates exact existing-family candidates from
   possible new families while keeping every Wiki row on human-review hold.
+- A human-adjudication queue that groups repeated releases into one casting-family decision,
+  prioritizes exact candidates, and requires attributable evidence before promotion.
 
 ### 2.2 EARS acceptance requirements
 
@@ -68,6 +70,7 @@ This MVP is a portfolio-quality engineering validation, not evidence of producti
 - **R20 — Dual-source retrieval boundary:** WHEN a title is resolved, THE SYSTEM SHALL search both the canonical catalog and the human-backed review catalog, use only canonical candidates for the final identity decision, and expose bounded human-knowledge candidates with review status only when debug output is requested.
 - **R21 — Governed external catalog pilot:** WHEN an external Wiki table is imported, THE SYSTEM SHALL use a documented API and identifiable client, freeze source revision/license/checksums, omit non-text media, retain unknown fields as null, and mark every record review-only without changing canonical resolution or evaluation labels.
 - **R22 — Conservative external-catalog review:** WHEN staged Wiki records are compared with existing catalogs, THE SYSTEM SHALL use only exact normalized brand/casting family matches, expose candidate IDs and reasons, freeze all input/output checksums, disable fuzzy and identifier-only promotion, and retain null canonical identity until a human decision is recorded.
+- **R23 — Attributable human-adjudication queue:** WHEN external pre-review is prepared for a person, THE SYSTEM SHALL group every source row exactly once by normalized casting family, prioritize exact existing-family candidates, permit only merge/create/hold/reject decisions, require reviewer/time/reason/evidence for completion, and keep every pending group ineligible for promotion.
 
 The numeric gates above are deliberately modest fixture-MVP gates. Reports and README text must state dataset size, construction method, split strategy, hardware, model versions, and that the figures do not establish production accuracy.
 
@@ -297,6 +300,16 @@ Runtime resolution traces are not persisted by default in the fixture MVP.
   remain mandatory until a separately reviewed promotion decision exists.
 - The review manifest freezes the staging, canonical, human-backed, and review JSON checksums and
   reports both row-level and distinct-family-level counts.
+
+### 8.13 `ExternalCatalogAdjudicationFamily`
+
+- Stable family-review ID, priority, display and normalized family names, and all contributing
+  source rows preserve the relationship between 100 releases and 53 casting decisions.
+- Pre-review evidence includes exact candidate IDs plus a non-binding suggested action and reason.
+- Reviewer decision permits `merge_existing_family`, `create_new_casting`, `hold`, or `reject` and
+  requires reviewer, timestamp, written reason, and evidence references before completion.
+- Pending decisions have null decision fields and `promotion_eligible=false`. The queue JSON,
+  human-readable worksheet, and manifest are deterministically reproducible.
 
 ## 9. API contracts
 
@@ -671,6 +684,17 @@ Each task is intended to be independently committable and verifiable. `task_exec
   **Status:** Complete. There are no exact canonical-fixture family matches. The four exact
   human-backed families are `'67 Chevy C10`, `Purple Passion`, `Subaru BRZ`, and
   `Tesla Model S Plaid`; their existing IDs are review evidence only.
+
+- [x] **T32 — Prepare the attributable 53-family adjudication queue** `[backend]` _(R6, R16, R23)_
+  Collapse repeated Wiki releases into deterministic family review units, preserve every source
+  row, prioritize the four exact existing-family candidates, define the reviewer decision
+  contract, and emit both machine-readable JSON and a readable Markdown worksheet.
+  **Verify:** all 100 unique source rows appear exactly once across 53 stable family IDs; priorities
+  are 4 existing-candidate and 49 research-required families; all decisions are pending and all
+  groups are promotion-ineligible; output checksums and `--check` regeneration pass.
+  **Status:** Complete. No source or database request occurs. The decision contract permits only
+  merge/create/hold/reject and requires reviewer, time, reason, and evidence. This milestone
+  prepares human work but does not claim a human has completed it.
 
 ### Task order and handoff
 

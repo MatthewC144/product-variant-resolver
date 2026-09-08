@@ -29,3 +29,8 @@ human-backed draft. It uses exact normalized brand and casting names only; fuzzy
 identifier-only matching are disabled. An exact match means “review this existing casting family,”
 not “promote this release.” All 100 decisions remain `hold_for_human_review` with null canonical
 identity. `review-manifest.json` freezes all three inputs and the review output by SHA-256.
+
+`pilot-2025/adjudication-queue.json` then groups the 100 rows into 53 casting-family decisions.
+The accompanying `adjudication-queue.md` is the human-readable worksheet, and its manifest freezes
+the review input plus both queue outputs. A completed decision must identify the reviewer, time,
+reason, and evidence; all checked-in decisions remain pending and promotion-ineligible.
