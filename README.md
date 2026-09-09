@@ -314,12 +314,17 @@ that stable catalog UUIDs, canonical variants, PostgreSQL rows, or runtime ident
 python3 scripts/apply_fandom_priority_two_decisions.py --batch 5 --check
 ```
 
-The proposed next-step contract is documented in
-[`review-family-materialization`](specs/review-family-materialization/requirements.md). It keeps
-family decisions separate from release variants: 42 accepted creations would become stable
-family-only review entities, 4 merges would link to existing human-backed families, and 7 holds
-would remain explicit non-indexable exclusions. The specification is awaiting project-owner
-confirmation; no registry, Dual-RAG candidate, or PostgreSQL record has been created by T45.
+The completed
+[`review-family-materialization`](specs/review-family-materialization/requirements.md) milestone
+keeps family decisions separate from release variants. Its deterministic
+[`review-family registry`](data/review_family_registry.json) contains 42 stable family-only review
+entities, 4 links to existing human-backed families, and 7 explicit non-indexable exclusions. All
+100 source rows remain held release references; provisional variants, canonical promotions,
+runtime-indexed families, and PostgreSQL rows all remain zero.
+
+```bash
+python3 scripts/build_review_family_registry.py --check
+```
 
 ## Docker and PostgreSQL status
 

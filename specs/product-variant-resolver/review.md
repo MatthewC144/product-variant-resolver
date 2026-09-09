@@ -1,7 +1,7 @@
 # Product Variant Resolver — Lite MVP QA Review
 
 > Date: 2026-09-01  
-> Last focused update: 2026-09-09 (T45 review-family materialization specification)
+> Last focused update: 2026-09-09 (T46 review-family materialization)
 > QA mode: `.codex/agents/qa.toml` MVP Mode  
 > Scope: `specs/product-variant-resolver/mvp-brief.md` R1–R30
 > Verdict: **PASS WITH RISKS**
@@ -177,7 +177,15 @@ references. The design deliberately rejects placeholder variants and display-nam
 uses UUIDv5 over the immutable family review ID, and defers Dual-RAG/PostgreSQL integration. Static
 source analysis confirms the 79 create / 9 merge / 12 hold row split, no exact-name collision between
 the 42 creations and 97 existing human families, and no readable-ID collision within the accepted
-set. Implementation remains pending owner confirmation, so the validated suite stays **159/159**.
+set. The project owner confirmed this specification by requesting the next step.
+
+T46 implements that contract as a separate deterministic registry. Forty-two accepted creations
+now have stable UUIDv5 review identities, four merges point to exact existing human casting
+IDs/UUIDs without minting duplicates, and seven holds remain auditable/non-indexable. All 100 source
+rows occur exactly once as held release references; provisional variant, canonical promotion,
+runtime-indexed family, and PostgreSQL counts are zero. Nine focused tests bring the complete host
+suite to **168/168** and cover hashes, IDs, aliases, provenance, target resolution, hold exclusion,
+row coverage, non-mutating checks, and fail-closed invalid inputs.
 
 An independent Docker runtime milestone now verifies the existing
 `product-variant-resolver:lite` image on Docker Desktop 29.5.3/aarch64: Python 3.12.14, non-root
@@ -229,7 +237,7 @@ visible in any portfolio or repository claims.
 | R13 CPU smoke budget | PASS (limited scope) | Checked-in host-to-Docker loopback evidence has 50 sequential samples, 10 excluded warm-ups, K=25, and nearest-rank p95 `4.721208 ms` (gate `<=1500 ms`). That measurement remains offline-only. PostgreSQL exact retrieval passed sequential functionality checks, but database latency, concurrency, TLS/proxy, and remote networking were not measured. |
 | R14 API validation | PASS | Blank, 501-code-point, unknown-field, and limit=26 requests return structured 422; malformed JSON returns 400; unsupported media type returns 415; no tracebacks exposed. |
 | R15 Health/readiness | PASS WITH RISK | Missing catalogs and unavailable external providers fail closed. PostgreSQL startup verifies server/catalog state plus dense metadata and every expected UUID/version/checksum; catalog checksum corruption or one missing vector produces health 503, and retrieval-time database failure maps to 503. Health remains a startup snapshot, so post-startup loss is detected on retrieval. |
-| R16 Quality gate | PASS | The latest host suite passes 159/159; fixture and Wiki-pilot validation, deterministic Wiki review/queue/evidence/five research batches/five priority-two decision checkpoints, Python compilation, default/PostgreSQL Compose configuration, and `git diff --check` pass. T04 migration, T07 ingestion, T09 sparse, and T10 exact dense retrieval passed isolated PostgreSQL 16/pgvector verification. Offline remains the default; PostgreSQL canonical sparse+dense is opt-in. |
+| R16 Quality gate | PASS | The latest host suite passes 168/168; fixture and Wiki-pilot validation, deterministic Wiki review/queue/evidence/five research batches/five priority-two decision checkpoints/review-family registry, Python compilation, default/PostgreSQL Compose configuration, and `git diff --check` pass. T04 migration, T07 ingestion, T09 sparse, and T10 exact dense retrieval passed isolated PostgreSQL 16/pgvector verification. Offline remains the default; PostgreSQL canonical sparse+dense is opt-in. |
 | R17 Human-label provenance | PASS | `human-labeled-real-noisy-v1` contains 101 confirmed human labels, including 91 initial-name/human-name pairs and 10 explicit `no_candidate` failures. Four source rows marked excluded were not imported. The frozen manifest records source and dataset checksums, and the corpus declares that it is excluded from canonical-resolution accuracy, calibration training, and threshold selection until catalog IDs are assigned. |
 | R18 Conservative catalog alignment | PASS | The deterministic alignment covers all 101 reviewed records and freezes the human dataset, catalog, and output checksums. It reports 0 canonical mappings, 2 exact brand/casting family-only matches, and 99 unmapped records. Every unresolved record retains null UUID/slug; fuzzy matching is disabled. |
 | R19 Human-backed catalog draft | PASS | All 101 confirmed labels are preserved in 97 deterministic casting entities and 100 provisional variants. One exact structured duplicate merges while keeping both cases and aliases. Checksums and unique IDs validate, and every provisional variant remains `needs_canonical_review` and excluded from canonical responses and calibration. |
@@ -242,7 +250,7 @@ visible in any portfolio or repository claims.
 | R26 Bounded new-family research | PASS WITH RISK | Batch 01 deterministically selects ten pending priority-2 families / nineteen Wiki rows. Nine dedicated casting pages have exact-name confirmation from a non-Fandom publisher; one disambiguated name is held. Source notes and outputs are checksum-frozen, same-host evidence is rejected, reviewer fields remain pending, every variant is held, and promotion remains zero. Remote sources can change and the recommendations still require owner adjudication. |
 | R27 Validated priority-2 decision application | PASS WITH RISK | A separate project-owner batch covers all ten frozen research packets exactly once and agrees with their nine-create/one-hold recommendations. The derived queue preserves four earlier merges and both batch records, reports 14 completed / 39 pending families and 28 held variants, and keeps promotion zero. Changed outcomes and incomplete coverage fail closed. The approval is conversation-attributed rather than cryptographically signed, and accepted new families are not materialized catalog entities. |
 | R28 Cumulative priority-2 research sequencing | PASS WITH RISK | Batches 02–04 each verify the latest cumulative queue and select the next ten still-pending families; batch 05 selects the exact final nine without padding. All five batches reproduce. The final packet adds six creation recommendations and three holds for homonymous, renamed-lineage, and multi-tool-page evidence. External sources can change, held tool lineages remain unresolved, and current research results remain unconfirmed machine recommendations. |
-| R29 Cumulative priority-2 owner decisions | PASS WITH RISK | Five separate priority-2 owner batches cover their frozen packets exactly once and preserve the four earlier priority-1 decisions plus six ordered history records. The final queue reports 53 completed / 0 pending families and all 100 variants held, with zero promotion. Changed/incomplete/duplicate/widened batches fail closed. Approval remains conversation-attributed, and accepted families are not materialized catalog entities. |
+| R29 Cumulative priority-2 owner decisions | PASS WITH RISK | Five separate priority-2 owner batches cover their frozen packets exactly once and preserve the four earlier priority-1 decisions plus six ordered history records. The final queue reports 53 completed / 0 pending families and all 100 variants held, with zero promotion. Changed/incomplete/duplicate/widened batches fail closed. Approval remains conversation-attributed. T46 materializes accepted outcomes only in a separate review-family registry, not the human runtime or canonical catalog. |
 | R30 Related-casting identity boundary | PASS WITH RISK | Batch 03 retains differently named predecessor context without false holds. Batch 04 separates same-name tools from continuous retools and scale-qualified products. Batch 05 additionally distinguishes renamed existing releases and pages containing multiple tools: Power Wheels/Bogzilla, Standard Kart, and the separate same-scale BNR32 RLC tool remain held. These text-source distinctions are not physical-tool verification. |
 
 ## Checked items and reproducible evidence
@@ -251,7 +259,7 @@ Executed from the project repository root:
 
 ```bash
 PYTHONPATH=src python3 -m unittest discover -s tests -p 'test_*.py' -v
-# Latest full host rerun: Ran 159 tests — OK
+# Latest full host rerun: Ran 168 tests — OK
 # Host Python 3.14.6 emitted the known legacy-httpx TestClient warning; the constrained
 # Python 3.12 runtime was previously verified with httpx2 and warnings-as-errors.
 
@@ -287,7 +295,12 @@ python3 scripts/apply_fandom_priority_two_decisions.py --batch 1 --check
 python3 scripts/apply_fandom_priority_two_decisions.py --batch 2 --check
 python3 scripts/apply_fandom_priority_two_decisions.py --batch 3 --check
 python3 scripts/apply_fandom_priority_two_decisions.py --batch 4 --check
-# Result: all four cumulative priority-two decision checkpoints are deterministic and current
+python3 scripts/apply_fandom_priority_two_decisions.py --batch 5 --check
+# Result: all five cumulative priority-two decision checkpoints are deterministic and current
+
+python3 scripts/build_review_family_registry.py --check
+# Result: 42 new review families, 4 merge links, 7 hold exclusions, 0 variants;
+# registry, manifest, and report are deterministic and current
 ```
 
 Docker/Python 3.12 runtime milestone:
@@ -465,9 +478,9 @@ None for demonstrating the explicitly documented offline fixture path.
     attributable outcome, but the 42 accepted creations are still decision-layer concepts rather
     than stable human-catalog entities. All 100 release variants remain held, and neither Dual-RAG
     retrieval nor PostgreSQL contains these new family outcomes.
-19. **T45 is a proposed design, not shipped materialization.** The registry schema,
-    identity rules, and tasks are documented, but no registry artifact or builder exists until the
-    project owner confirms the spec and T46 is implemented. Current Dual-RAG behavior is unchanged.
+19. **T46 materializes review families, not runtime documents.** The registry and stable IDs now
+    exist, but they are explicitly excluded from retrieval and PostgreSQL. Describing the 42 new
+    families as Dual-RAG candidates or the 100 releases as variants would still be incorrect.
 
 ### Later
 
@@ -481,13 +494,12 @@ None for demonstrating the explicitly documented offline fixture path.
 The requested R7, R11, R13, Docker/Python 3.12 runtime, runtime reporting, selective dependency-
 constraint, T04/T07/T09/T10 database milestones, T26–T29 human-data/Dual-RAG milestones, and the
 T30–T44 external-data intake/pre-review/queue/evidence/research/decision milestones are QA-closed
-for their stated Lite scope. T45 now provides the proposed stable review-family materialization
-requirements, design, and implementation tasks. After project-owner confirmation, the next
-highest-value step is T46.1: build the deterministic family registry without changing runtime or
-PostgreSQL. Family-level Dual-RAG integration, a casting-grouped holdout evaluation, and database
-materialization remain separate later gates before additional yearly lists expand the corpus toward
-roughly 3,000 reviewable variants. Exact pgvector quality and latency must be remeasured at that
-scale.
+for their stated Lite scope. T45–T46 specify, implement, and verify the stable family registry.
+The next highest-value step is T47: specify the family-level human-knowledge document and Dual-RAG
+debug contract while preserving hold exclusion and null canonical identity. A casting-grouped
+holdout evaluation and database materialization remain separate later gates before additional
+yearly lists expand the corpus toward roughly 3,000 reviewable variants. Exact pgvector quality and
+latency must be remeasured at that scale.
 The next human-knowledge evaluation task remains an independently written, casting-grouped holdout
 set; until that evidence exists, the human source stays debug-only. A complete dependency-lock
 review, active post-startup database health polling, external neural models, and a justified T14

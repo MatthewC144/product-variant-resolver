@@ -574,11 +574,12 @@
   slugs as durable identity; or leave decisions only in the cumulative queue. Those choices invent
   variants, weaken current loader invariants, skip local validation, make identity depend on mutable
   text, or force every downstream consumer to reinterpret an adjudication artifact.
-- **Impact:** The proposed builder will emit 42 UUIDv5-backed review entities, 4 verified merge
+- **Impact:** The implemented builder emits 42 UUIDv5-backed review entities, 4 verified merge
   links, and 7 non-indexable hold exclusions. IDs derive from the immutable family review ID rather
   than the display name. The source split is 79 create rows, 9 merge rows, and 12 held rows; every
   one remains `held_for_variant_review`. Runtime retrieval and PostgreSQL remain unchanged in T46.
-- **Deferred review:** The owner must confirm the RFM requirements/design/tasks before build. After
-  T46, a separate T47 contract must define family-level Dual-RAG documents and debug/API behavior;
+- **Deferred review:** The owner confirmed the RFM requirements/design/tasks by requesting T46,
+  which now passes its Lite QA gate. A separate T47 contract must define family-level Dual-RAG
+  documents and debug/API behavior;
   PostgreSQL ingestion and the approximately 3,000-row expansion follow held-out evaluation rather
   than being bundled into family materialization.

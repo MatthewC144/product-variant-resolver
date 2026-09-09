@@ -1,0 +1,46 @@
+{
+  "canonical_promotion_count": 0,
+  "held_release_reference_count": 100,
+  "hold_exclusion_count": 7,
+  "hold_source_row_count": 12,
+  "identity_namespace": "product-variant-resolver:review-family:fandom-hot-wheels-wiki",
+  "inputs": {
+    "final_queue": {
+      "file": "priority-2-batch-05-adjudicated-queue.json",
+      "sha256": "989bc914f9493051a071472c9defd352fe1cb8cc217c062e1f479bdcb9c6e4d8"
+    },
+    "final_queue_manifest": {
+      "file": "priority-2-batch-05-adjudicated-queue-manifest.json",
+      "sha256": "6b532978c86adf39dbc2f41222d41ca9b765b1c615dce5453a0ba04955a9f6ff"
+    },
+    "human_backed_catalog": {
+      "file": "human_backed_catalog.json",
+      "sha256": "d29b69cde8099cb229136a73b893ca99b6313d9652ead5ff4aea48c20242e74f"
+    },
+    "human_backed_catalog_manifest": {
+      "file": "human_backed_catalog_manifest.json",
+      "sha256": "c79a3bc699d2bfcccae992a672fda79cbb905f1f2252dbfda8fa219ed55e43c7"
+    },
+    "staging_dataset": {
+      "file": "normalized.json",
+      "sha256": "e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6"
+    },
+    "staging_manifest": {
+      "file": "manifest.json",
+      "sha256": "960c639765759d3ab7b610718c026fa784e1995844f4acc9587718d94218f111"
+    }
+  },
+  "merge_link_count": 4,
+  "merge_source_row_count": 9,
+  "new_family_count": 42,
+  "new_family_source_row_count": 79,
+  "postgresql_row_count": 0,
+  "provisional_variant_count": 0,
+  "registry_file": "review_family_registry.json",
+  "registry_sha256": "3f289b802cc2e8280ed5c3586d87cfabbee7ce37b10ae79504b5aa6b8837367d",
+  "registry_version": "fandom-2025-review-families-r790665-v1",
+  "report_file": "review-family-materialization.md",
+  "report_sha256": "5312f2b86b3209c815def09417628a0248a8e50251f88ec3a48aeb7ed03203b5",
+  "runtime_indexed_family_count": 0,
+  "schema_version": "pvr-review-family-registry-manifest-v1"
+}

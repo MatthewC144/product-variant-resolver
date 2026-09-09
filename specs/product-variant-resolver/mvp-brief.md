@@ -882,8 +882,19 @@ Each task is intended to be independently committable and verifiable. `task_exec
   **Verify:** requirements are testable EARS statements; design covers interfaces, data models,
   identity/alias policy, fail-closed behavior, security notes, and testing; implementation tasks are
   atomic and traceable; the decision and project log record alternatives and boundaries.
-  **Status:** Complete as a proposed Lite specification. Awaiting project-owner confirmation before
-  T46 implementation; no runtime, catalog, database, calibration, or evaluation data changed.
+  **Status:** Complete. The project owner confirmed the specification by requesting the next step;
+  T46 implements the approved contract without changing runtime or database behavior.
+
+- [x] **T46 — Materialize the stable review-family registry** `[backend/qa/doc_curator]` _(RFM-R1–RFM-R13)_
+  Verify the final queue, staging dataset, human-backed catalog, and their manifests; emit stable
+  family entities, merge links, hold exclusions, a frozen manifest, and a readable report without
+  fabricating variants or changing runtime/persistence.
+  **Verify:** exact 42/4/7 family and 79/9/12 row accounting; 100 unique held release references;
+  stable UUIDv5 IDs; exact merge targets; conservative aliases; complete provenance; deterministic
+  `--check`; invalid checksums/states/targets/rows/scope fail closed; full suite and data chain pass.
+  **Status:** Complete. Nine focused tests and the global validator enforce the contract; the full
+  host suite passes 168/168. Provisional variants, canonical promotions, runtime-indexed families,
+  and PostgreSQL rows remain zero.
 
 ### Task order and handoff
 

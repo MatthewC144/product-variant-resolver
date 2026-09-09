@@ -123,3 +123,10 @@ new-family decisions, 7 holds, 100 held release variants, and zero promotion eli
 three final holds retain their same-scale-tool, renamed-lineage, and multi-tool-page reasons. This
 artifact closes family adjudication only; accepted outcomes are not stable catalog entities,
 PostgreSQL rows, canonical variants, or runtime candidates.
+
+T46 consumes that final queue through `scripts/build_review_family_registry.py`. The resulting
+repository-level `data/review_family_registry.json` gives the 42 accepted creations deterministic
+UUIDv5 review identities, expresses the 4 merges as links to existing human-backed family IDs, and
+retains the 7 holds as non-indexable exclusions. The complete 79-create / 9-merge / 12-hold source-
+row split remains `held_for_variant_review`; no provisional variant, canonical identity, Dual-RAG
+runtime candidate, or PostgreSQL row is created.

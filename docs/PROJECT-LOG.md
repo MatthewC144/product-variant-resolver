@@ -1,5 +1,116 @@
 # Project Log
 
+## 2026-09-09 — Accepted family decisions become stable review entities without fake variants
+
+### What was executed and what problem it solves
+
+T46 implements the owner-confirmed family-materialization contract. Before this step, the 42
+accepted `create_new_casting` outcomes existed only inside a long adjudication queue; they had
+decisions and evidence but no standalone, database-compatible review identity. The new registry
+makes those family concepts directly inspectable and reproducible without claiming that any of the
+100 associated Wiki releases has been reviewed as a variant.
+
+The generated result contains 42 new family entities over 79 source rows, 4 links to existing
+human-backed families over 9 rows, and 7 explicit hold exclusions over 12 rows. Every source row is
+represented exactly once and remains `held_for_variant_review`. The registry therefore closes the
+family-identity materialization gap while keeping the release-level backlog visible.
+
+### Code changes and why they were made
+
+`build_review_family_registry.py` verifies six inputs before building: the final adjudicated queue,
+its manifest, the normalized 100-row staging dataset, its source manifest, the 97-family human-
+backed catalog, and its manifest. It checks filenames, versions, SHA-256 values, queue completion,
+source revision/license, family/row accounting, decision vocabulary/scope, promotion hold, exact
+staging-row equality, and existing human-family identities. This prevents a stale or hand-edited
+input from quietly becoming a new identity registry.
+
+For each accepted creation, the builder reuses `family_review_id` as the public review ID and derives
+a UUIDv5 from the fixed `product-variant-resolver:review-family:fandom-hot-wheels-wiki` namespace.
+For each accepted merge, it resolves the exact existing human `casting_id` and `casting_uuid` and
+does not mint another UUID. Holds retain names, reasons, evidence, and release references with
+`retrieval_eligible=false`.
+
+The builder emits `data/review_family_registry.json`, a checksum/count manifest, and a readable
+Markdown report. JSON serialization and list order are deterministic and have no build timestamp.
+Write mode fully validates and prepares all content before replacing outputs; `--check` builds
+expected content in memory and compares all three files without writing.
+
+`test_review_family_registry.py` adds nine tests. They verify exact 42/4/7 family and 79/9/12 row
+splits, unique UUIDv5 values, one approved alias per new family, exact merge targets, all seven named
+holds, 100 unique held releases, complete decision/source provenance, frozen hashes, deterministic
+reproduction, and non-mutating check mode. Mutated checksum, partial queue, widened variant scope,
+duplicate source row, missing merge target, and collision with an existing human family all fail.
+
+`validate_fixture_data.py` now treats the registry and manifest as part of project-wide integrity.
+It repeats the high-value checksum, counts, UUID, alias, merge-target, hold, source provenance, row
+coverage, and zero-promotion/index/persistence checks so routine validation cannot ignore the new
+artifact.
+
+### Technical choices, alternatives, and trade-offs
+
+UUIDv5 was selected instead of random UUIDv4 because identical reviewed input must yield identical
+identities on every machine. The UUID input excludes display name and registry version: punctuation
+or a future label correction can change presentation without replacing identity, while a genuinely
+different source family keeps a different immutable review ID.
+
+The registry keeps full release references—including year, toy/collector number, series position,
+and variant note—but none becomes an alias or variant object. Discarding them would lose the path to
+later release review; indexing them now would make unverified release details influence search.
+Keeping them as held provenance supports future work without weakening today's claim.
+
+All seven holds appear in the registry as exclusions rather than being omitted. Omission would make
+the 100-row accounting incomplete and allow a future importer to rediscover the same unsafe names.
+Conversely, an exclusion cannot be indexed. Power Wheels Dune Racer therefore remains visible as a
+renamed-lineage problem without silently becoming a Bogzilla alias.
+
+The outputs are prepared in temporary sibling files and then replaced after validation. This is
+safer than writing each artifact incrementally and meets the invalid-input preservation goal. It is
+not described as a multi-file database transaction: an operating-system or power failure between
+final replacements remains a recoverable stale-output condition detected by `--check`.
+
+Runtime integration remains deliberately separate. Extending the existing variant-based
+`HumanKnowledgeDocument` now would combine data materialization with API/debug schema and ranking
+changes. T46 gives that future work a stable, validated input while keeping the currently proven
+Dual-RAG path unchanged.
+
+### Decision changes
+
+The T45 proposal is now owner-confirmed and implemented. The 42 accepted families change from
+decision-layer concepts to stable review-family entities; the 4 merges become explicit links. This
+does not change their family decisions, and the 7 holds remain non-materialized exclusions.
+
+No release changes from hold to accepted. No canonical or existing human-backed runtime identity is
+rewritten. Provisional-variant creation, canonical promotion, runtime indexing, and PostgreSQL row
+creation all remain exactly zero.
+
+### Verification evidence
+
+The focused registry suite passed 9/9. The complete host suite passed 168/168 in 1.500 seconds on
+Python 3.14.6; only the already documented legacy-`httpx` TestClient warning appeared. The project
+fixture and Wiki pilot validators, review/base queue/priority-one chain, all five research batches,
+all five priority-two decision checkpoints, registry `--check`, Python compilation, default and
+PostgreSQL Compose configurations, and whitespace check all passed.
+
+Registry SHA-256 is
+`3f289b802cc2e8280ed5c3586d87cfabbee7ce37b10ae79504b5aa6b8837367d`; manifest SHA-256 is
+`ae9eda741aa2ec7cb9354424e17b789ba73c05890859e73d19cd845c5cab3ff2`; readable report SHA-256 is
+`5312f2b86b3209c815def09417628a0248a8e50251f88ec3a48aeb7ed03203b5`. The combined fixture
+checksum including the registry is
+`2c72ca83a74e090d8e89e6df124fb1520355643fd8629f71535f099269d45972`.
+
+### Incomplete work, risks, and next step
+
+The family registry is not loaded by `src/product_variant_resolver`; it does not alter current
+Dual-RAG candidates, API responses, health state, or PostgreSQL. The 100 release references still
+need separate variant review, and the seven held family names still need tool- or lineage-qualified
+decisions. Text-source evidence may contain upstream inaccuracies.
+
+The next immediate task is T47 specification: define a distinct family-level human-knowledge
+document, its debug fields, ranking inputs, hold exclusion, readiness checks, and the invariant that
+a family suggestion can never populate canonical identity. Only after implementation and an
+independent casting-grouped holdout evaluation should this registry be considered for PostgreSQL or
+the expansion toward roughly 3,000 reviewable rows.
+
 ## 2026-09-09 — Family materialization is specified without inventing variants
 
 ### What was executed and what problem it solves

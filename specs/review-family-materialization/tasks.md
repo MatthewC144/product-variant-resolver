@@ -2,14 +2,14 @@
 
 > Mode: Lite / Lean Industrial
 >
-> Status: Awaiting project-owner confirmation before build
+> Status: Complete
 
 ## Task order
 
 ### T46.1 — Build the deterministic review-family registry `[backend]`
 
-- [ ] Implement `scripts/build_review_family_registry.py`. _(→RFM-R1–RFM-R9, RFM-R11–RFM-R13)_
-- [ ] Generate the registry, manifest, and readable materialization report. _(→RFM-R9–RFM-R10)_
+- [x] Implement `scripts/build_review_family_registry.py`. _(→RFM-R1–RFM-R9, RFM-R11–RFM-R13)_
+- [x] Generate the registry, manifest, and readable materialization report. _(→RFM-R9–RFM-R10)_
 
 Files:
 
@@ -30,8 +30,8 @@ Acceptance:
 
 ### T46.2 — Add fail-closed registry validation and deterministic tests `[backend/qa]`
 
-- [ ] Add focused unit and artifact tests. _(→RFM-R3–RFM-R13)_
-- [ ] Extend fixture validation to verify registry and manifest checksums/boundaries. _(→RFM-R10–RFM-R13)_
+- [x] Add focused unit and artifact tests. _(→RFM-R3–RFM-R13)_
+- [x] Extend fixture validation to verify registry and manifest checksums/boundaries. _(→RFM-R10–RFM-R13)_
 
 Files:
 
@@ -49,8 +49,8 @@ Acceptance:
 
 ### T46.3 — Verify and document the materialization milestone `[qa/doc_curator]`
 
-- [ ] Run focused and complete test suites plus the full deterministic data chain. _(→RFM-R1–RFM-R13)_
-- [ ] Update README, QA review, evidence, decision history, and project log with measured results.
+- [x] Run focused and complete test suites plus the full deterministic data chain. _(→RFM-R1–RFM-R13)_
+- [x] Update README, QA review, evidence, decision history, and project log with measured results.
 
 Files:
 

@@ -29,6 +29,8 @@ def validate() -> list[str]:
     human_alignment_manifest = load("human_labeled_catalog_alignment_manifest.json")
     human_catalog = load("human_backed_catalog.json")
     human_catalog_manifest = load("human_backed_catalog_manifest.json")
+    review_registry = load("review_family_registry.json")
+    review_registry_manifest = load("review_family_registry_manifest.json")
     products = catalog.get("products", [])
     cases = benchmark.get("cases", [])
     if len(products) < 120:
@@ -186,6 +188,105 @@ def validate() -> list[str]:
                 f"{variant.get('provisional_variant_id')}"
             )
 
+    review_registry_path = ROOT / "data" / "review_family_registry.json"
+    review_registry_digest = hashlib.sha256(review_registry_path.read_bytes()).hexdigest()
+    if review_registry_manifest.get("registry_sha256") != review_registry_digest:
+        errors.append("review-family registry checksum differs from frozen manifest")
+    if review_registry.get("schema_version") != "pvr-review-family-registry-v1":
+        errors.append("review-family registry has an unsupported schema")
+    if review_registry.get("status") != "review_family_only":
+        errors.append("review-family registry has an unsupported status")
+    new_families = review_registry.get("new_families", [])
+    merge_links = review_registry.get("merge_links", [])
+    hold_exclusions = review_registry.get("hold_exclusions", [])
+    expected_registry_counts = {
+        "new_family_count": len(new_families),
+        "merge_link_count": len(merge_links),
+        "hold_exclusion_count": len(hold_exclusions),
+    }
+    if expected_registry_counts != {
+        "new_family_count": 42,
+        "merge_link_count": 4,
+        "hold_exclusion_count": 7,
+    }:
+        errors.append(f"review-family registry count mismatch: {expected_registry_counts}")
+    for field, value in expected_registry_counts.items():
+        if review_registry_manifest.get(field) != value:
+            errors.append(f"review-family manifest {field} mismatch")
+    for field in (
+        "provisional_variant_count",
+        "canonical_promotion_count",
+        "runtime_indexed_family_count",
+        "postgresql_row_count",
+    ):
+        if review_registry_manifest.get(field) != 0:
+            errors.append(f"review-family manifest {field} must remain zero")
+
+    review_ids: set[str] = set()
+    review_uuids: set[str] = set()
+    for family in new_families:
+        family_id = family.get("review_family_id")
+        family_uuid = family.get("review_family_uuid")
+        if family_id in review_ids:
+            errors.append(f"duplicate review-family ID: {family_id}")
+        review_ids.add(family_id)
+        try:
+            uuid.UUID(family_uuid)
+        except (AttributeError, TypeError, ValueError):
+            errors.append(f"invalid review-family UUID: {family_uuid}")
+        if family_uuid in review_uuids:
+            errors.append(f"duplicate review-family UUID: {family_uuid}")
+        review_uuids.add(family_uuid)
+        if family.get("aliases") != [family.get("display_name")]:
+            errors.append(f"review-family aliases exceed approved display name: {family_id}")
+        if family.get("identity_status") != "family_accepted_variants_unreviewed":
+            errors.append(f"review-family has invalid identity status: {family_id}")
+
+    human_by_id = {casting.get("casting_id"): casting for casting in human_castings}
+    for link in merge_links:
+        target = human_by_id.get(link.get("target_casting_id"))
+        if target is None or target.get("casting_uuid") != link.get("target_casting_uuid"):
+            errors.append(
+                f"review-family merge has invalid target: {link.get('source_family_review_id')}"
+            )
+        if "review_family_uuid" in link:
+            errors.append("review-family merge minted a duplicate family UUID")
+    for hold in hold_exclusions:
+        if hold.get("retrieval_eligible") is not False:
+            errors.append(f"held family became retrieval eligible: {hold.get('review_family_id')}")
+        if hold.get("identity_status") != "held_not_materialized":
+            errors.append(f"held family has invalid status: {hold.get('review_family_id')}")
+
+    review_release_references = [
+        reference
+        for section in (new_families, merge_links, hold_exclusions)
+        for family in section
+        for reference in family.get("held_release_references", [])
+    ]
+    review_source_ids = [
+        reference.get("source_record_id") for reference in review_release_references
+    ]
+    if len(review_release_references) != 100 or len(set(review_source_ids)) != 100:
+        errors.append("review-family registry does not cover 100 unique release references")
+    if not all(
+        reference.get("review_status") == "held_for_variant_review"
+        for reference in review_release_references
+    ):
+        errors.append("review-family registry contains a release that bypasses variant review")
+    if review_registry_manifest.get("held_release_reference_count") != len(
+        review_release_references
+    ):
+        errors.append("review-family manifest held release count mismatch")
+    if review_registry.get("source", {}).get("revision_id") != 790665:
+        errors.append("review-family registry source revision mismatch")
+    if review_registry.get("source", {}).get("license") != "CC-BY-SA":
+        errors.append("review-family registry source license mismatch")
+    serialized_registry = json.dumps(review_registry, ensure_ascii=False)
+    if '"provisional_variants"' in serialized_registry:
+        errors.append("review-family registry fabricated provisional variants")
+    if '"canonical_uuid"' in serialized_registry:
+        errors.append("review-family registry asserts canonical identity")
+
     return errors
 
 
@@ -201,6 +302,8 @@ def manifest_checksum() -> str:
         "human_labeled_catalog_alignment_manifest.json",
         "human_backed_catalog.json",
         "human_backed_catalog_manifest.json",
+        "review_family_registry.json",
+        "review_family_registry_manifest.json",
     ):
         digest.update((ROOT / "data" / name).read_bytes())
     return digest.hexdigest()
