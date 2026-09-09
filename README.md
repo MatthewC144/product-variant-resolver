@@ -278,6 +278,17 @@ is created.
 python3 scripts/build_fandom_priority_two_research.py --batch 4 --check
 ```
 
+The owner's follow-up authorization for the exact batch-04 split is stored in
+[`priority-2-batch-04-decisions.json`](data/external/hot-wheels-wiki/pilot-2025/priority-2-batch-04-decisions.json).
+The cumulative queue now reports 44 completed / 9 pending families: 4 existing-family merges, 36
+accepted new-family decisions, and 4 holds. The Mazda and Nissan name collisions remain held, and
+all 87 release rows represented by completed decisions remain variant-held. This decision layer
+does not create catalog UUIDs, PostgreSQL rows, or runtime identities.
+
+```bash
+python3 scripts/apply_fandom_priority_two_decisions.py --batch 4 --check
+```
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with

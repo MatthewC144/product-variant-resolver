@@ -99,3 +99,10 @@ but the name-only family key remains ambiguous. The packet treats Nerve Hammer's
 as one continuous lineage and retains the separately suffixed 1:43 Mercedes-Benz 500 E XL page as
 scale context. All results are machine recommendations with pending reviewer fields, held variants,
 zero promotion, and no catalog/PostgreSQL/runtime mutation.
+
+`pilot-2025/priority-2-batch-04-decisions.json` records the project owner's follow-up approval of
+the exact eight-create/two-hold recommendation. The derived batch-04 cumulative queue preserves
+all five ordered decision events and reports 44 completed / 9 pending family decisions, 4 accepted
+merges, 36 accepted new families, 4 holds, 87 held release variants, and zero promotion
+eligibility. Mazda MX-5 Miata and Nissan Skyline 2000GT-R LBWK remain held at family scope. No
+accepted family is materialized as a catalog, PostgreSQL, or runtime entity.

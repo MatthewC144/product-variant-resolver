@@ -266,6 +266,12 @@ def build_markdown(
             "> Ten casting families are accepted as new review-layer families. Every release",
             "> variant stays held; canonical and PostgreSQL data remain unchanged.",
         ]
+    elif batch_label == "04":
+        overview_lines = [
+            "> Eight casting families are accepted as new review-layer families and two same-name",
+            "> tool ambiguities remain held. Every release variant stays held; canonical and",
+            "> PostgreSQL data remain unchanged.",
+        ]
     else:
         overview_lines = [
             "> Nine casting families are accepted as new review-layer families and one ambiguous",
@@ -322,12 +328,19 @@ def build_markdown(
             "Batmobile` remains held until HYW60/HYX61 can be linked to one specific casting tool.",
         ]
         new_family_count = "nine"
-    else:
+    elif batch_label == "03":
         hold_lines = [
             "UUID, no verified release/color identity, and no PostgreSQL row. Batch 03 has no",
             "family-level hold, but all eighteen release variants remain held.",
         ]
         new_family_count = "ten"
+    else:
+        hold_lines = [
+            "UUID, no verified release/color identity, and no PostgreSQL row. Mazda MX-5 Miata",
+            "and Nissan Skyline 2000GT-R LBWK remain held until their 2025 rows can be linked to",
+            "one tool-specific family without relying on their shared display names.",
+        ]
+        new_family_count = "eight"
     lines.extend(
         [
             "",
@@ -366,7 +379,7 @@ def main() -> None:
         description="Apply or verify a priority-two family-decision batch"
     )
     parser.add_argument("--check", action="store_true")
-    parser.add_argument("--batch", choices=("1", "2", "3"), default="1")
+    parser.add_argument("--batch", choices=("1", "2", "3", "4"), default="1")
     parser.add_argument("--directory", type=Path, default=directory)
     arguments = parser.parse_args()
     output = arguments.directory
@@ -378,10 +391,14 @@ def main() -> None:
         batch_label = "02"
         result_version = "fandom-2025-priority-two-batch-02-adjudicated-v1"
         queue_prefix = "priority-2-batch-01-"
-    else:
+    elif arguments.batch == "3":
         batch_label = "03"
         result_version = "fandom-2025-priority-two-batch-03-adjudicated-v1"
         queue_prefix = "priority-2-batch-02-"
+    else:
+        batch_label = "04"
+        result_version = "fandom-2025-priority-two-batch-04-adjudicated-v1"
+        queue_prefix = "priority-2-batch-03-"
     prefix = f"priority-2-batch-{batch_label}"
     built = apply_priority_two_decisions(
         output / f"{queue_prefix}adjudicated-queue.json",

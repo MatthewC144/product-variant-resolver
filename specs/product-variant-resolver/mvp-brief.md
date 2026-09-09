@@ -843,15 +843,32 @@ Each task is intended to be independently committable and verifiable. `task_exec
   and Nissan Skyline 2000GT-R LBWK remain held at family scope because their display names span
   separate same-scale casting tools. No owner decision or catalog/database/runtime data changed.
 
-- [ ] **T42 — Apply project-owner priority-2 batch-04 decisions** `[backend]` _(R6, R16, R27, R29, R30)_
+- [x] **T42 — Apply project-owner priority-2 batch-04 decisions** `[backend]` _(R6, R16, R27, R29, R30)_
   After the owner reviews the exact frozen T41 packet, record only the explicitly approved eight-
   create/two-hold family outcomes in a separate attributable decision file and append the result to
   cumulative history without widening variant scope.
   **Verify:** all ten research packets are covered exactly once; outcomes match authorization; all
   prior decisions and history remain unchanged; altered, incomplete, duplicate, or widened batches
   fail closed; all twenty-three current release rows remain held; promotion stays zero.
-  **Status:** Pending the project owner's review. Machine research must not be converted into owner
-  decisions automatically.
+  **Status:** Complete. The owner's exact eight-create/two-hold authorization is stored separately
+  and appended to cumulative history. All twenty-three current release rows remain held; no stable
+  ID, catalog object, PostgreSQL row, runtime result, calibration input, or evaluation label changed.
+
+- [ ] **T43 — Research the final priority-2 family batch from the cumulative queue** `[backend]` _(R6, R16, R26, R28, R30)_
+  Verify the T42 cumulative queue and research the remaining nine pending priority-2 families with
+  the same dedicated-page, independent exact-name, homonym, scale, and lineage safeguards.
+  **Verify:** exactly the nine remaining pending families are represented once; frozen source
+  observations and checksums reproduce; reviewer confirmation stays pending; all release variants
+  remain held; and no canonical, PostgreSQL, runtime, calibration, or evaluation data changes.
+  **Status:** Pending. This is the final bounded research packet for the current 100-row Wiki pilot.
+
+- [ ] **T44 — Apply project-owner final priority-2 decisions** `[backend]` _(R6, R16, R27, R29, R30)_
+  After the owner reviews T43, record the exact authorized outcomes separately and close the current
+  53-family adjudication queue without materializing accepted families.
+  **Verify:** all nine packets are covered exactly once; all earlier history remains byte-for-byte
+  unchanged; altered, incomplete, duplicate, or widened decisions fail closed; every release row
+  stays held; and promotion remains zero.
+  **Status:** Pending T43 research and an explicit project-owner response.
 
 ### Task order and handoff
 

@@ -1,0 +1,141 @@
+{
+  "batch_id": "fandom-priority-2-batch-04-owner-decisions-v1",
+  "decided_at": "2026-09-09T13:52:51Z",
+  "decided_by": "project_owner",
+  "decision_provenance": "The project owner explicitly requested execution of T42 after receiving the complete T41 outcome and exact eight-create/two-hold split: accept the eight create_new_casting family recommendations, retain the Mazda MX-5 Miata and Nissan Skyline 2000GT-R LBWK family holds, and keep all twenty-three release variants held.",
+  "decisions": [
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-04-research.json#fandom-family-174efb9bce3a441e",
+        "https://hotwheels.fandom.com/wiki/Lamborghini_Hurac%C3%A1n_Sterrato",
+        "https://catalog.hwcollectorsnews.com/Castings/Details/dc9e9612-131c-4191-9352-fddd4609402d"
+      ],
+      "family_review_id": "fandom-family-174efb9bce3a441e",
+      "reason": "A dedicated casting page and independent exact-name catalog record support accepting Lamborghini Huracan Sterrato as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-04-research.json#fandom-family-0573861db69878eb",
+        "https://hotwheels.fandom.com/wiki/Max_Steel",
+        "https://archive.hwcollectorsnews.com/wp-content/uploads/2024/07/2024-M-Case-Assortment.pdf"
+      ],
+      "family_review_id": "fandom-family-0573861db69878eb",
+      "reason": "A dedicated casting page and independent case-assortment record support accepting Max Steel as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-04-research.json#fandom-family-e7d4d8cf1dd8c6e1",
+        "https://hotwheels.fandom.com/wiki/Mazda_Autozam",
+        "https://catalog.hwcollectorsnews.com/SeriesDefinitions/Details/1927"
+      ],
+      "family_review_id": "fandom-family-e7d4d8cf1dd8c6e1",
+      "reason": "A dedicated casting page and independent 2025 variation records support accepting Mazda Autozam as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "hold",
+      "evidence_references": [
+        "priority-2-batch-04-research.json#fandom-family-c639dc688e21d33b",
+        "https://hotwheels.fandom.com/wiki/Mazda_MX-5_Miata_%282025%29",
+        "https://hotwheels.fandom.com/wiki/Mazda_MX-5_Miata_%281991%29",
+        "https://catalog.hwcollectorsnews.com/SeriesDefinitions/Details/1927"
+      ],
+      "family_review_id": "fandom-family-c639dc688e21d33b",
+      "reason": "The same Mazda MX-5 Miata display name spans separate 2025 and 1991-era same-scale casting tools, so the current rows remain held until they receive a tool-specific identity.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-04-research.json#fandom-family-aec11693bfe04245",
+        "https://hotwheels.fandom.com/wiki/Mazda_REPU",
+        "https://allhotwheels.com/car/2025/mainline/hyw98/mazda-repu"
+      ],
+      "family_review_id": "fandom-family-aec11693bfe04245",
+      "reason": "A dedicated casting page and independent HYW98 release record support accepting Mazda REPU as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-04-research.json#fandom-family-1b2a4227b4e5decd",
+        "https://hotwheels.fandom.com/wiki/Mercedes-Benz_500_E",
+        "https://www.lastdodo.com/en/items/11230373-mercedes-benz-500-e"
+      ],
+      "family_review_id": "fandom-family-1b2a4227b4e5decd",
+      "reason": "A dedicated main-scale casting page and independent exact-name release record support accepting Mercedes-Benz 500 E as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-04-research.json#fandom-family-2357e7eb6b4e62b8",
+        "https://hotwheels.fandom.com/wiki/Monster_High_Ghoul_Mobile",
+        "https://www.footballstickipedia.co.uk/generated/checklists/fs_panini_entertainment_panini_hot_wheels_on_the_road_trading_card_collection.pdf"
+      ],
+      "family_review_id": "fandom-family-2357e7eb6b4e62b8",
+      "reason": "A dedicated casting page and independent exact-name checklist support accepting Monster High Ghoul Mobile as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-04-research.json#fandom-family-aaafff57ac4d4daa",
+        "https://hotwheels.fandom.com/wiki/Morgan_Super_3",
+        "https://catalog.hwcollectorsnews.com/SeriesDefinitions/Details/1913"
+      ],
+      "family_review_id": "fandom-family-aaafff57ac4d4daa",
+      "reason": "A dedicated casting page and independent 2025 variation records support accepting Morgan Super 3 as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-04-research.json#fandom-family-4d00e96d12341b4d",
+        "https://hotwheels.fandom.com/wiki/Nerve_Hammer",
+        "https://hotwheelsdb.com/vehicles/nerve-hammer-2025"
+      ],
+      "family_review_id": "fandom-family-4d00e96d12341b4d",
+      "reason": "The dedicated casting page documents one continuous family and the independent 2025 record confirms the exact name, supporting Nerve Hammer as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "hold",
+      "evidence_references": [
+        "priority-2-batch-04-research.json#fandom-family-369b0be5855c0a1c",
+        "https://hotwheels.fandom.com/wiki/Nissan_Skyline_2000GT-R_LBWK_%28Tooned%29",
+        "https://hotwheels.fandom.com/wiki/Nissan_Skyline_2000GT-R_LBWK",
+        "https://diecastradar.app/product/hot-wheels-nissan-skyline-2000gt-r-lbwk-tooned-metalflake-blue-hyx54"
+      ],
+      "family_review_id": "fandom-family-369b0be5855c0a1c",
+      "reason": "The same Nissan Skyline 2000GT-R LBWK display name spans separate Tooned and non-Tooned same-scale casting tools, so the current rows remain held until they receive a tool-specific identity.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    }
+  ],
+  "schema_version": "pvr-fandom-family-decisions-v1"
+}

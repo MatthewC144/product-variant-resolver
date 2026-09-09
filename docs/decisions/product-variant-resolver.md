@@ -481,3 +481,26 @@
 - **Deferred review:** T42 must present this exact frozen split to the project owner. Resolving the
   two holds requires tool-qualified family naming or another explicit lineage key; materialization
   remains deferred.
+
+## D27 — Preserve both batch-04 name holds in the attributable owner layer
+
+- **Choice:** Interpret the owner's request to execute the next step against the immediately
+  preceding T41 result as authorization for exactly eight `create_new_casting` decisions and two
+  holds. Record the authority in a separate batch-04 decision file, append it to cumulative history,
+  and keep all twenty-three release rows variant-held.
+- **Reason:** The preceding handoff named both held families, linked the source conflicts, stated the
+  exact eight-create/two-hold split, and identified T42 as the next action. The response therefore
+  authorizes that bounded family decision. It does not resolve which Mazda or Nissan tool should own
+  the staged rows, and it does not authorize stable IDs, colors, variants, retrieval, or persistence.
+- **Alternatives:** Convert all ten recommendations into creations because the current toy numbers
+  identify pages; discard the two ambiguous families; leave the authorization only in conversation;
+  overwrite the T40 checkpoint; or immediately create catalog/PostgreSQL objects. Those choices
+  respectively hide name collisions, lose pending work, weaken provenance, erase history, or expand
+  a review decision into an unrequested materialization step.
+- **Impact:** The cumulative queue records forty-four completed and nine pending family decisions:
+  four accepted existing-family merges, thirty-six accepted new-family decisions, and four holds.
+  Five ordered decision events are checksum-bound. Eighty-seven release rows belong to completed
+  family decisions, but every variant remains held and promotion eligibility remains zero.
+- **Deferred review:** T43 should research the remaining nine pending priority-2 families as one
+  final bounded packet. The accepted review decisions still require a separate stable-entity design
+  before they can enter either Dual-RAG source or PostgreSQL.

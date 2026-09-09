@@ -1,5 +1,108 @@
 # Project Log
 
+## 2026-09-09 — Batch-04 research becomes an attributable eight-create/two-hold decision layer
+
+### What was executed and what problem it solves
+
+T42 converts the project owner's bounded follow-up authorization into a repository-owned decision
+record. The immediately preceding T41 handoff identified the exact eight creation recommendations,
+the two held names, why those names remain ambiguous, and that every release variant would stay
+held. Recording the response separately prevents the system from confusing a machine research
+recommendation with a human decision or relying on transient conversation history.
+
+The eight accepted review-layer families are Lamborghini Huracán Sterrato, Max Steel, Mazda
+Autozam, Mazda REPU, Mercedes-Benz 500 E, Monster High Ghoul Mobile, Morgan Super 3, and Nerve
+Hammer. Mazda MX-5 Miata and Nissan Skyline 2000GT-R LBWK remain held. The cumulative queue moves
+from thirty-four completed / nineteen pending families to forty-four completed / nine pending,
+while all twenty-three rows in the current batch remain variant-held.
+
+### Code changes and why they were made
+
+`priority-2-batch-04-decisions.json` is the new immutable authorization input. It records
+`project_owner`, an ISO-8601 UTC decision time, conversational provenance, and one decision for each
+T41 packet. Each entry uses `casting_family_only`, keeps `target_family_id` null, gives a written
+family-specific reason, references the frozen research packet and supporting sources, and sets
+`variant_decision` to `hold`. Keeping the decision input separate from both research and output
+makes the actor, time, scope, and evidence independently inspectable.
+
+`apply_fandom_priority_two_decisions.py` now accepts `--batch 4`. The new mapping reads the T40
+cumulative queue, T41 research, and T42 decision input, then emits batch-04-specific filenames and
+version metadata. Its Markdown generator now explains the eight-create/two-hold result explicitly,
+including both unresolved names. Earlier batch branches remain unchanged so batches 01 through 04
+continue to reproduce from one validation implementation.
+
+The generated `priority-2-batch-04-adjudicated-queue.json` uses copy-on-write rather than changing
+the T40 checkpoint. It appends a fifth ordered decision event and recalculates cumulative counts.
+The readable result explains the boundary for a non-code reviewer, while the manifest binds every
+input and both outputs by SHA-256. This combination allows people to read the result and tests to
+detect any later silent edit.
+
+`test_fandom_priority_two_decisions_batch_four.py` adds six focused tests. They require exactly ten
+decisions with eight creations and the two named holds, verify all twenty-three release rows stay
+held, preserve every earlier decision group and history entry, and reproduce the frozen output.
+Negative cases deliberately change an outcome, remove one family, reuse an earlier batch ID, and
+try to promote a release variant. Each alteration must fail closed.
+
+### Technical choices, alternatives, and trade-offs
+
+The owner response is treated as bounded authorization because it followed a handoff that stated
+the complete proposed split and named T42 as the next step. The decision file repeats that scope
+instead of recording only “approved.” This makes later review possible without reconstructing the
+conversation, although conversational attribution is still weaker than a cryptographic signature.
+
+The Mazda and Nissan holds are preserved even though the current toy numbers point to the newer
+Mazda and Tooned Nissan pages. Toy numbers help identify current rows, but the queued entity key is
+still the shared display name. Automatically creating name-keyed families would encode collisions
+with older or non-Tooned same-scale tools. The chosen hold sacrifices immediate coverage so later
+materialization can introduce a tool-qualified name or lineage key deliberately.
+
+The accepted outcomes are not materialized. Creating UUIDs or PostgreSQL rows in the same step
+would combine two different decisions: whether the source evidence supports a family, and how that
+family should be represented in searchable data. Separating adjudication from materialization
+keeps rollback simple, avoids inventing release colors or canonical variants, and preserves the
+Dual-RAG boundary. The trade-off is that accepted families are still not searchable.
+
+### Decision changes
+
+Eight T41 recommendations change from `pending` machine research into completed, attributable
+`create_new_casting` decisions. The proposed Mazda MX-5 Miata and Nissan Skyline 2000GT-R LBWK
+holds become completed owner holds; they are not discarded and remain visible for later identity
+design. All ten decisions are family-only.
+
+The cumulative state is now forty-four completed and nine pending family decisions. It contains
+four accepted existing-family merges, thirty-six accepted new-family decisions, and four family
+holds. Eighty-seven release rows fall under completed family decisions, but their variant state is
+still hold and promotion eligibility remains zero. No canonical UUID, human-backed catalog entity,
+PostgreSQL row, runtime behavior, calibration input, or evaluation label changed.
+
+### Verification evidence
+
+The focused T42 module passed 6/6, and decision checkpoints for batches 01 through 04 reproduced
+byte for byte. The complete host suite passed 147/147 in 1.611 seconds on Python 3.14.6. The known
+legacy-`httpx` Starlette TestClient warning remains limited to the machine-wide environment; the
+constrained Python 3.12 runtime was already verified with `httpx2`.
+
+The decision-file checksum is
+`172775063922d1ab2ae999ddcea43a09826b02f4f01c97fbb1c3e0b9671c8dbf`; the cumulative queue is
+`123e7432bc68710e9f3c6c01393b07456ff018c54619ea2111825c27f2ff5847`; the readable result is
+`f83431ed2febf8607bb692a146142f0e874812bc9124e7ee1db1f16d9627eff3`; and the manifest is
+`34c61547ea3ef76fd97fb46a54667272a99c2dce23f8c87568969d5df90136a9`. Final fixture, Wiki-pilot,
+research, decision, compilation, Compose, and whitespace checks are captured in the T42 evidence
+and QA review.
+
+### Incomplete work, risks, and next step
+
+Nine priority-2 families remain pending in the current 100-row pilot. The thirty-six accepted new-
+family outcomes still lack stable review entity IDs and therefore are not part of either Dual-RAG
+retrieval source. The two newest holds cannot be resolved safely with display-name equality; they
+need a tool-qualified identity design.
+
+The next immediate task is T43: use the checksum-verified T42 cumulative queue to research the
+remaining nine pending families as the final bounded packet. T44 will require a separate owner
+response. Only after all 53 family items have attributable outcomes should a new specification
+design how accepted families become stable review entities and how larger yearly imports advance
+toward approximately 3,000 reviewable variants.
+
 ## 2026-09-08 — Batch 04 separates same-name tools from retools and scale-qualified products
 
 ### What was executed and what problem it solves
