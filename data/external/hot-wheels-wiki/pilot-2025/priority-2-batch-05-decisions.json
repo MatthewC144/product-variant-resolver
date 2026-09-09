@@ -1,0 +1,127 @@
+{
+  "batch_id": "fandom-priority-2-batch-05-owner-decisions-v1",
+  "decided_at": "2026-09-09T14:47:43Z",
+  "decided_by": "project_owner",
+  "decision_provenance": "The project owner explicitly requested execution of T44 after receiving the complete T43 outcome and exact six-create/three-hold split: accept the six create_new_casting family recommendations, retain the Nissan Skyline GT-R (BNR32), Power Wheels Dune Racer, and Standard Kart holds, and keep all thirteen current release rows held.",
+  "decisions": [
+    {
+      "decision": "hold",
+      "evidence_references": [
+        "priority-2-batch-05-research.json#fandom-family-0e07a7139454d2e8",
+        "https://hotwheels.fandom.com/wiki/Nissan_Skyline_GT-R_%28BNR32%29",
+        "https://hotwheels.fandom.com/wiki/Nissan_Skyline_GT-R_%28BNR32%29_%28RLC%29",
+        "https://catalog.hwcollectorsnews.com/SeriesDefinitions/Details/1905?aslist=true"
+      ],
+      "family_review_id": "fandom-family-0e07a7139454d2e8",
+      "reason": "The Nissan Skyline GT-R (BNR32) base display name spans the HYY72 mainline lineage and a structurally different same-scale RLC tool, so the current row remains held until it receives a tool-qualified identity.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "hold",
+      "evidence_references": [
+        "priority-2-batch-05-research.json#fandom-family-4f9ee66afdfe8cac",
+        "https://hotwheels.fandom.com/wiki/Bogzilla",
+        "https://hotwheels.ocnk.net/product/4834"
+      ],
+      "family_review_id": "fandom-family-4f9ee66afdfe8cac",
+      "reason": "HYX52 is documented as a Power Wheels Dune Racer-named release of the existing Bogzilla lineage, so it remains held rather than creating a duplicate display-name family or making an unapproved merge.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-05-research.json#fandom-family-59e5682e50af879e",
+        "https://hotwheels.fandom.com/wiki/Proton_Saga",
+        "https://allhotwheels.com/series/cmrzr0uk900b3k6o4bzo6npf1"
+      ],
+      "family_review_id": "fandom-family-59e5682e50af879e",
+      "reason": "A dedicated casting page and independent HYW90 catalog record support accepting Proton Saga as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-05-research.json#fandom-family-85e407525ac7bf41",
+        "https://hotwheels.fandom.com/wiki/Small_Bloc",
+        "https://catalog.hwcollectorsnews.com/Castings/Details/a7f7f370-4c23-436a-ac94-82531fd62221"
+      ],
+      "family_review_id": "fandom-family-85e407525ac7bf41",
+      "reason": "A dedicated casting page and independent HYW65/HYY40/HYX56 records support accepting Small Bloc as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "hold",
+      "evidence_references": [
+        "priority-2-batch-05-research.json#fandom-family-8403e21a29c27eab",
+        "https://hotwheels.fandom.com/wiki/Standard_Kart",
+        "https://catalog.hwcollectorsnews.com/Castings/Details/0ae618a2-056e-473b-8935-92cdc587d161"
+      ],
+      "family_review_id": "fandom-family-8403e21a29c27eab",
+      "reason": "Standard Kart covers both the character-bearing GBG26 and driverless GRX17/HYW83 same-scale tools, so the current row remains held until it receives a tool-qualified identity.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-05-research.json#fandom-family-d5c83bb87be8cab0",
+        "https://hotwheels.fandom.com/wiki/Super_Twin_Mill",
+        "https://catalog.hwcollectorsnews.com/SeriesDefinitions/Details/1916"
+      ],
+      "family_review_id": "fandom-family-d5c83bb87be8cab0",
+      "reason": "A dedicated casting page and independent HYW12/JBB72 records support accepting Super Twin Mill as a distinct review-layer family.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-05-research.json#fandom-family-57cf5c31afbadc57",
+        "https://hotwheels.fandom.com/wiki/The_Vanster",
+        "https://www.hot-wheels-collectors.com/product/2025-hot-wheels-mainline-the-vanster-35250"
+      ],
+      "family_review_id": "fandom-family-57cf5c31afbadc57",
+      "reason": "A dedicated continuous casting page and independent HYY87 record support accepting The Vanster as a distinct review-layer family while retaining its documented retools in one lineage.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-05-research.json#fandom-family-39b248ce2f3723cd",
+        "https://hotwheels.fandom.com/wiki/Twin_Mill_Gen-E",
+        "https://catalog.hwcollectorsnews.com/SeriesDefinitions/Details/1912"
+      ],
+      "family_review_id": "fandom-family-39b248ce2f3723cd",
+      "reason": "A dedicated casting page and independent HYW80 record support accepting Twin Mill Gen-E as a distinct review-layer family apart from differently named Twin Mill designs.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    },
+    {
+      "decision": "create_new_casting",
+      "evidence_references": [
+        "priority-2-batch-05-research.json#fandom-family-7e221ec8ecd02815",
+        "https://hotwheels.fandom.com/wiki/X-34_Landspeeder",
+        "https://catalog.hwcollectorsnews.com/Castings/Details/30d93f6e-e3f7-484e-ae79-740343aa1bf3"
+      ],
+      "family_review_id": "fandom-family-7e221ec8ecd02815",
+      "reason": "A dedicated wheeled-casting page and independent HYW84 record support accepting X-34 Landspeeder as a distinct review-layer family apart from the differently named Starships product.",
+      "scope": "casting_family_only",
+      "target_family_id": null,
+      "variant_decision": "hold"
+    }
+  ],
+  "schema_version": "pvr-fandom-family-decisions-v1"
+}

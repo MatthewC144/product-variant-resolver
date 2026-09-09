@@ -186,6 +186,7 @@ def apply_priority_two_decisions(
         for family in families
         if family["reviewer_decision"]["status"] == "pending"
     ]
+    result["status"] = "adjudicated" if not pending else "partially_adjudicated"
     result["summary"] = {
         **result["summary"],
         "completed_decisions": len(completed),
@@ -272,6 +273,12 @@ def build_markdown(
             "> tool ambiguities remain held. Every release variant stays held; canonical and",
             "> PostgreSQL data remain unchanged.",
         ]
+    elif batch_label == "05":
+        overview_lines = [
+            "> Six casting families are accepted as new review-layer families and three identity",
+            "> conflicts remain held. The 53-family queue is fully adjudicated, but every release",
+            "> variant stays held; canonical and PostgreSQL data remain unchanged.",
+        ]
     else:
         overview_lines = [
             "> Nine casting families are accepted as new review-layer families and one ambiguous",
@@ -334,13 +341,20 @@ def build_markdown(
             "family-level hold, but all eighteen release variants remain held.",
         ]
         new_family_count = "ten"
-    else:
+    elif batch_label == "04":
         hold_lines = [
             "UUID, no verified release/color identity, and no PostgreSQL row. Mazda MX-5 Miata",
             "and Nissan Skyline 2000GT-R LBWK remain held until their 2025 rows can be linked to",
             "one tool-specific family without relying on their shared display names.",
         ]
         new_family_count = "eight"
+    else:
+        hold_lines = [
+            "UUID, no verified release/color identity, and no PostgreSQL row. Nissan Skyline GT-R",
+            "(BNR32), Power Wheels Dune Racer, and Standard Kart remain held for same-scale-tool,",
+            "renamed-lineage, and multi-tool-page conflicts respectively.",
+        ]
+        new_family_count = "six"
     lines.extend(
         [
             "",
@@ -379,7 +393,7 @@ def main() -> None:
         description="Apply or verify a priority-two family-decision batch"
     )
     parser.add_argument("--check", action="store_true")
-    parser.add_argument("--batch", choices=("1", "2", "3", "4"), default="1")
+    parser.add_argument("--batch", choices=("1", "2", "3", "4", "5"), default="1")
     parser.add_argument("--directory", type=Path, default=directory)
     arguments = parser.parse_args()
     output = arguments.directory
@@ -395,10 +409,14 @@ def main() -> None:
         batch_label = "03"
         result_version = "fandom-2025-priority-two-batch-03-adjudicated-v1"
         queue_prefix = "priority-2-batch-02-"
-    else:
+    elif arguments.batch == "4":
         batch_label = "04"
         result_version = "fandom-2025-priority-two-batch-04-adjudicated-v1"
         queue_prefix = "priority-2-batch-03-"
+    else:
+        batch_label = "05"
+        result_version = "fandom-2025-priority-two-batch-05-adjudicated-v1"
+        queue_prefix = "priority-2-batch-04-"
     prefix = f"priority-2-batch-{batch_label}"
     built = apply_priority_two_decisions(
         output / f"{queue_prefix}adjudicated-queue.json",

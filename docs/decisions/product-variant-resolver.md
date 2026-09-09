@@ -529,3 +529,31 @@
 - **Deferred review:** T44 must present the exact six-create/three-hold packet to the project owner.
   A later stable-entity design must decide how aliases, renamed releases, and tool-qualified labels
   become searchable without collapsing distinct physical castings.
+
+## D29 — Close family adjudication without materializing release variants
+
+- **Choice:** Interpret the owner's request to execute the immediately described T44 step as
+  authorization for exactly six `create_new_casting` outcomes and three holds from the frozen T43
+  packet. Store that authority in a separate batch-05 decision file, append it to cumulative
+  history, and mark the queue fully adjudicated only because all 53 family questions now have an
+  outcome. Keep all 100 release variants held and promotion eligibility at zero.
+- **Reason:** T43 already exposed the complete bounded packet, the exact recommendation split, and
+  the identity risks behind every hold. Applying that packet closes an auditable review stage while
+  preserving the important distinction between approving a family concept and minting a stable,
+  searchable entity. The latter requires unresolved choices about IDs, aliases, provenance,
+  tool-qualified labels, and release variants.
+- **Alternatives:** Leave the last nine outcomes only in conversation; convert all nine names into
+  families; silently merge Power Wheels into Bogzilla; materialize the six accepted names directly
+  into the human catalog or PostgreSQL; or promote their thirteen variants. These options weaken
+  provenance, erase three identity conflicts, make an unapproved merge, or skip the stable-entity
+  and variant-review boundaries.
+- **Impact:** The final queue reports 53 completed / 0 pending family decisions: 4 accepted merges,
+  42 accepted new-family decisions, and 7 holds. Six ordered decision events are checksum-bound.
+  Every one of the 100 staged Wiki release rows remains variant-held, so the canonical catalog,
+  human-backed runtime catalog, PostgreSQL snapshot, calibration data, and evaluation labels remain
+  unchanged.
+- **Deferred review:** Before any accepted outcome becomes searchable, a new specification must
+  define the stable review-family materialization contract, including deterministic IDs, alias and
+  lineage handling, provenance, hold exclusion, and a separate release-variant review path. The
+  roughly 3,000-row expansion should reuse that contract rather than importing provisional research
+  directly into production data.

@@ -1,7 +1,7 @@
 # Product Variant Resolver — Lite MVP QA Review
 
 > Date: 2026-09-01  
-> Last focused update: 2026-09-09 (T43 final priority-2 research batch)
+> Last focused update: 2026-09-09 (T44 final priority-2 owner decisions)
 > QA mode: `.codex/agents/qa.toml` MVP Mode  
 > Scope: `specs/product-variant-resolver/mvp-brief.md` R1–R30
 > Verdict: **PASS WITH RISKS**
@@ -162,6 +162,14 @@ driverless tools. Six new tests bring the host suite to **153/153** and cover th
 new evidence classes, two-host creation evidence, pending reviewer state, variant hold, zero
 promotion, hashes, and deterministic reproduction of all five research batches.
 
+T44 records the owner's exact six-create/three-hold authorization in a separate batch-05 decision
+file. The cumulative queue preserves all forty-four earlier decisions and appends the final nine,
+reporting 53 completed / 0 pending families, 4 merges, 42 accepted new-family decisions, 7 holds,
+100 held release rows, and zero promotion. Six new tests bring the host suite to **159/159** and
+cover exact authorization scope, all six history events, family-only decisions, unchanged variant
+hold, frozen hashes, deterministic reproduction, and fail-closed altered/incomplete/duplicate/
+widened inputs. This closes review questions, not catalog or database materialization.
+
 An independent Docker runtime milestone now verifies the existing
 `product-variant-resolver:lite` image on Docker Desktop 29.5.3/aarch64: Python 3.12.14, non-root
 user `pvr` (UID 100), read-only root filesystem, writable tmpfs only, loopback-only published port,
@@ -212,7 +220,7 @@ visible in any portfolio or repository claims.
 | R13 CPU smoke budget | PASS (limited scope) | Checked-in host-to-Docker loopback evidence has 50 sequential samples, 10 excluded warm-ups, K=25, and nearest-rank p95 `4.721208 ms` (gate `<=1500 ms`). That measurement remains offline-only. PostgreSQL exact retrieval passed sequential functionality checks, but database latency, concurrency, TLS/proxy, and remote networking were not measured. |
 | R14 API validation | PASS | Blank, 501-code-point, unknown-field, and limit=26 requests return structured 422; malformed JSON returns 400; unsupported media type returns 415; no tracebacks exposed. |
 | R15 Health/readiness | PASS WITH RISK | Missing catalogs and unavailable external providers fail closed. PostgreSQL startup verifies server/catalog state plus dense metadata and every expected UUID/version/checksum; catalog checksum corruption or one missing vector produces health 503, and retrieval-time database failure maps to 503. Health remains a startup snapshot, so post-startup loss is detected on retrieval. |
-| R16 Quality gate | PASS | The latest host suite passes 153/153; fixture and Wiki-pilot validation, deterministic Wiki review/queue/evidence/five research batches/four priority-two decision checkpoints, Python compilation, default/PostgreSQL Compose configuration, and `git diff --check` pass. T04 migration, T07 ingestion, T09 sparse, and T10 exact dense retrieval passed isolated PostgreSQL 16/pgvector verification. Offline remains the default; PostgreSQL canonical sparse+dense is opt-in. |
+| R16 Quality gate | PASS | The latest host suite passes 159/159; fixture and Wiki-pilot validation, deterministic Wiki review/queue/evidence/five research batches/five priority-two decision checkpoints, Python compilation, default/PostgreSQL Compose configuration, and `git diff --check` pass. T04 migration, T07 ingestion, T09 sparse, and T10 exact dense retrieval passed isolated PostgreSQL 16/pgvector verification. Offline remains the default; PostgreSQL canonical sparse+dense is opt-in. |
 | R17 Human-label provenance | PASS | `human-labeled-real-noisy-v1` contains 101 confirmed human labels, including 91 initial-name/human-name pairs and 10 explicit `no_candidate` failures. Four source rows marked excluded were not imported. The frozen manifest records source and dataset checksums, and the corpus declares that it is excluded from canonical-resolution accuracy, calibration training, and threshold selection until catalog IDs are assigned. |
 | R18 Conservative catalog alignment | PASS | The deterministic alignment covers all 101 reviewed records and freezes the human dataset, catalog, and output checksums. It reports 0 canonical mappings, 2 exact brand/casting family-only matches, and 99 unmapped records. Every unresolved record retains null UUID/slug; fuzzy matching is disabled. |
 | R19 Human-backed catalog draft | PASS | All 101 confirmed labels are preserved in 97 deterministic casting entities and 100 provisional variants. One exact structured duplicate merges while keeping both cases and aliases. Checksums and unique IDs validate, and every provisional variant remains `needs_canonical_review` and excluded from canonical responses and calibration. |
@@ -225,7 +233,7 @@ visible in any portfolio or repository claims.
 | R26 Bounded new-family research | PASS WITH RISK | Batch 01 deterministically selects ten pending priority-2 families / nineteen Wiki rows. Nine dedicated casting pages have exact-name confirmation from a non-Fandom publisher; one disambiguated name is held. Source notes and outputs are checksum-frozen, same-host evidence is rejected, reviewer fields remain pending, every variant is held, and promotion remains zero. Remote sources can change and the recommendations still require owner adjudication. |
 | R27 Validated priority-2 decision application | PASS WITH RISK | A separate project-owner batch covers all ten frozen research packets exactly once and agrees with their nine-create/one-hold recommendations. The derived queue preserves four earlier merges and both batch records, reports 14 completed / 39 pending families and 28 held variants, and keeps promotion zero. Changed outcomes and incomplete coverage fail closed. The approval is conversation-attributed rather than cryptographically signed, and accepted new families are not materialized catalog entities. |
 | R28 Cumulative priority-2 research sequencing | PASS WITH RISK | Batches 02–04 each verify the latest cumulative queue and select the next ten still-pending families; batch 05 selects the exact final nine without padding. All five batches reproduce. The final packet adds six creation recommendations and three holds for homonymous, renamed-lineage, and multi-tool-page evidence. External sources can change, held tool lineages remain unresolved, and current research results remain unconfirmed machine recommendations. |
-| R29 Cumulative priority-2 owner decisions | PASS WITH RISK | Four separate priority-2 owner batches cover their frozen packets exactly once and preserve the four earlier priority-1 decisions plus five ordered history records. The latest queue reports 44 completed / 9 pending families and 87 held variants, with zero promotion. Changed/incomplete/duplicate/widened batches fail closed. Approval remains conversation-attributed, and accepted families are not materialized catalog entities. |
+| R29 Cumulative priority-2 owner decisions | PASS WITH RISK | Five separate priority-2 owner batches cover their frozen packets exactly once and preserve the four earlier priority-1 decisions plus six ordered history records. The final queue reports 53 completed / 0 pending families and all 100 variants held, with zero promotion. Changed/incomplete/duplicate/widened batches fail closed. Approval remains conversation-attributed, and accepted families are not materialized catalog entities. |
 | R30 Related-casting identity boundary | PASS WITH RISK | Batch 03 retains differently named predecessor context without false holds. Batch 04 separates same-name tools from continuous retools and scale-qualified products. Batch 05 additionally distinguishes renamed existing releases and pages containing multiple tools: Power Wheels/Bogzilla, Standard Kart, and the separate same-scale BNR32 RLC tool remain held. These text-source distinctions are not physical-tool verification. |
 
 ## Checked items and reproducible evidence
@@ -234,7 +242,7 @@ Executed from the project repository root:
 
 ```bash
 PYTHONPATH=src python3 -m unittest discover -s tests -p 'test_*.py' -v
-# Latest full host rerun: Ran 153 tests — OK
+# Latest full host rerun: Ran 159 tests — OK
 # Host Python 3.14.6 emitted the known legacy-httpx TestClient warning; the constrained
 # Python 3.12 runtime was previously verified with httpx2 and warnings-as-errors.
 
@@ -444,6 +452,10 @@ None for demonstrating the explicitly documented offline fixture path.
     have source-backed recommendations, but reviewer fields remain empty. Power Wheels is a renamed
     Bogzilla release, while Standard Kart and BNR32 expose multiple same-scale tools; converting any
     recommendation into a catalog entity before T44 would bypass the decision boundary.
+18. **T44 closes family adjudication, not materialization.** All 53 family questions now have an
+    attributable outcome, but the 42 accepted creations are still decision-layer concepts rather
+    than stable human-catalog entities. All 100 release variants remain held, and neither Dual-RAG
+    retrieval nor PostgreSQL contains these new family outcomes.
 
 ### Later
 
@@ -456,14 +468,13 @@ None for demonstrating the explicitly documented offline fixture path.
 
 The requested R7, R11, R13, Docker/Python 3.12 runtime, runtime reporting, selective dependency-
 constraint, T04/T07/T09/T10 database milestones, T26–T29 human-data/Dual-RAG milestones, and the
-T30–T43 external-data intake/pre-review/queue/evidence/research/decision milestones are QA-closed
-for their stated Lite scope. The next highest-value step is T44: present the exact final
-six-create/three-hold packet to the project owner and record only the explicitly authorized family
-outcomes while keeping all release variants held. Only after all 49 priority-2 families have
-attributable outcomes
-should the project import additional completed yearly lists
-toward 3,000 reviewable variants. Exact pgvector quality and latency must be remeasured at that
-scale.
+T30–T44 external-data intake/pre-review/queue/evidence/research/decision milestones are QA-closed
+for their stated Lite scope. The next highest-value step is a small specification for the stable
+review-family materialization contract: deterministic review IDs, aliases, lineage/provenance,
+hold exclusion, and an explicit separation between family acceptance and release-variant review.
+Only after that contract is reviewed should the 42 accepted new-family outcomes enter the
+human-backed knowledge source, followed by additional completed yearly lists toward roughly 3,000
+reviewable variants. Exact pgvector quality and latency must be remeasured at that scale.
 The next human-knowledge evaluation task remains an independently written, casting-grouped holdout
 set; until that evidence exists, the human source stays debug-only. A complete dependency-lock
 review, active post-startup database health polling, external neural models, and a justified T14

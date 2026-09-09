@@ -115,3 +115,11 @@ character-bearing and driverless tools; Power Wheels Dune Racer is held because 
 Bogzilla release. The builder explicitly supports a nine-item final slice and the two new evidence
 classes without changing batches 01–04. Reviewer fields remain pending, variants remain held,
 promotion is zero, and no catalog/PostgreSQL/runtime data changes.
+
+`pilot-2025/priority-2-batch-05-decisions.json` records the project owner's authorization of the
+exact six-create/three-hold final packet. The derived batch-05 cumulative queue preserves all six
+ordered decision events and closes the 53-family review queue with 4 accepted merges, 42 accepted
+new-family decisions, 7 holds, 100 held release variants, and zero promotion eligibility. The
+three final holds retain their same-scale-tool, renamed-lineage, and multi-tool-page reasons. This
+artifact closes family adjudication only; accepted outcomes are not stable catalog entities,
+PostgreSQL rows, canonical variants, or runtime candidates.

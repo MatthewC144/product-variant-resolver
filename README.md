@@ -302,6 +302,18 @@ record is created.
 python3 scripts/build_fandom_priority_two_research.py --batch 5 --check
 ```
 
+The owner's authorization for the exact final six-create/three-hold split is stored in
+[`priority-2-batch-05-decisions.json`](data/external/hot-wheels-wiki/pilot-2025/priority-2-batch-05-decisions.json).
+The final cumulative queue is now fully adjudicated at family scope: all 53 families have an
+attributable outcome, comprising 4 existing-family merges, 42 accepted new-family decisions, and
+7 holds. All 100 Wiki release rows remain variant-held and promotion eligibility remains zero.
+“Fully adjudicated” therefore means that the review question has been answered; it does not mean
+that stable catalog UUIDs, canonical variants, PostgreSQL rows, or runtime identities were created.
+
+```bash
+python3 scripts/apply_fandom_priority_two_decisions.py --batch 5 --check
+```
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with

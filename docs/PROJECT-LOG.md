@@ -1,5 +1,111 @@
 # Project Log
 
+## 2026-09-09 — Final owner decisions close family review while all variants remain held
+
+### What was executed and what problem it solves
+
+T44 converts the project owner's request to proceed into a durable decision record for the exact
+final T43 packet. The packet was already bounded to nine families and disclosed as six machine
+creation recommendations plus three evidence-based holds. Storing the response in the repository
+solves two problems: the decision no longer depends on transient conversation history, and the
+system can distinguish a human-authorized family outcome from the preceding machine research.
+
+The accepted creation outcomes are Proton Saga, Small Bloc, Super Twin Mill, The Vanster, Twin Mill
+Gen-E, and X-34 Landspeeder. Nissan Skyline GT-R (BNR32), Power Wheels Dune Racer, and Standard Kart
+remain held. The cumulative queue is now closed at family scope: all 53 families have outcomes,
+including 4 existing-family merges, 42 accepted new-family decisions, and 7 holds. This resolves
+the current 100-row pilot's family-review backlog without pretending that its release variants are
+ready for production.
+
+### Code changes and why they were made
+
+`priority-2-batch-05-decisions.json` is the human authority layer. It copies the exact frozen T43
+recommendations, names the project owner as decision maker, timestamps the decision, retains every
+source reference, and explicitly limits scope to family decisions. Decision data stays separate
+from both machine research and generated output so that provenance can be inspected and invalid
+input can be rejected instead of silently rewriting history.
+
+`apply_fandom_priority_two_decisions.py` now routes `--batch 5` from the batch-04 cumulative queue
+through a new versioned result. The generic result-status rule reports `adjudicated` only when no
+family remains pending; earlier checkpoints continue to report `partially_adjudicated`. The
+readable result adds the final six accepted family names, the three retained holds and their
+reasons, and the explicit statement that the 53-family queue is complete while release variants
+remain held.
+
+The generated cumulative queue, manifest, and Markdown result are checked in as reproducible build
+artifacts. `test_fandom_priority_two_decisions_batch_five.py` adds six tests for the exact nine-
+family packet, exact six-create/three-hold split, 13 current release rows, all 53 accumulated
+decisions, six ordered history events, family-only scope, 100 held variants, zero promotion,
+frozen hashes, and deterministic regeneration. It also supplies altered, incomplete, duplicate,
+and widened decision inputs and requires each to fail closed.
+
+README, the external-data guide, MVP task brief, QA review, decision register, and T44 evidence now
+use the same totals and boundary wording. This avoids a future maintainer reading “53 completed” as
+“53 records inserted into PostgreSQL” or “42 new searchable products.”
+
+### Technical choices, alternatives, and trade-offs
+
+The final status is derived from the count of pending decisions rather than hard-coded to batch 5.
+That makes the state describe the data: batches 1–4 remain partial, while any valid future terminal
+queue can become adjudicated for the same reason. It avoids special-case business logic tied only
+to a filename, while preserving byte-for-byte reproduction of earlier artifacts.
+
+The three holds are accepted as completed decisions instead of being left pending. “Hold” means the
+owner has decided that current evidence is insufficient or points to a conflicting identity; it is
+not unfinished paperwork. BNR32 still spans a separate same-scale RLC tool, Standard Kart still
+spans character-bearing and driverless tools on one page, and Power Wheels remains a renamed
+Bogzilla release for which an automatic new family or silent merge would both exceed the evidence.
+
+The six accepted creations are not written directly into `human_backed_catalog.json`, the canonical
+fixture, or PostgreSQL. Immediate insertion would be faster, but it would require unmade decisions
+about deterministic IDs, aliases, renamed lineages, provenance, and how family approval relates to
+individual year/color/toy-number variants. A separate stable review-family contract is the smaller
+and safer next design step, especially before scaling toward roughly 3,000 rows.
+
+### Decision changes
+
+The six T43 creation recommendations change from pending machine proposals to completed,
+project-owner-attributed `create_new_casting` decisions. The three T43 proposed holds likewise
+become completed owner holds without changing their evidence or reasons. No earlier family outcome
+is modified; all five earlier owner batches are preserved and the new batch is appended as history
+event six.
+
+The resulting totals change from 44 completed / 9 pending to 53 completed / 0 pending. Accepted
+new-family decisions increase from 36 to 42 and completed holds increase from 4 to 7; accepted
+existing-family merges remain 4. Held release rows increase from 87 to all 100 because the thirteen
+rows in the final packet now belong to completed family decisions but still have no variant-level
+authorization. Promotion remains zero.
+
+### Verification evidence
+
+The focused T44 module passed 6/6. The complete host suite passed 159/159 in 1.440 seconds on Python
+3.14.6. All five research packets and all five priority-two cumulative decision checkpoints
+reproduce; the decision checkpoints report completed/pending totals of 14/39, 24/29, 34/19, 44/9,
+and 53/0. Fixture/pilot validation, base review/queue/priority-one checks, Python compilation,
+default and PostgreSQL Compose configuration, and `git diff --check` also passed.
+
+The decision file checksum is
+`a5dc269b2ced7b8423fd0cf321ab470922c12b7520c88944f99539cbdad2626b`; the final cumulative queue is
+`989bc914f9493051a071472c9defd352fe1cb8cc217c062e1f479bdcb9c6e4d8`; the readable result is
+`245ded3d564a94eccc017a942189eb38a40f4c5a08652d724be3dc759e2ddb10`; and the manifest is
+`6b532978c86adf39dbc2f41222d41ca9b765b1c615dce5453a0ba04955a9f6ff`. The known machine-wide
+Python 3.14 legacy-`httpx` TestClient warning remains documented; the constrained Python 3.12
+container path was previously verified with `httpx2`.
+
+### Incomplete work, risks, and next step
+
+Family adjudication is complete, but materialization and release-variant adjudication are not. The
+42 accepted new-family outcomes do not yet have stable review IDs and are not Dual-RAG candidates;
+the 7 holds still require tool-qualified or lineage-specific resolution before they can enter that
+source. None of the 100 Wiki rows is canonical or promotion-eligible.
+
+The next immediate step is to write a Lite specification for the stable review-family
+materialization contract. It should define deterministic IDs, aliases, provenance, lineage links,
+hold exclusion, idempotent generation, and the boundary between family acceptance and later
+release-variant review. Only after that contract is accepted should implementation update the
+human-backed retrieval source or PostgreSQL, and only then should yearly-list expansion continue
+toward roughly 3,000 reviewable rows.
+
 ## 2026-09-09 — Final priority-two research preserves renamed and multi-tool identity boundaries
 
 ### What was executed and what problem it solves

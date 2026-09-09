@@ -864,13 +864,16 @@ Each task is intended to be independently committable and verifiable. `task_exec
   (BNR32), Power Wheels Dune Racer, and Standard Kart remain held for distinct same-scale tooling,
   renamed-lineage, and multi-tool-page reasons respectively. No owner or runtime data changed.
 
-- [ ] **T44 — Apply project-owner final priority-2 decisions** `[backend]` _(R6, R16, R27, R29, R30)_
+- [x] **T44 — Apply project-owner final priority-2 decisions** `[backend]` _(R6, R16, R27, R29, R30)_
   After the owner reviews T43, record the exact authorized outcomes separately and close the current
   53-family adjudication queue without materializing accepted families.
   **Verify:** all nine packets are covered exactly once; all earlier history remains byte-for-byte
   unchanged; altered, incomplete, duplicate, or widened decisions fail closed; every release row
   stays held; and promotion remains zero.
-  **Status:** Pending T43 research and an explicit project-owner response.
+  **Status:** Complete. The exact six-create/three-hold authorization is stored separately and
+  appended as the sixth ordered decision event. The cumulative queue reports 53 completed / 0
+  pending families, while all 100 release variants remain held and no catalog UUID, canonical
+  variant, PostgreSQL row, runtime candidate, calibration input, or evaluation label changed.
 
 ### Task order and handoff
 
