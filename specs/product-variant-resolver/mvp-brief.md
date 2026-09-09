@@ -875,6 +875,16 @@ Each task is intended to be independently committable and verifiable. `task_exec
   pending families, while all 100 release variants remain held and no catalog UUID, canonical
   variant, PostgreSQL row, runtime candidate, calibration input, or evaluation label changed.
 
+- [x] **T45 — Specify stable review-family materialization** `[strategic_planner]` _(RFM-R1–RFM-R13)_
+  Define how the 42 accepted new-family outcomes receive stable review identities, how the 4 merges
+  link to existing human-backed families, and how the 7 holds and all 100 unreviewed release
+  variants remain excluded without fabricating placeholder variants.
+  **Verify:** requirements are testable EARS statements; design covers interfaces, data models,
+  identity/alias policy, fail-closed behavior, security notes, and testing; implementation tasks are
+  atomic and traceable; the decision and project log record alternatives and boundaries.
+  **Status:** Complete as a proposed Lite specification. Awaiting project-owner confirmation before
+  T46 implementation; no runtime, catalog, database, calibration, or evaluation data changed.
+
 ### Task order and handoff
 
 Recommended dependency order:

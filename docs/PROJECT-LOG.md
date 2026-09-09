@@ -1,5 +1,102 @@
 # Project Log
 
+## 2026-09-09 — Family materialization is specified without inventing variants
+
+### What was executed and what problem it solves
+
+T45 turns the post-adjudication question—“how do 42 accepted family decisions become usable
+entities?”—into a Lite specification that can be tested before data is changed. The final queue has
+complete family decisions, but its 100 release rows still lack variant-level approval. The new
+requirements, design, and task plan make that distinction executable instead of leaving the next
+developer to infer it from prior reports.
+
+The specification accounts for the complete queue: 42 accepted new-family outcomes covering 79
+source rows, 4 accepted merges covering 9 rows, and 7 holds covering 12 rows. A read-only comparison
+against the 97 existing human-backed families found no exact normalized collision for the 42 new
+names, and the proposed readable labels do not collide with each other. These checks support the
+current packet but are not used as the permanent identity mechanism.
+
+### Code and documentation changes and why they were made
+
+`specs/review-family-materialization/requirements.md` adds thirteen EARS-style requirements. They
+cover frozen input verification, the closed decision vocabulary, stable family identities, merge
+links, hold exclusion, conservative aliases, complete provenance, deterministic output, exact
+accounting, fail-closed validation, runtime/database boundaries, and a non-mutating check mode.
+
+`design.md` defines a separate `pvr-review-family-registry-v1` with three sections: 42 new entities,
+4 merge links, and 7 hold exclusions. Accepted source releases are stored only as
+`held_release_references`; the schema intentionally has no `provisional_variants` field. It also
+defines CLI inputs/outputs, UUIDv5 identity, manifest fields, a ten-stage build algorithm, atomic
+write behavior, security constraints, and test coverage.
+
+`tasks.md` breaks the next implementation milestone into builder/artifact work, fail-closed
+validation/tests, and QA/documentation. The main MVP brief marks T45 complete only as a proposed
+specification and leaves T46 implementation pending owner confirmation. The QA review, decision
+register, and this log now point to the same boundary and measured 42/4/7, 79/9/12 totals.
+
+### Technical choices, alternatives, and trade-offs
+
+The key choice is a separate family registry rather than adding rows directly to
+`human_backed_catalog.json`. The existing catalog contains 97 castings and requires each one to have
+at least one human-confirmed provisional variant. Creating an `unclassified` placeholder for each
+Wiki family would be convenient for the current loader, but it would fabricate 42 variants and make
+family approval look like release approval. Allowing empty variant arrays would weaken an existing
+fail-closed invariant and still leave runtime document semantics unclear.
+
+The immutable `family_review_id` is reused as the public review ID. A UUIDv5 derived from a fixed
+project/source namespace plus that ID provides a database-compatible key. Display names and slugs
+are excluded from identity derivation because names may later need punctuation corrections or tool-
+qualified disambiguation; using them would either change identity after correction or collide as
+the dataset grows.
+
+The four merges do not receive new UUIDs. They link to the already frozen human catalog family,
+which avoids duplicating one casting under a second source-specific identity. The seven holds remain
+visible as audit exclusions but cannot be indexed. In particular, Power Wheels Dune Racer is not
+silently added as a Bogzilla alias because the owner authorized a hold, not a merge.
+
+The specification stops before Dual-RAG and PostgreSQL. Bundling those changes could make progress
+appear faster, but it would combine data identity, API/debug semantics, retrieval quality, schema
+migration, and scale testing in one difficult-to-audit change. The Lite sequence keeps each question
+small: establish stable review entities first, then design family-level retrieval, evaluate it, and
+only afterward persist/scale it.
+
+### Decision changes
+
+No T44 family decision changes. The new decision is architectural: accepted family-only outcomes
+will be materialized in a dedicated review registry, not as fake provisional variants or immediate
+PostgreSQL products. The 42 creates remain accepted, the 4 merges retain their existing targets, the
+7 holds remain excluded, and all 100 release references remain held.
+
+T45 is complete as a specification proposal, not as implementation approval. The project owner must
+confirm the three spec documents before T46 begins, as required by the Lite spec gate.
+
+### Verification evidence
+
+Static inspection verified the current queue is `adjudicated` with 53 completed and zero pending
+families. Recomputed partition counts are 42 create, 4 merge, and 7 hold; source-row totals are 79,
+9, and 12 respectively and sum to 100. The 42 proposed creations have zero exact normalized
+brand/casting collisions with the 97 existing human-backed families and zero collision under the
+current readable-ID form.
+
+No product code or data artifact changed. A fresh complete host rerun still passed 159/159 in 1.418
+seconds; the machine-wide Python 3.14 interpreter emitted only the already documented legacy-`httpx`
+TestClient warning. Documentation whitespace and repository-scope checks passed. An explicit
+traceability table maps all thirteen RFM requirements to implementation and verification tasks and
+records deferred Dual-RAG, evaluation, PostgreSQL, and approximately 3,000-row work.
+
+### Incomplete work, risks, and next step
+
+The specification has not yet been confirmed by the project owner, and
+`build_review_family_registry.py` does not exist. UUID namespace spelling, output filenames, and
+the family/merge/hold model become implementation contracts only after confirmation. External text
+sources may still contain errors, and a family-level identity remains weaker than a physically
+verified release variant.
+
+After confirmation, the next immediate task is T46.1: implement the deterministic registry builder
+and generate its three checksum-frozen artifacts. T46.2 will add fail-closed tests and validation;
+T46.3 will run QA and document measured results. Runtime Dual-RAG integration remains T47 rather
+than being assumed by registry creation.
+
 ## 2026-09-09 — Final owner decisions close family review while all variants remain held
 
 ### What was executed and what problem it solves

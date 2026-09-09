@@ -314,6 +314,13 @@ that stable catalog UUIDs, canonical variants, PostgreSQL rows, or runtime ident
 python3 scripts/apply_fandom_priority_two_decisions.py --batch 5 --check
 ```
 
+The proposed next-step contract is documented in
+[`review-family-materialization`](specs/review-family-materialization/requirements.md). It keeps
+family decisions separate from release variants: 42 accepted creations would become stable
+family-only review entities, 4 merges would link to existing human-backed families, and 7 holds
+would remain explicit non-indexable exclusions. The specification is awaiting project-owner
+confirmation; no registry, Dual-RAG candidate, or PostgreSQL record has been created by T45.
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with

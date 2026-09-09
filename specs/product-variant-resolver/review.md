@@ -1,7 +1,7 @@
 # Product Variant Resolver — Lite MVP QA Review
 
 > Date: 2026-09-01  
-> Last focused update: 2026-09-09 (T44 final priority-2 owner decisions)
+> Last focused update: 2026-09-09 (T45 review-family materialization specification)
 > QA mode: `.codex/agents/qa.toml` MVP Mode  
 > Scope: `specs/product-variant-resolver/mvp-brief.md` R1–R30
 > Verdict: **PASS WITH RISKS**
@@ -169,6 +169,15 @@ reporting 53 completed / 0 pending families, 4 merges, 42 accepted new-family de
 cover exact authorization scope, all six history events, family-only decisions, unchanged variant
 hold, frozen hashes, deterministic reproduction, and fail-closed altered/incomplete/duplicate/
 widened inputs. This closes review questions, not catalog or database materialization.
+
+T45 specifies the next boundary without changing code or data. Thirteen EARS requirements define a
+separate family-only registry with 42 stable new entities, 4 links to existing human-backed
+families, 7 explicit hold exclusions, and all 100 source rows retained only as held release
+references. The design deliberately rejects placeholder variants and display-name-based identity,
+uses UUIDv5 over the immutable family review ID, and defers Dual-RAG/PostgreSQL integration. Static
+source analysis confirms the 79 create / 9 merge / 12 hold row split, no exact-name collision between
+the 42 creations and 97 existing human families, and no readable-ID collision within the accepted
+set. Implementation remains pending owner confirmation, so the validated suite stays **159/159**.
 
 An independent Docker runtime milestone now verifies the existing
 `product-variant-resolver:lite` image on Docker Desktop 29.5.3/aarch64: Python 3.12.14, non-root
@@ -456,6 +465,9 @@ None for demonstrating the explicitly documented offline fixture path.
     attributable outcome, but the 42 accepted creations are still decision-layer concepts rather
     than stable human-catalog entities. All 100 release variants remain held, and neither Dual-RAG
     retrieval nor PostgreSQL contains these new family outcomes.
+19. **T45 is a proposed design, not shipped materialization.** The registry schema,
+    identity rules, and tasks are documented, but no registry artifact or builder exists until the
+    project owner confirms the spec and T46 is implemented. Current Dual-RAG behavior is unchanged.
 
 ### Later
 
@@ -469,12 +481,13 @@ None for demonstrating the explicitly documented offline fixture path.
 The requested R7, R11, R13, Docker/Python 3.12 runtime, runtime reporting, selective dependency-
 constraint, T04/T07/T09/T10 database milestones, T26–T29 human-data/Dual-RAG milestones, and the
 T30–T44 external-data intake/pre-review/queue/evidence/research/decision milestones are QA-closed
-for their stated Lite scope. The next highest-value step is a small specification for the stable
-review-family materialization contract: deterministic review IDs, aliases, lineage/provenance,
-hold exclusion, and an explicit separation between family acceptance and release-variant review.
-Only after that contract is reviewed should the 42 accepted new-family outcomes enter the
-human-backed knowledge source, followed by additional completed yearly lists toward roughly 3,000
-reviewable variants. Exact pgvector quality and latency must be remeasured at that scale.
+for their stated Lite scope. T45 now provides the proposed stable review-family materialization
+requirements, design, and implementation tasks. After project-owner confirmation, the next
+highest-value step is T46.1: build the deterministic family registry without changing runtime or
+PostgreSQL. Family-level Dual-RAG integration, a casting-grouped holdout evaluation, and database
+materialization remain separate later gates before additional yearly lists expand the corpus toward
+roughly 3,000 reviewable variants. Exact pgvector quality and latency must be remeasured at that
+scale.
 The next human-knowledge evaluation task remains an independently written, casting-grouped holdout
 set; until that evidence exists, the human source stays debug-only. A complete dependency-lock
 review, active post-startup database health polling, external neural models, and a justified T14

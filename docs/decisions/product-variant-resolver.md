@@ -557,3 +557,28 @@
   lineage handling, provenance, hold exclusion, and a separate release-variant review path. The
   roughly 3,000-row expansion should reuse that contract rather than importing provisional research
   directly into production data.
+
+## D30 — Materialize family decisions in a separate review registry
+
+- **Choice:** Define a separate `pvr-review-family-registry-v1` artifact for the completed Wiki
+  family decisions. Materialize the 42 accepted creations as stable family-only entities, represent
+  the 4 accepted merges as links to existing human casting IDs/UUIDs, retain the 7 holds as explicit
+  exclusions, and preserve all 100 source rows only as held release references.
+- **Reason:** The existing human-backed catalog requires every casting to contain at least one
+  human-confirmed provisional variant. The Wiki decisions approve only families. Adding placeholder
+  variants would turn missing knowledge into false data; altering the existing loader to accept empty
+  variants would also conflate a family registry with the current variant-backed retrieval schema.
+  A separate artifact preserves both contracts and gives later runtime integration an explicit input.
+- **Alternatives:** Create an `unclassified` variant under each accepted family; insert empty casting
+  nodes into `human_backed_catalog.json`; immediately write rows to PostgreSQL; use display-name
+  slugs as durable identity; or leave decisions only in the cumulative queue. Those choices invent
+  variants, weaken current loader invariants, skip local validation, make identity depend on mutable
+  text, or force every downstream consumer to reinterpret an adjudication artifact.
+- **Impact:** The proposed builder will emit 42 UUIDv5-backed review entities, 4 verified merge
+  links, and 7 non-indexable hold exclusions. IDs derive from the immutable family review ID rather
+  than the display name. The source split is 79 create rows, 9 merge rows, and 12 held rows; every
+  one remains `held_for_variant_review`. Runtime retrieval and PostgreSQL remain unchanged in T46.
+- **Deferred review:** The owner must confirm the RFM requirements/design/tasks before build. After
+  T46, a separate T47 contract must define family-level Dual-RAG documents and debug/API behavior;
+  PostgreSQL ingestion and the approximately 3,000-row expansion follow held-out evaluation rather
+  than being bundled into family materialization.
