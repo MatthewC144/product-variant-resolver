@@ -289,6 +289,19 @@ does not create catalog UUIDs, PostgreSQL rows, or runtime identities.
 python3 scripts/apply_fandom_priority_two_decisions.py --batch 4 --check
 ```
 
+Priority-2 batch 05 is the final research slice for the current 100-row pilot. Its
+[`batch-05 research report`](data/external/hot-wheels-wiki/pilot-2025/priority-2-batch-05-research.md)
+covers all nine remaining pending families and thirteen release rows. Six receive machine
+`create_new_casting` recommendations. Nissan Skyline GT-R (BNR32) and Standard Kart remain held
+because their display names span distinct same-scale tools; Power Wheels Dune Racer remains held
+because HYX52 is a renamed Bogzilla release rather than evidence for a new casting. Reviewer
+confirmation remains pending, every variant stays held, and no catalog, PostgreSQL, or runtime
+record is created.
+
+```bash
+python3 scripts/build_fandom_priority_two_research.py --batch 5 --check
+```
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with

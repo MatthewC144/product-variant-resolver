@@ -504,3 +504,28 @@
 - **Deferred review:** T43 should research the remaining nine pending priority-2 families as one
   final bounded packet. The accepted review decisions still require a separate stable-entity design
   before they can enter either Dual-RAG source or PostgreSQL.
+
+## D28 — Model renamed releases and multi-tool pages as explicit hold evidence
+
+- **Choice:** Allow the final research batch to contain nine items instead of inventing a tenth, and
+  add `renamed_existing_casting` and `multi_casting_page` evidence classes. Both classes produce a
+  machine hold. Continue using `homonymous_castings` when a separate page documents a distinct
+  same-scale tool under the same base display name.
+- **Reason:** HYX52 is listed under `Bogzilla` but marketed as Power Wheels Dune Racer, so creating a
+  new family from its release name would duplicate an existing physical lineage. Standard Kart's
+  page covers both character-bearing GBG26 and driverless GRX17 tools. Nissan Skyline GT-R (BNR32)
+  has a separate RLC JJY54 1:64 tool explicitly described as structurally different from the
+  mainline lineage containing HYY72. None of these cases is accurately described as an ordinary
+  single casting or a formal disambiguation page.
+- **Alternatives:** Pad the final batch to ten; silently map Power Wheels to Bogzilla; accept the
+  current toy number as sufficient family identity; classify all three as generic disambiguation;
+  or create name-keyed families despite the conflicts. These options introduce nonexistent work,
+  make an unapproved merge, confuse row identity with durable family identity, lose the observed
+  evidence shape, or encode collisions.
+- **Impact:** The final research packet covers all nine remaining pending families and thirteen
+  release rows. Six receive `create_new_casting` recommendations and three remain held. The shared
+  builder now supports a bounded final size and five page classifications while reproducing batches
+  01–04 byte for byte. Reviewer confirmation remains zero and no variant is promotion-eligible.
+- **Deferred review:** T44 must present the exact six-create/three-hold packet to the project owner.
+  A later stable-entity design must decide how aliases, renamed releases, and tool-qualified labels
+  become searchable without collapsing distinct physical castings.

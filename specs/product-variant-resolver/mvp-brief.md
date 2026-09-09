@@ -854,13 +854,15 @@ Each task is intended to be independently committable and verifiable. `task_exec
   and appended to cumulative history. All twenty-three current release rows remain held; no stable
   ID, catalog object, PostgreSQL row, runtime result, calibration input, or evaluation label changed.
 
-- [ ] **T43 — Research the final priority-2 family batch from the cumulative queue** `[backend]` _(R6, R16, R26, R28, R30)_
+- [x] **T43 — Research the final priority-2 family batch from the cumulative queue** `[backend]` _(R6, R16, R26, R28, R30)_
   Verify the T42 cumulative queue and research the remaining nine pending priority-2 families with
   the same dedicated-page, independent exact-name, homonym, scale, and lineage safeguards.
   **Verify:** exactly the nine remaining pending families are represented once; frozen source
   observations and checksums reproduce; reviewer confirmation stays pending; all release variants
   remain held; and no canonical, PostgreSQL, runtime, calibration, or evaluation data changes.
-  **Status:** Pending. This is the final bounded research packet for the current 100-row Wiki pilot.
+  **Status:** Complete. Six families receive machine creation recommendations. Nissan Skyline GT-R
+  (BNR32), Power Wheels Dune Racer, and Standard Kart remain held for distinct same-scale tooling,
+  renamed-lineage, and multi-tool-page reasons respectively. No owner or runtime data changed.
 
 - [ ] **T44 — Apply project-owner final priority-2 decisions** `[backend]` _(R6, R16, R27, R29, R30)_
   After the owner reviews T43, record the exact authorized outcomes separately and close the current

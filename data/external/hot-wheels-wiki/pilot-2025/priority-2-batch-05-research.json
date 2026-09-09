@@ -1,0 +1,552 @@
+{
+  "batch_version": "fandom-2025-priority-two-research-batch-05-v1",
+  "decision_policy": {
+    "create_new_casting": "one dedicated Wiki casting page plus at least one non-Fandom publisher that confirms the exact Hot Wheels casting name",
+    "hold": "ambiguous/disambiguated identity or insufficient independent evidence",
+    "variant_boundary": "every release variant remains held"
+  },
+  "packets": [
+    {
+      "brand": "Hot Wheels",
+      "casting_name": "Nissan Skyline GT-R (BNR32)",
+      "family_review_id": "fandom-family-0e07a7139454d2e8",
+      "machine_recommendation": {
+        "family_decision": "hold",
+        "reason": "the queued display name is also used by a separate casting tool, so the source rows need a tool-specific identity before family creation",
+        "scope": "casting_family_only",
+        "variant_decision": "hold"
+      },
+      "promotion_eligible": false,
+      "research_evidence": {
+        "distinct_source_hosts": [
+          "catalog.hwcollectorsnews.com",
+          "hotwheels.fandom.com"
+        ],
+        "independent_source_count": 1,
+        "independent_sources": [
+          {
+            "confirms_exact_casting_name": true,
+            "observed_claim": "The variation catalog records HYY72 as a 2025 Nissan Skyline GT-R (BNR32) release under the exact name.",
+            "publisher": "Hot Wheels Collectors News Catalog",
+            "source_type": "independent_variation_catalog",
+            "url": "https://catalog.hwcollectorsnews.com/SeriesDefinitions/Details/1905?aslist=true"
+          }
+        ],
+        "wiki_casting_page": {
+          "observed_claim": "The main page maps HYY72 to the Jun Imai-designed 2019 tool, while a separate 2026 RLC page documents a structurally different opening-hood 1:64 tool under the same base display name.",
+          "page_classification": "homonymous_castings",
+          "publisher": "Hot Wheels Wiki contributors",
+          "related_casting_pages": [
+            {
+              "distinction": "Separate 2026 RLC 1:64 tool JJY54, designed by Charlie Angulo with an opening hood and explicitly described as completely different from the mainline casting.",
+              "url": "https://hotwheels.fandom.com/wiki/Nissan_Skyline_GT-R_%28BNR32%29_%28RLC%29"
+            }
+          ],
+          "url": "https://hotwheels.fandom.com/wiki/Nissan_Skyline_GT-R_%28BNR32%29"
+        }
+      },
+      "reviewer_confirmation": {
+        "decided_at": null,
+        "decided_by": null,
+        "evidence_references": [],
+        "reason": null,
+        "status": "pending"
+      },
+      "source_row_count": 1,
+      "source_rows": [
+        {
+          "collector_number": "004",
+          "release_year": 2025,
+          "series": "HW Screen Time",
+          "source_record_id": "fandom-row-67d5071e02b5feae",
+          "source_row": 7,
+          "toy_number": "HYY72",
+          "variant_note": null
+        }
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting_name": "Power Wheels Dune Racer",
+      "family_review_id": "fandom-family-4f9ee66afdfe8cac",
+      "machine_recommendation": {
+        "family_decision": "hold",
+        "reason": "the queue display name is a renamed release of an existing casting, so it must be reviewed against that lineage instead of creating a duplicate family",
+        "scope": "casting_family_only",
+        "variant_decision": "hold"
+      },
+      "promotion_eligible": false,
+      "research_evidence": {
+        "distinct_source_hosts": [
+          "hotwheels.fandom.com",
+          "hotwheels.ocnk.net"
+        ],
+        "independent_source_count": 1,
+        "independent_sources": [
+          {
+            "confirms_exact_casting_name": true,
+            "observed_claim": "The independent retailer identifies HYX52 with both the Power Wheels Dune Racer release name and Bogzilla casting name.",
+            "publisher": "Wheel's Garage",
+            "source_type": "independent_collector_retail_catalog",
+            "url": "https://hotwheels.ocnk.net/product/4834"
+          }
+        ],
+        "wiki_casting_page": {
+          "observed_claim": "No dedicated Power Wheels Dune Racer casting page exists; the Bogzilla page lists HYX52 as a 2025 release named Power Wheels Dune Racer under the existing FJV61 lineage.",
+          "page_classification": "renamed_existing_casting",
+          "publisher": "Hot Wheels Wiki contributors",
+          "url": "https://hotwheels.fandom.com/wiki/Bogzilla"
+        }
+      },
+      "reviewer_confirmation": {
+        "decided_at": null,
+        "decided_by": null,
+        "evidence_references": [],
+        "reason": null,
+        "status": "pending"
+      },
+      "source_row_count": 1,
+      "source_rows": [
+        {
+          "collector_number": "022",
+          "release_year": 2025,
+          "series": "HW Ride-Ons",
+          "source_record_id": "fandom-row-0f6e974c4951c87f",
+          "source_row": 47,
+          "toy_number": "HYX52",
+          "variant_note": null
+        }
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting_name": "Proton Saga",
+      "family_review_id": "fandom-family-59e5682e50af879e",
+      "machine_recommendation": {
+        "family_decision": "create_new_casting",
+        "reason": "the queue name resolves to one dedicated Wiki casting page and at least one separate publisher confirms the exact Hot Wheels casting name",
+        "scope": "casting_family_only",
+        "variant_decision": "hold"
+      },
+      "promotion_eligible": false,
+      "research_evidence": {
+        "distinct_source_hosts": [
+          "allhotwheels.com",
+          "hotwheels.fandom.com"
+        ],
+        "independent_source_count": 1,
+        "independent_sources": [
+          {
+            "confirms_exact_casting_name": true,
+            "observed_claim": "The independent 2025 Factory Fresh catalog lists Proton Saga HYW90 under the exact name.",
+            "publisher": "All Hot Wheels",
+            "source_type": "independent_series_catalog",
+            "url": "https://allhotwheels.com/series/cmrzr0uk900b3k6o4bzo6npf1"
+          }
+        ],
+        "wiki_casting_page": {
+          "observed_claim": "A dedicated page identifies the Fraser Campbell-designed casting, HRY46 debut tool, and HYW90 2025 release as one 1:64 lineage.",
+          "page_classification": "single_casting",
+          "publisher": "Hot Wheels Wiki contributors",
+          "url": "https://hotwheels.fandom.com/wiki/Proton_Saga"
+        }
+      },
+      "reviewer_confirmation": {
+        "decided_at": null,
+        "decided_by": null,
+        "evidence_references": [],
+        "reason": null,
+        "status": "pending"
+      },
+      "source_row_count": 1,
+      "source_rows": [
+        {
+          "collector_number": "038",
+          "release_year": 2025,
+          "series": "Factory Fresh",
+          "source_record_id": "fandom-row-34711bf24338421c",
+          "source_row": 75,
+          "toy_number": "HYW90",
+          "variant_note": null
+        }
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting_name": "Small Bloc",
+      "family_review_id": "fandom-family-85e407525ac7bf41",
+      "machine_recommendation": {
+        "family_decision": "create_new_casting",
+        "reason": "the queue name resolves to one dedicated Wiki casting page and at least one separate publisher confirms the exact Hot Wheels casting name",
+        "scope": "casting_family_only",
+        "variant_decision": "hold"
+      },
+      "promotion_eligible": false,
+      "research_evidence": {
+        "distinct_source_hosts": [
+          "catalog.hwcollectorsnews.com",
+          "hotwheels.fandom.com"
+        ],
+        "independent_source_count": 1,
+        "independent_sources": [
+          {
+            "confirms_exact_casting_name": true,
+            "observed_claim": "The independent casting catalog records HYW65, HYX56, and HYY40 as 2025 Small Bloc variations.",
+            "publisher": "Hot Wheels Collectors News Catalog",
+            "source_type": "independent_casting_catalog",
+            "url": "https://catalog.hwcollectorsnews.com/Castings/Details/a7f7f370-4c23-436a-ac94-82531fd62221"
+          }
+        ],
+        "wiki_casting_page": {
+          "observed_claim": "A dedicated page identifies one Fraser Campbell-designed woodgrain muscle-car lineage and lists HYW65/HYY40/HYX56 as its 2025 releases; related Bloc vehicles use different names.",
+          "page_classification": "single_casting",
+          "publisher": "Hot Wheels Wiki contributors",
+          "url": "https://hotwheels.fandom.com/wiki/Small_Bloc"
+        }
+      },
+      "reviewer_confirmation": {
+        "decided_at": null,
+        "decided_by": null,
+        "evidence_references": [],
+        "reason": null,
+        "status": "pending"
+      },
+      "source_row_count": 3,
+      "source_rows": [
+        {
+          "collector_number": "007",
+          "release_year": 2025,
+          "series": "HW Metro",
+          "source_record_id": "fandom-row-2675314e80d7829e",
+          "source_row": 12,
+          "toy_number": "HYW65",
+          "variant_note": null
+        },
+        {
+          "collector_number": "007",
+          "release_year": 2025,
+          "series": "Red Edition",
+          "source_record_id": "fandom-row-ffc85d1ddcdc7f53",
+          "source_row": 13,
+          "toy_number": "HYY40",
+          "variant_note": "2nd Color"
+        },
+        {
+          "collector_number": "007",
+          "release_year": 2025,
+          "series": "HW Metro",
+          "source_record_id": "fandom-row-831b6df53c1c6e1b",
+          "source_row": 14,
+          "toy_number": "HYX56",
+          "variant_note": "3rd Color"
+        }
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting_name": "Standard Kart",
+      "family_review_id": "fandom-family-8403e21a29c27eab",
+      "machine_recommendation": {
+        "family_decision": "hold",
+        "reason": "the queue name resolves to source evidence covering multiple casting tools, so the 2025 row must be mapped to one lineage before family creation",
+        "scope": "casting_family_only",
+        "variant_decision": "hold"
+      },
+      "promotion_eligible": false,
+      "research_evidence": {
+        "distinct_source_hosts": [
+          "catalog.hwcollectorsnews.com",
+          "hotwheels.fandom.com"
+        ],
+        "independent_source_count": 1,
+        "independent_sources": [
+          {
+            "confirms_exact_casting_name": true,
+            "observed_claim": "The independent casting catalog records both the 2019 character-bearing GBG26 Standard Kart and the separate driverless mainline GRX17/HYW83 Standard Kart lineage.",
+            "publisher": "Hot Wheels Collectors News Catalog",
+            "source_type": "independent_casting_catalog",
+            "url": "https://catalog.hwcollectorsnews.com/Castings/Details/0ae618a2-056e-473b-8935-92cdc587d161"
+          }
+        ],
+        "wiki_casting_page": {
+          "observed_claim": "One page uses Standard Kart for two 1:64 tools: the 2019 character-bearing GBG26 casting and the driverless GRX17 mainline casting whose 2025 release is HYW83.",
+          "page_classification": "multi_casting_page",
+          "publisher": "Hot Wheels Wiki contributors",
+          "url": "https://hotwheels.fandom.com/wiki/Standard_Kart"
+        }
+      },
+      "reviewer_confirmation": {
+        "decided_at": null,
+        "decided_by": null,
+        "evidence_references": [],
+        "reason": null,
+        "status": "pending"
+      },
+      "source_row_count": 1,
+      "source_rows": [
+        {
+          "collector_number": "030",
+          "release_year": 2025,
+          "series": "HW Screen Time",
+          "source_record_id": "fandom-row-65e33120f261eb88",
+          "source_row": 63,
+          "toy_number": "HYW83",
+          "variant_note": null
+        }
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting_name": "Super Twin Mill",
+      "family_review_id": "fandom-family-d5c83bb87be8cab0",
+      "machine_recommendation": {
+        "family_decision": "create_new_casting",
+        "reason": "the queue name resolves to one dedicated Wiki casting page and at least one separate publisher confirms the exact Hot Wheels casting name",
+        "scope": "casting_family_only",
+        "variant_decision": "hold"
+      },
+      "promotion_eligible": false,
+      "research_evidence": {
+        "distinct_source_hosts": [
+          "catalog.hwcollectorsnews.com",
+          "hotwheels.fandom.com"
+        ],
+        "independent_source_count": 1,
+        "independent_sources": [
+          {
+            "confirms_exact_casting_name": true,
+            "observed_claim": "The variation catalog records HYW12 and JBB72 as 2025 Super Twin Mill releases under the exact name.",
+            "publisher": "Hot Wheels Collectors News Catalog",
+            "source_type": "independent_variation_catalog",
+            "url": "https://catalog.hwcollectorsnews.com/SeriesDefinitions/Details/1916"
+          }
+        ],
+        "wiki_casting_page": {
+          "observed_claim": "A dedicated page identifies the Sonny Fisher-designed 2025 tool and lists HYW12/JBB72 as its releases; other Twin Mill designs retain distinct names and pages.",
+          "page_classification": "single_casting",
+          "publisher": "Hot Wheels Wiki contributors",
+          "url": "https://hotwheels.fandom.com/wiki/Super_Twin_Mill"
+        }
+      },
+      "reviewer_confirmation": {
+        "decided_at": null,
+        "decided_by": null,
+        "evidence_references": [],
+        "reason": null,
+        "status": "pending"
+      },
+      "source_row_count": 2,
+      "source_rows": [
+        {
+          "collector_number": "019",
+          "release_year": 2025,
+          "series": "Hot Wheels Let's Race",
+          "source_record_id": "fandom-row-e8a55e777b5c4d19",
+          "source_row": 39,
+          "toy_number": "HYW12",
+          "variant_note": null
+        },
+        {
+          "collector_number": "019",
+          "release_year": 2025,
+          "series": "Hot Wheels Let's Race",
+          "source_record_id": "fandom-row-05f599c1217223d6",
+          "source_row": 40,
+          "toy_number": "JBB72",
+          "variant_note": "2nd Color"
+        }
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting_name": "The Vanster",
+      "family_review_id": "fandom-family-57cf5c31afbadc57",
+      "machine_recommendation": {
+        "family_decision": "create_new_casting",
+        "reason": "the queue name resolves to one dedicated Wiki casting page and at least one separate publisher confirms the exact Hot Wheels casting name",
+        "scope": "casting_family_only",
+        "variant_decision": "hold"
+      },
+      "promotion_eligible": false,
+      "research_evidence": {
+        "distinct_source_hosts": [
+          "hotwheels.fandom.com",
+          "www.hot-wheels-collectors.com"
+        ],
+        "independent_source_count": 1,
+        "independent_sources": [
+          {
+            "confirms_exact_casting_name": true,
+            "observed_claim": "The independent collector listing records The Vanster HYY87 as a 2025 HW Art Cars 1:64 release under the exact name.",
+            "publisher": "Hot Wheels Collectors",
+            "source_type": "independent_collector_catalog",
+            "url": "https://www.hot-wheels-collectors.com/product/2025-hot-wheels-mainline-the-vanster-35250"
+          }
+        ],
+        "wiki_casting_page": {
+          "observed_claim": "A dedicated page keeps the original and documented 2023/2024 retools in one Vanster lineage and lists HYY87/HYX65 as its 2025 releases.",
+          "page_classification": "single_casting",
+          "publisher": "Hot Wheels Wiki contributors",
+          "url": "https://hotwheels.fandom.com/wiki/The_Vanster"
+        }
+      },
+      "reviewer_confirmation": {
+        "decided_at": null,
+        "decided_by": null,
+        "evidence_references": [],
+        "reason": null,
+        "status": "pending"
+      },
+      "source_row_count": 2,
+      "source_rows": [
+        {
+          "collector_number": "035",
+          "release_year": 2025,
+          "series": "HW Art Cars",
+          "source_record_id": "fandom-row-2021960048d5f118",
+          "source_row": 69,
+          "toy_number": "HYY87",
+          "variant_note": null
+        },
+        {
+          "collector_number": "035",
+          "release_year": 2025,
+          "series": "HW Art Cars",
+          "source_record_id": "fandom-row-60dcd5be8c1b6ed6",
+          "source_row": 70,
+          "toy_number": "HYX65",
+          "variant_note": "2nd Color"
+        }
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting_name": "Twin Mill Gen-E",
+      "family_review_id": "fandom-family-39b248ce2f3723cd",
+      "machine_recommendation": {
+        "family_decision": "create_new_casting",
+        "reason": "the queue name resolves to one dedicated Wiki casting page and at least one separate publisher confirms the exact Hot Wheels casting name",
+        "scope": "casting_family_only",
+        "variant_decision": "hold"
+      },
+      "promotion_eligible": false,
+      "research_evidence": {
+        "distinct_source_hosts": [
+          "catalog.hwcollectorsnews.com",
+          "hotwheels.fandom.com"
+        ],
+        "independent_source_count": 1,
+        "independent_sources": [
+          {
+            "confirms_exact_casting_name": true,
+            "observed_claim": "The independent 2025 variation catalog records HYW80 under the exact Twin Mill Gen-E name.",
+            "publisher": "Hot Wheels Collectors News Catalog",
+            "source_type": "independent_variation_catalog",
+            "url": "https://catalog.hwcollectorsnews.com/SeriesDefinitions/Details/1912"
+          }
+        ],
+        "wiki_casting_page": {
+          "observed_claim": "A dedicated page identifies the Dmitriy Shakhmatov-designed FYB48 electric casting as a distinct Twin Mill Gen-E lineage and lists HYW80 for 2025.",
+          "page_classification": "single_casting",
+          "publisher": "Hot Wheels Wiki contributors",
+          "related_casting_pages": [
+            {
+              "distinction": "The original Twin Mill is a differently named 1969 combustion-engine design rather than the queued Gen-E casting.",
+              "url": "https://hotwheels.fandom.com/wiki/Twin_Mill"
+            }
+          ],
+          "url": "https://hotwheels.fandom.com/wiki/Twin_Mill_Gen-E"
+        }
+      },
+      "reviewer_confirmation": {
+        "decided_at": null,
+        "decided_by": null,
+        "evidence_references": [],
+        "reason": null,
+        "status": "pending"
+      },
+      "source_row_count": 1,
+      "source_rows": [
+        {
+          "collector_number": "027",
+          "release_year": 2025,
+          "series": "HW Celebration Racers 'Chinese New Year'",
+          "source_record_id": "fandom-row-e79dc1122db78db4",
+          "source_row": 57,
+          "toy_number": "HYW80",
+          "variant_note": null
+        }
+      ]
+    },
+    {
+      "brand": "Hot Wheels",
+      "casting_name": "X-34 Landspeeder",
+      "family_review_id": "fandom-family-7e221ec8ecd02815",
+      "machine_recommendation": {
+        "family_decision": "create_new_casting",
+        "reason": "the queue name resolves to one dedicated Wiki casting page and at least one separate publisher confirms the exact Hot Wheels casting name",
+        "scope": "casting_family_only",
+        "variant_decision": "hold"
+      },
+      "promotion_eligible": false,
+      "research_evidence": {
+        "distinct_source_hosts": [
+          "catalog.hwcollectorsnews.com",
+          "hotwheels.fandom.com"
+        ],
+        "independent_source_count": 1,
+        "independent_sources": [
+          {
+            "confirms_exact_casting_name": true,
+            "observed_claim": "The independent casting catalog records HYW84 as the fourth 2025 variation of the X-34 Landspeeder lineage.",
+            "publisher": "Hot Wheels Collectors News Catalog",
+            "source_type": "independent_casting_catalog",
+            "url": "https://catalog.hwcollectorsnews.com/Castings/Details/30d93f6e-e3f7-484e-ae79-740343aa1bf3"
+          }
+        ],
+        "wiki_casting_page": {
+          "observed_claim": "A dedicated page identifies the wheeled Lindsey Lee-designed GRX16 casting and HYW84 2025 release; the related Starships product has a different name and tool number.",
+          "page_classification": "single_casting",
+          "publisher": "Hot Wheels Wiki contributors",
+          "related_casting_pages": [
+            {
+              "distinction": "Luke Skywalker's Landspeeder (Starship) is a separately named wheel-less Star Wars Starships tool FBB12 rather than the queued GRX16 casting.",
+              "url": "https://hotwheels.fandom.com/wiki/Luke_Skywalker%27s_Landspeeder_%28Starship%29"
+            }
+          ],
+          "url": "https://hotwheels.fandom.com/wiki/X-34_Landspeeder"
+        }
+      },
+      "reviewer_confirmation": {
+        "decided_at": null,
+        "decided_by": null,
+        "evidence_references": [],
+        "reason": null,
+        "status": "pending"
+      },
+      "source_row_count": 1,
+      "source_rows": [
+        {
+          "collector_number": "031",
+          "release_year": 2025,
+          "series": "HW Screen Time",
+          "source_record_id": "fandom-row-3b134fe021c10ce6",
+          "source_row": 64,
+          "toy_number": "HYW84",
+          "variant_note": null
+        }
+      ]
+    }
+  ],
+  "schema_version": "pvr-fandom-priority-two-research-v1",
+  "selection_rule": "first 9 pending priority-2 families in adjudicated queue order",
+  "status": "awaiting_reviewer_confirmation",
+  "summary": {
+    "confirmed_reviewer_decisions": 0,
+    "promotion_eligible_families": 0,
+    "proposed_holds": 3,
+    "proposed_new_castings": 6,
+    "represented_wiki_rows": 13,
+    "researched_families": 9
+  }
+}

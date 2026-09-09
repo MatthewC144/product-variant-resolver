@@ -62,6 +62,8 @@ def _validate_source_note(note: dict[str, Any], family: dict[str, Any]) -> None:
         "single_casting",
         "disambiguation",
         "homonymous_castings",
+        "multi_casting_page",
+        "renamed_existing_casting",
     }:
         raise ValueError("Wiki page classification is unsupported")
     if not isinstance(wiki.get("observed_claim"), str) or not wiki["observed_claim"].strip():
@@ -99,6 +101,7 @@ def build_research(
     *,
     batch_version: str = BATCH_VERSION,
     batch_label: str = "01",
+    batch_size: int = BATCH_SIZE,
 ) -> tuple[dict[str, Any], dict[str, Any], str]:
     queue = _load(adjudicated_queue_path)
     queue_manifest = _load(adjudicated_manifest_path)
@@ -119,10 +122,10 @@ def build_research(
         for family in families
         if family.get("priority") == 2
         and family.get("reviewer_decision", {}).get("status") == "pending"
-    ][:BATCH_SIZE]
-    if len(selected) != BATCH_SIZE or len(notes) != BATCH_SIZE:
+    ][:batch_size]
+    if len(selected) != batch_size or len(notes) != batch_size:
         raise ValueError(
-            f"batch {batch_label} requires exactly {BATCH_SIZE} pending families"
+            f"batch {batch_label} requires exactly {batch_size} pending families"
         )
 
     packets: list[dict[str, Any]] = []
@@ -142,6 +145,18 @@ def build_research(
             decision_reason = (
                 "the queue name resolves to a disambiguation page covering multiple casting "
                 "tools, so the 2025 row must be mapped to one lineage before family creation"
+            )
+        elif page_classification == "multi_casting_page":
+            proposed_decision = "hold"
+            decision_reason = (
+                "the queue name resolves to source evidence covering multiple casting "
+                "tools, so the 2025 row must be mapped to one lineage before family creation"
+            )
+        elif page_classification == "renamed_existing_casting":
+            proposed_decision = "hold"
+            decision_reason = (
+                "the queue display name is a renamed release of an existing casting, so it must "
+                "be reviewed against that lineage instead of creating a duplicate family"
             )
         else:
             proposed_decision = "hold"
@@ -191,7 +206,9 @@ def build_research(
         "schema_version": SCHEMA_VERSION,
         "batch_version": batch_version,
         "status": "awaiting_reviewer_confirmation",
-        "selection_rule": "first 10 pending priority-2 families in adjudicated queue order",
+        "selection_rule": (
+            f"first {batch_size} pending priority-2 families in adjudicated queue order"
+        ),
         "decision_policy": {
             "create_new_casting": (
                 "one dedicated Wiki casting page plus at least one non-Fandom publisher that "
@@ -320,7 +337,7 @@ def main() -> None:
         description="Build or verify a priority-two source-research batch"
     )
     parser.add_argument("--check", action="store_true")
-    parser.add_argument("--batch", choices=("1", "2", "3", "4"), default="1")
+    parser.add_argument("--batch", choices=("1", "2", "3", "4", "5"), default="1")
     parser.add_argument("--directory", type=Path, default=directory)
     arguments = parser.parse_args()
     output = arguments.directory
@@ -339,11 +356,16 @@ def main() -> None:
         batch_version = "fandom-2025-priority-two-research-batch-03-v1"
         queue_name = "priority-2-batch-02-adjudicated-queue.json"
         queue_manifest_name = "priority-2-batch-02-adjudicated-queue-manifest.json"
-    else:
+    elif arguments.batch == "4":
         batch_label = "04"
         batch_version = "fandom-2025-priority-two-research-batch-04-v1"
         queue_name = "priority-2-batch-03-adjudicated-queue.json"
         queue_manifest_name = "priority-2-batch-03-adjudicated-queue-manifest.json"
+    else:
+        batch_label = "05"
+        batch_version = "fandom-2025-priority-two-research-batch-05-v1"
+        queue_name = "priority-2-batch-04-adjudicated-queue.json"
+        queue_manifest_name = "priority-2-batch-04-adjudicated-queue-manifest.json"
     prefix = f"priority-2-batch-{batch_label}"
     built = build_research(
         output / queue_name,
@@ -351,6 +373,7 @@ def main() -> None:
         output / f"{prefix}-source-notes.json",
         batch_version=batch_version,
         batch_label=batch_label,
+        batch_size=9 if batch_label == "05" else BATCH_SIZE,
     )
     expected = expected_outputs(
         *built,

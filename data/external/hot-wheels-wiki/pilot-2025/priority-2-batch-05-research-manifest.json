@@ -1,0 +1,28 @@
+{
+  "batch_version": "fandom-2025-priority-two-research-batch-05-v1",
+  "confirmed_reviewer_decisions": 0,
+  "inputs": {
+    "adjudicated_queue": {
+      "file": "priority-2-batch-04-adjudicated-queue.json",
+      "sha256": "123e7432bc68710e9f3c6c01393b07456ff018c54619ea2111825c27f2ff5847"
+    },
+    "adjudicated_queue_manifest": {
+      "file": "priority-2-batch-04-adjudicated-queue-manifest.json",
+      "sha256": "34c61547ea3ef76fd97fb46a54667272a99c2dce23f8c87568969d5df90136a9"
+    },
+    "source_notes": {
+      "file": "priority-2-batch-05-source-notes.json",
+      "sha256": "f230b8c5ec5f6bd5b7569659ab23925f2c6d56c6e7e689df1de2067da5c6ca13"
+    }
+  },
+  "promotion_eligible_families": 0,
+  "proposed_holds": 3,
+  "proposed_new_castings": 6,
+  "report_file": "priority-2-batch-05-research.md",
+  "report_sha256": "d782096f9dd2c3959e5d9321ce16fdcbb906ff2d2c2cf228cd4c34934254454f",
+  "represented_wiki_rows": 13,
+  "research_file": "priority-2-batch-05-research.json",
+  "research_sha256": "a49ad2f32f255f800d32ab5466640e2b8138b6ff743e601f58d74feee622626a",
+  "researched_families": 9,
+  "schema_version": "pvr-fandom-priority-two-research-manifest-v1"
+}

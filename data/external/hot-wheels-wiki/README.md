@@ -106,3 +106,12 @@ all five ordered decision events and reports 44 completed / 9 pending family dec
 merges, 36 accepted new families, 4 holds, 87 held release variants, and zero promotion
 eligibility. Mazda MX-5 Miata and Nissan Skyline 2000GT-R LBWK remain held at family scope. No
 accepted family is materialized as a catalog, PostgreSQL, or runtime entity.
+
+`pilot-2025/priority-2-batch-05-source-notes.json` verifies the T42 checkpoint and freezes research
+for the final nine pending families / thirteen release rows. Six dedicated, exact-name lineages
+meet the two-source creation rule. Nissan Skyline GT-R (BNR32) is held because a distinct same-scale
+RLC tool shares its base display name; Standard Kart is held because one source page covers both
+character-bearing and driverless tools; Power Wheels Dune Racer is held because HYX52 is a renamed
+Bogzilla release. The builder explicitly supports a nine-item final slice and the two new evidence
+classes without changing batches 01–04. Reviewer fields remain pending, variants remain held,
+promotion is zero, and no catalog/PostgreSQL/runtime data changes.

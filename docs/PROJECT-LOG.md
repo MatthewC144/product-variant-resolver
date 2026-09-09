@@ -1,5 +1,118 @@
 # Project Log
 
+## 2026-09-09 — Final priority-two research preserves renamed and multi-tool identity boundaries
+
+### What was executed and what problem it solves
+
+T43 verifies the exact T42 cumulative checkpoint and selects all nine remaining pending priority-2
+families in their existing queue order. Earlier research batches assumed ten-item slices; this one
+uses the true remainder rather than duplicating a family, skipping a family, or padding the work
+with a record outside the current 100-row pilot.
+
+The packet covers thirteen Wiki release rows across Nissan Skyline GT-R (BNR32), Power Wheels Dune
+Racer, Proton Saga, Small Bloc, Standard Kart, Super Twin Mill, The Vanster, Twin Mill Gen-E, and
+X-34 Landspeeder. Six names have a dedicated single-casting page plus non-Fandom exact-name
+corroboration and receive machine `create_new_casting` recommendations. Three remain held because
+their text names do not identify one safe physical lineage.
+
+### Code changes and why they were made
+
+`priority-2-batch-05-source-notes.json` freezes the nine-family research input. Each entry retains
+the queue ID and display name, a concise Wiki observation, and at least one observation from a
+separate publisher. The independent sources are Hot Wheels Collectors News Catalog, All Hot
+Wheels, Wheel's Garage, and Hot Wheels Collectors. Only source URLs and paraphrased text claims are
+stored; no images or external page copies are added to the repository.
+
+`build_fandom_priority_two_research.py` now accepts `--batch 5`, reads the batch-04 adjudicated
+queue and manifest, and passes an explicit `batch_size=9`. The builder still defaults to ten for
+batches 01–04. Its selection metadata is generated from the actual bounded size, so the artifact
+states exactly what was selected rather than preserving an inaccurate “first 10” label.
+
+The source-page vocabulary adds `renamed_existing_casting` and `multi_casting_page`. A renamed
+release is held because its marketing/display name points back to an existing casting lineage; a
+multi-casting page is held because one page contains more than one tool under the same display
+name. These are distinct from a formal `disambiguation` page and from `homonymous_castings`, where
+a separate page exposes the conflict. Each class has its own fail-closed recommendation reason.
+
+The initial implementation briefly reused the new multi-tool wording for the legacy
+`disambiguation` branch. The cross-batch `--check` immediately detected that batch 01 would no
+longer reproduce byte for byte. The branches were separated, restoring the original text for old
+batches while keeping the new classification for batch 05. No checked-in prior artifact was
+rewritten.
+
+`test_fandom_priority_two_research_batch_five.py` adds six tests. They require the exact final nine
+families and thirteen rows, the six-create/three-hold split, the named hold set, Bogzilla lineage
+for Power Wheels, both Standard Kart tool numbers, the distinct Nissan RLC tool, two-host evidence
+for every creation, preserved related-lineage context, pending reviewer fields, variant hold, zero
+promotion, hashes, and deterministic regeneration.
+
+### Technical choices, alternatives, and trade-offs
+
+Power Wheels Dune Racer is not treated as a new casting. HYX52 appears on the Bogzilla page as a
+release named Power Wheels Dune Racer, and an independent listing pairs both names. Automatically
+creating a Power Wheels family would duplicate the FJV61 physical lineage; silently merging it to
+Bogzilla would also exceed a machine research step. A named `renamed_existing_casting` hold keeps
+the likely relationship visible for the owner and later entity design.
+
+Standard Kart is not treated as one family merely because both tools share one page. The evidence
+separates a character-bearing 2019 GBG26 tool from the driverless mainline GRX17 tool whose 2025
+release is HYW83. The current toy number identifies the latter release, but a name-keyed family
+would remain ambiguous. `multi_casting_page` records the evidence shape without pretending the page
+is a formal disambiguation index.
+
+Nissan Skyline GT-R (BNR32) is held because the main page maps HYY72 to the Jun Imai lineage while
+a separate 2026 RLC page documents a completely different opening-hood JJY54 tool at the same 1:64
+scale. The RLC qualifier provides useful context, but the base display name remains shared. This is
+stricter than the earlier Mercedes XL case, where the separate page was explicitly an upscaled
+1:43 product rather than a competing same-scale tool.
+
+The other six names remain separate when their relationship is expressed through a different
+name, a documented continuous retool, or a distinct product line. The Vanster retools stay in one
+page lineage; Twin Mill Gen-E and Super Twin Mill retain names distinct from the original Twin Mill;
+the wheeled X-34 Landspeeder remains distinct from the differently named Starships product. This
+avoids both over-splitting every tooling change and over-merging all related designs.
+
+### Decision changes
+
+No project-owner decision changed. All nine T43 records remain pending machine research. Proton
+Saga, Small Bloc, Super Twin Mill, The Vanster, Twin Mill Gen-E, and X-34 Landspeeder receive
+creation recommendations. Nissan Skyline GT-R (BNR32), Power Wheels Dune Racer, and Standard Kart
+receive proposed holds.
+
+The T42 cumulative queue therefore still reports forty-four completed and nine pending family
+decisions, including four merges, thirty-six accepted new-family decisions, and four completed
+holds. Eighty-seven release rows under completed family decisions remain variant-held. The thirteen
+current research rows are also held. No stable ID, catalog object, PostgreSQL row, Dual-RAG result,
+calibration input, evaluation label, or promotion status changed.
+
+### Verification evidence
+
+The focused T43 module passed 6/6. The complete host suite passed 153/153 in 1.418 seconds on Python
+3.14.6. All five research batches reproduce byte for byte; the first four remain unchanged after
+adding the bounded final-size and evidence-class support. The known legacy-`httpx` Starlette
+TestClient warning remains limited to the machine-wide environment, while the constrained Python
+3.12 runtime was previously verified with `httpx2`.
+
+The source-note checksum is
+`f230b8c5ec5f6bd5b7569659ab23925f2c6d56c6e7e689df1de2067da5c6ca13`; research JSON is
+`a49ad2f32f255f800d32ab5466640e2b8138b6ff743e601f58d74feee622626a`; the readable report is
+`d782096f9dd2c3959e5d9321ce16fdcbb906ff2d2c2cf228cd4c34934254454f`; and the manifest is
+`03a180d7e7ec919b6a9f880a12a05bf77287d233dd1a37d77a63fb22af972426`. Final data-chain,
+compilation, Compose, and whitespace checks are recorded in the T43 evidence and QA review.
+
+### Incomplete work, risks, and next step
+
+The research sources can change, collector catalogs may inherit upstream mistakes, and text claims
+do not replace physical-tool verification. None of the six creation recommendations is an owner
+decision. The three holds need an explicit choice about tool-qualified IDs, aliases, or target
+lineages before materialization.
+
+The next immediate task is T44: present the exact six-create/three-hold packet to the project owner
+and, only after authorization, append the final priority-2 decision batch. That will close the
+current 53-family adjudication queue at family scope while every release variant remains held. A
+new specification must then design stable review entities and the expansion path toward roughly
+3,000 reviewable variants without inserting provisional research directly into production data.
+
 ## 2026-09-09 — Batch-04 research becomes an attributable eight-create/two-hold decision layer
 
 ### What was executed and what problem it solves
