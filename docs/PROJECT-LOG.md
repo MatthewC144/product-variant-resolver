@@ -1,5 +1,104 @@
 # Project Log
 
+## 2026-09-11 — Family-level second-RAG integration is specified as a typed projection
+
+### What was executed and what problem it solves
+
+T47 analyzes how the 42 stable T46 review-family identities can become useful search suggestions
+without being mislabeled as variants or allowed to affect canonical answers. The current second RAG
+contains 100 human-confirmed provisional-variant documents; every internal document and debug item
+requires a provisional variant ID. Reusing that shape for family-only knowledge would reintroduce
+the exact fabricated-variant problem T46 avoided.
+
+The new Lite specification defines a separate family-knowledge runtime projection plus a typed v2
+human-knowledge index. The projection selects only 42 accepted new families. Four merge links do not
+become new documents because their existing human-backed families are already searchable; seven
+holds and all held release details remain outside the index. This resolves the schema and ingestion
+design question while preserving current runtime until the owner confirms implementation.
+
+### Code and documentation changes and why they were made
+
+`specs/family-level-human-knowledge/requirements.md` adds sixteen EARS requirements covering a
+deterministic runtime projection, exact selection, searchable-field allowlisting, typed documents,
+unified retrieval, exact-name smoke and existing-variant regression, hold/merge behavior, canonical
+isolation, debug API/UI, readiness, observability, persistence/evaluation limits, and reproducibility.
+
+`design.md` maps those requirements to the current implementation. It identifies affected settings,
+loader/retriever, service, API health, Pydantic schemas, UI, and tests. It defines
+`pvr-review-family-knowledge-v1`, the `provisional_variant` / `review_family` discriminated debug
+union, a single 142-document sparse/dense/RRF pool, projection/version fields, fail-closed startup,
+safe UI rendering, and the absence of any edge from human candidates to canonical policy.
+
+`tasks.md` separates the future build into four bounded units: projection generation, typed v2
+retrieval/readiness, debug API/UI integration, and QA/documentation. Every FHK requirement is mapped
+to at least one implementation or verification task. The main MVP brief, QA review, README,
+decision register, and T47 spec evidence now link the same proposed boundary.
+
+### Technical choices, alternatives, and trade-offs
+
+The T46 registry will not be loaded directly. It is an audit artifact that intentionally contains
+hold explanations and held release provenance and declares itself excluded from runtime retrieval.
+Rewriting that artifact would invalidate its frozen evidence; loading it would risk making
+non-searchable fields available to future code. A small allowlisted projection creates a new,
+explicitly authorized runtime contract while leaving adjudication history immutable.
+
+The two document types will share one human-knowledge index and one result limit. A separate family
+retriever/list would minimize changes to the existing variant schema, but callers could not compare
+its ranks with variant ranks and the UI would need two competing second-RAG sections. A discriminated
+union retains type-correct fields while one sparse/dense/RRF pool provides deterministic ordering.
+
+Family searchable text is restricted to brand, approved name, and aliases. Source record IDs remain
+available as bounded debug provenance but do not affect scoring. Series, toy numbers, variant notes,
+decision reasons, evidence URLs, and held names are excluded because none was approved as family-
+level search language.
+
+The current hashing-v1 embedding and RRF algorithm are retained instead of selecting a neural model
+or new ranker. The purpose of T47 is safe wiring, and the existing deterministic method makes change
+effects traceable. A new model would mix identity integration with an unmeasured algorithm change;
+T48 exists to determine whether stronger retrieval is actually needed.
+
+### Decision changes
+
+No family, variant, canonical, or database decision changes. The new architectural proposal derives
+a 42-document runtime projection from T46 rather than making the T46 registry itself runtime data.
+The projected families and existing variants become typed peers inside the second RAG, but remain
+debug-only and completely outside canonical confidence and identity.
+
+T47 is complete only as a proposed specification. Runtime implementation, API/UI changes, and data
+projection generation remain blocked by the Lite G1* confirmation step.
+
+### Verification evidence
+
+A read-only simulation used the current `HashingEmbedding`, sparse scoring, and RRF formulas over the
+100 existing human variant documents plus the proposed 42 family documents. All 142 UUIDs were
+unique. All 42 exact `Hot Wheels + family name` queries recovered the intended family within Top-5;
+the worst rank was 2. The existing BMW M3 GT2 Neon Speeders provisional variant remained rank 1,
+and the `'67 Chevy C10` merge query continued to return its existing variant without a duplicate
+family document.
+
+The same simulation showed the most important unresolved risk: `Power Wheels Dune Racer` did not
+return a held Power Wheels identity—none exists—but shared `racer` language could return another
+accepted family. This is not a contract violation, yet it demonstrates why self-retrieval cannot be
+reported as quality. T48 must measure false and useful suggestions on independently written queries.
+
+No product code or data changed. A fresh complete host run passed 168/168 tests in 1.628 seconds.
+It emitted only the already documented Starlette legacy-`httpx` TestClient deprecation warning;
+the warning is unrelated to this documentation-only change and remains non-failing. Documentation
+structure, 16/16 requirement traceability, whitespace, and repository scope were also verified
+before commit.
+
+### Incomplete work, risks, and next step
+
+The runtime projection, v2 typed loader, discriminated debug models, readiness dependency, and UI
+rendering do not yet exist. Adding 42 documents will change human-source document frequencies and
+may reorder debug suggestions even though canonical output remains isolated. Exact-name success on
+the source labels is not evidence for noisy marketplace text.
+
+After the project owner confirms requirements, design, and tasks, the next immediate step is T47.1:
+build and freeze the 42-document family-knowledge projection. T47.2–T47.4 then integrate, render,
+test, and document v2. T48 independently evaluates retrieval before T49 PostgreSQL work or expansion
+toward roughly 3,000 reviewable rows.
+
 ## 2026-09-09 — Accepted family decisions become stable review entities without fake variants
 
 ### What was executed and what problem it solves

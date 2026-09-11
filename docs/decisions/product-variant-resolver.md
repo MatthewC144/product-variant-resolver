@@ -583,3 +583,31 @@
   documents and debug/API behavior;
   PostgreSQL ingestion and the approximately 3,000-row expansion follow held-out evaluation rather
   than being bundled into family materialization.
+
+## D31 — Derive a typed runtime projection instead of loading the audit registry
+
+- **Choice:** Keep the T46 audit registry unchanged and define a separate, checksum-frozen runtime
+  projection containing only its 42 accepted new-family entities. Load those beside the existing
+  100 provisional-variant documents in one `human-knowledge-hybrid-v2` sparse/dense/RRF index, and
+  expose a discriminated debug union under the existing `human_knowledge_candidates` list. Skip all
+  4 merge links and 7 holds as new documents.
+- **Reason:** The registry explicitly says it is not runtime-loadable and retains held release
+  provenance that must not become searchable. A field-allowlisted projection preserves that audit
+  contract. Typed documents avoid inventing provisional variants, while a unified pool keeps one
+  second-RAG ranking/limit instead of presenting two incomparable debug lists. Merge names already
+  have existing human-backed variant documents, so another family document would duplicate identity.
+- **Alternatives:** Load the audit registry directly; rewrite its T46 usage boundary; coerce every
+  family into the existing variant schema; expose a separate family-candidate API list and retriever;
+  or immediately persist the families in PostgreSQL. These options respectively expose held fields,
+  invalidate frozen T46 evidence, fabricate identity, split ranking/limits, or combine unmeasured
+  retrieval quality with persistence and scale changes.
+- **Impact:** The proposed runtime pool contains 142 globally unique documents: 100 provisional
+  variants plus 42 review families. Family searchable text uses only brand, approved name, and
+  aliases. Existing debug clients receive a type discriminator; family-inapplicable variant IDs are
+  absent. Canonical candidates remain the sole input to confidence and final identity. A read-only
+  feasibility simulation retrieved 42/42 exact family queries within Top-5 (worst rank 2) and kept
+  the existing BMW variant at Top-1.
+- **Deferred review:** Exact-name self-retrieval proves wiring feasibility, not generalization. A
+  held-name query can still retrieve an unrelated accepted family through shared tokens, so T48 must
+  use an independently authored casting-grouped holdout before any quality or production claim.
+  PostgreSQL/pgvector integration and the approximately 3,000-row expansion remain after that gate.

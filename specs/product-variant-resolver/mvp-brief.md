@@ -896,6 +896,17 @@ Each task is intended to be independently committable and verifiable. `task_exec
   host suite passes 168/168. Provisional variants, canonical promotions, runtime-indexed families,
   and PostgreSQL rows remain zero.
 
+- [x] **T47 — Specify family-level human-knowledge integration** `[strategic_planner]` _(FHK-R1–FHK-R16)_
+  Define a checksum-frozen 42-document runtime projection, a discriminated provisional-variant/
+  review-family document contract, unified hybrid retrieval, debug API/UI behavior, startup
+  readiness, observability, and strict canonical/persistence/evaluation boundaries.
+  **Verify:** all requirements use testable EARS form; design covers projection, configuration,
+  typed schemas, retrieval, API, UI, errors, security, and tests; tasks are traceable and atomic;
+  feasibility simulation verifies 142 unique documents, 42/42 exact family queries within Top-5,
+  and the existing BMW variant at Top-1 without making a generalization claim.
+  **Status:** Complete as a proposed Lite specification. Awaiting project-owner confirmation before
+  T47.1 implementation; current runtime, API, data, PostgreSQL, and evaluation behavior are unchanged.
+
 ### Task order and handoff
 
 Recommended dependency order:

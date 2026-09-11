@@ -326,6 +326,13 @@ runtime-indexed families, and PostgreSQL rows all remain zero.
 python3 scripts/build_review_family_registry.py --check
 ```
 
+The proposed family-level runtime contract is documented in
+[`family-level-human-knowledge`](specs/family-level-human-knowledge/requirements.md). It derives a
+separate 42-document runtime projection instead of loading the T46 audit registry directly, then
+combines those family documents with the existing 100 provisional-variant documents in the second
+RAG source. The proposal keeps all human knowledge debug-only and leaves canonical ranking,
+confidence, PostgreSQL, and calibration unchanged. Implementation awaits project-owner confirmation.
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with

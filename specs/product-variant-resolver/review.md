@@ -1,7 +1,7 @@
 # Product Variant Resolver — Lite MVP QA Review
 
 > Date: 2026-09-01  
-> Last focused update: 2026-09-09 (T46 review-family materialization)
+> Last focused update: 2026-09-11 (T47 family-level human-knowledge specification)
 > QA mode: `.codex/agents/qa.toml` MVP Mode  
 > Scope: `specs/product-variant-resolver/mvp-brief.md` R1–R30
 > Verdict: **PASS WITH RISKS**
@@ -186,6 +186,15 @@ rows occur exactly once as held release references; provisional variant, canonic
 runtime-indexed family, and PostgreSQL counts are zero. Nine focused tests bring the complete host
 suite to **168/168** and cover hashes, IDs, aliases, provenance, target resolution, hold exclusion,
 row coverage, non-mutating checks, and fail-closed invalid inputs.
+
+T47 specifies how those family identities may enter the second RAG without becoming variants or
+canonical candidates. A separate 42-document runtime projection keeps the T46 audit registry
+immutable, while a discriminated union combines it with the existing 100 provisional-variant
+documents in one proposed v2 hybrid index. Read-only simulation over the actual 142-document pool
+found globally unique UUIDs, recovered all 42 exact brand/name family queries within Top-5 (worst
+rank 2), and retained the existing BMW regression at Top-1. It also exposed that shared tokens can
+surface an unrelated family for a held-name query, which is why T48 independent evaluation remains
+mandatory. No implementation changed, so the executable suite remains **168/168**.
 
 An independent Docker runtime milestone now verifies the existing
 `product-variant-resolver:lite` image on Docker Desktop 29.5.3/aarch64: Python 3.12.14, non-root
@@ -481,6 +490,9 @@ None for demonstrating the explicitly documented offline fixture path.
 19. **T46 materializes review families, not runtime documents.** The registry and stable IDs now
     exist, but they are explicitly excluded from retrieval and PostgreSQL. Describing the 42 new
     families as Dual-RAG candidates or the 100 releases as variants would still be incorrect.
+20. **T47 is a proposed integration contract, not shipped v2 retrieval.** The projection, typed
+    document/API models, and v2 index do not exist until owner confirmation and implementation.
+    Exact-name simulation is not independent evidence and cannot support a quality claim.
 
 ### Later
 
@@ -494,12 +506,13 @@ None for demonstrating the explicitly documented offline fixture path.
 The requested R7, R11, R13, Docker/Python 3.12 runtime, runtime reporting, selective dependency-
 constraint, T04/T07/T09/T10 database milestones, T26–T29 human-data/Dual-RAG milestones, and the
 T30–T44 external-data intake/pre-review/queue/evidence/research/decision milestones are QA-closed
-for their stated Lite scope. T45–T46 specify, implement, and verify the stable family registry.
-The next highest-value step is T47: specify the family-level human-knowledge document and Dual-RAG
-debug contract while preserving hold exclusion and null canonical identity. A casting-grouped
-holdout evaluation and database materialization remain separate later gates before additional
-yearly lists expand the corpus toward roughly 3,000 reviewable variants. Exact pgvector quality and
-latency must be remeasured at that scale.
+for their stated Lite scope. T45–T46 specify, implement, and verify the stable family registry. T47
+now provides the proposed family-level human-knowledge projection, typed retrieval, debug API/UI,
+readiness, and canonical-isolation contract. After project-owner confirmation, T47.1 should build
+the deterministic 42-document projection before runtime code changes. Casting-grouped holdout
+evaluation and database materialization remain separate later gates before additional yearly lists
+expand the corpus toward roughly 3,000 reviewable variants. Exact pgvector quality and latency must
+be remeasured at that scale.
 The next human-knowledge evaluation task remains an independently written, casting-grouped holdout
 set; until that evidence exists, the human source stays debug-only. A complete dependency-lock
 review, active post-startup database health polling, external neural models, and a justified T14
