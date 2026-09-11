@@ -916,6 +916,17 @@ Each task is intended to be independently committable and verifiable. `task_exec
   **Status:** Complete. Six focused tests and the frozen manifest verify the boundary; the complete
   host suite passes 174/174. Runtime/API integration remains T47.2.
 
+- [x] **T47.2 — Load typed documents into the combined v2 retriever** `[backend/qa/doc_curator]` _(FHK-R5–R11,FHK-R13–FHK-R16)_
+  Strictly load the projection/manifest, combine 100 variant and 42 family documents through common
+  knowledge IDs/UUIDs, reuse sparse/hashing-dense/RRF retrieval, add configuration/readiness/version
+  metadata, and record bounded per-type counts without connecting human results to canonical policy.
+  **Verify:** exact 100/42/142 counts and global identity uniqueness; 42/42 family queries within
+  Top-5; BMW variant rank 1; merge/hold absence; Proton Saga remains `no_match`; missing/corrupt/
+  widened data returns 503; canonical fixture metrics remain frozen; full suite passes.
+  **Status:** Complete. The index reports `human-knowledge-hybrid-v2`, health publishes the family
+  projection dependency/version, and 182/182 host tests pass. Discriminated family API/UI output is
+  intentionally T47.3.
+
 ### Task order and handoff
 
 Recommended dependency order:

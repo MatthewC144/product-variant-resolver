@@ -2,7 +2,7 @@
 
 > Mode: Lite / Lean Industrial
 >
-> Status: In progress; T47.1 complete
+> Status: In progress; T47.1–T47.2 complete
 
 ## Task order
 
@@ -30,9 +30,9 @@ release references, and zero variant/canonical/PostgreSQL rows. The complete sui
 
 ### T47.2 — Load typed documents into the combined v2 retriever `[backend]`
 
-- [ ] Add strict family-projection/manifest loading and typed document models. _(→FHK-R5,FHK-R13–R14)_
-- [ ] Generalize sparse/dense/RRF indexing to the shared 142-document pool. _(→FHK-R6–R10)_
-- [ ] Add settings, startup readiness, version metadata, and bounded type counts. _(→FHK-R11,FHK-R13–R15)_
+- [x] Add strict family-projection/manifest loading and typed document models. _(→FHK-R5,FHK-R13–R14)_
+- [x] Generalize sparse/dense/RRF indexing to the shared 142-document pool. _(→FHK-R6–R10)_
+- [x] Add settings, startup readiness, version metadata, and bounded type counts. _(→FHK-R11,FHK-R13–R15)_
 
 Files:
 
@@ -51,6 +51,12 @@ Acceptance:
 - All 42 exact family queries recover within Top-5; the reviewed BMW regression remains correct.
 - Holds/merges create no family documents and human candidates never affect canonical results.
 - Missing, stale, malformed, or widened projection data fails readiness with HTTP 503.
+
+Completion evidence (2026-09-11): the strict loader builds one 142-document catalog with 100 typed
+provisional variants and 42 typed review families. All 42 exact family queries return within Top-5
+(worst rank 2), BMW remains a variant at rank 1, Proton Saga remains noncanonical, family readiness
+and v2 health metadata are live, and the complete host suite passes 182/182. Family API
+serialization remains intentionally deferred to T47.3.
 
 ### T47.3 — Expose and render the discriminated debug contract `[frontend/backend]`
 

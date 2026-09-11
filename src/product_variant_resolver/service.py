@@ -11,6 +11,7 @@ from .catalog import Catalog, load_catalog
 from .config import Settings
 from .human_knowledge import (
     HumanKnowledgeCandidate, HumanKnowledgeCatalog, HumanKnowledgeRetriever,
+    HumanVariantKnowledgeDocument, ReviewFamilyKnowledgeDocument,
     load_human_knowledge_catalog,
 )
 from .observability import Tracer, get_tracer, observed_stage
@@ -81,7 +82,11 @@ class ResolverService:
     @classmethod
     def from_settings(cls, settings: Settings) -> "ResolverService":
         catalog = load_catalog(settings.catalog_path)
-        human_catalog = load_human_knowledge_catalog(settings.human_catalog_path)
+        human_catalog = load_human_knowledge_catalog(
+            settings.human_catalog_path,
+            settings.review_family_knowledge_path,
+            settings.review_family_knowledge_manifest_path,
+        )
         if settings.backend == "offline":
             return cls(settings, catalog, human_catalog)
         adapter: SQLAlchemyPostgresRetrieverAdapter | None = None
@@ -120,11 +125,27 @@ class ResolverService:
                         request.title, self.color_vocabulary, self.series_vocabulary,
                     )
 
-                with observed_stage(self.tracer, "human_knowledge_retrieval", timings) as human_span:
+                with observed_stage(
+                    self.tracer, "human_knowledge_retrieval", timings
+                ) as human_span:
                     human_candidates = self.human_knowledge.retrieve(
                         signals, self.settings.candidate_limit,
                     )
+                    variant_candidate_count = sum(
+                        isinstance(item.document, HumanVariantKnowledgeDocument)
+                        for item in human_candidates
+                    )
+                    family_candidate_count = sum(
+                        isinstance(item.document, ReviewFamilyKnowledgeDocument)
+                        for item in human_candidates
+                    )
                     human_span.set_attribute("pvr.candidate_count", len(human_candidates))
+                    human_span.set_attribute(
+                        "pvr.variant_candidate_count", variant_candidate_count
+                    )
+                    human_span.set_attribute(
+                        "pvr.family_candidate_count", family_candidate_count
+                    )
 
                 candidates, retrieval_timings = self.retrieval.retrieve_with_timings(
                     signals, self.settings.candidate_limit, self.tracer,
@@ -159,10 +180,14 @@ class ResolverService:
         if request.debug:
             debug = DebugPayload(
                 signals=signals,
-                candidates=[_candidate_debug(item) for item in candidates[:request.debug_candidate_limit]],
+                candidates=[
+                    _candidate_debug(item)
+                    for item in candidates[:request.debug_candidate_limit]
+                ],
                 human_knowledge_candidates=[
-                    _human_candidate_debug(item)
+                    _variant_human_candidate_debug(item)
                     for item in human_candidates[:request.debug_candidate_limit]
+                    if isinstance(item.document, HumanVariantKnowledgeDocument)
                 ],
                 timings_ms=timings,
                 catalog_version=self.catalog.version,
@@ -191,9 +216,11 @@ class ResolverService:
         )
         LOGGER.info(
             "resolution_completed request_id=%s status=%s title_length=%d "
-            "candidate_count=%d human_candidate_count=%d total_ms=%.4f",
+            "candidate_count=%d human_candidate_count=%d "
+            "human_variant_candidate_count=%d human_family_candidate_count=%d total_ms=%.4f",
             correlation_id, status.value, len(request.title), len(candidates),
-            len(human_candidates), timings["total"],
+            len(human_candidates), variant_candidate_count, family_candidate_count,
+            timings["total"],
         )
         return response
 
@@ -216,8 +243,12 @@ def _candidate_debug(item: Candidate) -> CandidateDebug:
     )
 
 
-def _human_candidate_debug(item: HumanKnowledgeCandidate) -> HumanKnowledgeCandidateDebug:
+def _variant_human_candidate_debug(
+    item: HumanKnowledgeCandidate,
+) -> HumanKnowledgeCandidateDebug:
     document = item.document
+    if not isinstance(document, HumanVariantKnowledgeDocument):
+        raise TypeError("family candidates require the T47.3 discriminated debug schema")
     return HumanKnowledgeCandidateDebug(
         casting_uuid=document.casting_uuid,
         casting_id=document.casting_id,

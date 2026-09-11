@@ -606,10 +606,13 @@
   non-searchable provenance. The builder accounts for but excludes 4 merge links and 7 holds and
   copies no release details, decision reasons, or evidence URLs. The proposed runtime pool remains
   142 globally unique documents—100 provisional variants plus these 42 review families—but the
-  typed loader, type discriminator, and v2 index are intentionally deferred to T47.2. Canonical
-  candidates remain the sole input to confidence and final identity. The earlier read-only
-  feasibility simulation retrieved 42/42 exact family queries within Top-5 (worst rank 2) and kept
-  the existing BMW variant at Top-1.
+  T47.2 now strictly validates that artifact and its manifest, then combines 100 variant documents
+  and 42 family documents behind common `knowledge_id`, `knowledge_uuid`, and `searchable_text`
+  properties in `human-knowledge-hybrid-v2`. Canonical candidates remain the sole input to
+  confidence and final identity. Runtime verification retrieves 42/42 exact family queries within
+  Top-5 (worst rank 2), keeps the existing BMW variant at Top-1, and leaves Proton Saga as
+  noncanonical `no_match`. The public type discriminator remains intentionally deferred to T47.3;
+  the legacy debug serializer filters family objects until it can expose type-correct fields.
 - **Deferred review:** Exact-name self-retrieval proves wiring feasibility, not generalization. A
   held-name query can still retrieve an unrelated accepted family through shared tokens, so T48 must
   use an independently authored casting-grouped holdout before any quality or production claim.

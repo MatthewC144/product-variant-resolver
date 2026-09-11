@@ -1,3 +1,5 @@
+import json
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -8,6 +10,8 @@ from product_variant_resolver.config import Settings
 from product_variant_resolver.retrieval import RetrievalUnavailable
 
 ROOT = Path(__file__).resolve().parents[2]
+FAMILY_PROJECTION = ROOT / "data/review_family_knowledge.json"
+FAMILY_MANIFEST = ROOT / "data/review_family_knowledge_manifest.json"
 
 
 class ApiTests(unittest.TestCase):
@@ -76,7 +80,7 @@ class ApiTests(unittest.TestCase):
         self.assertEqual(body["debug"]["human_catalog_version"], "human-backed-catalog-v1")
         self.assertEqual(
             body["debug"]["model_versions"]["human_knowledge"],
-            "human-knowledge-hybrid-v1",
+            "human-knowledge-hybrid-v2",
         )
         self.assertEqual(body["debug"]["model_versions"]["sparse"], "token-index-v1")
         self.assertEqual(body["debug"]["model_versions"]["dense"], "hashing-v1")
@@ -94,7 +98,15 @@ class ApiTests(unittest.TestCase):
         )
         self.assertEqual(
             health["dependencies"]["human_knowledge_index"]["version"],
-            "human-knowledge-hybrid-v1",
+            "human-knowledge-hybrid-v2",
+        )
+        self.assertEqual(
+            health["dependencies"]["review_family_knowledge"]["version"],
+            "review-family-knowledge-fandom-2025-r790665-v1",
+        )
+        self.assertIn(
+            "never canonical identity",
+            health["dependencies"]["review_family_knowledge"]["detail"],
         )
 
     def test_reranker_is_explicit_opt_in(self):
@@ -152,6 +164,56 @@ class ApiTests(unittest.TestCase):
         response = client.post("/resolve", json={"title": "BMW M3 GT2"})
         self.assertEqual(response.status_code, 503)
         self.assertIsNone(response.json().get("canonical_uuid"))
+
+    def test_missing_or_corrupt_review_family_projection_fails_closed(self):
+        missing = Settings(
+            catalog_path=ROOT / "data/catalog.json",
+            human_catalog_path=ROOT / "data/human_backed_catalog.json",
+            review_family_knowledge_path=ROOT / "data/missing-family-knowledge.json",
+            review_family_knowledge_manifest_path=FAMILY_MANIFEST,
+            ui_path=ROOT / "ui",
+        )
+        missing_client = TestClient(create_app(missing))
+        missing_health = missing_client.get("/health")
+        self.assertEqual(missing_health.status_code, 503)
+        self.assertFalse(
+            missing_health.json()["dependencies"]["review_family_knowledge"]["ready"]
+        )
+        response = missing_client.post("/resolve", json={"title": "Proton Saga"})
+        self.assertEqual(response.status_code, 503)
+        self.assertIsNone(response.json().get("canonical_uuid"))
+
+        with tempfile.TemporaryDirectory() as directory:
+            manifest = json.loads(FAMILY_MANIFEST.read_text(encoding="utf-8"))
+            manifest["projection_sha256"] = "0" * 64
+            manifest_path = Path(directory) / FAMILY_MANIFEST.name
+            manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+            corrupt = Settings(
+                catalog_path=ROOT / "data/catalog.json",
+                human_catalog_path=ROOT / "data/human_backed_catalog.json",
+                review_family_knowledge_path=FAMILY_PROJECTION,
+                review_family_knowledge_manifest_path=manifest_path,
+                ui_path=ROOT / "ui",
+            )
+            corrupt_client = TestClient(create_app(corrupt))
+            self.assertEqual(corrupt_client.get("/health").status_code, 503)
+            response = corrupt_client.post("/resolve", json={"title": "Proton Saga"})
+            self.assertEqual(response.status_code, 503)
+            self.assertIsNone(response.json().get("canonical_uuid"))
+
+    def test_family_query_is_safe_before_discriminated_debug_api_step(self):
+        response = self.client.post(
+            "/resolve",
+            json={"title": "Hot Wheels Proton Saga", "debug": True},
+        )
+        self.assertEqual(response.status_code, 200)
+        body = response.json()
+        self.assertEqual(body["status"], "no_match")
+        self.assertIsNone(body["canonical_uuid"])
+        self.assertEqual(
+            body["debug"]["model_versions"]["human_knowledge"],
+            "human-knowledge-hybrid-v2",
+        )
 
     def test_postgres_backend_without_database_fails_readiness(self):
         settings = Settings(

@@ -112,6 +112,16 @@ def create_app(
                     if ready else app.state.readiness_error
                 ),
             ),
+            "review_family_knowledge": DependencyHealth(
+                ready=ready,
+                version=(
+                    service.human_catalog.review_family_version if service else None
+                ),
+                detail=(
+                    "family-only review suggestions; never canonical identity"
+                    if ready else app.state.readiness_error
+                ),
+            ),
             "human_knowledge_index": DependencyHealth(
                 ready=ready,
                 version=service.human_knowledge.version if service else None,

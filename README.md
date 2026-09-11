@@ -47,10 +47,10 @@ Debug UI / API client
         |
         +------------------------------+
         |                              |
- canonical catalog RAG          human knowledge RAG
+ canonical catalog RAG          human knowledge RAG v2
  sparse + dense + structured    sparse + hashing dense
         |                              |
- RRF + calibration/policy       provisional review evidence
+ RRF + calibration/policy       variant + family review evidence
         +------------------------------+
         |
  matched | ambiguous | no_match + debug evidence
@@ -63,9 +63,10 @@ absolute Top-1 accuracy on the frozen test; enable it only for an explicit exper
 `PVR_RERANKER_ENABLED=true`. No external cross-encoder was evaluated.
 
 The runtime now uses two retrieval corpora. The canonical fixture catalog is the only source allowed
-to produce a final UUID. The human-backed catalog independently retrieves similar reviewed names and
-shows them as `needs_canonical_review` evidence in debug mode. A human-only hit can help explain a
-`no_match`, but cannot silently become a canonical product.
+to produce a final UUID. Human Knowledge RAG v2 independently ranks 100 human-backed provisional
+variants and 42 accepted review families. The current debug API exposes the legacy variant evidence;
+typed family rendering follows in T47.3. A human-only hit can help explain a `no_match`, but cannot
+silently become a canonical product.
 
 ## Start the offline path
 
@@ -338,12 +339,23 @@ T47.1 now materializes the allowlisted projection in
 family identity, name/alias, and source-record references; merge links, holds, release details,
 decision reasons, and evidence URLs are not copied into documents. Its manifest freezes the two
 T46 inputs, output checksum, 42/4/7 accounting, searchable-field policy, and zero
-variant/canonical/PostgreSQL counts. It is not loaded by the service until T47.2 implements and
-verifies the typed v2 retriever.
+variant/canonical/PostgreSQL counts.
 
 ```bash
 python3 scripts/build_review_family_knowledge.py --check
 ```
+
+T47.2 now loads that projection through strict typed models and combines it with the 100 existing
+provisional variants in `human-knowledge-hybrid-v2`. The second RAG therefore searches 142 documents
+in one sparse/hashing-dense/RRF ranking pool. Missing, malformed, checksum-stale, field-widened, or
+identity-invalid family data makes readiness fail with HTTP 503. Health exposes the family
+projection version and traces report bounded variant/family candidate counts without raw titles.
+The combined human candidates still cannot enter canonical ranking or confidence.
+
+The API/UI type-discriminated family rendering is T47.3. During this short transition, family
+documents participate internally in v2 retrieval, while the existing debug response continues to
+serialize only its legacy provisional-variant shape. A family-only query remains safe and
+noncanonical; T47.3 will make the family suggestion visible with type-appropriate fields.
 
 ## Docker and PostgreSQL status
 

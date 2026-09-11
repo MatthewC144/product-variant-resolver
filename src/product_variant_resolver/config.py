@@ -14,6 +14,10 @@ def _bool(name: str, default: bool) -> bool:
 class Settings:
     catalog_path: Path = Path("data/catalog.json")
     human_catalog_path: Path = Path("data/human_backed_catalog.json")
+    review_family_knowledge_path: Path = Path("data/review_family_knowledge.json")
+    review_family_knowledge_manifest_path: Path = Path(
+        "data/review_family_knowledge_manifest.json"
+    )
     benchmark_path: Path = Path("data/benchmark.json")
     ui_path: Path = Path("ui")
     database_url: str = "postgresql+psycopg://pvr:pvr@localhost:5432/pvr"
@@ -38,9 +42,24 @@ class Settings:
             human_catalog_path=Path(
                 os.getenv("PVR_HUMAN_CATALOG_PATH", "data/human_backed_catalog.json")
             ),
+            review_family_knowledge_path=Path(
+                os.getenv(
+                    "PVR_REVIEW_FAMILY_KNOWLEDGE_PATH",
+                    "data/review_family_knowledge.json",
+                )
+            ),
+            review_family_knowledge_manifest_path=Path(
+                os.getenv(
+                    "PVR_REVIEW_FAMILY_KNOWLEDGE_MANIFEST_PATH",
+                    "data/review_family_knowledge_manifest.json",
+                )
+            ),
             benchmark_path=Path(os.getenv("PVR_BENCHMARK_PATH", "data/benchmark.json")),
             ui_path=Path(os.getenv("PVR_UI_PATH", "ui")),
-            database_url=os.getenv("PVR_DATABASE_URL", "postgresql+psycopg://pvr:pvr@localhost:5432/pvr"),
+            database_url=os.getenv(
+                "PVR_DATABASE_URL",
+                "postgresql+psycopg://pvr:pvr@localhost:5432/pvr",
+            ),
             backend=os.getenv("PVR_BACKEND", "offline"),
             dense_provider=os.getenv("PVR_DENSE_PROVIDER", "hashing-v1"),
             dense_dimensions=int(os.getenv("PVR_DENSE_DIMENSIONS", "192")),

@@ -5,6 +5,7 @@ from pathlib import Path
 from product_variant_resolver.catalog import Catalog, catalog_checksum, load_catalog
 from product_variant_resolver.config import Settings
 from product_variant_resolver.ingestion import InMemoryCatalogRepository, ingest_catalog
+from product_variant_resolver.human_knowledge import ReviewFamilyKnowledgeDocument
 from product_variant_resolver.schemas import ResolveRequest
 from product_variant_resolver.service import ResolverService
 from product_variant_resolver.signals import extract_signals
@@ -100,6 +101,25 @@ class CatalogServiceIntegrationTests(unittest.TestCase):
         self.assertGreater(len(top.matched_tokens), 2)
         self.assertIsNone(result.canonical_uuid)
         self.assertIsNone(result.canonical_id)
+
+    def test_review_family_is_retrieved_internally_but_never_becomes_canonical(self):
+        query = "Hot Wheels Proton Saga"
+        human_candidates = self.service.human_knowledge.retrieve(
+            extract_signals(query), 5
+        )
+        family = next(
+            item
+            for item in human_candidates
+            if isinstance(item.document, ReviewFamilyKnowledgeDocument)
+            and item.document.casting == "Proton Saga"
+        )
+        self.assertLessEqual(family.rrf_rank, 5)
+
+        result = self.service.resolve(ResolveRequest(title=query, debug=False))
+        self.assertEqual(result.status.value, "no_match")
+        self.assertIsNone(result.canonical_uuid)
+        self.assertIsNone(result.canonical_id)
+        self.assertIsNone(result.product)
 
     def test_catalog_color_addition_needs_no_code_branch(self):
         color = next(item.product.color for item in self.catalog.products if item.product.color)

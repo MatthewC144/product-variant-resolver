@@ -4,6 +4,7 @@ import sys
 import unittest
 from contextlib import contextmanager
 from pathlib import Path
+from typing import cast
 from unittest.mock import patch
 
 from product_variant_resolver.catalog import load_catalog
@@ -59,7 +60,11 @@ class ObservabilityTests(unittest.TestCase):
         service = ResolverService(
             self.settings,
             load_catalog(self.settings.catalog_path),
-            load_human_knowledge_catalog(self.settings.human_catalog_path),
+            load_human_knowledge_catalog(
+                self.settings.human_catalog_path,
+                self.settings.review_family_knowledge_path,
+                self.settings.review_family_knowledge_manifest_path,
+            ),
             tracer=tracer,
         )
         raw_title = "2022 Chevy Nomad Red #101 private-marker"
@@ -81,6 +86,19 @@ class ObservabilityTests(unittest.TestCase):
         self.assertIn("request-test-19", logs)
         self.assertNotIn(raw_title, attributes)
         self.assertNotIn(raw_title, logs)
+        human_span = next(
+            span for span in tracer.spans if span.name == "pvr.human_knowledge_retrieval"
+        )
+        total_count = cast(int, human_span.attributes["pvr.candidate_count"])
+        variant_count = cast(int, human_span.attributes["pvr.variant_candidate_count"])
+        family_count = cast(int, human_span.attributes["pvr.family_candidate_count"])
+        self.assertLessEqual(total_count, 25)
+        self.assertLessEqual(variant_count, 25)
+        self.assertLessEqual(family_count, 25)
+        self.assertEqual(
+            total_count,
+            variant_count + family_count,
+        )
         self.assertEqual(set(response.debug.timings_ms), {
             "signal_extraction", "human_knowledge_retrieval", "sparse", "dense",
             "structured", "fusion", "rerank",

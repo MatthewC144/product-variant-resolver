@@ -1,5 +1,124 @@
 # Project Log
 
+## 2026-09-11 — Human Knowledge RAG v2 now searches 100 variants and 42 typed families
+
+### What was executed and what problem it solves
+
+T47.2 activates the frozen T47.1 family projection inside the second RAG. Before this change, the
+Human Knowledge retriever understood only provisional variants and used their UUID field directly
+as its index key. Passing a family through that shape would require a nonexistent variant ID and
+would blur the boundary between an accepted casting family and an unreviewed release variant.
+
+The runtime now loads 100 existing provisional-variant documents and 42 review-family documents as
+two distinct internal types, then searches all 142 through one hybrid ranking pool. A family hit is
+still review evidence only: the canonical retrievers, RRF, calibration, policy, confidence, and
+response identity continue to operate exclusively on the 120-product canonical fixture catalog.
+The `Hot Wheels Proton Saga` verification demonstrates the separation: the family is retrieved in
+the human pool while the API remains `no_match` with null canonical UUID/ID and product.
+
+### Code changes, affected components, and reasons
+
+`src/product_variant_resolver/human_knowledge.py` now defines
+`HumanVariantKnowledgeDocument` and `ReviewFamilyKnowledgeDocument`. Both expose common read-only
+properties—`knowledge_type`, `knowledge_id`, `knowledge_uuid`, and `searchable_text`—without placing
+family data into variant fields. The existing variant type retains casting and provisional-variant
+IDs, series/variant labels, human names, pricing terms, initial names, and source cases. The family
+type contains only its review identity, approved name/alias, and source-record provenance.
+
+The same module adds a strict projection/manifest loader. It checks the exact schema/version,
+projection checksum, allowed top-level/document/source fields, input references, 42/4/7 and
+79/9/12 accounting, zero variant/canonical/PostgreSQL fields, debug-only eligibility, all exclusion
+boundaries, source revision/license, UUIDv5 identity, deterministic order, alias policy, source-ID
+format/uniqueness, and global knowledge ID/UUID uniqueness. The service cannot construct unless it
+receives exactly 100 variant plus 42 family documents.
+
+Sparse scoring, 192-dimensional `hashing-v1` dense scoring, and RRF now key both types by the common
+knowledge UUID. This replaces every former direct reference to `provisional_variant_uuid` in the
+index/ranking algorithm while leaving its formula and limit unchanged. The resulting index reports
+`human-knowledge-hybrid-v2`.
+
+`config.py`, `.env.example`, `Dockerfile`, and `docker-compose.yml` add explicit projection and
+manifest paths. This makes local, environment-configured, and container startup follow the same
+dependency contract instead of relying on an implicit current working directory.
+
+`service.py` loads both frozen family files during construction and records bounded total, variant,
+and family candidate counts on the existing human-retrieval trace span and privacy-safe completion
+log. `api.py` exposes a `review_family_knowledge` readiness dependency with the projection version
+and the explicit description `family-only review suggestions; never canonical identity`. Missing
+or corrupt input prevents service construction, so health and resolve return 503 without identity.
+
+The public `HumanKnowledgeCandidateDebug` model is intentionally unchanged in this task because it
+requires provisional-variant fields. The transitional serializer therefore emits only variant
+instances from the already bounded combined results. It does not coerce family IDs into variant
+IDs, use null placeholders, or create a second unranked response list. T47.3 will replace this
+temporary compatibility boundary with the specified discriminated union and safe UI rendering.
+
+Tests now cover environment path selection, strict family loading, exact 100/42/142 counts, 142
+unique IDs/UUIDs, all 42 exact family queries, searchable-field isolation, merge/hold absence, the
+existing BMW regression, family/noncanonical service behavior, health versions, missing/corrupt
+readiness, transitional debug safety, and privacy-safe per-type trace counts.
+
+### Technology and method choices, alternatives, and trade-offs
+
+Two frozen dataclasses plus a union were chosen over one large optional-field record. An optional
+record could technically hold both types, but it would make invalid states—such as a family with a
+variant ID or a variant without one—representable. The common properties give the ranking algorithm
+the small interface it needs while each identity type keeps mandatory, meaningful fields.
+
+The current deterministic sparse/hashing/RRF stack is reused rather than adding a neural embedding
+model or a second family-only index. Reuse isolates the effect of the new data and preserves offline
+operation. One shared pool also gives variant and family evidence comparable ranks under one limit;
+separate indexes would need another fusion policy before their results could be meaningfully mixed.
+The trade-off is changed human-pool document frequency and rank order, which is accepted only with
+the BMW regression and 42-query smoke matrix and still requires independent T48 evaluation.
+
+Loader validation is deliberately stricter than ordinary permissive JSON parsing. This artifact is
+a trust boundary derived from external data, and silently accepting extra searchable fields or a
+wider eligible-use list could connect held evidence to runtime. Future legitimate schema or alias
+changes therefore require a visible version update. This increases upgrade work but makes accidental
+scope expansion fail during readiness rather than silently changing search behavior.
+
+The transitional family filter was chosen instead of implementing part of T47.3 inside this task.
+Returning family objects through the current Pydantic model would either fail serialization or
+fabricate variant fields. Filtering keeps the v2 internal integration testable and safe, but family
+suggestions are not yet visible to API/UI users. That temporary limitation is explicit and removed
+by the immediately following task.
+
+### Decision and runtime impact
+
+D31 is now implemented through its data-loading and retrieval layers. The second RAG has moved from
+100 variant documents on v1 to a 142-document typed v2 index. The first/canonical RAG, canonical
+catalog, final decision path, calibration artifacts, policy thresholds, PostgreSQL schemas/data,
+and evaluation labels are unchanged. Family projection failure is now a required readiness failure
+rather than a fallback to the older 100-document index.
+
+### Verification evidence
+
+Thirty-five focused tests passed in 0.635 seconds. The two existing UI harness tests also passed
+after their model-version fixture moved to v2. The complete host suite passed 182/182 in 1.712
+seconds. Runtime inspection found 100 variant documents, 42 family documents, 142 unique IDs and
+UUIDs, 42/42 exact family queries within Top-5 with worst rank 2, and the BMW provisional variant at
+rank 1. Proton Saga remained canonical `no_match` with null identity.
+
+The canonical fixture evaluation remained Recall@25 `1.0`, Top-1 `1.0`, hard-negative accuracy
+`1.0`, precision `1.0`, false-match rate `0.0`, and coverage `0.8333`. Python compilation,
+projection/registry deterministic checks, fixture validation, Docker Compose configuration, and
+whitespace checks passed. MyPy and Ruff were unavailable on this host, so neither is reported as a
+passing gate. The only suite warning is the already documented machine-wide Starlette legacy-
+`httpx` TestClient warning.
+
+### Incomplete work, risks, and next step
+
+The family candidates are now searched but remain intentionally hidden from the legacy debug
+schema. This is safer than returning false variant fields, but it means v2 retrieval is not yet
+fully observable through the public API or browser UI. Exact-name self-retrieval also remains only
+a wiring smoke test; shared generic words can still surface unrelated families.
+
+The next task is T47.3: add a Pydantic discriminated union, expose the family projection version in
+debug responses, render variant and family candidates distinctly with text-safe DOM operations,
+and prove default responses and markup-shaped external values remain safe. T47.4 then performs the
+final Lite QA/evidence closure before T48 independent evaluation or any PostgreSQL/3,000-row work.
+
 ## 2026-09-11 — The accepted family layer becomes a frozen, debug-only knowledge projection
 
 ### What was executed and what problem it solves

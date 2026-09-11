@@ -1,7 +1,7 @@
 # Product Variant Resolver — Lite MVP QA Review
 
 > Date: 2026-09-01  
-> Last focused update: 2026-09-11 (T47.1 review-family knowledge projection)
+> Last focused update: 2026-09-11 (T47.2 typed human-knowledge v2 integration)
 > QA mode: `.codex/agents/qa.toml` MVP Mode  
 > Scope: `specs/product-variant-resolver/mvp-brief.md` R1–R30
 > Verdict: **PASS WITH RISKS**
@@ -203,6 +203,17 @@ reason, evidence URL, provisional variant, canonical promotion, or PostgreSQL ro
 projection. Six focused tests cover exact scope, field allowlisting, frozen hashes, byte
 reproduction, non-mutating checks, and invalid/stale/widened input preservation. The complete host
 suite now passes **174/174**. Runtime remains on human-knowledge v1 until T47.2.
+
+T47.2 activates the projection only inside the noncanonical retriever. Strict loaders create 100
+`provisional_variant` and 42 `review_family` documents with 142 globally unique knowledge IDs and
+UUIDs. Both types share sparse, 192-dimensional hashing-dense, and RRF ranking through common
+properties; family searchable text is restricted to brand/casting/aliases. All 42 exact family
+queries retrieve within Top-5 (worst rank 2), the BMW provisional variant remains rank 1, and a
+Proton Saga family hit still produces API `no_match` with null canonical identity. Missing or
+checksum-invalid family artifacts produce health/resolve 503. Thirty-five focused tests and the
+complete **182/182** host suite pass; frozen canonical metrics remain unchanged. T47.3 still owns
+the discriminated public debug schema and UI, so the transitional serializer exposes only legacy
+variant-shaped candidates rather than coercing family IDs into variant fields.
 
 An independent Docker runtime milestone now verifies the existing
 `product-variant-resolver:lite` image on Docker Desktop 29.5.3/aarch64: Python 3.12.14, non-root
@@ -498,9 +509,10 @@ None for demonstrating the explicitly documented offline fixture path.
 19. **T46 materializes review families, not runtime documents.** The registry and stable IDs now
     exist, but they are explicitly excluded from retrieval and PostgreSQL. Describing the 42 new
     families as Dual-RAG candidates or the 100 releases as variants would still be incorrect.
-20. **T47.1 creates a projection, not shipped v2 retrieval.** The 42-document artifact now exists,
-    but the service does not load it; typed document/API models and the v2 index remain T47.2–T47.3.
-    Exact-name simulation is not independent evidence and cannot support a quality claim.
+20. **T47.2 ships internal v2 retrieval, not the family debug contract.** The 142-document index now
+    retrieves both types, but family candidates remain filtered from the legacy variant-shaped API
+    until T47.3 adds its discriminated schema/UI. Exact-name retrieval is still self-retrieval and
+    cannot support an independent quality claim.
 
 ### Later
 
@@ -516,9 +528,9 @@ constraint, T04/T07/T09/T10 database milestones, T26–T29 human-data/Dual-RAG m
 T30–T44 external-data intake/pre-review/queue/evidence/research/decision milestones are QA-closed
 for their stated Lite scope. T45–T46 specify, implement, and verify the stable family registry. T47
 provides the confirmed family-level human-knowledge projection, typed retrieval, debug API/UI,
-readiness, and canonical-isolation contract. T47.1 has built the deterministic 42-document
-projection; T47.2 should now load it through strict typed models and create the combined v2 index
-before API/UI changes. Casting-grouped holdout
+readiness, and canonical-isolation contract. T47.1 built the deterministic 42-document projection,
+and T47.2 now runs the combined typed v2 index with fail-closed readiness. T47.3 should add the
+discriminated family/variant debug contract and safe UI rendering. Casting-grouped holdout
 evaluation and database materialization remain separate later gates before additional yearly lists
 expand the corpus toward roughly 3,000 reviewable variants. Exact pgvector quality and latency must
 be remeasured at that scale.

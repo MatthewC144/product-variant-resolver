@@ -121,7 +121,7 @@ def _assert_ui_controller_smoke_states_and_contract() -> None:
           }}],
           timings_ms: {{ total: 3.2 }}, catalog_version: "fixture-v1",
           human_catalog_version: "human-backed-catalog-v1",
-          model_versions: {{ reranker: "heuristic-v1", human_knowledge: "human-knowledge-hybrid-v1" }},
+          model_versions: {{ reranker: "heuristic-v1", human_knowledge: "human-knowledge-hybrid-v2" }},
         }};
 
         async function runSuccess(payload, title = "ordinary title") {{
