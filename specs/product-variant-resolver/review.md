@@ -1,7 +1,7 @@
 # Product Variant Resolver — Lite MVP QA Review
 
 > Date: 2026-09-01  
-> Last focused update: 2026-09-11 (T47 family-level human-knowledge specification)
+> Last focused update: 2026-09-11 (T47.1 review-family knowledge projection)
 > QA mode: `.codex/agents/qa.toml` MVP Mode  
 > Scope: `specs/product-variant-resolver/mvp-brief.md` R1–R30
 > Verdict: **PASS WITH RISKS**
@@ -195,6 +195,14 @@ found globally unique UUIDs, recovered all 42 exact brand/name family queries wi
 rank 2), and retained the existing BMW regression at Top-1. It also exposed that shared tokens can
 surface an unrelated family for a held-name query, which is why T48 independent evaluation remains
 mandatory. No implementation changed, so the executable suite remains **168/168**.
+
+T47.1 implements only the safe projection layer. The deterministic builder verifies the frozen T46
+registry and manifest before emitting 42 family documents backed by 79 accepted source rows. It
+accounts for but excludes 4 merges / 9 rows and 7 holds / 12 rows; no release object, decision
+reason, evidence URL, provisional variant, canonical promotion, or PostgreSQL row enters the
+projection. Six focused tests cover exact scope, field allowlisting, frozen hashes, byte
+reproduction, non-mutating checks, and invalid/stale/widened input preservation. The complete host
+suite now passes **174/174**. Runtime remains on human-knowledge v1 until T47.2.
 
 An independent Docker runtime milestone now verifies the existing
 `product-variant-resolver:lite` image on Docker Desktop 29.5.3/aarch64: Python 3.12.14, non-root
@@ -490,8 +498,8 @@ None for demonstrating the explicitly documented offline fixture path.
 19. **T46 materializes review families, not runtime documents.** The registry and stable IDs now
     exist, but they are explicitly excluded from retrieval and PostgreSQL. Describing the 42 new
     families as Dual-RAG candidates or the 100 releases as variants would still be incorrect.
-20. **T47 is a proposed integration contract, not shipped v2 retrieval.** The projection, typed
-    document/API models, and v2 index do not exist until owner confirmation and implementation.
+20. **T47.1 creates a projection, not shipped v2 retrieval.** The 42-document artifact now exists,
+    but the service does not load it; typed document/API models and the v2 index remain T47.2–T47.3.
     Exact-name simulation is not independent evidence and cannot support a quality claim.
 
 ### Later
@@ -507,9 +515,10 @@ The requested R7, R11, R13, Docker/Python 3.12 runtime, runtime reporting, selec
 constraint, T04/T07/T09/T10 database milestones, T26–T29 human-data/Dual-RAG milestones, and the
 T30–T44 external-data intake/pre-review/queue/evidence/research/decision milestones are QA-closed
 for their stated Lite scope. T45–T46 specify, implement, and verify the stable family registry. T47
-now provides the proposed family-level human-knowledge projection, typed retrieval, debug API/UI,
-readiness, and canonical-isolation contract. After project-owner confirmation, T47.1 should build
-the deterministic 42-document projection before runtime code changes. Casting-grouped holdout
+provides the confirmed family-level human-knowledge projection, typed retrieval, debug API/UI,
+readiness, and canonical-isolation contract. T47.1 has built the deterministic 42-document
+projection; T47.2 should now load it through strict typed models and create the combined v2 index
+before API/UI changes. Casting-grouped holdout
 evaluation and database materialization remain separate later gates before additional yearly lists
 expand the corpus toward roughly 3,000 reviewable variants. Exact pgvector quality and latency must
 be remeasured at that scale.

@@ -1,0 +1,703 @@
+{
+  "documents": [
+    {
+      "aliases": [
+        "Max Steel"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "Max Steel",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-0573861db69878eb",
+      "review_family_uuid": "e6a31104-98fb-5230-8163-2a585b99bfc4",
+      "source_record_ids": [
+        "fandom-row-afc7fec167ae18e5",
+        "fandom-row-e248d537782b057f"
+      ]
+    },
+    {
+      "aliases": [
+        "1988 Jeep Wagoneer"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "1988 Jeep Wagoneer",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-08cb7fadb9fed12d",
+      "review_family_uuid": "80496fc1-fbe8-59ea-b310-6cd63d806e64",
+      "source_record_ids": [
+        "fandom-row-525f191306c292f5",
+        "fandom-row-6c37cddecd001ee6"
+      ]
+    },
+    {
+      "aliases": [
+        "'94 Audi Avant RS2"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "'94 Audi Avant RS2",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-1555c05ceeb491cb",
+      "review_family_uuid": "b702a2cf-94be-5dd6-9382-a9daaace93e1",
+      "source_record_ids": [
+        "fandom-row-8a699e33b2a57f5f",
+        "fandom-row-e61fea607485be72"
+      ]
+    },
+    {
+      "aliases": [
+        "Lamborghini Huracán Sterrato"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "Lamborghini Huracán Sterrato",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-174efb9bce3a441e",
+      "review_family_uuid": "63d66a4a-c106-5a18-b478-8b5ef572db39",
+      "source_record_ids": [
+        "fandom-row-5334ae3b3e4446e6",
+        "fandom-row-ccf12c7503be5c7c",
+        "fandom-row-cd91a09d2fb2f780"
+      ]
+    },
+    {
+      "aliases": [
+        "'87 Audi quattro"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "'87 Audi quattro",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-18e55e067083dbd1",
+      "review_family_uuid": "76daff81-50f6-535a-afae-272d523347db",
+      "source_record_ids": [
+        "fandom-row-65987b3eab315de1",
+        "fandom-row-987feb62698aa51b"
+      ]
+    },
+    {
+      "aliases": [
+        "Mercedes-Benz 500 E"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "Mercedes-Benz 500 E",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-1b2a4227b4e5decd",
+      "review_family_uuid": "e81a61b9-2dbf-5254-a8dd-c083430928fd",
+      "source_record_ids": [
+        "fandom-row-578b315a37680769",
+        "fandom-row-c968a9ef89a80e5b"
+      ]
+    },
+    {
+      "aliases": [
+        "Monster High Ghoul Mobile"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "Monster High Ghoul Mobile",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-2357e7eb6b4e62b8",
+      "review_family_uuid": "02ea4376-af58-5e61-8560-29c9ab3ef4a1",
+      "source_record_ids": [
+        "fandom-row-250ad379488a1f5c",
+        "fandom-row-897b87e7ffac6681"
+      ]
+    },
+    {
+      "aliases": [
+        "Fish'd & Chip'd"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "Fish'd & Chip'd",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-356e4ef63275a661",
+      "review_family_uuid": "9a6d9a47-4b73-57ff-984e-99e504ee587d",
+      "source_record_ids": [
+        "fandom-row-9a220e8c7b969b1c"
+      ]
+    },
+    {
+      "aliases": [
+        "Twin Mill Gen-E"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "Twin Mill Gen-E",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-39b248ce2f3723cd",
+      "review_family_uuid": "8b784ccf-938c-593f-9926-df0b038dcfdd",
+      "source_record_ids": [
+        "fandom-row-e79dc1122db78db4"
+      ]
+    },
+    {
+      "aliases": [
+        "Kick Kart"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "Kick Kart",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-3c9f928f085efaae",
+      "review_family_uuid": "6dac43c2-e013-53d7-a22d-60829a90edb4",
+      "source_record_ids": [
+        "fandom-row-48762e1374f8884c",
+        "fandom-row-97cf85bb2e745c98"
+      ]
+    },
+    {
+      "aliases": [
+        "Haulerback"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "Haulerback",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-440103f8ef3c6b70",
+      "review_family_uuid": "6ba4fb4a-beb8-5315-a1a9-a81ae1b2869e",
+      "source_record_ids": [
+        "fandom-row-8b11bc31d1ae1d8d",
+        "fandom-row-b7e0a2175e5db4df"
+      ]
+    },
+    {
+      "aliases": [
+        "Custom Cadillac Fleetwood"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "Custom Cadillac Fleetwood",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-45af5b93f3f6650f",
+      "review_family_uuid": "bd871995-1ec2-5b3d-a50d-acbcb0d09693",
+      "source_record_ids": [
+        "fandom-row-9797292e2c41a0f6",
+        "fandom-row-b3385d8522d08801"
+      ]
+    },
+    {
+      "aliases": [
+        "Hirohata Merc"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "Hirohata Merc",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-4bf5341a133d433b",
+      "review_family_uuid": "8f8ccc44-46e2-5425-b019-3d4bf4362b4e",
+      "source_record_ids": [
+        "fandom-row-7fb7ab0e9a352d53",
+        "fandom-row-df2509418335ba23"
+      ]
+    },
+    {
+      "aliases": [
+        "Nerve Hammer"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "Nerve Hammer",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-4d00e96d12341b4d",
+      "review_family_uuid": "a79ec2e1-a65e-5c1a-8706-d3792e4d3100",
+      "source_record_ids": [
+        "fandom-row-623ed15bf6ba1bac",
+        "fandom-row-836deb653eb8fd16"
+      ]
+    },
+    {
+      "aliases": [
+        "Crescendo"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "Crescendo",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-4d2de6db3d5bba63",
+      "review_family_uuid": "35fb8efc-6a08-5119-9db0-81b17945b0a9",
+      "source_record_ids": [
+        "fandom-row-262f359ddabb0a91",
+        "fandom-row-f9e286ed14a527f6"
+      ]
+    },
+    {
+      "aliases": [
+        "'80 El Camino"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "'80 El Camino",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-526b697937fde7cc",
+      "review_family_uuid": "aba0fed4-3be9-5964-9e24-19eaf025d6a2",
+      "source_record_ids": [
+        "fandom-row-d86f3c4d9f0eff81"
+      ]
+    },
+    {
+      "aliases": [
+        "The Vanster"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "The Vanster",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-57cf5c31afbadc57",
+      "review_family_uuid": "a8ac2a98-3a4d-51b8-8425-1fb8de67ec0a",
+      "source_record_ids": [
+        "fandom-row-2021960048d5f118",
+        "fandom-row-60dcd5be8c1b6ed6"
+      ]
+    },
+    {
+      "aliases": [
+        "Proton Saga"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "Proton Saga",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-59e5682e50af879e",
+      "review_family_uuid": "a8007ff3-fcd1-5c69-b132-f38d380d1490",
+      "source_record_ids": [
+        "fandom-row-34711bf24338421c"
+      ]
+    },
+    {
+      "aliases": [
+        "X-34 Landspeeder"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "X-34 Landspeeder",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-7e221ec8ecd02815",
+      "review_family_uuid": "47128b94-3d78-5f67-bce1-d8916db74369",
+      "source_record_ids": [
+        "fandom-row-3b134fe021c10ce6"
+      ]
+    },
+    {
+      "aliases": [
+        "Fiat 500e"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "Fiat 500e",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-85226ac5ac0d3f77",
+      "review_family_uuid": "eeb124d9-93e6-5c63-9578-24e3f843df96",
+      "source_record_ids": [
+        "fandom-row-df93f5053c8dca31"
+      ]
+    },
+    {
+      "aliases": [
+        "Small Bloc"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "Small Bloc",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-85e407525ac7bf41",
+      "review_family_uuid": "c68064b7-3d3c-552f-a238-caf3ae2d426c",
+      "source_record_ids": [
+        "fandom-row-2675314e80d7829e",
+        "fandom-row-831b6df53c1c6e1b",
+        "fandom-row-ffc85d1ddcdc7f53"
+      ]
+    },
+    {
+      "aliases": [
+        "Kowloon'd Hypervan"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "Kowloon'd Hypervan",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-89930c384be2e8bf",
+      "review_family_uuid": "bcd60a59-9498-5cda-b422-9c4508de1834",
+      "source_record_ids": [
+        "fandom-row-04b36ccd1dd4f2da",
+        "fandom-row-7cc2b9e0de80d3ba"
+      ]
+    },
+    {
+      "aliases": [
+        "Bogzilla"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "Bogzilla",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-8a07157f2af2ddd5",
+      "review_family_uuid": "da4e3339-1ace-5689-acd8-720161aea455",
+      "source_record_ids": [
+        "fandom-row-7bfd171f396dc2f0"
+      ]
+    },
+    {
+      "aliases": [
+        "Deora III"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "Deora III",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-8cce01fa7d44112a",
+      "review_family_uuid": "f5c60f52-ed72-5293-aec9-82b6d9c7e87f",
+      "source_record_ids": [
+        "fandom-row-26100035cc8b6fdb",
+        "fandom-row-8336b7c87b5eb490"
+      ]
+    },
+    {
+      "aliases": [
+        "Donut Drifter"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "Donut Drifter",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-9069156ec909a92e",
+      "review_family_uuid": "45ec7b42-3fb8-5d54-a222-695b3b62d218",
+      "source_record_ids": [
+        "fandom-row-2dd212263d030d59"
+      ]
+    },
+    {
+      "aliases": [
+        "2020 Ram 1500 Rebel"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "2020 Ram 1500 Rebel",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-99200212d1475ef2",
+      "review_family_uuid": "b79039a5-c724-57d2-8553-c66f40c2dd8e",
+      "source_record_ids": [
+        "fandom-row-80232a264f67c0c8",
+        "fandom-row-ca419011a40ec36a"
+      ]
+    },
+    {
+      "aliases": [
+        "Ford Performance SuperVan 4"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "Ford Performance SuperVan 4",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-a1b198f7d235f778",
+      "review_family_uuid": "f7fa5052-cef7-59e4-b861-86367745300c",
+      "source_record_ids": [
+        "fandom-row-e1251210f33f7a0b"
+      ]
+    },
+    {
+      "aliases": [
+        "'66 Buick Riviera"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "'66 Buick Riviera",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-a2097eead3bd8db9",
+      "review_family_uuid": "b1fef4ef-65ec-5136-b015-7ec8fcf88618",
+      "source_record_ids": [
+        "fandom-row-2abe77341cf21836",
+        "fandom-row-6e5ac667b0e8c051"
+      ]
+    },
+    {
+      "aliases": [
+        "DMC DeLorean"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "DMC DeLorean",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-a8e0dec4abdc4131",
+      "review_family_uuid": "689d5988-ede3-5627-8cc9-13fe6c7ade95",
+      "source_record_ids": [
+        "fandom-row-6139d05aef5c1dc6",
+        "fandom-row-689175401e12a630"
+      ]
+    },
+    {
+      "aliases": [
+        "Morgan Super 3"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "Morgan Super 3",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-aaafff57ac4d4daa",
+      "review_family_uuid": "308c4fe4-bd38-5597-817e-2b1352716801",
+      "source_record_ids": [
+        "fandom-row-38aa30ce0eed34ca",
+        "fandom-row-75cd82288d943dce",
+        "fandom-row-eb74e3eebcc4dcf4"
+      ]
+    },
+    {
+      "aliases": [
+        "'21 Ford Bronco"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "'21 Ford Bronco",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-aab5350cb90d72ed",
+      "review_family_uuid": "f9818b99-bd8e-5aea-a1d7-3a72816f8b5a",
+      "source_record_ids": [
+        "fandom-row-2a5c961e0bb57c99",
+        "fandom-row-3a6c7c2b9a6429fa",
+        "fandom-row-d9d82c60489c0456"
+      ]
+    },
+    {
+      "aliases": [
+        "Mazda REPU"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "Mazda REPU",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-aec11693bfe04245",
+      "review_family_uuid": "1a0cf712-68d0-5c29-b677-78d15b0dd604",
+      "source_record_ids": [
+        "fandom-row-475c3a3f51bdfe72"
+      ]
+    },
+    {
+      "aliases": [
+        "Ford Mustang GTD"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "Ford Mustang GTD",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-b31d285560d8a242",
+      "review_family_uuid": "a676a5e0-57ce-5768-ae7e-6e2929c7643c",
+      "source_record_ids": [
+        "fandom-row-0b44f14c89935509",
+        "fandom-row-ad5faf905e5a7dd1"
+      ]
+    },
+    {
+      "aliases": [
+        "'69 Corvette Racer"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "'69 Corvette Racer",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-b3cd4f5a5f7e196a",
+      "review_family_uuid": "489e09ad-b7bf-5052-ab0b-1b70236c054a",
+      "source_record_ids": [
+        "fandom-row-b06da2aa6ca34282"
+      ]
+    },
+    {
+      "aliases": [
+        "Kei Swap"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "Kei Swap",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-c655fb5244c584ae",
+      "review_family_uuid": "bda500e0-210b-5b19-a722-deacd97392f9",
+      "source_record_ids": [
+        "fandom-row-60d6c54834c65bf8",
+        "fandom-row-a0c755183c4b14e6"
+      ]
+    },
+    {
+      "aliases": [
+        "'90 Honda Civic EF"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "'90 Honda Civic EF",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-d114c33db6fa215b",
+      "review_family_uuid": "78e6048e-1b7f-5553-8315-deb354a6b8e4",
+      "source_record_ids": [
+        "fandom-row-41d0a9ce8cd980ab",
+        "fandom-row-49995a7ea6dd3a47",
+        "fandom-row-796bacefcce35e1a"
+      ]
+    },
+    {
+      "aliases": [
+        "Super Twin Mill"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "Super Twin Mill",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-d5c83bb87be8cab0",
+      "review_family_uuid": "ca29331e-5db5-5396-aa2b-02fadd13acec",
+      "source_record_ids": [
+        "fandom-row-05f599c1217223d6",
+        "fandom-row-e8a55e777b5c4d19"
+      ]
+    },
+    {
+      "aliases": [
+        "Draftnator"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "Draftnator",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-d816204cf649a0c0",
+      "review_family_uuid": "a8372fd7-0084-530c-9649-177ebaddb735",
+      "source_record_ids": [
+        "fandom-row-20f16ad2c5417006",
+        "fandom-row-710c84b99e8c2e48",
+        "fandom-row-e5b00b0411a6187d"
+      ]
+    },
+    {
+      "aliases": [
+        "Alpha Pursuit"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "Alpha Pursuit",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-d90841788b1d98a2",
+      "review_family_uuid": "838b2cff-2e36-54f0-a184-29685b653482",
+      "source_record_ids": [
+        "fandom-row-209edcac98175d67",
+        "fandom-row-5069d8985c948de3"
+      ]
+    },
+    {
+      "aliases": [
+        "'22 Ford Maverick Custom"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "'22 Ford Maverick Custom",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-db3fe3a0103099ec",
+      "review_family_uuid": "1ba5e3b4-8489-509f-97f3-2e03f27ae141",
+      "source_record_ids": [
+        "fandom-row-1a29735d90640ea9"
+      ]
+    },
+    {
+      "aliases": [
+        "Mazda Autozam"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "Mazda Autozam",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-e7d4d8cf1dd8c6e1",
+      "review_family_uuid": "39731a3b-9b07-558a-a29b-76781343d5ba",
+      "source_record_ids": [
+        "fandom-row-0b280377b913e854",
+        "fandom-row-592082e49745a19f",
+        "fandom-row-a69d24d7e300d639"
+      ]
+    },
+    {
+      "aliases": [
+        "Custom '53 Chevy"
+      ],
+      "brand": "Hot Wheels",
+      "casting": "Custom '53 Chevy",
+      "identity_level": "casting_family_only",
+      "identity_status": "family_accepted_variants_unreviewed",
+      "knowledge_type": "review_family",
+      "review_family_id": "fandom-family-fd96307f2dc8b421",
+      "review_family_uuid": "f0d4f80f-107f-5ab0-86a5-191af39a30de",
+      "source_record_ids": [
+        "fandom-row-0d0e45a858499d4f",
+        "fandom-row-dd6e25487f1fb565"
+      ]
+    }
+  ],
+  "eligible_for": [
+    "human_knowledge_debug_retrieval"
+  ],
+  "excluded_from": [
+    "canonical_variant_response",
+    "canonical_candidate_ranking",
+    "canonical_confidence",
+    "canonical_resolution_accuracy",
+    "calibration_training",
+    "threshold_selection",
+    "evaluation_ground_truth",
+    "variant_identity",
+    "postgresql_ingestion"
+  ],
+  "knowledge_version": "review-family-knowledge-fandom-2025-r790665-v1",
+  "schema_version": "pvr-review-family-knowledge-v1",
+  "searchable_fields": [
+    "brand",
+    "casting",
+    "aliases"
+  ],
+  "source": {
+    "dataset_version": "fandom-hot-wheels-2025-pilot-r790665-v1",
+    "license": "CC-BY-SA",
+    "license_url": "https://www.fandom.com/licensing",
+    "page_title": "List of 2025 Hot Wheels",
+    "page_url": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665",
+    "registry_version": "fandom-2025-review-families-r790665-v1",
+    "revision_id": 790665,
+    "revision_timestamp": "2026-07-17T05:50:26Z"
+  },
+  "status": "debug_retrieval_only"
+}

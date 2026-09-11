@@ -904,8 +904,17 @@ Each task is intended to be independently committable and verifiable. `task_exec
   typed schemas, retrieval, API, UI, errors, security, and tests; tasks are traceable and atomic;
   feasibility simulation verifies 142 unique documents, 42/42 exact family queries within Top-5,
   and the existing BMW variant at Top-1 without making a generalization claim.
-  **Status:** Complete as a proposed Lite specification. Awaiting project-owner confirmation before
-  T47.1 implementation; current runtime, API, data, PostgreSQL, and evaluation behavior are unchanged.
+  **Status:** Complete and confirmed by the project owner's request to execute the next step.
+
+- [x] **T47.1 — Build the review-family runtime projection** `[backend/qa/doc_curator]` _(FHK-R1–R4,FHK-R13,FHK-R16)_
+  Validate the frozen T46 registry and manifest before deriving an allowlisted, debug-only family
+  knowledge artifact; freeze inputs, output, counts, field policy, and usage boundaries without
+  loading it into runtime.
+  **Verify:** exactly 42 family documents and 79 accepted source references; 4 merges and 7 holds
+  skipped; no release details, decisions, variants, canonical promotions, or PostgreSQL rows;
+  deterministic non-mutating `--check`; invalid/stale/widened inputs preserve good outputs.
+  **Status:** Complete. Six focused tests and the frozen manifest verify the boundary; the complete
+  host suite passes 174/174. Runtime/API integration remains T47.2.
 
 ### Task order and handoff
 

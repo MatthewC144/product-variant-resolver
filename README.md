@@ -326,12 +326,24 @@ runtime-indexed families, and PostgreSQL rows all remain zero.
 python3 scripts/build_review_family_registry.py --check
 ```
 
-The proposed family-level runtime contract is documented in
+The family-level runtime contract is documented in
 [`family-level-human-knowledge`](specs/family-level-human-knowledge/requirements.md). It derives a
 separate 42-document runtime projection instead of loading the T46 audit registry directly, then
 combines those family documents with the existing 100 provisional-variant documents in the second
-RAG source. The proposal keeps all human knowledge debug-only and leaves canonical ranking,
-confidence, PostgreSQL, and calibration unchanged. Implementation awaits project-owner confirmation.
+RAG source. The contract keeps all human knowledge debug-only and leaves canonical ranking,
+confidence, PostgreSQL, and calibration unchanged.
+
+T47.1 now materializes the allowlisted projection in
+[`review_family_knowledge.json`](data/review_family_knowledge.json). It contains only accepted
+family identity, name/alias, and source-record references; merge links, holds, release details,
+decision reasons, and evidence URLs are not copied into documents. Its manifest freezes the two
+T46 inputs, output checksum, 42/4/7 accounting, searchable-field policy, and zero
+variant/canonical/PostgreSQL counts. It is not loaded by the service until T47.2 implements and
+verifies the typed v2 retriever.
+
+```bash
+python3 scripts/build_review_family_knowledge.py --check
+```
 
 ## Docker and PostgreSQL status
 

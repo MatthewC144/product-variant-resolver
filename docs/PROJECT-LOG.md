@@ -1,5 +1,102 @@
 # Project Log
 
+## 2026-09-11 — The accepted family layer becomes a frozen, debug-only knowledge projection
+
+### What was executed and what problem it solves
+
+T47.1 implements the first confirmed family-level second-RAG task. The T46 registry deliberately
+mixes three review outcomes—42 new family identities, 4 links to existing human families, and 7
+holds—and carries detailed decision and release evidence. Loading that audit object directly would
+make held or variant-level material available to runtime code and would contradict the registry's
+own `excluded_from=runtime_retrieval` boundary.
+
+The new builder derives a separate 42-document knowledge projection. It accounts for all 53 family
+decisions and all 100 Wiki release references before selecting only the 42 accepted creations. The
+result retains 79 accepted source-record IDs as non-searchable provenance and creates zero
+provisional variants, canonical promotions, and PostgreSQL rows. This gives T47.2 a small, explicit
+runtime input without changing the running Dual-RAG system yet.
+
+### Code and data changes, the affected parts, and why
+
+`scripts/build_review_family_knowledge.py` is the new trust boundary between audit data and future
+retrieval data. Its input validator checks the registry and manifest filenames, schemas, versions,
+checksum, identity namespace, 42/4/7 family accounting, 79/9/12 row split, 100 unique release
+references, and zero-promotion constraints. Every projected family must also keep its source-stable
+UUIDv5, family-only identity level, accepted/unreviewed status, normalized family key, and explicit
+`create_new_casting` decision with variants still held.
+
+The builder does not copy whole registry entries. It constructs each document from an explicit
+nine-field allowlist: type, family ID/UUID, identity level/status, brand, casting, aliases, and
+source-record IDs. Only brand, casting, and aliases are declared future searchable fields. Release
+objects, toy and collector numbers, series, variant notes, decision reasons, and evidence URLs are
+therefore absent by construction rather than relying on later code to remember to ignore them.
+
+`data/review_family_knowledge.json` contains the 42 sorted documents. Its companion manifest freezes
+both T46 input hashes, the projection hash, allowed document/search fields, permitted debug-only
+use, forbidden canonical/evaluation/PostgreSQL uses, 42/4/7 family counts, 79/9/12 row counts, and
+the original 100-row source total. Because the projection is a generated artifact, it contains no
+build timestamp; the same inputs reproduce identical bytes.
+
+`tests/test_review_family_knowledge_projection.py` adds six tests around the trust boundary. The
+positive cases verify exact selection, unique IDs/UUIDs, the field allowlist, all 79 accepted source
+references, frozen checksums, and byte reproduction. Negative cases mutate checksums, family count,
+UUID, aliases, eligibility, exclusions, and output freshness. The overwrite test preloads known-good
+files and proves both an invalid build and a failed `--check` leave those bytes untouched.
+
+### Technology and method choices, alternatives, and trade-offs
+
+The implementation uses the Python standard library rather than adding a data-build dependency.
+`json.dumps(..., sort_keys=True)` plus sorted documents/aliases/source IDs provides deterministic
+serialization; SHA-256 connects each output to exact inputs; UUIDv5 validation confirms identity is
+derived from the immutable review ID rather than editable display text. T46 v1 permits exactly the
+display name as its sole alias; accepting an added alias under the same version would silently widen
+retrieval language, so the builder rejects it and requires a future reviewed version change.
+Temporary files are fully written and `fsync`ed before `os.replace`, so validation failures never
+truncate accepted outputs.
+
+An alternative was to put a `searchable_text` string inside every document. That would duplicate
+normalization policy and could let a future builder accidentally append evidence or release fields.
+The projection instead freezes the three searchable source fields and leaves text construction to
+the strict loader planned for T47.2. Another alternative was to copy the T46 registry and filter it
+at query time; that would enlarge the trusted runtime surface and make a forgotten filter capable
+of indexing holds. The smaller allowlisted projection makes the safe state observable in the data
+itself.
+
+Atomic replacement is performed per output file rather than through a database transaction. That
+is appropriate for two checked-in local artifacts because the manifest checksum detects any
+interrupted or mixed pair at the next `--check`/load. T47.2 will fail readiness on such a mismatch.
+No PostgreSQL write is used here because persistence would combine an identity-boundary change with
+an unevaluated retrieval and scaling decision.
+
+### Decision and runtime impact
+
+D31 moves from proposal to partial implementation: the separate projection is now real and frozen,
+but the proposed 142-document index is not. Configuration, service construction, human-knowledge
+models, API schemas, health output, UI, canonical ranking, confidence, calibration, and database
+contents are unchanged. The currently running second RAG therefore still contains only the 100
+human-backed provisional variants and still reports its v1 index.
+
+### Verification evidence
+
+The builder produced exactly 42 documents and its non-mutating check reproduced both outputs. Six
+focused tests passed in 0.150 seconds. Python compilation, the T46 registry check, the fixture
+validator, and a 100-character source-line check passed. The complete host suite passed 174/174 in
+1.612 seconds. It emitted only the already documented non-failing Starlette legacy-`httpx`
+TestClient warning; this task changes no web dependency. Ruff was unavailable in the host
+environment, so no Ruff result is claimed.
+
+### Incomplete work, risks, and next step
+
+The projection is deliberately dormant. Until T47.2 adds strict loading and manifest validation,
+these 42 documents do not participate in retrieval and cannot appear in debug output. The 79 source
+references establish provenance but do not prove any release variant. The earlier exact-name
+simulation is still a wiring smoke result rather than independent search-quality evidence.
+
+The next task is T47.2: add settings, typed variant/family document models, strict projection
+readiness, and one combined 142-document sparse/hashing-dense/RRF index while proving that all human
+candidates remain outside canonical identity and confidence. API/UI discrimination stays in T47.3;
+independent retrieval quality remains T48, before PostgreSQL or the roughly 3,000-row expansion.
+
 ## 2026-09-11 — Family-level second-RAG integration is specified as a typed projection
 
 ### What was executed and what problem it solves

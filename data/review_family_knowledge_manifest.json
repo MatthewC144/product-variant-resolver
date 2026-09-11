@@ -1,0 +1,60 @@
+{
+  "accepted_source_record_count": 79,
+  "canonical_promotion_count": 0,
+  "document_count": 42,
+  "document_fields": [
+    "knowledge_type",
+    "review_family_id",
+    "review_family_uuid",
+    "identity_level",
+    "identity_status",
+    "brand",
+    "casting",
+    "aliases",
+    "source_record_ids"
+  ],
+  "eligible_for": [
+    "human_knowledge_debug_retrieval"
+  ],
+  "excluded_from": [
+    "canonical_variant_response",
+    "canonical_candidate_ranking",
+    "canonical_confidence",
+    "canonical_resolution_accuracy",
+    "calibration_training",
+    "threshold_selection",
+    "evaluation_ground_truth",
+    "variant_identity",
+    "postgresql_ingestion"
+  ],
+  "inputs": {
+    "review_family_registry": {
+      "file": "review_family_registry.json",
+      "sha256": "3f289b802cc2e8280ed5c3586d87cfabbee7ce37b10ae79504b5aa6b8837367d",
+      "version": "fandom-2025-review-families-r790665-v1"
+    },
+    "review_family_registry_manifest": {
+      "file": "review_family_registry_manifest.json",
+      "sha256": "ae9eda741aa2ec7cb9354424e17b789ba73c05890859e73d19cd845c5cab3ff2"
+    }
+  },
+  "knowledge_type_counts": {
+    "review_family": 42
+  },
+  "knowledge_version": "review-family-knowledge-fandom-2025-r790665-v1",
+  "postgresql_row_count": 0,
+  "projection_file": "review_family_knowledge.json",
+  "projection_sha256": "8615cbb99b453673599e1f9baf54f6900314d7ba64e53a31ea7891c71810b9d7",
+  "provisional_variant_document_count": 0,
+  "schema_version": "pvr-review-family-knowledge-manifest-v1",
+  "searchable_fields": [
+    "brand",
+    "casting",
+    "aliases"
+  ],
+  "skipped_hold_exclusion_count": 7,
+  "skipped_hold_source_record_count": 12,
+  "skipped_merge_link_count": 4,
+  "skipped_merge_source_record_count": 9,
+  "source_held_release_reference_count": 100
+}

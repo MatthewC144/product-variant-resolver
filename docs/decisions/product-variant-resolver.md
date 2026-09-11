@@ -601,10 +601,13 @@
   or immediately persist the families in PostgreSQL. These options respectively expose held fields,
   invalidate frozen T46 evidence, fabricate identity, split ranking/limits, or combine unmeasured
   retrieval quality with persistence and scale changes.
-- **Impact:** The proposed runtime pool contains 142 globally unique documents: 100 provisional
-  variants plus 42 review families. Family searchable text uses only brand, approved name, and
-  aliases. Existing debug clients receive a type discriminator; family-inapplicable variant IDs are
-  absent. Canonical candidates remain the sole input to confidence and final identity. A read-only
+- **Impact:** T47.1 now implements and freezes the 42-document family projection. Each document uses
+  only brand, approved name, and aliases as future searchable fields; source record IDs remain
+  non-searchable provenance. The builder accounts for but excludes 4 merge links and 7 holds and
+  copies no release details, decision reasons, or evidence URLs. The proposed runtime pool remains
+  142 globally unique documents—100 provisional variants plus these 42 review families—but the
+  typed loader, type discriminator, and v2 index are intentionally deferred to T47.2. Canonical
+  candidates remain the sole input to confidence and final identity. The earlier read-only
   feasibility simulation retrieved 42/42 exact family queries within Top-5 (worst rank 2) and kept
   the existing BMW variant at Top-1.
 - **Deferred review:** Exact-name self-retrieval proves wiring feasibility, not generalization. A

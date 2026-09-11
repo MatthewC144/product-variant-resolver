@@ -2,9 +2,9 @@
 
 ## Outcome
 
-The Lite requirements, design, and task plan are complete and awaiting project-owner confirmation.
-No runtime code, API schema, UI, configuration, data artifact, PostgreSQL row, calibration artifact,
-or evaluation result changed.
+The Lite requirements, design, and task plan were confirmed when the project owner requested the
+next step. T47.1 has since created the separately evidenced family-knowledge projection; runtime
+code, API schema, UI, configuration, PostgreSQL rows, calibration, and evaluation remain unchanged.
 
 ## Current-system inspection
 
@@ -51,8 +51,8 @@ wiring smoke test, but unrelated-token behavior requires T48's independent holdo
 
 ## Next gate
 
-G1* awaits project-owner confirmation of all three spec documents. After confirmation, T47.1 can
-build the projection, followed by typed v2 retrieval, discriminated API/UI integration, and Lite QA.
+G1* was accepted by the project owner's request to execute the next step. T47.1 is complete; T47.2
+now adds typed v2 retrieval, followed by discriminated API/UI integration and Lite QA.
 
 A fresh complete host run passed 168/168 tests in 1.628 seconds. It emitted only the repository's
 already documented, non-failing Starlette legacy-`httpx` TestClient deprecation warning. Static

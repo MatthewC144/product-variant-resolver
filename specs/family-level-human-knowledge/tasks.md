@@ -2,14 +2,14 @@
 
 > Mode: Lite / Lean Industrial
 >
-> Status: Awaiting project-owner confirmation before build
+> Status: In progress; T47.1 complete
 
 ## Task order
 
 ### T47.1 — Build the review-family runtime projection `[backend]`
 
-- [ ] Implement the deterministic projection builder and non-mutating `--check`. _(→FHK-R1–R4,FHK-R13,FHK-R16)_
-- [ ] Generate and freeze the 42-document projection and manifest. _(→FHK-R2–R4)_
+- [x] Implement the deterministic projection builder and non-mutating `--check`. _(→FHK-R1–R4,FHK-R13,FHK-R16)_
+- [x] Generate and freeze the 42-document projection and manifest. _(→FHK-R2–R4)_
 
 Files:
 
@@ -23,6 +23,10 @@ Acceptance:
 - Only T46 `new_families` become documents; 4 merges and 7 holds are accounted for but absent.
 - Searchable fields are limited to brand/casting/approved aliases.
 - Outputs reproduce byte for byte; invalid/stale/widened input cannot overwrite good output.
+
+Completion evidence (2026-09-11): six focused projection tests pass; the generated manifest freezes
+42 family documents, 79 accepted source records, 4/7 skipped merge/hold families, all 100 source
+release references, and zero variant/canonical/PostgreSQL rows. The complete suite passes 174/174.
 
 ### T47.2 — Load typed documents into the combined v2 retriever `[backend]`
 
