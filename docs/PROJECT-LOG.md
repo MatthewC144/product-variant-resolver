@@ -4254,6 +4254,135 @@ source weighted RRF, typed debug evidence, and fail-closed version metadata with
 canonical output. HRR-T2 may prove mechanics against fixtures, but it must leave configuration
 selection and winner/artifact publication to HRR-T3 using this already frozen pack.
 
+## 2026-09-12 — HRR-T2 experimental character-hybrid implementation
+
+### Context, problem, and observable outcome
+
+HRR-T1 froze the development questions before any new retriever result existed. HRR-T2 could now
+solve the underlying mechanics problem without yet optimizing against those questions: v2 requires
+an exact shared token before a document becomes eligible, so a query such as `Protn Sagx` cannot
+reach the `Proton Saga` family even though their character structure is close.
+
+The new implementation adds an experimental `human-knowledge-hybrid-v3` path that admits candidates
+through character evidence as well as tokens. In a controlled implementation fixture, `Protn Sagx`
+returns `Proton Saga` first with no sparse rank, character rank 1, and character similarity above
+0.7. That family remains debug evidence: the canonical result is still `no_match` with null UUID and
+ID. The normal application still runs v2 because there is no selected v3 artifact. No 199-case
+development selection, winner, performance report, final holdout, PostgreSQL write, or canonical
+change occurred in this task.
+
+### Implementation trace
+
+`src/product_variant_resolver/human_knowledge.py` gains two deliberately separate concepts. Each
+typed document now publishes `character_identity_texts`, whose content is narrower than the existing
+token-search `searchable_text`: review families allow only casting/aliases, while provisional
+variants allow only casting/human-verified labels. `CharacterIdentityIndex` turns normalized spaced
+and compact identity forms into Unicode character bigram/trigram TF-IDF vectors and an inverted
+posting map. It builds query windows near known identity lengths, gets candidate UUIDs from shared
+gram postings, calculates cosine only for those candidates, applies the configured floor, and breaks
+ties by UUID.
+
+The v3 retrieval branch ranks at most 25 token and 25 character candidates, unions the IDs, and runs
+the existing 192-dimensional `hashing-v1` dense score only on that bounded set. Sparse, dense, and
+character ranks then contribute weighted reciprocal rank terms at `k=60`; a missing rank stays null
+and contributes exactly zero. The old body was retained as a separate `_retrieve_v2` branch so the
+default code path does not accidentally inherit v3 candidate or fusion behavior.
+
+The same module also defines a strict v3 artifact loader. `config.py` exposes only paths to a
+selected artifact and the frozen development files—there are no environment variables that accept
+arbitrary thresholds. The loader permits only HRR-T1's seven floors and three weights, verifies
+every fixed parameter and field allowlist, and checks catalog, projection, development, manifest,
+and implementation SHA-256 references. `service.py` constructs v3 only after that validation; index
+or retrieval failures cross the dependency boundary as 503 rather than becoming a fabricated result
+or a silent v2 fallback.
+
+`schemas.py` adds typed optional character rank/score fields to the common base of both Human
+Knowledge candidate variants and a typed character-index metadata object. `service.py` serializes
+artifact/version/index evidence only in debug. `api.py` exposes the active Human Knowledge version
+and artifact in readiness detail. `ui/index.html`/`ui/app.js` add the Character column and artifact
+evidence using the existing safe `textContent` rendering path. The canonical response model is
+unchanged.
+
+The tests now cover character-only, sparse-only, compact-spacing, equal-score UUID ties, invalid
+floor/short identity, allowlisted fields, posting metadata, strict/stale artifact rejection,
+settings paths, debug/OpenAPI/health fields, UI rendering, runtime 503, and exact non-debug canonical
+compatibility. The historical v1 builder/evaluator were adjusted only where they had assumed that
+the whole mixed v2/v3 source file must retain its old SHA forever.
+
+### Technical choices, alternatives, and trade-offs
+
+The implementation stores character vectors and postings in memory because the corpus has 142
+documents and T49 persistence is explicitly blocked. This provides deterministic offline behavior
+and keeps HRR-T2 independent of PostgreSQL. The measured structure contains 4,508 posting keys and
+19,001 posting entries. That is implementation accounting, not a latency or scale claim; HRR-T3
+must still measure both 142 and synthetic 3,000-document scopes.
+
+Both spaced and compact forms were retained. Spaced grams preserve word-boundary information, while
+compact grams let `TwinMillGenE` match `Twin Mill Gen-E` without query rewriting. Query windows keep
+seller wrappers from diluting every comparison. The cost is more postings and multiple cosine
+comparisons per posting-derived candidate. A single compact form would be smaller but would erase
+useful boundaries; scoring the full query only would punish noisy marketplace strings.
+
+Candidate-source caps are 25 rather than the final K=5. Five is the fixed selection/report output
+depth, whereas each source needs enough recall before fusion. Capping both sources still bounds the
+dense union to at most 50 documents and prevents a generic gram from turning dense scoring into an
+unconditional 142-document scan. This remains a local deterministic IR design, not a neural
+embedding or approximate index.
+
+Artifact-gated activation was selected over a boolean `PVR_V3=true` plus free environment floats.
+The artifact path makes version, corpus, implementation, development evidence, and allowed parameter
+set one fail-closed unit. The trade-off is that v3 cannot run as the normal application until HRR-T3
+writes a valid artifact. That temporary inconvenience is the desired protection against activating
+an unselected configuration.
+
+### Decision changes
+
+D37 previously described the character path as proposed and said it had no implementation impact.
+It now records that HRR-T1 and HRR-T2 are complete but that v2 remains active. The architecture
+choice is implemented; the configuration decision is still intentionally unresolved. Only HRR-T3
+may turn one of the 21 precommitted pairs into a selected artifact, and it must publish FAIL if none
+meets every gate.
+
+The v1 benchmark stored SHA
+`5bf582b921b62945b7e4405beb98822abd876b870bdb5267854764c2e1ab2982` for the original complete
+`human_knowledge.py`. Once v3 code was added to that same module, comparing the historical hash to
+the live mixed-version file made four regression tests fail even though `_retrieve_v2` output was
+unchanged. Rewriting the old benchmark/report with the new file hash would falsely claim that T48
+tested code that did not exist. The builder/evaluator now validate the old SHA as the frozen v2
+identity and separately require current default v2 execution to reproduce the old output bytes.
+That preserves historical truth without using the holdout to tune v3.
+
+### Verification evidence
+
+The HRR-T2-focused unit/integration/API/UI/historical set passes 56 tests. The complete repository
+passes **223/223 tests** with the same known Starlette/AnyIO deprecation warning. The development
+pack remains byte-valid with 199 cases and `retrieval_executed=false`; the old v1 query pack,
+benchmark, JSON, and Markdown remain reproducible. Node syntax checking passes for the UI. Focused
+Ruff F/I checking passes for all changed source/tests, and strict MyPy with imported modules skipped
+reports no issues in `human_knowledge.py`, `config.py`, and `service.py`.
+
+Two focused tests initially failed for test-assertion reasons: exact floating equality saw
+`0.9999999999999999`, so the assertion was correctly changed to approximate numeric equality; the
+DOM harness initially inspected the character cell's wrapper rather than its nested rank text, so
+the path was corrected. Later, the first full suite exposed the four historical source-hash failures
+described above. After separating historical v2 identity from the live mixed file, all 223 tests
+passed. A final OpenAPI assertion initially looked for a standalone parent-schema component, but
+Pydantic correctly flattens inherited rank fields into both concrete discriminated candidate
+schemas; the assertion now verifies `character_rank`/`character_score` on each concrete type. No
+development-selection or final-holdout output was inspected during these corrections.
+
+### Incomplete work, risks, and next step
+
+Fixture success does not establish aggregate quality. A floor low enough to recover typos may also
+admit generic listings, and a high floor may recreate v2's miss. Human-verified label strings can be
+long marketplace titles even though the field itself is allowlisted; query windows reduce but do
+not eliminate that noise. The source cap and in-memory posting count still require measured evidence.
+
+The next step is **HRR-T3**: execute exactly the already frozen 21 floor/weight combinations on the
+199 development cases, publish raw metrics and every rejection reason, measure the disclosed 142-
+document and synthetic 3,000-document cost, and either freeze one checksum-bound artifact or stop
+with selection FAIL. Until then, v2 stays active and T49 remains blocked.
+
 ## Required format for future entries
 
 Every future project-log entry must preserve the following traceability structure:

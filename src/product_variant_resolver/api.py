@@ -14,7 +14,12 @@ from pydantic import ValidationError
 from .config import Settings
 from .retrieval import RetrievalUnavailable
 from .schemas import (
-    DependencyHealth, ErrorBody, ErrorResponse, HealthResponse, ResolveRequest, ResolveResponse,
+    DependencyHealth,
+    ErrorBody,
+    ErrorResponse,
+    HealthResponse,
+    ResolveRequest,
+    ResolveResponse,
 )
 from .service import DependencyUnavailable, ResolverService
 
@@ -125,6 +130,21 @@ def create_app(
             "human_knowledge_index": DependencyHealth(
                 ready=ready,
                 version=service.human_knowledge.version if service else None,
+                detail=(
+                    (
+                        "character index "
+                        f"{service.human_knowledge.character_index.metadata.version}; "
+                        "selected artifact "
+                        f"{service.human_knowledge.artifact_version} "
+                        f"sha256:{service.human_knowledge.artifact_sha256}"
+                    )
+                    if ready and service and service.human_knowledge.character_index
+                    else (
+                        "v2 token-gated path active; no v3 artifact selected"
+                        if ready
+                        else app.state.readiness_error
+                    )
+                ),
             ),
             "sparse_index": DependencyHealth(
                 ready=ready,

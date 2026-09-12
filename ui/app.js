@@ -240,6 +240,7 @@
         const variant = documentObject.createElement("td");
         const sparse = documentObject.createElement("td");
         const dense = documentObject.createElement("td");
+        const character = documentObject.createElement("td");
         const rrf = documentObject.createElement("td");
         const tokens = documentObject.createElement("td");
         const status = documentObject.createElement("td");
@@ -255,17 +256,25 @@
         );
         sparse.append(rankScoreCell(documentObject, candidate.sparse_rank, candidate.sparse_score));
         dense.append(rankScoreCell(documentObject, candidate.dense_rank, candidate.dense_score));
+        character.append(
+          rankScoreCell(documentObject, candidate.character_rank, candidate.character_score),
+        );
         rrf.append(rankScoreCell(documentObject, candidate.rrf_rank, candidate.rrf_score));
         safeText(tokens, candidate.matched_tokens);
         safeText(status, candidate.identity_status);
-        row.append(type, humanName, casting, variant, sparse, dense, rrf, tokens, status);
+        row.append(type, humanName, casting, variant, sparse, dense, character, rrf, tokens, status);
         elements.humanCandidatesBody.append(row);
       }
       const humanCatalogVersion = asText(debugPayload.human_catalog_version);
       const familyKnowledgeVersion = asText(debugPayload.review_family_knowledge_version);
+      const artifactVersion = debugPayload.human_knowledge_retrieval_artifact_version;
+      const artifactSha = debugPayload.human_knowledge_retrieval_artifact_sha256;
+      const artifactEvidence = artifactVersion
+        ? ` · artifact ${asText(artifactVersion)} sha256:${asText(artifactSha)}`
+        : "";
       safeText(
         elements.humanCatalogVersion,
-        `catalog ${humanCatalogVersion} · family ${familyKnowledgeVersion}`,
+        `catalog ${humanCatalogVersion} · family ${familyKnowledgeVersion}${artifactEvidence}`,
       );
       safeText(elements.humanCandidateCount, `${candidates.length} returned`);
       elements.humanCandidatesEmpty.hidden = candidates.length !== 0;

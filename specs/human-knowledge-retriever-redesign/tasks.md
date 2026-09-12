@@ -2,7 +2,7 @@
 
 > Mode: Lite / Lean Industrial
 >
-> Status: In progress; HRR-T1 complete
+> Status: In progress; HRR-T1–T2 complete
 
 ## Task order
 
@@ -27,9 +27,9 @@ Acceptance:
 
 ### HRR-T2 — Implement the experimental v3 character-hybrid path `[backend/frontend]`
 
-- [ ] Add allowlisted character identity texts, TF-IDF posting retrieval, union eligibility, and
+- [x] Add allowlisted character identity texts, TF-IDF posting retrieval, union eligibility, and
   three-source weighted RRF behind an experimental v3 configuration. _(→HRR-R4–R8)_
-- [ ] Extend typed debug/API/UI evidence and failure/version metadata without changing canonical
+- [x] Extend typed debug/API/UI evidence and failure/version metadata without changing canonical
   authority. _(→HRR-R11–R14)_
 
 Files:

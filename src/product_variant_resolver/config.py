@@ -18,6 +18,13 @@ class Settings:
     review_family_knowledge_manifest_path: Path = Path(
         "data/review_family_knowledge_manifest.json"
     )
+    human_knowledge_retrieval_artifact_path: Path | None = None
+    human_knowledge_development_path: Path = Path(
+        "data/evaluation/family-retrieval-development-v1/development-pack.json"
+    )
+    human_knowledge_development_manifest_path: Path = Path(
+        "data/evaluation/family-retrieval-development-v1/development-pack-manifest.json"
+    )
     benchmark_path: Path = Path("data/benchmark.json")
     ui_path: Path = Path("ui")
     database_url: str = "postgresql+psycopg://pvr:pvr@localhost:5432/pvr"
@@ -37,6 +44,9 @@ class Settings:
     def from_env(cls) -> "Settings":
         artifact = os.getenv("PVR_CALIBRATION_ARTIFACT", "").strip()
         policy_artifact = os.getenv("PVR_POLICY_ARTIFACT", "").strip()
+        human_knowledge_artifact = os.getenv(
+            "PVR_HUMAN_KNOWLEDGE_RETRIEVAL_ARTIFACT", ""
+        ).strip()
         result = cls(
             catalog_path=Path(os.getenv("PVR_CATALOG_PATH", "data/catalog.json")),
             human_catalog_path=Path(
@@ -52,6 +62,21 @@ class Settings:
                 os.getenv(
                     "PVR_REVIEW_FAMILY_KNOWLEDGE_MANIFEST_PATH",
                     "data/review_family_knowledge_manifest.json",
+                )
+            ),
+            human_knowledge_retrieval_artifact_path=(
+                Path(human_knowledge_artifact) if human_knowledge_artifact else None
+            ),
+            human_knowledge_development_path=Path(
+                os.getenv(
+                    "PVR_HUMAN_KNOWLEDGE_DEVELOPMENT_PATH",
+                    "data/evaluation/family-retrieval-development-v1/development-pack.json",
+                )
+            ),
+            human_knowledge_development_manifest_path=Path(
+                os.getenv(
+                    "PVR_HUMAN_KNOWLEDGE_DEVELOPMENT_MANIFEST_PATH",
+                    "data/evaluation/family-retrieval-development-v1/development-pack-manifest.json",
                 )
             ),
             benchmark_path=Path(os.getenv("PVR_BENCHMARK_PATH", "data/benchmark.json")),

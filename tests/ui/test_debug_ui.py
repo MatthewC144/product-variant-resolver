@@ -6,7 +6,6 @@ import textwrap
 import unittest
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[2]
 UI = ROOT / "ui"
 
@@ -25,6 +24,7 @@ def _assert_ui_assets_are_self_contained_and_use_safe_rendering() -> None:
     assert 'fetchImplementation("/resolve"' in javascript
     assert "textContent" in javascript
     assert '<th scope="col">Type</th>' in html
+    assert '<th scope="col">Character</th>' in html
 
 
 def _assert_ui_controller_smoke_states_and_contract() -> None:
@@ -119,6 +119,7 @@ def _assert_ui_controller_smoke_states_and_contract() -> None:
             human_label_names: ['<img src=x onerror="global.pwned=true">'],
             example_initial_names: ["BMW M3 GT2"], source_case_ids: ["case-1"],
             sparse_rank: 1, sparse_score: 9.1, dense_rank: 1, dense_score: 0.9,
+            character_rank: 1, character_score: 0.88,
             rrf_rank: 1, rrf_score: 0.03, matched_tokens: ["bmw", "m3", "gt2"],
           }}, {{
             knowledge_type: "review_family",
@@ -129,12 +130,19 @@ def _assert_ui_controller_smoke_states_and_contract() -> None:
             aliases: ['<svg onload="global.pwned=true">'],
             source_record_ids: ["fandom-row-1"],
             sparse_rank: 2, sparse_score: 8.1, dense_rank: 2, dense_score: 0.8,
+            character_rank: 2, character_score: 0.77,
             rrf_rank: 2, rrf_score: 0.02, matched_tokens: ["proton", "saga"],
           }}],
           timings_ms: {{ total: 3.2 }}, catalog_version: "fixture-v1",
           human_catalog_version: "human-backed-catalog-v1",
           review_family_knowledge_version: "review-family-knowledge-v1",
-          model_versions: {{ reranker: "heuristic-v1", human_knowledge: "human-knowledge-hybrid-v2" }},
+          human_knowledge_retrieval_artifact_version: "human-knowledge-retrieval-v3-test-fixture",
+          human_knowledge_retrieval_artifact_sha256: "abc123",
+          model_versions: {{
+            reranker: "heuristic-v1",
+            human_knowledge: "human-knowledge-hybrid-v3",
+            human_knowledge_character_index: "human-knowledge-character-tfidf-v1",
+          }},
         }};
 
         async function runSuccess(payload, title = "ordinary title") {{
@@ -177,6 +185,11 @@ def _assert_ui_controller_smoke_states_and_contract() -> None:
           assert.equal(match.document.elements["candidates-body"].children.length, 1);
           assert.equal(match.document.elements["human-candidates-body"].children.length, 2);
           assert.equal(
+            match.document.elements["human-candidates-body"].children[0].children[6]
+              .children[0].children[0].textContent,
+            "rank 1",
+          );
+          assert.equal(
             match.document.elements["human-candidates-body"].children[0].children[1].textContent,
             markup,
             "human-reviewed markup stays text",
@@ -187,7 +200,8 @@ def _assert_ui_controller_smoke_states_and_contract() -> None:
           assert.equal(familyRow.children[3].textContent, "family only — variants unreviewed");
           assert.equal(
             match.document.elements["human-catalog-version"].textContent,
-            "catalog human-backed-catalog-v1 · family review-family-knowledge-v1",
+            "catalog human-backed-catalog-v1 · family review-family-knowledge-v1" +
+              " · artifact human-knowledge-retrieval-v3-test-fixture sha256:abc123",
           );
           assert.equal(global.pwned, undefined);
 

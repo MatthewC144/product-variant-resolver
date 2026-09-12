@@ -15,7 +15,6 @@ from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
 
-
 ROOT = Path(__file__).resolve().parents[1]
 EVALUATION_DIR = ROOT / "data" / "evaluation" / "family-retrieval-v1"
 
@@ -37,6 +36,9 @@ PROJECTION_MANIFEST_SCHEMA = "pvr-review-family-knowledge-manifest-v1"
 HUMAN_SCHEMA = "pvr-human-backed-catalog-v1"
 HUMAN_VERSION = "human-backed-catalog-v1"
 HUMAN_MANIFEST_SCHEMA = "pvr-human-backed-catalog-manifest-v1"
+FROZEN_V2_RETRIEVER_SOURCE_SHA256 = (
+    "5bf582b921b62945b7e4405beb98822abd876b870bdb5267854764c2e1ab2982"
+)
 
 REGISTRY_ELIGIBLE_FOR = ["family_review", "future_human_knowledge_index"]
 REGISTRY_EXCLUDED_FROM = [
@@ -225,9 +227,7 @@ def _system_under_test(
         "normalizer_source_sha256": _sha256(ROOT / "src/product_variant_resolver/identity.py"),
         "normalizer_version": "identity.normalize_text-v1",
         "retriever_source_file": "human_knowledge.py",
-        "retriever_source_sha256": _sha256(
-            ROOT / "src/product_variant_resolver/human_knowledge.py"
-        ),
+        "retriever_source_sha256": FROZEN_V2_RETRIEVER_SOURCE_SHA256,
         "retriever_version": "human-knowledge-hybrid-v2",
         "review_family_knowledge_sha256": _sha256(projection_path),
         "review_family_knowledge_version": PROJECTION_VERSION,

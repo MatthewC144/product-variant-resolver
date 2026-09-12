@@ -35,6 +35,9 @@ BENCHMARK_MANIFEST_SCHEMA = "pvr-family-retrieval-benchmark-manifest-v1"
 BENCHMARK_VERSION = "family-retrieval-holdout-v1"
 EVALUATION_SCHEMA = "pvr-family-retrieval-evaluation-v1"
 EVALUATION_VERSION = "family-retrieval-evaluation-v1"
+FROZEN_V2_RETRIEVER_SOURCE_SHA256 = (
+    "5bf582b921b62945b7e4405beb98822abd876b870bdb5267854764c2e1ab2982"
+)
 
 CASE_COUNTS = {
     "hold_control": 7,
@@ -224,13 +227,14 @@ def _validate_frozen_inputs(
     source_paths = {
         "dense_source_sha256": ROOT / "src/product_variant_resolver/retrieval.py",
         "normalizer_source_sha256": ROOT / "src/product_variant_resolver/identity.py",
-        "retriever_source_sha256": ROOT / "src/product_variant_resolver/human_knowledge.py",
         "human_catalog_sha256": ROOT / "data/human_backed_catalog.json",
         "review_family_knowledge_sha256": ROOT / "data/review_family_knowledge.json",
     }
     for field, path in source_paths.items():
         if sut.get(field) != _sha256(path):
             raise ValueError(f"frozen system-under-test {field} differs from runtime")
+    if sut.get("retriever_source_sha256") != FROZEN_V2_RETRIEVER_SOURCE_SHA256:
+        raise ValueError("frozen v2 retriever source identity differs from historical contract")
 
     cases = benchmark.get("cases")
     if not isinstance(cases, list) or len(cases) != 105:

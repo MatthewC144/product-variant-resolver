@@ -402,6 +402,16 @@ controls. Its 21-config grid and input/output hashes were committed before any r
 the data is explicitly identity-derived and cannot support final accuracy. No v3 retriever,
 selected configuration, model artifact, or new final evaluation has been created yet.
 
+HRR-T2 now implements the experimental v3 mechanics without activating them by default. The second
+RAG can build a Unicode character bigram/trigram TF-IDF posting index from strictly allowlisted
+identity names, union its candidates with token evidence, dense-rank only that bounded union, and
+fuse available token/dense/character ranks. Typed API/UI debug fields expose character evidence and
+index/artifact versions, while invalid artifact opt-in fails readiness. The implementation evidence
+is recorded in
+[`human-knowledge-retriever-v3-implementation.md`](docs/evidence/human-knowledge-retriever-v3-implementation.md).
+V2 remains active until HRR-T3 evaluates the already frozen 21 configurations and produces a valid
+winner; these mechanics alone make no quality or T49 authorization claim.
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with

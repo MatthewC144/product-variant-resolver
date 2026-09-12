@@ -4,14 +4,20 @@ from pathlib import Path
 
 from product_variant_resolver.catalog import Catalog, catalog_checksum, load_catalog
 from product_variant_resolver.config import Settings
+from product_variant_resolver.human_knowledge import (
+    HUMAN_KNOWLEDGE_CHARACTER_INDEX_VERSION,
+    HumanKnowledgeV3Config,
+    ReviewFamilyKnowledgeDocument,
+)
 from product_variant_resolver.ingestion import InMemoryCatalogRepository, ingest_catalog
-from product_variant_resolver.human_knowledge import ReviewFamilyKnowledgeDocument
+from product_variant_resolver.retrieval import (
+    CandidateRetrievalService,
+    RetrievalUnavailable,
+    StructuredRetriever,
+)
 from product_variant_resolver.schemas import ResolveRequest
 from product_variant_resolver.service import ResolverService
 from product_variant_resolver.signals import extract_signals
-from product_variant_resolver.retrieval import (
-    CandidateRetrievalService, RetrievalUnavailable, StructuredRetriever,
-)
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -120,6 +126,58 @@ class CatalogServiceIntegrationTests(unittest.TestCase):
         self.assertIsNone(result.canonical_uuid)
         self.assertIsNone(result.canonical_id)
         self.assertIsNone(result.product)
+
+    def test_v3_character_evidence_remains_noncanonical_and_debug_off_is_compatible(self):
+        config = HumanKnowledgeV3Config(
+            artifact_version="human-knowledge-retrieval-v3-test-fixture",
+            artifact_sha256="a" * 64,
+            character_score_floor=0.25,
+            character_rrf_weight=1.0,
+            sparse_rrf_weight=1.0,
+            dense_rrf_weight=1.0,
+            dense_dimensions=192,
+            rrf_k=60,
+            source_candidate_limit=25,
+            index_version=HUMAN_KNOWLEDGE_CHARACTER_INDEX_VERSION,
+        )
+        v3_service = ResolverService(
+            self.settings,
+            self.catalog,
+            self.service.human_catalog,
+            human_knowledge_v3_config=config,
+        )
+
+        typo = v3_service.resolve(
+            ResolveRequest(title="Protn Sagx", debug=True, debug_candidate_limit=5)
+        )
+        family = next(
+            item
+            for item in typo.debug.human_knowledge_candidates
+            if item.casting == "Proton Saga"
+        )
+        self.assertEqual(typo.status.value, "no_match")
+        self.assertIsNone(typo.canonical_uuid)
+        self.assertIsNone(typo.canonical_id)
+        self.assertIsNone(family.sparse_rank)
+        self.assertEqual(family.character_rank, 1)
+        self.assertGreater(family.character_score or 0, 0.7)
+        self.assertEqual(
+            typo.debug.model_versions["human_knowledge"],
+            "human-knowledge-hybrid-v3",
+        )
+        self.assertEqual(
+            typo.debug.human_knowledge_retrieval_artifact_version,
+            "human-knowledge-retrieval-v3-test-fixture",
+        )
+        self.assertEqual(
+            typo.debug.human_knowledge_character_index.document_count, 142
+        )
+
+        request = ResolveRequest(title="2022 Chevy Nomad Red #101", debug=False)
+        v2_response = self.service.resolve(request).model_dump(mode="json", exclude_none=True)
+        v3_response = v3_service.resolve(request).model_dump(mode="json", exclude_none=True)
+        self.assertEqual(v3_response, v2_response)
+        self.assertNotIn("debug", v3_response)
 
     def test_catalog_color_addition_needs_no_code_branch(self):
         color = next(item.product.color for item in self.catalog.products if item.product.color)

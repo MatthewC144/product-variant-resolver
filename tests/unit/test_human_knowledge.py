@@ -5,21 +5,129 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from uuid import UUID
 
 from product_variant_resolver.human_knowledge import (
+    HUMAN_KNOWLEDGE_CHARACTER_INDEX_VERSION,
+    HUMAN_KNOWLEDGE_V3_ALLOWED_FIELDS,
+    HUMAN_KNOWLEDGE_V3_ARTIFACT_SCHEMA,
+    HUMAN_KNOWLEDGE_V3_ELIGIBLE_FOR,
+    HUMAN_KNOWLEDGE_V3_EXCLUDED_FROM,
+    HUMAN_KNOWLEDGE_V3_RETRIEVER_VERSION,
+    CharacterIdentityIndex,
+    HumanKnowledgeCatalog,
     HumanKnowledgeRetriever,
+    HumanKnowledgeV3Config,
     HumanVariantKnowledgeDocument,
     ReviewFamilyKnowledgeDocument,
     load_human_knowledge_catalog,
+    load_human_knowledge_v3_config,
 )
 from product_variant_resolver.retrieval import HashingEmbedding
 from product_variant_resolver.signals import extract_signals
-
 
 ROOT = Path(__file__).resolve().parents[2]
 HUMAN_CATALOG = ROOT / "data/human_backed_catalog.json"
 FAMILY_PROJECTION = ROOT / "data/review_family_knowledge.json"
 FAMILY_MANIFEST = ROOT / "data/review_family_knowledge_manifest.json"
+DEVELOPMENT_PACK = (
+    ROOT
+    / "data/evaluation/family-retrieval-development-v1/development-pack.json"
+)
+DEVELOPMENT_MANIFEST = (
+    ROOT
+    / "data/evaluation/family-retrieval-development-v1/development-pack-manifest.json"
+)
+
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _v3_config(*, floor: float = 0.25, weight: float = 1.0) -> HumanKnowledgeV3Config:
+    return HumanKnowledgeV3Config(
+        artifact_version="human-knowledge-retrieval-v3-test-fixture",
+        artifact_sha256="0" * 64,
+        character_score_floor=floor,
+        character_rrf_weight=weight,
+        sparse_rrf_weight=1.0,
+        dense_rrf_weight=1.0,
+        dense_dimensions=192,
+        rrf_k=60,
+        source_candidate_limit=25,
+        index_version=HUMAN_KNOWLEDGE_CHARACTER_INDEX_VERSION,
+    )
+
+
+def _reference(path: Path, version: str) -> dict[str, str]:
+    return {"file": path.name, "sha256": _sha256(path), "version": version}
+
+
+def _v3_artifact() -> dict:
+    import product_variant_resolver.human_knowledge as implementation
+
+    implementation_path = Path(implementation.__file__)
+    return {
+        "artifact_version": "human-knowledge-retrieval-v3-test-fixture",
+        "character_index": {
+            "allowed_fields": HUMAN_KNOWLEDGE_V3_ALLOWED_FIELDS,
+            "gram_sizes": [2, 3],
+            "modes": ["spaced", "compact"],
+            "stable_tie_break": "knowledge_uuid",
+            "version": HUMAN_KNOWLEDGE_CHARACTER_INDEX_VERSION,
+            "window_token_radius": 1,
+        },
+        "configuration": {
+            "character_rrf_weight": 1.0,
+            "character_score_floor": 0.25,
+            "dense_dimensions": 192,
+            "dense_rrf_weight": 1.0,
+            "rrf_k": 60,
+            "selection_candidate_limit": 5,
+            "source_candidate_limit": 25,
+            "sparse_rrf_weight": 1.0,
+        },
+        "eligible_for": HUMAN_KNOWLEDGE_V3_ELIGIBLE_FOR,
+        "excluded_from": HUMAN_KNOWLEDGE_V3_EXCLUDED_FROM,
+        "implementation": {
+            "file": implementation_path.name,
+            "sha256": _sha256(implementation_path),
+        },
+        "retriever_version": HUMAN_KNOWLEDGE_V3_RETRIEVER_VERSION,
+        "schema_version": HUMAN_KNOWLEDGE_V3_ARTIFACT_SCHEMA,
+        "sources": {
+            "development_manifest": _reference(
+                DEVELOPMENT_MANIFEST, "family-retrieval-development-v1"
+            ),
+            "development_pack": _reference(
+                DEVELOPMENT_PACK, "family-retrieval-development-v1"
+            ),
+            "human_catalog": _reference(HUMAN_CATALOG, "human-backed-catalog-v1"),
+            "review_family_knowledge": _reference(
+                FAMILY_PROJECTION,
+                "review-family-knowledge-fandom-2025-r790665-v1",
+            ),
+        },
+        "status": "selected_development_configuration",
+    }
+
+
+def _tiny_variant() -> HumanVariantKnowledgeDocument:
+    return HumanVariantKnowledgeDocument(
+        casting_uuid=UUID(int=1),
+        casting_id="casting-alpha",
+        provisional_variant_uuid=UUID(int=2),
+        provisional_variant_id="variant-alpha",
+        brand="Brandonly",
+        casting="Alpha",
+        series_label="RareSeries",
+        variant_label="RedVariant",
+        identity_status="needs_canonical_review",
+        human_label_names=("Alpha",),
+        pricing_keywords=("SecretPricing",),
+        initial_names=("RawRecognition",),
+        source_case_ids=("case-1",),
+    )
 
 
 class HumanKnowledgeTests(unittest.TestCase):
@@ -71,6 +179,150 @@ class HumanKnowledgeTests(unittest.TestCase):
         self.assertEqual(candidates[0].dense_rank, 1)
         self.assertIn("m3", candidates[0].matched_tokens)
         self.assertIn("gt2", candidates[0].matched_tokens)
+        self.assertIsNone(candidates[0].character_rank)
+        self.assertIsNone(candidates[0].character_score)
+
+    def test_character_identity_fields_are_strictly_allowlisted(self) -> None:
+        variant = _tiny_variant()
+        self.assertEqual(variant.character_identity_texts, ("Alpha", "Alpha"))
+        prohibited = {
+            variant.brand,
+            variant.series_label,
+            variant.variant_label,
+            *variant.pricing_keywords,
+            *variant.initial_names,
+            *variant.source_case_ids,
+        }
+        self.assertTrue(prohibited.isdisjoint(variant.character_identity_texts))
+        family = next(
+            item
+            for item in self.catalog.documents
+            if isinstance(item, ReviewFamilyKnowledgeDocument)
+        )
+        self.assertEqual(
+            family.character_identity_texts, (family.casting, *family.aliases)
+        )
+        self.assertTrue(set(family.source_record_ids).isdisjoint(family.character_identity_texts))
+
+    def test_character_index_uses_postings_and_frozen_metadata(self) -> None:
+        index = CharacterIdentityIndex(self.catalog.documents)
+        metadata = index.metadata.as_dict()
+        self.assertEqual(metadata["document_count"], 142)
+        self.assertGreater(metadata["posting_count"], 0)
+        self.assertGreater(metadata["posting_entry_count"], metadata["posting_count"])
+        self.assertEqual(metadata["gram_sizes"], [2, 3])
+        self.assertEqual(metadata["modes"], ["spaced", "compact"])
+        self.assertEqual(metadata["allowed_fields"], HUMAN_KNOWLEDGE_V3_ALLOWED_FIELDS)
+
+    def test_character_only_candidate_enters_union_without_sparse_rank(self) -> None:
+        retriever = HumanKnowledgeRetriever(
+            self.catalog, HashingEmbedding(), _v3_config()
+        )
+        candidates = retriever.retrieve(extract_signals("Protn Sagx"), 5)
+        target = next(item for item in candidates if item.document.casting == "Proton Saga")
+        self.assertEqual(target.rrf_rank, 1)
+        self.assertIsNone(target.sparse_rank)
+        self.assertIsNone(target.sparse_score)
+        self.assertEqual(target.character_rank, 1)
+        self.assertGreater(target.character_score or 0, 0.7)
+        self.assertIsNotNone(target.dense_rank)
+
+    def test_missing_source_ranks_contribute_zero_to_weighted_rrf(self) -> None:
+        catalog = HumanKnowledgeCatalog("tiny-v1", "none", [_tiny_variant()])
+        retriever = HumanKnowledgeRetriever(catalog, HashingEmbedding(), _v3_config())
+
+        sparse_only = retriever.retrieve(extract_signals("RareSeries"), 1)[0]
+        self.assertEqual(sparse_only.sparse_rank, 1)
+        self.assertIsNone(sparse_only.character_rank)
+        self.assertAlmostEqual(sparse_only.rrf_score, 2 / 61)
+
+        character_only = retriever.retrieve(extract_signals("Alphx"), 1)[0]
+        self.assertIsNone(character_only.sparse_rank)
+        self.assertEqual(character_only.character_rank, 1)
+        self.assertAlmostEqual(character_only.rrf_score, 2 / 61)
+
+    def test_compact_form_and_stable_uuid_tie_break(self) -> None:
+        first = ReviewFamilyKnowledgeDocument(
+            review_family_uuid=UUID(int=1),
+            review_family_id="family-1",
+            brand="Brand",
+            casting="Alpha Beta",
+            aliases=("Alpha Beta",),
+            source_record_ids=("row-1",),
+            identity_status="family_accepted_variants_unreviewed",
+        )
+        second = ReviewFamilyKnowledgeDocument(
+            review_family_uuid=UUID(int=2),
+            review_family_id="family-2",
+            brand="Brand",
+            casting="Alpha Beta",
+            aliases=("Alpha Beta",),
+            source_record_ids=("row-2",),
+            identity_status="family_accepted_variants_unreviewed",
+        )
+        ranked = CharacterIdentityIndex((second, first)).rank(
+            "AlphaBeta", score_floor=0.25
+        )
+        self.assertEqual([item.knowledge_id for item, _ in ranked], ["family-1", "family-2"])
+        self.assertAlmostEqual(ranked[0][1], 1.0)
+
+    def test_character_index_rejects_empty_short_and_invalid_floor(self) -> None:
+        short = ReviewFamilyKnowledgeDocument(
+            review_family_uuid=UUID(int=3),
+            review_family_id="family-short",
+            brand="Brand",
+            casting="A",
+            aliases=("A",),
+            source_record_ids=("row-3",),
+            identity_status="family_accepted_variants_unreviewed",
+        )
+        with self.assertRaisesRegex(ValueError, "too short"):
+            CharacterIdentityIndex((short,))
+        with self.assertRaisesRegex(ValueError, "between 0 and 1"):
+            CharacterIdentityIndex((_tiny_variant(),)).rank("Alpha", score_floor=float("nan"))
+
+    def test_v3_artifact_is_strict_checksum_bound_and_rejects_invalid_values(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            artifact_path = Path(directory) / "v3.json"
+            artifact = _v3_artifact()
+            artifact_path.write_text(json.dumps(artifact), encoding="utf-8")
+            config = load_human_knowledge_v3_config(
+                artifact_path,
+                human_catalog_path=HUMAN_CATALOG,
+                review_family_path=FAMILY_PROJECTION,
+                development_pack_path=DEVELOPMENT_PACK,
+                development_manifest_path=DEVELOPMENT_MANIFEST,
+                dense_dimensions=192,
+            )
+            self.assertEqual(config.character_score_floor, 0.25)
+            self.assertEqual(config.character_rrf_weight, 1.0)
+            self.assertEqual(config.artifact_sha256, _sha256(artifact_path))
+
+            invalid = json.loads(json.dumps(artifact))
+            invalid["configuration"]["character_score_floor"] = 0.24
+            artifact_path.write_text(json.dumps(invalid), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "unsupported or mismatched"):
+                load_human_knowledge_v3_config(
+                    artifact_path,
+                    human_catalog_path=HUMAN_CATALOG,
+                    review_family_path=FAMILY_PROJECTION,
+                    development_pack_path=DEVELOPMENT_PACK,
+                    development_manifest_path=DEVELOPMENT_MANIFEST,
+                    dense_dimensions=192,
+                )
+
+            stale = json.loads(json.dumps(artifact))
+            stale["implementation"]["sha256"] = "0" * 64
+            artifact_path.write_text(json.dumps(stale), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "implementation reference is stale"):
+                load_human_knowledge_v3_config(
+                    artifact_path,
+                    human_catalog_path=HUMAN_CATALOG,
+                    review_family_path=FAMILY_PROJECTION,
+                    development_pack_path=DEVELOPMENT_PACK,
+                    development_manifest_path=DEVELOPMENT_MANIFEST,
+                    dense_dimensions=192,
+                )
 
     def test_no_shared_tokens_returns_no_suggestion(self) -> None:
         signals = extract_signals("qzxv completely unknown")

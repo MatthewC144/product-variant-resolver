@@ -5,6 +5,7 @@ import json
 import math
 import re
 import uuid
+from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, TypeAlias
@@ -13,7 +14,6 @@ from uuid import UUID
 from .identity import normalize_text
 from .retrieval import HashingEmbedding
 from .schemas import ExtractedSignals
-
 
 FAMILY_SCHEMA_VERSION = "pvr-review-family-knowledge-v1"
 FAMILY_KNOWLEDGE_VERSION = "review-family-knowledge-fandom-2025-r790665-v1"
@@ -88,6 +88,26 @@ FAMILY_MANIFEST_FIELDS = {
     "projection_sha256",
 }
 
+HUMAN_KNOWLEDGE_V3_ARTIFACT_SCHEMA = "pvr-human-knowledge-retrieval-artifact-v1"
+HUMAN_KNOWLEDGE_V3_RETRIEVER_VERSION = "human-knowledge-hybrid-v3"
+HUMAN_KNOWLEDGE_CHARACTER_INDEX_VERSION = "human-knowledge-character-tfidf-v1"
+HUMAN_KNOWLEDGE_DEVELOPMENT_VERSION = "family-retrieval-development-v1"
+HUMAN_KNOWLEDGE_V3_ALLOWED_FIELDS = {
+    "provisional_variant": ["casting", "human_label_names"],
+    "review_family": ["casting", "aliases"],
+}
+HUMAN_KNOWLEDGE_V3_ELIGIBLE_FOR = ["human_knowledge_debug_retrieval"]
+HUMAN_KNOWLEDGE_V3_EXCLUDED_FROM = [
+    "calibration_training",
+    "canonical_candidate_ranking",
+    "canonical_confidence",
+    "canonical_variant_response",
+    "postgresql_ingestion",
+    "production_accuracy_claim",
+]
+HUMAN_KNOWLEDGE_V3_FLOORS = {0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55}
+HUMAN_KNOWLEDGE_V3_WEIGHTS = {0.5, 1.0, 1.5}
+
 
 @dataclass(frozen=True, slots=True)
 class HumanVariantKnowledgeDocument:
@@ -130,6 +150,11 @@ class HumanVariantKnowledgeDocument:
         )
         return " ".join(value for value in values if value)
 
+    @property
+    def character_identity_texts(self) -> tuple[str, ...]:
+        """Strict v3 allowlist: casting and human-verified labels only."""
+        return (self.casting, *self.human_label_names)
+
 
 @dataclass(frozen=True, slots=True)
 class ReviewFamilyKnowledgeDocument:
@@ -156,6 +181,11 @@ class ReviewFamilyKnowledgeDocument:
     @property
     def searchable_text(self) -> str:
         return " ".join((self.brand, self.casting, *self.aliases))
+
+    @property
+    def character_identity_texts(self) -> tuple[str, ...]:
+        """Strict v3 allowlist: casting and approved aliases only."""
+        return (self.casting, *self.aliases)
 
 
 HumanKnowledgeDocument: TypeAlias = (
@@ -191,6 +221,48 @@ class HumanKnowledgeCandidate:
     rrf_rank: int
     rrf_score: float
     matched_tokens: tuple[str, ...]
+    character_rank: int | None = None
+    character_score: float | None = None
+
+
+@dataclass(frozen=True, slots=True)
+class HumanKnowledgeV3Config:
+    artifact_version: str
+    artifact_sha256: str
+    character_score_floor: float
+    character_rrf_weight: float
+    sparse_rrf_weight: float
+    dense_rrf_weight: float
+    dense_dimensions: int
+    rrf_k: int
+    source_candidate_limit: int
+    index_version: str
+
+
+@dataclass(frozen=True, slots=True)
+class CharacterIndexMetadata:
+    version: str
+    document_count: int
+    posting_count: int
+    posting_entry_count: int
+    gram_sizes: tuple[int, ...]
+    modes: tuple[str, ...]
+    window_token_radius: int
+    stable_tie_break: str
+    allowed_fields: dict[str, list[str]]
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "allowed_fields": self.allowed_fields,
+            "document_count": self.document_count,
+            "gram_sizes": list(self.gram_sizes),
+            "modes": list(self.modes),
+            "posting_count": self.posting_count,
+            "posting_entry_count": self.posting_entry_count,
+            "stable_tie_break": self.stable_tie_break,
+            "version": self.version,
+            "window_token_radius": self.window_token_radius,
+        }
 
 
 def _load_json_object(path: Path, *, label: str) -> dict[str, Any]:
@@ -571,6 +643,365 @@ def load_human_knowledge_catalog(
     return HumanKnowledgeCatalog(version, family_version, documents)
 
 
+def _file_sha256(path: Path, *, label: str) -> str:
+    try:
+        return hashlib.sha256(path.read_bytes()).hexdigest()
+    except OSError as error:
+        raise ValueError(f"{label} checksum could not be read") from error
+
+
+def _artifact_reference(
+    value: Any,
+    *,
+    label: str,
+    path: Path,
+    version: str,
+) -> None:
+    if not isinstance(value, dict) or set(value) != {"file", "sha256", "version"}:
+        raise ValueError(f"v3 artifact {label} reference differs from contract")
+    if (
+        Path(str(value.get("file"))).name != path.name
+        or value.get("version") != version
+        or value.get("sha256") != _file_sha256(path, label=label)
+    ):
+        raise ValueError(f"v3 artifact {label} reference is stale or mismatched")
+
+
+def load_human_knowledge_v3_config(
+    artifact_path: Path,
+    *,
+    human_catalog_path: Path,
+    review_family_path: Path,
+    development_pack_path: Path,
+    development_manifest_path: Path,
+    dense_dimensions: int,
+) -> HumanKnowledgeV3Config:
+    """Load a selected v3 runtime config; arbitrary environment floats are not accepted."""
+    artifact = _load_json_object(artifact_path, label="human knowledge v3 artifact")
+    if set(artifact) != {
+        "artifact_version",
+        "character_index",
+        "configuration",
+        "eligible_for",
+        "excluded_from",
+        "implementation",
+        "retriever_version",
+        "schema_version",
+        "sources",
+        "status",
+    }:
+        raise ValueError("v3 artifact fields differ from contract")
+    artifact_version = _required_string(
+        artifact.get("artifact_version"),
+        field="artifact_version",
+        context="v3 artifact",
+    )
+    if not re.fullmatch(r"human-knowledge-retrieval-v3-[a-z0-9-]+", artifact_version):
+        raise ValueError("v3 artifact version differs from contract")
+    if (
+        artifact.get("schema_version") != HUMAN_KNOWLEDGE_V3_ARTIFACT_SCHEMA
+        or artifact.get("retriever_version") != HUMAN_KNOWLEDGE_V3_RETRIEVER_VERSION
+        or artifact.get("status") != "selected_development_configuration"
+        or artifact.get("eligible_for") != HUMAN_KNOWLEDGE_V3_ELIGIBLE_FOR
+        or artifact.get("excluded_from") != HUMAN_KNOWLEDGE_V3_EXCLUDED_FROM
+    ):
+        raise ValueError("v3 artifact identity or usage boundary differs from contract")
+
+    character_index = artifact.get("character_index")
+    expected_index = {
+        "allowed_fields": HUMAN_KNOWLEDGE_V3_ALLOWED_FIELDS,
+        "gram_sizes": [2, 3],
+        "modes": ["spaced", "compact"],
+        "stable_tie_break": "knowledge_uuid",
+        "version": HUMAN_KNOWLEDGE_CHARACTER_INDEX_VERSION,
+        "window_token_radius": 1,
+    }
+    if character_index != expected_index:
+        raise ValueError("v3 artifact character-index contract differs from implementation")
+
+    configuration = artifact.get("configuration")
+    if not isinstance(configuration, dict) or set(configuration) != {
+        "character_rrf_weight",
+        "character_score_floor",
+        "dense_dimensions",
+        "dense_rrf_weight",
+        "rrf_k",
+        "selection_candidate_limit",
+        "source_candidate_limit",
+        "sparse_rrf_weight",
+    }:
+        raise ValueError("v3 artifact configuration fields differ from contract")
+    try:
+        floor = float(configuration["character_score_floor"])
+        character_weight = float(configuration["character_rrf_weight"])
+        sparse_weight = float(configuration["sparse_rrf_weight"])
+        dense_weight = float(configuration["dense_rrf_weight"])
+    except (KeyError, TypeError, ValueError) as error:
+        raise ValueError("v3 artifact numeric configuration is invalid") from error
+    if (
+        not all(
+            math.isfinite(value)
+            for value in (floor, character_weight, sparse_weight, dense_weight)
+        )
+        or floor not in HUMAN_KNOWLEDGE_V3_FLOORS
+        or character_weight not in HUMAN_KNOWLEDGE_V3_WEIGHTS
+        or sparse_weight != 1.0
+        or dense_weight != 1.0
+        or configuration.get("rrf_k") != 60
+        or configuration.get("selection_candidate_limit") != 5
+        or configuration.get("source_candidate_limit") != 25
+        or configuration.get("dense_dimensions") != dense_dimensions
+    ):
+        raise ValueError("v3 artifact configuration is unsupported or mismatched")
+
+    development = _load_json_object(development_pack_path, label="development pack")
+    development_manifest = _load_json_object(
+        development_manifest_path, label="development pack manifest"
+    )
+    if (
+        development.get("development_version") != HUMAN_KNOWLEDGE_DEVELOPMENT_VERSION
+        or development.get("status") != "frozen_development_only"
+        or development.get("split") != "dev"
+        or development.get("retrieval_executed") is not False
+        or development.get("configuration_output_viewed") is not False
+        or len(development.get("cases", [])) != 199
+    ):
+        raise ValueError("development pack is not a valid pre-output freeze")
+    development_sha256 = _file_sha256(development_pack_path, label="development pack")
+    if (
+        development_manifest.get("development_version")
+        != HUMAN_KNOWLEDGE_DEVELOPMENT_VERSION
+        or development_manifest.get("status") != "frozen_before_configuration_execution"
+        or development_manifest.get("development_sha256") != development_sha256
+        or development_manifest.get("retrieval_executed") is not False
+        or development_manifest.get("configuration_output_viewed") is not False
+    ):
+        raise ValueError("development manifest is stale, widened, or post-output")
+
+    sources = artifact.get("sources")
+    if not isinstance(sources, dict) or set(sources) != {
+        "development_manifest",
+        "development_pack",
+        "human_catalog",
+        "review_family_knowledge",
+    }:
+        raise ValueError("v3 artifact source references differ from contract")
+    _artifact_reference(
+        sources["human_catalog"],
+        label="human catalog",
+        path=human_catalog_path,
+        version="human-backed-catalog-v1",
+    )
+    _artifact_reference(
+        sources["review_family_knowledge"],
+        label="review-family knowledge",
+        path=review_family_path,
+        version=FAMILY_KNOWLEDGE_VERSION,
+    )
+    _artifact_reference(
+        sources["development_pack"],
+        label="development pack",
+        path=development_pack_path,
+        version=HUMAN_KNOWLEDGE_DEVELOPMENT_VERSION,
+    )
+    _artifact_reference(
+        sources["development_manifest"],
+        label="development manifest",
+        path=development_manifest_path,
+        version=HUMAN_KNOWLEDGE_DEVELOPMENT_VERSION,
+    )
+
+    implementation = artifact.get("implementation")
+    implementation_path = Path(__file__)
+    if not isinstance(implementation, dict) or set(implementation) != {"file", "sha256"}:
+        raise ValueError("v3 artifact implementation reference differs from contract")
+    if (
+        implementation.get("file") != implementation_path.name
+        or implementation.get("sha256")
+        != _file_sha256(implementation_path, label="human knowledge implementation")
+    ):
+        raise ValueError("v3 artifact implementation reference is stale or mismatched")
+
+    return HumanKnowledgeV3Config(
+        artifact_version=artifact_version,
+        artifact_sha256=_file_sha256(artifact_path, label="v3 artifact"),
+        character_score_floor=floor,
+        character_rrf_weight=character_weight,
+        sparse_rrf_weight=sparse_weight,
+        dense_rrf_weight=dense_weight,
+        dense_dimensions=dense_dimensions,
+        rrf_k=60,
+        source_candidate_limit=25,
+        index_version=HUMAN_KNOWLEDGE_CHARACTER_INDEX_VERSION,
+    )
+
+
+@dataclass(frozen=True, slots=True)
+class _CharacterForm:
+    mode: str
+    token_count: int
+    weights: dict[str, float]
+    norm: float
+
+
+def _character_grams(value: str) -> Counter[str]:
+    return Counter(
+        value[index : index + size]
+        for size in (2, 3)
+        for index in range(max(0, len(value) - size + 1))
+    )
+
+
+class CharacterIdentityIndex:
+    """In-memory character TF-IDF posting index over allowlisted identity fields."""
+
+    def __init__(self, documents: tuple[HumanKnowledgeDocument, ...]) -> None:
+        if not documents:
+            raise ValueError("character index requires at least one document")
+        self._documents = {item.knowledge_uuid: item for item in documents}
+        if len(self._documents) != len(documents):
+            raise ValueError("character index contains duplicate knowledge UUIDs")
+
+        raw_forms: dict[UUID, list[tuple[str, int, Counter[str]]]] = {}
+        document_grams: dict[UUID, set[tuple[str, str]]] = {}
+        identity_lengths: set[int] = set()
+        for document in documents:
+            forms: list[tuple[str, int, Counter[str]]] = []
+            seen: set[tuple[str, str]] = set()
+            for value in document.character_identity_texts:
+                normalized = normalize_text(value)
+                if not normalized:
+                    raise ValueError("character identity text normalizes to empty")
+                token_count = len(normalized.split())
+                identity_lengths.add(token_count)
+                for mode, text in (
+                    ("spaced", normalized),
+                    ("compact", normalized.replace(" ", "")),
+                ):
+                    if (mode, text) in seen:
+                        continue
+                    seen.add((mode, text))
+                    grams = _character_grams(text)
+                    if not grams:
+                        raise ValueError("character identity text is too short for bigrams")
+                    forms.append((mode, token_count, grams))
+            if not forms:
+                raise ValueError("character index document has no identity forms")
+            raw_forms[document.knowledge_uuid] = forms
+            document_grams[document.knowledge_uuid] = {
+                (mode, gram) for mode, _, grams in forms for gram in grams
+            }
+
+        total = len(documents)
+        frequencies = Counter(
+            key for keys in document_grams.values() for key in keys
+        )
+        self._idf = {
+            key: math.log((total + 1) / (frequency + 1)) + 1
+            for key, frequency in frequencies.items()
+        }
+        postings: dict[tuple[str, str], set[UUID]] = {}
+        for document_uuid, keys in document_grams.items():
+            for key in keys:
+                postings.setdefault(key, set()).add(document_uuid)
+        self._postings = {
+            key: tuple(sorted(values, key=str)) for key, values in postings.items()
+        }
+        self._forms = {
+            document_uuid: tuple(
+                self._weighted_form(mode, token_count, grams)
+                for mode, token_count, grams in forms
+            )
+            for document_uuid, forms in raw_forms.items()
+        }
+        self._identity_lengths = tuple(sorted(identity_lengths))
+        self.metadata = CharacterIndexMetadata(
+            version=HUMAN_KNOWLEDGE_CHARACTER_INDEX_VERSION,
+            document_count=total,
+            posting_count=len(self._postings),
+            posting_entry_count=sum(len(values) for values in self._postings.values()),
+            gram_sizes=(2, 3),
+            modes=("spaced", "compact"),
+            window_token_radius=1,
+            stable_tie_break="knowledge_uuid",
+            allowed_fields={
+                key: list(value) for key, value in HUMAN_KNOWLEDGE_V3_ALLOWED_FIELDS.items()
+            },
+        )
+
+    def _weighted_form(
+        self, mode: str, token_count: int, grams: Counter[str]
+    ) -> _CharacterForm:
+        weights = {
+            gram: count * self._idf[(mode, gram)]
+            for gram, count in grams.items()
+            if (mode, gram) in self._idf
+        }
+        norm = math.sqrt(sum(weight * weight for weight in weights.values()))
+        return _CharacterForm(mode, token_count, weights, norm)
+
+    def _query_forms(self, query: str) -> tuple[_CharacterForm, ...]:
+        tokens = normalize_text(query).split()
+        if not tokens:
+            return ()
+        windows: set[str] = set()
+        for identity_length in self._identity_lengths:
+            for size in range(max(1, identity_length - 1), identity_length + 2):
+                if size > len(tokens):
+                    continue
+                windows.update(
+                    " ".join(tokens[index : index + size])
+                    for index in range(len(tokens) - size + 1)
+                )
+        forms: list[_CharacterForm] = []
+        for window in sorted(windows):
+            token_count = len(window.split())
+            for mode, text in (("spaced", window), ("compact", window.replace(" ", ""))):
+                form = self._weighted_form(mode, token_count, _character_grams(text))
+                if form.norm > 0:
+                    forms.append(form)
+        return tuple(forms)
+
+    @staticmethod
+    def _cosine(left: _CharacterForm, right: _CharacterForm) -> float:
+        if left.mode != right.mode or left.norm <= 0 or right.norm <= 0:
+            return 0.0
+        smaller, larger = (
+            (left.weights, right.weights)
+            if len(left.weights) <= len(right.weights)
+            else (right.weights, left.weights)
+        )
+        dot = sum(weight * larger.get(gram, 0.0) for gram, weight in smaller.items())
+        return dot / (left.norm * right.norm)
+
+    def rank(self, query: str, *, score_floor: float) -> list[tuple[HumanKnowledgeDocument, float]]:
+        if not math.isfinite(score_floor) or not 0 < score_floor <= 1:
+            raise ValueError("character score floor must be finite and between 0 and 1")
+        query_forms = self._query_forms(query)
+        candidate_ids: set[UUID] = set()
+        for form in query_forms:
+            candidate_ids.update(
+                document_uuid
+                for gram in form.weights
+                for document_uuid in self._postings.get((form.mode, gram), ())
+            )
+        scored: list[tuple[HumanKnowledgeDocument, float]] = []
+        for document_uuid in candidate_ids:
+            score = max(
+                (
+                    self._cosine(query_form, document_form)
+                    for query_form in query_forms
+                    for document_form in self._forms[document_uuid]
+                ),
+                default=0.0,
+            )
+            if not math.isfinite(score):
+                raise ValueError("character index produced a non-finite score")
+            if score >= score_floor:
+                scored.append((self._documents[document_uuid], score))
+        return sorted(scored, key=lambda item: (-item[1], str(item[0].knowledge_uuid)))
+
+
 class HumanKnowledgeRetriever:
     """Second, non-canonical RAG source backed by reviewed human knowledge."""
 
@@ -580,9 +1011,29 @@ class HumanKnowledgeRetriever:
         self,
         catalog: HumanKnowledgeCatalog,
         embedding: HashingEmbedding,
+        v3_config: HumanKnowledgeV3Config | None = None,
     ) -> None:
         self.catalog = catalog
         self.embedding = embedding
+        self.v3_config = v3_config
+        if v3_config is not None and (
+            v3_config.index_version != HUMAN_KNOWLEDGE_CHARACTER_INDEX_VERSION
+            or v3_config.character_score_floor not in HUMAN_KNOWLEDGE_V3_FLOORS
+            or v3_config.character_rrf_weight not in HUMAN_KNOWLEDGE_V3_WEIGHTS
+            or v3_config.sparse_rrf_weight != 1.0
+            or v3_config.dense_rrf_weight != 1.0
+            or v3_config.dense_dimensions != embedding.dimensions
+            or v3_config.rrf_k != 60
+            or v3_config.source_candidate_limit != 25
+        ):
+            raise ValueError("human knowledge v3 configuration is unsupported")
+        self.version = (
+            HUMAN_KNOWLEDGE_V3_RETRIEVER_VERSION
+            if v3_config is not None
+            else "human-knowledge-hybrid-v2"
+        )
+        self.artifact_version = v3_config.artifact_version if v3_config else None
+        self.artifact_sha256 = v3_config.artifact_sha256 if v3_config else None
         self._tokens = {
             item.knowledge_uuid: set(normalize_text(item.searchable_text).split())
             for item in catalog.documents
@@ -591,6 +1042,13 @@ class HumanKnowledgeRetriever:
             item.knowledge_uuid: embedding.encode(item.searchable_text)
             for item in catalog.documents
         }
+        self.character_index = (
+            CharacterIdentityIndex(catalog.documents) if v3_config is not None else None
+        )
+
+    @property
+    def character_index_metadata(self) -> dict[str, Any] | None:
+        return self.character_index.metadata.as_dict() if self.character_index else None
 
     def retrieve(
         self,
@@ -599,6 +1057,15 @@ class HumanKnowledgeRetriever:
     ) -> list[HumanKnowledgeCandidate]:
         if not 1 <= limit <= 25:
             raise ValueError("human knowledge limit must be between 1 and 25")
+        if self.v3_config is not None:
+            return self._retrieve_v3(signals, limit)
+        return self._retrieve_v2(signals, limit)
+
+    def _retrieve_v2(
+        self,
+        signals: ExtractedSignals,
+        limit: int,
+    ) -> list[HumanKnowledgeCandidate]:
         query_tokens = set(signals.tokens)
         if not query_tokens:
             return []
@@ -678,6 +1145,8 @@ class HumanKnowledgeRetriever:
                     sparse_score=sparse_scores[item_uuid],
                     dense_rank=dense_ranks[item_uuid],
                     dense_score=dense_scores[item_uuid],
+                    character_rank=None,
+                    character_score=None,
                     rrf_rank=rank,
                     rrf_score=(
                         1 / (60 + sparse_ranks[item_uuid])
@@ -687,3 +1156,124 @@ class HumanKnowledgeRetriever:
                 )
             )
         return candidates
+
+    def _retrieve_v3(
+        self,
+        signals: ExtractedSignals,
+        limit: int,
+    ) -> list[HumanKnowledgeCandidate]:
+        config = self.v3_config
+        character_index = self.character_index
+        if config is None or character_index is None:
+            raise RuntimeError("v3 retrieval was requested without a ready character index")
+        query_tokens = set(signals.tokens)
+        if not query_tokens:
+            return []
+
+        frequencies = {
+            token: sum(
+                token in self._tokens[document.knowledge_uuid]
+                for document in self.catalog.documents
+            )
+            for token in query_tokens
+        }
+        total = len(self.catalog.documents)
+        sparse_scores = {
+            document.knowledge_uuid: sum(
+                math.log((total + 1) / (frequencies[token] + 1)) + 1
+                for token in query_tokens & self._tokens[document.knowledge_uuid]
+            )
+            for document in self.catalog.documents
+            if query_tokens & self._tokens[document.knowledge_uuid]
+        }
+        sparse_order = sorted(
+            (
+                document
+                for document in self.catalog.documents
+                if document.knowledge_uuid in sparse_scores
+            ),
+            key=lambda item: (-sparse_scores[item.knowledge_uuid], str(item.knowledge_uuid)),
+        )[: config.source_candidate_limit]
+        sparse_scores = {
+            item.knowledge_uuid: sparse_scores[item.knowledge_uuid] for item in sparse_order
+        }
+
+        character_order_with_scores = character_index.rank(
+            signals.normalized_title,
+            score_floor=config.character_score_floor,
+        )[: config.source_candidate_limit]
+        character_scores = {
+            item.knowledge_uuid: score for item, score in character_order_with_scores
+        }
+        document_by_uuid = {
+            item.knowledge_uuid: item for item in self.catalog.documents
+        }
+        union_ids = set(sparse_scores) | set(character_scores)
+        if not union_ids:
+            return []
+        eligible = [document_by_uuid[item_uuid] for item_uuid in sorted(union_ids, key=str)]
+
+        query_vector = self.embedding.encode(signals.normalized_title)
+        dense_scores = {
+            document.knowledge_uuid: sum(
+                left * right
+                for left, right in zip(
+                    query_vector,
+                    self._vectors[document.knowledge_uuid],
+                    strict=True,
+                )
+            )
+            for document in eligible
+        }
+        if any(not math.isfinite(score) for score in dense_scores.values()):
+            raise ValueError("human knowledge dense retrieval produced a non-finite score")
+        dense_order = sorted(
+            eligible,
+            key=lambda item: (-dense_scores[item.knowledge_uuid], str(item.knowledge_uuid)),
+        )
+        sparse_ranks = {
+            item.knowledge_uuid: rank for rank, item in enumerate(sparse_order, start=1)
+        }
+        dense_ranks = {
+            item.knowledge_uuid: rank for rank, item in enumerate(dense_order, start=1)
+        }
+        character_ranks = {
+            item.knowledge_uuid: rank
+            for rank, (item, _) in enumerate(character_order_with_scores, start=1)
+        }
+
+        def fused_score(document: HumanKnowledgeDocument) -> float:
+            item_uuid = document.knowledge_uuid
+            score = config.dense_rrf_weight / (config.rrf_k + dense_ranks[item_uuid])
+            if sparse_rank := sparse_ranks.get(item_uuid):
+                score += config.sparse_rrf_weight / (config.rrf_k + sparse_rank)
+            if character_rank := character_ranks.get(item_uuid):
+                score += config.character_rrf_weight / (
+                    config.rrf_k + character_rank
+                )
+            return score
+
+        rrf_scores = {item.knowledge_uuid: fused_score(item) for item in eligible}
+        if any(not math.isfinite(score) for score in rrf_scores.values()):
+            raise ValueError("human knowledge fusion produced a non-finite score")
+        fused = sorted(
+            eligible,
+            key=lambda item: (-rrf_scores[item.knowledge_uuid], str(item.knowledge_uuid)),
+        )[:limit]
+        return [
+            HumanKnowledgeCandidate(
+                document=document,
+                sparse_rank=sparse_ranks.get(document.knowledge_uuid),
+                sparse_score=sparse_scores.get(document.knowledge_uuid),
+                dense_rank=dense_ranks[document.knowledge_uuid],
+                dense_score=dense_scores[document.knowledge_uuid],
+                character_rank=character_ranks.get(document.knowledge_uuid),
+                character_score=character_scores.get(document.knowledge_uuid),
+                rrf_rank=rank,
+                rrf_score=rrf_scores[document.knowledge_uuid],
+                matched_tokens=tuple(
+                    sorted(query_tokens & self._tokens[document.knowledge_uuid])
+                ),
+            )
+            for rank, document in enumerate(fused, start=1)
+        ]

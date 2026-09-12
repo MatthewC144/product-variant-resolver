@@ -81,6 +81,8 @@ class HumanKnowledgeCandidateRankDebug(StrictModel):
     sparse_score: float | None = None
     dense_rank: int | None = None
     dense_score: float | None = None
+    character_rank: int | None = None
+    character_score: float | None = None
     rrf_rank: int
     rrf_score: float
     matched_tokens: list[str] = Field(default_factory=list)
@@ -113,6 +115,18 @@ HumanKnowledgeCandidateDebug: TypeAlias = Annotated[
 ]
 
 
+class HumanKnowledgeCharacterIndexDebug(StrictModel):
+    version: str
+    document_count: int = Field(ge=1)
+    posting_count: int = Field(ge=1)
+    posting_entry_count: int = Field(ge=1)
+    gram_sizes: list[int]
+    modes: list[str]
+    window_token_radius: int = Field(ge=0)
+    stable_tie_break: str
+    allowed_fields: dict[str, list[str]]
+
+
 class DebugPayload(StrictModel):
     signals: ExtractedSignals
     candidates: list[CandidateDebug]
@@ -121,6 +135,9 @@ class DebugPayload(StrictModel):
     catalog_version: str
     human_catalog_version: str
     review_family_knowledge_version: str
+    human_knowledge_retrieval_artifact_version: str | None = None
+    human_knowledge_retrieval_artifact_sha256: str | None = None
+    human_knowledge_character_index: HumanKnowledgeCharacterIndexDebug | None = None
     model_versions: dict[str, str]
 
 

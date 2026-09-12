@@ -28,6 +28,30 @@ class SettingsTests(unittest.TestCase):
             Path("/tmp/custom-family-manifest.json"),
         )
 
+    def test_v3_uses_artifact_paths_instead_of_environment_floats(self) -> None:
+        with patch.dict(
+            "os.environ",
+            {
+                "PVR_HUMAN_KNOWLEDGE_RETRIEVAL_ARTIFACT": "/tmp/v3-artifact.json",
+                "PVR_HUMAN_KNOWLEDGE_DEVELOPMENT_PATH": "/tmp/development.json",
+                "PVR_HUMAN_KNOWLEDGE_DEVELOPMENT_MANIFEST_PATH": "/tmp/development-manifest.json",
+            },
+            clear=False,
+        ):
+            settings = Settings.from_env()
+
+        self.assertEqual(
+            settings.human_knowledge_retrieval_artifact_path,
+            Path("/tmp/v3-artifact.json"),
+        )
+        self.assertEqual(
+            settings.human_knowledge_development_path, Path("/tmp/development.json")
+        )
+        self.assertEqual(
+            settings.human_knowledge_development_manifest_path,
+            Path("/tmp/development-manifest.json"),
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

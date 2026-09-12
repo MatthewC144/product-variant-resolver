@@ -2,7 +2,7 @@
 
 > Mode: Lite / Lean Industrial
 >
-> Status: Confirmed; HRR-T1 complete and HRR-T2 not started
+> Status: Confirmed; HRR-T1–T2 complete and HRR-T3 not started
 
 ## Overview
 

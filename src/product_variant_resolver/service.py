@@ -5,27 +5,45 @@ import time
 import uuid
 
 from .calibration import (
-    CalibrationArtifact, DEFAULT_HEURISTIC_ARTIFACT, DEFAULT_RRF_ARTIFACT, LogisticCalibrator,
+    DEFAULT_HEURISTIC_ARTIFACT,
+    DEFAULT_RRF_ARTIFACT,
+    CalibrationArtifact,
+    LogisticCalibrator,
 )
 from .catalog import Catalog, load_catalog
 from .config import Settings
 from .human_knowledge import (
-    HumanKnowledgeCandidate, HumanKnowledgeCatalog, HumanKnowledgeRetriever,
-    HumanVariantKnowledgeDocument, ReviewFamilyKnowledgeDocument,
+    HumanKnowledgeCandidate,
+    HumanKnowledgeCatalog,
+    HumanKnowledgeRetriever,
+    HumanKnowledgeV3Config,
+    HumanVariantKnowledgeDocument,
+    ReviewFamilyKnowledgeDocument,
     load_human_knowledge_catalog,
+    load_human_knowledge_v3_config,
 )
 from .observability import Tracer, get_tracer, observed_stage
 from .policy import DecisionPolicy
 from .postgres_retrieval import SQLAlchemyPostgresRetrieverAdapter
 from .rerank import HeuristicPointwiseModel, PointwiseReranker
 from .retrieval import (
-    Candidate, CandidateRetrievalService, DenseRetriever, HashingEmbedding,
-    PostgresDenseRetriever, PostgresSparseRetriever, Retriever, SparseRetriever,
+    Candidate,
+    CandidateRetrievalService,
+    DenseRetriever,
+    HashingEmbedding,
+    PostgresDenseRetriever,
+    PostgresSparseRetriever,
+    Retriever,
+    SparseRetriever,
     StructuredRetriever,
 )
 from .schemas import (
-    CandidateDebug, DebugPayload, HumanKnowledgeCandidateDebug,
-    HumanVariantKnowledgeCandidateDebug, ResolveRequest, ResolveResponse,
+    CandidateDebug,
+    DebugPayload,
+    HumanKnowledgeCandidateDebug,
+    HumanVariantKnowledgeCandidateDebug,
+    ResolveRequest,
+    ResolveResponse,
     ReviewFamilyKnowledgeCandidateDebug,
 )
 from .signals import extract_signals
@@ -48,6 +66,7 @@ class ResolverService:
         sparse_retriever: Retriever | None = None,
         dense_retriever: Retriever | None = None,
         database_version: str = "offline-memory",
+        human_knowledge_v3_config: HumanKnowledgeV3Config | None = None,
     ) -> None:
         self.settings = settings
         self.catalog = catalog
@@ -63,7 +82,9 @@ class ResolverService:
             raise DependencyUnavailable("external reranker provider is configured but not loaded")
         embedding = HashingEmbedding(settings.dense_dimensions)
         self.human_catalog = human_catalog
-        self.human_knowledge = HumanKnowledgeRetriever(human_catalog, embedding)
+        self.human_knowledge = HumanKnowledgeRetriever(
+            human_catalog, embedding, human_knowledge_v3_config
+        )
         structured = StructuredRetriever(catalog)
         self.sparse_retriever = sparse_retriever or SparseRetriever(catalog)
         self.dense_retriever = dense_retriever or DenseRetriever(catalog, embedding)
@@ -89,8 +110,25 @@ class ResolverService:
             settings.review_family_knowledge_path,
             settings.review_family_knowledge_manifest_path,
         )
+        human_knowledge_v3_config = None
+        if settings.human_knowledge_retrieval_artifact_path is not None:
+            human_knowledge_v3_config = load_human_knowledge_v3_config(
+                settings.human_knowledge_retrieval_artifact_path,
+                human_catalog_path=settings.human_catalog_path,
+                review_family_path=settings.review_family_knowledge_path,
+                development_pack_path=settings.human_knowledge_development_path,
+                development_manifest_path=(
+                    settings.human_knowledge_development_manifest_path
+                ),
+                dense_dimensions=settings.dense_dimensions,
+            )
         if settings.backend == "offline":
-            return cls(settings, catalog, human_catalog)
+            return cls(
+                settings,
+                catalog,
+                human_catalog,
+                human_knowledge_v3_config=human_knowledge_v3_config,
+            )
         adapter: SQLAlchemyPostgresRetrieverAdapter | None = None
         try:
             adapter = SQLAlchemyPostgresRetrieverAdapter(settings.database_url)
@@ -110,6 +148,7 @@ class ResolverService:
             sparse_retriever=PostgresSparseRetriever(catalog, adapter),
             dense_retriever=PostgresDenseRetriever(catalog, adapter, embedding),
             database_version=catalog_state.database_version,
+            human_knowledge_v3_config=human_knowledge_v3_config,
         )
 
     def resolve(self, request: ResolveRequest, *, request_id: str | None = None) -> ResolveResponse:
@@ -130,9 +169,14 @@ class ResolverService:
                 with observed_stage(
                     self.tracer, "human_knowledge_retrieval", timings
                 ) as human_span:
-                    human_candidates = self.human_knowledge.retrieve(
-                        signals, self.settings.candidate_limit,
-                    )
+                    try:
+                        human_candidates = self.human_knowledge.retrieve(
+                            signals, self.settings.candidate_limit,
+                        )
+                    except Exception as error:  # noqa: BLE001 - dependency boundary
+                        raise DependencyUnavailable(
+                            "human knowledge retrieval is unavailable"
+                        ) from error
                     variant_candidate_count = sum(
                         isinstance(item.document, HumanVariantKnowledgeDocument)
                         for item in human_candidates
@@ -194,6 +238,15 @@ class ResolverService:
                 catalog_version=self.catalog.version,
                 human_catalog_version=self.human_catalog.version,
                 review_family_knowledge_version=self.human_catalog.review_family_version,
+                human_knowledge_retrieval_artifact_version=(
+                    self.human_knowledge.artifact_version
+                ),
+                human_knowledge_retrieval_artifact_sha256=(
+                    self.human_knowledge.artifact_sha256
+                ),
+                human_knowledge_character_index=(
+                    self.human_knowledge.character_index_metadata
+                ),
                 model_versions={
                     "sparse": self.sparse_retriever.version,
                     "dense": self.dense_retriever.version,
@@ -204,6 +257,11 @@ class ResolverService:
                     "reranker_ablation": self.reranker.model.version,
                     "calibrator": self.calibrator.artifact.artifact_version,
                     "human_knowledge": self.human_knowledge.version,
+                    "human_knowledge_character_index": (
+                        self.human_knowledge.character_index.metadata.version
+                        if self.human_knowledge.character_index
+                        else "disabled"
+                    ),
                 },
             )
         response = ResolveResponse(
@@ -268,6 +326,8 @@ def _human_candidate_debug(
             sparse_score=item.sparse_score,
             dense_rank=item.dense_rank,
             dense_score=item.dense_score,
+            character_rank=item.character_rank,
+            character_score=item.character_score,
             rrf_rank=item.rrf_rank,
             rrf_score=item.rrf_score,
             matched_tokens=list(item.matched_tokens),
@@ -286,6 +346,8 @@ def _human_candidate_debug(
             sparse_score=item.sparse_score,
             dense_rank=item.dense_rank,
             dense_score=item.dense_score,
+            character_rank=item.character_rank,
+            character_score=item.character_score,
             rrf_rank=item.rrf_rank,
             rrf_score=item.rrf_score,
             matched_tokens=list(item.matched_tokens),

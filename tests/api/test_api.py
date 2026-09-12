@@ -7,7 +7,12 @@ from fastapi.testclient import TestClient
 
 from product_variant_resolver.api import create_app
 from product_variant_resolver.config import Settings
+from product_variant_resolver.human_knowledge import (
+    HUMAN_KNOWLEDGE_CHARACTER_INDEX_VERSION,
+    HumanKnowledgeV3Config,
+)
 from product_variant_resolver.retrieval import RetrievalUnavailable
+from product_variant_resolver.service import ResolverService
 
 ROOT = Path(__file__).resolve().parents[2]
 FAMILY_PROJECTION = ROOT / "data/review_family_knowledge.json"
@@ -209,6 +214,77 @@ class ApiTests(unittest.TestCase):
             self.assertEqual(response.status_code, 503)
             self.assertIsNone(response.json().get("canonical_uuid"))
 
+    def test_invalid_v3_artifact_fails_readiness_without_identity(self):
+        with tempfile.TemporaryDirectory() as directory:
+            artifact_path = Path(directory) / "invalid-v3.json"
+            artifact_path.write_text(
+                json.dumps({"schema_version": "unsupported"}), encoding="utf-8"
+            )
+            settings = Settings(
+                catalog_path=ROOT / "data/catalog.json",
+                human_catalog_path=ROOT / "data/human_backed_catalog.json",
+                review_family_knowledge_path=FAMILY_PROJECTION,
+                review_family_knowledge_manifest_path=FAMILY_MANIFEST,
+                human_knowledge_retrieval_artifact_path=artifact_path,
+                ui_path=ROOT / "ui",
+            )
+            client = TestClient(create_app(settings))
+            health = client.get("/health")
+            self.assertEqual(health.status_code, 503)
+            self.assertFalse(health.json()["dependencies"]["human_knowledge_index"]["ready"])
+            response = client.post("/resolve", json={"title": "Protn Sagx"})
+            self.assertEqual(response.status_code, 503)
+            self.assertIsNone(response.json().get("canonical_uuid"))
+
+    def test_v3_health_and_api_publish_typed_character_evidence(self):
+        base_service = self.client.app.state.service
+        config = HumanKnowledgeV3Config(
+            artifact_version="human-knowledge-retrieval-v3-test-fixture",
+            artifact_sha256="b" * 64,
+            character_score_floor=0.25,
+            character_rrf_weight=1.0,
+            sparse_rrf_weight=1.0,
+            dense_rrf_weight=1.0,
+            dense_dimensions=192,
+            rrf_k=60,
+            source_candidate_limit=25,
+            index_version=HUMAN_KNOWLEDGE_CHARACTER_INDEX_VERSION,
+        )
+        service = ResolverService(
+            base_service.settings,
+            base_service.catalog,
+            base_service.human_catalog,
+            human_knowledge_v3_config=config,
+        )
+        client = TestClient(
+            create_app(base_service.settings, service_factory=lambda _settings: service)
+        )
+        health = client.get("/health")
+        self.assertEqual(health.status_code, 200)
+        dependency = health.json()["dependencies"]["human_knowledge_index"]
+        self.assertEqual(dependency["version"], "human-knowledge-hybrid-v3")
+        self.assertIn(HUMAN_KNOWLEDGE_CHARACTER_INDEX_VERSION, dependency["detail"])
+        self.assertIn(config.artifact_version, dependency["detail"])
+
+        body = client.post(
+            "/resolve",
+            json={"title": "Protn Sagx", "debug": True, "debug_candidate_limit": 5},
+        ).json()
+        family = next(
+            candidate
+            for candidate in body["debug"]["human_knowledge_candidates"]
+            if candidate["casting"] == "Proton Saga"
+        )
+        self.assertIsNone(family["sparse_rank"])
+        self.assertEqual(family["character_rank"], 1)
+        self.assertGreater(family["character_score"], 0.7)
+        self.assertEqual(
+            body["debug"]["human_knowledge_retrieval_artifact_sha256"], "b" * 64
+        )
+        self.assertEqual(
+            body["debug"]["human_knowledge_character_index"]["document_count"], 142
+        )
+
     def test_discriminated_family_debug_candidate_remains_noncanonical(self):
         response = self.client.post(
             "/resolve",
@@ -289,6 +365,18 @@ class ApiTests(unittest.TestCase):
             {"provisional_variant", "review_family"},
         )
         self.assertEqual(len(items["oneOf"]), 2)
+        for schema_name in (
+            "HumanVariantKnowledgeCandidateDebug",
+            "ReviewFamilyKnowledgeCandidateDebug",
+        ):
+            rank_properties = schemas[schema_name]["properties"]
+            self.assertIn("character_rank", rank_properties)
+            self.assertIn("character_score", rank_properties)
+        debug_properties = schemas["DebugPayload"]["properties"]
+        self.assertIn("human_knowledge_character_index", debug_properties)
+        self.assertIn(
+            "human_knowledge_retrieval_artifact_sha256", debug_properties
+        )
 
     def test_postgres_backend_without_database_fails_readiness(self):
         settings = Settings(
@@ -317,6 +405,33 @@ class ApiTests(unittest.TestCase):
         response = client.post("/resolve", json={"title": "Nomad"})
         self.assertEqual(response.status_code, 503)
         self.assertEqual(response.json()["error"]["code"], "dependency_unavailable")
+
+    def test_runtime_character_index_failure_maps_to_dependency_unavailable(self):
+        class FailingHumanKnowledge:
+            version = "human-knowledge-hybrid-v3"
+            character_index = None
+            artifact_version = "human-knowledge-retrieval-v3-test-fixture"
+            artifact_sha256 = "c" * 64
+
+            def retrieve(self, signals, limit):
+                raise RuntimeError("character index unavailable")
+
+        settings = Settings(
+            catalog_path=ROOT / "data/catalog.json",
+            human_catalog_path=ROOT / "data/human_backed_catalog.json",
+            review_family_knowledge_path=FAMILY_PROJECTION,
+            review_family_knowledge_manifest_path=FAMILY_MANIFEST,
+            ui_path=ROOT / "ui",
+        )
+        service = ResolverService.from_settings(settings)
+        service.human_knowledge = FailingHumanKnowledge()  # type: ignore[assignment]
+        client = TestClient(
+            create_app(settings, service_factory=lambda _settings: service)
+        )
+        response = client.post("/resolve", json={"title": "Protn Sagx"})
+        self.assertEqual(response.status_code, 503)
+        self.assertEqual(response.json()["error"]["code"], "dependency_unavailable")
+        self.assertIsNone(response.json().get("canonical_uuid"))
 
 
 if __name__ == "__main__":

@@ -780,6 +780,8 @@
 - **Most likely failure:** A low similarity floor improves typo recall but can violate unrelated or
   held-family safety; a high floor can recreate the original miss. Safety gates filter candidates
   before quality objectives, and no qualifying configuration means STOP rather than grid expansion.
-- **Impact:** The proposal adds no code or data yet. If confirmed, six tasks freeze development
-  data, implement and select v3, freeze it before a new output-blind v2 holdout, require owner labels,
-  run one final evaluation, and decide T49 only from a complete PASS.
+- **Impact:** HRR-T1 has frozen the development contract and HRR-T2 has implemented the experimental
+  mechanics behind a checksum-bound artifact opt-in. V2 remains active because no configuration has
+  been selected and no runtime artifact exists. HRR-T3 must evaluate exactly the frozen 21 options,
+  publish every result, and either freeze one qualified artifact or stop with FAIL before any new
+  output-blind v2 holdout is authored.
