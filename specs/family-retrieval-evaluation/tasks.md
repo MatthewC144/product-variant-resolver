@@ -2,7 +2,7 @@
 
 > Mode: Lite / Lean Industrial
 >
-> Status: Confirmed; T48.1 complete, T48.2 next
+> Status: Confirmed; T48.1–T48.2 complete, project-owner confirmation next
 
 ## Task order
 
@@ -25,14 +25,15 @@ Acceptance:
 
 ### T48.2 — Author and freeze the output-blind query pack `[doc_curator/qa]`
 
-- [ ] Write exactly 84 two-style positive cases across all 42 accepted families. _(→FRE-R2–R5)_
-- [ ] Add 4 merge, 7 hold, and 10 unrelated controls without viewing retrieval output. _(→FRE-R3,FRE-R6)_
-- [ ] Freeze the proposed query pack and authorship manifest before scoring. _(→FRE-R1–R3,FRE-R8–R9)_
+- [x] Write exactly 84 two-style positive cases across all 42 accepted families. _(→FRE-R2–R5)_
+- [x] Add 4 merge, 7 hold, and 10 unrelated controls without viewing retrieval output. _(→FRE-R3,FRE-R6)_
+- [x] Freeze the proposed query pack and authorship manifest before scoring. _(→FRE-R1–R3,FRE-R8–R9)_
 
 Files:
 
 - `data/evaluation/family-retrieval-v1/query-pack.json`
 - `data/evaluation/family-retrieval-v1/query-pack-manifest.json`
+- `scripts/author_family_retrieval_query_pack.py`
 - `docs/evidence/family-retrieval-query-pack-t48.md`
 
 Acceptance:

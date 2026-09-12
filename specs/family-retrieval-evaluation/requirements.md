@@ -4,7 +4,7 @@
 >
 > Phase: Build
 >
-> Status: Confirmed; T48.1 complete
+> Status: Confirmed; T48.1–T48.2 complete
 >
 > Proposed benchmark: `family-retrieval-holdout-v1`
 

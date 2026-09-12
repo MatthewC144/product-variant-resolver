@@ -1,0 +1,75 @@
+{
+  "authorship_policy": {
+    "method": "independently_composed_synthetic_challenge-v1",
+    "prohibited_query_sources": [
+      "review_family_knowledge.searchable_text",
+      "fandom_2025_staging_labels",
+      "human_labeled_names.query_text"
+    ],
+    "retriever_output_viewed": false
+  },
+  "benchmark_version": "family-retrieval-holdout-v1",
+  "case_counts": {
+    "hold_control": 7,
+    "merge_control": 4,
+    "positive_family": 84,
+    "unrelated_control": 10
+  },
+  "challenge_style_counts": {
+    "held_identity": 7,
+    "lexical_variation": 42,
+    "marketplace_noise": 42,
+    "merge_existing_family": 4,
+    "no_overlap": 10
+  },
+  "eligible_for": [
+    "human_knowledge_retrieval_evaluation"
+  ],
+  "excluded_from": [
+    "calibration_training",
+    "canonical_candidate_ranking",
+    "canonical_confidence",
+    "canonical_variant_response",
+    "postgresql_ingestion",
+    "production_accuracy_claim",
+    "query_rewriting",
+    "release_variant_ground_truth",
+    "retriever_tuning",
+    "threshold_selection"
+  ],
+  "positive_family_group_count": 42,
+  "query_pack_file": "query-pack.json",
+  "query_pack_sha256": "26e244c04325f7909fb222b6cdd32ee2301253db17f0b8b97cf2f63ac4358733",
+  "query_pack_version": "family-retrieval-query-pack-v1",
+  "schema_version": "pvr-family-retrieval-query-pack-manifest-v1",
+  "single_token_family_ids": [
+    "fandom-family-440103f8ef3c6b70",
+    "fandom-family-4d2de6db3d5bba63",
+    "fandom-family-8a07157f2af2ddd5",
+    "fandom-family-d816204cf649a0c0"
+  ],
+  "split_counts": {
+    "dev": 0,
+    "test": 105,
+    "train": 0
+  },
+  "status": "frozen_pre_score",
+  "system_under_test": {
+    "candidate_limit": 5,
+    "dense_dimensions": 192,
+    "dense_provider": "hashing-v1",
+    "dense_source_file": "retrieval.py",
+    "dense_source_sha256": "2ef9737d319b7d3ca6bdfd540e58147365eba4e2b6b4d47f1484fab3025f06c1",
+    "human_catalog_sha256": "d29b69cde8099cb229136a73b893ca99b6313d9652ead5ff4aea48c20242e74f",
+    "human_catalog_version": "human-backed-catalog-v1",
+    "normalizer_source_file": "identity.py",
+    "normalizer_source_sha256": "fac993facdf681ad568b8810dc1957f6d43e1e359e56ac8c230080b47fda25d3",
+    "normalizer_version": "identity.normalize_text-v1",
+    "retriever_source_file": "human_knowledge.py",
+    "retriever_source_sha256": "5bf582b921b62945b7e4405beb98822abd876b870bdb5267854764c2e1ab2982",
+    "retriever_version": "human-knowledge-hybrid-v2",
+    "review_family_knowledge_sha256": "8615cbb99b453673599e1f9baf54f6900314d7ba64e53a31ea7891c71810b9d7",
+    "review_family_knowledge_version": "review-family-knowledge-fandom-2025-r790665-v1",
+    "rrf_k": 60
+  }
+}

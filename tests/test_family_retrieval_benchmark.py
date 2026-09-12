@@ -12,12 +12,15 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "scripts/build_family_retrieval_benchmark.py"
+AUTHOR_SCRIPT = ROOT / "scripts/author_family_retrieval_query_pack.py"
 REGISTRY = ROOT / "data/review_family_registry.json"
 REGISTRY_MANIFEST = ROOT / "data/review_family_registry_manifest.json"
 PROJECTION = ROOT / "data/review_family_knowledge.json"
 PROJECTION_MANIFEST = ROOT / "data/review_family_knowledge_manifest.json"
 HUMAN = ROOT / "data/human_backed_catalog.json"
 HUMAN_MANIFEST = ROOT / "data/human_backed_catalog_manifest.json"
+QUERY_PACK = ROOT / "data/evaluation/family-retrieval-v1/query-pack.json"
+QUERY_PACK_MANIFEST = ROOT / "data/evaluation/family-retrieval-v1/query-pack-manifest.json"
 
 
 def _load_module():
@@ -279,6 +282,59 @@ class FamilyRetrievalBenchmarkTests(unittest.TestCase):
         self.assertIn("retriever_tuning", benchmark["excluded_from"])
         self.assertEqual(benchmark["system_under_test"]["candidate_limit"], 5)
         self.assertEqual(benchmark["system_under_test"]["rrf_k"], 60)
+
+    def test_actual_query_pack_is_complete_output_blind_and_checksum_frozen(self) -> None:
+        query_pack = json.loads(QUERY_PACK.read_text(encoding="utf-8"))
+        manifest = json.loads(QUERY_PACK_MANIFEST.read_text(encoding="utf-8"))
+        accounting = self.module.validate_query_pack(
+            query_pack,
+            registry=self.registry,
+            projection=self.projection,
+            human=self.human,
+            system_under_test=self.sut,
+        )
+        expected_manifest = self.module.expected_query_pack_manifest(
+            QUERY_PACK, query_pack, accounting
+        )
+        self.assertEqual(manifest, expected_manifest)
+        self.assertEqual(len(query_pack["cases"]), 105)
+        self.assertTrue(
+            all(item["retriever_output_viewed"] is False for item in query_pack["cases"])
+        )
+        forbidden_output_fields = {
+            "candidates",
+            "dense_rank",
+            "dense_score",
+            "expected",
+            "retrieval_output",
+            "rrf_rank",
+            "rrf_score",
+            "sparse_rank",
+            "sparse_score",
+        }
+        self.assertTrue(
+            all(not (set(item) & forbidden_output_fields) for item in query_pack["cases"])
+        )
+
+    def test_actual_query_pack_authoring_and_freeze_checks_are_non_mutating(self) -> None:
+        before = {
+            path: hashlib.sha256(path.read_bytes()).hexdigest()
+            for path in (QUERY_PACK, QUERY_PACK_MANIFEST)
+        }
+        for command in (
+            ["python3", str(AUTHOR_SCRIPT), "--check"],
+            ["python3", str(SCRIPT), "--check-query-pack"],
+        ):
+            completed = subprocess.run(
+                command,
+                cwd=ROOT,
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(completed.returncode, 0, completed.stderr)
+        after = {path: hashlib.sha256(path.read_bytes()).hexdigest() for path in before}
+        self.assertEqual(before, after)
 
     def test_query_pack_freeze_and_benchmark_check_are_byte_reproducible(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

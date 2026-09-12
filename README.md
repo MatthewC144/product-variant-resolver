@@ -375,8 +375,10 @@ accepted family plus merge, hold, and unrelated controls. Metrics and PASS thres
 precommitted, and a failure must remain visible rather than tuning on the same holdout. T48.1 now
 implements the fail-closed builder, source/code checksum freeze, separate query-pack freeze/check,
 owner-decision validation, deterministic benchmark build/check, and negative tests. The formal 105
-queries are intentionally not present yet and no T48 accuracy result exists; output-blind query
-authoring is T48.2.
+queries are now independently authored and checksum-frozen in T48.2: 42 marketplace-noise pairs,
+42 lexical-variation pairs, 4 merge controls, 7 held-identity controls, and 10 zero-overlap controls.
+No candidate, rank, label approval, benchmark, or T48 accuracy result exists yet. The next gate is
+project-owner review of every frozen case before labels can be materialized in T48.3.
 
 ## Docker and PostgreSQL status
 

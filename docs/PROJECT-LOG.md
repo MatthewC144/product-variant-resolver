@@ -1,5 +1,73 @@
 # Project Log
 
+## 2026-09-12 — T48.2 freezes 105 independent queries without looking at retrieval output
+
+### What was executed and what problem it solves
+
+T48.2 created the first official evaluation questions for the 42 family documents added in T47.
+The earlier 42/42 smoke test asked the index for each family's exact own name, which proves loading
+but not robustness. This task replaces that circular test shape with a separately authored,
+one-time holdout: 84 positive queries, 4 merge controls, 7 held-identity controls, and 10 unrelated
+zero-overlap controls. Every case is fixed to the test split.
+
+The work was deliberately performed without calling the Human Knowledge retriever, resolve API,
+debug UI, or any evaluation runner. Only identity references, existing source files, and the T48.1
+static validator were read. Consequently, no candidate, rank, score, or PASS/FAIL observation could
+influence how a query was worded. The resulting query pack was then checksum-frozen before labels.
+
+### Code and data changes, reasons, and method selection
+
+`scripts/author_family_retrieval_query_pack.py` preserves the hand-authored query wording in a
+deterministic source map keyed by existing review IDs. This extra source file was chosen instead of
+manually maintaining a 77 KB generated JSON document: it makes missing IDs, ordering mistakes, and
+accidental text edits reproducibly detectable. It does not generate wording from a template and
+does not import or instantiate the retriever. The script first verifies its 42/4/7 keys exactly
+match the registry, assembles allowlisted case fields, asks the T48.1 validator to reject invalid
+content, and only then writes atomically. Its `--check` mode is read-only.
+
+The 42 marketplace cases retain recognizable model identity among realistic condition, card,
+colour, year, series, auction, and seller words. Their purpose is to test whether ranking survives
+extra marketplace language. The 42 lexical cases were individually composed with abbreviations,
+misspellings, number-word substitutions, punctuation removal, or spacing changes and are required
+to break the full normalized casting phrase. This two-style decision avoids reporting success on
+easy exact-name wrappers while hiding spelling weaknesses.
+
+Bogzilla, Crescendo, Draftnator, and Haulerback are single-token family names. Their lexical cases
+use `bogzila`, `crescndo`, `draftn8r`, and `haulerbak`; this intentionally may remove every shared
+identity token. The current retriever may fail them, but simplifying them after anticipating failure
+would bias the holdout. Merge queries express four already accepted links to human-backed castings.
+Hold queries express seven identities that must not become review-family documents. Ten invented
+single-token strings were selected only after the validator proved zero overlap with all searchable
+tokens in the 142-document corpus.
+
+`query-pack.json` is the official 105-case artifact. `query-pack-manifest.json` freezes its SHA-256
+`26e244c04325f7909fb222b6cdd32ee2301253db17f0b8b97cf2f63ac4358733`, exact class/style/group
+accounting, authoring declaration, test-only exclusions, catalog/projection inputs, and source-code
+checksums. The manifest was built with `--freeze-query-pack` and reproduced with
+`--check-query-pack`; neither path reads labels or calls retrieval.
+
+Two tests were added to the T48.1 suite. One loads the actual pack and recomputes every validation
+and manifest field while asserting that output/rank/expected-label fields do not exist. The other
+runs the authoring and manifest check commands and proves their input hashes do not change. The
+human-readable evidence file lists all positive and governance-control queries so the owner can
+review semantics without seeing retrieval output.
+
+### Verification, limitations, and next step
+
+Focused validation passes 8/8. It confirms exact 105/84/4/7/10 counts, 42 complete two-style groups,
+all control identities, four single-token challenges, sorted unique IDs and queries, broken lexical
+phrases, zero unrelated overlap, frozen versions/checksums, absence of retrieval-output fields, and
+byte-reproducible authoring/manifest checks. The complete repository suite passes 192/192 in 2.250
+seconds on the final tree. Python compilation, the configured 100-character code-line check, and
+`git diff --check` pass. Ruff is unavailable on this host, so no Ruff result is claimed. The suite's
+only message is the known non-failing Starlette legacy-`httpx` environment warning.
+
+Static rules can prove structure and obvious copying, not whether each noisy query is a fair human
+expression of its referenced family. That semantic judgment remains intentionally separate. The
+next action is project-owner confirmation of the frozen 105 query/reference pairs. T48.3 cannot
+create `owner-decisions.json` or a benchmark until that approval binds the exact hash above, and
+T48.4 cannot run retrieval until T48.3 succeeds.
+
 ## 2026-09-12 — T48.1 builds the evaluation guardrails before any official query is written
 
 ### What was executed and what problem it solves

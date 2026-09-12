@@ -1,0 +1,2154 @@
+{
+  "authorship_policy": {
+    "method": "independently_composed_synthetic_challenge-v1",
+    "prohibited_query_sources": [
+      "review_family_knowledge.searchable_text",
+      "fandom_2025_staging_labels",
+      "human_labeled_names.query_text"
+    ],
+    "retriever_output_viewed": false
+  },
+  "benchmark_version": "family-retrieval-holdout-v1",
+  "cases": [
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-hold-089ff8645b5f2de7",
+      "case_type": "hold_control",
+      "casting_group_id": "hold:fandom-family-089ff8645b5f2de7",
+      "challenge_style": "held_identity",
+      "noise_tags": [
+        "identity_ambiguity",
+        "seller_wrapper"
+      ],
+      "query_text": "55 Chevy orange loose mystery casting",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "hold_control",
+        "review_family_id": "fandom-family-089ff8645b5f2de7"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-hold-0e07a7139454d2e8",
+      "case_type": "hold_control",
+      "casting_group_id": "hold:fandom-family-0e07a7139454d2e8",
+      "challenge_style": "held_identity",
+      "noise_tags": [
+        "identity_ambiguity",
+        "spacing"
+      ],
+      "query_text": "BNR 32 Nissan Skyline GTR red collector car",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "hold_control",
+        "review_family_id": "fandom-family-0e07a7139454d2e8"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-hold-369b0be5855c0a1c",
+      "case_type": "hold_control",
+      "casting_group_id": "hold:fandom-family-369b0be5855c0a1c",
+      "challenge_style": "held_identity",
+      "noise_tags": [
+        "condition_noise",
+        "identity_ambiguity"
+      ],
+      "query_text": "LBWK Nissan Skyline 2000 GTR blue short card",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "hold_control",
+        "review_family_id": "fandom-family-369b0be5855c0a1c"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-hold-4f9ee66afdfe8cac",
+      "case_type": "hold_control",
+      "casting_group_id": "hold:fandom-family-4f9ee66afdfe8cac",
+      "challenge_style": "held_identity",
+      "noise_tags": [
+        "identity_ambiguity",
+        "marketplace_wrapper"
+      ],
+      "query_text": "Power Wheels Dune Racer orange diecast listing",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "hold_control",
+        "review_family_id": "fandom-family-4f9ee66afdfe8cac"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-hold-8403e21a29c27eab",
+      "case_type": "hold_control",
+      "casting_group_id": "hold:fandom-family-8403e21a29c27eab",
+      "challenge_style": "held_identity",
+      "noise_tags": [
+        "identity_ambiguity",
+        "series_noise"
+      ],
+      "query_text": "Mario Standard Kart loose Hot Wheels vehicle",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "hold_control",
+        "review_family_id": "fandom-family-8403e21a29c27eab"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-hold-8d24c626a51b1804",
+      "case_type": "hold_control",
+      "casting_group_id": "hold:fandom-family-8d24c626a51b1804",
+      "challenge_style": "held_identity",
+      "noise_tags": [
+        "condition_noise",
+        "identity_ambiguity"
+      ],
+      "query_text": "Batman Robin Batmobile black red carded car",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "hold_control",
+        "review_family_id": "fandom-family-8d24c626a51b1804"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-hold-c639dc688e21d33b",
+      "case_type": "hold_control",
+      "casting_group_id": "hold:fandom-family-c639dc688e21d33b",
+      "challenge_style": "held_identity",
+      "noise_tags": [
+        "identity_ambiguity",
+        "year_noise"
+      ],
+      "query_text": "Mazda Miata MX5 roadster 2025 diecast",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "hold_control",
+        "review_family_id": "fandom-family-c639dc688e21d33b"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-merge-04829924a36830a6",
+      "case_type": "merge_control",
+      "casting_group_id": "merge:fandom-family-04829924a36830a6",
+      "challenge_style": "merge_existing_family",
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_text": "Purple Passion hot rod dark blue sealed toy",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "merge_control",
+        "source_family_review_id": "fandom-family-04829924a36830a6"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-merge-6062af64f2e5a66c",
+      "case_type": "merge_control",
+      "casting_group_id": "merge:fandom-family-6062af64f2e5a66c",
+      "challenge_style": "merge_existing_family",
+      "noise_tags": [
+        "condition_noise",
+        "spacing"
+      ],
+      "query_text": "Tesla Plaid Model S red Hot Wheels loose",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "merge_control",
+        "source_family_review_id": "fandom-family-6062af64f2e5a66c"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-merge-aa499ddb791c6991",
+      "case_type": "merge_control",
+      "casting_group_id": "merge:fandom-family-aa499ddb791c6991",
+      "challenge_style": "merge_existing_family",
+      "noise_tags": [
+        "marketplace_wrapper",
+        "spacing"
+      ],
+      "query_text": "67 C10 Chevy pickup orange collector lot",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "merge_control",
+        "source_family_review_id": "fandom-family-aa499ddb791c6991"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-merge-b60363832032d566",
+      "case_type": "merge_control",
+      "casting_group_id": "merge:fandom-family-b60363832032d566",
+      "challenge_style": "merge_existing_family",
+      "noise_tags": [
+        "condition_noise",
+        "seller_wrapper"
+      ],
+      "query_text": "Subaru BRZ blue carded import diecast",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "merge_control",
+        "source_family_review_id": "fandom-family-b60363832032d566"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-0573861db69878eb-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-0573861db69878eb",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "misspelling",
+        "marketplace_wrapper"
+      ],
+      "query_text": "max steal racer on short card",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-0573861db69878eb"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-0573861db69878eb-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-0573861db69878eb",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "seller_wrapper"
+      ],
+      "query_text": "Max Steel blue loose fantasy car seller lot",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-0573861db69878eb"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-08cb7fadb9fed12d-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-08cb7fadb9fed12d",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "abbreviation",
+        "misspelling",
+        "seller_wrapper"
+      ],
+      "query_text": "HW 88 jeep wagoner loose truck",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-08cb7fadb9fed12d"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-08cb7fadb9fed12d-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-08cb7fadb9fed12d",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper",
+        "year_noise"
+      ],
+      "query_text": "2025 Hot Wheels 1988 Jeep Wagoneer red sealed card",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-08cb7fadb9fed12d"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-1555c05ceeb491cb-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-1555c05ceeb491cb",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "misspelling",
+        "spacing"
+      ],
+      "query_text": "94 audi avnt rs 2 wagon diecast",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-1555c05ceeb491cb"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-1555c05ceeb491cb-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-1555c05ceeb491cb",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_text": "Hot Wheels '94 Audi Avant RS2 silver mint on card",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-1555c05ceeb491cb"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-174efb9bce3a441e-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-174efb9bce3a441e",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "abbreviation",
+        "misspelling"
+      ],
+      "query_text": "lambo huracan sterato off road model",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-174efb9bce3a441e"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-174efb9bce3a441e-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-174efb9bce3a441e",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "seller_wrapper"
+      ],
+      "query_text": "Lamborghini Huracán Sterrato orange unopened collector car",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-174efb9bce3a441e"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-18e55e067083dbd1-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-18e55e067083dbd1",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "misspelling",
+        "seller_wrapper"
+      ],
+      "query_text": "87 audi quatro rally car loose",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-18e55e067083dbd1"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-18e55e067083dbd1-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-18e55e067083dbd1",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "series_noise",
+        "year_noise"
+      ],
+      "query_text": "2025 '87 Audi quattro blue Hot Wheels mainline sealed",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-18e55e067083dbd1"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-1b2a4227b4e5decd-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-1b2a4227b4e5decd",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_text": "mercedes benz five hundred e sedan",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-1b2a4227b4e5decd"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-1b2a4227b4e5decd-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-1b2a4227b4e5decd",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "marketplace_wrapper",
+        "seller_wrapper"
+      ],
+      "query_text": "Mercedes-Benz 500 E black premium style diecast lot",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-1b2a4227b4e5decd"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-2357e7eb6b4e62b8-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-2357e7eb6b4e62b8",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "spacing",
+        "seller_wrapper"
+      ],
+      "query_text": "monsterhi ghoulmobile toy car",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-2357e7eb6b4e62b8"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-2357e7eb6b4e62b8-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-2357e7eb6b4e62b8",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_text": "Monster High Ghoul Mobile pink carded fantasy vehicle",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-2357e7eb6b4e62b8"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-356e4ef63275a661-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-356e4ef63275a661",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_text": "fish n chipped novelty car loose",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-356e4ef63275a661"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-356e4ef63275a661-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-356e4ef63275a661",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "seller_wrapper"
+      ],
+      "query_text": "Fish'd & Chip'd green Hot Wheels sealed seller listing",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-356e4ef63275a661"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-39b248ce2f3723cd-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-39b248ce2f3723cd",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_text": "twinmill gen e ev model",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-39b248ce2f3723cd"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-39b248ce2f3723cd-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-39b248ce2f3723cd",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_text": "Twin Mill Gen-E silver carded electric concept car",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-39b248ce2f3723cd"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-3c9f928f085efaae-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-3c9f928f085efaae",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "misspelling",
+        "seller_wrapper"
+      ],
+      "query_text": "kik kart fantasy racer",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-3c9f928f085efaae"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-3c9f928f085efaae-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-3c9f928f085efaae",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_text": "Kick Kart yellow Hot Wheels new in package",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-3c9f928f085efaae"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-440103f8ef3c6b70-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-440103f8ef3c6b70",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "misspelling",
+        "marketplace_wrapper"
+      ],
+      "query_text": "haulerbak truck model",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-440103f8ef3c6b70"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-440103f8ef3c6b70-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-440103f8ef3c6b70",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "seller_wrapper"
+      ],
+      "query_text": "Haulerback purple short card mint collector listing",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-440103f8ef3c6b70"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-45af5b93f3f6650f-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-45af5b93f3f6650f",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "abbreviation",
+        "misspelling"
+      ],
+      "query_text": "custom caddy fleetwd lowrider",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-45af5b93f3f6650f"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-45af5b93f3f6650f-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-45af5b93f3f6650f",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "seller_wrapper"
+      ],
+      "query_text": "Custom Cadillac Fleetwood gold loose Hot Wheels auction",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-45af5b93f3f6650f"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-4bf5341a133d433b-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-4bf5341a133d433b",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "abbreviation",
+        "marketplace_wrapper"
+      ],
+      "query_text": "hirohata mercury custom loose",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-4bf5341a133d433b"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-4bf5341a133d433b-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-4bf5341a133d433b",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "seller_wrapper"
+      ],
+      "query_text": "Hirohata Merc teal carded custom car collector sale",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-4bf5341a133d433b"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-4d00e96d12341b4d-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-4d00e96d12341b4d",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "misspelling",
+        "seller_wrapper"
+      ],
+      "query_text": "nerv hammer fantasy car",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-4d00e96d12341b4d"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-4d00e96d12341b4d-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-4d00e96d12341b4d",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_text": "Nerve Hammer orange Hot Wheels blister pack listing",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-4d00e96d12341b4d"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-4d2de6db3d5bba63-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-4d2de6db3d5bba63",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "misspelling",
+        "marketplace_wrapper"
+      ],
+      "query_text": "crescndo fantasy model",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-4d2de6db3d5bba63"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-4d2de6db3d5bba63-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-4d2de6db3d5bba63",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "seller_wrapper"
+      ],
+      "query_text": "Crescendo red music themed car sealed on card",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-4d2de6db3d5bba63"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-526b697937fde7cc-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-526b697937fde7cc",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "spacing",
+        "seller_wrapper"
+      ],
+      "query_text": "eighties elcamino ute loose",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-526b697937fde7cc"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-526b697937fde7cc-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-526b697937fde7cc",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper",
+        "year_noise"
+      ],
+      "query_text": "Hot Wheels '80 El Camino black 2025 carded pickup",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-526b697937fde7cc"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-57cf5c31afbadc57-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-57cf5c31afbadc57",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "misspelling",
+        "marketplace_wrapper"
+      ],
+      "query_text": "vanstr custom van toy",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-57cf5c31afbadc57"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-57cf5c31afbadc57-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-57cf5c31afbadc57",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "seller_wrapper"
+      ],
+      "query_text": "The Vanster green Hot Wheels unopened van listing",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-57cf5c31afbadc57"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-59e5682e50af879e-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-59e5682e50af879e",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "misspelling",
+        "seller_wrapper"
+      ],
+      "query_text": "protn saga malaysia sedan",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-59e5682e50af879e"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-59e5682e50af879e-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-59e5682e50af879e",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper",
+        "year_noise"
+      ],
+      "query_text": "Proton Saga white Hot Wheels 2025 mint card",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-59e5682e50af879e"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-7e221ec8ecd02815-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-7e221ec8ecd02815",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_text": "x34 land speeder sci fi vehicle",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-7e221ec8ecd02815"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-7e221ec8ecd02815-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-7e221ec8ecd02815",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "series_noise"
+      ],
+      "query_text": "X-34 Landspeeder tan Star Wars Hot Wheels carded",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-7e221ec8ecd02815"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-85226ac5ac0d3f77-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-85226ac5ac0d3f77",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "spacing",
+        "marketplace_wrapper"
+      ],
+      "query_text": "fiat five hundred e mini ev",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-85226ac5ac0d3f77"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-85226ac5ac0d3f77-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-85226ac5ac0d3f77",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "seller_wrapper"
+      ],
+      "query_text": "Fiat 500e yellow electric city car sealed blister",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-85226ac5ac0d3f77"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-85e407525ac7bf41-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-85e407525ac7bf41",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "misspelling",
+        "marketplace_wrapper"
+      ],
+      "query_text": "small block fantasy coupe",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-85e407525ac7bf41"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-85e407525ac7bf41-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-85e407525ac7bf41",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "seller_wrapper"
+      ],
+      "query_text": "Small Bloc blue Hot Wheels short card seller lot",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-85e407525ac7bf41"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-89930c384be2e8bf-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-89930c384be2e8bf",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_text": "kowloon hyper van street model",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-89930c384be2e8bf"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-89930c384be2e8bf-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-89930c384be2e8bf",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_text": "Kowloon'd Hypervan red carded Hong Kong van",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-89930c384be2e8bf"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-8a07157f2af2ddd5-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-8a07157f2af2ddd5",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "misspelling",
+        "marketplace_wrapper"
+      ],
+      "query_text": "bogzila creature vehicle",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-8a07157f2af2ddd5"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-8a07157f2af2ddd5-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-8a07157f2af2ddd5",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "seller_wrapper"
+      ],
+      "query_text": "Bogzilla green monster fantasy car unopened blister",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-8a07157f2af2ddd5"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-8cce01fa7d44112a-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-8cce01fa7d44112a",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "spacing",
+        "seller_wrapper"
+      ],
+      "query_text": "deora 3 surf truck",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-8cce01fa7d44112a"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-8cce01fa7d44112a-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-8cce01fa7d44112a",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_text": "Deora III purple Hot Wheels new on short card",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-8cce01fa7d44112a"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-9069156ec909a92e-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-9069156ec909a92e",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "abbreviation",
+        "marketplace_wrapper"
+      ],
+      "query_text": "donut drift pastry racer",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-9069156ec909a92e"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-9069156ec909a92e-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-9069156ec909a92e",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "seller_wrapper"
+      ],
+      "query_text": "Donut Drifter pink bakery car sealed collector item",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-9069156ec909a92e"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-99200212d1475ef2-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-99200212d1475ef2",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "misspelling",
+        "spacing"
+      ],
+      "query_text": "ram fifteen hundred rebl truck",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-99200212d1475ef2"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-99200212d1475ef2-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-99200212d1475ef2",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper",
+        "year_noise"
+      ],
+      "query_text": "2025 Hot Wheels 2020 Ram 1500 Rebel pickup sealed",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-99200212d1475ef2"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-a1b198f7d235f778-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-a1b198f7d235f778",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "abbreviation",
+        "spacing"
+      ],
+      "query_text": "ford perf super van four electric racer",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-a1b198f7d235f778"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-a1b198f7d235f778-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-a1b198f7d235f778",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "seller_wrapper"
+      ],
+      "query_text": "Ford Performance SuperVan 4 white carded race van",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-a1b198f7d235f778"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-a2097eead3bd8db9-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-a2097eead3bd8db9",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "abbreviation",
+        "spacing"
+      ],
+      "query_text": "sixty six buick riv custom",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-a2097eead3bd8db9"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-a2097eead3bd8db9-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-a2097eead3bd8db9",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_text": "Hot Wheels '66 Buick Riviera teal mint blister",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-a2097eead3bd8db9"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-a8e0dec4abdc4131-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-a8e0dec4abdc4131",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "misspelling",
+        "spacing"
+      ],
+      "query_text": "d m c deloran movie car",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-a8e0dec4abdc4131"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-a8e0dec4abdc4131-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-a8e0dec4abdc4131",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "series_noise"
+      ],
+      "query_text": "DMC DeLorean silver time machine car sealed card",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-a8e0dec4abdc4131"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-aaafff57ac4d4daa-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-aaafff57ac4d4daa",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "spacing",
+        "marketplace_wrapper"
+      ],
+      "query_text": "morgan super three roadster",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-aaafff57ac4d4daa"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-aaafff57ac4d4daa-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-aaafff57ac4d4daa",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "seller_wrapper"
+      ],
+      "query_text": "Morgan Super 3 red three wheeler sealed listing",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-aaafff57ac4d4daa"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-aab5350cb90d72ed-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-aab5350cb90d72ed",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "misspelling",
+        "spacing"
+      ],
+      "query_text": "2021 frd bronco off road toy",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-aab5350cb90d72ed"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-aab5350cb90d72ed-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-aab5350cb90d72ed",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "series_noise"
+      ],
+      "query_text": "Hot Wheels '21 Ford Bronco blue mainline unopened",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-aab5350cb90d72ed"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-aec11693bfe04245-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-aec11693bfe04245",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "abbreviation",
+        "spacing"
+      ],
+      "query_text": "mazda r e p u rotary truck",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-aec11693bfe04245"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-aec11693bfe04245-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-aec11693bfe04245",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "seller_wrapper"
+      ],
+      "query_text": "Mazda REPU orange pickup Hot Wheels carded sale",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-aec11693bfe04245"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-b31d285560d8a242-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-b31d285560d8a242",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "misspelling",
+        "spacing"
+      ],
+      "query_text": "ford mustng g t d supercar",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-b31d285560d8a242"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-b31d285560d8a242-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-b31d285560d8a242",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "seller_wrapper",
+        "year_noise"
+      ],
+      "query_text": "Ford Mustang GTD grey 2025 sealed collector car",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-b31d285560d8a242"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-b3cd4f5a5f7e196a-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-b3cd4f5a5f7e196a",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "misspelling",
+        "seller_wrapper"
+      ],
+      "query_text": "69 corvett race car loose",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-b3cd4f5a5f7e196a"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-b3cd4f5a5f7e196a-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-b3cd4f5a5f7e196a",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_text": "Hot Wheels '69 Corvette Racer yellow blister pack",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-b3cd4f5a5f7e196a"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-c655fb5244c584ae-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-c655fb5244c584ae",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "misspelling",
+        "marketplace_wrapper"
+      ],
+      "query_text": "kei swp custom microvan",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-c655fb5244c584ae"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-c655fb5244c584ae-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-c655fb5244c584ae",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "seller_wrapper"
+      ],
+      "query_text": "Kei Swap red Japanese mini truck sealed listing",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-c655fb5244c584ae"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-d114c33db6fa215b-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-d114c33db6fa215b",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "spacing",
+        "seller_wrapper"
+      ],
+      "query_text": "ninety honda civic ef hatch",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-d114c33db6fa215b"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-d114c33db6fa215b-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-d114c33db6fa215b",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_text": "Hot Wheels '90 Honda Civic EF white carded import",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-d114c33db6fa215b"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-d5c83bb87be8cab0-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-d5c83bb87be8cab0",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "spacing",
+        "seller_wrapper"
+      ],
+      "query_text": "supertwin mill fantasy racer",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-d5c83bb87be8cab0"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-d5c83bb87be8cab0-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-d5c83bb87be8cab0",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_text": "Super Twin Mill chrome Hot Wheels new in blister",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-d5c83bb87be8cab0"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-d816204cf649a0c0-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-d816204cf649a0c0",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "misspelling",
+        "marketplace_wrapper"
+      ],
+      "query_text": "draftn8r race car",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-d816204cf649a0c0"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-d816204cf649a0c0-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-d816204cf649a0c0",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "seller_wrapper"
+      ],
+      "query_text": "Draftnator black fantasy racer mint on card",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-d816204cf649a0c0"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-d90841788b1d98a2-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-d90841788b1d98a2",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "misspelling",
+        "marketplace_wrapper"
+      ],
+      "query_text": "alfa pursuit patrol vehicle",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-d90841788b1d98a2"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-d90841788b1d98a2-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-d90841788b1d98a2",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "seller_wrapper"
+      ],
+      "query_text": "Alpha Pursuit police car blue sealed Hot Wheels",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-d90841788b1d98a2"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-db3fe3a0103099ec-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-db3fe3a0103099ec",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "misspelling",
+        "spacing"
+      ],
+      "query_text": "ford mavrick custom 2022 pickup",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-db3fe3a0103099ec"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-db3fe3a0103099ec-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-db3fe3a0103099ec",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_text": "Hot Wheels '22 Ford Maverick Custom red carded truck",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-db3fe3a0103099ec"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-e7d4d8cf1dd8c6e1-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-e7d4d8cf1dd8c6e1",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "spacing",
+        "marketplace_wrapper"
+      ],
+      "query_text": "mazda auto zam tiny coupe",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-e7d4d8cf1dd8c6e1"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-e7d4d8cf1dd8c6e1-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-e7d4d8cf1dd8c6e1",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "seller_wrapper"
+      ],
+      "query_text": "Mazda Autozam blue kei car sealed blister listing",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-e7d4d8cf1dd8c6e1"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-fd96307f2dc8b421-lexical",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-fd96307f2dc8b421",
+      "challenge_style": "lexical_variation",
+      "noise_tags": [
+        "misspelling",
+        "marketplace_wrapper"
+      ],
+      "query_text": "custm 53 chevy pickup model",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-fd96307f2dc8b421"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-positive-fd96307f2dc8b421-marketplace",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-fd96307f2dc8b421",
+      "challenge_style": "marketplace_noise",
+      "noise_tags": [
+        "condition_noise",
+        "seller_wrapper"
+      ],
+      "query_text": "Custom '53 Chevy red Hot Wheels loose seller lot",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-fd96307f2dc8b421"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-unrelated-00",
+      "case_type": "unrelated_control",
+      "casting_group_id": "unrelated:zero-overlap-00",
+      "challenge_style": "no_overlap",
+      "noise_tags": [
+        "no_overlap"
+      ],
+      "query_text": "juxaprenoid",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "control_id": "zero-overlap-00",
+        "kind": "unrelated_control"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-unrelated-01",
+      "case_type": "unrelated_control",
+      "casting_group_id": "unrelated:zero-overlap-01",
+      "challenge_style": "no_overlap",
+      "noise_tags": [
+        "no_overlap"
+      ],
+      "query_text": "klyzomareth",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "control_id": "zero-overlap-01",
+        "kind": "unrelated_control"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-unrelated-02",
+      "case_type": "unrelated_control",
+      "casting_group_id": "unrelated:zero-overlap-02",
+      "challenge_style": "no_overlap",
+      "noise_tags": [
+        "no_overlap"
+      ],
+      "query_text": "nexuvandrix",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "control_id": "zero-overlap-02",
+        "kind": "unrelated_control"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-unrelated-03",
+      "case_type": "unrelated_control",
+      "casting_group_id": "unrelated:zero-overlap-03",
+      "challenge_style": "no_overlap",
+      "noise_tags": [
+        "no_overlap"
+      ],
+      "query_text": "phyrqotulon",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "control_id": "zero-overlap-03",
+        "kind": "unrelated_control"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-unrelated-04",
+      "case_type": "unrelated_control",
+      "casting_group_id": "unrelated:zero-overlap-04",
+      "challenge_style": "no_overlap",
+      "noise_tags": [
+        "no_overlap"
+      ],
+      "query_text": "plaxumdrith",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "control_id": "zero-overlap-04",
+        "kind": "unrelated_control"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-unrelated-05",
+      "case_type": "unrelated_control",
+      "casting_group_id": "unrelated:zero-overlap-05",
+      "challenge_style": "no_overlap",
+      "noise_tags": [
+        "no_overlap"
+      ],
+      "query_text": "qevornyxal",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "control_id": "zero-overlap-05",
+        "kind": "unrelated_control"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-unrelated-06",
+      "case_type": "unrelated_control",
+      "casting_group_id": "unrelated:zero-overlap-06",
+      "challenge_style": "no_overlap",
+      "noise_tags": [
+        "no_overlap"
+      ],
+      "query_text": "trazuphelix",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "control_id": "zero-overlap-06",
+        "kind": "unrelated_control"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-unrelated-07",
+      "case_type": "unrelated_control",
+      "casting_group_id": "unrelated:zero-overlap-07",
+      "challenge_style": "no_overlap",
+      "noise_tags": [
+        "no_overlap"
+      ],
+      "query_text": "vortiqsable",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "control_id": "zero-overlap-07",
+        "kind": "unrelated_control"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-unrelated-08",
+      "case_type": "unrelated_control",
+      "casting_group_id": "unrelated:zero-overlap-08",
+      "challenge_style": "no_overlap",
+      "noise_tags": [
+        "no_overlap"
+      ],
+      "query_text": "wexorinblath",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "control_id": "zero-overlap-08",
+        "kind": "unrelated_control"
+      },
+      "split": "test"
+    },
+    {
+      "authored_at": "2026-09-12T16:30:00Z",
+      "authored_by": "evaluation_query_author",
+      "authoring_method": "independently_composed_synthetic_challenge-v1",
+      "case_id": "fre-unrelated-09",
+      "case_type": "unrelated_control",
+      "casting_group_id": "unrelated:zero-overlap-09",
+      "challenge_style": "no_overlap",
+      "noise_tags": [
+        "no_overlap"
+      ],
+      "query_text": "zxqvornelith",
+      "retriever_output_viewed": false,
+      "review_reference": {
+        "control_id": "zero-overlap-09",
+        "kind": "unrelated_control"
+      },
+      "split": "test"
+    }
+  ],
+  "eligible_for": [
+    "human_knowledge_retrieval_evaluation"
+  ],
+  "excluded_from": [
+    "calibration_training",
+    "canonical_candidate_ranking",
+    "canonical_confidence",
+    "canonical_variant_response",
+    "postgresql_ingestion",
+    "production_accuracy_claim",
+    "query_rewriting",
+    "release_variant_ground_truth",
+    "retriever_tuning",
+    "threshold_selection"
+  ],
+  "expected_counts": {
+    "hold_control": 7,
+    "merge_control": 4,
+    "positive_family": 84,
+    "unrelated_control": 10
+  },
+  "query_pack_version": "family-retrieval-query-pack-v1",
+  "schema_version": "pvr-family-retrieval-query-pack-v1",
+  "split": "test",
+  "status": "pending_owner_review",
+  "system_under_test": {
+    "candidate_limit": 5,
+    "dense_dimensions": 192,
+    "dense_provider": "hashing-v1",
+    "dense_source_file": "retrieval.py",
+    "dense_source_sha256": "2ef9737d319b7d3ca6bdfd540e58147365eba4e2b6b4d47f1484fab3025f06c1",
+    "human_catalog_sha256": "d29b69cde8099cb229136a73b893ca99b6313d9652ead5ff4aea48c20242e74f",
+    "human_catalog_version": "human-backed-catalog-v1",
+    "normalizer_source_file": "identity.py",
+    "normalizer_source_sha256": "fac993facdf681ad568b8810dc1957f6d43e1e359e56ac8c230080b47fda25d3",
+    "normalizer_version": "identity.normalize_text-v1",
+    "retriever_source_file": "human_knowledge.py",
+    "retriever_source_sha256": "5bf582b921b62945b7e4405beb98822abd876b870bdb5267854764c2e1ab2982",
+    "retriever_version": "human-knowledge-hybrid-v2",
+    "review_family_knowledge_sha256": "8615cbb99b453673599e1f9baf54f6900314d7ba64e53a31ea7891c71810b9d7",
+    "review_family_knowledge_version": "review-family-knowledge-fandom-2025-r790665-v1",
+    "rrf_k": 60
+  }
+}

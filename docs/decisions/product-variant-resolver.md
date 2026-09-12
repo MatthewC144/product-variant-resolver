@@ -684,3 +684,28 @@
 - **Deferred review:** T48.2 must author and commit the official query pack without inspecting
   retriever output. T48.3 then requires the project owner to review all 105 cases before the first
   benchmark can be built; scoring remains T48.4.
+
+## D34 — Preserve hand-authored query intent as a reproducible pre-score source
+
+- **Choice:** Store the 105 independently composed synthetic queries in a deterministic authoring
+  script keyed only by review identity, then freeze its validated JSON output and manifest in a
+  separate commit before owner labeling. Use one marketplace-noise and one lexical-variation query
+  per accepted family, explicit governance controls, and opaque invented tokens for unrelated cases.
+- **Reason:** Hand-editing a 77 KB JSON artifact would make accidental ID/order/schema mistakes
+  difficult to audit, while generating queries from automatic templates would make case volume look
+  more independent than it is. A small source map preserves the exact human-authored wording and
+  lets `--check` prove reproducibility without importing or invoking retrieval code.
+- **Alternatives:** Scrape live marketplace listings; reuse Fandom titles or prior human queries;
+  create all questions through one mutation template; omit the authoring source after writing JSON;
+  or run retrieval while revising weak-looking questions. These choices respectively harm
+  reproducibility/privacy, leak indexed wording, overstate diversity, weaken provenance, or directly
+  contaminate the holdout.
+- **Impact:** The frozen pack contains 105 test-only cases and SHA-256
+  `26e244c04325f7909fb222b6cdd32ee2301253db17f0b8b97cf2f63ac4358733`. All 42 families have both
+  styles; Bogzilla, Crescendo, Draftnator, and Haulerback have full-token spelling disruptions; all
+  controls are complete; and all ten unrelated queries have zero corpus-token overlap. Eight focused
+  tests prove pack/manifest validity and non-mutating reproduction. No retrieval output or owner
+  label was generated.
+- **Deferred review:** The project owner must review every frozen query/reference pair. T48.3 may
+  create labels only against this exact checksum; any wording change requires a new freeze and new
+  review before scoring.
