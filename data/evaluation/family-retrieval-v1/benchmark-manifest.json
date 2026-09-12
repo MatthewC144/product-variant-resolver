@@ -1,0 +1,108 @@
+{
+  "benchmark_file": "benchmark.json",
+  "benchmark_sha256": "440246fb6a3b38f56fc25c1ec939d53d6cfc4457fed738aad561899325808afd",
+  "benchmark_version": "family-retrieval-holdout-v1",
+  "case_counts": {
+    "hold_control": 7,
+    "merge_control": 4,
+    "positive_family": 84,
+    "unrelated_control": 10
+  },
+  "challenge_style_counts": {
+    "held_identity": 7,
+    "lexical_variation": 42,
+    "marketplace_noise": 42,
+    "merge_existing_family": 4,
+    "no_overlap": 10
+  },
+  "eligible_for": [
+    "human_knowledge_retrieval_evaluation"
+  ],
+  "excluded_from": [
+    "calibration_training",
+    "canonical_candidate_ranking",
+    "canonical_confidence",
+    "canonical_variant_response",
+    "postgresql_ingestion",
+    "production_accuracy_claim",
+    "query_rewriting",
+    "release_variant_ground_truth",
+    "retriever_tuning",
+    "threshold_selection"
+  ],
+  "inputs": {
+    "human_catalog": {
+      "file": "human_backed_catalog.json",
+      "sha256": "d29b69cde8099cb229136a73b893ca99b6313d9652ead5ff4aea48c20242e74f",
+      "version": "human-backed-catalog-v1"
+    },
+    "human_catalog_manifest": {
+      "file": "human_backed_catalog_manifest.json",
+      "sha256": "c79a3bc699d2bfcccae992a672fda79cbb905f1f2252dbfda8fa219ed55e43c7"
+    },
+    "owner_decisions": {
+      "file": "owner-decisions.json",
+      "sha256": "d22b96bb16cd9cb9e19f4a4723a41b653da7b4961b5b588f6f636e1b37e1bad1",
+      "version": "family-retrieval-owner-decisions-v1"
+    },
+    "query_pack": {
+      "file": "query-pack.json",
+      "sha256": "26e244c04325f7909fb222b6cdd32ee2301253db17f0b8b97cf2f63ac4358733",
+      "version": "family-retrieval-query-pack-v1"
+    },
+    "query_pack_manifest": {
+      "file": "query-pack-manifest.json",
+      "sha256": "8c6deaf9b79d1e5f2d7e8389c7bb832cb3abb038c558882d481e11f5f4d0b4a7"
+    },
+    "review_family_knowledge": {
+      "file": "review_family_knowledge.json",
+      "sha256": "8615cbb99b453673599e1f9baf54f6900314d7ba64e53a31ea7891c71810b9d7",
+      "version": "review-family-knowledge-fandom-2025-r790665-v1"
+    },
+    "review_family_knowledge_manifest": {
+      "file": "review_family_knowledge_manifest.json",
+      "sha256": "0239e272d27276d9a25df2c36edbbe6a7251facce7728ef947b86dcaa417c2ef"
+    },
+    "review_family_registry": {
+      "file": "review_family_registry.json",
+      "sha256": "3f289b802cc2e8280ed5c3586d87cfabbee7ce37b10ae79504b5aa6b8837367d",
+      "version": "fandom-2025-review-families-r790665-v1"
+    },
+    "review_family_registry_manifest": {
+      "file": "review_family_registry_manifest.json",
+      "sha256": "ae9eda741aa2ec7cb9354424e17b789ba73c05890859e73d19cd845c5cab3ff2"
+    }
+  },
+  "positive_family_group_count": 42,
+  "schema_version": "pvr-family-retrieval-benchmark-manifest-v1",
+  "single_token_family_ids": [
+    "fandom-family-440103f8ef3c6b70",
+    "fandom-family-4d2de6db3d5bba63",
+    "fandom-family-8a07157f2af2ddd5",
+    "fandom-family-d816204cf649a0c0"
+  ],
+  "split_counts": {
+    "dev": 0,
+    "test": 105,
+    "train": 0
+  },
+  "status": "frozen_test_only",
+  "system_under_test": {
+    "candidate_limit": 5,
+    "dense_dimensions": 192,
+    "dense_provider": "hashing-v1",
+    "dense_source_file": "retrieval.py",
+    "dense_source_sha256": "2ef9737d319b7d3ca6bdfd540e58147365eba4e2b6b4d47f1484fab3025f06c1",
+    "human_catalog_sha256": "d29b69cde8099cb229136a73b893ca99b6313d9652ead5ff4aea48c20242e74f",
+    "human_catalog_version": "human-backed-catalog-v1",
+    "normalizer_source_file": "identity.py",
+    "normalizer_source_sha256": "fac993facdf681ad568b8810dc1957f6d43e1e359e56ac8c230080b47fda25d3",
+    "normalizer_version": "identity.normalize_text-v1",
+    "retriever_source_file": "human_knowledge.py",
+    "retriever_source_sha256": "5bf582b921b62945b7e4405beb98822abd876b870bdb5267854764c2e1ab2982",
+    "retriever_version": "human-knowledge-hybrid-v2",
+    "review_family_knowledge_sha256": "8615cbb99b453673599e1f9baf54f6900314d7ba64e53a31ea7891c71810b9d7",
+    "review_family_knowledge_version": "review-family-knowledge-fandom-2025-r790665-v1",
+    "rrf_k": 60
+  }
+}

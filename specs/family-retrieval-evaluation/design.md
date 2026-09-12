@@ -2,7 +2,7 @@
 
 > Mode: Lite / Lean Industrial
 >
-> Status: Confirmed; T48.1–T48.2 implemented
+> Status: Confirmed; T48.1–T48.3 implemented
 
 ## Overview
 

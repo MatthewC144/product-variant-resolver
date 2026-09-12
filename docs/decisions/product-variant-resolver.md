@@ -709,3 +709,29 @@
 - **Deferred review:** The project owner must review every frozen query/reference pair. T48.3 may
   create labels only against this exact checksum; any wording change requires a new freeze and new
   review before scoring.
+
+## D35 — Bind the owner's proceed instruction to the already frozen 105-case pack
+
+- **Choice:** Treat the project owner's instruction to perform the next step, given immediately
+  after the complete frozen query/reference evidence and checksum were presented, as approval of
+  all 105 unchanged pairs. Record one attributable approval per case and build the labeled but
+  unscored benchmark only against query-pack SHA-256
+  `26e244c04325f7909fb222b6cdd32ee2301253db17f0b8b97cf2f63ac4358733`.
+- **Reason:** The preceding handoff explicitly said T48.3 required owner confirmation, linked the
+  human-readable review document, described every case class, and stated that proceeding would
+  create labels but not run retrieval. The follow-up instruction therefore authorizes this exact
+  bounded review action; it does not authorize changing questions, canonical promotion,
+  persistence, or model tuning.
+- **Alternatives:** Ask the owner to repeat the same confirmation phrase; infer labels without a
+  recorded authority; approve only positive cases and leave controls pending; regenerate questions
+  during labeling; or combine approval with immediate scoring. These options add no meaningful
+  consent, weaken attribution/completeness, allow leakage, or collapse the designed pre-score gate.
+- **Impact:** All 105 decisions now record `project_owner`, second-precision UTC time, `approve`, a
+  case-specific reason, and a type-safe expected identity or negative expectation. The decision
+  artifact hash is `d22b96bb16cd9cb9e19f4a4723a41b653da7b4961b5b588f6f636e1b37e1bad1`.
+  The resulting frozen benchmark hash is
+  `440246fb6a3b38f56fc25c1ec939d53d6cfc4457fed738aad561899325808afd`; it contains no candidate,
+  rank, score, metric, or verdict. Ten focused checks reproduce the approval and benchmark bytes.
+- **Deferred review:** T48.4 is now permitted to implement and run the read-only evaluator for the
+  first time. Its result must use the precommitted gates, and a FAIL cannot trigger edits or tuning
+  on this v1 holdout.

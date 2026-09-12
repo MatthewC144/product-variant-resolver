@@ -1,0 +1,1171 @@
+{
+  "benchmark_version": "family-retrieval-holdout-v1",
+  "decided_at": "2026-09-12T16:50:40Z",
+  "decided_by": "project_owner",
+  "decision_version": "family-retrieval-owner-decisions-v1",
+  "decisions": [
+    {
+      "case_id": "fre-hold-089ff8645b5f2de7",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "expected_materialized": false,
+        "forbidden_review_family_id": "fandom-family-089ff8645b5f2de7"
+      },
+      "reason": "Project owner confirmed held identity fandom-family-089ff8645b5f2de7 must remain unmaterialized until its lineage ambiguity is separately resolved."
+    },
+    {
+      "case_id": "fre-hold-0e07a7139454d2e8",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "expected_materialized": false,
+        "forbidden_review_family_id": "fandom-family-0e07a7139454d2e8"
+      },
+      "reason": "Project owner confirmed held identity fandom-family-0e07a7139454d2e8 must remain unmaterialized until its lineage ambiguity is separately resolved."
+    },
+    {
+      "case_id": "fre-hold-369b0be5855c0a1c",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "expected_materialized": false,
+        "forbidden_review_family_id": "fandom-family-369b0be5855c0a1c"
+      },
+      "reason": "Project owner confirmed held identity fandom-family-369b0be5855c0a1c must remain unmaterialized until its lineage ambiguity is separately resolved."
+    },
+    {
+      "case_id": "fre-hold-4f9ee66afdfe8cac",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "expected_materialized": false,
+        "forbidden_review_family_id": "fandom-family-4f9ee66afdfe8cac"
+      },
+      "reason": "Project owner confirmed held identity fandom-family-4f9ee66afdfe8cac must remain unmaterialized until its lineage ambiguity is separately resolved."
+    },
+    {
+      "case_id": "fre-hold-8403e21a29c27eab",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "expected_materialized": false,
+        "forbidden_review_family_id": "fandom-family-8403e21a29c27eab"
+      },
+      "reason": "Project owner confirmed held identity fandom-family-8403e21a29c27eab must remain unmaterialized until its lineage ambiguity is separately resolved."
+    },
+    {
+      "case_id": "fre-hold-8d24c626a51b1804",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "expected_materialized": false,
+        "forbidden_review_family_id": "fandom-family-8d24c626a51b1804"
+      },
+      "reason": "Project owner confirmed held identity fandom-family-8d24c626a51b1804 must remain unmaterialized until its lineage ambiguity is separately resolved."
+    },
+    {
+      "case_id": "fre-hold-c639dc688e21d33b",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "expected_materialized": false,
+        "forbidden_review_family_id": "fandom-family-c639dc688e21d33b"
+      },
+      "reason": "Project owner confirmed held identity fandom-family-c639dc688e21d33b must remain unmaterialized until its lineage ambiguity is separately resolved."
+    },
+    {
+      "case_id": "fre-merge-04829924a36830a6",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "casting_id": "human-hot-wheels-purple-passion",
+        "forbidden_review_family_id": "fandom-family-04829924a36830a6",
+        "knowledge_type": "provisional_variant"
+      },
+      "reason": "Project owner confirmed this query should reuse existing casting human-hot-wheels-purple-passion and must not create duplicate review family fandom-family-04829924a36830a6."
+    },
+    {
+      "case_id": "fre-merge-6062af64f2e5a66c",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "casting_id": "human-hot-wheels-tesla-model-s-plaid",
+        "forbidden_review_family_id": "fandom-family-6062af64f2e5a66c",
+        "knowledge_type": "provisional_variant"
+      },
+      "reason": "Project owner confirmed this query should reuse existing casting human-hot-wheels-tesla-model-s-plaid and must not create duplicate review family fandom-family-6062af64f2e5a66c."
+    },
+    {
+      "case_id": "fre-merge-aa499ddb791c6991",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "casting_id": "human-hot-wheels-67-chevy-c10",
+        "forbidden_review_family_id": "fandom-family-aa499ddb791c6991",
+        "knowledge_type": "provisional_variant"
+      },
+      "reason": "Project owner confirmed this query should reuse existing casting human-hot-wheels-67-chevy-c10 and must not create duplicate review family fandom-family-aa499ddb791c6991."
+    },
+    {
+      "case_id": "fre-merge-b60363832032d566",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "casting_id": "human-hot-wheels-subaru-brz",
+        "forbidden_review_family_id": "fandom-family-b60363832032d566",
+        "knowledge_type": "provisional_variant"
+      },
+      "reason": "Project owner confirmed this query should reuse existing casting human-hot-wheels-subaru-brz and must not create duplicate review family fandom-family-b60363832032d566."
+    },
+    {
+      "case_id": "fre-positive-0573861db69878eb-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-0573861db69878eb"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-0573861db69878eb."
+    },
+    {
+      "case_id": "fre-positive-0573861db69878eb-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-0573861db69878eb"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-0573861db69878eb."
+    },
+    {
+      "case_id": "fre-positive-08cb7fadb9fed12d-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-08cb7fadb9fed12d"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-08cb7fadb9fed12d."
+    },
+    {
+      "case_id": "fre-positive-08cb7fadb9fed12d-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-08cb7fadb9fed12d"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-08cb7fadb9fed12d."
+    },
+    {
+      "case_id": "fre-positive-1555c05ceeb491cb-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-1555c05ceeb491cb"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-1555c05ceeb491cb."
+    },
+    {
+      "case_id": "fre-positive-1555c05ceeb491cb-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-1555c05ceeb491cb"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-1555c05ceeb491cb."
+    },
+    {
+      "case_id": "fre-positive-174efb9bce3a441e-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-174efb9bce3a441e"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-174efb9bce3a441e."
+    },
+    {
+      "case_id": "fre-positive-174efb9bce3a441e-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-174efb9bce3a441e"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-174efb9bce3a441e."
+    },
+    {
+      "case_id": "fre-positive-18e55e067083dbd1-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-18e55e067083dbd1"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-18e55e067083dbd1."
+    },
+    {
+      "case_id": "fre-positive-18e55e067083dbd1-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-18e55e067083dbd1"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-18e55e067083dbd1."
+    },
+    {
+      "case_id": "fre-positive-1b2a4227b4e5decd-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-1b2a4227b4e5decd"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-1b2a4227b4e5decd."
+    },
+    {
+      "case_id": "fre-positive-1b2a4227b4e5decd-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-1b2a4227b4e5decd"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-1b2a4227b4e5decd."
+    },
+    {
+      "case_id": "fre-positive-2357e7eb6b4e62b8-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-2357e7eb6b4e62b8"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-2357e7eb6b4e62b8."
+    },
+    {
+      "case_id": "fre-positive-2357e7eb6b4e62b8-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-2357e7eb6b4e62b8"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-2357e7eb6b4e62b8."
+    },
+    {
+      "case_id": "fre-positive-356e4ef63275a661-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-356e4ef63275a661"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-356e4ef63275a661."
+    },
+    {
+      "case_id": "fre-positive-356e4ef63275a661-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-356e4ef63275a661"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-356e4ef63275a661."
+    },
+    {
+      "case_id": "fre-positive-39b248ce2f3723cd-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-39b248ce2f3723cd"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-39b248ce2f3723cd."
+    },
+    {
+      "case_id": "fre-positive-39b248ce2f3723cd-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-39b248ce2f3723cd"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-39b248ce2f3723cd."
+    },
+    {
+      "case_id": "fre-positive-3c9f928f085efaae-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-3c9f928f085efaae"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-3c9f928f085efaae."
+    },
+    {
+      "case_id": "fre-positive-3c9f928f085efaae-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-3c9f928f085efaae"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-3c9f928f085efaae."
+    },
+    {
+      "case_id": "fre-positive-440103f8ef3c6b70-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-440103f8ef3c6b70"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-440103f8ef3c6b70."
+    },
+    {
+      "case_id": "fre-positive-440103f8ef3c6b70-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-440103f8ef3c6b70"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-440103f8ef3c6b70."
+    },
+    {
+      "case_id": "fre-positive-45af5b93f3f6650f-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-45af5b93f3f6650f"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-45af5b93f3f6650f."
+    },
+    {
+      "case_id": "fre-positive-45af5b93f3f6650f-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-45af5b93f3f6650f"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-45af5b93f3f6650f."
+    },
+    {
+      "case_id": "fre-positive-4bf5341a133d433b-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-4bf5341a133d433b"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-4bf5341a133d433b."
+    },
+    {
+      "case_id": "fre-positive-4bf5341a133d433b-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-4bf5341a133d433b"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-4bf5341a133d433b."
+    },
+    {
+      "case_id": "fre-positive-4d00e96d12341b4d-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-4d00e96d12341b4d"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-4d00e96d12341b4d."
+    },
+    {
+      "case_id": "fre-positive-4d00e96d12341b4d-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-4d00e96d12341b4d"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-4d00e96d12341b4d."
+    },
+    {
+      "case_id": "fre-positive-4d2de6db3d5bba63-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-4d2de6db3d5bba63"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-4d2de6db3d5bba63."
+    },
+    {
+      "case_id": "fre-positive-4d2de6db3d5bba63-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-4d2de6db3d5bba63"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-4d2de6db3d5bba63."
+    },
+    {
+      "case_id": "fre-positive-526b697937fde7cc-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-526b697937fde7cc"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-526b697937fde7cc."
+    },
+    {
+      "case_id": "fre-positive-526b697937fde7cc-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-526b697937fde7cc"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-526b697937fde7cc."
+    },
+    {
+      "case_id": "fre-positive-57cf5c31afbadc57-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-57cf5c31afbadc57"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-57cf5c31afbadc57."
+    },
+    {
+      "case_id": "fre-positive-57cf5c31afbadc57-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-57cf5c31afbadc57"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-57cf5c31afbadc57."
+    },
+    {
+      "case_id": "fre-positive-59e5682e50af879e-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-59e5682e50af879e"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-59e5682e50af879e."
+    },
+    {
+      "case_id": "fre-positive-59e5682e50af879e-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-59e5682e50af879e"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-59e5682e50af879e."
+    },
+    {
+      "case_id": "fre-positive-7e221ec8ecd02815-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-7e221ec8ecd02815"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-7e221ec8ecd02815."
+    },
+    {
+      "case_id": "fre-positive-7e221ec8ecd02815-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-7e221ec8ecd02815"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-7e221ec8ecd02815."
+    },
+    {
+      "case_id": "fre-positive-85226ac5ac0d3f77-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-85226ac5ac0d3f77"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-85226ac5ac0d3f77."
+    },
+    {
+      "case_id": "fre-positive-85226ac5ac0d3f77-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-85226ac5ac0d3f77"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-85226ac5ac0d3f77."
+    },
+    {
+      "case_id": "fre-positive-85e407525ac7bf41-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-85e407525ac7bf41"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-85e407525ac7bf41."
+    },
+    {
+      "case_id": "fre-positive-85e407525ac7bf41-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-85e407525ac7bf41"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-85e407525ac7bf41."
+    },
+    {
+      "case_id": "fre-positive-89930c384be2e8bf-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-89930c384be2e8bf"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-89930c384be2e8bf."
+    },
+    {
+      "case_id": "fre-positive-89930c384be2e8bf-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-89930c384be2e8bf"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-89930c384be2e8bf."
+    },
+    {
+      "case_id": "fre-positive-8a07157f2af2ddd5-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-8a07157f2af2ddd5"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-8a07157f2af2ddd5."
+    },
+    {
+      "case_id": "fre-positive-8a07157f2af2ddd5-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-8a07157f2af2ddd5"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-8a07157f2af2ddd5."
+    },
+    {
+      "case_id": "fre-positive-8cce01fa7d44112a-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-8cce01fa7d44112a"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-8cce01fa7d44112a."
+    },
+    {
+      "case_id": "fre-positive-8cce01fa7d44112a-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-8cce01fa7d44112a"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-8cce01fa7d44112a."
+    },
+    {
+      "case_id": "fre-positive-9069156ec909a92e-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-9069156ec909a92e"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-9069156ec909a92e."
+    },
+    {
+      "case_id": "fre-positive-9069156ec909a92e-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-9069156ec909a92e"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-9069156ec909a92e."
+    },
+    {
+      "case_id": "fre-positive-99200212d1475ef2-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-99200212d1475ef2"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-99200212d1475ef2."
+    },
+    {
+      "case_id": "fre-positive-99200212d1475ef2-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-99200212d1475ef2"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-99200212d1475ef2."
+    },
+    {
+      "case_id": "fre-positive-a1b198f7d235f778-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-a1b198f7d235f778"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-a1b198f7d235f778."
+    },
+    {
+      "case_id": "fre-positive-a1b198f7d235f778-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-a1b198f7d235f778"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-a1b198f7d235f778."
+    },
+    {
+      "case_id": "fre-positive-a2097eead3bd8db9-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-a2097eead3bd8db9"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-a2097eead3bd8db9."
+    },
+    {
+      "case_id": "fre-positive-a2097eead3bd8db9-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-a2097eead3bd8db9"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-a2097eead3bd8db9."
+    },
+    {
+      "case_id": "fre-positive-a8e0dec4abdc4131-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-a8e0dec4abdc4131"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-a8e0dec4abdc4131."
+    },
+    {
+      "case_id": "fre-positive-a8e0dec4abdc4131-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-a8e0dec4abdc4131"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-a8e0dec4abdc4131."
+    },
+    {
+      "case_id": "fre-positive-aaafff57ac4d4daa-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-aaafff57ac4d4daa"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-aaafff57ac4d4daa."
+    },
+    {
+      "case_id": "fre-positive-aaafff57ac4d4daa-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-aaafff57ac4d4daa"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-aaafff57ac4d4daa."
+    },
+    {
+      "case_id": "fre-positive-aab5350cb90d72ed-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-aab5350cb90d72ed"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-aab5350cb90d72ed."
+    },
+    {
+      "case_id": "fre-positive-aab5350cb90d72ed-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-aab5350cb90d72ed"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-aab5350cb90d72ed."
+    },
+    {
+      "case_id": "fre-positive-aec11693bfe04245-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-aec11693bfe04245"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-aec11693bfe04245."
+    },
+    {
+      "case_id": "fre-positive-aec11693bfe04245-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-aec11693bfe04245"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-aec11693bfe04245."
+    },
+    {
+      "case_id": "fre-positive-b31d285560d8a242-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-b31d285560d8a242"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-b31d285560d8a242."
+    },
+    {
+      "case_id": "fre-positive-b31d285560d8a242-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-b31d285560d8a242"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-b31d285560d8a242."
+    },
+    {
+      "case_id": "fre-positive-b3cd4f5a5f7e196a-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-b3cd4f5a5f7e196a"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-b3cd4f5a5f7e196a."
+    },
+    {
+      "case_id": "fre-positive-b3cd4f5a5f7e196a-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-b3cd4f5a5f7e196a"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-b3cd4f5a5f7e196a."
+    },
+    {
+      "case_id": "fre-positive-c655fb5244c584ae-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-c655fb5244c584ae"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-c655fb5244c584ae."
+    },
+    {
+      "case_id": "fre-positive-c655fb5244c584ae-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-c655fb5244c584ae"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-c655fb5244c584ae."
+    },
+    {
+      "case_id": "fre-positive-d114c33db6fa215b-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d114c33db6fa215b"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-d114c33db6fa215b."
+    },
+    {
+      "case_id": "fre-positive-d114c33db6fa215b-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d114c33db6fa215b"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-d114c33db6fa215b."
+    },
+    {
+      "case_id": "fre-positive-d5c83bb87be8cab0-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d5c83bb87be8cab0"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-d5c83bb87be8cab0."
+    },
+    {
+      "case_id": "fre-positive-d5c83bb87be8cab0-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d5c83bb87be8cab0"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-d5c83bb87be8cab0."
+    },
+    {
+      "case_id": "fre-positive-d816204cf649a0c0-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d816204cf649a0c0"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-d816204cf649a0c0."
+    },
+    {
+      "case_id": "fre-positive-d816204cf649a0c0-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d816204cf649a0c0"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-d816204cf649a0c0."
+    },
+    {
+      "case_id": "fre-positive-d90841788b1d98a2-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d90841788b1d98a2"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-d90841788b1d98a2."
+    },
+    {
+      "case_id": "fre-positive-d90841788b1d98a2-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d90841788b1d98a2"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-d90841788b1d98a2."
+    },
+    {
+      "case_id": "fre-positive-db3fe3a0103099ec-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-db3fe3a0103099ec"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-db3fe3a0103099ec."
+    },
+    {
+      "case_id": "fre-positive-db3fe3a0103099ec-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-db3fe3a0103099ec"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-db3fe3a0103099ec."
+    },
+    {
+      "case_id": "fre-positive-e7d4d8cf1dd8c6e1-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-e7d4d8cf1dd8c6e1"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-e7d4d8cf1dd8c6e1."
+    },
+    {
+      "case_id": "fre-positive-e7d4d8cf1dd8c6e1-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-e7d4d8cf1dd8c6e1"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-e7d4d8cf1dd8c6e1."
+    },
+    {
+      "case_id": "fre-positive-fd96307f2dc8b421-lexical",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-fd96307f2dc8b421"
+      },
+      "reason": "Project owner confirmed this frozen lexical_variation query as a fair relevance question for review family fandom-family-fd96307f2dc8b421."
+    },
+    {
+      "case_id": "fre-positive-fd96307f2dc8b421-marketplace",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-fd96307f2dc8b421"
+      },
+      "reason": "Project owner confirmed this frozen marketplace_noise query as a fair relevance question for review family fandom-family-fd96307f2dc8b421."
+    },
+    {
+      "case_id": "fre-unrelated-00",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": true
+      },
+      "reason": "Project owner confirmed this synthetic zero-overlap query is unrelated to the frozen Human Knowledge corpus and should return no candidates."
+    },
+    {
+      "case_id": "fre-unrelated-01",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": true
+      },
+      "reason": "Project owner confirmed this synthetic zero-overlap query is unrelated to the frozen Human Knowledge corpus and should return no candidates."
+    },
+    {
+      "case_id": "fre-unrelated-02",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": true
+      },
+      "reason": "Project owner confirmed this synthetic zero-overlap query is unrelated to the frozen Human Knowledge corpus and should return no candidates."
+    },
+    {
+      "case_id": "fre-unrelated-03",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": true
+      },
+      "reason": "Project owner confirmed this synthetic zero-overlap query is unrelated to the frozen Human Knowledge corpus and should return no candidates."
+    },
+    {
+      "case_id": "fre-unrelated-04",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": true
+      },
+      "reason": "Project owner confirmed this synthetic zero-overlap query is unrelated to the frozen Human Knowledge corpus and should return no candidates."
+    },
+    {
+      "case_id": "fre-unrelated-05",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": true
+      },
+      "reason": "Project owner confirmed this synthetic zero-overlap query is unrelated to the frozen Human Knowledge corpus and should return no candidates."
+    },
+    {
+      "case_id": "fre-unrelated-06",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": true
+      },
+      "reason": "Project owner confirmed this synthetic zero-overlap query is unrelated to the frozen Human Knowledge corpus and should return no candidates."
+    },
+    {
+      "case_id": "fre-unrelated-07",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": true
+      },
+      "reason": "Project owner confirmed this synthetic zero-overlap query is unrelated to the frozen Human Knowledge corpus and should return no candidates."
+    },
+    {
+      "case_id": "fre-unrelated-08",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": true
+      },
+      "reason": "Project owner confirmed this synthetic zero-overlap query is unrelated to the frozen Human Knowledge corpus and should return no candidates."
+    },
+    {
+      "case_id": "fre-unrelated-09",
+      "decided_at": "2026-09-12T16:50:40Z",
+      "decided_by": "project_owner",
+      "decision": "approve",
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": true
+      },
+      "reason": "Project owner confirmed this synthetic zero-overlap query is unrelated to the frozen Human Knowledge corpus and should return no candidates."
+    }
+  ],
+  "query_pack_file": "query-pack.json",
+  "query_pack_sha256": "26e244c04325f7909fb222b6cdd32ee2301253db17f0b8b97cf2f63ac4358733",
+  "schema_version": "pvr-family-retrieval-owner-decisions-v1",
+  "status": "approved_for_test_evaluation"
+}

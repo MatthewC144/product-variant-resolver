@@ -5,6 +5,8 @@
 > Status: PASS for output-blind authoring and pre-score freeze
 >
 > Date: 2026-09-12
+>
+> Subsequent state: the project owner confirmed this unchanged checksum for T48.3
 
 ## Frozen artifact and boundary
 

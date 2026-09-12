@@ -2,7 +2,7 @@
 
 > Mode: Lite / Lean Industrial
 >
-> Status: Confirmed; T48.1–T48.2 complete, project-owner confirmation next
+> Status: Confirmed; T48.1–T48.3 complete, T48.4 next
 
 ## Task order
 
@@ -43,14 +43,15 @@ Acceptance:
 
 ### T48.3 — Record and validate project-owner labels `[qa/doc_curator]`
 
-- [ ] Present the frozen cases for project-owner confirmation without retriever ranks/scores. _(→FRE-R7)_
-- [ ] Store attributable decisions for all 105 cases and build the frozen benchmark. _(→FRE-R7–R9)_
+- [x] Present the frozen cases for project-owner confirmation without retriever ranks/scores. _(→FRE-R7)_
+- [x] Store attributable decisions for all 105 cases and build the frozen benchmark. _(→FRE-R7–R9)_
 
 Files:
 
 - `data/evaluation/family-retrieval-v1/owner-decisions.json`
 - `data/evaluation/family-retrieval-v1/benchmark.json`
 - `data/evaluation/family-retrieval-v1/benchmark-manifest.json`
+- `scripts/record_family_retrieval_owner_decisions.py`
 - `tests/test_family_retrieval_benchmark.py`
 
 Acceptance:

@@ -377,8 +377,9 @@ implements the fail-closed builder, source/code checksum freeze, separate query-
 owner-decision validation, deterministic benchmark build/check, and negative tests. The formal 105
 queries are now independently authored and checksum-frozen in T48.2: 42 marketplace-noise pairs,
 42 lexical-variation pairs, 4 merge controls, 7 held-identity controls, and 10 zero-overlap controls.
-No candidate, rank, label approval, benchmark, or T48 accuracy result exists yet. The next gate is
-project-owner review of every frozen case before labels can be materialized in T48.3.
+The owner confirmed that unchanged pack, and T48.3 freezes all 105 attributable labels plus the
+unscored benchmark. No candidates, ranks, metrics, verdict, runtime change, or accuracy claim has
+been created. T48.4 is the first task permitted to execute retrieval.
 
 ## Docker and PostgreSQL status
 

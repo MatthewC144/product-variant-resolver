@@ -13,6 +13,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "scripts/build_family_retrieval_benchmark.py"
 AUTHOR_SCRIPT = ROOT / "scripts/author_family_retrieval_query_pack.py"
+DECISION_SCRIPT = ROOT / "scripts/record_family_retrieval_owner_decisions.py"
 REGISTRY = ROOT / "data/review_family_registry.json"
 REGISTRY_MANIFEST = ROOT / "data/review_family_registry_manifest.json"
 PROJECTION = ROOT / "data/review_family_knowledge.json"
@@ -21,6 +22,9 @@ HUMAN = ROOT / "data/human_backed_catalog.json"
 HUMAN_MANIFEST = ROOT / "data/human_backed_catalog_manifest.json"
 QUERY_PACK = ROOT / "data/evaluation/family-retrieval-v1/query-pack.json"
 QUERY_PACK_MANIFEST = ROOT / "data/evaluation/family-retrieval-v1/query-pack-manifest.json"
+OWNER_DECISIONS = ROOT / "data/evaluation/family-retrieval-v1/owner-decisions.json"
+BENCHMARK = ROOT / "data/evaluation/family-retrieval-v1/benchmark.json"
+BENCHMARK_MANIFEST = ROOT / "data/evaluation/family-retrieval-v1/benchmark-manifest.json"
 
 
 def _load_module():
@@ -334,6 +338,53 @@ class FamilyRetrievalBenchmarkTests(unittest.TestCase):
             )
             self.assertEqual(completed.returncode, 0, completed.stderr)
         after = {path: hashlib.sha256(path.read_bytes()).hexdigest() for path in before}
+        self.assertEqual(before, after)
+
+    def test_actual_owner_decisions_build_the_frozen_unscored_benchmark(self) -> None:
+        benchmark, manifest = self._build(
+            QUERY_PACK,
+            QUERY_PACK_MANIFEST,
+            OWNER_DECISIONS,
+        )
+        self.assertEqual(benchmark, json.loads(BENCHMARK.read_text(encoding="utf-8")))
+        self.assertEqual(
+            manifest,
+            json.loads(BENCHMARK_MANIFEST.read_text(encoding="utf-8")),
+        )
+        decisions = json.loads(OWNER_DECISIONS.read_text(encoding="utf-8"))
+        self.assertEqual(
+            decisions["query_pack_sha256"],
+            hashlib.sha256(QUERY_PACK.read_bytes()).hexdigest(),
+        )
+        self.assertEqual(len(decisions["decisions"]), 105)
+        self.assertTrue(
+            all(
+                item["decision"] == "approve"
+                and item["decided_by"] == "project_owner"
+                and item["reason"]
+                for item in decisions["decisions"]
+            )
+        )
+        serialized = _json_text(benchmark)
+        for field in ("candidates", "rrf_rank", "rrf_score", "metrics", "verdict"):
+            self.assertNotIn(f'"{field}"', serialized)
+
+    def test_actual_owner_decision_and_benchmark_checks_are_non_mutating(self) -> None:
+        paths = (OWNER_DECISIONS, BENCHMARK, BENCHMARK_MANIFEST)
+        before = {path: hashlib.sha256(path.read_bytes()).hexdigest() for path in paths}
+        for command in (
+            ["python3", str(DECISION_SCRIPT), "--check"],
+            ["python3", str(SCRIPT), "--check"],
+        ):
+            completed = subprocess.run(
+                command,
+                cwd=ROOT,
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(completed.returncode, 0, completed.stderr)
+        after = {path: hashlib.sha256(path.read_bytes()).hexdigest() for path in paths}
         self.assertEqual(before, after)
 
     def test_query_pack_freeze_and_benchmark_check_are_byte_reproducible(self) -> None:

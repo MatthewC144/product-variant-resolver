@@ -1,5 +1,67 @@
 # Project Log
 
+## 2026-09-12 — T48.3 turns owner confirmation into a frozen but unscored benchmark
+
+### What was executed and what problem it solves
+
+The previous handoff presented the complete frozen query pack, linked a human-readable review, and
+explained that the next step required project-owner confirmation before labels could exist. The
+owner's instruction to proceed therefore authorized exactly T48.3 against the unchanged
+`26e244c0…4358733` query checksum. This closes the attribution gap between an AI-authored question
+and the human-approved relevance expectation that will later score it.
+
+All 105 cases now have a separate project-owner decision with timestamp, approval, reason, and
+type-correct expectation. The builder combined those decisions with the frozen questions only after
+verifying every checksum and source boundary. The output is a labeled benchmark, but no retrieval
+was run: candidates, ranks, scores, aggregate metrics, and PASS/FAIL remain absent.
+
+### Code and artifact changes, reasons, and method selection
+
+`scripts/record_family_retrieval_owner_decisions.py` records the current approval as a reproducible
+artifact rather than leaving it only in chat history. The approved query checksum is hardcoded in
+the script, so rerunning it after any question change fails immediately. The script also revalidates
+the query pack and manifest before constructing decisions; this duplicates a small amount of guard
+logic intentionally because attribution must never attach to a stale or widened pack.
+
+Expected labels are derived only from the already adjudicated registry/reference relationship, not
+from retrieval output. Positive cases expect their referenced review-family ID. Merge controls
+expect the existing human-backed casting ID and explicitly forbid a duplicate family ID. Hold
+controls require `expected_materialized=false`. Unrelated controls expect zero candidates. Reasons
+are tailored to the case type and, for positives, the challenge style; every item retains
+`decided_by=project_owner` and the same second-precision UTC decision time.
+
+`owner-decisions.json` stores 105/105 approvals and is checksum-bound to the prior commit's query
+pack. `benchmark.json` joins each frozen question with its separately approved expected branch.
+`benchmark-manifest.json` freezes the query, owner decision, registry, projection, human catalog,
+and their manifests plus the system-under-test code/version block. The benchmark hash is
+`440246fb6a3b38f56fc25c1ec939d53d6cfc4457fed738aad561899325808afd`; its explicit exclusions still
+prohibit canonical decisions, calibration, threshold selection, query rewriting, retriever tuning,
+release truth, PostgreSQL ingestion, and production-accuracy claims.
+
+Two actual-artifact tests were added. The first reconstructs the official benchmark through the
+strict builder, compares both JSON objects exactly, checks all 105 approvals, and asserts that no
+candidate/rank/score/metric/verdict fields exist. The second runs the owner-decision and benchmark
+`--check` commands and proves all three frozen output hashes remain unchanged. Existing negative
+tests continue to reject partial, duplicate, stale, changed, or incorrect labels.
+
+Decision D35 explains why the owner's bounded proceed instruction is sufficient authority here and
+why it does not widen scope. The new T48.3 evidence document records hashes, class semantics,
+absence of scoring, and the next gate. Specs and README now distinguish a frozen labeled benchmark
+from a completed retrieval evaluation.
+
+### Verification, current impact, and next step
+
+Focused validation passes 10/10. The complete repository suite passes 194/194 in 2.203 seconds on
+the final tree. Python compilation, owner-decision and benchmark byte reproduction, the configured
+100-character code-line check, `git diff --check`, and the repository-root scope check pass. Ruff is
+not installed on this host, so no Ruff result is claimed. The suite emits only the known non-failing
+Starlette legacy-`httpx` environment warning.
+
+No runtime module, API, canonical catalog, calibration/policy artifact, PostgreSQL row, or existing
+resolver result changed. T48.4 is now the only next task: implement the read-only evaluator, retrieve
+against the already frozen `human-knowledge-hybrid-v2`, compute the precommitted metrics, and publish
+PASS or FAIL without tuning this v1 holdout.
+
 ## 2026-09-12 — T48.2 freezes 105 independent queries without looking at retrieval output
 
 ### What was executed and what problem it solves
