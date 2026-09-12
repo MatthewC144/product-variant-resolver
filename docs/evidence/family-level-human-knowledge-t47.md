@@ -2,7 +2,7 @@
 
 > Mode: Lite / Lean Industrial
 >
-> Current milestone: T47.1–T47.3 complete; T47.4 pending
+> Current milestone: T47.1–T47.4 complete; Lite QA passed
 >
 > Date: 2026-09-11
 
@@ -118,13 +118,43 @@ debug omission, canonical isolation, safe UI states, and inert markup-shaped val
 host suite passes **184/184**. The known environment-wide Starlette legacy-`httpx` warning remains
 non-failing and is unrelated to this change.
 
-### Remaining boundary
+### T47.4 final Lite QA
+
+The final inventory check again measured 100 provisional variants and 42 review families in one
+142-document pool with 142 unique IDs and 142 unique UUIDs. All 42 exact family queries returned
+within Top-5 with worst rank 2, BMW remained a `provisional_variant` at rank 1, and Proton Saga
+remained canonical `no_match` while appearing as a `review_family` debug candidate.
+
+The complete host suite passed **184/184** in 1.423 seconds. The entire deterministic source chain
+then passed: fixture and 100-row pilot validation; review, base queue, priority-one evidence and
+decision; five research batches and five cumulative decision checkpoints; the 42-new / 4-merge /
+7-hold registry; and the 42-document runtime projection. Python compilation, JavaScript syntax,
+default and PostgreSQL-profile Compose configuration, and whitespace checks passed.
+
+A fresh temporary canonical report retained the frozen 21-case synthetic fixture metrics:
+Recall@25 `1.0`, Top-1 `1.0`, hard-negative accuracy `1.0`, precision `1.0`, false-match rate `0.0`,
+and coverage `0.8333`. The report measured direct-pipeline p95 `2.3898 ms` and in-process HTTP/ASGI
+p95 `2.675 ms`; these are local fixture smoke figures and exclude Docker, TCP, PostgreSQL,
+concurrency, and production traffic.
+
+Diff inspection from pre-T47 commit `785bb8d` to implemented commit `d4fad68` found no change to
+`data/catalog.json`, `data/benchmark.json`, calibration/policy code or artifacts, migrations, or
+PostgreSQL implementation files. All T47 changes are inside the Product Variant Resolver repo.
+The complete FHK-R1–R16 evidence map and verdict are recorded in
+`specs/family-level-human-knowledge/review.md`; the AI/ranking claim boundary is recorded in
+`docs/evidence/ai-evals/dual-rag-human-knowledge-v2.md`.
+
+The first data-chain attempt stopped at the pilot validator because that command batch omitted
+`PYTHONPATH=src`. This was a QA invocation error rather than a product result. The chain was
+restarted from its beginning with the correct environment and every stage passed.
+
+### Closed boundary and deferred work
 
 T47.1 satisfies the projection portions of FHK-R1–R4, FHK-R13, and FHK-R16. T47.2 satisfies the
 runtime portions of FHK-R5–R11 and FHK-R13–R16. T47.3 satisfies the public contract and UI portions
-of FHK-R5, FHK-R11–R12, and FHK-R14. All remain subject to T47.4's final cross-requirement Lite QA,
-deterministic data-chain rerun, frozen evaluation comparison, and documentation closure.
+of FHK-R5, FHK-R11–R12, and FHK-R14. T47.4 verifies all sixteen requirements and closes the Lite
+feature with a PASS verdict for its debug-only integration scope.
 
 Exact-name retrieval remains only the T47 specification's wiring simulation. No independent
 quality result, production claim, calibration change, PostgreSQL integration, or 3,000-row scale
-claim is introduced by these completed milestones.
+claim is introduced by the completed feature. T48 independent evaluation is the next gate.

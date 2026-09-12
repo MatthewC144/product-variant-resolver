@@ -28,4 +28,7 @@ every required item has traceable evidence; a missing item is `not evaluated`, n
 - A QA secret scan is not a formal security review; a CPU smoke measurement is not a formal
   performance review.
 
-The current scored record is [`fixture-v1.md`](fixture-v1.md).
+The current canonical scored record is [`fixture-v1.md`](fixture-v1.md). The separate Human
+Knowledge RAG v2 wiring/safety assessment is
+[`dual-rag-human-knowledge-v2.md`](dual-rag-human-knowledge-v2.md); it explicitly leaves independent
+family retrieval accuracy unevaluated.

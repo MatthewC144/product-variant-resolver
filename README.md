@@ -359,6 +359,14 @@ the frozen family projection version, and one request limit bounds the combined 
 labels both types and renders all external names as inert text. An exact Proton Saga query therefore
 shows useful family review evidence while the canonical answer remains `no_match`.
 
+T47.4 closes the Lite integration review. The dedicated
+[`family-level QA review`](specs/family-level-human-knowledge/review.md) maps FHK-R1–FHK-R16 to
+passing evidence, and the
+[`Human Knowledge RAG v2 evaluation`](docs/evidence/ai-evals/dual-rag-human-knowledge-v2.md)
+separates debug-wiring safety from unmeasured retrieval accuracy. The complete 184-test suite,
+deterministic source chain, and frozen canonical evaluation pass without changing canonical or
+PostgreSQL data. Independent casting-grouped family evaluation remains the next gate.
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with

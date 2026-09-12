@@ -2,7 +2,7 @@
 
 > Mode: Lite / Lean Industrial
 >
-> Status: In progress; T47.1–T47.3 complete
+> Status: Complete; T47.1–T47.4 passed Lite QA
 
 ## Task order
 
@@ -86,8 +86,8 @@ API/UI tests and the complete 184-test host suite pass.
 
 ### T47.4 — Verify and document the Lite integration `[qa/doc_curator]`
 
-- [ ] Run focused, complete, data-chain, evaluation, compile, Compose, and whitespace checks. _(→FHK-R7–R16)_
-- [ ] Map each requirement to measured evidence and update project documentation. _(→FHK-R16)_
+- [x] Run focused, complete, data-chain, evaluation, compile, Compose, and whitespace checks. _(→FHK-R7–R16)_
+- [x] Map each requirement to measured evidence and update project documentation. _(→FHK-R16)_
 
 Files:
 
@@ -102,6 +102,13 @@ Acceptance:
 - QA proves family suggestions are debug-only and canonical metrics/results remain unchanged.
 - Documentation states that exact-name self-retrieval is not independent quality evidence.
 - All changes remain inside the `Product Variant Resolver` repository.
+
+Completion evidence (2026-09-11): `specs/family-level-human-knowledge/review.md` maps all 16
+requirements to passing evidence and records a Lite verdict of PASS for the debug-only boundary.
+The 184-test suite, complete deterministic source chain, family smoke matrix, frozen canonical
+evaluation/report, compilation, JavaScript syntax, both Compose configurations, and whitespace
+checks pass. Pre-T47 diff inspection confirms no canonical catalog, benchmark, calibration/policy,
+migration, or PostgreSQL implementation change.
 
 ## Requirement traceability
 

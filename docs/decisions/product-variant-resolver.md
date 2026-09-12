@@ -615,7 +615,10 @@
   branches selected by `knowledge_type`. The service now serializes the already bounded mixed
   ranking directly: variants retain variant IDs, families retain only review-family IDs, and the
   debug payload publishes the family projection version. The UI renders both branches using text
-  nodes and explicitly labels family-only evidence without inventing a release variant.
+  nodes and explicitly labels family-only evidence without inventing a release variant. T47.4's
+  requirement-by-requirement Lite review passes all sixteen requirements, reproduces the full data
+  chain, and confirms the pre-T47 canonical catalog, benchmark, calibration/policy, migrations, and
+  PostgreSQL implementation remain unchanged.
 - **Deferred review:** Exact-name self-retrieval proves wiring feasibility, not generalization. A
   held-name query can still retrieve an unrelated accepted family through shared tokens, so T48 must
   use an independently authored casting-grouped holdout before any quality or production claim.

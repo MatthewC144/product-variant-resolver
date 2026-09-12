@@ -1,7 +1,7 @@
 # Product Variant Resolver — Lite MVP QA Review
 
 > Date: 2026-09-01  
-> Last focused update: 2026-09-11 (T47.3 discriminated debug API/UI)
+> Last focused update: 2026-09-11 (T47.4 final family-level Lite QA)
 > QA mode: `.codex/agents/qa.toml` MVP Mode  
 > Scope: `specs/product-variant-resolver/mvp-brief.md` R1–R30
 > Verdict: **PASS WITH RISKS**
@@ -224,8 +224,15 @@ debug payload now reports the frozen family projection version. The UI labels bo
 `family only — variants unreviewed` rather than inventing a release variant. Its rendering remains
 text-node-only, including markup-shaped names. Proton Saga is visible as a family candidate but
 still returns canonical `no_match`; BMW remains a typed provisional variant. Seventeen focused
-API/UI tests and the complete **184/184** host suite pass. T47.4 remains the final cross-requirement
-QA and documentation closure.
+API/UI tests and the complete **184/184** host suite pass.
+
+T47.4 closes that feature boundary. The dedicated family-level review maps FHK-R1–FHK-R16 to
+executable and artifact evidence and returns PASS for debug-only integration. A fresh 184/184 suite,
+the complete deterministic intake/review/research/decision/registry/projection chain, Python/JS
+checks, both Compose configurations, and a frozen canonical evaluation/report all pass. The
+canonical catalog, benchmark, calibration/policy, migrations, and PostgreSQL implementation are
+unchanged from pre-T47 commit `785bb8d`. The 42/42 family result remains explicitly classified as
+exact-name wiring evidence; independent family accuracy is still unevaluated and moves to T48.
 
 An independent Docker runtime milestone now verifies the existing
 `product-variant-resolver:lite` image on Docker Desktop 29.5.3/aarch64: Python 3.12.14, non-root
@@ -277,7 +284,7 @@ visible in any portfolio or repository claims.
 | R13 CPU smoke budget | PASS (limited scope) | Checked-in host-to-Docker loopback evidence has 50 sequential samples, 10 excluded warm-ups, K=25, and nearest-rank p95 `4.721208 ms` (gate `<=1500 ms`). That measurement remains offline-only. PostgreSQL exact retrieval passed sequential functionality checks, but database latency, concurrency, TLS/proxy, and remote networking were not measured. |
 | R14 API validation | PASS | Blank, 501-code-point, unknown-field, and limit=26 requests return structured 422; malformed JSON returns 400; unsupported media type returns 415; no tracebacks exposed. |
 | R15 Health/readiness | PASS WITH RISK | Missing catalogs and unavailable external providers fail closed. PostgreSQL startup verifies server/catalog state plus dense metadata and every expected UUID/version/checksum; catalog checksum corruption or one missing vector produces health 503, and retrieval-time database failure maps to 503. Health remains a startup snapshot, so post-startup loss is detected on retrieval. |
-| R16 Quality gate | PASS | The latest host suite passes 168/168; fixture and Wiki-pilot validation, deterministic Wiki review/queue/evidence/five research batches/five priority-two decision checkpoints/review-family registry, Python compilation, default/PostgreSQL Compose configuration, and `git diff --check` pass. T04 migration, T07 ingestion, T09 sparse, and T10 exact dense retrieval passed isolated PostgreSQL 16/pgvector verification. Offline remains the default; PostgreSQL canonical sparse+dense is opt-in. |
+| R16 Quality gate | PASS | The latest host suite passes 184/184; fixture and Wiki-pilot validation, deterministic Wiki review/queue/evidence/five research batches/five priority-two decision checkpoints/review-family registry/family projection, Python and JavaScript checks, default/PostgreSQL Compose configuration, frozen canonical evaluation/report, and `git diff --check` pass. T04 migration, T07 ingestion, T09 sparse, and T10 exact dense retrieval previously passed isolated PostgreSQL 16/pgvector verification. Offline remains the default; PostgreSQL canonical sparse+dense is opt-in. |
 | R17 Human-label provenance | PASS | `human-labeled-real-noisy-v1` contains 101 confirmed human labels, including 91 initial-name/human-name pairs and 10 explicit `no_candidate` failures. Four source rows marked excluded were not imported. The frozen manifest records source and dataset checksums, and the corpus declares that it is excluded from canonical-resolution accuracy, calibration training, and threshold selection until catalog IDs are assigned. |
 | R18 Conservative catalog alignment | PASS | The deterministic alignment covers all 101 reviewed records and freezes the human dataset, catalog, and output checksums. It reports 0 canonical mappings, 2 exact brand/casting family-only matches, and 99 unmapped records. Every unresolved record retains null UUID/slug; fuzzy matching is disabled. |
 | R19 Human-backed catalog draft | PASS | All 101 confirmed labels are preserved in 97 deterministic casting entities and 100 provisional variants. One exact structured duplicate merges while keeping both cases and aliases. Checksums and unique IDs validate, and every provisional variant remains `needs_canonical_review` and excluded from canonical responses and calibration. |
@@ -541,12 +548,12 @@ T30–T44 external-data intake/pre-review/queue/evidence/research/decision miles
 for their stated Lite scope. T45–T46 specify, implement, and verify the stable family registry. T47
 provides the confirmed family-level human-knowledge projection, typed retrieval, debug API/UI,
 readiness, and canonical-isolation contract. T47.1 built the deterministic 42-document projection,
-T47.2 now runs the combined typed v2 index with fail-closed readiness, and T47.3 exposes the
-discriminated family/variant debug contract through a text-safe UI. T47.4 is the next task: rerun
-and map the complete Lite QA/data/evaluation chain and close the feature review. Casting-grouped
-holdout evaluation and database materialization remain separate later gates before additional
-yearly lists expand the corpus toward roughly 3,000 reviewable variants. Exact pgvector quality and
-latency must be remeasured at that scale.
+T47.2 runs the combined typed v2 index with fail-closed readiness, T47.3 exposes the discriminated
+family/variant debug contract through a text-safe UI, and T47.4 closes all sixteen family-level
+requirements with a Lite PASS. The recommended next task is T48: build an independently written,
+casting-grouped holdout evaluation for family retrieval. Database materialization remains T49 and
+must follow that quality gate before additional yearly lists expand the corpus toward roughly 3,000
+reviewable records. Exact pgvector quality and latency must be remeasured at that scale.
 The next human-knowledge evaluation task remains an independently written, casting-grouped holdout
 set; until that evidence exists, the human source stays debug-only. A complete dependency-lock
 review, active post-startup database health polling, external neural models, and a justified T14

@@ -1,5 +1,112 @@
 # Project Log
 
+## 2026-09-11 — T47 closes with a requirement-by-requirement Lite QA verdict
+
+### What was executed and what problem it solves
+
+T47.4 verifies the entire family-level Human Knowledge RAG feature instead of treating the passing
+implementation tests from T47.1–T47.3 as sufficient by themselves. The risk being addressed is a
+false sense of completion: a family suggestion can look correct in the browser while its source
+artifact is stale, a hold slipped into the index, the canonical decision changed, or documentation
+quietly overstates exact-name retrieval as real-world accuracy.
+
+The final QA therefore follows the feature from the original 100-row external pilot through review,
+six owner-decision events, the stable family registry, the runtime projection, typed retrieval,
+debug API/UI, and the independent canonical decision boundary. The result is PASS for T47's stated
+Lite scope: family evidence is reproducible, typed, bounded, observable, safe to render, and unable
+to become canonical identity. This pass does not promote any family or release variant and does not
+approve PostgreSQL persistence or production retrieval quality.
+
+### Code and documentation changes, affected areas, and reasons
+
+No product code, runtime configuration, or data artifact needed modification in T47.4. Changing the
+implementation during its closing QA would have mixed verification with another build step and
+made the evidence harder to attribute. Instead, this task adds
+`specs/family-level-human-knowledge/review.md`, which maps every FHK-R1–FHK-R16 requirement to a
+specific test, artifact invariant, runtime observation, or repository diff result. The verdict is
+worded as PASS for the debug-only integration boundary rather than an unrestricted product pass.
+
+`docs/evidence/ai-evals/dual-rag-human-knowledge-v2.md` is added because the project rules require
+AI/ranking outputs to have an explicit rubric record. It documents the 100-variant plus 42-family
+corpus, the retrieval method, canonical isolation, API/UI safety, failure behavior, and the exact
+limits of the available measurements. The central decision is to mark independent family
+retrieval quality as `NOT EVALUATED`: the 42 smoke queries repeat the indexed approved names, so
+using their 42/42 result as Recall or Top-1 accuracy would be leakage. The shared rubric now links
+both the canonical scored evaluation and this separate v2 safety assessment.
+
+The feature requirements, design, task list, main MVP brief, README, decision record, accumulated
+evidence, and main QA review are updated from “final QA pending” to implemented and verified. These
+changes give future reviewers one consistent state and make T48—not another T47 subtask—the clear
+next dependency. Historical T47.1–T47.3 evidence remains intact so the sequence of decisions and
+test-count growth can still be audited.
+
+### Verification method and why it was selected
+
+The QA uses three complementary evidence classes. First, executable tests exercise positive and
+negative behavior: 184 unit, integration, API, evaluation, data, and UI tests passed. Second,
+deterministic builders re-read the frozen artifacts and compare freshly constructed bytes, proving
+the long external-data chain remains internally consistent. Third, a baseline diff compares the
+implemented T47 feature with pre-T47 commit `785bb8d`, directly checking that prohibited canonical,
+benchmark, calibration/policy, migration, and PostgreSQL implementation paths did not change.
+
+This layered method was selected instead of relying only on the full test count. Tests demonstrate
+behavior but do not automatically prove that a forbidden data file was untouched; a Git scope diff
+does. Conversely, a clean diff cannot prove runtime behavior; service/API/UI tests do. The frozen
+canonical evaluation supplies a third independent regression signal for the first RAG, while the
+family smoke matrix tests only the second-RAG wiring.
+
+Evaluation reports were generated in a temporary directory instead of overwriting checked-in
+reports. T47 did not change the canonical benchmark or policy, so replacing historical report
+artifacts merely because timing samples naturally vary would create noise and imply a new model
+release. The fresh temporary report is used as QA evidence while the immutable catalog and
+benchmark SHA-256 values remain the authoritative comparison.
+
+### Detailed execution results
+
+The fresh inventory contained exactly 100 provisional variants and 42 review families, totaling
+142 documents with 142 unique IDs and UUIDs. Every approved brand/family exact query recovered its
+expected document within Top-5; worst rank was 2. The existing BMW M3 GT2 result stayed a
+`provisional_variant` at rank 1. Proton Saga appeared as a `review_family` debug candidate while the
+canonical status remained `no_match` with null ID.
+
+The complete suite passed 184/184 in 1.423 seconds. The deterministic chain passed fixture and
+100-row pilot validation; pilot review; base queue; priority-one evidence and decision; five
+research batches; five cumulative priority-two decision checkpoints; the 42-new / 4-merge / 7-hold
+family registry; and the 42-document runtime projection. Python compilation, JavaScript syntax,
+default and PostgreSQL-profile Compose parsing, and whitespace checks also passed.
+
+The fresh 21-case synthetic canonical report preserved Recall@25 `1.0`, Top-1 `1.0`, hard-negative
+accuracy `1.0`, precision `1.0`, false-match rate `0.0`, and coverage `0.8333`. Its direct-pipeline
+p95 was `2.3898 ms`; warmed in-process HTTP/ASGI p95 was `2.675 ms`. These timings exclude Docker,
+TCP, PostgreSQL, concurrent load, and production infrastructure and are recorded only as fixture
+smoke evidence.
+
+Diff inspection from `785bb8d` through the implemented T47 commit `d4fad68` found no change in
+`data/catalog.json`, `data/benchmark.json`, calibration/policy artifacts or implementation,
+migrations, or PostgreSQL implementation. The family projection retained SHA-256
+`8615cbb99b453673599e1f9baf54f6900314d7ba64e53a31ea7891c71810b9d7`.
+
+The first data-chain invocation stopped at its second command because that batch had not exported
+`PYTHONPATH=src`, so the validator could not import the local package. This was an invocation error,
+not a failed product assertion. The environment was corrected and the complete chain was restarted
+from its beginning; every stage then passed. The only remaining suite message is the already known,
+non-failing environment-wide Starlette legacy-`httpx` warning. Ruff and MyPy are unavailable in the
+host environment, so neither is claimed as completed evidence.
+
+### Remaining risk and next step
+
+T47 is complete, but the second RAG's family accuracy remains deliberately unknown. Exact approved
+names are useful for proving that all documents can be found; they do not tell us how misspellings,
+seller abbreviations, extra release details, related casting names, or unseen noisy titles behave.
+That is the most important unresolved risk because scaling a weak retrieval policy to PostgreSQL or
+3,000 rows would make errors larger and harder to diagnose.
+
+The recommended next task is T48: design and freeze an independently authored, casting-grouped
+family holdout dataset, define metrics and error categories, and evaluate the current sparse /
+`hashing-v1` / RRF second RAG without using the indexed names as its answers. T49 PostgreSQL and
+pgvector measurement should proceed only after that quality result is understood; additional yearly
+catalog ingestion follows those gates.
+
 ## 2026-09-11 — Family evidence becomes visible without being mistaken for a variant
 
 ### What was executed and what problem it solves

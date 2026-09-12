@@ -935,15 +935,18 @@ Each task is intended to be independently committable and verifiable. `task_exec
   Proton Saga is returned only as family review evidence and remains canonical `no_match`; BMW
   retains its variant fields; default output omits debug; markup-shaped names stay inert text.
   **Status:** Complete. Seventeen focused API/UI tests and the complete 184/184 host suite pass.
-  Final cross-requirement verification and documentation closure remain T47.4.
+  Final cross-requirement verification and documentation closure were completed in T47.4.
 
-- [ ] **T47.4 — Verify and document family-level integration** `[qa/doc_curator]` _(FHK-R7–R16)_
+- [x] **T47.4 — Verify and document family-level integration** `[qa/doc_curator]` _(FHK-R7–R16)_
   Run the final Lite data-chain, evaluation, regression, Compose, static, and repository-boundary
   checks; map every requirement to measured evidence and close the feature review without widening
   the debug-only or no-PostgreSQL boundary.
   **Verify:** all family-level requirements have reproducible evidence; canonical metrics/results
   remain frozen; exact-name self-retrieval is explicitly not presented as independent accuracy.
-  **Status:** Pending; this is the next task.
+  **Status:** Complete. All FHK-R1–R16 map to passing evidence for the debug-only boundary; the
+  complete 184-test suite, deterministic data chain, frozen canonical evaluation/report,
+  compilation, JavaScript syntax, both Compose configurations, and scope diff pass. Independent
+  family quality evaluation remains T48.
 
 ### Task order and handoff
 
