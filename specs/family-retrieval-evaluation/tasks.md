@@ -2,7 +2,7 @@
 
 > Mode: Lite / Lean Industrial
 >
-> Status: Confirmed; T48.1–T48.4 complete, T48.5 next
+> Status: Complete; engineering QA PASS, retrieval-quality gate FAIL, T49 blocked
 
 ## Task order
 
@@ -79,9 +79,9 @@ Acceptance:
 
 ### T48.5 — Close the Lite evaluation gate `[qa/doc_curator]`
 
-- [ ] Run focused/full tests, deterministic data chain, canonical regression, compilation, Compose,
+- [x] Run focused/full tests, deterministic data chain, canonical regression, compilation, Compose,
   and scope checks. _(→FRE-R15–R16)_
-- [ ] Map all requirements, record limitations, and decide whether T49 may begin. _(→FRE-R12–R16)_
+- [x] Map all requirements, record limitations, and decide whether T49 may begin. _(→FRE-R12–R16)_
 
 Files:
 

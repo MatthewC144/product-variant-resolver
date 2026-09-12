@@ -735,3 +735,24 @@
 - **Deferred review:** T48.4 is now permitted to implement and run the read-only evaluator for the
   first time. Its result must use the precommitted gates, and a FAIL cannot trigger edits or tuning
   on this v1 holdout.
+
+## D36 — Preserve the lexical-quality failure and block T49
+
+- **Choice:** Close T48 engineering verification while preserving the scored result as
+  `verdict=FAIL`. Keep `human-knowledge-hybrid-v2` and the 42 family documents debug-only, prohibit
+  any tuning or model selection on `family-retrieval-holdout-v1`, and do not begin T49 PostgreSQL/
+  pgvector persistence or the approximately 3,000-row expansion.
+- **Reason:** Eight of nine gates pass, but the precommitted all-gates contract requires both styles
+  to reach Recall@5 `>=0.75`. Lexical variation recovered only 31 of 42 families (`0.7381`), one
+  successful case below the minimum. Reinterpreting the strong overall `73/84` Recall@5 as a PASS
+  would erase the exact weakness that style-level gating was added to expose.
+- **Alternatives:** Round 73.81% up to 75%; lower the threshold; remove one failed query; widen K;
+  add fuzzy or neural retrieval and rescore v1; or persist first because the other gates passed.
+  All would violate the pre-score contract, tune on the final test, or scale a known weakness.
+- **Impact:** T48 closes with 201/201 executable tests and all reproducibility, canonical, T47,
+  compilation, Compose, and scope checks passing. The model-quality record remains FAIL with eleven
+  lexical misses, zero forbidden-family hits, and zero unrelated non-empty results. No runtime,
+  canonical, persistence, or benchmark file is modified by the closure decision.
+- **Next review:** Specify a retriever-redesign feature using separate development evidence. If the
+  retriever changes, author and owner-approve `family-retrieval-holdout-v2` before final scoring.
+  T49 remains blocked until that unseen gate passes.

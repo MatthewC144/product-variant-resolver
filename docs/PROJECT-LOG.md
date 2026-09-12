@@ -3945,6 +3945,110 @@ and report reproducibility, then write the final review/evidence mapping. If tho
 pass, T48 will close with a truthful quality FAIL and a documented redesign requirement—not with
 permission to begin T49.
 
+## 2026-09-12 — T48.5 Lite evaluation-gate closure
+
+### Context, problem, and observable outcome
+
+T48.4 produced a valid model-quality FAIL, but that result alone did not prove that the evaluator
+was reproducible in the complete repository, that canonical behavior stayed unchanged, or that the
+earlier human/Fandom evidence chain still validated. T48.5 therefore performed the final Lite QA
+closure. It did not attempt to improve retrieval or reinterpret the failed threshold.
+
+The outcome has two deliberately separate verdicts. Engineering verification is **PASS**: 201/201
+tests, the full deterministic data chain, fresh canonical evaluation, T47 regressions, compilation,
+JavaScript syntax, both Compose configurations, and repository-scope checks succeed. Retrieval
+quality remains **FAIL** because lexical-variation Recall@5 is still `31/42 = 0.7381` against the
+precommitted `>=0.75` gate. As a consequence, T48 is complete but T49 and the approximately
+3,000-row PostgreSQL expansion are not authorized.
+
+### Implementation trace
+
+No product code, retriever, runtime configuration, catalog, benchmark, policy, migration, or
+PostgreSQL file changed in T48.5. `specs/family-retrieval-evaluation/review.md` now maps all sixteen
+requirements to executable or immutable evidence and makes the two-verdict distinction explicit.
+`docs/evidence/family-retrieval-evaluation-t48.md` records the artifact hashes, raw metric counts,
+full verification chain, protected-file comparison, limitations, and carry-forward decision.
+
+The T48 requirements/design/tasks headers were advanced from build/in-progress to verified and
+complete, with both T48.5 tasks checked. README and the evaluation-directory README no longer say
+that scoring has not happened; they now link the reports, state the failed lexical result, and warn
+that T49 is blocked. The AI-eval gained final regression evidence, while decision D36 records why
+the result must not be rounded, weakened, edited, or immediately retested with a changed model.
+The shared AI-output rubric index now links this scored record instead of saying independent family
+quality is still unevaluated.
+
+### Technical choices, alternatives, and trade-offs
+
+The closure treats “did we implement and verify the evaluation correctly?” separately from “did
+the retriever meet the quality bar?” This avoids two misleading outcomes: marking sound evaluation
+software as broken because it discovered a model weakness, or calling the model acceptable because
+the software tests passed. The accepted trade-off is a completed milestone whose headline model
+verdict is FAIL; that is more useful and defensible than a cosmetically green but altered gate.
+
+The full source chain was replayed through non-mutating check modes rather than rebuilding committed
+files in place. That choice protects frozen byte identities while still proving reproducibility.
+Canonical regression used a new report under an isolated temporary directory so variable local
+latency samples could not overwrite checked-in evidence. Compose was parsed in both offline and
+PostgreSQL profiles, but containers were not rebuilt or load-tested because T48 changes no runtime
+image or database path and makes no Docker/database performance claim.
+
+Whole-repository Ruff and MyPy were run for transparency after the project dev tools became
+available. Ruff 0.16.7 reports 143 existing style findings and strict MyPy reports 817 existing
+findings, including unavailable optional dependencies and legacy test annotations. Automatically
+rewriting the entire repository during an evaluation closure was rejected: it would create a large,
+unrelated refactor and could alter frozen source checksums. The three T48.4 evaluator/report/test
+files pass targeted Ruff and isolated strict MyPy, and the full executable suite remains green.
+
+### Decision changes
+
+Before T48, PostgreSQL scale design was conditionally next if the independent family-retrieval gate
+passed. The condition is now resolved negatively. T49 changes from “available after evaluation” to
+**blocked pending a redesigned retriever and a new unseen holdout**. The current family source may
+remain as debug/review evidence because all safety and canonical-isolation checks pass, but it may
+not become canonical, persistent, or production-claimed.
+
+The proposed improvement direction is intentionally not selected here. Fuzzy/character candidate
+generation, field-aware ranking, query expansion, or a neural representation may address different
+parts of the eleven lexical misses, but choosing among them using the final v1 outcomes would blur
+development and test evidence. A new feature spec must define development data and architecture;
+final evaluation then needs a separately authored and owner-approved v2 holdout.
+
+### Verification evidence
+
+The complete Python suite reported **201/201 PASS**. Its sole warning is the known Starlette
+TestClient use of an AnyIO alias deprecated by the locally resolved dependency version; no T48 code
+emits it. The deterministic checks passed from fixture and 100-row pilot through review, base queue,
+priority-one evidence/decisions, all five priority-two research/decision batches, the 42/4/7 registry,
+the 42-document projection, the T48 query pack, owner decisions, benchmark, JSON evaluation, and
+Markdown report.
+
+A fresh 21-case canonical fixture report retained Recall@10/25/50, Top-1, MRR@10, hard-negative
+accuracy, and precision at `1.0`, false-match rate `0.0`, and coverage `0.8333`. Its local macOS
+arm64/Python 3.12.13 warmed p95 values were `2.3194 ms` for the direct pipeline and `2.6189 ms` for
+in-process ASGI; these exclude containers, TCP, database, concurrency, and production. T47 tests
+retain the 142-document typed index, exact-name family wiring, BMW variant behavior, and Proton Saga
+canonical isolation.
+
+Python `compileall`, `node --check ui/app.js`, default and PostgreSQL-profile `docker compose config
+--quiet`, and `git diff --check` passed. Diff inspection from pre-implementation T48 baseline
+`b7f6ac1` found no changes to protected canonical/runtime/policy/PostgreSQL files. The first attempt
+to inspect the fresh canonical JSON assumed an obsolete flat output path; generation had succeeded,
+and reading the emitted versioned path immediately confirmed the expected metrics. No committed
+file or result was affected by that command-path mistake.
+
+### Incomplete work, risks, and next step
+
+The v1 test is synthetic, family-level, and only 42 groups wide; it does not represent marketplace
+frequency, release variants, canonical accuracy beyond the unchanged fixture, PostgreSQL scale,
+concurrency, or production latency. It is now development-known. Full-repository Ruff/MyPy debt and
+the dependency warning remain separate maintenance items, not resolved within this evaluation
+milestone.
+
+The single highest-value next action is to **write a new retriever-redesign specification** that
+defines independent development data and chooses how to address token-disruption failures without
+tuning against v1. After implementation, a newly authored `family-retrieval-holdout-v2` must pass
+before T49 persistence or the approximately 3,000-row expansion can resume.
+
 ## Required format for future entries
 
 Every future project-log entry must preserve the following traceability structure:

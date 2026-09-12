@@ -1,8 +1,9 @@
 # Family Retrieval Holdout v1
 
 This directory is the test-only handoff boundary for T48. The official query pack, pre-score
-manifest, project-owner decisions, labeled benchmark, and benchmark manifest are now frozen.
-Retrieval results do not exist yet.
+manifest, project-owner decisions, labeled benchmark, and benchmark manifest are frozen. The first
+and only quality-scored result is published under `reports/family-retrieval-v1/` with an overall
+`FAIL`: lexical-variation Recall@5 is `31/42`, below the precommitted `>=0.75` gate.
 
 The files must be created in this order:
 
@@ -13,6 +14,8 @@ The files must be created in this order:
    that exact query-pack checksum.
 4. The builder produced `benchmark.json` and `benchmark-manifest.json` only after every structural,
    leakage, approval, version, checksum, and usage-boundary check passed.
+5. T48.4 evaluated the unchanged retriever and wrote complete per-case JSON plus a deterministic
+   Markdown summary; T48.5 reproduced the chain and closed engineering QA without altering FAIL.
 
 All cases belong only to the `test` split. They cannot be used for training, calibration, threshold
 selection, query rewriting, retriever tuning, canonical responses, release-variant truth,

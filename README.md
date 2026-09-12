@@ -377,9 +377,20 @@ implements the fail-closed builder, source/code checksum freeze, separate query-
 owner-decision validation, deterministic benchmark build/check, and negative tests. The formal 105
 queries are now independently authored and checksum-frozen in T48.2: 42 marketplace-noise pairs,
 42 lexical-variation pairs, 4 merge controls, 7 held-identity controls, and 10 zero-overlap controls.
-The owner confirmed that unchanged pack, and T48.3 freezes all 105 attributable labels plus the
-unscored benchmark. No candidates, ranks, metrics, verdict, runtime change, or accuracy claim has
-been created. T48.4 is the first task permitted to execute retrieval.
+The owner confirmed that unchanged pack, and T48.3 froze all 105 attributable labels plus the
+unscored benchmark. T48.4 then ran the existing retriever once and published the complete
+[`JSON/Markdown evaluation`](reports/family-retrieval-v1/evaluation.md) plus the
+[`AI-eval record`](docs/evidence/ai-evals/family-retrieval-holdout-v1.md). The precommitted result is
+**FAIL**: eight of nine gates pass, but lexical-variation Recall@5 is `31/42 = 0.7381`, below the
+required `0.75`. Overall Recall@5 is `73/84 = 0.8690`; all marketplace-noise, merge, forbidden-
+family, and unrelated controls pass.
+
+T48.5 closes the [`Lite QA review`](specs/family-retrieval-evaluation/review.md) with 201/201 tests,
+the complete deterministic data chain, unchanged canonical fixture metrics, T47 regression,
+compilation, Compose, and scope checks passing. This is an engineering-verification PASS but a
+retrieval-quality FAIL. The family source remains debug-only, same-set tuning is prohibited, and
+T49 PostgreSQL/pgvector persistence plus the approximately 3,000-row expansion are blocked until a
+redesigned retriever passes a newly authored v2 holdout.
 
 ## Docker and PostgreSQL status
 

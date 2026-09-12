@@ -2,7 +2,7 @@
 
 > Mode: Lite / Lean Industrial
 >
-> Status: Confirmed; T48.1–T48.3 implemented
+> Status: Implemented and verified; retrieval-quality gate FAIL
 
 ## Overview
 

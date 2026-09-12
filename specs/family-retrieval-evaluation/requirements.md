@@ -2,11 +2,11 @@
 
 > Mode: Lite / Lean Industrial
 >
-> Phase: Build
+> Phase: Verify complete
 >
-> Status: Confirmed; T48.1–T48.3 complete
+> Status: Complete; engineering QA PASS, retrieval-quality gate FAIL
 >
-> Proposed benchmark: `family-retrieval-holdout-v1`
+> Benchmark: `family-retrieval-holdout-v1`
 
 ## Purpose
 

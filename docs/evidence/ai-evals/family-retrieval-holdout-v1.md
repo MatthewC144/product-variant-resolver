@@ -86,3 +86,16 @@ accuracy, confidence calibration, database scale, or production latency. With on
 small count changes visibly move percentages. After publication the v1 cases are no longer an
 unseen final holdout, so rerunning the unchanged implementation is allowed only as a reproducibility
 check—not as evidence for tuning a modified retriever.
+
+## T48.5 closure verification
+
+The final Lite gate reproduced the complete immutable-data chain and both evaluation reports.
+The complete Python suite passed 201/201; a fresh canonical fixture report retained Recall@25 and
+Top-1 `1.0`, precision `1.0`, false-match rate `0.0`, and coverage `0.8333`; T47 typed/canonical
+isolation behavior remained covered. Python compilation, UI JavaScript syntax, default and
+PostgreSQL-profile Compose configuration, whitespace, and protected-file scope checks passed.
+
+Engineering QA therefore closes PASS while this AI-output quality record remains FAIL. No evidence
+from the closure run changes the precommitted metric verdict or permits T49. Whole-repository Ruff
+and strict MyPy debt remains separately disclosed in the T48 review rather than being confused with
+the passing executable regression suite.
