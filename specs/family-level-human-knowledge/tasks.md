@@ -2,7 +2,7 @@
 
 > Mode: Lite / Lean Industrial
 >
-> Status: In progress; T47.1–T47.2 complete
+> Status: In progress; T47.1–T47.3 complete
 
 ## Task order
 
@@ -60,8 +60,8 @@ serialization remains intentionally deferred to T47.3.
 
 ### T47.3 — Expose and render the discriminated debug contract `[frontend/backend]`
 
-- [ ] Add strict discriminated API models and projection version metadata. _(→FHK-R5,FHK-R11,FHK-R14)_
-- [ ] Render variant and family candidates distinctly with text-safe DOM operations. _(→FHK-R12)_
+- [x] Add strict discriminated API models and projection version metadata. _(→FHK-R5,FHK-R11,FHK-R14)_
+- [x] Render variant and family candidates distinctly with text-safe DOM operations. _(→FHK-R12)_
 
 Files:
 
@@ -77,6 +77,12 @@ Acceptance:
 - Type-inapplicable IDs are absent rather than fabricated or overloaded.
 - One shared debug limit bounds the combined result list.
 - Default responses remain unchanged and debug markup-shaped values remain inert text.
+
+Completion evidence (2026-09-11): OpenAPI publishes a two-branch `knowledge_type` discriminator;
+family and variant responses contain only their applicable identity fields. A single request limit
+bounds the mixed result list, Proton Saga is visible as family review evidence while remaining
+canonical `no_match`, and markup-shaped values remain inert in the UI harness. Seventeen focused
+API/UI tests and the complete 184-test host suite pass.
 
 ### T47.4 — Verify and document the Lite integration `[qa/doc_curator]`
 

@@ -2,7 +2,7 @@
 
 > Mode: Lite / Lean Industrial
 >
-> Current milestone: T47.1–T47.2 complete; T47.3–T47.4 pending
+> Current milestone: T47.1–T47.3 complete; T47.4 pending
 >
 > Date: 2026-09-11
 
@@ -90,14 +90,41 @@ The two existing UI harness tests also passed after their fixture version moved 
 neither MyPy nor Ruff installed, so no result from either tool is claimed. The known
 machine-wide Starlette legacy-`httpx` TestClient warning remains non-failing.
 
+### T47.3 discriminated API/UI result
+
+T47.3 replaces the temporary variant-only serializer with a Pydantic discriminated union. OpenAPI
+publishes `knowledge_type` as the discriminator and maps it to exactly two strict branches:
+`provisional_variant` and `review_family`. Variant responses contain their casting and provisional-
+variant IDs, reviewed labels, examples, and case provenance; family responses instead contain the
+review-family ID/UUID, approved aliases, and source-record provenance. Type-inapplicable identity
+fields are absent, not copied, overloaded, or filled with null placeholders.
+
+The service applies `debug_candidate_limit` once to the combined RRF order and converts every item
+within that slice according to its document type. The debug payload also includes
+`review-family-knowledge-fandom-2025-r790665-v1`, while requests without debug still omit the entire
+debug object and therefore omit human candidates and versions. A one-result Proton Saga request
+returns the expected family candidate but retains `status=no_match` and null canonical identity; a
+one-result BMW M3 GT2 request retains the existing provisional-variant shape.
+
+The browser table now includes a visible Type column. Review-family rows show approved aliases and
+the explicit text `family only — variants unreviewed`; provisional variants preserve the existing
+series/variant display. The UI continues to create elements and assign `textContent` only. The Node
+harness injects markup-shaped strings into both candidate types and verifies the strings remain
+literal text with no script-side effect.
+
+Seventeen focused API/UI tests passed in 0.277 seconds. They cover the OpenAPI discriminator, both
+serialized branches and field absence, a shared result limit, family projection version, default
+debug omission, canonical isolation, safe UI states, and inert markup-shaped values. The complete
+host suite passes **184/184**. The known environment-wide Starlette legacy-`httpx` warning remains
+non-failing and is unrelated to this change.
+
 ### Remaining boundary
 
 T47.1 satisfies the projection portions of FHK-R1–R4, FHK-R13, and FHK-R16. T47.2 satisfies the
-runtime portions of FHK-R5–R11 and FHK-R13–R16, subject to final T47.4 QA. The public debug schema
-still accepts only the provisional-variant shape. During this transition the combined index runs,
-but its serializer filters family documents instead of fabricating variant fields. T47.3 must add
-the discriminated API models and safe UI rendering; T47.4 then closes full Lite QA.
+runtime portions of FHK-R5–R11 and FHK-R13–R16. T47.3 satisfies the public contract and UI portions
+of FHK-R5, FHK-R11–R12, and FHK-R14. All remain subject to T47.4's final cross-requirement Lite QA,
+deterministic data-chain rerun, frozen evaluation comparison, and documentation closure.
 
 Exact-name retrieval remains only the T47 specification's wiring simulation. No independent
 quality result, production claim, calibration change, PostgreSQL integration, or 3,000-row scale
-claim is introduced by either completed milestone.
+claim is introduced by these completed milestones.

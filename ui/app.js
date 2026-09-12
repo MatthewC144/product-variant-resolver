@@ -234,6 +234,7 @@
       elements.humanCandidatesBody.replaceChildren();
       for (const candidate of candidates) {
         const row = documentObject.createElement("tr");
+        const type = documentObject.createElement("td");
         const humanName = documentObject.createElement("td");
         const casting = documentObject.createElement("td");
         const variant = documentObject.createElement("td");
@@ -242,21 +243,30 @@
         const rrf = documentObject.createElement("td");
         const tokens = documentObject.createElement("td");
         const status = documentObject.createElement("td");
-        safeText(humanName, candidate.human_label_names);
+        const isFamily = candidate.knowledge_type === "review_family";
+        safeText(type, isFamily ? "Review family" : "Provisional variant");
+        safeText(humanName, isFamily ? candidate.aliases : candidate.human_label_names);
         safeText(casting, `${asText(candidate.brand)} · ${asText(candidate.casting)}`);
         safeText(
           variant,
-          `${asText(candidate.series_label)} · ${asText(candidate.variant_label)}`,
+          isFamily
+            ? "family only — variants unreviewed"
+            : `${asText(candidate.series_label)} · ${asText(candidate.variant_label)}`,
         );
         sparse.append(rankScoreCell(documentObject, candidate.sparse_rank, candidate.sparse_score));
         dense.append(rankScoreCell(documentObject, candidate.dense_rank, candidate.dense_score));
         rrf.append(rankScoreCell(documentObject, candidate.rrf_rank, candidate.rrf_score));
         safeText(tokens, candidate.matched_tokens);
         safeText(status, candidate.identity_status);
-        row.append(humanName, casting, variant, sparse, dense, rrf, tokens, status);
+        row.append(type, humanName, casting, variant, sparse, dense, rrf, tokens, status);
         elements.humanCandidatesBody.append(row);
       }
-      safeText(elements.humanCatalogVersion, `catalog ${asText(debugPayload.human_catalog_version)}`);
+      const humanCatalogVersion = asText(debugPayload.human_catalog_version);
+      const familyKnowledgeVersion = asText(debugPayload.review_family_knowledge_version);
+      safeText(
+        elements.humanCatalogVersion,
+        `catalog ${humanCatalogVersion} · family ${familyKnowledgeVersion}`,
+      );
       safeText(elements.humanCandidateCount, `${candidates.length} returned`);
       elements.humanCandidatesEmpty.hidden = candidates.length !== 0;
       elements.humanCandidatesTable.hidden = candidates.length === 0;

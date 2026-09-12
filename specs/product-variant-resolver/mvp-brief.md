@@ -927,6 +927,24 @@ Each task is intended to be independently committable and verifiable. `task_exec
   projection dependency/version, and 182/182 host tests pass. Discriminated family API/UI output is
   intentionally T47.3.
 
+- [x] **T47.3 — Expose and render the discriminated debug contract** `[frontend/backend/qa/doc_curator]` _(FHK-R5,FHK-R11–R12,FHK-R14)_
+  Replace the transitional variant-only serializer with a strict `knowledge_type`-discriminated
+  API union, include the family projection version, and render variant and family evidence without
+  inventing type-inapplicable identity fields.
+  **Verify:** OpenAPI has two explicit union branches; one shared limit bounds mixed results;
+  Proton Saga is returned only as family review evidence and remains canonical `no_match`; BMW
+  retains its variant fields; default output omits debug; markup-shaped names stay inert text.
+  **Status:** Complete. Seventeen focused API/UI tests and the complete 184/184 host suite pass.
+  Final cross-requirement verification and documentation closure remain T47.4.
+
+- [ ] **T47.4 — Verify and document family-level integration** `[qa/doc_curator]` _(FHK-R7–R16)_
+  Run the final Lite data-chain, evaluation, regression, Compose, static, and repository-boundary
+  checks; map every requirement to measured evidence and close the feature review without widening
+  the debug-only or no-PostgreSQL boundary.
+  **Verify:** all family-level requirements have reproducible evidence; canonical metrics/results
+  remain frozen; exact-name self-retrieval is explicitly not presented as independent accuracy.
+  **Status:** Pending; this is the next task.
+
 ### Task order and handoff
 
 Recommended dependency order:

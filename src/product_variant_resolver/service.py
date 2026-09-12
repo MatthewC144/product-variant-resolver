@@ -24,7 +24,9 @@ from .retrieval import (
     StructuredRetriever,
 )
 from .schemas import (
-    CandidateDebug, DebugPayload, HumanKnowledgeCandidateDebug, ResolveRequest, ResolveResponse,
+    CandidateDebug, DebugPayload, HumanKnowledgeCandidateDebug,
+    HumanVariantKnowledgeCandidateDebug, ResolveRequest, ResolveResponse,
+    ReviewFamilyKnowledgeCandidateDebug,
 )
 from .signals import extract_signals
 
@@ -185,13 +187,13 @@ class ResolverService:
                     for item in candidates[:request.debug_candidate_limit]
                 ],
                 human_knowledge_candidates=[
-                    _variant_human_candidate_debug(item)
+                    _human_candidate_debug(item)
                     for item in human_candidates[:request.debug_candidate_limit]
-                    if isinstance(item.document, HumanVariantKnowledgeDocument)
                 ],
                 timings_ms=timings,
                 catalog_version=self.catalog.version,
                 human_catalog_version=self.human_catalog.version,
+                review_family_knowledge_version=self.human_catalog.review_family_version,
                 model_versions={
                     "sparse": self.sparse_retriever.version,
                     "dense": self.dense_retriever.version,
@@ -243,30 +245,49 @@ def _candidate_debug(item: Candidate) -> CandidateDebug:
     )
 
 
-def _variant_human_candidate_debug(
+def _human_candidate_debug(
     item: HumanKnowledgeCandidate,
 ) -> HumanKnowledgeCandidateDebug:
     document = item.document
-    if not isinstance(document, HumanVariantKnowledgeDocument):
-        raise TypeError("family candidates require the T47.3 discriminated debug schema")
-    return HumanKnowledgeCandidateDebug(
-        casting_uuid=document.casting_uuid,
-        casting_id=document.casting_id,
-        provisional_variant_uuid=document.provisional_variant_uuid,
-        provisional_variant_id=document.provisional_variant_id,
-        identity_status=document.identity_status,
-        brand=document.brand,
-        casting=document.casting,
-        series_label=document.series_label,
-        variant_label=document.variant_label,
-        human_label_names=list(document.human_label_names[:3]),
-        example_initial_names=list(document.initial_names[:3]),
-        source_case_ids=list(document.source_case_ids[:5]),
-        sparse_rank=item.sparse_rank,
-        sparse_score=item.sparse_score,
-        dense_rank=item.dense_rank,
-        dense_score=item.dense_score,
-        rrf_rank=item.rrf_rank,
-        rrf_score=item.rrf_score,
-        matched_tokens=list(item.matched_tokens),
-    )
+    if isinstance(document, HumanVariantKnowledgeDocument):
+        return HumanVariantKnowledgeCandidateDebug(
+            knowledge_type="provisional_variant",
+            casting_uuid=document.casting_uuid,
+            casting_id=document.casting_id,
+            provisional_variant_uuid=document.provisional_variant_uuid,
+            provisional_variant_id=document.provisional_variant_id,
+            identity_status=document.identity_status,
+            brand=document.brand,
+            casting=document.casting,
+            series_label=document.series_label,
+            variant_label=document.variant_label,
+            human_label_names=list(document.human_label_names[:3]),
+            example_initial_names=list(document.initial_names[:3]),
+            source_case_ids=list(document.source_case_ids[:5]),
+            sparse_rank=item.sparse_rank,
+            sparse_score=item.sparse_score,
+            dense_rank=item.dense_rank,
+            dense_score=item.dense_score,
+            rrf_rank=item.rrf_rank,
+            rrf_score=item.rrf_score,
+            matched_tokens=list(item.matched_tokens),
+        )
+    if isinstance(document, ReviewFamilyKnowledgeDocument):
+        return ReviewFamilyKnowledgeCandidateDebug(
+            knowledge_type="review_family",
+            review_family_uuid=document.review_family_uuid,
+            review_family_id=document.review_family_id,
+            identity_status=document.identity_status,
+            brand=document.brand,
+            casting=document.casting,
+            aliases=list(document.aliases[:3]),
+            source_record_ids=list(document.source_record_ids[:5]),
+            sparse_rank=item.sparse_rank,
+            sparse_score=item.sparse_score,
+            dense_rank=item.dense_rank,
+            dense_score=item.dense_score,
+            rrf_rank=item.rrf_rank,
+            rrf_score=item.rrf_score,
+            matched_tokens=list(item.matched_tokens),
+        )
+    raise TypeError(f"unsupported human knowledge document: {type(document).__name__}")

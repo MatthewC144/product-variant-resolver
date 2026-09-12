@@ -1,7 +1,7 @@
 # Product Variant Resolver — Lite MVP QA Review
 
 > Date: 2026-09-01  
-> Last focused update: 2026-09-11 (T47.2 typed human-knowledge v2 integration)
+> Last focused update: 2026-09-11 (T47.3 discriminated debug API/UI)
 > QA mode: `.codex/agents/qa.toml` MVP Mode  
 > Scope: `specs/product-variant-resolver/mvp-brief.md` R1–R30
 > Verdict: **PASS WITH RISKS**
@@ -214,6 +214,18 @@ checksum-invalid family artifacts produce health/resolve 503. Thirty-five focuse
 complete **182/182** host suite pass; frozen canonical metrics remain unchanged. T47.3 still owns
 the discriminated public debug schema and UI, so the transitional serializer exposes only legacy
 variant-shaped candidates rather than coercing family IDs into variant fields.
+
+T47.3 removes that temporary visibility limitation. The debug response now uses a Pydantic
+discriminated union whose `knowledge_type` is either `provisional_variant` or `review_family`, and
+OpenAPI publishes both branches and their mapping. Variant candidates retain casting/provisional-
+variant IDs and reviewed-name fields; family candidates expose only review-family IDs, aliases,
+and source-record provenance. The same pre-serialization slice bounds the combined list, and the
+debug payload now reports the frozen family projection version. The UI labels both types and shows
+`family only — variants unreviewed` rather than inventing a release variant. Its rendering remains
+text-node-only, including markup-shaped names. Proton Saga is visible as a family candidate but
+still returns canonical `no_match`; BMW remains a typed provisional variant. Seventeen focused
+API/UI tests and the complete **184/184** host suite pass. T47.4 remains the final cross-requirement
+QA and documentation closure.
 
 An independent Docker runtime milestone now verifies the existing
 `product-variant-resolver:lite` image on Docker Desktop 29.5.3/aarch64: Python 3.12.14, non-root
@@ -509,10 +521,10 @@ None for demonstrating the explicitly documented offline fixture path.
 19. **T46 materializes review families, not runtime documents.** The registry and stable IDs now
     exist, but they are explicitly excluded from retrieval and PostgreSQL. Describing the 42 new
     families as Dual-RAG candidates or the 100 releases as variants would still be incorrect.
-20. **T47.2 ships internal v2 retrieval, not the family debug contract.** The 142-document index now
-    retrieves both types, but family candidates remain filtered from the legacy variant-shaped API
-    until T47.3 adds its discriminated schema/UI. Exact-name retrieval is still self-retrieval and
-    cannot support an independent quality claim.
+20. **T47.3 exposes family evidence, not validated family-retrieval accuracy.** The 142-document
+    index and discriminated API/UI now expose both types safely, but the 42-query smoke matrix uses
+    exact names from the indexed projection. It cannot support a generalization or production claim
+    before the independently authored, casting-grouped T48 evaluation.
 
 ### Later
 
@@ -529,11 +541,12 @@ T30–T44 external-data intake/pre-review/queue/evidence/research/decision miles
 for their stated Lite scope. T45–T46 specify, implement, and verify the stable family registry. T47
 provides the confirmed family-level human-knowledge projection, typed retrieval, debug API/UI,
 readiness, and canonical-isolation contract. T47.1 built the deterministic 42-document projection,
-and T47.2 now runs the combined typed v2 index with fail-closed readiness. T47.3 should add the
-discriminated family/variant debug contract and safe UI rendering. Casting-grouped holdout
-evaluation and database materialization remain separate later gates before additional yearly lists
-expand the corpus toward roughly 3,000 reviewable variants. Exact pgvector quality and latency must
-be remeasured at that scale.
+T47.2 now runs the combined typed v2 index with fail-closed readiness, and T47.3 exposes the
+discriminated family/variant debug contract through a text-safe UI. T47.4 is the next task: rerun
+and map the complete Lite QA/data/evaluation chain and close the feature review. Casting-grouped
+holdout evaluation and database materialization remain separate later gates before additional
+yearly lists expand the corpus toward roughly 3,000 reviewable variants. Exact pgvector quality and
+latency must be remeasured at that scale.
 The next human-knowledge evaluation task remains an independently written, casting-grouped holdout
 set; until that evidence exists, the human source stays debug-only. A complete dependency-lock
 review, active post-startup database health polling, external neural models, and a justified T14

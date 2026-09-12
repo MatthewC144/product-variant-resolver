@@ -4,7 +4,7 @@
 >
 > Phase: Specification
 >
-> Status: Confirmed by project owner on 2026-09-11; implementation in progress
+> Status: Confirmed by project owner on 2026-09-11; T47.1–T47.3 implemented, final QA pending
 >
 > Source registry: `fandom-2025-review-families-r790665-v1`
 

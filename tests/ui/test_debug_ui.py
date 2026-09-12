@@ -24,6 +24,7 @@ def _assert_ui_assets_are_self_contained_and_use_safe_rendering() -> None:
     assert "eval(" not in javascript
     assert 'fetchImplementation("/resolve"' in javascript
     assert "textContent" in javascript
+    assert '<th scope="col">Type</th>' in html
 
 
 def _assert_ui_controller_smoke_states_and_contract() -> None:
@@ -107,6 +108,7 @@ def _assert_ui_controller_smoke_states_and_contract() -> None:
             structured_matches: ["year"], structured_conflicts: [],
           }}],
           human_knowledge_candidates: [{{
+            knowledge_type: "provisional_variant",
             casting_uuid: "00000000-0000-0000-0000-000000000002",
             casting_id: "human-hot-wheels-bmw-m3-gt2",
             provisional_variant_uuid: "00000000-0000-0000-0000-000000000003",
@@ -118,9 +120,20 @@ def _assert_ui_controller_smoke_states_and_contract() -> None:
             example_initial_names: ["BMW M3 GT2"], source_case_ids: ["case-1"],
             sparse_rank: 1, sparse_score: 9.1, dense_rank: 1, dense_score: 0.9,
             rrf_rank: 1, rrf_score: 0.03, matched_tokens: ["bmw", "m3", "gt2"],
+          }}, {{
+            knowledge_type: "review_family",
+            review_family_uuid: "00000000-0000-0000-0000-000000000004",
+            review_family_id: "fandom-family-safe",
+            identity_status: "family_accepted_variants_unreviewed",
+            brand: "Hot Wheels", casting: "Proton Saga",
+            aliases: ['<svg onload="global.pwned=true">'],
+            source_record_ids: ["fandom-row-1"],
+            sparse_rank: 2, sparse_score: 8.1, dense_rank: 2, dense_score: 0.8,
+            rrf_rank: 2, rrf_score: 0.02, matched_tokens: ["proton", "saga"],
           }}],
           timings_ms: {{ total: 3.2 }}, catalog_version: "fixture-v1",
           human_catalog_version: "human-backed-catalog-v1",
+          review_family_knowledge_version: "review-family-knowledge-v1",
           model_versions: {{ reranker: "heuristic-v1", human_knowledge: "human-knowledge-hybrid-v2" }},
         }};
 
@@ -162,11 +175,19 @@ def _assert_ui_controller_smoke_states_and_contract() -> None:
           assert.equal(match.document.elements["decision-status"].textContent, "matched");
           assert.equal(match.document.elements["identity-details"].hidden, false);
           assert.equal(match.document.elements["candidates-body"].children.length, 1);
-          assert.equal(match.document.elements["human-candidates-body"].children.length, 1);
+          assert.equal(match.document.elements["human-candidates-body"].children.length, 2);
           assert.equal(
-            match.document.elements["human-candidates-body"].children[0].children[0].textContent,
+            match.document.elements["human-candidates-body"].children[0].children[1].textContent,
             markup,
             "human-reviewed markup stays text",
+          );
+          const familyRow = match.document.elements["human-candidates-body"].children[1];
+          assert.equal(familyRow.children[0].textContent, "Review family");
+          assert.equal(familyRow.children[1].textContent, '<svg onload="global.pwned=true">');
+          assert.equal(familyRow.children[3].textContent, "family only — variants unreviewed");
+          assert.equal(
+            match.document.elements["human-catalog-version"].textContent,
+            "catalog human-backed-catalog-v1 · family review-family-knowledge-v1",
           );
           assert.equal(global.pwned, undefined);
 

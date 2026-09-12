@@ -611,8 +611,11 @@
   properties in `human-knowledge-hybrid-v2`. Canonical candidates remain the sole input to
   confidence and final identity. Runtime verification retrieves 42/42 exact family queries within
   Top-5 (worst rank 2), keeps the existing BMW variant at Top-1, and leaves Proton Saga as
-  noncanonical `no_match`. The public type discriminator remains intentionally deferred to T47.3;
-  the legacy debug serializer filters family objects until it can expose type-correct fields.
+  noncanonical `no_match`. T47.3 completes the public boundary with two strict Pydantic/OpenAPI
+  branches selected by `knowledge_type`. The service now serializes the already bounded mixed
+  ranking directly: variants retain variant IDs, families retain only review-family IDs, and the
+  debug payload publishes the family projection version. The UI renders both branches using text
+  nodes and explicitly labels family-only evidence without inventing a release variant.
 - **Deferred review:** Exact-name self-retrieval proves wiring feasibility, not generalization. A
   held-name query can still retrieve an unrelated accepted family through shared tokens, so T48 must
   use an independently authored casting-grouped holdout before any quality or production claim.

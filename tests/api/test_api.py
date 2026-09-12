@@ -79,6 +79,14 @@ class ApiTests(unittest.TestCase):
         self.assertLessEqual(len(body["debug"]["human_knowledge_candidates"]), 2)
         self.assertEqual(body["debug"]["human_catalog_version"], "human-backed-catalog-v1")
         self.assertEqual(
+            body["debug"]["review_family_knowledge_version"],
+            "review-family-knowledge-fandom-2025-r790665-v1",
+        )
+        self.assertTrue(all(
+            candidate["knowledge_type"] in {"provisional_variant", "review_family"}
+            for candidate in body["debug"]["human_knowledge_candidates"]
+        ))
+        self.assertEqual(
             body["debug"]["model_versions"]["human_knowledge"],
             "human-knowledge-hybrid-v2",
         )
@@ -201,19 +209,86 @@ class ApiTests(unittest.TestCase):
             self.assertEqual(response.status_code, 503)
             self.assertIsNone(response.json().get("canonical_uuid"))
 
-    def test_family_query_is_safe_before_discriminated_debug_api_step(self):
+    def test_discriminated_family_debug_candidate_remains_noncanonical(self):
         response = self.client.post(
             "/resolve",
-            json={"title": "Hot Wheels Proton Saga", "debug": True},
+            json={
+                "title": "Hot Wheels Proton Saga",
+                "debug": True,
+                "debug_candidate_limit": 1,
+            },
         )
         self.assertEqual(response.status_code, 200)
         body = response.json()
         self.assertEqual(body["status"], "no_match")
         self.assertIsNone(body["canonical_uuid"])
+        self.assertIsNone(body["canonical_id"])
+        self.assertEqual(len(body["debug"]["human_knowledge_candidates"]), 1)
+        family = body["debug"]["human_knowledge_candidates"][0]
+        self.assertEqual(family["knowledge_type"], "review_family")
+        self.assertEqual(family["casting"], "Proton Saga")
+        self.assertEqual(
+            family["identity_status"], "family_accepted_variants_unreviewed"
+        )
+        self.assertEqual(family["aliases"], ["Proton Saga"])
+        self.assertIn("review_family_uuid", family)
+        self.assertIn("review_family_id", family)
+        self.assertIn("source_record_ids", family)
+        for variant_only_field in (
+            "casting_uuid",
+            "casting_id",
+            "provisional_variant_uuid",
+            "provisional_variant_id",
+            "series_label",
+            "variant_label",
+            "human_label_names",
+            "example_initial_names",
+            "source_case_ids",
+        ):
+            self.assertNotIn(variant_only_field, family)
+        self.assertEqual(
+            body["debug"]["review_family_knowledge_version"],
+            "review-family-knowledge-fandom-2025-r790665-v1",
+        )
         self.assertEqual(
             body["debug"]["model_versions"]["human_knowledge"],
             "human-knowledge-hybrid-v2",
         )
+
+    def test_discriminated_variant_debug_candidate_has_no_family_identity(self):
+        response = self.client.post(
+            "/resolve",
+            json={
+                "title": "Hot Wheels BMW M3 GT2 Neon Speeders",
+                "debug": True,
+                "debug_candidate_limit": 1,
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        candidate = response.json()["debug"]["human_knowledge_candidates"][0]
+        self.assertEqual(candidate["knowledge_type"], "provisional_variant")
+        self.assertEqual(candidate["casting"], "BMW M3 GT2")
+        self.assertIn("provisional_variant_uuid", candidate)
+        self.assertIn("human_label_names", candidate)
+        for family_only_field in (
+            "review_family_uuid",
+            "review_family_id",
+            "aliases",
+            "source_record_ids",
+        ):
+            self.assertNotIn(family_only_field, candidate)
+
+    def test_openapi_publishes_human_knowledge_type_discriminator(self):
+        schemas = self.client.get("/openapi.json").json()["components"]["schemas"]
+        items = schemas["DebugPayload"]["properties"]["human_knowledge_candidates"][
+            "items"
+        ]
+        self.assertEqual(items["discriminator"]["propertyName"], "knowledge_type")
+        self.assertEqual(
+            set(items["discriminator"]["mapping"]),
+            {"provisional_variant", "review_family"},
+        )
+        self.assertEqual(len(items["oneOf"]), 2)
 
     def test_postgres_backend_without_database_fails_readiness(self):
         settings = Settings(

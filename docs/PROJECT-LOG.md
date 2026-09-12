@@ -1,5 +1,110 @@
 # Project Log
 
+## 2026-09-11 — Family evidence becomes visible without being mistaken for a variant
+
+### What was executed and what problem it solves
+
+T47.3 completes the public debug boundary for Human Knowledge RAG v2. T47.2 already searched one
+combined pool of 100 provisional variants and 42 review families, but the response model still
+required variant-specific IDs. Its temporary serializer therefore hid family results to avoid
+claiming that an accepted casting family was a reviewed release variant. That was safe, but it made
+the new family retrieval impossible to inspect through the API and browser console.
+
+The debug response can now carry both knowledge levels in their honest forms. Every item declares
+either `knowledge_type=provisional_variant` or `knowledge_type=review_family`. A Proton Saga query
+returns a family suggestion with its review-family identity, alias, and source references; it does
+not receive casting/variant UUIDs that do not exist. The same request still ends as canonical
+`no_match` with null canonical ID and UUID. The second RAG is therefore more observable without
+gaining authority over the first/canonical RAG.
+
+### Code changes, affected components, and reasons
+
+`src/product_variant_resolver/schemas.py` replaces the single variant-only debug model with two
+strict Pydantic models. A shared base contains only fields that genuinely apply to both document
+types: review status, brand/casting display data, sparse/dense/RRF evidence, and matched tokens.
+`HumanVariantKnowledgeCandidateDebug` adds casting and provisional-variant identities plus reviewed
+label/example/case data. `ReviewFamilyKnowledgeCandidateDebug` instead adds review-family identity,
+approved aliases, and source-record provenance. An annotated union uses `knowledge_type` as its
+discriminator, so validation and generated OpenAPI describe the same two legal shapes. The debug
+payload also gains `review_family_knowledge_version`, allowing a captured response to identify the
+exact frozen family projection that produced it.
+
+`src/product_variant_resolver/service.py` removes the T47.2 family filter. It first takes one slice
+of the combined ranked candidates using `debug_candidate_limit`, then passes every candidate in
+that slice to a type-aware converter. The converter constructs the matching strict model and raises
+on any unsupported internal type. Slicing before conversion preserves one comparable ranking and
+one bound across both sources; it avoids two lists that could each return the full limit. Explicit
+construction also means no generic dictionary can quietly leak fields from one identity level into
+the other.
+
+`ui/index.html` renames the section to Human-knowledge candidates, adds a Type column, and states
+that neither provisional variants nor review families can become the final answer. `ui/app.js`
+branches only on the API discriminator. Variant rows retain their existing reviewed name and
+series/variant text. Family rows use approved aliases and display `family only — variants
+unreviewed`, making the missing variant a deliberate review state rather than an empty or fabricated
+value. The catalog label now shows both the human catalog and family projection versions.
+
+`tests/api/test_api.py` verifies both branches end to end. It checks family-only and variant-only
+fields are absent from the opposite type, the family projection version is present only inside
+debug, the combined list obeys a one-result limit, Proton Saga remains noncanonical, and OpenAPI
+publishes the expected discriminator mapping. `tests/ui/test_debug_ui.py` supplies both candidate
+types to the DOM harness and verifies their labels, family-only wording, version display, and table
+shape. Markup-looking strings are placed in both a variant human label and family alias and remain
+literal text.
+
+### Technology and method choices, alternatives, and trade-offs
+
+A discriminated union was selected instead of one large model containing many optional fields.
+The optional approach would make contradictory payloads technically valid—for example a family
+with a provisional-variant UUID, or a variant with only a family ID—and clients would have to infer
+the intended shape from missing values. The discriminator gives FastAPI/OpenAPI clients one stable
+switch and lets each branch keep its own required fields. A small inherited ranking base avoids
+duplicating common evidence while still keeping identity fields separate.
+
+The existing `human_knowledge_candidates` list and request limit were retained rather than adding a
+second `review_family_candidates` list. Both document types already compete inside one RRF ranking;
+splitting the response after ranking would obscure their relative position and could accidentally
+double the amount of debug data. The trade-off is that a small limit may show only one type for a
+particular query, which is the correct representation of the shared ranking rather than guaranteed
+type quotas.
+
+The UI continues to use DOM element creation and `textContent` rather than template strings or
+`innerHTML`. Family aliases originate from externally researched data, so treating them as inert
+text is a trust-boundary decision, not only a display preference. This approach is more verbose than
+building an HTML string but makes markup-shaped data unable to create elements or event handlers.
+
+### Decision and runtime impact
+
+D31 is now implemented through projection, combined retrieval, and public debug presentation. The
+change affects diagnostic output only. It does not change the 120-product canonical catalog,
+canonical retrieval/ranking, calibration model, policy thresholds, confidence computation,
+PostgreSQL schema/data, or evaluation ground truth. Family objects remain excluded from the final
+identity path, and requests with `debug=false` still omit the entire debug object and all associated
+knowledge/version metadata.
+
+### Verification evidence
+
+Seventeen focused API/UI tests passed in 0.277 seconds. Runtime assertions confirmed the two exact
+response shapes, one shared result bound, generated OpenAPI mapping, family version metadata,
+default omission, family/canonical isolation, existing variant behavior, loading/error states, and
+text-safe rendering. The complete host suite passed 184/184. The suite's existing environment-wide
+Starlette legacy-`httpx` deprecation warning remains non-failing and was not introduced by this
+change.
+
+### Incomplete work, risks, and next step
+
+The implementation makes family suggestions inspectable; it does not prove they generalize to noisy
+or unseen marketplace titles. The current 42-query result is exact-name self-retrieval against the
+same family names used to build the index. Shared words can still retrieve unrelated families, so
+it is not an accuracy claim and cannot justify canonical promotion, PostgreSQL rollout, or the
+planned roughly 3,000-row expansion.
+
+The next task is T47.4, the final Lite verification/documentation closure. It will rerun the entire
+deterministic data chain and frozen canonical evaluation, map every FHK requirement to measured
+evidence, close the feature review, and verify the repository diff remains within the Product
+Variant Resolver folder. Only after that gate should T48 create an independently authored,
+casting-grouped family retrieval evaluation.
+
 ## 2026-09-11 — Human Knowledge RAG v2 now searches 100 variants and 42 typed families
 
 ### What was executed and what problem it solves

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Any
+from typing import Annotated, Any, Literal, TypeAlias
 from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
@@ -73,19 +73,10 @@ class CandidateDebug(StrictModel):
     structured_conflicts: list[str] = Field(default_factory=list)
 
 
-class HumanKnowledgeCandidateDebug(StrictModel):
-    casting_uuid: UUID
-    casting_id: str
-    provisional_variant_uuid: UUID
-    provisional_variant_id: str
+class HumanKnowledgeCandidateRankDebug(StrictModel):
     identity_status: str
     brand: str
     casting: str
-    series_label: str | None = None
-    variant_label: str | None = None
-    human_label_names: list[str]
-    example_initial_names: list[str]
-    source_case_ids: list[str]
     sparse_rank: int | None = None
     sparse_score: float | None = None
     dense_rank: int | None = None
@@ -95,6 +86,33 @@ class HumanKnowledgeCandidateDebug(StrictModel):
     matched_tokens: list[str] = Field(default_factory=list)
 
 
+class HumanVariantKnowledgeCandidateDebug(HumanKnowledgeCandidateRankDebug):
+    knowledge_type: Literal["provisional_variant"]
+    casting_uuid: UUID
+    casting_id: str
+    provisional_variant_uuid: UUID
+    provisional_variant_id: str
+    series_label: str | None = None
+    variant_label: str | None = None
+    human_label_names: list[str]
+    example_initial_names: list[str]
+    source_case_ids: list[str]
+
+
+class ReviewFamilyKnowledgeCandidateDebug(HumanKnowledgeCandidateRankDebug):
+    knowledge_type: Literal["review_family"]
+    review_family_uuid: UUID
+    review_family_id: str
+    aliases: list[str]
+    source_record_ids: list[str]
+
+
+HumanKnowledgeCandidateDebug: TypeAlias = Annotated[
+    HumanVariantKnowledgeCandidateDebug | ReviewFamilyKnowledgeCandidateDebug,
+    Field(discriminator="knowledge_type"),
+]
+
+
 class DebugPayload(StrictModel):
     signals: ExtractedSignals
     candidates: list[CandidateDebug]
@@ -102,6 +120,7 @@ class DebugPayload(StrictModel):
     timings_ms: dict[str, float]
     catalog_version: str
     human_catalog_version: str
+    review_family_knowledge_version: str
     model_versions: dict[str, str]
 
 

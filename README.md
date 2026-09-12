@@ -64,9 +64,9 @@ absolute Top-1 accuracy on the frozen test; enable it only for an explicit exper
 
 The runtime now uses two retrieval corpora. The canonical fixture catalog is the only source allowed
 to produce a final UUID. Human Knowledge RAG v2 independently ranks 100 human-backed provisional
-variants and 42 accepted review families. The current debug API exposes the legacy variant evidence;
-typed family rendering follows in T47.3. A human-only hit can help explain a `no_match`, but cannot
-silently become a canonical product.
+variants and 42 accepted review families. The debug API and UI identify each result as either a
+`provisional_variant` or `review_family` and expose only fields appropriate to that type. A human-
+only hit can help explain a `no_match`, but cannot silently become a canonical product.
 
 ## Start the offline path
 
@@ -352,10 +352,12 @@ identity-invalid family data makes readiness fail with HTTP 503. Health exposes 
 projection version and traces report bounded variant/family candidate counts without raw titles.
 The combined human candidates still cannot enter canonical ranking or confidence.
 
-The API/UI type-discriminated family rendering is T47.3. During this short transition, family
-documents participate internally in v2 retrieval, while the existing debug response continues to
-serialize only its legacy provisional-variant shape. A family-only query remains safe and
-noncanonical; T47.3 will make the family suggestion visible with type-appropriate fields.
+T47.3 exposes the mixed ranking as a strict discriminated debug contract. Variant items keep their
+casting/provisional-variant IDs and reviewed labels; family items expose review-family IDs, aliases,
+and source-record provenance without null or fabricated variant fields. The debug payload includes
+the frozen family projection version, and one request limit bounds the combined list. The local UI
+labels both types and renders all external names as inert text. An exact Proton Saga query therefore
+shows useful family review evidence while the canonical answer remains `no_match`.
 
 ## Docker and PostgreSQL status
 
