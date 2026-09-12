@@ -3842,6 +3842,109 @@ canonical IDs and catalog/index version metadata while proving that repeated loa
 and invalid or colliding fixtures fail transactionally. Completing T07 will turn the verified
 empty schema into a populated, repeatable database foundation for the later retrieval tasks.
 
+## 2026-09-12 — T48.4 frozen Human Knowledge RAG v2 evaluation
+
+### Context, problem, and observable outcome
+
+T47 had proved that all 42 accepted family documents were wired into the second, non-canonical RAG
+source, but its exact-name smoke queries could not answer the important question: can the retriever
+recover a family from independently worded marketplace-like text? T48.1–T48.3 therefore froze a
+separate 105-case, project-owner-approved benchmark before any candidate output was inspected.
+T48.4 has now run that first scored evaluation without changing the frozen query text, labels,
+retriever, catalog, RRF settings, or thresholds.
+
+The observable result is an honest **FAIL**: eight of nine precommitted gates passed, while
+lexical-variation Recall@5 reached `31/42 = 73.81%`, one retrieved case short of the required 75%.
+Overall positive Recall@5 was `73/84 = 86.90%`, Recall@1 was `58/84 = 69.05%`, MRR@5 was
+`65.0/84 = 77.38%`, and family coverage was `42/42 = 100%`. Marketplace-noise cases, all four
+merge controls, all forbidden-family checks, and all ten unrelated controls passed. This means the
+system handles seller/year/condition wrappers well, but its harder typo, abbreviation, punctuation,
+and spacing behavior is not yet consistent enough to clear the frozen family-quality gate.
+
+### Implementation trace
+
+`src/product_variant_resolver/human_knowledge_evaluation.py` is the new read-only scoring boundary.
+It verifies the benchmark and manifest hashes, every referenced input checksum, exact 105-case
+composition, and the frozen source/model/index settings before constructing the existing 142-
+document Human Knowledge retriever. Within each case it retrieves and serializes the Top-5
+candidates before reading the `expected` label branch. It then records typed IDs, UUIDs, sparse,
+dense, and RRF ranks/scores, matched tokens, expected rank, forbidden-hit ranks, and an explicit
+error category. Aggregate numerators and denominators are derived only from this ordered case array;
+the validator independently recomputes them before accepting the report.
+
+`scripts/generate_family_retrieval_report.py` converts the validated JSON into the compact human-
+readable report at `reports/family-retrieval-v1/evaluation.md`. It deliberately refuses to render
+metrics that differ from the raw-case recomputation, shows every failed case, links the AI-eval
+record, and offers a non-mutating `--check` mode. JSON and Markdown writes use temporary files plus
+atomic replacement so an invalid or interrupted evaluation cannot overwrite known-good evidence.
+
+`tests/evaluation/test_human_knowledge_evaluation.py` covers metric formulas, preserved FAIL
+behavior, all evaluator failure categories, a guarded mapping that raises if `expected` is touched
+before retrieval, stale-input no-overwrite behavior, the actual frozen result, and byte-identical
+JSON/Markdown reproduction. `docs/evidence/ai-evals/family-retrieval-holdout-v1.md` applies the
+project AI-output rubric to the measured result and narrows the allowed claim. No API, canonical
+ranking, confidence policy, PostgreSQL schema/data, benchmark source, or existing retriever code was
+modified.
+
+### Technical choices, alternatives, and trade-offs
+
+The evaluator stores full raw candidates rather than only final percentages because a number such
+as 86.90% cannot show whether errors come from empty retrieval, ranking beyond K, a wrong identity
+type, or a safety-control violation. The larger JSON artifact is an accepted trade-off: it enables
+every result and metric to be audited and regenerated without rerunning or trusting prose. The
+Markdown report contains only a compact failure table while the JSON retains all 105 cases.
+
+The existing sparse plus deterministic feature-hashing and RRF stack was evaluated unchanged.
+Adding fuzzy matching, query expansion, a neural embedding, or a wider candidate limit could likely
+improve the 11 lexical misses, but doing so after seeing this test set would convert an independent
+holdout into a tuning set. The selected method therefore preserves the failed gate and requires a
+new v2 holdout for final evidence after any redesign. The evaluation also records the
+`signals.extract_signals-v1` source checksum in its output: token cleanup participates in the actual
+runtime query path, even though the earlier frozen manifest separately named the normalizer and
+retriever sources.
+
+### Decision changes
+
+Before T48.4, independent family retrieval quality was explicitly “not evaluated”; only exact-name
+wiring, type safety, and canonical isolation had passed. That status now changes to a measured
+**FAIL** for the current independent family-quality gate. The earlier T47 wiring/safety result
+remains valid, but it cannot be used as a retrieval-quality claim.
+
+Because the acceptance boundary says every gate must pass, the strong overall Recall@5 and perfect
+control results do not cancel the lexical-style failure. T49 PostgreSQL/pgvector scale design and
+the approximately 3,000-row expansion are therefore not authorized by this result. The next product
+decision must be a retrieval redesign with separate development data, followed by a newly authored
+unseen holdout; it must not lower the v1 gate or rewrite the failed queries.
+
+### Verification evidence
+
+The formal artifacts are `reports/family-retrieval-v1/evaluation.json` and `evaluation.md`, tied to
+benchmark SHA-256 `440246fb6a3b38f56fc25c1ec939d53d6cfc4457fed738aad561899325808afd`.
+Their raw counts are 73/84 Top-5 hits, 58/84 Top-1 hits, reciprocal-rank sum 65.0, 42/42 family
+coverage, 31/42 lexical hits, 42/42 marketplace-noise hits, 4/4 merge hits, zero forbidden family
+candidates, and 0/10 unrelated non-empty results. Error accounting contains ten
+`expected_identity_not_retrieved`, one `no_candidates`, and 94 `none`, totaling all 105 cases.
+
+The focused T48.4 suite reported **7/7 PASS**. Targeted Ruff reported no findings, and isolated
+strict mypy (`--follow-imports=skip`) reported no issues in the three new source/test files. The
+JSON and Markdown `--check` paths reproduced the checked-in bytes. Complete repository regression,
+data-chain checks, canonical fixture metrics, Compose validation, and final scope review remain the
+explicit work of T48.5 and are not claimed by this entry.
+
+### Incomplete work, risks, and next step
+
+The 105 queries are synthetic rather than live marketplace traffic, and 42 family groups produce
+wide percentage steps: one additional lexical hit would have met the minimum. They test casting-
+family retrieval, not release-variant identity, canonical resolution, confidence calibration,
+database scale, concurrency, or production latency. After this publication v1 is development-known
+and cannot serve as an unseen final test for a modified retriever.
+
+The immediate next step is **T48.5 — close the Lite evaluation gate**: run the full suite and frozen
+data chain, verify canonical/T47 regressions, compilation, Compose configuration, repository scope,
+and report reproducibility, then write the final review/evidence mapping. If those engineering checks
+pass, T48 will close with a truthful quality FAIL and a documented redesign requirement—not with
+permission to begin T49.
+
 ## Required format for future entries
 
 Every future project-log entry must preserve the following traceability structure:

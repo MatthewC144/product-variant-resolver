@@ -2,7 +2,7 @@
 
 > Mode: Lite / Lean Industrial
 >
-> Status: Confirmed; T48.1–T48.3 complete, T48.4 next
+> Status: Confirmed; T48.1–T48.4 complete, T48.5 next
 
 ## Task order
 
@@ -61,8 +61,8 @@ Acceptance:
 
 ### T48.4 — Evaluate the frozen Human Knowledge RAG v2 `[backend/qa]`
 
-- [ ] Implement read-only per-case scoring, metrics, gates, and error categories. _(→FRE-R10–R13)_
-- [ ] Generate deterministic JSON/Markdown reports and an AI-eval record. _(→FRE-R11–R14)_
+- [x] Implement read-only per-case scoring, metrics, gates, and error categories. _(→FRE-R10–R13)_
+- [x] Generate deterministic JSON/Markdown reports and an AI-eval record. _(→FRE-R11–R14)_
 
 Files:
 
