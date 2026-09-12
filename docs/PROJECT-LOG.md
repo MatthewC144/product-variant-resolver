@@ -4146,6 +4146,114 @@ HRR-T1 may create and freeze the 199-case development-only pack before any v3 co
 is generated. If the owner changes the architecture, counts, grid, or gate policy, the specification
 must be revised before implementation rather than inferred during build.
 
+## 2026-09-12 — HRR-T1 development-only challenge-pack freeze
+
+### Context, problem, and observable outcome
+
+The retriever-redesign specification could not safely proceed directly to character-search code.
+Doing so would allow queries and configuration boundaries to be changed after seeing which settings
+looked best—the same kind of test-set tuning that the project prohibited after the v1 holdout became
+known. HRR-T1 therefore creates and freezes the development evidence before any v3 candidate is
+executed.
+
+The observable result is a new 199-case `family-retrieval-development-v1` pack: 168 positive cases
+cover all 42 accepted families four times, 4 controls preserve existing-family merges, 7 controls
+preserve held identities, and 20 unrelated controls divide evenly between opaque zero-overlap and
+generic marketplace text. The pack and manifest both state that the questions are development-only,
+derived from indexed/governance identities, and ineligible for final accuracy. No retriever output,
+configuration result, selected winner, or v3 runtime artifact exists at this point.
+
+### Implementation trace
+
+`scripts/build_family_retrieval_development.py` adds a deterministic author/validator instead of a
+manually editable JSON fixture. It validates the frozen review-family registry and projection, the
+human-backed catalog used by merge targets, all source manifests, and exact 42/4/7/97 source counts.
+The historical v1 query pack is opened only to reject exact or normalization-equivalent text; its
+labels, candidates, ranks, metrics, and failures never become builder inputs.
+
+The positive-case generator changes the identity in four distinct ways: one deleted character,
+spacing/token-boundary disruption, abbreviation or numeric variation, and an exact identity inside
+seller context. Merge and hold identities receive new development-only wrappers. Ten meaningless
+opaque strings must share no searchable token with either Human Knowledge corpus, while ten generic
+listings may use marketplace vocabulary but must contain no known casting phrase. Derived expected
+targets come from the already approved registry relationships rather than new variant judgments.
+
+The generated `development-pack.json` freezes cases and the 21-option grid before experimentation.
+Its companion manifest hashes the pack, builder, six primary source/integrity files, and the v1
+query pack plus manifest used for non-reuse checks. The script validates the complete prospective
+result before opening output files and writes with temporary-file replacement, so invalid input
+cannot erase the last valid freeze. `tests/test_family_retrieval_development.py` turns the dataset
+boundary into ten executable contract tests. The feature requirements/design status now reflects
+owner confirmation, HRR-T1 is checked in the task list, README links the evidence, and
+`docs/evidence/family-retrieval-development-v1.md` gives the complete human-readable audit.
+
+### Technical choices, alternatives, and trade-offs
+
+Deterministic transformations were chosen over asking an LLM to generate 168 questions because the
+exact operation on each identity remains inspectable and byte-reproducible, does not require an
+external model/version, and cannot drift between runs. The trade-off is deliberate artificiality:
+this pack measures whether implementation and a small fixed configuration family can handle known
+spelling/token disruptions; it does not estimate real-user accuracy. That is why final evaluation
+still needs a later output-blind, owner-reviewed holdout v2.
+
+The grid is frozen as the specification requires: seven character floors from `0.25` through
+`0.55` crossed with weights `0.5`, `1.0`, and `1.5`. Keeping sparse/dense weights, dimensions,
+RRF `k`, and K fixed constrains degrees of freedom and makes a 21-result report understandable.
+Safety gates are evaluated before quality and tie-breaking. This may legitimately yield no winner;
+the accepted cost of fail-closed selection is preferable to widening the search after viewing
+results.
+
+Labels are stored in the development cases because selection needs them, but the artifact carries
+an explicit leakage disclosure and prohibited-use list. A fully independent development corpus
+would give stronger generalization evidence, but no separate owner-labeled corpus of sufficient
+coverage exists. The future holdout—not this derived pack—will provide the independent claim.
+
+### Decision changes
+
+The earlier specification state said no development data existed and implementation awaited owner
+confirmation. The owner's instruction to proceed satisfied that first gate. The project is now in
+Build with HRR-T1 complete, but only the data contract has advanced: v2 remains the active Human
+Knowledge retriever, the canonical RAG remains the sole final-identity authority, and T49 remains
+blocked.
+
+During implementation, the initially entered grid constants were checked against HRR-R8 and found
+not to match the confirmed spec. They were corrected before the artifact was frozen to the exact
+`0.25–0.55 × 0.5/1.0/1.5` grid, and the regression test now locks those values. No candidate output
+existed during that correction, so the choice remained genuinely precommitted rather than
+result-driven.
+
+### Verification evidence
+
+The deterministic `--freeze` and `--check` paths both report exactly 199 dev cases and
+`retrieval_executed=false`. The focused suite passes 10/10 tests covering counts, four-style family
+coverage, unique/non-v1 text, unrelated-control boundaries, the exact grid, source/script/output
+hashes, deterministic bytes, a non-mutating check, and preservation of existing outputs when an
+invalid 41-family source is supplied. Targeted Ruff passes, and strict MyPy reports no issues in the
+builder. The pack SHA-256 is
+`23589b23567220dbba0de959ec5223cf60365b1222320f3a372f1b156244dbe9`; the manifest binds builder
+SHA-256 `3da7becca7b0cb27568e887140d6f07a1e41c0ceb56d0badce38134bca1a776c`.
+
+The complete repository suite passes **211/211 tests** with the known Starlette/AnyIO deprecation
+warning. The first whole-suite command did not export `PYTHONPATH=src`: pytest itself found source
+modules through project configuration, but a subprocess spawned by an older reproducibility test
+did not inherit that in-process path and reported `ModuleNotFoundError`. Re-running the same suite
+with the repository's documented subprocess environment passed all tests. Strict MyPy over the new
+unittest file also reported the repository's familiar dynamic test-class typing pattern; the
+production builder alone passes strict MyPy, while the executable tests verify that dynamic test
+behavior. Neither diagnostic changed a frozen output artifact.
+
+### Incomplete work, risks, and next step
+
+Generated controls may not cover the distribution of real marketplace language, and the frozen
+grid may expose a recall/safety conflict with no qualifying setting. Those are expected empirical
+risks for HRR-T3, not reasons to edit this pack after results. No PostgreSQL data, 3,000-document
+load, production/concurrent latency, canonical behavior, or neural embedding is represented here.
+
+The next step is **HRR-T2**: add the experimental character n-gram TF-IDF candidate path, three-
+source weighted RRF, typed debug evidence, and fail-closed version metadata without changing
+canonical output. HRR-T2 may prove mechanics against fixtures, but it must leave configuration
+selection and winner/artifact publication to HRR-T3 using this already frozen pack.
+
 ## Required format for future entries
 
 Every future project-log entry must preserve the following traceability structure:

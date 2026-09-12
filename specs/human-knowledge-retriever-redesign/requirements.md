@@ -2,9 +2,9 @@
 
 > Mode: Lite / Lean Industrial
 >
-> Phase: Specification
+> Phase: Build — HRR-T1 complete
 >
-> Status: Proposed; awaiting project-owner confirmation before implementation
+> Status: Confirmed; development pack frozen before retriever implementation
 >
 > Proposed retriever: `human-knowledge-hybrid-v3`
 

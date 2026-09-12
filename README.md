@@ -392,13 +392,15 @@ retrieval-quality FAIL. The family source remains debug-only, same-set tuning is
 T49 PostgreSQL/pgvector persistence plus the approximately 3,000-row expansion are blocked until a
 redesigned retriever passes a newly authored v2 holdout.
 
-The proposed next feature is the
+The active next feature is the
 [`Human Knowledge retriever redesign`](specs/human-knowledge-retriever-redesign/requirements.md).
 It keeps the Dual RAG authority boundary unchanged and adds a deterministic character n-gram TF-IDF
-candidate channel to the second RAG. Selection would use a new development-only pack—not the failed
-v1 holdout—then freeze `human-knowledge-hybrid-v3` before a separately authored and owner-approved
-holdout v2. This is currently a specification only; no v3 code, development data, model artifact, or
-new evaluation has been created.
+candidate channel to the second RAG. HRR-T1 has now frozen the
+[`199-case development-only pack`](docs/evidence/family-retrieval-development-v1.md): 42 families
+times four deterministic transformations, 4 merge controls, 7 hold controls, and 20 unrelated
+controls. Its 21-config grid and input/output hashes were committed before any retriever output;
+the data is explicitly identity-derived and cannot support final accuracy. No v3 retriever,
+selected configuration, model artifact, or new final evaluation has been created yet.
 
 ## Docker and PostgreSQL status
 

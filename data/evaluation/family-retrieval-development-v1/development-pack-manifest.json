@@ -1,0 +1,148 @@
+{
+  "authorship_policy": {
+    "derived_from_indexed_identities": true,
+    "development_only": true,
+    "final_accuracy_eligible": false,
+    "method": "deterministic-indexed-identity-transformations-v1",
+    "retriever_output_viewed": false,
+    "v1_query_text_used_only_for_non_reuse_validation": true
+  },
+  "case_counts": {
+    "hold_control": 7,
+    "merge_control": 4,
+    "positive_family": 168,
+    "unrelated_control": 20
+  },
+  "challenge_style_counts": {
+    "abbreviation_numeric": 42,
+    "contextual_noise": 42,
+    "generic_no_identity": 10,
+    "held_identity": 7,
+    "merge_existing_family": 4,
+    "opaque_no_overlap": 10,
+    "single_edit": 42,
+    "spacing_punctuation": 42
+  },
+  "configuration_output_viewed": false,
+  "derived_from_indexed_identity": true,
+  "development_file": "development-pack.json",
+  "development_sha256": "23589b23567220dbba0de959ec5223cf60365b1222320f3a372f1b156244dbe9",
+  "development_version": "family-retrieval-development-v1",
+  "eligible_for": [
+    "human_knowledge_retriever_implementation",
+    "human_knowledge_retriever_configuration_selection"
+  ],
+  "excluded_from": [
+    "calibration_training",
+    "canonical_candidate_ranking",
+    "canonical_confidence",
+    "canonical_variant_response",
+    "family_retrieval_final_evaluation",
+    "postgresql_ingestion",
+    "production_accuracy_claim",
+    "release_variant_ground_truth"
+  ],
+  "inputs": [
+    {
+      "file": "scripts/build_family_retrieval_development.py",
+      "sha256": "3da7becca7b0cb27568e887140d6f07a1e41c0ceb56d0badce38134bca1a776c",
+      "use": "authoring_and_validation_implementation",
+      "version": "family-retrieval-development-v1"
+    },
+    {
+      "file": "data/review_family_registry.json",
+      "sha256": "3f289b802cc2e8280ed5c3586d87cfabbee7ce37b10ae79504b5aa6b8837367d",
+      "use": "identity_and_governance_source",
+      "version": "fandom-2025-review-families-r790665-v1"
+    },
+    {
+      "file": "data/review_family_registry_manifest.json",
+      "sha256": "ae9eda741aa2ec7cb9354424e17b789ba73c05890859e73d19cd845c5cab3ff2",
+      "use": "source_integrity",
+      "version": "fandom-2025-review-families-r790665-v1"
+    },
+    {
+      "file": "data/review_family_knowledge.json",
+      "sha256": "8615cbb99b453673599e1f9baf54f6900314d7ba64e53a31ea7891c71810b9d7",
+      "use": "indexed_identity_source",
+      "version": "review-family-knowledge-fandom-2025-r790665-v1"
+    },
+    {
+      "file": "data/review_family_knowledge_manifest.json",
+      "sha256": "0239e272d27276d9a25df2c36edbbe6a7251facce7728ef947b86dcaa417c2ef",
+      "use": "source_integrity",
+      "version": "review-family-knowledge-fandom-2025-r790665-v1"
+    },
+    {
+      "file": "data/human_backed_catalog.json",
+      "sha256": "d29b69cde8099cb229136a73b893ca99b6313d9652ead5ff4aea48c20242e74f",
+      "use": "merge_target_and_vocabulary_validation",
+      "version": "human-backed-catalog-v1"
+    },
+    {
+      "file": "data/human_backed_catalog_manifest.json",
+      "sha256": "c79a3bc699d2bfcccae992a672fda79cbb905f1f2252dbfda8fa219ed55e43c7",
+      "use": "source_integrity",
+      "version": "human-backed-catalog-v1"
+    },
+    {
+      "file": "data/evaluation/family-retrieval-v1/query-pack.json",
+      "sha256": "26e244c04325f7909fb222b6cdd32ee2301253db17f0b8b97cf2f63ac4358733",
+      "use": "non_reuse_validation_only",
+      "version": "family-retrieval-query-pack-v1"
+    },
+    {
+      "file": "data/evaluation/family-retrieval-v1/query-pack-manifest.json",
+      "sha256": "8c6deaf9b79d1e5f2d7e8389c7bb832cb3abb038c558882d481e11f5f4d0b4a7",
+      "use": "source_integrity",
+      "version": "family-retrieval-query-pack-v1"
+    }
+  ],
+  "positive_family_group_count": 42,
+  "retrieval_executed": false,
+  "schema_version": "pvr-family-retrieval-development-manifest-v1",
+  "selection_contract": {
+    "candidate_limit": 5,
+    "character_rrf_weights": [
+      0.5,
+      1.0,
+      1.5
+    ],
+    "character_score_floors": [
+      0.25,
+      0.3,
+      0.35,
+      0.4,
+      0.45,
+      0.5,
+      0.55
+    ],
+    "configuration_count": 21,
+    "dense_dimensions": 192,
+    "dense_weight": 1.0,
+    "failure_rule": "no_qualifying_configuration_means_fail_without_runtime_artifact",
+    "rrf_k": 60,
+    "safety_gates": {
+      "hold_materialized_count": 0,
+      "merge_recall_at_5_minimum": 1.0,
+      "merge_wrong_family_count": 0,
+      "positive_recall_at_5_minimum": 0.9,
+      "positive_style_recall_at_5_minimum": 0.85,
+      "unrelated_nonempty_count": 0
+    },
+    "sparse_weight": 1.0,
+    "tie_break_order": [
+      "positive_mrr_desc",
+      "positive_recall_at_1_desc",
+      "character_score_floor_desc",
+      "character_rrf_weight_asc"
+    ]
+  },
+  "split": "dev",
+  "split_counts": {
+    "dev": 199,
+    "test": 0,
+    "train": 0
+  },
+  "status": "frozen_before_configuration_execution"
+}

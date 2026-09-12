@@ -2,14 +2,14 @@
 
 > Mode: Lite / Lean Industrial
 >
-> Status: Proposed; implementation blocked until project-owner confirmation
+> Status: In progress; HRR-T1 complete
 
 ## Task order
 
 ### HRR-T1 — Freeze the development-only challenge contract `[backend/qa]`
 
-- [ ] Implement strict 199-case development builder/manifest validation. _(→HRR-R1–R3)_
-- [ ] Author four declared transformations for every family plus all controls, then freeze before
+- [x] Implement strict 199-case development builder/manifest validation. _(→HRR-R1–R3)_
+- [x] Author four declared transformations for every family plus all controls, then freeze before
   running candidate configurations. _(→HRR-R2–R3)_
 
 Files:

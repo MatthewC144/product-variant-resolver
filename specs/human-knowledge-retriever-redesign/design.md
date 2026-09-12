@@ -2,7 +2,7 @@
 
 > Mode: Lite / Lean Industrial
 >
-> Status: Proposed; awaiting project-owner confirmation
+> Status: Confirmed; HRR-T1 complete and HRR-T2 not started
 
 ## Overview
 

@@ -1,0 +1,3809 @@
+{
+  "authorship_policy": {
+    "derived_from_indexed_identities": true,
+    "development_only": true,
+    "final_accuracy_eligible": false,
+    "method": "deterministic-indexed-identity-transformations-v1",
+    "retriever_output_viewed": false,
+    "v1_query_text_used_only_for_non_reuse_validation": true
+  },
+  "cases": [
+    {
+      "case_id": "frd-hold-089ff8645b5f2de7",
+      "case_type": "hold_control",
+      "casting_group_id": "hold:fandom-family-089ff8645b5f2de7",
+      "challenge_style": "held_identity",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "expected_materialized": false,
+        "forbidden_review_family_id": "fandom-family-089ff8645b5f2de7"
+      },
+      "noise_tags": [
+        "identity_ambiguity",
+        "seller_wrapper"
+      ],
+      "query_origin": "governance_identity_transformation",
+      "query_text": "unverified listing '55 Chevy loose model lineage unclear",
+      "split": "dev",
+      "transformation_method": "hold_control_wrapper"
+    },
+    {
+      "case_id": "frd-hold-0e07a7139454d2e8",
+      "case_type": "hold_control",
+      "casting_group_id": "hold:fandom-family-0e07a7139454d2e8",
+      "challenge_style": "held_identity",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "expected_materialized": false,
+        "forbidden_review_family_id": "fandom-family-0e07a7139454d2e8"
+      },
+      "noise_tags": [
+        "identity_ambiguity",
+        "seller_wrapper"
+      ],
+      "query_origin": "governance_identity_transformation",
+      "query_text": "unverified listing Nissan Skyline GT-R (BNR32) loose model lineage unclear",
+      "split": "dev",
+      "transformation_method": "hold_control_wrapper"
+    },
+    {
+      "case_id": "frd-hold-369b0be5855c0a1c",
+      "case_type": "hold_control",
+      "casting_group_id": "hold:fandom-family-369b0be5855c0a1c",
+      "challenge_style": "held_identity",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "expected_materialized": false,
+        "forbidden_review_family_id": "fandom-family-369b0be5855c0a1c"
+      },
+      "noise_tags": [
+        "identity_ambiguity",
+        "seller_wrapper"
+      ],
+      "query_origin": "governance_identity_transformation",
+      "query_text": "unverified listing Nissan Skyline 2000GT-R LBWK loose model lineage unclear",
+      "split": "dev",
+      "transformation_method": "hold_control_wrapper"
+    },
+    {
+      "case_id": "frd-hold-4f9ee66afdfe8cac",
+      "case_type": "hold_control",
+      "casting_group_id": "hold:fandom-family-4f9ee66afdfe8cac",
+      "challenge_style": "held_identity",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "expected_materialized": false,
+        "forbidden_review_family_id": "fandom-family-4f9ee66afdfe8cac"
+      },
+      "noise_tags": [
+        "identity_ambiguity",
+        "seller_wrapper"
+      ],
+      "query_origin": "governance_identity_transformation",
+      "query_text": "unverified listing Power Wheels Dune Racer loose model lineage unclear",
+      "split": "dev",
+      "transformation_method": "hold_control_wrapper"
+    },
+    {
+      "case_id": "frd-hold-8403e21a29c27eab",
+      "case_type": "hold_control",
+      "casting_group_id": "hold:fandom-family-8403e21a29c27eab",
+      "challenge_style": "held_identity",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "expected_materialized": false,
+        "forbidden_review_family_id": "fandom-family-8403e21a29c27eab"
+      },
+      "noise_tags": [
+        "identity_ambiguity",
+        "seller_wrapper"
+      ],
+      "query_origin": "governance_identity_transformation",
+      "query_text": "unverified listing Standard Kart loose model lineage unclear",
+      "split": "dev",
+      "transformation_method": "hold_control_wrapper"
+    },
+    {
+      "case_id": "frd-hold-8d24c626a51b1804",
+      "case_type": "hold_control",
+      "casting_group_id": "hold:fandom-family-8d24c626a51b1804",
+      "challenge_style": "held_identity",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "expected_materialized": false,
+        "forbidden_review_family_id": "fandom-family-8d24c626a51b1804"
+      },
+      "noise_tags": [
+        "identity_ambiguity",
+        "seller_wrapper"
+      ],
+      "query_origin": "governance_identity_transformation",
+      "query_text": "unverified listing Batman and Robin Batmobile loose model lineage unclear",
+      "split": "dev",
+      "transformation_method": "hold_control_wrapper"
+    },
+    {
+      "case_id": "frd-hold-c639dc688e21d33b",
+      "case_type": "hold_control",
+      "casting_group_id": "hold:fandom-family-c639dc688e21d33b",
+      "challenge_style": "held_identity",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "expected_materialized": false,
+        "forbidden_review_family_id": "fandom-family-c639dc688e21d33b"
+      },
+      "noise_tags": [
+        "identity_ambiguity",
+        "seller_wrapper"
+      ],
+      "query_origin": "governance_identity_transformation",
+      "query_text": "unverified listing Mazda MX-5 Miata loose model lineage unclear",
+      "split": "dev",
+      "transformation_method": "hold_control_wrapper"
+    },
+    {
+      "case_id": "frd-merge-04829924a36830a6",
+      "case_type": "merge_control",
+      "casting_group_id": "merge:fandom-family-04829924a36830a6",
+      "challenge_style": "merge_existing_family",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "casting_id": "human-hot-wheels-purple-passion",
+        "forbidden_review_family_id": "fandom-family-04829924a36830a6",
+        "knowledge_type": "provisional_variant"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "governance_identity_transformation",
+      "query_text": "preowned Purple Passion miniature from collector cabinet",
+      "split": "dev",
+      "transformation_method": "merge_control_wrapper"
+    },
+    {
+      "case_id": "frd-merge-6062af64f2e5a66c",
+      "case_type": "merge_control",
+      "casting_group_id": "merge:fandom-family-6062af64f2e5a66c",
+      "challenge_style": "merge_existing_family",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "casting_id": "human-hot-wheels-tesla-model-s-plaid",
+        "forbidden_review_family_id": "fandom-family-6062af64f2e5a66c",
+        "knowledge_type": "provisional_variant"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "governance_identity_transformation",
+      "query_text": "preowned Tesla Model S Plaid miniature from collector cabinet",
+      "split": "dev",
+      "transformation_method": "merge_control_wrapper"
+    },
+    {
+      "case_id": "frd-merge-aa499ddb791c6991",
+      "case_type": "merge_control",
+      "casting_group_id": "merge:fandom-family-aa499ddb791c6991",
+      "challenge_style": "merge_existing_family",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "casting_id": "human-hot-wheels-67-chevy-c10",
+        "forbidden_review_family_id": "fandom-family-aa499ddb791c6991",
+        "knowledge_type": "provisional_variant"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "governance_identity_transformation",
+      "query_text": "preowned '67 Chevy C10 miniature from collector cabinet",
+      "split": "dev",
+      "transformation_method": "merge_control_wrapper"
+    },
+    {
+      "case_id": "frd-merge-b60363832032d566",
+      "case_type": "merge_control",
+      "casting_group_id": "merge:fandom-family-b60363832032d566",
+      "challenge_style": "merge_existing_family",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "casting_id": "human-hot-wheels-subaru-brz",
+        "forbidden_review_family_id": "fandom-family-b60363832032d566",
+        "knowledge_type": "provisional_variant"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "governance_identity_transformation",
+      "query_text": "preowned Subaru BRZ miniature from collector cabinet",
+      "split": "dev",
+      "transformation_method": "merge_control_wrapper"
+    },
+    {
+      "case_id": "frd-positive-0573861db69878eb-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-0573861db69878eb",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-0573861db69878eb"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "max st diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-0573861db69878eb-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-0573861db69878eb",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-0573861db69878eb"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find Max Steel unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-0573861db69878eb-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-0573861db69878eb",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-0573861db69878eb"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "max stel loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-0573861db69878eb-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-0573861db69878eb",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-0573861db69878eb"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded maxsteel miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-08cb7fadb9fed12d-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-08cb7fadb9fed12d",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-08cb7fadb9fed12d"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "88 jeep wagoneer diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-08cb7fadb9fed12d-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-08cb7fadb9fed12d",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-08cb7fadb9fed12d"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find 1988 Jeep Wagoneer unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-08cb7fadb9fed12d-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-08cb7fadb9fed12d",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-08cb7fadb9fed12d"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "1988 jeep wagoeer loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-08cb7fadb9fed12d-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-08cb7fadb9fed12d",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-08cb7fadb9fed12d"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded 1988jeepwagoneer miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-1555c05ceeb491cb-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-1555c05ceeb491cb",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-1555c05ceeb491cb"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "94x audi avant rs2 diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-1555c05ceeb491cb-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-1555c05ceeb491cb",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-1555c05ceeb491cb"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find '94 Audi Avant RS2 unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-1555c05ceeb491cb-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-1555c05ceeb491cb",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-1555c05ceeb491cb"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "94 audi avnt rs2 loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-1555c05ceeb491cb-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-1555c05ceeb491cb",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-1555c05ceeb491cb"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded 94audiavantrs2 miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-174efb9bce3a441e-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-174efb9bce3a441e",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-174efb9bce3a441e"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "lambo huracán sterrato diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-174efb9bce3a441e-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-174efb9bce3a441e",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-174efb9bce3a441e"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find Lamborghini Huracán Sterrato unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-174efb9bce3a441e-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-174efb9bce3a441e",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-174efb9bce3a441e"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "lamboghini huracán sterrato loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-174efb9bce3a441e-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-174efb9bce3a441e",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-174efb9bce3a441e"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded lamborghinihuracánsterrato miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-18e55e067083dbd1-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-18e55e067083dbd1",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-18e55e067083dbd1"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "87x audi quattro diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-18e55e067083dbd1-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-18e55e067083dbd1",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-18e55e067083dbd1"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find '87 Audi quattro unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-18e55e067083dbd1-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-18e55e067083dbd1",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-18e55e067083dbd1"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "87 audi quatro loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-18e55e067083dbd1-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-18e55e067083dbd1",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-18e55e067083dbd1"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded 87audiquattro miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-1b2a4227b4e5decd-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-1b2a4227b4e5decd",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-1b2a4227b4e5decd"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "mercedes benz 5o0 e diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-1b2a4227b4e5decd-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-1b2a4227b4e5decd",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-1b2a4227b4e5decd"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find Mercedes-Benz 500 E unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-1b2a4227b4e5decd-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-1b2a4227b4e5decd",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-1b2a4227b4e5decd"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "mercdes benz 500 e loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-1b2a4227b4e5decd-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-1b2a4227b4e5decd",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-1b2a4227b4e5decd"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded mercedesbenz500e miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-2357e7eb6b4e62b8-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-2357e7eb6b4e62b8",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-2357e7eb6b4e62b8"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "mon high ghoul mobile diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-2357e7eb6b4e62b8-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-2357e7eb6b4e62b8",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-2357e7eb6b4e62b8"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find Monster High Ghoul Mobile unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-2357e7eb6b4e62b8-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-2357e7eb6b4e62b8",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-2357e7eb6b4e62b8"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "monter high ghoul mobile loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-2357e7eb6b4e62b8-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-2357e7eb6b4e62b8",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-2357e7eb6b4e62b8"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded monsterhighghoulmobile miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-356e4ef63275a661-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-356e4ef63275a661",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-356e4ef63275a661"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "fish d ch d diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-356e4ef63275a661-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-356e4ef63275a661",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-356e4ef63275a661"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find Fish'd & Chip'd unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-356e4ef63275a661-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-356e4ef63275a661",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-356e4ef63275a661"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "fish d chp d loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-356e4ef63275a661-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-356e4ef63275a661",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-356e4ef63275a661"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded fishdchipd miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-39b248ce2f3723cd-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-39b248ce2f3723cd",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-39b248ce2f3723cd"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "twin mi gen e diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-39b248ce2f3723cd-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-39b248ce2f3723cd",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-39b248ce2f3723cd"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find Twin Mill Gen-E unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-39b248ce2f3723cd-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-39b248ce2f3723cd",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-39b248ce2f3723cd"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "twin mil gen e loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-39b248ce2f3723cd-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-39b248ce2f3723cd",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-39b248ce2f3723cd"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded twinmillgene miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-3c9f928f085efaae-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-3c9f928f085efaae",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-3c9f928f085efaae"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "kick ka diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-3c9f928f085efaae-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-3c9f928f085efaae",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-3c9f928f085efaae"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find Kick Kart unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-3c9f928f085efaae-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-3c9f928f085efaae",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-3c9f928f085efaae"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "kick kat loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-3c9f928f085efaae-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-3c9f928f085efaae",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-3c9f928f085efaae"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded kickkart miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-440103f8ef3c6b70-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-440103f8ef3c6b70",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-440103f8ef3c6b70"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "haule diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-440103f8ef3c6b70-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-440103f8ef3c6b70",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-440103f8ef3c6b70"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find Haulerback unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-440103f8ef3c6b70-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-440103f8ef3c6b70",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-440103f8ef3c6b70"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "hauleback loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-440103f8ef3c6b70-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-440103f8ef3c6b70",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-440103f8ef3c6b70"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded haule rback miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-45af5b93f3f6650f-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-45af5b93f3f6650f",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-45af5b93f3f6650f"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "custom cadillac flee diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-45af5b93f3f6650f-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-45af5b93f3f6650f",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-45af5b93f3f6650f"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find Custom Cadillac Fleetwood unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-45af5b93f3f6650f-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-45af5b93f3f6650f",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-45af5b93f3f6650f"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "custom cadillac fleewood loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-45af5b93f3f6650f-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-45af5b93f3f6650f",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-45af5b93f3f6650f"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded customcadillacfleetwood miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-4bf5341a133d433b-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-4bf5341a133d433b",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-4bf5341a133d433b"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "hiro merc diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-4bf5341a133d433b-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-4bf5341a133d433b",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-4bf5341a133d433b"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find Hirohata Merc unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-4bf5341a133d433b-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-4bf5341a133d433b",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-4bf5341a133d433b"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "hiroata merc loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-4bf5341a133d433b-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-4bf5341a133d433b",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-4bf5341a133d433b"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded hirohatamerc miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-4d00e96d12341b4d-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-4d00e96d12341b4d",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-4d00e96d12341b4d"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "nerve ham diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-4d00e96d12341b4d-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-4d00e96d12341b4d",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-4d00e96d12341b4d"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find Nerve Hammer unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-4d00e96d12341b4d-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-4d00e96d12341b4d",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-4d00e96d12341b4d"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "nerve hamer loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-4d00e96d12341b4d-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-4d00e96d12341b4d",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-4d00e96d12341b4d"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded nervehammer miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-4d2de6db3d5bba63-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-4d2de6db3d5bba63",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-4d2de6db3d5bba63"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "cres diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-4d2de6db3d5bba63-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-4d2de6db3d5bba63",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-4d2de6db3d5bba63"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find Crescendo unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-4d2de6db3d5bba63-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-4d2de6db3d5bba63",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-4d2de6db3d5bba63"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "cresendo loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-4d2de6db3d5bba63-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-4d2de6db3d5bba63",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-4d2de6db3d5bba63"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded cres cendo miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-526b697937fde7cc-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-526b697937fde7cc",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-526b697937fde7cc"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "8o el camino diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-526b697937fde7cc-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-526b697937fde7cc",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-526b697937fde7cc"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find '80 El Camino unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-526b697937fde7cc-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-526b697937fde7cc",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-526b697937fde7cc"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "80 el camno loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-526b697937fde7cc-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-526b697937fde7cc",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-526b697937fde7cc"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded 80elcamino miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-57cf5c31afbadc57-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-57cf5c31afbadc57",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-57cf5c31afbadc57"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "the van diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-57cf5c31afbadc57-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-57cf5c31afbadc57",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-57cf5c31afbadc57"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find The Vanster unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-57cf5c31afbadc57-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-57cf5c31afbadc57",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-57cf5c31afbadc57"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "the vanter loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-57cf5c31afbadc57-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-57cf5c31afbadc57",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-57cf5c31afbadc57"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded thevanster miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-59e5682e50af879e-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-59e5682e50af879e",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-59e5682e50af879e"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "pro saga diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-59e5682e50af879e-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-59e5682e50af879e",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-59e5682e50af879e"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find Proton Saga unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-59e5682e50af879e-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-59e5682e50af879e",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-59e5682e50af879e"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "proon saga loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-59e5682e50af879e-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-59e5682e50af879e",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-59e5682e50af879e"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded protonsaga miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-7e221ec8ecd02815-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-7e221ec8ecd02815",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-7e221ec8ecd02815"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "x 34x landspeeder diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-7e221ec8ecd02815-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-7e221ec8ecd02815",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-7e221ec8ecd02815"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find X-34 Landspeeder unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-7e221ec8ecd02815-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-7e221ec8ecd02815",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-7e221ec8ecd02815"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "x 34 landseeder loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-7e221ec8ecd02815-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-7e221ec8ecd02815",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-7e221ec8ecd02815"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded x34landspeeder miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-85226ac5ac0d3f77-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-85226ac5ac0d3f77",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-85226ac5ac0d3f77"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "fiat 5o0e diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-85226ac5ac0d3f77-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-85226ac5ac0d3f77",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-85226ac5ac0d3f77"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find Fiat 500e unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-85226ac5ac0d3f77-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-85226ac5ac0d3f77",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-85226ac5ac0d3f77"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "fiat 50e loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-85226ac5ac0d3f77-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-85226ac5ac0d3f77",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-85226ac5ac0d3f77"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded fiat500e miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-85e407525ac7bf41-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-85e407525ac7bf41",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-85e407525ac7bf41"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "sm bloc diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-85e407525ac7bf41-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-85e407525ac7bf41",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-85e407525ac7bf41"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find Small Bloc unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-85e407525ac7bf41-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-85e407525ac7bf41",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-85e407525ac7bf41"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "smll bloc loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-85e407525ac7bf41-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-85e407525ac7bf41",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-85e407525ac7bf41"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded smallbloc miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-89930c384be2e8bf-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-89930c384be2e8bf",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-89930c384be2e8bf"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "kowloon d hype diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-89930c384be2e8bf-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-89930c384be2e8bf",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-89930c384be2e8bf"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find Kowloon'd Hypervan unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-89930c384be2e8bf-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-89930c384be2e8bf",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-89930c384be2e8bf"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "kowloon d hypevan loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-89930c384be2e8bf-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-89930c384be2e8bf",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-89930c384be2e8bf"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded kowloondhypervan miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-8a07157f2af2ddd5-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-8a07157f2af2ddd5",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-8a07157f2af2ddd5"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "bogz diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-8a07157f2af2ddd5-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-8a07157f2af2ddd5",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-8a07157f2af2ddd5"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find Bogzilla unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-8a07157f2af2ddd5-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-8a07157f2af2ddd5",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-8a07157f2af2ddd5"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "bogzlla loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-8a07157f2af2ddd5-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-8a07157f2af2ddd5",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-8a07157f2af2ddd5"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded bogz illa miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-8cce01fa7d44112a-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-8cce01fa7d44112a",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-8cce01fa7d44112a"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "de iii diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-8cce01fa7d44112a-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-8cce01fa7d44112a",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-8cce01fa7d44112a"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find Deora III unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-8cce01fa7d44112a-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-8cce01fa7d44112a",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-8cce01fa7d44112a"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "dera iii loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-8cce01fa7d44112a-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-8cce01fa7d44112a",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-8cce01fa7d44112a"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded deoraiii miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-9069156ec909a92e-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-9069156ec909a92e",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-9069156ec909a92e"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "donut dri diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-9069156ec909a92e-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-9069156ec909a92e",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-9069156ec909a92e"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find Donut Drifter unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-9069156ec909a92e-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-9069156ec909a92e",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-9069156ec909a92e"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "donut driter loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-9069156ec909a92e-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-9069156ec909a92e",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-9069156ec909a92e"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded donutdrifter miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-99200212d1475ef2-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-99200212d1475ef2",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-99200212d1475ef2"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "20 ram 1500 rebel diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-99200212d1475ef2-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-99200212d1475ef2",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-99200212d1475ef2"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find 2020 Ram 1500 Rebel unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-99200212d1475ef2-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-99200212d1475ef2",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-99200212d1475ef2"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "2020 ram 1500 reel loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-99200212d1475ef2-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-99200212d1475ef2",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-99200212d1475ef2"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded 2020ram1500rebel miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-a1b198f7d235f778-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-a1b198f7d235f778",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-a1b198f7d235f778"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "ford performance supervan 4x diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-a1b198f7d235f778-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-a1b198f7d235f778",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-a1b198f7d235f778"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find Ford Performance SuperVan 4 unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-a1b198f7d235f778-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-a1b198f7d235f778",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-a1b198f7d235f778"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "ford perfomance supervan 4 loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-a1b198f7d235f778-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-a1b198f7d235f778",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-a1b198f7d235f778"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded fordperformancesupervan4 miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-a2097eead3bd8db9-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-a2097eead3bd8db9",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-a2097eead3bd8db9"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "66x buick riviera diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-a2097eead3bd8db9-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-a2097eead3bd8db9",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-a2097eead3bd8db9"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find '66 Buick Riviera unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-a2097eead3bd8db9-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-a2097eead3bd8db9",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-a2097eead3bd8db9"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "66 buick rivera loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-a2097eead3bd8db9-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-a2097eead3bd8db9",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-a2097eead3bd8db9"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded 66buickriviera miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-a8e0dec4abdc4131-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-a8e0dec4abdc4131",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-a8e0dec4abdc4131"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "dmc delo diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-a8e0dec4abdc4131-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-a8e0dec4abdc4131",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-a8e0dec4abdc4131"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find DMC DeLorean unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-a8e0dec4abdc4131-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-a8e0dec4abdc4131",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-a8e0dec4abdc4131"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "dmc deloean loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-a8e0dec4abdc4131-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-a8e0dec4abdc4131",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-a8e0dec4abdc4131"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded dmcdelorean miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-aaafff57ac4d4daa-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-aaafff57ac4d4daa",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-aaafff57ac4d4daa"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "morgan super 3x diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-aaafff57ac4d4daa-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-aaafff57ac4d4daa",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-aaafff57ac4d4daa"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find Morgan Super 3 unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-aaafff57ac4d4daa-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-aaafff57ac4d4daa",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-aaafff57ac4d4daa"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "moran super 3 loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-aaafff57ac4d4daa-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-aaafff57ac4d4daa",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-aaafff57ac4d4daa"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded morgansuper3 miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-aab5350cb90d72ed-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-aab5350cb90d72ed",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-aab5350cb90d72ed"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "21x ford bronco diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-aab5350cb90d72ed-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-aab5350cb90d72ed",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-aab5350cb90d72ed"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find '21 Ford Bronco unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-aab5350cb90d72ed-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-aab5350cb90d72ed",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-aab5350cb90d72ed"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "21 ford broco loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-aab5350cb90d72ed-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-aab5350cb90d72ed",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-aab5350cb90d72ed"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded 21fordbronco miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-aec11693bfe04245-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-aec11693bfe04245",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-aec11693bfe04245"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "ma repu diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-aec11693bfe04245-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-aec11693bfe04245",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-aec11693bfe04245"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find Mazda REPU unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-aec11693bfe04245-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-aec11693bfe04245",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-aec11693bfe04245"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "mada repu loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-aec11693bfe04245-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-aec11693bfe04245",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-aec11693bfe04245"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded mazdarepu miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-b31d285560d8a242-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-b31d285560d8a242",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-b31d285560d8a242"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "ford mus gtd diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-b31d285560d8a242-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-b31d285560d8a242",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-b31d285560d8a242"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find Ford Mustang GTD unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-b31d285560d8a242-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-b31d285560d8a242",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-b31d285560d8a242"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "ford musang gtd loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-b31d285560d8a242-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-b31d285560d8a242",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-b31d285560d8a242"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded fordmustanggtd miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-b3cd4f5a5f7e196a-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-b3cd4f5a5f7e196a",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-b3cd4f5a5f7e196a"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "69x corvette racer diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-b3cd4f5a5f7e196a-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-b3cd4f5a5f7e196a",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-b3cd4f5a5f7e196a"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find '69 Corvette Racer unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-b3cd4f5a5f7e196a-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-b3cd4f5a5f7e196a",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-b3cd4f5a5f7e196a"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "69 corvtte racer loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-b3cd4f5a5f7e196a-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-b3cd4f5a5f7e196a",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-b3cd4f5a5f7e196a"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded 69corvetteracer miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-c655fb5244c584ae-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-c655fb5244c584ae",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-c655fb5244c584ae"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "kei sw diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-c655fb5244c584ae-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-c655fb5244c584ae",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-c655fb5244c584ae"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find Kei Swap unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-c655fb5244c584ae-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-c655fb5244c584ae",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-c655fb5244c584ae"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "kei swp loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-c655fb5244c584ae-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-c655fb5244c584ae",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-c655fb5244c584ae"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded keiswap miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-d114c33db6fa215b-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-d114c33db6fa215b",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d114c33db6fa215b"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "9o honda civic ef diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-d114c33db6fa215b-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-d114c33db6fa215b",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d114c33db6fa215b"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find '90 Honda Civic EF unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-d114c33db6fa215b-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-d114c33db6fa215b",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d114c33db6fa215b"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "90 honda ciic ef loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-d114c33db6fa215b-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-d114c33db6fa215b",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d114c33db6fa215b"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded 90hondacivicef miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-d5c83bb87be8cab0-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-d5c83bb87be8cab0",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d5c83bb87be8cab0"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "su twin mill diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-d5c83bb87be8cab0-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-d5c83bb87be8cab0",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d5c83bb87be8cab0"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find Super Twin Mill unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-d5c83bb87be8cab0-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-d5c83bb87be8cab0",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d5c83bb87be8cab0"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "suer twin mill loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-d5c83bb87be8cab0-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-d5c83bb87be8cab0",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d5c83bb87be8cab0"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded supertwinmill miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-d816204cf649a0c0-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-d816204cf649a0c0",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d816204cf649a0c0"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "draft diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-d816204cf649a0c0-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-d816204cf649a0c0",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d816204cf649a0c0"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find Draftnator unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-d816204cf649a0c0-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-d816204cf649a0c0",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d816204cf649a0c0"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "draftator loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-d816204cf649a0c0-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-d816204cf649a0c0",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d816204cf649a0c0"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded draft nator miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-d90841788b1d98a2-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-d90841788b1d98a2",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d90841788b1d98a2"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "alpha pur diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-d90841788b1d98a2-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-d90841788b1d98a2",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d90841788b1d98a2"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find Alpha Pursuit unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-d90841788b1d98a2-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-d90841788b1d98a2",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d90841788b1d98a2"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "alpha puruit loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-d90841788b1d98a2-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-d90841788b1d98a2",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d90841788b1d98a2"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded alphapursuit miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-db3fe3a0103099ec-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-db3fe3a0103099ec",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-db3fe3a0103099ec"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "22x ford maverick custom diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-db3fe3a0103099ec-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-db3fe3a0103099ec",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-db3fe3a0103099ec"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find '22 Ford Maverick Custom unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-db3fe3a0103099ec-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-db3fe3a0103099ec",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-db3fe3a0103099ec"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "22 ford maveick custom loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-db3fe3a0103099ec-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-db3fe3a0103099ec",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-db3fe3a0103099ec"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded 22fordmaverickcustom miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-e7d4d8cf1dd8c6e1-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-e7d4d8cf1dd8c6e1",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-e7d4d8cf1dd8c6e1"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "mazda aut diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-e7d4d8cf1dd8c6e1-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-e7d4d8cf1dd8c6e1",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-e7d4d8cf1dd8c6e1"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find Mazda Autozam unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-e7d4d8cf1dd8c6e1-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-e7d4d8cf1dd8c6e1",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-e7d4d8cf1dd8c6e1"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "mazda autzam loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-e7d4d8cf1dd8c6e1-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-e7d4d8cf1dd8c6e1",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-e7d4d8cf1dd8c6e1"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded mazdaautozam miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-positive-fd96307f2dc8b421-abbreviation-numeric",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-fd96307f2dc8b421",
+      "challenge_style": "abbreviation_numeric",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-fd96307f2dc8b421"
+      },
+      "noise_tags": [
+        "abbreviation",
+        "year_noise"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "custom 53x chevy diecast vehicle",
+      "split": "dev",
+      "transformation_method": "abbreviation_numeric"
+    },
+    {
+      "case_id": "frd-positive-fd96307f2dc8b421-contextual-noise",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-fd96307f2dc8b421",
+      "challenge_style": "contextual_noise",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-fd96307f2dc8b421"
+      },
+      "noise_tags": [
+        "condition_noise",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "warehouse find Custom '53 Chevy unboxed collector sale",
+      "split": "dev",
+      "transformation_method": "contextual_noise"
+    },
+    {
+      "case_id": "frd-positive-fd96307f2dc8b421-single-edit",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-fd96307f2dc8b421",
+      "challenge_style": "single_edit",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-fd96307f2dc8b421"
+      },
+      "noise_tags": [
+        "misspelling"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "cusom 53 chevy loose collector piece",
+      "split": "dev",
+      "transformation_method": "single_edit"
+    },
+    {
+      "case_id": "frd-positive-fd96307f2dc8b421-spacing-punctuation",
+      "case_type": "positive_family",
+      "casting_group_id": "review:fandom-family-fd96307f2dc8b421",
+      "challenge_style": "spacing_punctuation",
+      "derived_from_indexed_identity": true,
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-fd96307f2dc8b421"
+      },
+      "noise_tags": [
+        "punctuation",
+        "spacing"
+      ],
+      "query_origin": "indexed_identity_transformation",
+      "query_text": "carded custom53chevy miniature",
+      "split": "dev",
+      "transformation_method": "spacing_punctuation"
+    },
+    {
+      "case_id": "frd-unrelated-generic-00",
+      "case_type": "unrelated_control",
+      "casting_group_id": "unrelated:generic-00",
+      "challenge_style": "generic_no_identity",
+      "derived_from_indexed_identity": false,
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": false
+      },
+      "noise_tags": [
+        "generic_marketplace",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "synthetic_negative_control",
+      "query_text": "sealed blue collector model from storage box",
+      "split": "dev",
+      "transformation_method": "generic_marketplace_without_identity"
+    },
+    {
+      "case_id": "frd-unrelated-generic-01",
+      "case_type": "unrelated_control",
+      "casting_group_id": "unrelated:generic-01",
+      "challenge_style": "generic_no_identity",
+      "derived_from_indexed_identity": false,
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": false
+      },
+      "noise_tags": [
+        "generic_marketplace",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "synthetic_negative_control",
+      "query_text": "loose red miniature with light shelf wear",
+      "split": "dev",
+      "transformation_method": "generic_marketplace_without_identity"
+    },
+    {
+      "case_id": "frd-unrelated-generic-02",
+      "case_type": "unrelated_control",
+      "casting_group_id": "unrelated:generic-02",
+      "challenge_style": "generic_no_identity",
+      "derived_from_indexed_identity": false,
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": false
+      },
+      "noise_tags": [
+        "generic_marketplace",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "synthetic_negative_control",
+      "query_text": "carded silver toy vehicle local pickup",
+      "split": "dev",
+      "transformation_method": "generic_marketplace_without_identity"
+    },
+    {
+      "case_id": "frd-unrelated-generic-03",
+      "case_type": "unrelated_control",
+      "casting_group_id": "unrelated:generic-03",
+      "challenge_style": "generic_no_identity",
+      "derived_from_indexed_identity": false,
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": false
+      },
+      "noise_tags": [
+        "generic_marketplace",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "synthetic_negative_control",
+      "query_text": "unopened black collector item estate find",
+      "split": "dev",
+      "transformation_method": "generic_marketplace_without_identity"
+    },
+    {
+      "case_id": "frd-unrelated-generic-04",
+      "case_type": "unrelated_control",
+      "casting_group_id": "unrelated:generic-04",
+      "challenge_style": "generic_no_identity",
+      "derived_from_indexed_identity": false,
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": false
+      },
+      "noise_tags": [
+        "generic_marketplace",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "synthetic_negative_control",
+      "query_text": "green diecast piece missing outer package",
+      "split": "dev",
+      "transformation_method": "generic_marketplace_without_identity"
+    },
+    {
+      "case_id": "frd-unrelated-generic-05",
+      "case_type": "unrelated_control",
+      "casting_group_id": "unrelated:generic-05",
+      "challenge_style": "generic_no_identity",
+      "derived_from_indexed_identity": false,
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": false
+      },
+      "noise_tags": [
+        "generic_marketplace",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "synthetic_negative_control",
+      "query_text": "orange miniature vehicle from display case",
+      "split": "dev",
+      "transformation_method": "generic_marketplace_without_identity"
+    },
+    {
+      "case_id": "frd-unrelated-generic-06",
+      "case_type": "unrelated_control",
+      "casting_group_id": "unrelated:generic-06",
+      "challenge_style": "generic_no_identity",
+      "derived_from_indexed_identity": false,
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": false
+      },
+      "noise_tags": [
+        "generic_marketplace",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "synthetic_negative_control",
+      "query_text": "white toy car in protective blister pack",
+      "split": "dev",
+      "transformation_method": "generic_marketplace_without_identity"
+    },
+    {
+      "case_id": "frd-unrelated-generic-07",
+      "case_type": "unrelated_control",
+      "casting_group_id": "unrelated:generic-07",
+      "challenge_style": "generic_no_identity",
+      "derived_from_indexed_identity": false,
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": false
+      },
+      "noise_tags": [
+        "generic_marketplace",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "synthetic_negative_control",
+      "query_text": "purple collectible model sold as pictured",
+      "split": "dev",
+      "transformation_method": "generic_marketplace_without_identity"
+    },
+    {
+      "case_id": "frd-unrelated-generic-08",
+      "case_type": "unrelated_control",
+      "casting_group_id": "unrelated:generic-08",
+      "challenge_style": "generic_no_identity",
+      "derived_from_indexed_identity": false,
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": false
+      },
+      "noise_tags": [
+        "generic_marketplace",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "synthetic_negative_control",
+      "query_text": "yellow small scale vehicle cabinet find",
+      "split": "dev",
+      "transformation_method": "generic_marketplace_without_identity"
+    },
+    {
+      "case_id": "frd-unrelated-generic-09",
+      "case_type": "unrelated_control",
+      "casting_group_id": "unrelated:generic-09",
+      "challenge_style": "generic_no_identity",
+      "derived_from_indexed_identity": false,
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": false
+      },
+      "noise_tags": [
+        "generic_marketplace",
+        "marketplace_wrapper"
+      ],
+      "query_origin": "synthetic_negative_control",
+      "query_text": "gray boxed miniature with unknown maker",
+      "split": "dev",
+      "transformation_method": "generic_marketplace_without_identity"
+    },
+    {
+      "case_id": "frd-unrelated-opaque-00",
+      "case_type": "unrelated_control",
+      "casting_group_id": "unrelated:opaque-00",
+      "challenge_style": "opaque_no_overlap",
+      "derived_from_indexed_identity": false,
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": true
+      },
+      "noise_tags": [
+        "no_overlap"
+      ],
+      "query_origin": "synthetic_negative_control",
+      "query_text": "qxjv00zorphelt",
+      "split": "dev",
+      "transformation_method": "opaque_token_generation"
+    },
+    {
+      "case_id": "frd-unrelated-opaque-01",
+      "case_type": "unrelated_control",
+      "casting_group_id": "unrelated:opaque-01",
+      "challenge_style": "opaque_no_overlap",
+      "derived_from_indexed_identity": false,
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": true
+      },
+      "noise_tags": [
+        "no_overlap"
+      ],
+      "query_origin": "synthetic_negative_control",
+      "query_text": "qxjv01zorphelt",
+      "split": "dev",
+      "transformation_method": "opaque_token_generation"
+    },
+    {
+      "case_id": "frd-unrelated-opaque-02",
+      "case_type": "unrelated_control",
+      "casting_group_id": "unrelated:opaque-02",
+      "challenge_style": "opaque_no_overlap",
+      "derived_from_indexed_identity": false,
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": true
+      },
+      "noise_tags": [
+        "no_overlap"
+      ],
+      "query_origin": "synthetic_negative_control",
+      "query_text": "qxjv02zorphelt",
+      "split": "dev",
+      "transformation_method": "opaque_token_generation"
+    },
+    {
+      "case_id": "frd-unrelated-opaque-03",
+      "case_type": "unrelated_control",
+      "casting_group_id": "unrelated:opaque-03",
+      "challenge_style": "opaque_no_overlap",
+      "derived_from_indexed_identity": false,
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": true
+      },
+      "noise_tags": [
+        "no_overlap"
+      ],
+      "query_origin": "synthetic_negative_control",
+      "query_text": "qxjv03zorphelt",
+      "split": "dev",
+      "transformation_method": "opaque_token_generation"
+    },
+    {
+      "case_id": "frd-unrelated-opaque-04",
+      "case_type": "unrelated_control",
+      "casting_group_id": "unrelated:opaque-04",
+      "challenge_style": "opaque_no_overlap",
+      "derived_from_indexed_identity": false,
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": true
+      },
+      "noise_tags": [
+        "no_overlap"
+      ],
+      "query_origin": "synthetic_negative_control",
+      "query_text": "qxjv04zorphelt",
+      "split": "dev",
+      "transformation_method": "opaque_token_generation"
+    },
+    {
+      "case_id": "frd-unrelated-opaque-05",
+      "case_type": "unrelated_control",
+      "casting_group_id": "unrelated:opaque-05",
+      "challenge_style": "opaque_no_overlap",
+      "derived_from_indexed_identity": false,
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": true
+      },
+      "noise_tags": [
+        "no_overlap"
+      ],
+      "query_origin": "synthetic_negative_control",
+      "query_text": "qxjv05zorphelt",
+      "split": "dev",
+      "transformation_method": "opaque_token_generation"
+    },
+    {
+      "case_id": "frd-unrelated-opaque-06",
+      "case_type": "unrelated_control",
+      "casting_group_id": "unrelated:opaque-06",
+      "challenge_style": "opaque_no_overlap",
+      "derived_from_indexed_identity": false,
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": true
+      },
+      "noise_tags": [
+        "no_overlap"
+      ],
+      "query_origin": "synthetic_negative_control",
+      "query_text": "qxjv06zorphelt",
+      "split": "dev",
+      "transformation_method": "opaque_token_generation"
+    },
+    {
+      "case_id": "frd-unrelated-opaque-07",
+      "case_type": "unrelated_control",
+      "casting_group_id": "unrelated:opaque-07",
+      "challenge_style": "opaque_no_overlap",
+      "derived_from_indexed_identity": false,
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": true
+      },
+      "noise_tags": [
+        "no_overlap"
+      ],
+      "query_origin": "synthetic_negative_control",
+      "query_text": "qxjv07zorphelt",
+      "split": "dev",
+      "transformation_method": "opaque_token_generation"
+    },
+    {
+      "case_id": "frd-unrelated-opaque-08",
+      "case_type": "unrelated_control",
+      "casting_group_id": "unrelated:opaque-08",
+      "challenge_style": "opaque_no_overlap",
+      "derived_from_indexed_identity": false,
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": true
+      },
+      "noise_tags": [
+        "no_overlap"
+      ],
+      "query_origin": "synthetic_negative_control",
+      "query_text": "qxjv08zorphelt",
+      "split": "dev",
+      "transformation_method": "opaque_token_generation"
+    },
+    {
+      "case_id": "frd-unrelated-opaque-09",
+      "case_type": "unrelated_control",
+      "casting_group_id": "unrelated:opaque-09",
+      "challenge_style": "opaque_no_overlap",
+      "derived_from_indexed_identity": false,
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": true
+      },
+      "noise_tags": [
+        "no_overlap"
+      ],
+      "query_origin": "synthetic_negative_control",
+      "query_text": "qxjv09zorphelt",
+      "split": "dev",
+      "transformation_method": "opaque_token_generation"
+    }
+  ],
+  "configuration_output_viewed": false,
+  "derived_from_indexed_identity": true,
+  "development_version": "family-retrieval-development-v1",
+  "eligible_for": [
+    "human_knowledge_retriever_implementation",
+    "human_knowledge_retriever_configuration_selection"
+  ],
+  "excluded_from": [
+    "calibration_training",
+    "canonical_candidate_ranking",
+    "canonical_confidence",
+    "canonical_variant_response",
+    "family_retrieval_final_evaluation",
+    "postgresql_ingestion",
+    "production_accuracy_claim",
+    "release_variant_ground_truth"
+  ],
+  "expected_counts": {
+    "hold_control": 7,
+    "merge_control": 4,
+    "positive_family": 168,
+    "unrelated_control": 20
+  },
+  "retrieval_executed": false,
+  "schema_version": "pvr-family-retrieval-development-v1",
+  "selection_contract": {
+    "candidate_limit": 5,
+    "character_rrf_weights": [
+      0.5,
+      1.0,
+      1.5
+    ],
+    "character_score_floors": [
+      0.25,
+      0.3,
+      0.35,
+      0.4,
+      0.45,
+      0.5,
+      0.55
+    ],
+    "configuration_count": 21,
+    "dense_dimensions": 192,
+    "dense_weight": 1.0,
+    "failure_rule": "no_qualifying_configuration_means_fail_without_runtime_artifact",
+    "rrf_k": 60,
+    "safety_gates": {
+      "hold_materialized_count": 0,
+      "merge_recall_at_5_minimum": 1.0,
+      "merge_wrong_family_count": 0,
+      "positive_recall_at_5_minimum": 0.9,
+      "positive_style_recall_at_5_minimum": 0.85,
+      "unrelated_nonempty_count": 0
+    },
+    "sparse_weight": 1.0,
+    "tie_break_order": [
+      "positive_mrr_desc",
+      "positive_recall_at_1_desc",
+      "character_score_floor_desc",
+      "character_rrf_weight_asc"
+    ]
+  },
+  "split": "dev",
+  "status": "frozen_development_only"
+}
