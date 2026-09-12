@@ -623,3 +623,39 @@
   held-name query can still retrieve an unrelated accepted family through shared tokens, so T48 must
   use an independently authored casting-grouped holdout before any quality or production claim.
   PostgreSQL/pgvector integration and the approximately 3,000-row expansion remain after that gate.
+
+## D32 — Freeze an output-blind family challenge before scoring or persistence
+
+- **Choice:** Define `family-retrieval-holdout-v1` as a separately authored, owner-approved,
+  test-only benchmark against the already frozen `human-knowledge-hybrid-v2`. Use exactly 105 cases:
+  two positive styles for each of 42 accepted families, 4 accepted-merge controls, 7 held-family
+  controls, and 10 unrelated/no-overlap controls. Freeze queries and labels before the evaluator
+  exposes any candidates, ranks, scores, or pass/fail result.
+- **Reason:** T47's 42/42 exact-name result proves indexing but reuses the searchable label and is
+  therefore not independent evidence. The 2025 staging rows are contractually staging-only, and the
+  family projection is excluded from evaluation ground truth. A new authoring/approval layer tests
+  noisy retrieval without rewriting those older usage boundaries or promoting family decisions
+  into canonical labels.
+- **Alternatives:** Rebrand the exact-name smoke matrix as accuracy; score the existing Fandom rows;
+  scrape live marketplace titles during each run; generate thousands of template mutations; or
+  persist first and evaluate later. These respectively create leakage, violate frozen usage scope,
+  lose reproducibility/privacy control, substitute volume for independent judgment, or scale an
+  unknown error profile.
+- **Gate:** Precommit Recall@5 `>=0.85`, Recall@1 `>=0.65`, MRR@5 `>=0.75`, style Recall@5
+  `>=0.75`, family coverage@5 `>=0.90`, merge-control Recall@5 `=1.0`, zero forbidden family hits,
+  and zero unrelated non-empty results. A valid run below any gate is a truthful FAIL, not permission
+  to edit the test set.
+- **10x consideration:** A 105-case manually reviewable set is preferred over a 1,000-case synthetic
+  generator. It covers every known family and governance outcome while concentrating review effort
+  on two qualitatively different query styles. If the corpus grows roughly 10x toward 3,000 rows,
+  this benchmark becomes historical evidence and a new scale-representative holdout is required.
+- **Most likely failure:** Lexical-variation queries may lose every shared token, especially for the
+  four single-token families. The current sparse and feature-hashing paths both start from normalized
+  tokens, so such cases may return no candidate. T48 must report this failure class rather than
+  weaken cases or thresholds after scoring.
+- **Impact:** The draft specification introduces no query data, evaluator result, model change,
+  canonical identity, variant truth, or PostgreSQL row. After owner confirmation, T48.1–T48.3 freeze
+  the contract, query pack, and labels before T48.4 evaluates; T48.5 decides whether T49 may start.
+- **Deferred review:** Neural/fuzzy retrieval, query expansion, PostgreSQL/pgvector persistence,
+  production thresholds, live marketplace evaluation, and the approximately 3,000-row expansion
+  remain separate decisions after the v1 result is understood.

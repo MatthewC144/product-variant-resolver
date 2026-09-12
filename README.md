@@ -367,6 +367,14 @@ separates debug-wiring safety from unmeasured retrieval accuracy. The complete 1
 deterministic source chain, and frozen canonical evaluation pass without changing canonical or
 PostgreSQL data. Independent casting-grouped family evaluation remains the next gate.
 
+The proposed T48 contract is documented in
+[`family-retrieval-evaluation`](specs/family-retrieval-evaluation/requirements.md). It does not reuse
+the exact-name smoke matrix or repurpose staging-only Fandom rows as test truth. Instead it freezes a
+separately written, owner-approved 105-case test pack before scoring: two challenge styles for every
+accepted family plus merge, hold, and unrelated controls. Metrics and PASS thresholds are
+precommitted, and a failure must remain visible rather than tuning on the same holdout. This is a
+draft specification; no T48 query data or accuracy result exists yet.
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with

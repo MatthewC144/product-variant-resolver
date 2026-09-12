@@ -532,6 +532,10 @@ None for demonstrating the explicitly documented offline fixture path.
     index and discriminated API/UI now expose both types safely, but the 42-query smoke matrix uses
     exact names from the indexed projection. It cannot support a generalization or production claim
     before the independently authored, casting-grouped T48 evaluation.
+21. **T48 is currently a specification, not an evaluation result.** Its proposed 105-case
+    output-blind benchmark, owner-approval layer, metrics, and thresholds exist only as a draft
+    contract. No query pack has been authored, no family accuracy has been measured, and T49 remains
+    blocked until the specification is confirmed and executed.
 
 ### Later
 
@@ -550,10 +554,12 @@ provides the confirmed family-level human-knowledge projection, typed retrieval,
 readiness, and canonical-isolation contract. T47.1 built the deterministic 42-document projection,
 T47.2 runs the combined typed v2 index with fail-closed readiness, T47.3 exposes the discriminated
 family/variant debug contract through a text-safe UI, and T47.4 closes all sixteen family-level
-requirements with a Lite PASS. The recommended next task is T48: build an independently written,
-casting-grouped holdout evaluation for family retrieval. Database materialization remains T49 and
-must follow that quality gate before additional yearly lists expand the corpus toward roughly 3,000
-reviewable records. Exact pgvector quality and latency must be remeasured at that scale.
+requirements with a Lite PASS. T48 now provides the draft requirements, design, tasks, precommitted
+metrics, and 105-case composition for an independently written casting-grouped holdout. After the
+project owner confirms those documents, the recommended next task is T48.1: implement the benchmark
+contract without running retrieval. Database materialization remains T49 and must follow the quality
+gate before additional yearly lists expand the corpus toward roughly 3,000 reviewable records.
+Exact pgvector quality and latency must be remeasured at that scale.
 The next human-knowledge evaluation task remains an independently written, casting-grouped holdout
 set; until that evidence exists, the human source stays debug-only. A complete dependency-lock
 review, active post-startup database health polling, external neural models, and a justified T14

@@ -1,5 +1,99 @@
 # Project Log
 
+## 2026-09-11 — T48 defines how family retrieval will be tested without testing on its own names
+
+### What was executed and what problem it solves
+
+T48 begins with a Lite specification rather than immediately creating a benchmark or changing the
+retriever. T47 proved that all 42 accepted review families are present and retrievable when queried
+with their own exact names. That result is necessary for wiring, but it cannot answer the product
+question the next phase actually cares about: whether noisy marketplace wording still retrieves the
+right family and avoids unsafe identities.
+
+The new specification converts that ambiguity into a controlled evaluation. It proposes 105 fixed
+test cases: 84 positives covering every family twice, 4 accepted-merge controls, 7 held-family
+controls, and 10 unrelated queries. Positive cases are split into marketplace noise and lexical
+variation so easy queries with extra seller words cannot hide failures on abbreviations, spacing,
+punctuation, or misspellings. Queries must be written and committed before anyone views retriever
+output; all labels require a separate project-owner decision file before scoring.
+
+### Files added or changed, and why
+
+`specs/family-retrieval-evaluation/requirements.md` defines sixteen EARS requirements covering the
+frozen system under test, output-blind authorship, exact case composition, complete family/control
+coverage, non-triviality, owner verification, deterministic manifests, test-only isolation,
+read-only scoring, metrics, gates, truthful failure, reports, privacy, and full regression.
+
+`design.md` turns those requirements into an artifact and execution architecture. It separates the
+pending query pack, owner decisions, frozen benchmark, evaluator, and report so changing one layer
+invalidates downstream checksums rather than silently changing the test. The proposed evaluator
+retrieves before it reads expected labels and writes ordered candidate/rank evidence from which all
+aggregate metrics can be recomputed.
+
+`tasks.md` divides implementation into five auditable stages. T48.1 builds the contract, T48.2
+authors and freezes queries without retrieval, T48.3 records owner labels, T48.4 evaluates the
+unchanged v2 retriever, and T48.5 closes QA. This ordering is intentional: combining authoring and
+scoring in one task would let observed failures influence the supposedly held-out questions.
+
+Decision D32 records the chosen composition, rejected alternatives, precommitted gates, 10x scale
+impact, and most likely failure. The README, MVP brief, QA risk list, and a dedicated specification-
+evidence document now state that T48 is only a draft contract—there is no new accuracy result.
+
+### Source and method choices
+
+Repository inspection found that the 2025 Fandom normalized rows explicitly declare
+`staging_only_not_evaluation_or_canonical`. The T47 family projection also declares itself excluded
+from evaluation ground truth. Reusing either as a convenient test dataset was rejected because it
+would rewrite a frozen governance decision after the fact. Identity references may define what the
+review question is, but scored query wording must be separately composed and human-approved.
+
+Live marketplace scraping was also rejected for this first benchmark. It would introduce changing
+results, unclear reuse rights, possible personal information, and irreproducible queries. Large
+automatic typo generation was rejected because thousands of templated strings do not create
+thousands of independent judgments. A smaller 105-case set is reviewable in Lite mode while still
+covering every accepted, merged, and held family outcome.
+
+The corpus feasibility check found 42 unique normalized family identities: 4 single-token, 15 two-
+token, and 23 with at least three tokens. Haulerback, Crescendo, Bogzilla, and Draftnator are the
+single-token cases. They must receive lexical challenges even though the current shared-token
+eligibility rule may return nothing after a full-token misspelling. Exposing that weakness is the
+reason for an independent evaluation; removing difficult cases would defeat it.
+
+### Metrics, thresholds, and decision rationale
+
+Recall@5 is the primary quality measure because this source presents bounded review suggestions,
+not an automatic family decision. Recall@1 and MRR@5 still measure ranking usefulness. Family
+coverage@5 prevents frequent/easy families from hiding families that never work, and metrics are
+separated by query style. Merge controls must find their existing provisional-variant casting,
+held identities must never appear as materialized review families, and unrelated zero-overlap
+queries must remain empty.
+
+The gates are frozen before data or results: Recall@5 at least 0.85, Recall@1 at least 0.65, MRR@5
+at least 0.75, each query style Recall@5 at least 0.75, family coverage@5 at least 0.90, merge control
+Recall@5 exactly 1.0, and zero held-family or unrelated-query violations. These thresholds decide
+only whether PostgreSQL scale experimentation is justified. They do not authorize canonical or
+production matching.
+
+If v1 fails, the report must remain FAIL with raw cases and error categories. The team may use those
+errors to design a new retriever, but the now-known v1 test cannot serve as final proof for that
+replacement; a new v2 holdout is required. This costs additional authoring effort but avoids tuning
+until a small benchmark says what the team wants to hear.
+
+### Current impact, verification, and next step
+
+This specification step changes no runtime code, model, index, data artifact, PostgreSQL state,
+canonical behavior, or evaluation score. Static feasibility accounted for all 42 new families, 79
+accepted release references, 4 merges / 9 references, and 7 holds / 12 references. The existing
+184-test T47 baseline remains the executable starting point. A fresh rerun passed 184/184 in 1.637
+seconds; static checks also confirmed all sixteen requirements are represented in task traceability,
+all required design sections exist, and the repository diff has no whitespace errors. The known
+non-failing Starlette legacy-`httpx` environment warning remains unchanged.
+
+The next action is for the project owner to confirm the T48 requirements, design, and task order.
+After confirmation, T48.1 can implement the strict benchmark builder and negative tests. T48.2 must
+then freeze the query pack without running retrieval; results remain prohibited until all 105 labels
+are separately approved in T48.3.
+
 ## 2026-09-11 — T47 closes with a requirement-by-requirement Lite QA verdict
 
 ### What was executed and what problem it solves

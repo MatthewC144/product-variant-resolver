@@ -948,6 +948,17 @@ Each task is intended to be independently committable and verifiable. `task_exec
   compilation, JavaScript syntax, both Compose configurations, and scope diff pass. Independent
   family quality evaluation remains T48.
 
+- [x] **T48 — Specify independent family-retrieval evaluation** `[strategic_planner/doc_curator]` _(FRE-R1–FRE-R16)_
+  Define an output-blind, separately authored, owner-approved, casting-grouped test benchmark for
+  the frozen Human Knowledge RAG v2, including non-trivial positive queries, merge/hold/unrelated
+  controls, deterministic artifacts, read-only scoring, raw metrics, precommitted gates, and
+  canonical/PostgreSQL exclusions.
+  **Verify:** requirements use testable EARS form; design covers authorship, data models, leakage,
+  metrics, failure behavior, security, and tests; tasks map every requirement; feasibility accounts
+  for all 42 families, including four single-token identities, in a proposed 105-case test set.
+  **Status:** Draft specification complete. Project-owner confirmation is required before T48.1;
+  no challenge data was authored or scored in this step.
+
 ### Task order and handoff
 
 Recommended dependency order:
