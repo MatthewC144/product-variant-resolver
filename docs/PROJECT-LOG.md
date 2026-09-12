@@ -4049,6 +4049,103 @@ defines independent development data and chooses how to address token-disruption
 tuning against v1. After implementation, a newly authored `family-retrieval-holdout-v2` must pass
 before T49 persistence or the approximately 3,000-row expansion can resume.
 
+## 2026-09-12 — Human Knowledge retriever-redesign Lite specification
+
+### Context, problem, and observable outcome
+
+T48 closed correctly but did not permit the planned PostgreSQL scale step: Human Knowledge RAG v2
+missed the lexical-variation gate at 31/42. The failures share an architectural cause. V2 requires
+at least one exact normalized token before a document is eligible, then computes the existing
+feature-hashing dense score only inside that eligible set. A misspelled single-token identity cannot
+reach the dense stage, while queries retaining only generic words can rank broad provisional-
+variant documents instead of the intended family.
+
+This planning step creates the complete Lite specification for a redesign, not a patch selected
+from the failed test cases. `specs/human-knowledge-retriever-redesign/` now defines twenty testable
+requirements, a concrete architecture and data lifecycle, and six ordered tasks. The observable
+repository state remains unchanged at runtime: v2 is still active, T49 remains blocked, and no new
+development query, v3 candidate, model artifact, or holdout result exists until the owner confirms
+the spec.
+
+### Implementation trace
+
+`requirements.md` turns the redesign boundary into EARS-style behavior. It prohibits v1 use for
+selection, requires an exactly 199-case development-only pack, restricts character fields by
+document type, defines deterministic character indexing/union/fusion, freezes a 21-configuration
+grid and safety-first selection rule, preserves API/canonical/failure safety, adds bounded local and
+synthetic-3,000-document cost checks, and requires v3 to be committed before a new 105-case holdout
+v2 is authored and owner-approved.
+
+`design.md` specifies how character bigram/trigram TF-IDF postings operate on spaced and compact
+identity forms and query windows. Token-sparse candidates and threshold-qualified character
+candidates form a union; `hashing-v1` dense ranking is calculated only on that bounded union; sparse,
+dense, and character ranks then enter weighted RRF without fabricated ranks for missing sources.
+It also defines the development report, immutable selection artifact, optional debug fields,
+readiness failure, v2 evaluation lifecycle, privacy boundary, test strategy, alternatives, 10x
+behavior, and likely threshold conflict.
+
+`tasks.md` divides delivery into six auditable handoffs: freeze development data, implement the
+experimental v3/API/UI path, select and freeze one config or stop, freeze a new output-blind final
+query pack, obtain owner labels and evaluate once, then close QA and decide T49. The tasks contain an
+owner confirmation now and another mandatory owner gate before final labels/retrieval. Decision D37,
+the specification evidence, and README record the same boundary for future reviewers.
+
+### Technical choices, alternatives, and trade-offs
+
+Character n-gram TF-IDF was selected as the proposed first redesign because the diagnosed problem
+is identity spelling/spacing rather than general semantic question answering. It is dependency-free,
+offline, deterministic, explainable by scored grams, and can use inverted postings for the later
+roughly 3,000-document scale. The cost is a third retrieval score, an immutable selection artifact,
+and additional API/debug evidence. It is still search/IR, not a neural embedding, and the
+documentation says so explicitly.
+
+Running current hash vectors across every document would require less code, but collisions and
+generic fragments would enter without an interpretable floor. Edit-distance query rewriting can
+silently force an unknown word toward a known identity. Fixed family quotas could improve the
+reported metric without improving relevance and could hide valid variant merges. A sentence-
+transformer could add semantic power but also model downloads, cache/version/license management,
+startup memory, offline packaging, and a larger evaluation surface. Lite mode therefore tests the
+deterministic candidate generator first and requires a new design if it cannot qualify.
+
+### Decision changes
+
+The prior closure named several possible techniques but intentionally chose none. D37 now proposes
+one implementation path and, just as importantly, a selection method that cannot read the v1
+benchmark. The new development set is allowed to be label-derived and therefore explicitly cannot
+support final accuracy. It selects only a score floor and character RRF weight from a fixed grid;
+all other retrieval parameters remain constant.
+
+T49 remains blocked rather than renumbered or bypassed. A development winner merely freezes an
+experimental v3. Final permission still requires new queries authored after that freeze, explicit
+owner label approval, unchanged final gates, one scored v2 report, canonical/T47/T48 regression,
+and full QA.
+
+### Verification evidence
+
+This is a documentation-only specification milestone. File inspection tied each proposed runtime
+change to the current `HumanKnowledgeRetriever`, typed schemas, service serialization, debug UI,
+evaluation lifecycle, and T48 failure evidence. The 11 v1 misses were inspected by expected family,
+query, returned type/ID, and matched tokens to verify the shared-token/generic-token diagnosis; no
+v1 metric, query, rank, or threshold was changed or used to select a configuration.
+
+The spec contains HRR-R1–HRR-R20, six tasks with requirement back-references and acceptance
+criteria, Overview/Architecture/Interfaces/Data Models/Error Handling/Security/Testing/Alternatives,
+an explicit 10x assessment, most-likely-failure analysis, and two owner gates. `git diff --check` and
+repository-scope inspection are the appropriate executable checks for this planning-only change;
+no product test result is newly claimed.
+
+### Incomplete work, risks, and next step
+
+No evidence yet shows that character TF-IDF can satisfy recall and safety simultaneously. The exact
+development queries do not exist, no configuration has been executed, no v3 artifact is frozen,
+and the synthetic 3,000-document budget is only a proposed gate. Neural retrieval remains deferred,
+and PostgreSQL persistence remains out of scope.
+
+The immediate next action requires project-owner confirmation of the three spec files. After that,
+HRR-T1 may create and freeze the 199-case development-only pack before any v3 configuration output
+is generated. If the owner changes the architecture, counts, grid, or gate policy, the specification
+must be revised before implementation rather than inferred during build.
+
 ## Required format for future entries
 
 Every future project-log entry must preserve the following traceability structure:

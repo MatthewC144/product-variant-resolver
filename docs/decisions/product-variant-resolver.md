@@ -756,3 +756,30 @@
 - **Next review:** Specify a retriever-redesign feature using separate development evidence. If the
   retriever changes, author and owner-approve `family-retrieval-holdout-v2` before final scoring.
   T49 remains blocked until that unseen gate passes.
+
+## D37 — Add deterministic character candidate generation before considering neural retrieval
+
+- **Choice:** Propose `human-knowledge-hybrid-v3` as the existing token-sparse and `hashing-v1`
+  dense Human Knowledge retriever plus a character n-gram TF-IDF identity channel. Build an inverted
+  posting index over allowlisted identity names, union exact-token and threshold-qualified character
+  candidates, dense-rank that bounded union, and fuse available ranks with weighted RRF. Select only
+  the character floor/weight from a predeclared 21-configuration grid on a separate development set.
+- **Reason:** The v1 failure class is spelling, abbreviation, punctuation, spacing, and numeric-form
+  disruption. Current dense character information is inaccessible until a shared token first admits
+  the document. A character channel directly fixes that architectural bottleneck while retaining
+  deterministic offline behavior and inspectable scores. Development/final separation prevents v1
+  or the future v2 holdout from becoming a tuning set.
+- **Alternatives:** Score current hash vectors over all 142 documents; use edit-distance query
+  rewriting; reserve fixed family slots in Top-5; or immediately add a sentence-transformer. These
+  respectively lack an interpretable admission floor, can silently rewrite unknowns into known
+  identities, manufacture a type bias, or add model/cache/license/memory complexity before a
+  spelling-oriented deterministic baseline is tested.
+- **10x consideration:** Gram postings avoid unconditional document comparison and a disclosed
+  synthetic 3,000-document smoke must pass before final evaluation. This predicts algorithmic cost
+  only and does not replace T49 PostgreSQL design or real-data measurement.
+- **Most likely failure:** A low similarity floor improves typo recall but can violate unrelated or
+  held-family safety; a high floor can recreate the original miss. Safety gates filter candidates
+  before quality objectives, and no qualifying configuration means STOP rather than grid expansion.
+- **Impact:** The proposal adds no code or data yet. If confirmed, six tasks freeze development
+  data, implement and select v3, freeze it before a new output-blind v2 holdout, require owner labels,
+  run one final evaluation, and decide T49 only from a complete PASS.

@@ -392,6 +392,14 @@ retrieval-quality FAIL. The family source remains debug-only, same-set tuning is
 T49 PostgreSQL/pgvector persistence plus the approximately 3,000-row expansion are blocked until a
 redesigned retriever passes a newly authored v2 holdout.
 
+The proposed next feature is the
+[`Human Knowledge retriever redesign`](specs/human-knowledge-retriever-redesign/requirements.md).
+It keeps the Dual RAG authority boundary unchanged and adds a deterministic character n-gram TF-IDF
+candidate channel to the second RAG. Selection would use a new development-only pack—not the failed
+v1 holdout—then freeze `human-knowledge-hybrid-v3` before a separately authored and owner-approved
+holdout v2. This is currently a specification only; no v3 code, development data, model artifact, or
+new evaluation has been created.
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with
