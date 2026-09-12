@@ -367,13 +367,16 @@ separates debug-wiring safety from unmeasured retrieval accuracy. The complete 1
 deterministic source chain, and frozen canonical evaluation pass without changing canonical or
 PostgreSQL data. Independent casting-grouped family evaluation remains the next gate.
 
-The proposed T48 contract is documented in
+The confirmed T48 contract is documented in
 [`family-retrieval-evaluation`](specs/family-retrieval-evaluation/requirements.md). It does not reuse
 the exact-name smoke matrix or repurpose staging-only Fandom rows as test truth. Instead it freezes a
 separately written, owner-approved 105-case test pack before scoring: two challenge styles for every
 accepted family plus merge, hold, and unrelated controls. Metrics and PASS thresholds are
-precommitted, and a failure must remain visible rather than tuning on the same holdout. This is a
-draft specification; no T48 query data or accuracy result exists yet.
+precommitted, and a failure must remain visible rather than tuning on the same holdout. T48.1 now
+implements the fail-closed builder, source/code checksum freeze, separate query-pack freeze/check,
+owner-decision validation, deterministic benchmark build/check, and negative tests. The formal 105
+queries are intentionally not present yet and no T48 accuracy result exists; output-blind query
+authoring is T48.2.
 
 ## Docker and PostgreSQL status
 

@@ -2,14 +2,14 @@
 
 > Mode: Lite / Lean Industrial
 >
-> Status: Draft; awaiting project-owner confirmation
+> Status: Confirmed; T48.1 complete, T48.2 next
 
 ## Task order
 
 ### T48.1 — Implement the frozen benchmark contract `[backend]`
 
-- [ ] Build strict query-pack, owner-decision, benchmark, and manifest validators. _(→FRE-R1–R9,FRE-R15)_
-- [ ] Add deterministic build/`--check`, atomic replacement, and negative tests. _(→FRE-R8,FRE-R16)_
+- [x] Build strict query-pack, owner-decision, benchmark, and manifest validators. _(→FRE-R1–R9,FRE-R15)_
+- [x] Add deterministic build/`--check`, atomic replacement, and negative tests. _(→FRE-R8,FRE-R16)_
 
 Files:
 

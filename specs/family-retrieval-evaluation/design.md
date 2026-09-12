@@ -2,7 +2,7 @@
 
 > Mode: Lite / Lean Industrial
 >
-> Status: Draft; awaiting project-owner confirmation
+> Status: Confirmed; T48.1 implemented
 
 ## Overview
 
@@ -50,6 +50,8 @@ improve the same test set.
 ### Benchmark builder
 
 ```bash
+python3 scripts/build_family_retrieval_benchmark.py --freeze-query-pack
+python3 scripts/build_family_retrieval_benchmark.py --check-query-pack
 python3 scripts/build_family_retrieval_benchmark.py
 python3 scripts/build_family_retrieval_benchmark.py --check
 ```
@@ -57,6 +59,7 @@ python3 scripts/build_family_retrieval_benchmark.py --check
 Default inputs:
 
 - `data/evaluation/family-retrieval-v1/query-pack.json`
+- `data/evaluation/family-retrieval-v1/query-pack-manifest.json`
 - `data/evaluation/family-retrieval-v1/owner-decisions.json`
 - `data/review_family_registry.json` plus manifest
 - `data/review_family_knowledge.json` plus manifest

@@ -2,7 +2,7 @@
 
 > Mode: Lite / Lean Industrial
 >
-> Status: Draft specification complete; awaiting project-owner confirmation
+> Status: Confirmed; T48.1 contract implementation complete
 >
 > Date: 2026-09-11
 
@@ -67,6 +67,7 @@ A fresh host rerun passed 184/184 tests in 1.637 seconds. Static specification c
 required design sections, and passed `git diff --check`. The only suite message is the previously
 documented non-failing Starlette legacy-`httpx` environment warning.
 
-Implementation must wait for project-owner confirmation of the requirements/design/tasks. The next
-approved task is T48.1, which builds the strict benchmark contract; no retrieval may run while the
-query pack is authored in T48.2.
+The project owner's request to proceed confirmed the requirements, design, and ordered tasks. T48.1
+now implements the strict benchmark contract and its negative tests; detailed build evidence is in
+`family-retrieval-benchmark-contract-t48-1.md`. No retrieval may run while the formal query pack is
+authored and independently frozen in T48.2.

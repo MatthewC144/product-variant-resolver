@@ -659,3 +659,28 @@
 - **Deferred review:** Neural/fuzzy retrieval, query expansion, PostgreSQL/pgvector persistence,
   production thresholds, live marketplace evaluation, and the approximately 3,000-row expansion
   remain separate decisions after the v1 result is understood.
+
+## D33 — Separate query freezing from label approval and benchmark construction
+
+- **Choice:** Implement one fail-closed builder with three explicit phases: freeze/check the
+  output-blind query pack, validate a separately checksum-bound project-owner decision file, and
+  only then build/check the labeled benchmark. Freeze both data inputs and the source files that
+  implement normalization, hashing embeddings, and Human Knowledge retrieval.
+- **Reason:** T48.2 must be able to prove its 105 queries are structurally valid without creating
+  labels or running retrieval. If the only command required owner decisions, query authoring could
+  not be frozen independently. Data checksums alone are also insufficient because changing the
+  normalization or ranking code would silently change the system under test while retaining the
+  same catalog version.
+- **Alternatives:** Combine query authoring, approval, and scoring in one command; record only model
+  names without source checksums; accept train/dev cases for convenience; or write partially valid
+  outputs and repair them later. These options create output leakage, permit implementation drift,
+  weaken the test-only boundary, or let invalid input replace known-good evidence.
+- **Impact:** `build_family_retrieval_benchmark.py` now validates exact 105/84/4/7/10 composition,
+  full family/control coverage, non-copying and lexical/no-overlap rules, source manifests, fixed
+  v2 parameters, all 105 owner approvals, and every excluded use. Every output file is replaced
+  atomically only after all validation succeeds, and `--check` modes never mutate files. Six new
+  contract tests pass as part of the 190-test suite. No official query, label, retrieval output,
+  canonical record, or PostgreSQL row was created.
+- **Deferred review:** T48.2 must author and commit the official query pack without inspecting
+  retriever output. T48.3 then requires the project owner to review all 105 cases before the first
+  benchmark can be built; scoring remains T48.4.

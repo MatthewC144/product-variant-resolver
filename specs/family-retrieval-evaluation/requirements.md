@@ -2,9 +2,9 @@
 
 > Mode: Lite / Lean Industrial
 >
-> Phase: Specification
+> Phase: Build
 >
-> Status: Draft; awaiting project-owner confirmation
+> Status: Confirmed; T48.1 complete
 >
 > Proposed benchmark: `family-retrieval-holdout-v1`
 

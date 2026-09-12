@@ -1,5 +1,82 @@
 # Project Log
 
+## 2026-09-12 — T48.1 builds the evaluation guardrails before any official query is written
+
+### What was executed and what problem it solves
+
+The project owner's instruction to continue confirmed the T48 Lite requirements, design, and task
+order. Work therefore advanced by exactly one bounded task: T48.1. The problem being solved is not
+retrieval accuracy yet; it is preventing a future accuracy number from being produced with changed,
+leaking, incomplete, or self-approved test data.
+
+A new benchmark builder now separates three events that previously existed only in the design. The
+query author can validate and freeze a 105-case query pack without labels or retrieval. A separate
+project-owner artifact must then approve every frozen case against the exact query-pack checksum.
+Only after both artifacts and all source manifests validate can the script create a labeled
+benchmark. This order means editing one query after approval, omitting one decision, or changing the
+retriever implementation stops the build before it touches prior output.
+
+No official T48 query was authored during this task. The six tests generate temporary synthetic
+fixtures solely to exercise the contract, then delete them. No retriever was called, so T48.2 can
+still be performed output-blind and no metric or accuracy result exists.
+
+### Code areas changed, reasons, and decisions
+
+`scripts/build_family_retrieval_benchmark.py` is the new single source of truth for the frozen data
+contract. It uses field allowlists rather than accepting arbitrary JSON because additional fields
+could silently carry retrieval output, training flags, or unreviewed identity data into the test.
+It enforces the exact 105/84/4/7/10 case accounting, both required positive styles for every one of
+the 42 accepted families, complete merge/hold coverage, ten unique zero-overlap controls, sorted and
+unique case IDs/queries, second-precision UTC attribution, and the declaration that no retriever
+output was viewed.
+
+The leakage checks compare normalized query text with approved family names, indexed brand/casting
+and alias strings, and existing human-label/initial query text. Lexical cases additionally must
+break the full normalized casting phrase and declare a spelling, abbreviation, punctuation, or
+spacing challenge. Unrelated controls are checked against the token vocabulary of all 142 current
+Human Knowledge documents. Automated equality checks cannot judge whether a paraphrase is
+semantically fair, which is why they supplement rather than replace the later project-owner review.
+
+The system-under-test block freezes more than a friendly model name. It records the two data
+versions/checksums, `human-knowledge-hybrid-v2`, offline `hashing-v1`, 192 dimensions, RRF constant
+60, Top-5 limit, and checksums for the normalization, embedding, and retriever source files. This
+decision was made because unchanged JSON with changed Python logic is still a different experiment.
+The owner-decision schema separately validates expected IDs by case type: positives target review
+families, merges target existing provisional-variant castings and forbid duplicate families, holds
+remain unmaterialized, and unrelated cases expect zero candidates.
+
+Output files use a temporary file in the destination directory, flush it to disk, and then use
+`os.replace`. Validation finishes before either benchmark output is written. This standard-library
+approach was selected over adding a database or schema dependency because the artifacts are small,
+version-controlled JSON files and Lite mode benefits from a dependency-free reproducible command.
+`--check` compares exact bytes without writing; separate `--freeze-query-pack` and
+`--check-query-pack` modes exist because T48.2 must freeze questions before owner labels exist.
+
+`tests/test_family_retrieval_benchmark.py` constructs a complete valid contract only inside
+temporary directories. Its negative cases deliberately introduce copied text, retained lexical
+phrases, unrelated-token overlap, viewed output, dev-split use, removed PostgreSQL exclusions,
+changed RRF parameters, stale query checksums, missing/duplicate approvals, and wrong identity
+labels. Sentinel-output subprocess tests prove failure does not overwrite a previous benchmark.
+`data/evaluation/family-retrieval-v1/README.md` documents the handoff order while intentionally
+leaving the formal query/decision/benchmark files absent.
+
+The confirmed spec status and T48.1 checkboxes were updated, README now distinguishes implemented
+guardrails from unmeasured quality, Decision D33 records why query freezing is a separate phase, and
+the new evidence record captures the acceptance result and limitations.
+
+### Verification, current impact, and next step
+
+The focused contract suite passed 6/6. The complete repository suite increased from 184 to 190 tests
+and passed 190/190 in 2.027 seconds on the final tree. Python compilation and `git diff --check`
+passed. Ruff is not installed in this host environment, so no lint result is claimed; the code was
+checked for the configured 100-character line limit separately. The suite retains one known
+non-failing Starlette legacy-`httpx` environment warning.
+
+This change creates no canonical entity, provisional variant, PostgreSQL row, calibration change,
+official evaluation label, or retrieval score. T48.2 is now the only next task: independently author
+the formal 105-case query pack, validate and freeze its checksum without running retrieval, and
+present that frozen pack for project-owner review before T48.3 can add labels.
+
 ## 2026-09-11 — T48 defines how family retrieval will be tested without testing on its own names
 
 ### What was executed and what problem it solves
