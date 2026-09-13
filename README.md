@@ -399,8 +399,8 @@ candidate channel to the second RAG. HRR-T1 has now frozen the
 [`199-case development-only pack`](docs/evidence/family-retrieval-development-v1.md): 42 families
 times four deterministic transformations, 4 merge controls, 7 hold controls, and 20 unrelated
 controls. Its 21-config grid and input/output hashes were committed before any retriever output;
-the data is explicitly identity-derived and cannot support final accuracy. No v3 retriever,
-selected configuration, model artifact, or new final evaluation has been created yet.
+the data is explicitly identity-derived and cannot support final accuracy. No selected runtime
+configuration, v3 model artifact, or new final evaluation has been created.
 
 HRR-T2 now implements the experimental v3 mechanics without activating them by default. The second
 RAG can build a Unicode character bigram/trigram TF-IDF posting index from strictly allowlisted
@@ -409,8 +409,16 @@ fuse available token/dense/character ranks. Typed API/UI debug fields expose cha
 index/artifact versions, while invalid artifact opt-in fails readiness. The implementation evidence
 is recorded in
 [`human-knowledge-retriever-v3-implementation.md`](docs/evidence/human-knowledge-retriever-v3-implementation.md).
-V2 remains active until HRR-T3 evaluates the already frozen 21 configurations and produces a valid
-winner; these mechanics alone make no quality or T49 authorization claim.
+HRR-T3 has now completed all 21 configurations on the frozen 199-case development pack, recording
+4,179 case/configuration outputs and local 142-document / synthetic 3,000-document cost. The
+[`development selection report`](reports/family-retrieval-development-v1/selection.md) is **FAIL**:
+every configuration returns candidates for all 10 generic-no-identity negatives, has real-corpus
+p95 `29.37–36.60 ms` (budget 25), and synthetic-scale p95 `337.15–377.28 ms` (budget 150).
+Positive Recall@5 is `164–168/168`, merge retrieval `4/4`, and forbidden-family hits zero, but
+these strengths do not override the failed safety/cost gates. V2 stays active, no v3 artifact or
+new final holdout was created, and T49/real-catalog expansion remain blocked. The engineering
+checkpoint passes 236 tests; the development-quality verdict remains FAIL. See the
+[`AI-eval record`](docs/evidence/ai-evals/human-knowledge-retrieval-development-v1.md).
 
 ## Docker and PostgreSQL status
 

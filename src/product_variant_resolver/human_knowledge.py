@@ -678,7 +678,7 @@ def load_human_knowledge_v3_config(
 ) -> HumanKnowledgeV3Config:
     """Load a selected v3 runtime config; arbitrary environment floats are not accepted."""
     artifact = _load_json_object(artifact_path, label="human knowledge v3 artifact")
-    if set(artifact) != {
+    if set(artifact) - {"selection_evidence"} != {
         "artifact_version",
         "character_index",
         "configuration",
@@ -821,6 +821,30 @@ def load_human_knowledge_v3_config(
         != _file_sha256(implementation_path, label="human knowledge implementation")
     ):
         raise ValueError("v3 artifact implementation reference is stale or mismatched")
+
+    # T2 experimental fixtures remain readable; T3 freezer always binds the full report.
+    # Lazy import avoids a module cycle and never executes retrieval during readiness.
+    if "selection_evidence" in artifact:
+        from .human_knowledge_selection import ROOT, load_object, validate_report
+
+        evidence = artifact["selection_evidence"]
+        if not isinstance(evidence, dict) or set(evidence) != {"file", "sha256", "configurations"}:
+            raise ValueError("v3 selection evidence differs from contract")
+        evidence_path = (ROOT / str(evidence["file"])).resolve()
+        allowed_directory = (ROOT / "reports/family-retrieval-development-v1").resolve()
+        if evidence_path.parent != allowed_directory:
+            raise ValueError("v3 selection evidence path is outside development reports")
+        if evidence["sha256"] != _file_sha256(evidence_path, label="selection evidence"):
+            raise ValueError("v3 selection evidence checksum differs")
+        selection = load_object(evidence_path)
+        validate_report(selection)
+        summaries = [{key: entry[key] for key in ("configuration", "metrics", "rejection_reasons")}
+                     for entry in selection["configurations"]]
+        if (selection["verdict"] != "PASS"
+                or selection["winner"] != {"character_score_floor": floor,
+                                           "character_rrf_weight": character_weight}
+                or evidence["configurations"] != summaries):
+            raise ValueError("v3 selection evidence has no qualifying matching winner")
 
     return HumanKnowledgeV3Config(
         artifact_version=artifact_version,

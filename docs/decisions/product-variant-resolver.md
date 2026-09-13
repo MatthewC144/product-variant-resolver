@@ -785,3 +785,37 @@
   been selected and no runtime artifact exists. HRR-T3 must evaluate exactly the frozen 21 options,
   publish every result, and either freeze one qualified artifact or stop with FAIL before any new
   output-blind v2 holdout is authored.
+
+## D38 — Preserve the fixed-grid FAIL and require identity/cost redesign
+
+Choice: close HRR-T3's engineering checkpoint, retain development selection FAIL with no winner,
+leave v2 active, and block HRR-T4–T6/T49. No grid expansion, threshold relaxation, nearest-to-pass
+selection, final-query authoring or database promotion follows this result.
+
+Reason: all 21 settings recover 164–168/168 positives, ≥38/42 per style and 4/4 merge controls, with
+zero forbidden families, but all produce 10/20 unrelated nonempty results and fail both p95 budgets.
+The recorded generic-00 result at the highest floor returns candidates using exact `box`, `collector`
+and `blue` evidence with no character ranks. The existing token path can therefore admit generic
+text independently of character threshold. Synthetic shared identity forms also expose costly
+posting-derived comparisons: 419,820 entries and p95 337.15–377.28 ms, versus the 150 ms gate.
+
+Alternatives rejected: waive safety because positive development recall reaches 100%; adjust only
+the character floor; choose the maximum-MRR failing setting; rerun v1 as a v3 comparison; persist
+before quality; or change scoring after viewing this report. These either conceal the observed
+failure, miss the exact-token cause, tune on held evidence or violate the acceptance contract.
+
+10x/most likely failure: shared-gram candidate growth and long identity-form comparisons remain a
+cost risk even with postings. A new design must bound comparison work and require identity-bearing
+eligibility without manufacturing family quotas. Its method and any new grid must be declared
+before new configuration output; before/after cost must be measured. No neural model or revised
+threshold set is selected by this decision.
+
+Impact: 236 tests and report/source/arithmetic checks pass, but engineering correctness does not
+convert model safety/cost into PASS. Real p95 is 29.37–36.60 ms (25 ms budget); synthetic p95 is
+337.15–377.28 ms (150 ms). No runtime artifact or real rows were added. The complete raw evidence
+is in `reports/family-retrieval-development-v1/selection.json`, SHA-256
+`dcc0cd4e09ec5b20862cfee39b90d65a12bbd48a80f7da29c0fbacb0da267853`.
+
+Next review: return to Phase 1 for a new Lite identity-admission/bounded-scoring design. Preserve the
+old v1 and current development reports; a later qualified freeze still requires a newly authored,
+owner-approved unseen final holdout before T49 can be considered.

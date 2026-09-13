@@ -2,7 +2,7 @@
 
 > Mode: Lite / Lean Industrial
 >
-> Status: Confirmed; HRR-T1–T2 complete and HRR-T3 not started
+> Status: HRR-T1–T3 complete; development selection FAIL; v2 retained
 
 ## Overview
 
@@ -78,15 +78,17 @@ policy rather than evidence and could conceal merge behavior.
 
 ## Development and selection interface
 
-Proposed commands:
+Implemented commands (the evaluator accepts only the checksum-frozen development pack):
 
 ```bash
 python3 scripts/build_family_retrieval_development.py --freeze
 python3 scripts/build_family_retrieval_development.py --check
 
 PYTHONPATH=src python3 -m product_variant_resolver.human_knowledge_selection \
-  --development data/evaluation/family-retrieval-development-v1/development.json \
   --output reports/family-retrieval-development-v1/selection.json
+
+PYTHONPATH=src python3 -m product_variant_resolver.human_knowledge_selection --check
+python3 scripts/generate_human_knowledge_selection_report.py --check
 
 python3 scripts/freeze_human_knowledge_v3.py \
   --selection reports/family-retrieval-development-v1/selection.json \
@@ -105,6 +107,14 @@ RRF weights (`0.5`, `1.0`, `1.5`). No other parameter varies. Selection first fi
 and minimum-quality constraints, then maximizes MRR@5, Recall@1, higher floor, and lower weight in
 that order. The report stores every configuration, raw numerator/denominator, failure reason, and
 winner. If no candidate qualifies, no v3 artifact is created.
+
+HRR-T3 executed this unchanged grid and found no qualifying configuration. All 21 pass positive,
+style, merge and forbidden-identity checks, but all return candidates for 10 generic negatives and
+fail both p95 cost budgets. The complete results and fixed measurement method are recorded in
+`reports/family-retrieval-development-v1/` and `docs/evidence/human-knowledge-development-protocol.md`.
+No final v2 authoring is permitted from this result. T3-generated winner artifacts additionally bind
+all 21 metric summaries and the validated full report checksum through `selection_evidence`;
+legacy T2 ephemeral experimental fixtures remain supported without that optional field.
 
 ## Runtime and API contract
 

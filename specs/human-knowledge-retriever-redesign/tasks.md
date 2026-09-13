@@ -2,7 +2,7 @@
 
 > Mode: Lite / Lean Industrial
 >
-> Status: In progress; HRR-T1–T2 complete
+> Status: HRR-T1–T3 complete; selection FAIL; HRR-T4–T6 blocked pending a new design decision
 
 ## Task order
 
@@ -52,11 +52,14 @@ Acceptance:
 
 ### HRR-T3 — Select and freeze v3 using development data only `[backend/qa]`
 
-- [ ] Evaluate exactly the precommitted 21 configurations and write all raw candidate results,
+- [x] Evaluate exactly the precommitted 21 configurations and write all raw candidate results,
   safety failures, metrics, and deterministic selection outcome. _(→HRR-R8–R10)_
-- [ ] If and only if a candidate qualifies, freeze its versioned runtime artifact and code/corpus/
+- [x] If and only if a candidate qualifies, freeze its versioned runtime artifact and code/corpus/
   development hashes; otherwise publish FAIL and stop. _(→HRR-R10–R11)_
-- [ ] Measure disclosed 142-document and synthetic 3,000-document local cost. _(→HRR-R15)_
+- [x] Measure disclosed 142-document and synthetic 3,000-document local cost. _(→HRR-R15)_
+
+Outcome: all 21 configurations fail unrelated-control and both p95 cost gates. No winner/artifact
+was created; v2 remains active. The conditional no-winner path is complete. HRR-T4 cannot begin.
 
 Files:
 

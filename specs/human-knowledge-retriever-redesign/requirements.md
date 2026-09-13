@@ -2,9 +2,9 @@
 
 > Mode: Lite / Lean Industrial
 >
-> Phase: Build — HRR-T1–T2 complete
+> Phase: Verify — HRR-T1–T3 complete; redesign required
 >
-> Status: Confirmed; experimental v3 mechanics implemented, selection not started
+> Status: Confirmed; development selection FAIL, no qualifying runtime artifact
 >
 > Proposed retriever: `human-knowledge-hybrid-v3`
 

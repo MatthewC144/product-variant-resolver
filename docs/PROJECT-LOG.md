@@ -4383,6 +4383,110 @@ The next step is **HRR-T3**: execute exactly the already frozen 21 floor/weight 
 document and synthetic 3,000-document cost, and either freeze one checksum-bound artifact or stop
 with selection FAIL. Until then, v2 stays active and T49 remains blocked.
 
+## 2026-09-12 — HRR-T3 fixed-grid development selection completes with FAIL
+
+### Context, problem, and observable outcome
+
+HRR-T2 supplied an experimental character-hybrid implementation but had not established whether
+any configuration was safe or affordable. This step executed exactly the HRR-T1-frozen 21 floor/
+weight combinations against 199 development cases, retaining all 4,179 case/configuration outputs.
+The observable result is `verdict=FAIL`, `winner=null`. The active service remains v2; no v3 runtime
+artifact, new final v2 query pack, PostgreSQL write or real-catalog expansion was produced.
+
+Positive development retrieval is strong: every setting recovers 164–168 of 168 positives, every
+style recovers at least 38/42, every merge control reaches an existing provisional casting (4/4),
+and no forbidden family is returned. However, every setting also returns candidates for all ten
+generic-no-identity negatives. The ten opaque negatives remain empty. These results cannot be
+described as overall success: the precommitted all-gates rule rejects every setting before the
+MRR/Recall@1 tie-break can choose anything. This data was transformed from indexed identities,
+so even its positive success is development evidence, not final independent accuracy.
+
+### Implementation trace and why these parts changed
+
+`human_knowledge_selection.py` is a separate local evaluator, not a service/ranking change. It
+locks both development checksums, verifies non-v1 source references, executes the exact grid with
+runtime signal extraction, serializes ordered typed candidates, and only then scores expected
+identities. Its checker recomputes raw/style/merge/safety metrics, cost percentiles, rejection
+reasons and deterministic selection; it also rejects invented corpus IDs, nonfinite scores,
+invalid source ranks and inconsistent weighted RRF. Separating this module prevents development
+labels or tuning code from entering canonical resolution. Explicit source-key validation prevents
+an incomplete checksum list from silently bypassing integrity checks.
+
+`generate_human_knowledge_selection_report.py` renders the validated JSON rather than recomputing
+a different summary. `freeze_human_knowledge_v3.py` implements both conditional paths: FAIL returns
+without touching the output; a hypothetical qualified result binds all 21 metric summaries and
+the full raw-report checksum, and refuses to overwrite an existing artifact. Unit tests distinguish
+this mocked construction behavior from an actual quality PASS. `human_knowledge.py` adds validation
+for the freezer's optional `selection_evidence` field, requiring an in-project development-report
+path, matching checksum and a matching genuinely qualified winner. T2 ephemeral fixture artifacts
+remain compatible without the optional field; T3 freezer outputs always include it. The retriever's
+candidate generation, thresholds and ranking algorithm were not changed after results were viewed.
+
+`tests/evaluation/test_human_knowledge_selection.py` covers the fixed grid, guarded no-v1 reads,
+every safety/quality/cost rejection gate, all tie-break levels, source/raw/cost tampering, synthetic
+scope and conditional freeze/overwrite protection. The existing artifact unit test gains a path-
+escape rejection assertion. Reports, QA checkpoint, AI-eval, README and spec statuses now reflect
+the actual FAIL and blocked downstream tasks instead of suggesting selection has not started.
+
+### Method choices, trade-offs, and decision changes
+
+The method remains deterministic offline IR: 192-dimensional hashing, character TF-IDF and weighted
+RRF. No neural package, new model, scrape, family-slot quota or query rewrite was introduced. Cost
+measurement uses a fixed protocol—three warm-ups/configuration, all 199 real queries, and the first
+20 case-ID-ordered dev queries on a deterministic 3,000-family synthetic index. Nearest-rank
+percentiles and raw samples are saved. Checking arithmetic from saved samples is reproducible;
+requiring a new wall-clock measurement to match old bytes would not be honest.
+
+The key decision moves from “select a v3 winner if the frozen grid qualifies” to “retain v2 and
+return to design.” For `frd-unrelated-generic-00` (`sealed blue collector model from storage box`),
+the 0.55-floor/1.5-weight result still returns five provisional documents through `box`, `collector`
+and `blue`, with character rank/score null. This directly exposes an exact-token admission path
+independent of the character floor. Expanding that floor grid would not resolve the illustrated
+path. Future work must design identity-bearing eligibility rather than select the nearest failing
+setting. Likewise, posting indexes alone do not establish cheap scoring: the synthetic corpus has
+419,820 posting entries and its shared forms still make comparison expensive. Any optimization
+must receive a new decision and measured before/after evidence, not be slipped into this evaluation.
+
+### Verification evidence and execution corrections
+
+The complete suite passes **236/236 tests**, no skips, with one existing Starlette/AnyIO warning.
+The complete report passes source/raw arithmetic checks and Markdown byte reproduction; the actual
+freeze invocation reports `selection FAIL: runtime artifact untouched, v2 stays active`. Focused
+Ruff F/I and isolated strict MyPy on the two retrieval/selection modules pass. Development, family
+projection/registry, v1 query/benchmark/JSON/Markdown checks, fixture validation, compilation, Node
+syntax and default/PostgreSQL-profile Compose static configuration checks pass. A fresh canonical
+fixture report in a temporary directory preserves Recall@25/Top-1/MRR/precision 1.0, false-match
+rate 0 and coverage 0.8333. Whole-repository lint/type maintenance debt is not claimed resolved;
+SQL/container runtime and concurrency were not repeated.
+
+Two incomplete harness runs were interrupted before report output: the first to finish report/
+artifact evidence binding, the second after an isolated type check exposed invariant synthetic-
+document list typing. The latter was fixed with the union document type annotation; two earlier
+typing findings were resolved by annotating raw counts and casting the selected configuration.
+These were implementation/provenance corrections, not threshold, data or metric-driven tuning.
+One full unmodified 21-setting execution then produced the committed raw report. Verification also
+initially invoked the canonical wrapper without `PYTHONPATH=src` and referenced a nonexistent
+separate PostgreSQL Compose file; correct module loading and `--profile postgres` invocations pass.
+Neither command mistake required a product change.
+
+On this macOS arm64 desktop with 10 logical CPUs and Python 3.12.13, real 142-document p50 is
+8.51–9.70 ms and p95 is **29.37–36.60 ms**, above 25 ms. Synthetic 3,000-document p95 is
+**337.15–377.28 ms**, above 150 ms. The real index has 4,508 keys/19,001 entries; synthetic has
+2,431 keys/419,820 entries. Measurements are warmed single-process K=5 retrieval on a non-isolated
+desktop, excluding index construction, serialization, HTTP, networking, databases and concurrency.
+They do not demonstrate 3,000 real records or production scale.
+
+### Incomplete work, risks, and next step
+
+HRR-T3 is complete through its designed no-winner branch, but the feature's final-quality gate is
+not complete or approved. HRR-T4–T6 and T49 stay blocked. The next highest-value action is a new
+Lite design decision addressing identity-only admission and bounded character comparisons, retaining
+this development FAIL and the old final v1 FAIL. A later qualifying code/artifact freeze must still
+precede a newly authored, owner-approved unseen final holdout. No such redesign is implemented in
+this step. See [raw/report evidence](../reports/family-retrieval-development-v1/selection.md),
+[AI-eval](evidence/ai-evals/human-knowledge-retrieval-development-v1.md) and
+[checkpoint review](../specs/human-knowledge-retriever-redesign/review.md).
+
 ## Required format for future entries
 
 Every future project-log entry must preserve the following traceability structure:

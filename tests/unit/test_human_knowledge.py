@@ -298,6 +298,19 @@ class HumanKnowledgeTests(unittest.TestCase):
             self.assertEqual(config.character_rrf_weight, 1.0)
             self.assertEqual(config.artifact_sha256, _sha256(artifact_path))
 
+            invalid_evidence = json.loads(json.dumps(artifact))
+            invalid_evidence["selection_evidence"] = {
+                "file": "../external.json", "sha256": "0" * 64, "configurations": []}
+            artifact_path.write_text(json.dumps(invalid_evidence), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "outside development reports"):
+                load_human_knowledge_v3_config(
+                    artifact_path, human_catalog_path=HUMAN_CATALOG,
+                    review_family_path=FAMILY_PROJECTION,
+                    development_pack_path=DEVELOPMENT_PACK,
+                    development_manifest_path=DEVELOPMENT_MANIFEST,
+                    dense_dimensions=192,
+                )
+
             invalid = json.loads(json.dumps(artifact))
             invalid["configuration"]["character_score_floor"] = 0.24
             artifact_path.write_text(json.dumps(invalid), encoding="utf-8")
