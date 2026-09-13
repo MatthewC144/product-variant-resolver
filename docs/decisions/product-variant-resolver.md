@@ -819,3 +819,54 @@ is in `reports/family-retrieval-development-v1/selection.json`, SHA-256
 Next review: return to Phase 1 for a new Lite identity-admission/bounded-scoring design. Preserve the
 old v1 and current development reports; a later qualified freeze still requires a newly authored,
 owner-approved unseen final holdout before T49 can be considered.
+
+## D39 — Proposed isolated v4 identity-core admission and exact posting accumulation
+
+Status: PROPOSED, pending project-owner confirmation of requirements/design/tasks. This is a new
+design after D38's stop, not permission to alter the frozen v3 grid or reinterpret its FAIL.
+
+Context: v3 generic-00 at floor 0.55 returns documents through broad exact tokens with no character
+rank; changing character admission alone cannot remove that path. The character implementation
+gathers posting candidates but still computes query-window × document-form comparisons, and sparse
+frequencies are scanned per query. Published cost fails both budgets. These observations justify
+a structural proposal; they are not a new profile or proof of the proposed method's speed.
+
+Proposed choice: add separate `human-knowledge-hybrid-v4` modules while keeping source-bound v3,
+normalizer and hashing files unchanged. Candidate identity fields narrow to provisional casting and
+family casting/approved aliases. A frozen global whole-token noise policy applies equally to query
+and identity cores. Exact admission requires a complete core, while typo/spacing rescue uses full-
+norm character evidence. Precomputed weighted form-level gram postings accumulate exact cosine
+scores directly; query unknown grams remain in the norm. Hard work limits abort the entire Human
+result with query-local debug counters, never emit partial scores. No family quota or canonical
+authority change. A new mandatory-evidence v4 artifact is required for opt-in.
+
+Alternatives: raise only character floor (does not close broad token admission); stopwords over full
+human listing text (other irrelevant terms still admit); approximate character shortlist (can hide
+lost targets before exact scoring); reserve family slots (policy-manufactured ranking); immediately
+add a neural model (dependency/artifact cost without closing admission or comparison requirements).
+Keep these alternatives for a later explicit decision if the exact bounded baseline fails.
+
+The same 21 settings and gates are retained for an architecture-focused experiment. The existing
+199 cases are explicitly viewed, leaky development data reused for diagnostics/configuration, not
+a fresh blind dataset. A new protocol must freeze policy/formula/limits/workload/source hashes before
+v4 outputs; old final v1 is never a selection source. Synthetic scale adds 100 target-bearing probes
+to the original 20 queries and requires correct exact/contextual/typo retrieval, so budget abstention
+cannot masquerade as sufficient performance.
+
+| Dimension | Anticipated benefit and unverified cost |
+|---|---|
+| Safety | Broad listing tokens lose independent admission; noise/core collisions can still harm identity distinctions. |
+| Quality | Character rescue remains; removing human-label admission synonyms and unknown-gram normalization may lower recall. |
+| Cost | Direct accumulation removes pair loops and per-query DF scans; common postings may still breach limits/timing. |
+| Maintainability | Separate version preserves historical checks; new protocol/loader adds bounded versioning work. |
+| Scalability | Explicit form/window/posting limits expose 10x growth; exceeding limits is abstention, not an untested scale PASS. |
+| Observability | Query-local work/abort counters expose cost; no shared last-query state or raw-title logs. |
+
+Most likely failure: legitimate names lose noise tokens/synonyms, or frequent grams cause budget
+abstention and positive misses. Neither outcome can waive gates. Validate identity cores/collisions
+before output; verify scorer against an exact oracle; measure full before/after query workloads.
+If policy/limits/workload must change after output, preserve FAIL and freeze another protocol.
+
+Impact now: documentation only. No code/provider/data/runtime changes, no v4 outputs/quality PASS,
+no new final authoring, no actual ingestion/default deployment. G1* remains pending owner approval.
+Next permitted task after approval is IBR-T1 protocol validation/freeze/commit, not immediate scoring.

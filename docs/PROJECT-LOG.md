@@ -4487,6 +4487,72 @@ this step. See [raw/report evidence](../reports/family-retrieval-development-v1/
 [AI-eval](evidence/ai-evals/human-knowledge-retrieval-development-v1.md) and
 [checkpoint review](../specs/human-knowledge-retriever-redesign/review.md).
 
+## 2026-09-13 — Propose a new Lite identity-bounded retrieval design after v3 FAIL
+
+### Context, execution and observable outcome
+
+The owner asked for the next step after HRR-T3 preserved a no-winner FAIL. D38 requires a new design
+decision rather than another threshold sweep, so this step returned to Phase 1. I reread the frozen
+requirements, development evidence and actual sparse/character retrieval code, then authored the
+new `human-knowledge-identity-bounded-retrieval` requirements/design/tasks and proposed D39. The
+observable output is a reviewable plan for an isolated experimental v4 path. There is no v4 product
+code, frozen execution protocol, candidate output, new quality result, runtime artifact or ingestion.
+
+The design addresses the two observed structural weaknesses. Any broad token in human listing text
+can admit a document independently of character threshold; generic-00 proves that path with `box`,
+`collector` and `blue`. Character posting lookup still feeds a query-window/document-form Cartesian
+comparison and per-query sparse frequency scans. I did not rerun a profiler or infer that either
+code section accounts for an exact share of latency. The published p95 failures motivate a new
+oracle-verifiable algorithm and measured budget, not an unearned speedup claim.
+
+### Files changed and why no product code changed
+
+The three new spec files define casting-only admission fields, a shared frozen whole-token identity
+noise policy, complete-core token admission, exact weighted form-posting cosine accumulation with
+unknown query grams in the norm, all-or-nothing limits, query-local debug counters and separate v4
+artifact readiness. Tasks specify files, evidence and blocked downstream order. README now points
+to this proposal while retaining default v2 and the old failures. D39 records alternatives, 10x/
+likely failures and six anticipated benefit/risk dimensions; none is reported as a measured PASS.
+
+No code was modified because spec-dev-loop's Lite G1* requires owner confirmation of requirements,
+design and tasks before build. Avoiding source-bound v3 modules in the proposed implementation also
+preserves the old report's live checksum checks. The new v4 path must integrate through separate
+service/config/schema/UI opt-in, not edit historical scoring or silently change its reported version.
+This planning pause is a requirement of the skill, not an implementation or quality blocker verdict.
+
+### Technical choices, narrowed decisions and trade-offs
+
+The proposal retains deterministic TF-IDF/hashing/RRF rather than introduce a neural dependency.
+It narrows provisional admission from full human-verified listing labels to casting identity; labels
+remain stored and broad text may rank already admitted documents. Whole-token filtering avoids
+substring rewrites, but can collapse color/common-word names. Complete exact cores are safer than
+single-token overlap, but depend on character rescue for partial/typo identities. Unknown-gram norm
+handling avoids inflated evidence but can reduce recall. Those risks must pass development and a
+later independently authored/owner-approved final test, not be patched by per-case exemptions.
+
+Direct posting accumulation preserves the new formula exactly on small oracle tests, with declared
+query/form/posting limits that discard all partial results on budget exhaustion. Such limits do not
+guarantee timing and can produce misses. A new scale workload therefore retains the old 20 dev-query
+cost probes and adds 100 deterministic target-bearing exact/typo/contextual probes; correctness gates
+prevent empty-only fast results from being called scale success. Index/SQL/network/concurrency remain
+outside warmed local retrieval measurements.
+
+The old 21-setting grid and all safety/quality/timing thresholds remain unchanged in the proposal.
+This is a new architecture/protocol version, not widening the old search. The 199 dev cases are
+explicitly already viewed/identity-derived and may be reused as development diagnostics, never as
+new blind or final evidence. Original v1 final data remain prohibited for selection. Old v3 reports
+and source checksums must remain unchanged. No default deployment or T49 expansion follows planning.
+
+### Verification and incomplete work
+
+Verification results are recorded in `docs/evidence/human-knowledge-identity-planning.md`. They check
+the current baseline and documentation scope, not v4 behavior or a speedup. G1* is pending owner
+confirmation and all IBR build/evaluation tasks remain unchecked. The highest-value next action is
+owner review of the three spec files; once confirmed, IBR-T1 validates actual core/collision/form
+limits and freezes/commits a new protocol before any v4 retrieval. If validation fails, return to
+design before output rather than quietly drop approved names. T49 and new final holdout authoring
+remain blocked. No subagent was spawned and all delivery files stay in the project folder.
+
 ## Required format for future entries
 
 Every future project-log entry must preserve the following traceability structure:
