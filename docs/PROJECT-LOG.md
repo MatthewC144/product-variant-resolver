@@ -5067,6 +5067,83 @@ including ambiguous/insufficient-evidence behavior, before expanding toward3000 
 claiming the user's full variant-resolution goal. OldFAILs/defaultv2 and canonical-only final
 authority remain unchanged. Commit/push all real progress to the project-only GitHub repo.
 
+## 2026-09-14 — T49 persistence and real-variant roadmap draft (Lite)
+
+### Context, problem and observable outcome
+
+IBR-T5 ataf27dfe permits T49 design only. The user's next-step request follows a scoped family
+PASS, not complete variant correctness. I inspected actual canonical schema/identity/signal/catalog
+code and source counts before proposing expansion. Human RAG has100provisional+42family docs;
+Wiki100release rows all have null color and no dedicated wheel/tampo fields. Existing canonical
+identity has seven fields, not wheel/tampo or series-position identity. Consequently, persistence
+alone cannot solve the requested color/feature distinctions, and a3,000-row quota cannot replace
+evidence/review. The result is a reviewable draft roadmap, not new products or a completed database.
+
+### Changed files and why no product code changed
+
+New `specs/human-knowledge-persistence-and-variant-roadmap/{requirements,design,tasks,review}.md`
+defines observableR1–R14 boundaries, proposed snapshot/observation/evidence/review tables,
+interfaces/errors/verification and atomic bounded tasks. T49 first plans preservation/measurement
+of142typed knowledge documents; a separate release lane starts from100heldsource observations.
+The first proposed implementation task is a local-only142doc import-plan validator. It performs
+no SQL/network operation. Subsequent isolatedDB/profile/source/release decisions are explicitly
+gated. This avoids repurposing canonical `product_variant` for unreviewed evidence or retroactively
+editing scored v4/config/identity files whose hashes are already frozen.
+
+`docs/REAL-CATALOG-ROADMAP.md` gives a Chinese beginner-readable explanation of the difference
+between saving data and confirming release truth. Source-scope/AI evidence and README progress
+now distinguish planning delivery from owner approval/implementation. D46 records the proposed
+method and accepted uncertainty. No product Python/API/SQL/migration/runtime/config/data file was
+edited, and no family/variant decision was recorded. Requirements/design/tasks are all DRAFT.
+
+### Method choice and trade-offs
+
+PostgreSQL/SQLAlchemy/Alembic is proposed because the project already uses that stack and needs
+transactional snapshot/provenance persistence; files-only remains the unchanged default until an
+optional profile is independently validated. Versioned JSONB human payloads preserve exact142doc
+types/UUIDs; structured field observations and append-only reviews make release conflicts visible.
+Reusing canonical tables or a single free-text blob would erase the crucial authority/evidence
+distinction. Persistence adapter changes require new source/config/report versions, not silent
+edits to scored code. ANN/neural/photo/OCR changes are not bundled into this storage decision.
+
+The release method preserves nulls and field evidence; it does not guess colors from year lists,
+toy IDs or filenames. Same-casting/different wheels/tampo can stay separate, while missing fields
+cannot prove equivalence. Future identity-v2 must be explicitly designed from real discriminator
+evidence, preserving legacy UUIDs. At10×, real source requests, review work and SQL/network/posting
+cost are the constraints to measure; no cheap scale conclusion is drawn from storing more rows.
+Most likely failure is treating a family approval or database row as confirmed release truth.
+
+Approximate3,000count is narrowed to unique real staged source releases, reported separately
+from observations/castings/held/reviewed/canonical rows. Proposed100→500→1,500→about3,000batch
+milestones are plans, not execution or permission. There is no policy/threshold/source revision
+change based on the viewed final105cases; those results remain immutable and are not queried again.
+
+### Verification and source-access limits actually observed
+
+Read-only `jq` counts/keys and SHA reads confirm97human castings/100provisional groups,
+42acceptedknowledge families,42new/4merge/7hold registry,100source rows/all100color-null and
+absent dedicated wheel/tampo keys. Committed benchmark and stored finalJSON/Markdown checks
+PASS without retrieval. New document links/whitespace and unchanged source hashes are checked
+at handoff. Upstream411tests/runtimePASS remain existing evidence, not newly implemented T49 tests.
+No DB startup, writes, remote row collection, images, canonical minting or source data edits ran.
+
+Read-only web checks found the official MediaWiki API etiquette page accessible; Fandom licensing
+and the Hot_Wheels page returned402 through the browsing service. That tool response does not
+prove all API access forbidden or permitted; current source-specific rights/access/robots remains
+unverified and gates later collection. General serial/request identity/cache advice is linked in
+design; it does not grant Fandom permission. No bypass was attempted. HistoricalCC-BY-SA source
+metadata is retained as historical attribution, not upgraded to present legal clearance.
+
+### Remaining work and next owner decision
+
+See [plain-language roadmap](REAL-CATALOG-ROADMAP.md) and
+[source-scope evidence](evidence/t49-planning-scope.md). Under spec-dev-loopLiteG1*, pause for
+requirements confirmation first, then design and task confirmations. This draft's acceptance
+does not itself start a database or authorize3,000-row crawling/canonical promotion. The next
+bounded approved implementation would produce the142doc import PLAN, preserving all current
+runtime/data/UUIDs. Actual variant grouping/evaluation and canonical rollout remain future work.
+All draft progress is committed/pushed only within the independent project GitHub repo.
+
 ## Required format for future entries
 
 Every future project-log entry must preserve the following traceability structure:

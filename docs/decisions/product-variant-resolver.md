@@ -1049,3 +1049,27 @@ remaining semantic failure is assuming family success proves real variant accura
 integrity,safety,auditability,cost,extendability: adequate for Lite family closure; population and
 release/color/wheel/tampo accuracy still unevaluated. T49 DESIGN ONLY, no SQL/default deployment.
 See `docs/evidence/family-retrieval-final-v2.md` for outputs, measurements and actual failure history.
+# D46 — Split T49 knowledge persistence from real release review and quota expansion
+
+Status:PROPOSED,2026-09-14; owner requirements/design/tasks unconfirmed. af27dfe authorizes design,
+not actual collection or DB writes. Read-only source/model audit shows142knowledge docs,100heldWiki
+rows with all color-null/no wheel/tampo fields, and legacy seven-field identity missing those
+discriminators. Family PASS cannot substitute for release truth or3,000approved products.
+
+Propose independent versioned hk snapshot tables for100provisional+42family docs and separate
+release-source/field-evidence/review records. First task local-only import PLAN; further isolated
+DB/profile/cost/source access/release/identity/evaluation work needs explicit boundaries. JSONB
+preserves current typed payloads; normalized field evidence makes unknown/conflict/review visible.
+Reuse PostgreSQL/SQLAlchemy/Alembic proposals, not canonical tables or silent scored-module edits.
+Files remain valid default. No ANN/neural/image/OCR/promotion included.
+
+Trade-offs: multiple schema lanes add some implementation overhead, but prevent unknown fields
+from creating false variant equivalences or unreviewed rows entering final UUID answers. Future
+identity-v2 preserves old UUIDs, not in-place field additions.3,000goal counts deduprealstaged releases
+separately from confirmed/canonical products; report100/500/1,500/3,000milestones without synthetic
+padding. At10×, review/source/SQL/network costs need measured protocols. Most likely failure is
+mistaking source confidence or persistence for human-verified exact release identity. Scope,
+integrity,safety,auditability,cost,extendability: adequate planning boundaries; implementation and
+source-specific rights/variant accuracy remain unverified. GeneralAPI etiquette is not Fandom
+permission; tool402fetch failures retained as access uncertainty, not bypass authorization.
+See `docs/evidence/t49-planning-scope.md`; pause at owner G1* before product implementation.

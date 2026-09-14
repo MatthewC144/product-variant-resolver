@@ -456,7 +456,9 @@ Current project checklist (engineering completion is not retrieval-quality appro
 - [x] IBR-T4 preparation: freeze 105 new output-blind final question/reference pairs after winner commit.
 - [x] IBR-T4 approval/labels: owner confirmed targets/scope; 105 decisions and benchmark frozen separately.
 - [x] IBR-T5: one final score PASS, full Lite closure and fresh non-root/read-only Docker HTTP verification.
-- [ ] T49 and later: reviewed real-catalog/variant-data expansion design now permitted; no ingestion authorized.
+- [x] T49 planning: persistence/variant-roadmap requirements/design/tasks drafted; owner G1 confirmation pending.
+- [ ] T49.1: approved local-only142-document import-plan validation; no DB/network write in this task.
+- [ ] Later: isolated persistence and source/field-reviewed real variant expansion; separate rollout gates.
 - [ ] End-to-end demonstration and beginner code review after project delivery.
 
 **IBR-T3 complete:** all 21 settings pass the frozen development gates. The deterministic winner is
@@ -548,6 +550,17 @@ Checking uses stored ranks, never final retrieval. `--run` refuses the existing 
 See [final/closure evidence](docs/evidence/family-retrieval-final-v2.md). Next T49 DESIGN ONLY:
 plan reviewed real catalog/variant attributes and targeted same-casting variant tests; no SQL writes,
 3,000-row ingestion, defaultv4 deployment or production accuracy approval is implied.
+
+**T49 planning draft delivered; implementation not approved.** Read the
+[plain-language roadmap](docs/REAL-CATALOG-ROADMAP.md). New
+[requirements](specs/human-knowledge-persistence-and-variant-roadmap/requirements.md),
+[design](specs/human-knowledge-persistence-and-variant-roadmap/design.md), and
+[tasks](specs/human-knowledge-persistence-and-variant-roadmap/tasks.md) separate142human-doc snapshot
+persistence from100heldrelease field review. Actual pilot100colors remain null; wheel/tampo fields
+are absent. About3,000unique real source rows is a staged-data goal, not3,000verified canonical
+products. First proposed task creates a local import PLAN without DB/network. Confirm requirements,
+then design, then tasks underLite G1 before implementation. No new data/UUIDs/migrations/default
+changes in planning. Current source access/rights remain unverified; no bypass or media collection.
 
 ## Docker and PostgreSQL status
 
