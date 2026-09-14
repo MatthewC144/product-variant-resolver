@@ -1100,3 +1100,38 @@ still needs its own protocol, not a claim from fast offline validation. Most lik
 mistaking stored human evidence for canonical variant truth. Scope/integrity/safety/auditability
 PASS for this local artifact; cost/extendability limited to versioned planning, not DB/real3krollout.
 37focused/448full tests and plan/checker PASS; see `docs/evidence/t49-1-execution-scope.md`.
+
+# D48 — Verify additive human snapshot storage in a fresh disposable PostgreSQL lane
+
+Status:ACCEPTED for isolated T49.2 test only,2026-09-14. Owner「執行測試」after the explicit
+environment proposal authorizes tmpfsDB/newinternalnetwork/runner/testbaseline/ownedcleanup;
+not production/defaultprofile/collection or fictional sequential broadG1 approvals.
+
+Select existing PostgreSQL16/SQLAlchemy2/Alembic stack with additive0002 independenthuman tables
+and a new test-only repository. Preserve canonical0001, scored API/config/retrievers, oldUUIDs,
+source restrictions and frozenplan/final artifacts. Store entire plan header plus exact typed/raw
+child JSONB and checksums/ordinal/import timestamp. Serialization retains nulls and review status;
+samecasting evidence is not verified release equivalence. No embedding/release table yet.
+
+Use one engine.begin transaction and SHARE ROW EXCLUSIVE locks on both smallhuman tables.
+This closes first-insert races without overwrite-upserts; repeat reads all142rows before verified
+no-op. ExplicitID+hash repeatable-read/read-only hydration avoids latestsnapshot/tornreads/fallback.
+Literal authorization/name/actualdatabase guard and fresh isolated resources avoid an accidental
+existingDB target. Applicationimmutability is not superuser-proof; directcorruption is detected,
+not repaired. JSONB shape/unique/FK/count constraints complement source-pinned wholeplan checks.
+
+The host lacks SQLextras and some sources are600mode. Choose byte-exact readable private staging
+with existing SQL-enabled nonrootimage, not host dependency installation or chmod originalinputs.
+54source fingerprints/imageIDs/full stdout-stderr preserved. Internalnetwork/nohostport/tmpfs and
+exactownership cleanup keep this test distinct from working data. Old T04verification is0001-bound;
+do not silently change its historical assertions or claim itsheadcheckPASS for0002. New verifier
+covers0001→0002→0001→0002 while preserving canonical fixtures throughout.
+
+Trade-offs:serializedtablelocks/rawprovenance duplication are acceptable at142docs; at10× need
+measured contention/storage/query protocol, not inferred performance. tmpfs excludesdurability/
+powerloss testing; processkill may leaveownedresources. Most likely semanticfailure remains
+treating persistent familyknowledge as verified producttruth. Scope/integrity/safety/auditability
+PASS for isolatedSQL; cost/extendability limited until T49.3 protocol.25new/473full tests and first
+actualSQL invocation PASS,71visible-doc uniquefault fullrollback, concurrentinsert/noop and repeat
+timestamps identical, canonical7tables unchanged, ownedcontainers/network removed. See
+`docs/evidence/t49-2-human-knowledge-postgres.md`; no real3k/production/defaultrollout claim.

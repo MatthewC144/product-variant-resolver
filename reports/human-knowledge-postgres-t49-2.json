@@ -1,0 +1,137 @@
+{
+  "cleanup": {
+    "errors": [],
+    "remaining_owned_resources": [],
+    "removed": [
+      "95dfc6700d2c18ed92a87faf88fa22a8ae7df753b7a92029334b04d0f4375bb4",
+      "1c38f8313a42881ca8070e0c23ea8afa1399e1da383fd49cd9fb414290ea11bf",
+      "4cc075a94e81652f57935307442ce5772182b047f8d0232ad326694c44f48ddc"
+    ]
+  },
+  "finished_at_utc": "2026-09-14T22:38:34.049015+00:00",
+  "images": {
+    "pgvector/pgvector:pg16": "sha256:131dcf7ff6a900545df8e7e092c270aa8c6db2f2c818e408cb45ec21316b74e6",
+    "product-variant-resolver:ibr-t5-rootfix": "sha256:7dbae114eb0615fb8582cce3fc79b2f19233edc453672bc5726de937dfec0fee"
+  },
+  "owner_token": "7bb34058d45b",
+  "resources": {
+    "containers": [
+      "1c38f8313a42881ca8070e0c23ea8afa1399e1da383fd49cd9fb414290ea11bf",
+      "95dfc6700d2c18ed92a87faf88fa22a8ae7df753b7a92029334b04d0f4375bb4"
+    ],
+    "network": "4cc075a94e81652f57935307442ce5772182b047f8d0232ad326694c44f48ddc"
+  },
+  "runner_stderr": "INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.\nINFO  [alembic.runtime.migration] Will assume transactional DDL.\nINFO  [alembic.runtime.migration] Running upgrade  -> 0001, Initial catalog and exact-retrieval schema.\nINFO  [alembic.runtime.migration] Context impl PostgresqlImpl.\nINFO  [alembic.runtime.migration] Will assume transactional DDL.\nINFO  [alembic.runtime.migration] Running upgrade 0001 -> 0002, Add independent human knowledge snapshot storage; never alter canonical0001.\nINFO  [alembic.runtime.migration] Context impl PostgresqlImpl.\nINFO  [alembic.runtime.migration] Will assume transactional DDL.\nINFO  [alembic.runtime.migration] Running downgrade 0002 -> 0001, Add independent human knowledge snapshot storage; never alter canonical0001.\nINFO  [alembic.runtime.migration] Context impl PostgresqlImpl.\nINFO  [alembic.runtime.migration] Will assume transactional DDL.\nINFO  [alembic.runtime.migration] Running upgrade 0001 -> 0002, Add independent human knowledge snapshot storage; never alter canonical0001.\n",
+  "runner_stdout": "{\n  \"canonical_after_sha256\": \"ed4be9dc736c8ac476ca5fd2a66b4f5e4e104ed25583c98e6fd8c355f60b2daf\",\n  \"canonical_before_sha256\": \"ed4be9dc736c8ac476ca5fd2a66b4f5e4e104ed25583c98e6fd8c355f60b2daf\",\n  \"canonical_fixture_counts\": {\n    \"identifier\": 120,\n    \"index_metadata\": 1,\n    \"product_alias\": 240,\n    \"product_embedding\": 0,\n    \"product_search\": 120,\n    \"product_variant\": 120,\n    \"provenance_record\": 120\n  },\n  \"content_sha256\": \"f7830e460650e99ab5107ec0f049c96d2dcf322daa5c140c5847a53f969e144f\",\n  \"counts\": {\n    \"documents\": 142,\n    \"provisional_variant\": 100,\n    \"review_family\": 42,\n    \"snapshots\": 1\n  },\n  \"database\": \"pvr_t49_2_7bb34058d45b\",\n  \"dependency_versions\": {\n    \"alembic\": \"1.20.0\",\n    \"psycopg\": \"3.3.5\",\n    \"sqlalchemy\": \"2.0.52\"\n  },\n  \"gates\": {\n    \"additive_upgrade_preserves_canonical\": true,\n    \"all_seven_canonical_tables_unchanged\": true,\n    \"exact_typed_and_raw_roundtrip\": true,\n    \"explicit_id_hash_missing_selection_rejected\": true,\n    \"genuine_sql_fault_full_rollback\": true,\n    \"invalid_input_no_overwrite\": {\n      \"changed_payload\": true,\n      \"duplicate\": true,\n      \"held_family\": true,\n      \"partial\": true\n    },\n    \"new_tables_downgrade_upgrade_preserves_canonical\": true,\n    \"repeat_all_rows_and_import_timestamp_identical\": true,\n    \"simultaneous_first_import_one_insert_one_verified_noop\": true,\n    \"sql_fault_visible_documents_before_abort\": 71,\n    \"stored_corruption_read_and_import_fail_closed\": true,\n    \"stored_partial_read_and_import_fail_closed\": true\n  },\n  \"platform\": \"Linux-6.12.76-linuxkit-aarch64-with-glibc2.41\",\n  \"postgresql_server\": \"PostgreSQL 16.14 (Debian 16.14-1.pgdg12+1) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit\",\n  \"python\": \"3.12.14\",\n  \"scope\": \"isolated SQL correctness only; no production DB, retrieval, crash-durability or real3k claim\",\n  \"snapshot_id\": \"human-knowledge-plan-v1-f7830e460650e99ab5107ec0f049c96d2dcf322daa5c140c5847a53f969e144f\",\n  \"uid\": 100,\n  \"verdict\": \"PASS\"\n}\n",
+  "schema_version": "pvr-human-knowledge-postgres-test-v1",
+  "source_sha256": {
+    "alembic.ini": "73502fd80d3f1e50579d123cd37afff48db155e67050f98c26ab12d045553965",
+    "data/catalog.json": "0d3ea55eab414e3845bf3bf72635707210f2d5c20d96b3d6b5940eb0ffc7d261",
+    "data/external/hot-wheels-wiki/pilot-2025/manifest.json": "960c639765759d3ab7b610718c026fa784e1995844f4acc9587718d94218f111",
+    "data/external/hot-wheels-wiki/pilot-2025/normalized.json": "e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6",
+    "data/external/hot-wheels-wiki/pilot-2025/priority-2-batch-05-adjudicated-queue-manifest.json": "6b532978c86adf39dbc2f41222d41ca9b765b1c615dce5453a0ba04955a9f6ff",
+    "data/external/hot-wheels-wiki/pilot-2025/priority-2-batch-05-adjudicated-queue.json": "989bc914f9493051a071472c9defd352fe1cb8cc217c062e1f479bdcb9c6e4d8",
+    "data/human_backed_catalog.json": "d29b69cde8099cb229136a73b893ca99b6313d9652ead5ff4aea48c20242e74f",
+    "data/human_backed_catalog_manifest.json": "c79a3bc699d2bfcccae992a672fda79cbb905f1f2252dbfda8fa219ed55e43c7",
+    "data/human_labeled_names.json": "68b5dfdb8d0fa4972328d172cc5a56d78ac8bf00bc740083b2bfc07eb2a91188",
+    "data/human_labeled_names_manifest.json": "f56cba710a720959d4c535c3353730f012911ab18e5a6054ebef2e5750ada84c",
+    "data/review_family_knowledge.json": "8615cbb99b453673599e1f9baf54f6900314d7ba64e53a31ea7891c71810b9d7",
+    "data/review_family_knowledge_manifest.json": "0239e272d27276d9a25df2c36edbbe6a7251facce7728ef947b86dcaa417c2ef",
+    "data/review_family_registry.json": "3f289b802cc2e8280ed5c3586d87cfabbee7ce37b10ae79504b5aa6b8837367d",
+    "data/review_family_registry_manifest.json": "ae9eda741aa2ec7cb9354424e17b789ba73c05890859e73d19cd845c5cab3ff2",
+    "migrations/env.py": "73240fafcd27ac148da7d269b562b99edaa8c266748fd12b55c14342fdc8594f",
+    "migrations/versions/0001_initial_catalog.py": "8bb196baee51b8d7c892d90ac7b5320f9bcbcf1004e40d82a459c6443ab35085",
+    "migrations/versions/0002_human_knowledge_snapshot.py": "5d6312daf6a0179ce06bc267e240a965b2f94f69dd0ed35ffbffdc0f0afadc7f",
+    "reports/human-knowledge-snapshot-v1/plan.json": "d56391d19bf2d61acb422c05c9e9b8a21aaab81efe5c0185b0529a58d39a11a2",
+    "reports/human-knowledge-snapshot-v1/report.md": "632169257646f26a7c5edba028b214b16a7b1c22058597f16af5e6a605bb242a",
+    "scripts/run_human_knowledge_postgres_test.py": "fbbfd4fda846a42e5e1d765e5c85fe871cc6cfecb0fbdd9a79f894b9cec48c1d",
+    "scripts/verify_human_knowledge_postgres.py": "1f99494d65a63e9048bf1a121739fadb12f9fcaec4b1cd43b59392ba9b6bb2b8",
+    "src/product_variant_resolver/__init__.py": "8d8d75428ba8a50a45711804b31925118bb233ed59203a106826fdd017793967",
+    "src/product_variant_resolver/api.py": "a847d72a95eb6e7f68b8ca1db46b47c32dde5b463986a0201b0b068a2c223bdb",
+    "src/product_variant_resolver/calibration.py": "807bae486b38849ff07f84f9c0cefc59bafe8db661b26a7b49fb469bd0543471",
+    "src/product_variant_resolver/catalog.py": "9d35ecd6fdf3f4120523526bd6333561dc4b1e2a23e85601ee71622cd62c271e",
+    "src/product_variant_resolver/config.py": "bfdc81228683fd534f9b4ff6fd62f747a174af70ba62bac045789c5d23318e14",
+    "src/product_variant_resolver/embedding_artifacts.py": "a8f0b6340e8abc44a39cf3a879d3d881f9495ff9472a8f43c49daf3ce2788bfb",
+    "src/product_variant_resolver/evaluation.py": "d125f3f4d0eed5f821c6a70d4ac57c7909bae8f3f106c6c64280624ed6024a6a",
+    "src/product_variant_resolver/family_retrieval_final_v2.py": "7f9a9ca0e886d0e0a5d4f660c875a6e17cffc4b7c6ecf866f718e615136b740f",
+    "src/product_variant_resolver/family_retrieval_final_v2_evaluation.py": "c19a5f1b43a2ffc0e6c4727fb3ae3bc60a83438044eb0dc803088db698d943bc",
+    "src/product_variant_resolver/family_retrieval_final_v2_labels.py": "a7d2fb026ee1f36c20605edaf206b4e871a1fc03dd0f9ea2b06b75c289b8b547",
+    "src/product_variant_resolver/fandom_ingestion.py": "af96f85de5d88a60bc94fefad0b889761cec065385b9f6f9075c4e7abd983ee9",
+    "src/product_variant_resolver/human_knowledge.py": "87de2e5176db08e769e6ec6bb7c05ce2aa62edc75cd30cfbb385158600e5b719",
+    "src/product_variant_resolver/human_knowledge_evaluation.py": "8056b3c6229b66cb72287b621fdc0014fd57fa524f1ac2634efeab9b3788cfb0",
+    "src/product_variant_resolver/human_knowledge_identity.py": "21507f19034ea740c12251746ed761a359b81668d23094ab6d66271fdf91d5fa",
+    "src/product_variant_resolver/human_knowledge_identity_artifact.py": "717c1493585fa4b56a7f5a8bbf0bdb3df273a7369b5e791aee4388ddfbd6d7a9",
+    "src/product_variant_resolver/human_knowledge_identity_selection.py": "8ad36a1d60b94541827677f01fcc9d48196621190279a87db2a34c1831886a93",
+    "src/product_variant_resolver/human_knowledge_persistence.py": "079fc74e93231a6033e2dfa4078bf1a1a8eb29bdc4b6ef9e48263229abe9471d",
+    "src/product_variant_resolver/human_knowledge_selection.py": "c8a109bb103306df7b6fb958630d70b262f098898080a5f5c503a8d54e0437ee",
+    "src/product_variant_resolver/human_knowledge_snapshot.py": "3a6c407bafab111bde7a1b02f8ef66828fe5801f5609d6d937a1270f9b0bfcfb",
+    "src/product_variant_resolver/identity.py": "fac993facdf681ad568b8810dc1957f6d43e1e359e56ac8c230080b47fda25d3",
+    "src/product_variant_resolver/ingestion.py": "cbf3021d5831c4ae568306a0866ac1976e4efd769934407d95ecca72d851c2ed",
+    "src/product_variant_resolver/observability.py": "9b40a490e326baf9ad6ee094f774ecb0948d92b2b49c6c519904fedc82b8f397",
+    "src/product_variant_resolver/policy.py": "a75f22f62ec6daf3d3b250690a0db15936542b1a84263e8741dbb0f5941a43d7",
+    "src/product_variant_resolver/postgres_embeddings.py": "cdcc2a799b32f8fb768b88421b9769ce1e226abc22f794ebf83f5313158fdf40",
+    "src/product_variant_resolver/postgres_ingestion.py": "95932ee5c12b6edc6f5ecd5140c8076fc2016ae71dc5cdb40865c71bd431361f",
+    "src/product_variant_resolver/postgres_retrieval.py": "4f7b60e1fbf880c3279f160f63ec96b95646dec921286e3fe760e4312e118898",
+    "src/product_variant_resolver/reporting.py": "65f2f65e1773acf49bc9cd76b934a67c148252f62c770e54927f4c7d462625bd",
+    "src/product_variant_resolver/rerank.py": "09f0d365ef66c6dffb12a28b3bf7775c7c0d9aa4a1d1bb14dab77e3b40c57d29",
+    "src/product_variant_resolver/retrieval.py": "2ef9737d319b7d3ca6bdfd540e58147365eba4e2b6b4d47f1484fab3025f06c1",
+    "src/product_variant_resolver/schemas.py": "0458392b02a1aca8b5eafded233e2d9b41a6ffec97772163a2ac59a1133f40f0",
+    "src/product_variant_resolver/service.py": "9fa745b386435799c6a5d5f62826570d48ca4b68a13f6aabba5b30b62f8e662c",
+    "src/product_variant_resolver/signals.py": "30195e91d52fb1a5ef3570ce9042fb2a24d9e78ba5475ebe76194937c82e76de",
+    "src/product_variant_resolver/training.py": "55892cab77b4eadbbe98d432b8e51b3138d74fa0f3e780e9cb0f70686a75de0f"
+  },
+  "sql_result": {
+    "canonical_after_sha256": "ed4be9dc736c8ac476ca5fd2a66b4f5e4e104ed25583c98e6fd8c355f60b2daf",
+    "canonical_before_sha256": "ed4be9dc736c8ac476ca5fd2a66b4f5e4e104ed25583c98e6fd8c355f60b2daf",
+    "canonical_fixture_counts": {
+      "identifier": 120,
+      "index_metadata": 1,
+      "product_alias": 240,
+      "product_embedding": 0,
+      "product_search": 120,
+      "product_variant": 120,
+      "provenance_record": 120
+    },
+    "content_sha256": "f7830e460650e99ab5107ec0f049c96d2dcf322daa5c140c5847a53f969e144f",
+    "counts": {
+      "documents": 142,
+      "provisional_variant": 100,
+      "review_family": 42,
+      "snapshots": 1
+    },
+    "database": "pvr_t49_2_7bb34058d45b",
+    "dependency_versions": {
+      "alembic": "1.20.0",
+      "psycopg": "3.3.5",
+      "sqlalchemy": "2.0.52"
+    },
+    "gates": {
+      "additive_upgrade_preserves_canonical": true,
+      "all_seven_canonical_tables_unchanged": true,
+      "exact_typed_and_raw_roundtrip": true,
+      "explicit_id_hash_missing_selection_rejected": true,
+      "genuine_sql_fault_full_rollback": true,
+      "invalid_input_no_overwrite": {
+        "changed_payload": true,
+        "duplicate": true,
+        "held_family": true,
+        "partial": true
+      },
+      "new_tables_downgrade_upgrade_preserves_canonical": true,
+      "repeat_all_rows_and_import_timestamp_identical": true,
+      "simultaneous_first_import_one_insert_one_verified_noop": true,
+      "sql_fault_visible_documents_before_abort": 71,
+      "stored_corruption_read_and_import_fail_closed": true,
+      "stored_partial_read_and_import_fail_closed": true
+    },
+    "platform": "Linux-6.12.76-linuxkit-aarch64-with-glibc2.41",
+    "postgresql_server": "PostgreSQL 16.14 (Debian 16.14-1.pgdg12+1) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+    "python": "3.12.14",
+    "scope": "isolated SQL correctness only; no production DB, retrieval, crash-durability or real3k claim",
+    "snapshot_id": "human-knowledge-plan-v1-f7830e460650e99ab5107ec0f049c96d2dcf322daa5c140c5847a53f969e144f",
+    "uid": 100,
+    "verdict": "PASS"
+  },
+  "started_at_utc": "2026-09-14T22:38:29.394453+00:00",
+  "verdict": "PASS"
+}

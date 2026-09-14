@@ -458,6 +458,8 @@ Current project checklist (engineering completion is not retrieval-quality appro
 - [x] IBR-T5: one final score PASS, full Lite closure and fresh non-root/read-only Docker HTTP verification.
 - [x] T49 planning: persistence/variant-roadmap drafted; broader owner G1 confirmation pending.
 - [x] T49.1: narrowly authorized local-only142-document import-plan/checker;37focused tests PASS, no DB/network write.
+- [x] T49.2: isolated PostgreSQL142doc storage/transaction verification;25new/473full tests PASS; owned test resources cleaned.
+- [ ] T49.3: freeze a new optional storage-profile/source/development-cost protocol before runtime integration.
 - [ ] Later: isolated persistence and source/field-reviewed real variant expansion; separate rollout gates.
 - [ ] End-to-end demonstration and beginner code review after project delivery.
 
@@ -562,8 +564,15 @@ products. Owner execution after the detailed draft explanation is scoped only to
 sequential G1 approval or database writes. [Local plan/report](reports/human-knowledge-snapshot-v1/report.md)
 preserves142typed documents, original UUIDs/provenance/exclusions and12pinned source fingerprints;
 37new/448full tests PASS. No dataset rows, canonical UUIDs, migrations or default changes.
-See [execution scope/QA](docs/evidence/t49-1-execution-scope.md). Current source access/rights remain
-unverified; no bypass or media collection. Next needs explicit isolated test-DB selection for T49.2.
+See [local execution scope/QA](docs/evidence/t49-1-execution-scope.md). Subsequent owner「執行測試」
+authorized the [disposable T49.2 environment](docs/T49-2-ISOLATED-TEST-PLAN.md):
+[actual SQL evidence](docs/evidence/t49-2-human-knowledge-postgres.md) PASS with100provisional+
+42family roundtrip, genuine71doc-fault fullrollback, concurrentfirstimport oneinsert/onenoop,
+repeat unchanged timestamp and seven canonical tables unchanged. Testcontainers/network removed;
+this is not a currently populated working database or optional runtime rollout. New Alembic0002
+adds only hk_snapshot/hk_document; original source exclusions and API/v4/default remain unchanged.
+Next T49.3 is a new protocol/profile plan, not production deployment. Current source access/rights
+remain unverified; no bypass/media collection/real3kexpansion.
 
 ```sh
 .venv/bin/python scripts/plan_human_knowledge_snapshot.py --check
@@ -571,6 +580,16 @@ unverified; no bypass or media collection. Next needs explicit isolated test-DB 
 
 The existing report is immutable:repeat `--run` refuses it. This PLAN is not SQL ingestion
 authorization and does not lift the original family projection's `postgresql_ingestion` exclusion.
+
+```sh
+# Read stored T49.2 evidence without creating a database or rerunning SQL.
+.venv/bin/python scripts/run_human_knowledge_postgres_test.py --check
+```
+
+T49.2 uses the separately authorized `human-knowledge-isolated-storage-test-v1` namespace,
+not canonical ingestion. Its new verifier covers0002; the historical T04 verifier is0001-bound
+and must not be used as a claimed passing check for new migrationhead. No privileged-writer-proof
+DBimmutability, crashdurability, Dockerprocess-kill cleanup or runtime query cost is claimed.
 
 ## Docker and PostgreSQL status
 

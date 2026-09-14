@@ -1,6 +1,6 @@
 # T49 — Tasks and approval boundary
 
-Date:2026-09-14. Lite. T49.1 locally executed under narrow owner execution consent; later tasks DRAFT.
+Date:2026-09-14. Lite. T49.1 local/T49.2 isolated SQL executed under scoped owner consent; later tasks DRAFT.
 No subagents unless owner explicitly requests them. All deliverables within `Product Variant Resolver`.
 
 ## Planning delivered now
@@ -23,11 +23,15 @@ historical draft commit/hashes and explicit narrow execution exception; no separ
   Evidence:`reports/human-knowledge-snapshot-v1/{plan.json,report.md}`;37focused/448full tests PASS.
   This is exclusive local report publication, not crash-atomic database import or removal of source exclusions.
 
-- [ ] T49.2: add separately versioned human snapshot tables/repository and isolated migration/import
+- [x] T49.2: add separately versioned human snapshot tables/repository and isolated migration/import
   tests after explicit test-DB environment selection. _(→R2–R4)_
   Files:new additive migration, new repository/test verifier. Do not modifycanonical0001/history.
   Acceptance:atomic complete142snapshot; rollback on failure, repeat no-op, collision rejection;
   canonical before/after counts/UUIDs unchanged; no existing DB/volume reset or production URL default.
+  Owner「執行測試」after `docs/T49-2-ISOLATED-TEST-PLAN.md` approves its disposable environment only.
+  Evidence:`reports/human-knowledge-postgres-t49-2.json`:realSQL PASS,142roundtrip,71doc SQLfault full
+  rollback, concurrentfirstimport oneinsert/onenoop, repeatedrows/timestamp identical, canonical7tables
+  unchanged;25new/473full tests PASS. Newcontainers/network cleaned; no current persistent testDB.
 
 - [ ] T49.3: freeze new optional storage-profile/runtime/cost protocol; implement and measure only
   approved adapter strategy without altering scored v4/v3 sources in place. _(→R1,R5–R6)_
@@ -60,4 +64,5 @@ T49.1→T49.2→T49.3→T49.4 for optional storage; separate offline VAR-PLAN1 t
 VAR-PLAN2 and explicitly reviewed VAR-PLAN3. Dataset count expansion does not depend on claiming
 all releases verified; approved canonical rollout remains another separately specified feature.
 No task automatically enablesv4 default, writes production tables, mints canonical IDs or certifies
-variant accuracy. One bounded task per approved handoff. Current checkpoint stops at G1* requirements.
+variant accuracy. One bounded task per approved handoff. Next is T49.3 protocol/profile planning,
+not default rollout; broader sequentialG1 confirmations remain unrecorded.

@@ -2,6 +2,13 @@
 
 Date:2026-09-14. Lite. DRAFT; no owner design approval or implemented tables/adapters yet.
 
+Historical status above refers to the planning checkpoint. Current scoped T49.2 owner「執行測試」
+after its explicit isolated test proposal authorizes only the new disposable storage lane. Alembic0002
+now implements hk_snapshot/hk_document; repository/verifier contract and actual SQL evidence are in
+`docs/evidence/t49-2-human-knowledge-postgres.md`. Remaining table/profile/release proposals remain
+DRAFT, not broadly approved. hk_embedding/release tables/default integration are not implemented.
+The original plan/source exclusion metadata stays immutable in a separate authorized test namespace.
+
 ## Overview and current evidence
 
 The canonical database already has `product_variant`, aliases, identifiers, provenance, FTS and

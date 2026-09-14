@@ -5214,6 +5214,133 @@ T49.2 尚未執行。下一步先指定並確認可丟棄的隔離測試資料�
 網站權限、未推定未知特徵、未改預設 API／v4 rollout。依 Lite 閉環更新任務、QA、decisions
 與這份敘事日誌；所有成果限定在独立 Product Variant Resolver repo。
 
+## T49.2 前置檢查 — 隔離測試環境待確認
+
+Date:2026-09-14. Lite mode. No database implementation or write is claimed in this entry.
+
+你要求進行下一步後，本次先確認規格、canonical migration、原有 PostgreSQL importer／
+verifier 與 Docker 配置。T49.2 的前提是明確選定隔離測試資料庫，不能將「下一步」視為
+操作不明既有 volume 的授權。原有 compose 使用 `pvr-postgres-data` 持久化 volume，
+因此沒有直接執行 compose up、migration 或 importer。這解决了測試可能誤碰既有資料的
+環境選型問題，但尚未完成 human snapshot 持久化。
+
+唯讀 Docker inventory 起初因 sandbox 無權存取 docker.sock 而拒絕；取得唯讀檢查權限後
+查詢成功，沒有執行中的容器，本機已有 PostgreSQL16／pgvector 映像。未檢查或推定所有
+stopped containers／volumes 都是空的，也沒有清理任何既有資源。T49.1 的本機 plan
+checker 再次 PASS，142文件與來源指紋保持不變；没有重跑 final collector。
+
+新增 [隔離測試方案](T49-2-ISOLATED-TEST-PLAN.md)，說明 internal network、新專屬容器、
+tmpfs、無 host port、無既有 volume／使用者資料庫 URL，以及只清理本次 ownership 資源
+的提議。選擇臨時新庫而非沿用持久化庫，是為了將可丟棄的交易驗證與工作資料分開；
+沿用本機既有 image 避免不必要的下載與版本漂移。tmpfs 不驗證斷電耐久性，不能把結果
+升級成正式部署或 crash recovery 證據。將來10倍資料量的 SQL／查詢效能仍需獨立 protocol。
+
+方案也明确說明，120canonical synthetic fixture 僅供新測試庫建立前後不變基準；
+142human docs 儲存在独立 human namespace，不是新增正式商品，也不解除原始來源的
+canonical／ingestion 排除。確認後才新增 additive migration、repository 與 SQL verifier，
+驗證 roundtrip、transaction rollback、相同 snapshot no-op、collision rejection 和全部
+canonical rows／IDs／timestamps 不變。本次只修改方案與日誌，未寫產品碼、資料或 SQL；
+沒有新增測試結果或完成標記。依 spec-dev-loop Lite 的環境界線暫停，請 owner 確認新
+隔離測試庫及限定寫入／清理範圍後，再執行 T49.2。
+
+## T49.2 — 人工知識 PostgreSQL 隔離匯入與真實交易驗證
+
+Date:2026-09-14. Lite mode. Scoped SQL correctness PASS; not production integration.
+
+### 新執行內容與解決的問題
+
+在隔離方案說明後，你指示「執行測試」，因此本次實作並執行 T49.2 限定的新測試庫，
+不再停留在 T49.1 的本機匯入 plan。原先缺少的是「142 筆寫入資料庫後仍可完整還原，
+而且中途失敗不會留下半份資料」的真實 SQL 證據。現在在 PostgreSQL16.14 實際完成
+100provisional variant +42review family 的匯入／讀回／比對，保留原始 ID、UUID、
+typed fields、null、raw provenance 與來源排除界線。這142筆仍是人工知識，不是142筆
+已確認商品；沒有新增真實 dataset rows、推定顏色／輪圈／tampo 或建立 canonical UUID。
+
+### 修改位置與設計原因
+
+新增 `migrations/versions/0002_human_knowledge_snapshot.py`，只建立獨立 `hk_snapshot`
+與 `hk_document`，不改 canonical0001/history。Snapshot 保存 storage version、獨立 test
+namespace、固定 plan header/source/contracts/counts/checksum 與 imported_at；子文件保存
+原有 ID／UUID／type、順序、完整 typed payload／checksum 與原始來源。把人工知識放進
+`product_variant` 會模糊審核權威，所以保持兩条儲存路徑；embedding／release tables 尚未建立。
+加入0002會讓 migrationhead 前進，但不改 canonical schema 或 API/default/v4 行為。
+
+新增 `human_knowledge_persistence.py`，在連線前複製並驗證整份固定來源 plan，只允許
+明確 disposable authorization 與 matching `pvr_t49_2_<12hex>` DB 名稱，連線後再次驗證
+actual database。沒有 `.env` 或正式 database URL fallback。這是另外授權的
+`human-knowledge-isolated-storage-test-v1` 保存／測試命名空間，不修改或解除來源本身的
+`postgresql_ingestion` exclusion，也不授權 canonical ingestion。Repository 沒有 overwrite
+upsert／update／delete 修復路徑；來源或既有 stored snapshot 不完整、竄改就拒絕。
+
+新增 `scripts/verify_human_knowledge_postgres.py` 執行真實 SQL 測試；新增
+`scripts/run_human_knowledge_postgres_test.py` 管理只屬於本次的 network／containers、
+staging、immutable report 與精確 ownership cleanup。新增兩組測試共25項，分開驗證
+repository orchestration 和 supervisor safety；本機 fake 不拿來宣稱 PostgreSQL rollback。
+
+### 方法選型、取捨與調整原因
+
+沿用專案已有 PostgreSQL16／SQLAlchemy2／Alembic，而非換資料庫或新裝 ML stack。
+單一 `engine.begin` transaction 配合兩張 human tables 的 SHARE ROW EXCLUSIVE locks，
+使完整142筆一起 commit／rollback，也讓同時第一次匯入只能有一個寫入，另一個核對後
+no-op。鎖只作用於 human tables，不改 canonical rows。讀回使用 explicit ID+hash、
+repeatable-read read-only transaction，避免讀取 latest snapshot 或跨兩次 SELECT 出現不同版本。
+這是142筆的小規模簡化；10倍規模下鎖競爭、JSONB／raw provenance 大小與查詢成本仍需量測。
+
+實際前置檢查發現 host venv 沒有 SQLAlchemy，部分原始 family files 權限為600。
+選擇既有 SQL-enabled Docker image 搭配 byte-exact staged source 副本，不安裝 host 依賴、
+不改原始權限、不重新下載／build image。副本只有必要 Python／migration／config／data／
+plan 共54檔，没有使用者 `.env` 或 final questions；report 記錄每個檔案指紋與完整 image IDs。
+Optional SQLAlchemy 使用 lazy import，避免未選用資料庫的 offline 路徑強制安裝依賴；
+首次 static checks 的 import ordering／缺少 optional stub／Any-return 問題在 SQL 執行前
+修正，focused Ruff 與 isolated strict MyPy 再次 PASS，沒有以放寬來源驗證處理問題。
+
+臨時庫使用 tmpfs、新 internal network、無 host published port、不掛既有 volume，runner
+UID100/read-only root/read-only staged bind。SQL 測完只依本次完整資源 ID 與 ownership label
+移除兩個容器和 network，未接管既有 stopped containers。tmpfs 不是持久性／斷電復原證據，
+程序強制中止仍可能留下 owned resources；不宣稱 cleanup crash-atomic。Application importer
+維持完整性與 immutable snapshot，但 superuser 手動 SQL 仍可竄改；讀取／重匯入偵測後拒絕，
+不是透過 trigger 阻止所有 privileged writes。
+
+另一個相容性界線：歷史 T04 verifier 使用 `upgrade head` 卻固定斷言0001，它是舊 revision
+測試，不宣稱可直接用於新0002。保留其歷史來源，改由新的 T49.2 verifier 驗證
+0001→0002→0001→0002 的限定循環；沒有改舊斷言或把未執行的 legacy CLI 說成 PASS。
+
+### 實際 SQL 與回歸結果
+
+第一次真實 SQL invocation PASS，未重試。PostgreSQL16.14/Linuxaarch64、Python3.12.14、
+SQLAlchemy2.0.52／Alembic1.20.0／psycopg3.3.5。真實 unique violation 在 header 與71筆
+子文件已可見後觸發，transaction 完整回滾至0snapshot／0documents；這不是只在寫入前
+擋掉壞輸入。之後兩個同時 first imports 得到一個inserted、一個verified unchanged；
+最終只有1snapshot／142documents。重複匯入全部 rows／UUIDs／rawJSON／imported_at 不變，
+讀回typed documents 與原plan精確一致。缺漏／重複／changed payload／held input 都拒絕；
+新測試庫內刻意製造stored header corruption與缺少child，reader/importer均拒絕而不修復。
+
+在全新測試庫先匯入原有120synthetic canonical fixture 作比較基準；7張canonical tables
+的每一列、ID／UUID／timestamp 前後完全一致，before/after row-snapshot SHA256 同為
+`ed4be9dc736c8ac476ca5fd2a66b4f5e4e104ed25583c98e6fd8c355f60b2daf`。此 hash 包含本次動態
+fixture timestamp，不是跨run固定dataset checksum。Actual fixture counts：product_variant120、
+product_alias240、identifier120、provenance_record120、index_metadata1、product_search120、
+product_embedding0。這些fixture僅写入新測試庫，不是寫入使用者工作資料庫。
+
+25新增測試 PASS；full473tests PASS，唯一 warning仍是既有Starlette／AnyIOBlockingPortal
+deprecation。RuffF/I、isolated strictMyPy on repository/supervisor、compile 與 frozenplan/
+storedfinal integrity checks PASS。舊 source/data/config/API/identity/Dockerfile/compose/
+canonical0001/final artifacts 未改，沒有新的 final collector run、模型重訓或 latency claim。
+Raw [SQL report](../reports/human-knowledge-postgres-t49-2.json) SHA256 為
+`3450185e2f8b6d97b5b39c3e563265080e8f11d5b8db988bfd28fd448c22c39d`；唯讀 `--check` PASS。
+詳見[SQL證據](evidence/t49-2-human-knowledge-postgres.md)與[AI rubric](evidence/ai-evals/t49-2-postgres-storage.md)。
+
+### 清理成果、未完成工作與下一步
+
+本次建立的兩個容器與 internal network 已刪除，cleanup errors0、remaining owned resources0，
+tmpfs測試資料已隨容器清除；舊 containers／volumes／images 保留。因此現在沒有一個已填入
+142筆、可供日常查詢的永久DB，保留下來的是程式與可追溯報告。正式儲存／role permissions／
+durability／optional runtime hydration／perquery SQL cost 尚未驗證，不能把 isolatedSQL PASS
+解讀成正式RAG上線。依 Lite 更新任務、QA、decisions 與日誌，所有deliverables都在獨立repo。
+下一步 T49.3 先 freeze 新storage profile／source／artifact／development-cost protocol，
+不在已scored v4模組原地改寫，不重用final105questions做live selection/replay。
+網站權限、約3,000真實資料與exactvariant evidence仍是獨立後續工作；本次授權沒有擴張。
+
 ## Required format for future entries
 
 Every future project-log entry must preserve the following traceability structure:
