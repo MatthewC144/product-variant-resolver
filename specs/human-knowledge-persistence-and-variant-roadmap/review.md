@@ -1,7 +1,9 @@
 # T49 planning review
 
 Date:2026-09-14. Lite. Specification completeness/internal trace review:PASS for draft delivery.
-G1* owner approval:WAIT, requirements/design/tasks all unconfirmed. G2/G3 implementation:NOT RUN.
+Historical draft G1* owner approval:WAIT; no three sequential confirmation messages recorded.
+Current scoped T49.1 execution consent:「請幫我執行」after full draft explanation; broader G1 remains
+WAIT. Local T49.1 G2/G3*:PASS (37focused/448full tests and real142doc plan/checker). No SQL gate passed.
 
 RequirementsR1–R14 have observable boundaries and tasks; design includes overview/models/interfaces/
 error handling/security/testing/alternatives. Existing canonical migration cannot accept unreviewed
@@ -17,4 +19,7 @@ The approximate3,000-row goal counts real dedupsource releases, notsynthetic/app
 Read-only benchmark/final checks PASS; document whitespace/link checks and preserved source hashes
 checked at handoff. No new migrations/runtime or model metrics. Source access/terms remain pending;
 general API guidance does not grant Fandom permission. Stop at owner requirements confirmation under
-spec-dev-loopLite. See `docs/evidence/t49-planning-scope.md` and narrative PROJECT-LOG.
+spec-dev-loopLite at draft delivery. Historical source evidence remains
+`docs/evidence/t49-planning-scope.md`. Subsequent narrowly authorized local T49.1 execution is
+documented in `docs/evidence/t49-1-execution-scope.md` and narrative PROJECT-LOG. T49.2 onward
+remain unexecuted; next requires explicit isolated test-DB selection and scoped agreement.

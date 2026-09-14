@@ -1,23 +1,27 @@
 # T49 — Tasks and approval boundary
 
-Date:2026-09-14. Lite. DRAFT. No subagents unless owner explicitly requests them.
-All deliverables within `Product Variant Resolver`; no implementation or data writes in this checkpoint.
+Date:2026-09-14. Lite. T49.1 locally executed under narrow owner execution consent; later tasks DRAFT.
+No subagents unless owner explicitly requests them. All deliverables within `Product Variant Resolver`.
 
 ## Planning delivered now
 
 - [x] T49-SPEC: inspect actual source/model/identity gaps, verify upstream closure without retrieval,
   draft requirements/design/tasks and source-scope/decision/narrative-log evidence. _(→R1,R7,R10–R14)_
 
-G1*: confirm requirements first, then design, then tasks. All three are currently unconfirmed.
-The user's current next-step request authorizes this draft, not a DB start/write/source fetch.
+Broader G1*: sequential requirements/design/tasks confirmations remain unrecorded. After the detailed
+draft explanation, owner「請幫我執行」is scoped to the first local-only task only. It is not a full
+schema/DB/profile/source-collection approval. See `docs/evidence/t49-1-execution-scope.md` for the
+historical draft commit/hashes and explicit narrow execution exception; no separate approvals invented.
 
-## Proposed implementation tasks (not executed)
+## Implementation tasks
 
-- [ ] T49.1: build a local-only142-doc snapshot import-plan/checker and exclusive report CLI; reject
+- [x] T49.1: build a local-only142-doc snapshot import-plan/checker and exclusive report CLI; reject
   stale/mixed/partial/duplicate/held IDs before any write. _(→R1–R3,R14)_
   Files:new `human_knowledge_snapshot.py`, `plan_human_knowledge_snapshot.py`, unit tests/evidence.
   Acceptance:100provisional+42family exact ID/type/payload roundtrip; no SQL/network/canonical changes;
   repeat/invalid plan cannot overwrite reports; source checksums/counts visible. First approved task only.
+  Evidence:`reports/human-knowledge-snapshot-v1/{plan.json,report.md}`;37focused/448full tests PASS.
+  This is exclusive local report publication, not crash-atomic database import or removal of source exclusions.
 
 - [ ] T49.2: add separately versioned human snapshot tables/repository and isolated migration/import
   tests after explicit test-DB environment selection. _(→R2–R4)_

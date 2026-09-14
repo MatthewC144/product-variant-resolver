@@ -1,6 +1,6 @@
 # 下一階段：從「找到車型」走向「找到具體版本」
 
-2026-09-14，Lite mode。這是待確認的方案，不是已完成的資料庫或版本辨識功能。
+2026-09-14，Lite mode。T49.1 本機匯入計畫已完成；其餘仍是待確認方案，資料庫或版本辨識尚未完成。
 
 ## 現在已經能證明什麼？
 
@@ -40,10 +40,12 @@ PostgreSQL在這裡是保存資料的工具，不會自動判斷資料真假。�
 目前網站頁面與授權條件尚未完成本次確認；一般API建議不等於該網站允許蒐集。
 新蒐集前須確認來源使用條件、頁面／revision與請求上限；遇到存取拒絕就停止。
 
-## 實作前要確認的順序
+## 目前實作與後續確認
 
 依spec-dev-loop的Lite流程，先確認[需求](../specs/human-knowledge-persistence-and-variant-roadmap/requirements.md)，
 再確認[設計](../specs/human-knowledge-persistence-and-variant-roadmap/design.md)與
-[任務](../specs/human-knowledge-persistence-and-variant-roadmap/tasks.md)。三份目前都是草案。
-第一個實作任務只會讀取本機142筆資料、產生可檢查的匯入計畫；不爬網站或寫PostgreSQL。
+[任務](../specs/human-knowledge-persistence-and-variant-roadmap/tasks.md)。完整後續方案尚未取得三次獨立確認。
+你在詳細草案說明後指示「請幫我執行」，本次僅依此執行第一個本機任務，不推定授權整份後續方案。
+第一個任務已讀取本機142筆資料、產生[可檢查的匯入計畫](../reports/human-knowledge-snapshot-v1/report.md)；
+不爬網站、不寫PostgreSQL，也沒有增加142筆正式商品。
 其後的資料庫測試、額外來源蒐集與正式商品promotion，都有各自的明確邊界。

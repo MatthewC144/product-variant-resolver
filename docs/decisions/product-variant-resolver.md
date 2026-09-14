@@ -1073,3 +1073,30 @@ integrity,safety,auditability,cost,extendability: adequate planning boundaries; 
 source-specific rights/variant accuracy remain unverified. GeneralAPI etiquette is not Fandom
 permission; tool402fetch failures retained as access uncertainty, not bypass authorization.
 See `docs/evidence/t49-planning-scope.md`; pause at owner G1* before product implementation.
+
+# D47 — Pin and roundtrip a separate local human snapshot plan before persistence
+
+Status:ACCEPTED for local T49.1 only,2026-09-14. Owner execution after detailed draft explanation
+authorizes the first local task; no separate sequential G1 confirmations or full schema agreement
+are invented. Later database/collection/profile/release lanes remain gated. D46's table designs
+remain proposed; this step does not implement them or remove source ingestion exclusions.
+
+Select a new standard-library-only plan module/CLI, reusing the existing typed loader read-only.
+Pin12immediate local inputs and reconstruct the whole deterministic plan for checks. Preserve both
+exact typed fields and original casting/variant/family/registry metadata:typed payload alone would
+drop failure categories, family-only level, provenance and held-release review decisions. Snapshot
+ID derives from content, not a new canonical UUID. Future source changes need a reviewed v2 pin
+set rather than mutable v1 checksum updates. Existing scored modules remain byte unchanged.
+
+Trusting only mutable manifests or self-rehashed payloads was rejected because changed data and
+manifest can agree while violating the approved baseline. JSON checksum comparisons are
+type-sensitive, soFalse cannot masquerade as0. File publication uses an exclusive new directory,
+checks both JSON/Markdown and cleans only task-owned files. A process kill may leave incomplete
+output; check rejects it and repeat refuses it. This is not database crash-atomicity/idempotence.
+
+Trade-off:raw casting/registry evidence duplicates some source data, acceptable at142docs for
+auditability. At10×, plan file size and source-version review grow; actual query/SQL/posting cost
+still needs its own protocol, not a claim from fast offline validation. Most likely failure remains
+mistaking stored human evidence for canonical variant truth. Scope/integrity/safety/auditability
+PASS for this local artifact; cost/extendability limited to versioned planning, not DB/real3krollout.
+37focused/448full tests and plan/checker PASS; see `docs/evidence/t49-1-execution-scope.md`.

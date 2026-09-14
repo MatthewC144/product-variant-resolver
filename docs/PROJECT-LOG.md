@@ -5144,6 +5144,76 @@ bounded approved implementation would produce the142doc import PLAN, preserving 
 runtime/data/UUIDs. Actual variant grouping/evaluation and canonical rollout remain future work.
 All draft progress is committed/pushed only within the independent project GitHub repo.
 
+## T49.1 — 本機 142 筆人工知識匯入計畫與完整性檢查
+
+Date:2026-09-14. Lite mode. This entry records local implementation, not PostgreSQL ingestion.
+
+### 執行內容、問題與可觀察成果
+
+你在詳細草案說明後要求「請幫我執行」，本次將授權限縮為第一個本機任務 T49.1。
+沒有將這句話記錄成三次獨立規格確認，也没有假定整份資料庫／蒐集／版本上線方案已獲同意。
+先前已有 100 筆 provisional variant 與 42 筆 review family，但缺少一份能在未來匯入前
+證明「來源同版、內容完整、ID 沒變、待審限制仍在」的可重現計畫。現在產出的
+[plan 與中文報告](../reports/human-knowledge-snapshot-v1/report.md)補上這一層，讓下一步不是
+直接把不明版本的資料寫入資料庫。這次新增的是工具和報告，資料集筆數沒有增加。
+
+### 修改位置與原因
+
+新增 `src/product_variant_resolver/human_knowledge_snapshot.py` 管理來源指紋、typed document
+序列化／還原、完整計畫重建比對、中文報告與 exclusive publication；新增
+`scripts/plan_human_knowledge_snapshot.py` 提供 `--run`／唯讀 `--check`。採用新檔案而非修改
+現有 human RAG／config／API／identity，是因為後者已被評估來源指紋封存，不應為儲存準備
+偷偷改變其執行行為。既有 typed loader 僅被讀取重用，不重新建立 UUID 或改 ranking。
+
+每筆計畫保留原有 ID、UUID、knowledge type、全部 typed payload，以及原始 casting／variant
+或 family／registry entry。只保存 typed payload 會漏掉 failure categories、casting-family-only
+層級與人工決策／held release references，所以原始 metadata 也一起保留。來源合約原樣保留，
+特別是 `postgresql_ingestion` exclusion；本計畫不是解除限制或正式匯入許可。4 個 merge-source
+family 與 7 個 held family 不另建文件，42 個已接受 family 的 79 個 source rows 保持原樣。
+
+### 方法選擇、取捨與決策界線
+
+本次只需要本機 JSON 和 SHA256，因此使用 Python 標準函式庫，沒有增加 SQL／HTTP／ML
+依賴。對 12 個直接來源檔案固定已確認版本的指紋，比僅相信 manifest 安全：若資料與
+manifest 一起被改，兩者雖然相符，仍可能不是原來的資料。本工具會拒絕。整份 plan 從
+固定來源重建再比對，因此即使竄改內容後重新計算 checksum，也不能通過驗證。比對以
+JSON bytes 進行，避免 Python 把 `False` 與 `0` 視為相同。snapshot ID 是內容指紋字串，
+不是新增商品 UUID。12 檔的 immediate source envelope 不等於重新驗證全部歷史 evidence tree。
+
+另一個取捨是為稽核保留部分重複原始內容；142 筆規模可以接受，但未來 10 倍資料量下
+檔案大小與版本審查成本會增加，不能據此宣稱查詢或 SQL 效能足夠。來源變更必須建立
+重新審核的新 snapshot 版本，不能修改 v1 指紋假裝舊報告仍有效。D46 的資料表方案仍是
+提案，D47 僅接受這個本機方法，沒有重新選擇或啟動 PostgreSQL 技術棧。
+
+報告只發布至專案 reports 下新資料夾；同名再次執行直接拒絕，不覆蓋既有成果。
+正常失敗只移除本次建立的檔案，未知／他人檔案保留。若程序被強制中止可能留下不完整
+資料夾，checker 會拒絕、重跑也不會覆蓋；這不是 crash-atomic DB transaction 的保證。
+
+### 實際驗證結果
+
+實際讀取並產生 142 筆計畫，`--check` PASS；全部 ID／UUID／typed fields 完整 roundtrip。
+新增 37 個測試 PASS，涵蓋每一個來源指紋、缺檔、重複／缺漏／held／錯誤 type 或 UUID、
+重算 checksum 後的竄改、原始來源與 exclusion 變動、重複發布、symlink、未完成報告、
+失敗清理與保留未知檔案。守衛測試確認新計畫只讀取宣告的 12 個本機輸入，不讀 final queries。
+完整回歸 448 tests PASS；唯一 warning 是既有 Starlette／AnyIO BlockingPortal deprecation。
+Ruff F/I 與隔離 strict MyPy PASS，compile/static compose/stored final integrity checks PASS。
+這些是本機／靜態驗證，不是新的 SQL、容器部署、檢索延遲或版本辨識準確率結果。
+
+plan content SHA256 為 `f7830e460650e99ab5107ec0f049c96d2dcf322daa5c140c5847a53f969e144f`。
+格式化 JSON 的檔案 byte hash 與內容 hash 不同；詳見
+[執行界線與證據](evidence/t49-1-execution-scope.md)及 [AI artifact rubric](evidence/ai-evals/t49-1-snapshot-plan.md)。
+原始資料、已封存模組、final 評估輸出維持不變，沒有啟動新的 final collector。
+網站新請求 0、PostgreSQL 寫入 0、新 canonical UUID 0、新真實資料列 0。
+
+### 未完成項目、風險與下一步
+
+T49.2 尚未執行。下一步先指定並確認可丟棄的隔離測試資料庫環境與限定 schema/import
+方案，才建立 human snapshot tables 與交易／rollback／idempotence 測試；不能沿用不明
+既有資料庫或重設 volume。Human RAG 仍是 debug-only；142 筆儲存不等於 142 筆正式商品。
+顏色／輪圈／tampo 等版本證據與約 3,000 筆真實來源蒐集仍是後續獨立工作，本次未確認
+網站權限、未推定未知特徵、未改預設 API／v4 rollout。依 Lite 閉環更新任務、QA、decisions
+與這份敘事日誌；所有成果限定在独立 Product Variant Resolver repo。
+
 ## Required format for future entries
 
 Every future project-log entry must preserve the following traceability structure:
