@@ -439,7 +439,8 @@ form-posting character scores, bounded dense/RRF ranking and query-local work/de
 Independent mathematical checks and API/canonical/failure regressions pass. A separate opt-in
 `PVR_HUMAN_KNOWLEDGE_IDENTITY_ARTIFACT` requires a checksum-valid, fully recomputable qualified
 development report; missing/stale/failed evidence returns readiness 503, not silent v2 fallback.
-No selected v4 artifact exists yet, so leave this unset. V3/v4 artifact settings cannot coexist.
+V3/v4 artifact settings cannot coexist. The selected v4 artifact described below is experimental;
+leave the setting unset for the unchanged default v2 path.
 See [T2 evidence](docs/evidence/human-knowledge-identity-implementation-v1.md).
 
 Current project checklist (engineering completion is not retrieval-quality approval):
@@ -451,15 +452,36 @@ Current project checklist (engineering completion is not retrieval-quality appro
 - [x] Independent v1 evaluation and v3 development comparison published, including their FAILs.
 - [x] IBR-T1: owner-approved v4 protocol/core audit and 120-query synthetic workload frozen.
 - [x] IBR-T2: v4 implementation, oracle/caps/isolated API/UI/evidence validation.
-- [ ] IBR-T3: run all 21 configurations, publish 4,179 real outputs plus scale evidence and cost gates.
+- [x] IBR-T3: all 21 configurations/4,179 real outputs and 2,520 scale outputs frozen; development PASS.
 - [ ] IBR-T4: only after a committed qualified winner, author 105 unseen final questions for owner approval.
 - [ ] IBR-T5: one final score, full closure and runtime packaging verification; preserve FAIL without tuning.
 - [ ] T49 and later: design reviewed real-catalog expansion toward 3,000 rows only after final PASS.
 - [ ] End-to-end demonstration and beginner code review after project delivery.
 
-No v4 development-ranking/latency result, selected artifact or new final pack exists. Default v2,
-the original FAILs and T49 blockade remain unchanged. Synthetic 3,000-document workload is not
-3,000 real products inserted into PostgreSQL.
+**IBR-T3 complete:** all 21 settings pass the frozen development gates. The deterministic winner is
+floor `0.50`, character weight `1.0`: positive Recall@5 `168/168`, Recall@1 `165/168`, MRR@5
+`0.9911`, each style `42/42`, merge `4/4`, forbidden hits `0`, unrelated nonempty `0/20`.
+Winner real/scale p95 is `2.07/45.14 ms` against `25/150 ms` budgets. Exact/edit/context synthetic
+target hits are `60/60`, `20/20`, `20/20`. Raw latency, subgroup/work/source evidence is retained in
+[selection JSON](reports/human-knowledge-identity-development-v1/selection.json),
+[readable report](reports/human-knowledge-identity-development-v1/selection.md) and
+[T3 evidence](docs/evidence/human-knowledge-identity-development-v1.md).
+
+The [selected artifact](config/human-knowledge-retrieval-v4.json) passes genuine runtime/API loading.
+For explicit experimental debug evaluation only:
+
+```bash
+PVR_HUMAN_KNOWLEDGE_IDENTITY_ARTIFACT=config/human-knowledge-retrieval-v4.json \
+  uvicorn product_variant_resolver.api:app --host 127.0.0.1 --port 8000
+```
+
+No new final pack/score or default switch occurred. Development is already-viewed identity-derived
+data, not independent final accuracy. Microbenchmarks are non-isolated Python 3.12.13/arm64/10-CPU
+in-process retrieval only; not Docker/HTTP/SQL/load/production latency. First-setting startup/early
+measurement briefly overlapped the pre-run test process, disclosed in evidence without rerunning.
+The original FAILs and T49 blockade remain. Synthetic 3,000-document workload is not 3,000 real
+products inserted into PostgreSQL. Next is commit-qualified-winner → author new 105-question final
+pack → owner approval before labels/retrieval → final evaluation and closure.
 
 ## Docker and PostgreSQL status
 

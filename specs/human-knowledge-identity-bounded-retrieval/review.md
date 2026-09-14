@@ -1,6 +1,28 @@
-# Identity-Bounded Retrieval — Lite IBR-T1/T2 Checkpoints
+# Identity-Bounded Retrieval — Lite IBR-T1/T2/T3 Checkpoints
 
-## Current IBR-T2 checkpoint — 2026-09-14
+## Current IBR-T3 checkpoint — 2026-09-14
+
+T3 G2/G3* engineering: PASS. Frozen development quality/safety/cost: PASS, all 21 configurations.
+Entire feature/final/runtime closure: NOT EVALUATED. Selected 0.50/1.0 artifact is experimental only.
+
+R9–R10: all 4,179 real outputs retained; selected positive 168/168, each style 42/42, merge 4/4,
+forbidden 0, unrelated 0/20, MRR0.9911; fixed tie-break/denominators/safety/cost gates pass.
+R11–R12: 2,520 raw scale outputs/work, 199/120 latency samples/config, original-20 subgroup,
+known target 60/20/20 hits and cost 2.07/45.14 ms p95 pass. Numeric-core/wrapper-edit and initial
+brief test-process overlap are disclosed, not rerun or generalized. R13–R14: genuine checksum-bound
+artifact/API loading, source/raw metric replay, exclusive publication and canonical/default-v2 checks pass.
+R1–R2: unchanged freeze/protected reports/sources and guarded no-v1 selection reads pass.
+
+18 new tests / 48 focused T3+artifact / 329 full tests pass, one prior warning; focused lint/type,
+compilation, historical checks, Node/static Compose/context pass. No fresh Docker image runtime.
+See [T3 evidence](../../docs/evidence/human-knowledge-identity-development-v1.md) and
+[AI evaluation](../../docs/evidence/ai-evals/human-knowledge-identity-development-v1.md).
+
+R15 owner-reviewed new 105-question final lifecycle and one score remain T4/T5; R16 full runtime/
+regression/quality closure and T49 remain gated. Next permitted work after committing qualified
+winner/code/report/artifact is T4 output-blind authoring and owner approval, not scoring/ingestion.
+
+## Historical IBR-T2 checkpoint — 2026-09-14
 
 G2/G3* for IBR-T2 engineering: PASS. Entire feature/quality/cost approval: NOT EVALUATED.
 T1's original record below remains historical. R3–R8/R11 arithmetic/admission/caps/ordering are

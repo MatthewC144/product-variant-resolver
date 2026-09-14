@@ -36,6 +36,10 @@ COPY scripts/verify_postgres_dense_retrieval.py ./scripts/verify_postgres_dense_
 COPY scripts/build_human_knowledge_identity_protocol.py ./scripts/build_human_knowledge_identity_protocol.py
 COPY reports/ ./reports/
 
+# Generated public evidence uses private temporary-file modes on the host. Make copied
+# catalog/config/evidence readable by non-root pvr without changing their checksum-bound bytes.
+RUN chmod -R a+rX /app/data /app/config /app/reports /app/scripts
+
 USER pvr
 EXPOSE 8000
 

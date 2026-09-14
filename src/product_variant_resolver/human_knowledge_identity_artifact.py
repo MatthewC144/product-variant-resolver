@@ -144,6 +144,18 @@ def validate_identity_selection_report(payload: dict[str, Any], root: Path = ROO
     if (implementation["file"] != "src/product_variant_resolver/human_knowledge_identity_selection.py"
             or sha(safe_path(root, implementation["file"])) != implementation["sha256"]):
         raise ValueError("v4 selection implementation is stale")
+    from .human_knowledge_identity_selection import LIMITATIONS, subgroup_cost, work_summary
+    runtime = payload["runtime"]
+    if (payload["split"] != "dev" or payload["case_count"] != 199 or payload["scale_case_count"] != 120
+            or payload["selection_contract"] != protocol["selection_contract"] or payload["limits"] != protocol["limits"]
+            or payload["limitations"] != LIMITATIONS
+            or any(runtime[key] != value for key, value in {
+                "candidate_k": 5, "warmup_count_per_corpus": 3, "process_count": 1,
+                "transport": "in_process", "clock": "perf_counter_ns", "percentile_method": "nearest_rank",
+                "host_isolated": False, "measured_boundary": "retrieve_with_work_only"}.items())
+            or any(not isinstance(runtime[key], str) or not runtime[key] for key in
+                ("python", "system", "system_release", "machine", "processor"))):
+        raise ValueError("v4 runtime/development disclosure differs")
     pack = load_object(root / "data/evaluation/family-retrieval-development-v1/development-pack.json")
     catalog = load_human_knowledge_catalog(root / "data/human_backed_catalog.json",
                                           root / "data/review_family_knowledge.json",
@@ -172,8 +184,17 @@ def validate_identity_selection_report(payload: dict[str, Any], root: Path = ROO
                     or cost != latency(cost["samples_ms"], cost["index"])
                     or cost["index"]["document_count"] != metadata["document_count"]
                     or cost["index"]["form_count"] != metadata["form_count"]
-                    or cost["index"]["posting_entry_count"] != metadata["form_posting_entry_count"]):
+                    or cost["index"]["posting_entry_count"] != metadata["form_posting_entry_count"]
+                    or cost["index"]["posting_count"] != metadata["gram_posting_key_count"]):
                 raise ValueError("v4 cost evidence does not recompute")
+            rows = entry["cases"] if label == "real_142" else entry["scale_cases"]
+            if any(row["work"]["scored_forms"] > metadata["form_count"] for row in rows):
+                raise ValueError("v4 work exceeds index form count")
+        if (entry["scale_subgroups"] != subgroup_cost(entry["scale_cases"], entry["cost"]["synthetic_3000"]["samples_ms"],
+                    entry["cost"]["synthetic_3000"]["index"])
+                or entry["work_summary"] != {"real_142": work_summary(entry["cases"]),
+                    "synthetic_3000": work_summary(entry["scale_cases"])}):
+            raise ValueError("v4 subgroup/work summary does not recompute")
         metrics = summarize(entry["cases"])
         if (metrics != entry["metrics"] or hits != entry["scale_hits"]
                 or entry["rejection_reasons"] != identity_rejection_reasons(metrics, entry["cost"], hits)):

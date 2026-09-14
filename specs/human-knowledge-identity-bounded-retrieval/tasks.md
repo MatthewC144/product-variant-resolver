@@ -1,6 +1,6 @@
 # Identity-Bounded Human Knowledge Retrieval — Tasks
 
-Mode: Lite. Status: owner-confirmed; IBR-T1/T2 complete, IBR-T3 next and not executed.
+Mode: Lite. Status: IBR-T1/T2/T3 complete; development PASS, IBR-T4 next after winner commit.
 No subagents without explicit user request. All files under `Product Variant Resolver`.
 
 ## IBR-T1 — Freeze the owner-approved new execution protocol
@@ -36,9 +36,9 @@ default v2 and debug-off canonical equality. Do not edit source-bound v3/normali
 
 ## IBR-T3 — Run the frozen development selection and cost gates
 
-- [ ] Execute exactly 21 configurations; publish all 4,179 raw outputs/metrics/work counts/rejections
+- [x] Execute exactly 21 configurations; publish all 4,179 raw outputs/metrics/work counts/rejections
   and 199-real/120-scale latency samples with subgroup disclosure. _(→R9–R12)_
-- [ ] Check scale exact/context/typo targets, all development safety/quality/cost gates and deterministic
+- [x] Check scale exact/context/typo targets, all development safety/quality/cost gates and deterministic
   tie-break; freeze a complete new v4 artifact iff all pass, otherwise FAIL/stop. _(→R10,R12–R13)_
 
 Files: `human_knowledge_identity_selection.py`, separate report/freezer scripts,
@@ -85,7 +85,9 @@ G1* is confirmed by the owner's `執行下一步` response to the three-spec han
 `880e4f5` and exact spec hashes is recorded in the frozen `owner-approval.json`; original approved
 spec snapshots retain their historical proposed headers. T1 passes with 142 nonempty document cores,
 284 forms, two same-casting variant collision groups, zero cross-casting collisions, and 120 scale
-queries. T2 now implements v4 under ephemeral unit/API configurations; no development-selection or
-latency result exists. The frozen protocol and source-bound modules remain unchanged. See
-`docs/evidence/human-knowledge-identity-implementation-v1.md` for the oracle/runtime checkpoint.
-T3 is next; T4/T5/T49 remain blocked until a qualified, committed winner exists.
+queries. T2 implements v4 under isolated runtime configuration. T3 now publishes the complete
+21-configuration development/scale report and selected artifact: floor 0.50, character weight 1.0.
+All gates PASS; default remains v2, original reports/FAILs and protocol remain unchanged. See
+`docs/evidence/human-knowledge-identity-development-v1.md`. Winner/code/report/artifact must be
+committed before T4 authoring. T4's owner approval/labels and T5 final scoring are not executed;
+independent-final/runtime-closure/T49 remain gated. Synthetic scale is not real catalog expansion.

@@ -4713,6 +4713,90 @@ unblock new output-blind final questions and owner approval. Final FAIL must rem
 3,000-row catalog expansion, deployment and end-of-project beginner code review remain downstream.
 All delivery files stay inside the independent project folder and no subagent was spawned.
 
+## 2026-09-14 — IBR-T3: frozen development selection passes; qualified v4 artifact published
+
+### Context, new execution and observable outcome
+
+IBR-T2 proved the new arithmetic and runtime isolation, but it did not establish real development
+quality or cost. This step implements and executes IBR-T3's one frozen architecture experiment:
+exactly 21 existing floor/weight settings, every unchanged 199-case development query and the exact
+120-query synthetic workload per setting. All 21 pass every predeclared development gate. The fixed
+ranking tie-break selects floor 0.50 / character weight 1.0, and its fully evidenced experimental artifact
+can now be loaded explicitly. Default v2 and canonical authority remain unchanged; this is not final
+quality, a default deployment, database promotion or proof of 3,000 real products.
+
+The selected run finds 168/168 positives, 165/168 at rank 1, MRR 0.9911, 42/42 in all four styles,
+merge 4/4, forbidden 0 and unrelated nonempty 0/20. Real/aggregate-scale p95 is 2.07/45.14 ms against
+25/150 ms budgets. Known synthetic exact/edit/context hits are 60/60, 20/20, 20/20. Complete raw outputs
+and all misses/abstentions are retained, including the two floor 0.55 positive misses; no setting or
+sample was dropped, resampled or tuned. A higher floor is not automatically a better configuration.
+
+### Code changes and why these responsibilities are separated
+
+`human_knowledge_identity_selection.py` loads the checksum-valid protocol/corpora, creates the exact
+two retrievers for each setting, warms each with three queries and measures only retrieve_with_work.
+It serializes all 4,179 real and 2,520 scale results with candidate identities/ranks/work and attaches
+expected labels after retrieval is complete. Raw latency, scale subgroup hits/cost and work totals
+are retained so summaries can be audited instead of trusted. Source checks before/after prevent mixed
+code versions from being frozen. The check command replays arithmetic without any retrieval.
+
+`human_knowledge_identity_artifact.py` adds mandatory runtime-boundary, original-20 subgroup and work-
+summary recomputation to its future report contract. These checks were finalized and tested before
+real outputs; they change evidence validation, not eligibility, ranking, noise policy, limits or
+grid. No checksum-bound predecessor module or v4 query core was edited. Separate readable-report
+and freezer scripts keep rendering/publication distinct from selection. Exclusive temporary-file
+publication validates artifact bytes with the genuine runtime loader before creating the final path;
+existing files are never overwritten, and FAIL does not even create an artifact directory.
+
+`reports/human-knowledge-identity-development-v1/` holds complete JSON and readable tables, while
+`config/human-knowledge-retrieval-v4.json` holds the winner and full evidence/source/policy bindings.
+Config is intentionally committable, unlike ignored model artifacts/cache. Evaluation tests use an
+explicit empty fake retriever for orchestration and no-winner preservation, then separately replay
+the genuine report and genuine API artifact. Mock fixtures are not called quality winners. README,
+live specs/QA, AI evidence and D42 now distinguish development PASS from the still-unrun final gate.
+
+### Technology choices, corrections and trade-offs
+
+The method remains standard-library Python, existing document models and hashing-v1; no neural
+model/API/dependency or SQL write is necessary. One fixed-grid raw evaluation is chosen over an
+open-ended threshold search. The original-20 scale subgroup has selected p95 of 61.22 ms, separately
+shown against unchanged old-v3 original-20 p95 337.15–377.28 ms. The full 120 aggregate includes easier
+exact probes; comparing only aggregate 45.14 ms to old 20 would misstate the workload. Index scoring
+representation and non-isolated execution differ, so the observed difference is diagnostic, not a
+controlled causal speedup or production SLA. Document/form-gram counts also do not prove memory gain.
+
+An operational issue became visible after publication: temporary-file-based artifacts have host
+0600 modes. Docker's non-root pvr could not necessarily read locally copied public evidence. Dockerfile
+therefore grants read/traversal on copied public data/config/reports/scripts inside the image, without
+changing bound bytes, write permission or the host's private cache. Static context/Compose tests check
+this; no new container runtime was claimed. MyPy required an explicit callback annotation for safe
+temporary publication. These are packaging/type corrections, not measured-score changes.
+
+The pre-run full test process briefly overlapped first-setting startup/early measurement. I preserved
+the run and disclosed this instead of removing/resampling an inconvenient configuration. Runtime
+therefore explicitly remains non-isolated: Darwin 24.6.0 / Python 3.12.13 / arm64 / 10 logical CPUs; CPU brand
+lookup did not return more than arm. Index/startup, extraction, serialization, HTTP/SQL/network and
+concurrent request load are excluded. Synthetic cores remain numbers and Scale→Scxle edits a removed
+wrapper, so successful probes do not prove retained-name spelling robustness or real-catalog growth.
+
+### Verification evidence, remaining work and next action
+
+18 new tests, 48 focused T3/artifact tests and 329 full tests pass, no skips, one prior Starlette/AnyIO
+warning. Focused Ruff F/I, isolated strict MyPy evaluator/validator, Python compilation, Node syntax,
+whitespace and both Compose profiles/context checks pass. Frozen protocol/old dev/v3 JSON+Markdown/
+v1 JSON+Markdown remain valid and unchanged. Genuine selected-artifact/API readiness, health/debug
+SHA and non-debug canonical equality pass; report checks do not retrieve. No fresh Docker rebuild/run,
+real ingestion, final questions/labels/score, whole-feature PASS or default activation was performed.
+See [T3 evidence](evidence/human-knowledge-identity-development-v1.md), raw report, QA and AI records.
+
+The selected report SHA is `f52f85f775806d43a57c11e5fa9f7f965da980f54cc58a814d727fdfe7876f42`;
+artifact `82c94a2629da6936bec3e4a2983e67c70d69e94cb94a9817375f891d59b1ae6b`. Commit code/protocol/
+report/artifact before IBR-T4 authoring. Next is 105 new output-blind final questions, reuse rejection
+and owner approval before labels/retrieval, then one final score and runtime/regression closure.
+Viewed development can overstate generalization; unseen identity/noise/alias ambiguity remains the
+primary risk. T49/3,000-real-row planning remains gated until final/closure PASS. No subagent was
+spawned; all delivery stays inside Product Variant Resolver, ready for its independent GitHub repo.
+
 ## Required format for future entries
 
 Every future project-log entry must preserve the following traceability structure:

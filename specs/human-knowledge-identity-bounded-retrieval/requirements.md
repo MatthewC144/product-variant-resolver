@@ -1,8 +1,8 @@
 # Identity-Bounded Human Knowledge Retrieval — Requirements
 
 Date: 2026-09-13. Mode: Lite / Lean Industrial.
-Status: owner-confirmed; IBR-T1/T2 complete; development selection/final quality not evaluated.
-Implemented experimental version: `human-knowledge-hybrid-v4` (not selected or default-enabled).
+Status: IBR-T1/T2/T3 complete; development PASS; independent final quality not evaluated.
+Implemented experimental version: `human-knowledge-hybrid-v4` (selected, not default-enabled).
 
 ## Purpose
 

@@ -1,7 +1,7 @@
 # Identity-Bounded Human Knowledge Retrieval — Design
 
-Date: 2026-09-13. Mode: Lite. Status: owner-confirmed; IBR-T1 frozen, IBR-T2 implemented and verified.
-Development selection and quality/cost gates remain unrun.
+Date: 2026-09-13. Mode: Lite. Status: IBR-T1/T2/T3 complete; development quality/cost gates PASS.
+Selected experimental floor/character weight: 0.50/1.0. Independent final and default deployment remain gated.
 
 ## Overview and evidence
 
@@ -45,6 +45,12 @@ validation separate from query scoring. It does not execute the grid; the future
 implementation and complete raw evidence are mandatory before runtime opt-in can load. Docker
 copies the frozen builder and reports, and the ignore rule admits that builder. These are dependency
 packaging/static checks, not a rebuilt-image runtime claim.
+
+T3 implements the separate evaluator/report/freezer and fully replays report arithmetic without
+retrieval. Runtime evidence validation additionally checks mandatory subgroup samples and work totals;
+these checks were finalized before outputs, without changing policy/core/scoring/grid/ceilings.
+Atomic exclusive publication validates temporary artifact bytes before creating its final path.
+Public copied evidence receives image read permission for non-root `pvr`; no source/checksum bytes change.
 
 ## Identity policy (owner-approved, frozen by IBR-T1)
 
@@ -156,7 +162,8 @@ IBR-T1 has now validated/frozen this unchanged workload and policy. Real cores: 
 284 forms, maximum 2 forms/document, two same-casting variant collision groups, no cross-casting
 collision. Static query forms peak at 90 real / 60 scale, below 256; synthetic cores have 12,000
 forms, maximum 4/document. Snapshot/protocol evidence is in
-`data/evaluation/human-knowledge-identity-development-v1/`. No scores or timing were generated.
+`data/evaluation/human-knowledge-identity-development-v1/`. T1 generated no scores or timing; T3 now
+retains all scores/work/timing in the separate development report, not in the immutable T1 snapshot.
 Because `scale`, `vehicle`, and `model` are noise tokens, synthetic casting cores are numeric-only;
 `Scale` → `Scxle` changes a removed wrapper token, not the retained numeric target. The frozen
 workload therefore is not evidence of true casting-core typo robustness. Preserve this limitation;

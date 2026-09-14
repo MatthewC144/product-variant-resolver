@@ -934,3 +934,38 @@ can still reach the cap. Noise removal/synonym loss/core collisions and numeric-
 remain known risks. A qualified artifact validates a full 21-grid report at startup, adding readiness
 work but avoiding query-time report replay. Complete report execution/replay is deferred to T3.
 No policy/grid/ceiling change, selected artifact, final authoring or SQL expansion follows this decision.
+
+## D42 — Select the frozen v4 development winner without activating it by default
+
+Status: ACCEPTED for IBR-T3 experimental artifact; final/T49/default deployment still gated.
+
+Choice: run exactly the owner-frozen 21-setting architecture experiment once, retain complete raw
+results and apply every quality/safety/cost/scale-correctness gate. All qualify; the predeclared MRR,
+Recall@1, higher-floor/lower-weight ordering chooses **0.50 / 1.0**. Do not choose 0.55 merely because
+it is the highest floor: it loses two positive edit/abbreviation cases and has lower ranking quality.
+
+Evidence: selected R@5 168/168, R@1 165/168, MRR0.9911, styles42/42, merge4/4, forbidden0,
+unrelated0/20; p95 real/scale2.07/45.14ms; synthetic60/20/20 target hits. Original-20 scale p95
+61.22ms is separately comparable to the published v3 diagnostic, not the easier aggregate120.
+329 tests pass; strict raw arithmetic/source/winner replay and genuine runtime/API loading pass.
+
+Change from D41: previously no qualified v4 artifact existed; now a source/protocol/corpus/full-report
+bound artifact is frozen in committable `config/`. This enables explicit debug evaluation, not a
+default version switch, independent final PASS or real expansion. No scoring/policy/cap/grid change.
+
+Method: standard-library evaluator, existing types/hashing, one retrieval process and raw timings.
+Exclusive temp-byte validation/publication prevents destructive artifact replacement; FAIL returns
+before directory creation. Runtime validator additionally recomputes work/subgroup totals, finalized
+before real output. Docker read permission on copied public evidence handles host 0600 generated files
+without checksum changes; static packaging is not a fresh container-run claim.
+
+Alternatives rejected: silently extend the grid, select nearest failing setting, suppress abstentions,
+compare only easier synthetic queries, overwrite v3 history, or call development success final quality.
+No neural dependency/API/download is needed for this controlled architecture stage.
+
+Limits and most likely next failure: viewed identity-derived queries can overstate generalization;
+noise policy can lose unseen real names; synthetic number-only/wrapper-edit probes are limited.
+Non-isolated timings include a brief initial verification-process overlap and are not causal/production
+proof; no samples were resampled. At 10×, common postings may still cap-abstain. New independent
+owner-reviewed questions and fresh runtime/regression closure remain necessary. Commit winner before
+authoring and stop for owner approval before labels/retrieval; only final/closure PASS authorizes T49 design.
