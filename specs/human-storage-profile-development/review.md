@@ -1,6 +1,8 @@
 # T49.3 planning review
 
 Date:2026-09-14. Lite. Draft completeness/grounding PASS; G1* owner confirmation WAIT.
+Requirements now CONFIRMED at the exact source recorded in [approval ledger](approval.md);
+design and tasks/budgets remain WAIT. Requirements confirmation is not implementation approval.
 HSP1–4 implementation/freeze/SQL/profilecost:NOT RUN. FullT49.3/T49.4 remain unchecked.
 
 | Requirement | Draft acceptance path |

@@ -7,8 +7,9 @@ Date:2026-09-14. Lite. DRAFT; no subagents unless explicitlyrequested.
   This is planningdelivery, not approvedfreeze or fullT49.3completion.
 
 G1*:owner confirms requirements, then design, then tasks/proposedcostprotocol before implementation.
-Current「請幫我執行下一步」after the handoff announcing T49.3planning authorizes this draft only;
-no threeconfirmation messages or actualnewprofile outputs/approval are fabricated.
+Planning was authorized by「請幫我執行下一步」. Subsequent「確認完成，請繼續執行」after the
+requirements explanation confirms requirements only; see [approval ledger](approval.md).
+Design and tasks/budgets remain WAIT; no three confirmations or runtime approval are fabricated.
 
 - [ ] HSP-1:freeze confirmedspecs/protocol and declarednewprofilecontract. _(→R1,R2,R5–R9)_
   Files:newapprovedspec snapshot/protocol/manifest/approval in a newdevelopment directory and

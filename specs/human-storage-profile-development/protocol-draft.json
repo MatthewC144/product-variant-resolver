@@ -4,7 +4,7 @@
   "status": "draft_unapproved_not_executable",
   "split": "dev",
   "upstream_commit": "95be1fbe5c2d9d48aec80d471314bbfa47dcb2c2",
-  "owner_requirements_confirmed": false,
+  "owner_requirements_confirmed": true,
   "owner_design_confirmed": false,
   "owner_tasks_and_budgets_confirmed": false,
   "approved_spec_sha256": null,

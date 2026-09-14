@@ -5418,6 +5418,29 @@ protocol與sourcefreeze；之後新file／DBadapter、完整性gate與新的隔�
 closure、約3,000真實來源與exactvariant review都未完成。所有deliverables限於獨立Product
 Variant Resolver repo，project log繼續保留原因、選型、scope與真實驗證，而不是只列已做事項。
 
+## 2026-09-14 — T49.3 需求確認與設計交接（Lite）
+
+Owner在需求說明後回覆「確認完成，請繼續執行」。本次執行將這個確認沉澱成可追溯的
+[approval ledger](../specs/human-storage-profile-development/approval.md)，解決草案已送交、
+但文件尚未區分需求已接受與整體實作尚未批准的問題。確認限定於 c197d0f 的需求文件
+與其完整SHA-256；保留原文件bytes，不修改後再假裝仍是同一份已批准內容。
+
+修改集中於新確認紀錄、protocol草案的requirements flag、tasks/review、README與教學指南。
+沒有修改產品模組、migration、資料或舊測試證據。設計及任務／成本預算仍待分別確認，
+protocol仍為不可執行草案，approved-spec、actual-source與runtime bindings保持null。
+採用外部ledger而非覆寫需求版本，是為了讓後續freeze可以準確指回使用者實際確認的內容。
+
+本次設計交接說明新file／PostgreSQL來源如何在啟動時建立同一份142筆記憶體索引，
+以及每次有效請求前完整唯讀核對snapshot的取捨。完整核對比只看連線或header昂貴，
+但能發現運作中斷線、缺文件或payload改動；HTTP成本必須包含它。原API不切換預設，
+canonical仍控制正式答案，human仍只提供debug證據，舊檢索數學參數不因storage變更而改動。
+這些是待確認的設計，不是已實作功能；尚未增加DB角色、SQL run、199筆新輸出或效能數字。
+
+驗證僅核對已批准需求SHA、JSON的單一確認flag及false/null未執行界線，以及git whitespace
+檢查；結果PASS。不重跑產品測試、SQL或final105，既有473 tests不當成本次新增功能證據。
+下一步先取得設計確認，再送交任務／預算確認，之後才可執行HSP-1的封存工作。
+Full T49.3/HSP1–4/T49.4仍未完成，所有本次文件都保留在獨立專案資料夾。
+
 ## Required format for future entries
 
 Every future project-log entry must preserve the following traceability structure:

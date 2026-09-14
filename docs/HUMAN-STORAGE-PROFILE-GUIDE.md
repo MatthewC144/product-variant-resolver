@@ -44,5 +44,6 @@ typed內容與work counters；正式nondebug商品結果也要與原API完全相
 這次交付[需求](../specs/human-storage-profile-development/requirements.md)、
 [設計](../specs/human-storage-profile-development/design.md)、
 [任務／測試步驟](../specs/human-storage-profile-development/tasks.md)與協議草案。
-先確認需求，再確認設計、任務與預算，才freeze並開始實作。沒有新增DB、角色、資料、
+需求已確認，見[確認紀錄](../specs/human-storage-profile-development/approval.md)。接著確認設計，
+再確認任務與預算，才freeze並開始實作。沒有新增DB、角色、資料、
 UUID或正式部署；T49.3完整實作、T49.4封裝驗收與約3,000筆真實資料擴充都尚未完成。
