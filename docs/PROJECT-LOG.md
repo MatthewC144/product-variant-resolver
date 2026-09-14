@@ -4981,6 +4981,92 @@ all existing report FAILs and source-bound bytes remain untouched. Final quality
 next is the single real run, followed by full/runtime/historical verification and honest PASS/FAIL
 closure. Synthetic family accuracy cannot prove release/color/wheel/tampo or production accuracy.
 
+## 2026-09-14 — IBR-T5 single final score and Lite/runtime closure
+
+### What ran and what problem it closes
+
+The approved benchmark87bbd19 and new evaluatorb86578c were committed before any real final
+output. I ran exactly105 final queries once with the selected0.50/1.0 v4 settings, zero final
+warmups/retries. A separate preflight process validates committed labels/source integrity; the
+collector itself does not open approved labels. All raw results are saved before the runner parses
+answers and scores. The frozen9 gates all PASS: positive80/84@5,77/84@1,MRR.93254; marketplace
+42/42,lexical38/42; family42/42; merge4/4; forbidden/unrelated/errors0. Four lexical misses remain
+empty and fully published, rather than being repaired against viewed final queries. This closes
+the scoped family-retrieval quality checkpoint, not complete release/color/wheel/tampo accuracy.
+
+### Code and evidence changes, with reasons
+
+`reports/family-retrieval-v2/` now contains immutable run-start/raw/evaluation JSON and readable
+Markdown. The evaluator's pure checker reconstructs raw candidate IDs/UUIDs/source ranks/RRF/
+work/budgets, event order, fixed denominators, every gate and text from stored evidence without
+retrieval. No pinned retriever/normalizer/loader/artifact/question/label bytes changed after output.
+The additional `test_human_knowledge_v4_closure.py` checks genuine stored final data, Docker-root/
+non-root packaging requirements, runtime source/image/503/canonical evidence, and preserved
+failure records. Unlike orchestration fixtures, it does not execute a real final query.
+
+Fresh Docker testing exposed a real deployment-path bug: defaultv2 started, but v4 returned503
+because an installed module derived ROOT as/usr/local/lib/python3.12, while evidence lives/app.
+`Dockerfile` now sets `PYTHONPATH=/app/src`, reusing exact bundled source bytes and existing
+project-relative evidence layout. This is a packaging correction, not a new retrieval architecture.
+It avoids editing checksum-bound loader/runtime code or weakening evidence checks, and keeps
+dependency installation in the image while executing the validated source tree. The dedicated
+old failing image and observed traceback/health failure are retained, not overwritten as PASS.
+
+The independent runtime verifier first incorrectly used relocation of identical artifact bytes
+as its stale sample. With a fixed/app root, valid bytes still correctly validated against the full
+evidence chain. I corrected only that test fixture to corrupt mandatory selection evidenceSHA;
+the original missing/malformed/stale health/resolve503 requirements still apply. Its initial
+assertion failure is also retained. The verifier now additionally records its own and Docker/
+Compose packaging hashes, binding the actual HTTP smoke to the exact successful image and files.
+
+### Technical choices and accepted trade-offs
+
+The evaluation remains standard-library/existing deterministic v4 retrieval; no model, threshold,
+query policy, database or agent was added. A durable exclusive reservation is intentionally less
+convenient than overwrite/rerun, but makes one-shot output and interruptions auditable. Separate
+integrity validation necessarily sees labels only for preflight; collection/scoring does not parse
+them until all105 raw outputs exist. Fixed42-family coverage measures either paired hit, not an
+inflated84-row denominator. The fourmisses and known construction bias are explicit limitations.
+
+Real HTTP within a non-root/read-only container was selected over claiming host TestClient/static
+checks prove packaging. It exposed the site-packages/data layout mismatch that prior static checks
+missed. Loopback Uvicorn uses no published host port and only existing fixture questions, not a
+second final run. Temporary child servers and the test container are cleaned up; previous service,
+volumes and PostgreSQL are untouched. Old images remain for diagnosis. The verifier is mounted
+read-only rather than added as a runtime dependency. At10×, source-valid T3 posting-cost results
+remain the synthetic budget evidence, not a claim of3000 real released variants or production load.
+
+### Actual verification and measurement scope
+
+32 new evaluator/closure tests and411 full repository tests PASS, no skips, one pre-existing
+Starlette/AnyIO BlockingPortal deprecation warning. Before real execution, a dict-rendering-order
+bug in fake report Markdown was fixed with sorted JSON and a private missing-source fixture was
+corrected; its406pass/1fail full run preceded the407-pass pre-final run and evaluator commit.
+The final full run411 and32focused cover stored evidence or fake retrieval, not a rerun of final.
+RuffF/I, isolated strict MyPy evaluator, compilation, Node UI and static default/postgres Compose
+checks pass. Originalv1 benchmark/report/Markdown,199dev,v3FAIL JSON/Markdown,identity protocol
+and v4PASS JSON/Markdown reproduce unchanged. Historical full-repo lint/type debt is not claimed
+fixed. Source-bound T3 real/scale p95=2.065375/45.138542ms and known-target budget gates validate.
+
+The final105 diagnostic samples use Python3.12.13/Darwinarm64, one non-isolated process, zero
+warmups and nearest-rank p50=2.591583/p95=6.945209ms. Extraction is excluded; retrieval plus
+serialization included. No new latency gate or causal/HTTP/SQL/production claim is made. Successful
+Docker smoke uses Python3.12.14/Linuxaarch64/uid100/read-only and actual loopback HTTP, validates
+defaultv2/v4 health/resolve/UI200, identical canonical outputs, typed debug/work/index metadata,
+and missing/malformed/stale503. Source and packaging hashes match the host; image identity and
+all outputs are in the runtime report. No new SQL or3000-real-row insertion occurred.
+
+### Remaining work and exact next authority
+
+See [final/closure evidence](evidence/family-retrieval-final-v2.md), all105raw results and both
+preserved runtime failures. New final quality, source-valid cost, regressions, runtime packaging,
+QA/AI rubric and documentation all pass for this feature. T49 DESIGN ONLY may now proceed;
+actual promotion/ingestion/defaultv4 deployment is not authorized. The next valuable design work
+is a reviewed real release-variant catalog and same-casting color/year/wheel/tampo test cases,
+including ambiguous/insufficient-evidence behavior, before expanding toward3000 real rows or
+claiming the user's full variant-resolution goal. OldFAILs/defaultv2 and canonical-only final
+authority remain unchanged. Commit/push all real progress to the project-only GitHub repo.
+
 ## Required format for future entries
 
 Every future project-log entry must preserve the following traceability structure:

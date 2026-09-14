@@ -1,0 +1,5062 @@
+{
+  "artifact_sha256": "82c94a2629da6936bec3e4a2983e67c70d69e94cb94a9817375f891d59b1ae6b",
+  "candidate_k": 5,
+  "completed_at": "2026-09-14T17:09:36.640277+00:00",
+  "configuration": {
+    "character_rrf_weight": 1.0,
+    "character_score_floor": 0.5
+  },
+  "index": {
+    "allowed_fields": {
+      "provisional_variant": [
+        "casting"
+      ],
+      "review_family": [
+        "casting",
+        "aliases"
+      ]
+    },
+    "document_count": 142,
+    "form_count": 284,
+    "gram_sizes": [
+      2,
+      3
+    ],
+    "modes": [
+      "spaced",
+      "compact"
+    ],
+    "posting_count": 3052,
+    "posting_definition": "normalized_form_gram_entries",
+    "posting_entry_count": 8051,
+    "stable_tie_break": "knowledge_uuid",
+    "version": "human-knowledge-identity-postings-v1",
+    "window_token_radius": 1
+  },
+  "query_pack_sha256": "b23b69912c678c027461c96eb23f113484c5a8ed6218c06d90026704abe5102b",
+  "rows": [
+    {
+      "candidates": [
+        {
+          "casting_id": "human-hot-wheels-67-chevrolet-camaro",
+          "character_rank": 1,
+          "character_score": 0.6728346668325983,
+          "dense_rank": 2,
+          "dense_score": 0.1637196497410748,
+          "knowledge_id": "human-hot-wheels-67-chevrolet-camaro-premium-premium-fast-and-furious",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "408c8d89-f0ee-5172-8735-7fe334e48c4e",
+          "matched_tokens": [
+            "chevrolet"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03252247488101534,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-1970-chevrolet-chevelle-ss",
+          "character_rank": 2,
+          "character_score": 0.6707915145722997,
+          "dense_rank": 1,
+          "dense_score": 0.22874916707763546,
+          "knowledge_id": "human-hot-wheels-1970-chevrolet-chevelle-ss-premium-premium-fast-and-furious",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "73a59942-603f-5210-a67b-6eb6b9606b6b",
+          "matched_tokens": [
+            "chevrolet"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03252247488101534,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-hold-089ff8645b5f2de7",
+      "error": null,
+      "latency_ms": 7.377834,
+      "query_text": "Chevrolet fifty-five casting; seller unsure which original tool this is",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 2,
+        "dense_union": 2,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 31481,
+        "query_forms": 126,
+        "scored_forms": 273
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": "human-hot-wheels-nissan-skyline-gtr-r34",
+          "character_rank": 2,
+          "character_score": 0.9053958604528906,
+          "dense_rank": 1,
+          "dense_score": 0.3411217204001147,
+          "knowledge_id": "human-hot-wheels-nissan-skyline-gtr-r34-premium-fast-furious-superstars",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "1e1be4a7-030e-5d53-9bc8-df4cd55ffde1",
+          "matched_tokens": [
+            "nissan",
+            "skyline"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03252247488101534,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-nissan-skyline-rs",
+          "character_rank": 1,
+          "character_score": 0.928269141287037,
+          "dense_rank": 4,
+          "dense_score": 0.28304933063843746,
+          "knowledge_id": "human-hot-wheels-nissan-skyline-rs-the-hot-ones-the-hot-ones",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "47fbe5d3-ac95-5c39-aea9-0b569c7acd4d",
+          "matched_tokens": [
+            "nissan",
+            "skyline"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.032018442622950824,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-nissan-skyline-gtr-bnr34",
+          "character_rank": 3,
+          "character_score": 0.8073200725620081,
+          "dense_rank": 2,
+          "dense_score": 0.30611961324236747,
+          "knowledge_id": "human-hot-wheels-nissan-skyline-gtr-bnr34-mainline-blue-2026-k-case",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "ff06387d-a01d-5e4b-baae-180b8f3bab1c",
+          "matched_tokens": [
+            "nissan",
+            "skyline"
+          ],
+          "rrf_rank": 3,
+          "rrf_score": 0.03200204813108039,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-nissan-skyline-rs-kdr30",
+          "character_rank": 4,
+          "character_score": 0.7530106414302927,
+          "dense_rank": 3,
+          "dense_score": 0.29287451419240834,
+          "knowledge_id": "human-hot-wheels-nissan-skyline-rs-kdr30-mainline-j-imports-purple",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "ede0706b-cfc7-5cca-a18a-973897cddd87",
+          "matched_tokens": [
+            "nissan",
+            "skyline"
+          ],
+          "rrf_rank": 4,
+          "rrf_score": 0.03149801587301587,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-nissan-leaf-nismo-rc",
+          "character_rank": 5,
+          "character_score": 0.5399574132075639,
+          "dense_rank": 5,
+          "dense_score": 0.072587052246835,
+          "knowledge_id": "human-hot-wheels-nissan-leaf-nismo-rc-mainline-treasure-hunt",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "d284fa7d-d89d-5223-92ba-41cae44afa4c",
+          "matched_tokens": [
+            "nissan"
+          ],
+          "rrf_rank": 5,
+          "rrf_score": 0.03076923076923077,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-hold-0e07a7139454d2e8",
+      "error": null,
+      "latency_ms": 5.507916,
+      "query_text": "Nissan Skyline GT-R R32 labelled BNR32; base stamp not photographed",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 5,
+        "dense_union": 5,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 22768,
+        "query_forms": 126,
+        "scored_forms": 260
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": "human-hot-wheels-nissan-skyline-rs",
+          "character_rank": 1,
+          "character_score": 0.928269141287037,
+          "dense_rank": 3,
+          "dense_score": 0.18813992639022023,
+          "knowledge_id": "human-hot-wheels-nissan-skyline-rs-the-hot-ones-the-hot-ones",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "47fbe5d3-ac95-5c39-aea9-0b569c7acd4d",
+          "matched_tokens": [
+            "nissan",
+            "skyline"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.032266458495966696,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-nissan-skyline-gtr-bnr34",
+          "character_rank": 4,
+          "character_score": 0.699623462505233,
+          "dense_rank": 1,
+          "dense_score": 0.24441445020945718,
+          "knowledge_id": "human-hot-wheels-nissan-skyline-gtr-bnr34-mainline-blue-2026-k-case",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "ff06387d-a01d-5e4b-baae-180b8f3bab1c",
+          "matched_tokens": [
+            "nissan",
+            "skyline"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.032018442622950824,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-nissan-skyline-rs-kdr30",
+          "character_rank": 3,
+          "character_score": 0.7530106414302927,
+          "dense_rank": 2,
+          "dense_score": 0.20625816010808964,
+          "knowledge_id": "human-hot-wheels-nissan-skyline-rs-kdr30-mainline-j-imports-purple",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "ede0706b-cfc7-5cca-a18a-973897cddd87",
+          "matched_tokens": [
+            "nissan",
+            "skyline"
+          ],
+          "rrf_rank": 3,
+          "rrf_score": 0.03200204813108039,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-nissan-skyline-gtr-r34",
+          "character_rank": 2,
+          "character_score": 0.761103133596542,
+          "dense_rank": 5,
+          "dense_score": 0.13224025679866194,
+          "knowledge_id": "human-hot-wheels-nissan-skyline-gtr-r34-premium-fast-furious-superstars",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "1e1be4a7-030e-5d53-9bc8-df4cd55ffde1",
+          "matched_tokens": [
+            "nissan",
+            "skyline"
+          ],
+          "rrf_rank": 4,
+          "rrf_score": 0.0315136476426799,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-nissan-leaf-nismo-rc",
+          "character_rank": 5,
+          "character_score": 0.5399574132075639,
+          "dense_rank": 4,
+          "dense_score": 0.17161630239322676,
+          "knowledge_id": "human-hot-wheels-nissan-leaf-nismo-rc-mainline-treasure-hunt",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "d284fa7d-d89d-5223-92ba-41cae44afa4c",
+          "matched_tokens": [
+            "nissan"
+          ],
+          "rrf_rank": 5,
+          "rrf_score": 0.031009615384615385,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-hold-369b0be5855c0a1c",
+      "error": null,
+      "latency_ms": 6.506208,
+      "query_text": "Liberty Walk Nissan Skyline 2000 GT-R without a readable base stamp",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 6,
+        "dense_union": 6,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 28404,
+        "query_forms": 144,
+        "scored_forms": 262
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.5057723885885801,
+          "dense_rank": 1,
+          "dense_score": 0.3043707459701465,
+          "knowledge_id": "fandom-family-b3cd4f5a5f7e196a",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "489e09ad-b7bf-5052-ab0b-1b70236c054a",
+          "matched_tokens": [
+            "racer"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-hold-4f9ee66afdfe8cac",
+      "error": null,
+      "latency_ms": 4.695542,
+      "query_text": "Power Wheels Dune Racer miniature beside a handwritten garage-sale tag",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 20863,
+        "query_forms": 90,
+        "scored_forms": 260
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": "human-hot-wheels-purple-passion",
+          "character_rank": 2,
+          "character_score": 0.5268483115909268,
+          "dense_rank": 1,
+          "dense_score": 0.06748081536579542,
+          "knowledge_id": "human-hot-wheels-purple-passion-mainline-pink",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "493365fb-691c-508a-8fa9-83b4ad9aefde",
+          "matched_tokens": [],
+          "rrf_rank": 1,
+          "rrf_score": 0.03252247488101534,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.6135889425260573,
+          "dense_rank": 2,
+          "dense_score": 0.04928890024967745,
+          "knowledge_id": "fandom-family-3c9f928f085efaae",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "6dac43c2-e013-53d7-a22d-60829a90edb4",
+          "matched_tokens": [
+            "kart"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03252247488101534,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-hold-8403e21a29c27eab",
+      "error": null,
+      "latency_ms": 3.938208,
+      "query_text": "Standard Kart with Mario markings; chassis version absent from listing",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 2,
+        "dense_union": 2,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 17454,
+        "query_forms": 72,
+        "scored_forms": 263
+      }
+    },
+    {
+      "candidates": [],
+      "case_id": "fr2-hold-8d24c626a51b1804",
+      "error": null,
+      "latency_ms": 6.945209,
+      "query_text": "Batman and Robin Batmobile; seller gives no movie/tool lineage information",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 0,
+        "dense_union": 0,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 29519,
+        "query_forms": 126,
+        "scored_forms": 270
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": "human-hot-wheels-mazda-rx7",
+          "character_rank": 1,
+          "character_score": 0.6921078525055782,
+          "dense_rank": 1,
+          "dense_score": 0.2119881678411186,
+          "knowledge_id": "human-hot-wheels-mazda-rx7-mainline-blue",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "bfe91ce3-044b-5141-812a-0274f48560ce",
+          "matched_tokens": [
+            "mazda"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": null,
+          "character_rank": 2,
+          "character_score": 0.6507856793620262,
+          "dense_rank": 2,
+          "dense_score": 0.12427395320024003,
+          "knowledge_id": "fandom-family-aec11693bfe04245",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "1a0cf712-68d0-5c29-b677-78d15b0dd604",
+          "matched_tokens": [
+            "mazda"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": null,
+          "character_rank": 3,
+          "character_score": 0.5300864115302897,
+          "dense_rank": 3,
+          "dense_score": 0.0945945945945946,
+          "knowledge_id": "fandom-family-e7d4d8cf1dd8c6e1",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "39731a3b-9b07-558a-a29b-76781343d5ba",
+          "matched_tokens": [
+            "mazda"
+          ],
+          "rrf_rank": 3,
+          "rrf_score": 0.031746031746031744,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-hold-c639dc688e21d33b",
+      "error": null,
+      "latency_ms": 5.896708,
+      "query_text": "MX-5 Mazda Miata offered without generation or tooling description",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 3,
+        "dense_union": 3,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 25766,
+        "query_forms": 108,
+        "scored_forms": 264
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": "human-hot-wheels-purple-passion",
+          "character_rank": 1,
+          "character_score": 1.0,
+          "dense_rank": 1,
+          "dense_score": 0.2938735780686309,
+          "knowledge_id": "human-hot-wheels-purple-passion-mainline-pink",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "493365fb-691c-508a-8fa9-83b4ad9aefde",
+          "matched_tokens": [
+            "passion"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 5.269697449699962
+        }
+      ],
+      "case_id": "fr2-merge-04829924a36830a6",
+      "error": null,
+      "latency_ms": 2.619584,
+      "query_text": "Purple Passion blue hot rod photographed beside an empty display plinth",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 9871,
+        "query_forms": 56,
+        "scored_forms": 253
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": "human-hot-wheels-tesla-model-s-plaid",
+          "character_rank": 1,
+          "character_score": 1.0000000000000002,
+          "dense_rank": 1,
+          "dense_score": 0.3640666045444054,
+          "knowledge_id": "human-hot-wheels-tesla-model-s-plaid-mainline-red",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "a9246e30-e08c-5d32-a3b4-045742e8aabc",
+          "matched_tokens": [
+            "plaid",
+            "s",
+            "tesla"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 14.998162132883557
+        },
+        {
+          "casting_id": "human-hot-wheels-08-tesla-roadster",
+          "character_rank": 2,
+          "character_score": 0.5241785627910919,
+          "dense_rank": 2,
+          "dense_score": 0.0356418462954584,
+          "knowledge_id": "human-hot-wheels-08-tesla-roadster-hot-wheels-tesla-greetings-from-space",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "e414ef07-58a4-5257-a574-97b0170819b8",
+          "matched_tokens": [
+            "tesla"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-merge-6062af64f2e5a66c",
+      "error": null,
+      "latency_ms": 3.506667,
+      "query_text": "Tesla Model S Plaid red saloon with sticker residue on the windshield",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 2,
+        "dense_union": 2,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 14068,
+        "query_forms": 72,
+        "scored_forms": 255
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": "human-hot-wheels-67-chevy-c10",
+          "character_rank": 1,
+          "character_score": 0.8383131055327958,
+          "dense_rank": 1,
+          "dense_score": 0.21207329642479367,
+          "knowledge_id": "human-hot-wheels-67-chevy-c10-hw-workshop-green",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "638e02dd-55c0-571a-b745-9ec910700fe2",
+          "matched_tokens": [
+            "c10",
+            "chevy"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-merge-aa499ddb791c6991",
+      "error": null,
+      "latency_ms": 3.901,
+      "query_text": "Chevy C10 from 1967 with orange paint and a creased hanger tab",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 17640,
+        "query_forms": 90,
+        "scored_forms": 246
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": "human-hot-wheels-subaru-brz",
+          "character_rank": 1,
+          "character_score": 1.0000000000000002,
+          "dense_rank": 2,
+          "dense_score": 0.15460108100897132,
+          "knowledge_id": "human-hot-wheels-subaru-brz-walmart-exclusive-zamac-walmart-exclusive",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "3accc048-4d73-541f-8863-90170fef463f",
+          "matched_tokens": [
+            "brz",
+            "subaru"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04891591750396616,
+          "sparse_rank": 1,
+          "sparse_score": 10.13392979129176
+        },
+        {
+          "casting_id": "human-hot-wheels-subaru-brat",
+          "character_rank": 2,
+          "character_score": 0.8407339715005929,
+          "dense_rank": 1,
+          "dense_score": 0.1567648495447791,
+          "knowledge_id": "human-hot-wheels-subaru-brat-hw-off-road-pearl-yellow-kmart-exclusive",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "c89257e3-9e9e-5340-b105-81a58987d4d6",
+          "matched_tokens": [
+            "subaru"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03252247488101534,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-ground-fx",
+          "character_rank": 3,
+          "character_score": 0.5084278184011141,
+          "dense_rank": 3,
+          "dense_score": 0.08268456673787913,
+          "knowledge_id": "human-hot-wheels-ground-fx-hot-wheels-disney",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "25f8c9d7-dba5-5a27-881d-63ff2840923f",
+          "matched_tokens": [],
+          "rrf_rank": 3,
+          "rrf_score": 0.031746031746031744,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-merge-b60363832032d566",
+      "error": null,
+      "latency_ms": 2.591583,
+      "query_text": "Subaru BRZ blue coupe found in garage cartons with scratched blister",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 3,
+        "dense_union": 3,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 11304,
+        "query_forms": 56,
+        "scored_forms": 254
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 2,
+          "character_score": 0.5057723885885801,
+          "dense_rank": 1,
+          "dense_score": 0.14709262627058445,
+          "knowledge_id": "fandom-family-b3cd4f5a5f7e196a",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "489e09ad-b7bf-5052-ab0b-1b70236c054a",
+          "matched_tokens": [
+            "racer"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03252247488101534,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.582589438911741,
+          "dense_rank": 2,
+          "dense_score": 0.08877935232369505,
+          "knowledge_id": "fandom-family-0573861db69878eb",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "e6a31104-98fb-5230-8163-2a585b99bfc4",
+          "matched_tokens": [],
+          "rrf_rank": 2,
+          "rrf_score": 0.03252247488101534,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-0573861db69878eb-lexical_variation",
+      "error": null,
+      "latency_ms": 0.88325,
+      "query_text": "maxstiel fantasy racer wanted",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 2,
+        "dense_union": 2,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 3194,
+        "query_forms": 20,
+        "scored_forms": 242
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0,
+          "dense_rank": 1,
+          "dense_score": 0.36539907432351754,
+          "knowledge_id": "fandom-family-0573861db69878eb",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "e6a31104-98fb-5230-8163-2a585b99bfc4",
+          "matched_tokens": [
+            "max",
+            "steel"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 10.539394899399923
+        },
+        {
+          "casting_id": null,
+          "character_rank": 2,
+          "character_score": 0.6657115984101086,
+          "dense_rank": 2,
+          "dense_score": 0.08627959628145762,
+          "knowledge_id": "fandom-family-c655fb5244c584ae",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "bda500e0-210b-5b19-a722-deacd97392f9",
+          "matched_tokens": [
+            "swap"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-0573861db69878eb-marketplace_noise",
+      "error": null,
+      "latency_ms": 2.792459,
+      "query_text": "Rear blister dent on blue Max Steel from weekend swap table",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 2,
+        "dense_union": 2,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 9783,
+        "query_forms": 72,
+        "scored_forms": 237
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.6946536813110841,
+          "dense_rank": 1,
+          "dense_score": 0.24614427089907262,
+          "knowledge_id": "fandom-family-08cb7fadb9fed12d",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "80496fc1-fbe8-59ea-b310-6cd63d806e64",
+          "matched_tokens": [
+            "jeep"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-08cb7fadb9fed12d-lexical_variation",
+      "error": null,
+      "latency_ms": 0.929125,
+      "query_text": "jeep wagonear eighty eight casting",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 2849,
+        "query_forms": 30,
+        "scored_forms": 202
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0000000000000002,
+          "dense_rank": 1,
+          "dense_score": 0.5182571321747,
+          "knowledge_id": "fandom-family-08cb7fadb9fed12d",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "80496fc1-fbe8-59ea-b310-6cd63d806e64",
+          "matched_tokens": [
+            "1988",
+            "jeep",
+            "wagoneer"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 15.809092349099885
+        },
+        {
+          "casting_id": "human-hot-wheels-ground-fx",
+          "character_rank": 2,
+          "character_score": 0.5084278184011141,
+          "dense_rank": 2,
+          "dense_score": 0.073835009047501,
+          "knowledge_id": "human-hot-wheels-ground-fx-hot-wheels-disney",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "25f8c9d7-dba5-5a27-881d-63ff2840923f",
+          "matched_tokens": [],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-08cb7fadb9fed12d-marketplace_noise",
+      "error": null,
+      "latency_ms": 4.051667,
+      "query_text": "Seller found 1988 Jeep Wagoneer under an old display stand",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 2,
+        "dense_union": 2,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 16601,
+        "query_forms": 90,
+        "scored_forms": 244
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.5552091796051272,
+          "dense_rank": 1,
+          "dense_score": 0.2713602101199873,
+          "knowledge_id": "fandom-family-1555c05ceeb491cb",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "b702a2cf-94be-5dd6-9382-a9daaace93e1",
+          "matched_tokens": [
+            "audi"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-1555c05ceeb491cb-lexical_variation",
+      "error": null,
+      "latency_ms": 0.766917,
+      "query_text": "audi rs-two avante 1994 estate",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 2560,
+        "query_forms": 30,
+        "scored_forms": 173
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.9999999999999999,
+          "dense_rank": 1,
+          "dense_score": 0.490361647617904,
+          "knowledge_id": "fandom-family-1555c05ceeb491cb",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "b702a2cf-94be-5dd6-9382-a9daaace93e1",
+          "matched_tokens": [
+            "94",
+            "audi",
+            "avant",
+            "rs2"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 20.673324690691683
+        }
+      ],
+      "case_id": "fr2-positive-1555c05ceeb491cb-marketplace_noise",
+      "error": null,
+      "latency_ms": 4.481166,
+      "query_text": "Silver 94 Audi Avant RS2 with price sticker across front window",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 20650,
+        "query_forms": 90,
+        "scored_forms": 254
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.7534844689006718,
+          "dense_rank": 1,
+          "dense_score": 0.5172693375482135,
+          "knowledge_id": "fandom-family-174efb9bce3a441e",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "63d66a4a-c106-5a18-b478-8b5ef572db39",
+          "matched_tokens": [],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-lamborghini-sesto-elemento",
+          "character_rank": 3,
+          "character_score": 0.5066175930073386,
+          "dense_rank": 2,
+          "dense_score": 0.2150368375800576,
+          "knowledge_id": "human-hot-wheels-lamborghini-sesto-elemento-mainline-hw-exotics",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "1448af9f-78d7-55fe-adf8-5e21df6ade73",
+          "matched_tokens": [],
+          "rrf_rank": 2,
+          "rrf_score": 0.03200204813108039,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-toyota-off-road-truck",
+          "character_rank": 2,
+          "character_score": 0.5489267017405005,
+          "dense_rank": 3,
+          "dense_score": 0.08774447989763352,
+          "knowledge_id": "human-hot-wheels-toyota-off-road-truck-silver-series-silver-series",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "59dee4d5-7426-5e97-aed3-2268ad55d691",
+          "matched_tokens": [],
+          "rrf_rank": 3,
+          "rrf_score": 0.03200204813108039,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-174efb9bce3a441e-lexical_variation",
+      "error": null,
+      "latency_ms": 1.086416,
+      "query_text": "lmborghini huracn sterratto offroader",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 3,
+        "dense_union": 3,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 4465,
+        "query_forms": 20,
+        "scored_forms": 249
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.8730069681041167,
+          "dense_rank": 1,
+          "dense_score": 0.5200970367573582,
+          "knowledge_id": "fandom-family-174efb9bce3a441e",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "63d66a4a-c106-5a18-b478-8b5ef572db39",
+          "matched_tokens": [
+            "lamborghini",
+            "sterrato"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-lamborghini-sesto-elemento",
+          "character_rank": 2,
+          "character_score": 0.6287545063591652,
+          "dense_rank": 2,
+          "dense_score": 0.06437091502552662,
+          "knowledge_id": "human-hot-wheels-lamborghini-sesto-elemento-mainline-hw-exotics",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "1448af9f-78d7-55fe-adf8-5e21df6ade73",
+          "matched_tokens": [
+            "lamborghini"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-174efb9bce3a441e-marketplace_noise",
+      "error": null,
+      "latency_ms": 3.623916,
+      "query_text": "Dusty orange Lamborghini Huracan Sterrato photographed beside its blister",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 2,
+        "dense_union": 2,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 16911,
+        "query_forms": 56,
+        "scored_forms": 268
+      }
+    },
+    {
+      "candidates": [],
+      "case_id": "fr2-positive-18e55e067083dbd1-lexical_variation",
+      "error": null,
+      "latency_ms": 0.914833,
+      "query_text": "audy quatrro eighty-seven rally miniature",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 0,
+        "dense_union": 0,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 3146,
+        "query_forms": 30,
+        "scored_forms": 205
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0,
+          "dense_rank": 1,
+          "dense_score": 0.3785359608864269,
+          "knowledge_id": "fandom-family-18e55e067083dbd1",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "76daff81-50f6-535a-afae-272d523347db",
+          "matched_tokens": [
+            "87",
+            "audi",
+            "quattro"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 15.403627240991721
+        }
+      ],
+      "case_id": "fr2-positive-18e55e067083dbd1-marketplace_noise",
+      "error": null,
+      "latency_ms": 5.427291,
+      "query_text": "87 Audi quattro has a bent hanger tab and silver paint flecks",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 22942,
+        "query_forms": 126,
+        "scored_forms": 258
+      }
+    },
+    {
+      "candidates": [],
+      "case_id": "fr2-positive-1b2a4227b4e5decd-lexical_variation",
+      "error": null,
+      "latency_ms": 0.951208,
+      "query_text": "mercedez five-hundred-E saloon",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 0,
+        "dense_union": 0,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 3419,
+        "query_forms": 30,
+        "scored_forms": 221
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.9999999999999999,
+          "dense_rank": 1,
+          "dense_score": 0.5015450017510207,
+          "knowledge_id": "fandom-family-1b2a4227b4e5decd",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "e81a61b9-2dbf-5254-a8dd-c083430928fd",
+          "matched_tokens": [
+            "500",
+            "benz",
+            "e",
+            "mercedes"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 19.16924729391541
+        },
+        {
+          "casting_id": "human-hot-wheels-mercedes-benz-sprinter",
+          "character_rank": 2,
+          "character_score": 0.753941222057298,
+          "dense_rank": 2,
+          "dense_score": 0.10296413980883701,
+          "knowledge_id": "human-hot-wheels-mercedes-benz-sprinter-car-culture-premium-deutschland-design",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "3c179714-b537-59e6-a954-82720906012d",
+          "matched_tokens": [
+            "benz",
+            "mercedes"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": null,
+          "character_rank": 3,
+          "character_score": 0.5909126511662932,
+          "dense_rank": 3,
+          "dense_score": 0.028071730702217298,
+          "knowledge_id": "fandom-family-85226ac5ac0d3f77",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "eeb124d9-93e6-5c63-9578-24e3f843df96",
+          "matched_tokens": [],
+          "rrf_rank": 3,
+          "rrf_score": 0.031746031746031744,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-1b2a4227b4e5decd-marketplace_noise",
+      "error": null,
+      "latency_ms": 4.625792,
+      "query_text": "Seller bundles black Mercedes Benz 500 E with an empty acrylic stand",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 3,
+        "dense_union": 3,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 20150,
+        "query_forms": 108,
+        "scored_forms": 251
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": "human-hot-wheels-hot-wheels-high",
+          "character_rank": 1,
+          "character_score": 0.9999999999999999,
+          "dense_rank": 3,
+          "dense_score": 0.08182159804475515,
+          "knowledge_id": "human-hot-wheels-hot-wheels-high-mainline-fast-transit-green",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "634900c9-6ac9-539b-b9af-75480440369e",
+          "matched_tokens": [
+            "high"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04865990111891751,
+          "sparse_rank": 1,
+          "sparse_score": 4.864232341591798
+        },
+        {
+          "casting_id": null,
+          "character_rank": 2,
+          "character_score": 0.8880925520402099,
+          "dense_rank": 1,
+          "dense_score": 0.7362120596141518,
+          "knowledge_id": "fandom-family-2357e7eb6b4e62b8",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "02ea4376-af58-5e61-8560-29c9ab3ef4a1",
+          "matched_tokens": [
+            "ghoul",
+            "high",
+            "monster"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03252247488101534,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": null,
+          "character_rank": 3,
+          "character_score": 0.5814318250206146,
+          "dense_rank": 2,
+          "dense_score": 0.10274936706584831,
+          "knowledge_id": "fandom-family-57cf5c31afbadc57",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "a8ac2a98-3a4d-51b8-8425-1fb8de67ec0a",
+          "matched_tokens": [],
+          "rrf_rank": 3,
+          "rrf_score": 0.03200204813108039,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-2357e7eb6b4e62b8-lexical_variation",
+      "error": null,
+      "latency_ms": 0.716542,
+      "query_text": "ghoul mobil from monster high",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 3,
+        "dense_union": 3,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 2684,
+        "query_forms": 20,
+        "scored_forms": 192
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0000000000000004,
+          "dense_rank": 1,
+          "dense_score": 0.5740646576733106,
+          "knowledge_id": "fandom-family-2357e7eb6b4e62b8",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "02ea4376-af58-5e61-8560-29c9ab3ef4a1",
+          "matched_tokens": [
+            "ghoul",
+            "high",
+            "mobile",
+            "monster"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 20.673324690691683
+        },
+        {
+          "casting_id": "human-hot-wheels-hot-wheels-high",
+          "character_rank": 2,
+          "character_score": 0.9999999999999999,
+          "dense_rank": 2,
+          "dense_score": 0.09864991199087864,
+          "knowledge_id": "human-hot-wheels-hot-wheels-high-mainline-fast-transit-green",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "634900c9-6ac9-539b-b9af-75480440369e",
+          "matched_tokens": [
+            "high"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.04838709677419355,
+          "sparse_rank": 2,
+          "sparse_score": 4.864232341591798
+        },
+        {
+          "casting_id": null,
+          "character_rank": 3,
+          "character_score": 0.5814318250206146,
+          "dense_rank": 3,
+          "dense_score": 0.026324906324632816,
+          "knowledge_id": "fandom-family-57cf5c31afbadc57",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "a8ac2a98-3a4d-51b8-8425-1fb8de67ec0a",
+          "matched_tokens": [],
+          "rrf_rank": 3,
+          "rrf_score": 0.031746031746031744,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-2357e7eb6b4e62b8-marketplace_noise",
+      "error": null,
+      "latency_ms": 5.917125,
+      "query_text": "Pink Monster High Ghoul Mobile shown outside packaging on a cloth",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 3,
+        "dense_union": 3,
+        "exact_candidates": 2,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 24398,
+        "query_forms": 126,
+        "scored_forms": 251
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.8160764829262416,
+          "dense_rank": 1,
+          "dense_score": 0.27519766100122484,
+          "knowledge_id": "fandom-family-356e4ef63275a661",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "9a6d9a47-4b73-57ff-984e-99e504ee587d",
+          "matched_tokens": [],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-356e4ef63275a661-lexical_variation",
+      "error": null,
+      "latency_ms": 1.05575,
+      "query_text": "fishd and chipd novelty casting",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 3851,
+        "query_forms": 30,
+        "scored_forms": 221
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0,
+          "dense_rank": 1,
+          "dense_score": 0.42061752286700554,
+          "knowledge_id": "fandom-family-356e4ef63275a661",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "9a6d9a47-4b73-57ff-984e-99e504ee587d",
+          "matched_tokens": [
+            "chip",
+            "d",
+            "fish"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 15.403627240991721
+        }
+      ],
+      "case_id": "fr2-positive-356e4ef63275a661-marketplace_noise",
+      "error": null,
+      "latency_ms": 3.971416,
+      "query_text": "Green Fish'd & Chip'd with shelf dust and a crumpled price tag",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 16197,
+        "query_forms": 106,
+        "scored_forms": 244
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.8374029463614986,
+          "dense_rank": 1,
+          "dense_score": 0.40662503039522213,
+          "knowledge_id": "fandom-family-39b248ce2f3723cd",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "8b784ccf-938c-593f-9926-df0b038dcfdd",
+          "matched_tokens": [
+            "gen"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": null,
+          "character_rank": 2,
+          "character_score": 0.7274247449793593,
+          "dense_rank": 2,
+          "dense_score": 0.16598500055174642,
+          "knowledge_id": "fandom-family-d5c83bb87be8cab0",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "ca29331e-5db5-5396-aa2b-02fadd13acec",
+          "matched_tokens": [],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-39b248ce2f3723cd-lexical_variation",
+      "error": null,
+      "latency_ms": 0.996208,
+      "query_text": "twinmil gen-ee electric concept",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 2,
+        "dense_union": 2,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 3355,
+        "query_forms": 30,
+        "scored_forms": 209
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0,
+          "dense_rank": 1,
+          "dense_score": 0.4057984286223453,
+          "knowledge_id": "fandom-family-39b248ce2f3723cd",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "8b784ccf-938c-593f-9926-df0b038dcfdd",
+          "matched_tokens": [
+            "e",
+            "gen",
+            "mill",
+            "twin"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 19.57471240202357
+        },
+        {
+          "casting_id": null,
+          "character_rank": 2,
+          "character_score": 0.7761345725830853,
+          "dense_rank": 2,
+          "dense_score": 0.28419928002940253,
+          "knowledge_id": "fandom-family-d5c83bb87be8cab0",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "ca29331e-5db5-5396-aa2b-02fadd13acec",
+          "matched_tokens": [
+            "mill",
+            "twin"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-39b248ce2f3723cd-marketplace_noise",
+      "error": null,
+      "latency_ms": 5.011334,
+      "query_text": "Twin Mill Gen-E silver paint photographed on the seller's desk",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 2,
+        "dense_union": 2,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 23468,
+        "query_forms": 108,
+        "scored_forms": 258
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.9999999999999999,
+          "dense_rank": 1,
+          "dense_score": 0.42813395485371547,
+          "knowledge_id": "fandom-family-3c9f928f085efaae",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "6dac43c2-e013-53d7-a22d-60829a90edb4",
+          "matched_tokens": [
+            "kart"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": null,
+          "character_rank": 2,
+          "character_score": 0.5057723885885801,
+          "dense_rank": 2,
+          "dense_score": 0.25368079688239686,
+          "knowledge_id": "fandom-family-b3cd4f5a5f7e196a",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "489e09ad-b7bf-5052-ab0b-1b70236c054a",
+          "matched_tokens": [
+            "racer"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-3c9f928f085efaae-lexical_variation",
+      "error": null,
+      "latency_ms": 0.397083,
+      "query_text": "kickkart kart racer miniature",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 2,
+        "dense_union": 2,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 1139,
+        "query_forms": 12,
+        "scored_forms": 192
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.9999999999999999,
+          "dense_rank": 1,
+          "dense_score": 0.28327582609050056,
+          "knowledge_id": "fandom-family-3c9f928f085efaae",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "6dac43c2-e013-53d7-a22d-60829a90edb4",
+          "matched_tokens": [
+            "kart",
+            "kick"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 10.539394899399923
+        },
+        {
+          "casting_id": null,
+          "character_rank": 3,
+          "character_score": 0.5057723885885801,
+          "dense_rank": 2,
+          "dense_score": 0.1709082268152331,
+          "knowledge_id": "fandom-family-b3cd4f5a5f7e196a",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "489e09ad-b7bf-5052-ab0b-1b70236c054a",
+          "matched_tokens": [
+            "racer"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03200204813108039,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": null,
+          "character_rank": 2,
+          "character_score": 0.5105313487613283,
+          "dense_rank": 3,
+          "dense_score": 0.012135707849456653,
+          "knowledge_id": "fandom-family-440103f8ef3c6b70",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "6ba4fb4a-beb8-5315-a1a9-a81ae1b2869e",
+          "matched_tokens": [],
+          "rrf_rank": 3,
+          "rrf_score": 0.03200204813108039,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-3c9f928f085efaae-marketplace_noise",
+      "error": null,
+      "latency_ms": 4.526791,
+      "query_text": "Kick Kart yellow fantasy racer with shop stamp on cardboard back",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 3,
+        "dense_union": 3,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 19453,
+        "query_forms": 90,
+        "scored_forms": 262
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.763892726218333,
+          "dense_rank": 1,
+          "dense_score": 0.5855400437691199,
+          "knowledge_id": "fandom-family-440103f8ef3c6b70",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "6ba4fb4a-beb8-5315-a1a9-a81ae1b2869e",
+          "matched_tokens": [],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-440103f8ef3c6b70-lexical_variation",
+      "error": null,
+      "latency_ms": 0.494625,
+      "query_text": "hawlerback hauler casting",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 1669,
+        "query_forms": 12,
+        "scored_forms": 216
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0,
+          "dense_rank": 1,
+          "dense_score": 0.3972400679598862,
+          "knowledge_id": "fandom-family-440103f8ef3c6b70",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "6ba4fb4a-beb8-5315-a1a9-a81ae1b2869e",
+          "matched_tokens": [
+            "haulerback"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 5.269697449699962
+        }
+      ],
+      "case_id": "fr2-positive-440103f8ef3c6b70-marketplace_noise",
+      "error": null,
+      "latency_ms": 3.011584,
+      "query_text": "Haulerback purple truck pulled from a dusty cabinet after moving house",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 13025,
+        "query_forms": 72,
+        "scored_forms": 241
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.8178049869270934,
+          "dense_rank": 1,
+          "dense_score": 0.5516087657948691,
+          "knowledge_id": "fandom-family-45af5b93f3f6650f",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "bd871995-1ec2-5b3d-a50d-acbcb0d09693",
+          "matched_tokens": [
+            "cadillac"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-1935-cadillac",
+          "character_rank": 2,
+          "character_score": 0.7183366717666704,
+          "dense_rank": 2,
+          "dense_score": 0.24713829397626363,
+          "knowledge_id": "human-hot-wheels-1935-cadillac-mainline-gold",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "83cf0482-3798-52b1-8048-425a2eefe663",
+          "matched_tokens": [
+            "cadillac"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-45af5b93f3f6650f-lexical_variation",
+      "error": null,
+      "latency_ms": 0.812917,
+      "query_text": "cust Cadillac Fleetwod lowrider",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 2,
+        "dense_union": 2,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 3177,
+        "query_forms": 20,
+        "scored_forms": 216
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0000000000000004,
+          "dense_rank": 1,
+          "dense_score": 0.5725983343138682,
+          "knowledge_id": "fandom-family-45af5b93f3f6650f",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "bd871995-1ec2-5b3d-a50d-acbcb0d09693",
+          "matched_tokens": [
+            "cadillac",
+            "custom",
+            "fleetwood"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 14.305014952323612
+        },
+        {
+          "casting_id": "human-hot-wheels-1935-cadillac",
+          "character_rank": 2,
+          "character_score": 0.7183366717666704,
+          "dense_rank": 2,
+          "dense_score": 0.1579635391344156,
+          "knowledge_id": "human-hot-wheels-1935-cadillac-mainline-gold",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "83cf0482-3798-52b1-8048-425a2eefe663",
+          "matched_tokens": [
+            "cadillac"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": null,
+          "character_rank": 3,
+          "character_score": 0.5727953066519376,
+          "dense_rank": 3,
+          "dense_score": 0.13968605915391563,
+          "knowledge_id": "fandom-family-fd96307f2dc8b421",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "f0d4f80f-107f-5ab0-86a5-191af39a30de",
+          "matched_tokens": [
+            "custom"
+          ],
+          "rrf_rank": 3,
+          "rrf_score": 0.031746031746031744,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-custom-18-ford-mustang-gt",
+          "character_rank": 4,
+          "character_score": 0.5335922849313794,
+          "dense_rank": 4,
+          "dense_score": 0.11703112783668096,
+          "knowledge_id": "human-hot-wheels-custom-18-ford-mustang-gt-mainline-blue",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "7385f165-e9d2-5eb8-958c-3016a323f08c",
+          "matched_tokens": [
+            "custom"
+          ],
+          "rrf_rank": 4,
+          "rrf_score": 0.03125,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-45af5b93f3f6650f-marketplace_noise",
+      "error": null,
+      "latency_ms": 6.839834,
+      "query_text": "Gold Custom Cadillac Fleetwood has rubbed corners on its backing card",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 4,
+        "dense_union": 4,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 31856,
+        "query_forms": 126,
+        "scored_forms": 264
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.9448354110718361,
+          "dense_rank": 1,
+          "dense_score": 0.4964928255427974,
+          "knowledge_id": "fandom-family-4bf5341a133d433b",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "8f8ccc44-46e2-5425-b019-3d4bf4362b4e",
+          "matched_tokens": [
+            "hirohata"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": null,
+          "character_rank": 2,
+          "character_score": 0.5727953066519376,
+          "dense_rank": 2,
+          "dense_score": 0.3075992936981482,
+          "knowledge_id": "fandom-family-fd96307f2dc8b421",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "f0d4f80f-107f-5ab0-86a5-191af39a30de",
+          "matched_tokens": [
+            "custom"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-custom-18-ford-mustang-gt",
+          "character_rank": 3,
+          "character_score": 0.5335922849313794,
+          "dense_rank": 3,
+          "dense_score": 0.17008953533131507,
+          "knowledge_id": "human-hot-wheels-custom-18-ford-mustang-gt-mainline-blue",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "7385f165-e9d2-5eb8-958c-3016a323f08c",
+          "matched_tokens": [
+            "custom"
+          ],
+          "rrf_rank": 3,
+          "rrf_score": 0.031746031746031744,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-4bf5341a133d433b-lexical_variation",
+      "error": null,
+      "latency_ms": 0.862166,
+      "query_text": "hirohata merck custom coupe",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 3,
+        "dense_union": 3,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 3574,
+        "query_forms": 20,
+        "scored_forms": 237
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0000000000000002,
+          "dense_rank": 1,
+          "dense_score": 0.36854868854485945,
+          "knowledge_id": "fandom-family-4bf5341a133d433b",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "8f8ccc44-46e2-5425-b019-3d4bf4362b4e",
+          "matched_tokens": [
+            "hirohata",
+            "merc"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 10.539394899399923
+        },
+        {
+          "casting_id": null,
+          "character_rank": 2,
+          "character_score": 0.681370887404004,
+          "dense_rank": 2,
+          "dense_score": 0.08627959628145762,
+          "knowledge_id": "fandom-family-c655fb5244c584ae",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "bda500e0-210b-5b19-a722-deacd97392f9",
+          "matched_tokens": [
+            "swap"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-4bf5341a133d433b-marketplace_noise",
+      "error": null,
+      "latency_ms": 3.402209,
+      "query_text": "Teal Hirohata Merc with scratched blister offered at a toy swap",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 2,
+        "dense_union": 2,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 14642,
+        "query_forms": 72,
+        "scored_forms": 256
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.8446860590581523,
+          "dense_rank": 1,
+          "dense_score": 0.446748474629964,
+          "knowledge_id": "fandom-family-4d00e96d12341b4d",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "a79ec2e1-a65e-5c1a-8706-d3792e4d3100",
+          "matched_tokens": [
+            "hammer"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-4d00e96d12341b4d-lexical_variation",
+      "error": null,
+      "latency_ms": 0.496375,
+      "query_text": "nervehamer fantasy hammer car",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 1762,
+        "query_forms": 12,
+        "scored_forms": 200
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0000000000000002,
+          "dense_rank": 1,
+          "dense_score": 0.37776797469960677,
+          "knowledge_id": "fandom-family-4d00e96d12341b4d",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "a79ec2e1-a65e-5c1a-8706-d3792e4d3100",
+          "matched_tokens": [
+            "hammer",
+            "nerve"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 10.539394899399923
+        }
+      ],
+      "case_id": "fr2-positive-4d00e96d12341b4d-marketplace_noise",
+      "error": null,
+      "latency_ms": 2.385917,
+      "query_text": "Orange Nerve Hammer pictured with a torn receipt beneath the stand",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 10021,
+        "query_forms": 56,
+        "scored_forms": 257
+      }
+    },
+    {
+      "candidates": [],
+      "case_id": "fr2-positive-4d2de6db3d5bba63-lexical_variation",
+      "error": null,
+      "latency_ms": 0.693667,
+      "query_text": "crecsendo music inspired casting",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 0,
+        "dense_union": 0,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 2442,
+        "query_forms": 20,
+        "scored_forms": 215
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0,
+          "dense_rank": 1,
+          "dense_score": 0.2652741419180738,
+          "knowledge_id": "fandom-family-4d2de6db3d5bba63",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "35fb8efc-6a08-5119-9db0-81b17945b0a9",
+          "matched_tokens": [
+            "crescendo"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 5.269697449699962
+        }
+      ],
+      "case_id": "fr2-positive-4d2de6db3d5bba63-marketplace_noise",
+      "error": null,
+      "latency_ms": 2.120292,
+      "query_text": "Red Crescendo music car in a cloudy blister with faded shop sticker",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 8334,
+        "query_forms": 56,
+        "scored_forms": 250
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.6544147263315763,
+          "dense_rank": 1,
+          "dense_score": 0.40980057093238403,
+          "knowledge_id": "fandom-family-526b697937fde7cc",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "aba0fed4-3be9-5964-9e24-19eaf025d6a2",
+          "matched_tokens": [
+            "el"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-526b697937fde7cc-lexical_variation",
+      "error": null,
+      "latency_ms": 0.531917,
+      "query_text": "1980 el camno pickup casting",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 1610,
+        "query_forms": 20,
+        "scored_forms": 178
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0000000000000002,
+          "dense_rank": 1,
+          "dense_score": 0.3819279328210308,
+          "knowledge_id": "fandom-family-526b697937fde7cc",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "aba0fed4-3be9-5964-9e24-19eaf025d6a2",
+          "matched_tokens": [
+            "80",
+            "camino",
+            "el"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 15.809092349099885
+        }
+      ],
+      "case_id": "fr2-positive-526b697937fde7cc-marketplace_noise",
+      "error": null,
+      "latency_ms": 3.638625,
+      "query_text": "80 El Camino black pickup from garage collection; hanger tab creased",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 17376,
+        "query_forms": 72,
+        "scored_forms": 255
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.8871639312943539,
+          "dense_rank": 1,
+          "dense_score": 0.5037397678898835,
+          "knowledge_id": "fandom-family-57cf5c31afbadc57",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "a8ac2a98-3a4d-51b8-8425-1fb8de67ec0a",
+          "matched_tokens": [],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-57cf5c31afbadc57-lexical_variation",
+      "error": null,
+      "latency_ms": 0.430625,
+      "query_text": "the vansterr fantasy van",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 1535,
+        "query_forms": 12,
+        "scored_forms": 185
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0000000000000002,
+          "dense_rank": 1,
+          "dense_score": 0.39431120199741965,
+          "knowledge_id": "fandom-family-57cf5c31afbadc57",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "a8ac2a98-3a4d-51b8-8425-1fb8de67ec0a",
+          "matched_tokens": [
+            "vanster"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 5.269697449699962
+        }
+      ],
+      "case_id": "fr2-positive-57cf5c31afbadc57-marketplace_noise",
+      "error": null,
+      "latency_ms": 3.032041,
+      "query_text": "Green The Vanster with loose axle photographed at a flea-market stall",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 12821,
+        "query_forms": 72,
+        "scored_forms": 262
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.8316456283108742,
+          "dense_rank": 1,
+          "dense_score": 0.36426712970216085,
+          "knowledge_id": "fandom-family-59e5682e50af879e",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "a8007ff3-fcd1-5c69-b132-f38d380d1490",
+          "matched_tokens": [
+            "proton"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-59e5682e50af879e-lexical_variation",
+      "error": null,
+      "latency_ms": 0.818708,
+      "query_text": "proton sagga malaysian saloon",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 2940,
+        "query_forms": 20,
+        "scored_forms": 233
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0,
+          "dense_rank": 1,
+          "dense_score": 0.3664228899314756,
+          "knowledge_id": "fandom-family-59e5682e50af879e",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "a8007ff3-fcd1-5c69-b132-f38d380d1490",
+          "matched_tokens": [
+            "proton",
+            "saga"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 10.539394899399923
+        },
+        {
+          "casting_id": null,
+          "character_rank": 2,
+          "character_score": 0.5063579604635988,
+          "dense_rank": 2,
+          "dense_score": 0.0843312289034136,
+          "knowledge_id": "fandom-family-356e4ef63275a661",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "9a6d9a47-4b73-57ff-984e-99e504ee587d",
+          "matched_tokens": [
+            "chip"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-59e5682e50af879e-marketplace_noise",
+      "error": null,
+      "latency_ms": 3.243,
+      "query_text": "White Proton Saga from storage tub; paint has a tiny roof chip",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 2,
+        "dense_union": 2,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 12003,
+        "query_forms": 90,
+        "scored_forms": 236
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.8357701092869381,
+          "dense_rank": 1,
+          "dense_score": 0.43759497449368356,
+          "knowledge_id": "fandom-family-7e221ec8ecd02815",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "47128b94-3d78-5f67-bce1-d8916db74369",
+          "matched_tokens": [
+            "landspeeder",
+            "x"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-7e221ec8ecd02815-lexical_variation",
+      "error": null,
+      "latency_ms": 0.654208,
+      "query_text": "x thirty-four landspeeder vehicle",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 2267,
+        "query_forms": 20,
+        "scored_forms": 215
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.9999999999999999,
+          "dense_rank": 1,
+          "dense_score": 0.47059496408717016,
+          "knowledge_id": "fandom-family-7e221ec8ecd02815",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "47128b94-3d78-5f67-bce1-d8916db74369",
+          "matched_tokens": [
+            "34",
+            "landspeeder",
+            "x"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 14.89280161722573
+        }
+      ],
+      "case_id": "fr2-positive-7e221ec8ecd02815-marketplace_noise",
+      "error": null,
+      "latency_ms": 6.179459,
+      "query_text": "Tan X-34 Landspeeder Star Wars toy beside a handwritten price label",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 27828,
+        "query_forms": 126,
+        "scored_forms": 255
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.9132809579337176,
+          "dense_rank": 1,
+          "dense_score": 0.2990284090483534,
+          "knowledge_id": "fandom-family-85226ac5ac0d3f77",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "eeb124d9-93e6-5c63-9578-24e3f843df96",
+          "matched_tokens": [
+            "fiat"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-switchback",
+          "character_rank": 2,
+          "character_score": 0.6726787471622786,
+          "dense_rank": 2,
+          "dense_score": 0.12076147288491197,
+          "knowledge_id": "human-hot-wheels-switchback-first-editions-orange",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "ddb6132e-e724-5d17-a3e4-a84fc6cba424",
+          "matched_tokens": [],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-85226ac5ac0d3f77-lexical_variation",
+      "error": null,
+      "latency_ms": 0.967959,
+      "query_text": "fiat 500 ee electric hatchback",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 2,
+        "dense_union": 2,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 3107,
+        "query_forms": 30,
+        "scored_forms": 198
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0000000000000002,
+          "dense_rank": 1,
+          "dense_score": 0.3299831645537221,
+          "knowledge_id": "fandom-family-85226ac5ac0d3f77",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "eeb124d9-93e6-5c63-9578-24e3f843df96",
+          "matched_tokens": [
+            "500e",
+            "fiat"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 10.539394899399923
+        }
+      ],
+      "case_id": "fr2-positive-85226ac5ac0d3f77-marketplace_noise",
+      "error": null,
+      "latency_ms": 4.145625,
+      "query_text": "Yellow Fiat 500e has crushed packaging near the lower right corner",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 17174,
+        "query_forms": 90,
+        "scored_forms": 260
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0,
+          "dense_rank": 1,
+          "dense_score": 0.5539117094069972,
+          "knowledge_id": "fandom-family-85e407525ac7bf41",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "c68064b7-3d3c-552f-a238-caf3ae2d426c",
+          "matched_tokens": [
+            "bloc"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 5.269697449699962
+        }
+      ],
+      "case_id": "fr2-positive-85e407525ac7bf41-lexical_variation",
+      "error": null,
+      "latency_ms": 0.626667,
+      "query_text": "smal bloc fantasy smallblock",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 1802,
+        "query_forms": 20,
+        "scored_forms": 201
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0,
+          "dense_rank": 1,
+          "dense_score": 0.4431639910649346,
+          "knowledge_id": "fandom-family-85e407525ac7bf41",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "c68064b7-3d3c-552f-a238-caf3ae2d426c",
+          "matched_tokens": [
+            "bloc"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 5.269697449699962
+        }
+      ],
+      "case_id": "fr2-positive-85e407525ac7bf41-marketplace_noise",
+      "error": null,
+      "latency_ms": 2.505125,
+      "query_text": "Blue Small Bloc with rubbed roof; seller cannot locate original blister",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 10338,
+        "query_forms": 56,
+        "scored_forms": 255
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0000000000000002,
+          "dense_rank": 1,
+          "dense_score": 0.38724105467742453,
+          "knowledge_id": "fandom-family-89930c384be2e8bf",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "bcd60a59-9498-5cda-b422-9c4508de1834",
+          "matched_tokens": [],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": null,
+          "character_rank": 2,
+          "character_score": 0.5727953066519376,
+          "dense_rank": 2,
+          "dense_score": 0.2605158436103344,
+          "knowledge_id": "fandom-family-fd96307f2dc8b421",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "f0d4f80f-107f-5ab0-86a5-191af39a30de",
+          "matched_tokens": [
+            "custom"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": null,
+          "character_rank": 3,
+          "character_score": 0.536507517886162,
+          "dense_rank": 3,
+          "dense_score": 0.20567735105731827,
+          "knowledge_id": "fandom-family-57cf5c31afbadc57",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "a8ac2a98-3a4d-51b8-8425-1fb8de67ec0a",
+          "matched_tokens": [],
+          "rrf_rank": 3,
+          "rrf_score": 0.031746031746031744,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-custom-18-ford-mustang-gt",
+          "character_rank": 4,
+          "character_score": 0.5335922849313794,
+          "dense_rank": 4,
+          "dense_score": 0.1800679475454615,
+          "knowledge_id": "human-hot-wheels-custom-18-ford-mustang-gt-mainline-blue",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "7385f165-e9d2-5eb8-958c-3016a323f08c",
+          "matched_tokens": [
+            "custom"
+          ],
+          "rrf_rank": 4,
+          "rrf_score": 0.03125,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-89930c384be2e8bf-lexical_variation",
+      "error": null,
+      "latency_ms": 1.235625,
+      "query_text": "kowloond hyper-van custom van",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 4,
+        "dense_union": 4,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 5006,
+        "query_forms": 28,
+        "scored_forms": 234
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0000000000000002,
+          "dense_rank": 1,
+          "dense_score": 0.48294528841629514,
+          "knowledge_id": "fandom-family-89930c384be2e8bf",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "bcd60a59-9498-5cda-b422-9c4508de1834",
+          "matched_tokens": [
+            "d",
+            "hypervan",
+            "kowloon"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 15.403627240991721
+        },
+        {
+          "casting_id": null,
+          "character_rank": 2,
+          "character_score": 0.5105313487613283,
+          "dense_rank": 2,
+          "dense_score": -0.02857142857142857,
+          "knowledge_id": "fandom-family-440103f8ef3c6b70",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "6ba4fb4a-beb8-5315-a1a9-a81ae1b2869e",
+          "matched_tokens": [],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-89930c384be2e8bf-marketplace_noise",
+      "error": null,
+      "latency_ms": 3.22375,
+      "query_text": "Red Kowloon'd Hypervan from display cabinet; price sticker left on back",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 2,
+        "dense_union": 2,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 14677,
+        "query_forms": 72,
+        "scored_forms": 245
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.930305267331686,
+          "dense_rank": 1,
+          "dense_score": 0.3719924439802217,
+          "knowledge_id": "fandom-family-8a07157f2af2ddd5",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "da4e3339-1ace-5689-acd8-720161aea455",
+          "matched_tokens": [],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": null,
+          "character_rank": 3,
+          "character_score": 0.5057723885885801,
+          "dense_rank": 2,
+          "dense_score": 0.29300265602685543,
+          "knowledge_id": "fandom-family-b3cd4f5a5f7e196a",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "489e09ad-b7bf-5052-ab0b-1b70236c054a",
+          "matched_tokens": [
+            "racer"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03200204813108039,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": null,
+          "character_rank": 2,
+          "character_score": 0.5814318250206146,
+          "dense_rank": 3,
+          "dense_score": 0.21022093494735197,
+          "knowledge_id": "fandom-family-57cf5c31afbadc57",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "a8ac2a98-3a4d-51b8-8425-1fb8de67ec0a",
+          "matched_tokens": [],
+          "rrf_rank": 3,
+          "rrf_score": 0.03200204813108039,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-8a07157f2af2ddd5-lexical_variation",
+      "error": null,
+      "latency_ms": 0.594375,
+      "query_text": "bogzillla monster racer miniature",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 3,
+        "dense_union": 3,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 2271,
+        "query_forms": 12,
+        "scored_forms": 233
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.9999999999999998,
+          "dense_rank": 1,
+          "dense_score": 0.24333213169614376,
+          "knowledge_id": "fandom-family-8a07157f2af2ddd5",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "da4e3339-1ace-5689-acd8-720161aea455",
+          "matched_tokens": [
+            "bogzilla"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 5.269697449699962
+        },
+        {
+          "casting_id": null,
+          "character_rank": 2,
+          "character_score": 0.5057723885885801,
+          "dense_rank": 2,
+          "dense_score": 0.10221994134545731,
+          "knowledge_id": "fandom-family-b3cd4f5a5f7e196a",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "489e09ad-b7bf-5052-ab0b-1b70236c054a",
+          "matched_tokens": [
+            "racer"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-8a07157f2af2ddd5-marketplace_noise",
+      "error": null,
+      "latency_ms": 3.042958,
+      "query_text": "Bogzilla green creature racer shown next to a cracked protective case",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 2,
+        "dense_union": 2,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 13258,
+        "query_forms": 72,
+        "scored_forms": 248
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.8550411900320705,
+          "dense_rank": 1,
+          "dense_score": 0.5053986957192689,
+          "knowledge_id": "fandom-family-8cce01fa7d44112a",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "f5c60f52-ed72-5293-aec9-82b6d9c7e87f",
+          "matched_tokens": [
+            "iii"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-surf-crate",
+          "character_rank": 2,
+          "character_score": 0.5797157458227827,
+          "dense_rank": 2,
+          "dense_score": 0.10235611910217725,
+          "knowledge_id": "human-hot-wheels-surf-crate-mainline-2000-first-editions-2000-first-editions",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "011b7e08-cce0-5b59-92b4-e2115d4c2032",
+          "matched_tokens": [
+            "surf"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-8cce01fa7d44112a-lexical_variation",
+      "error": null,
+      "latency_ms": 0.702875,
+      "query_text": "deorra iii surf concept",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 2,
+        "dense_union": 2,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 2031,
+        "query_forms": 20,
+        "scored_forms": 217
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0000000000000004,
+          "dense_rank": 1,
+          "dense_score": 0.32503185468271484,
+          "knowledge_id": "fandom-family-8cce01fa7d44112a",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "f5c60f52-ed72-5293-aec9-82b6d9c7e87f",
+          "matched_tokens": [
+            "deora",
+            "iii"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 10.539394899399923
+        }
+      ],
+      "case_id": "fr2-positive-8cce01fa7d44112a-marketplace_noise",
+      "error": null,
+      "latency_ms": 2.992709,
+      "query_text": "Purple Deora III with a shop security label covering the collector art",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 12289,
+        "query_forms": 72,
+        "scored_forms": 256
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.7222659625578185,
+          "dense_rank": 1,
+          "dense_score": 0.4249584457210853,
+          "knowledge_id": "fandom-family-9069156ec909a92e",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "45ec7b42-3fb8-5d54-a222-695b3b62d218",
+          "matched_tokens": [
+            "drifter"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-9069156ec909a92e-lexical_variation",
+      "error": null,
+      "latency_ms": 0.426208,
+      "query_text": "doughnut drifter pastry car",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 1331,
+        "query_forms": 12,
+        "scored_forms": 181
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0000000000000004,
+          "dense_rank": 1,
+          "dense_score": 0.3908736291420343,
+          "knowledge_id": "fandom-family-9069156ec909a92e",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "45ec7b42-3fb8-5d54-a222-695b3b62d218",
+          "matched_tokens": [
+            "donut",
+            "drifter"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 10.539394899399923
+        }
+      ],
+      "case_id": "fr2-positive-9069156ec909a92e-marketplace_noise",
+      "error": null,
+      "latency_ms": 6.793333,
+      "query_text": "Pink Donut Drifter with bent card edges photographed on a kitchen cloth",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 31313,
+        "query_forms": 126,
+        "scored_forms": 272
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.7875626012077609,
+          "dense_rank": 1,
+          "dense_score": 0.6737079885844117,
+          "knowledge_id": "fandom-family-99200212d1475ef2",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "b79039a5-c724-57d2-8553-c66f40c2dd8e",
+          "matched_tokens": [
+            "2020",
+            "ram",
+            "rebel"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-99200212d1475ef2-lexical_variation",
+      "error": null,
+      "latency_ms": 1.211167,
+      "query_text": "2020 ram 15 hundred rebel truck",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 4035,
+        "query_forms": 42,
+        "scored_forms": 197
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.9999999999999999,
+          "dense_rank": 1,
+          "dense_score": 0.5077595834491955,
+          "knowledge_id": "fandom-family-99200212d1475ef2",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "b79039a5-c724-57d2-8553-c66f40c2dd8e",
+          "matched_tokens": [
+            "1500",
+            "2020",
+            "ram",
+            "rebel"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 20.673324690691683
+        }
+      ],
+      "case_id": "fr2-positive-99200212d1475ef2-marketplace_noise",
+      "error": null,
+      "latency_ms": 2.729208,
+      "query_text": "2020 Ram 1500 Rebel pickup from seller's cabinet; dusty but boxed",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 11987,
+        "query_forms": 72,
+        "scored_forms": 236
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.8941870339757069,
+          "dense_rank": 1,
+          "dense_score": 0.6847025572648447,
+          "knowledge_id": "fandom-family-a1b198f7d235f778",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "f7fa5052-cef7-59e4-b861-86367745300c",
+          "matched_tokens": [
+            "ford",
+            "performance"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": null,
+          "character_rank": 2,
+          "character_score": 0.5057723885885801,
+          "dense_rank": 2,
+          "dense_score": 0.25699702648129424,
+          "knowledge_id": "fandom-family-b3cd4f5a5f7e196a",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "489e09ad-b7bf-5052-ab0b-1b70236c054a",
+          "matched_tokens": [
+            "racer"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-a1b198f7d235f778-lexical_variation",
+      "error": null,
+      "latency_ms": 1.363833,
+      "query_text": "ford performance supervn iv racer",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 2,
+        "dense_union": 2,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 6300,
+        "query_forms": 30,
+        "scored_forms": 238
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0000000000000002,
+          "dense_rank": 1,
+          "dense_score": 0.6623024660960971,
+          "knowledge_id": "fandom-family-a1b198f7d235f778",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "f7fa5052-cef7-59e4-b861-86367745300c",
+          "matched_tokens": [
+            "4",
+            "ford",
+            "performance",
+            "supervan"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 18.65842167014942
+        }
+      ],
+      "case_id": "fr2-positive-a1b198f7d235f778-marketplace_noise",
+      "error": null,
+      "latency_ms": 4.671666,
+      "query_text": "White Ford Performance SuperVan 4 offered with a damaged acrylic stand",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 21409,
+        "query_forms": 90,
+        "scored_forms": 257
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.928153874931308,
+          "dense_rank": 1,
+          "dense_score": 0.5311249042474339,
+          "knowledge_id": "fandom-family-a2097eead3bd8db9",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "b1fef4ef-65ec-5136-b015-7ec8fcf88618",
+          "matched_tokens": [
+            "buick",
+            "riviera"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-a2097eead3bd8db9-lexical_variation",
+      "error": null,
+      "latency_ms": 0.738834,
+      "query_text": "1966 buick riviera coupe miniature",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 2939,
+        "query_forms": 20,
+        "scored_forms": 217
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.9999999999999998,
+          "dense_rank": 1,
+          "dense_score": 0.40011084938552827,
+          "knowledge_id": "fandom-family-a2097eead3bd8db9",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "b1fef4ef-65ec-5136-b015-7ec8fcf88618",
+          "matched_tokens": [
+            "66",
+            "buick",
+            "riviera"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 15.809092349099885
+        }
+      ],
+      "case_id": "fr2-positive-a2097eead3bd8db9-marketplace_noise",
+      "error": null,
+      "latency_ms": 4.57875,
+      "query_text": "66 Buick Riviera teal paint under cloudy blister; seller notes shelf wear",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 20385,
+        "query_forms": 90,
+        "scored_forms": 255
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.6718215880602125,
+          "dense_rank": 1,
+          "dense_score": 0.21656228851349335,
+          "knowledge_id": "fandom-family-a8e0dec4abdc4131",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "689d5988-ede3-5627-8cc9-13fe6c7ade95",
+          "matched_tokens": [
+            "dmc"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-a8e0dec4abdc4131-lexical_variation",
+      "error": null,
+      "latency_ms": 1.103084,
+      "query_text": "dmc de-lorien stainless coupe",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 4460,
+        "query_forms": 30,
+        "scored_forms": 216
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0,
+          "dense_rank": 1,
+          "dense_score": 0.3760591579229251,
+          "knowledge_id": "fandom-family-a8e0dec4abdc4131",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "689d5988-ede3-5627-8cc9-13fe6c7ade95",
+          "matched_tokens": [
+            "delorean",
+            "dmc"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 10.539394899399923
+        },
+        {
+          "casting_id": "human-hot-wheels-ground-fx",
+          "character_rank": 2,
+          "character_score": 0.5084278184011141,
+          "dense_rank": 2,
+          "dense_score": 0.01966067518056993,
+          "knowledge_id": "human-hot-wheels-ground-fx-hot-wheels-disney",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "25f8c9d7-dba5-5a27-881d-63ff2840923f",
+          "matched_tokens": [],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-a8e0dec4abdc4131-marketplace_noise",
+      "error": null,
+      "latency_ms": 3.547333,
+      "query_text": "Silver DMC DeLorean found in moving cartons with no paper receipt",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 2,
+        "dense_union": 2,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 15458,
+        "query_forms": 72,
+        "scored_forms": 264
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.8209760007753615,
+          "dense_rank": 1,
+          "dense_score": 0.5739440431835514,
+          "knowledge_id": "fandom-family-aaafff57ac4d4daa",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "308c4fe4-bd38-5597-817e-2b1352716801",
+          "matched_tokens": [
+            "3",
+            "morgan"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-toyota-supra",
+          "character_rank": 2,
+          "character_score": 0.5126743923636551,
+          "dense_rank": 3,
+          "dense_score": 0.08939981748151896,
+          "knowledge_id": "human-hot-wheels-toyota-supra-mainline-fast-furious",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "15713c2d-9ac3-5a7f-96a0-3acf9ff1f394",
+          "matched_tokens": [],
+          "rrf_rank": 2,
+          "rrf_score": 0.03200204813108039,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-toyota-supra",
+          "character_rank": 3,
+          "character_score": 0.5126743923636551,
+          "dense_rank": 2,
+          "dense_score": 0.11169901989026572,
+          "knowledge_id": "human-hot-wheels-toyota-supra-hot-wheels-xl-xl-greddy",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "62efa870-7aff-5807-8beb-71a69af113ec",
+          "matched_tokens": [],
+          "rrf_rank": 3,
+          "rrf_score": 0.03200204813108039,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-aaafff57ac4d4daa-lexical_variation",
+      "error": null,
+      "latency_ms": 0.952083,
+      "query_text": "morgan supr 3 three-wheeler",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 3,
+        "dense_union": 3,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 3516,
+        "query_forms": 30,
+        "scored_forms": 227
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0000000000000002,
+          "dense_rank": 1,
+          "dense_score": 0.39425512071908414,
+          "knowledge_id": "fandom-family-aaafff57ac4d4daa",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "308c4fe4-bd38-5597-817e-2b1352716801",
+          "matched_tokens": [
+            "3",
+            "morgan",
+            "super"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 14.487336509117567
+        }
+      ],
+      "case_id": "fr2-positive-aaafff57ac4d4daa-marketplace_noise",
+      "error": null,
+      "latency_ms": 5.532583,
+      "query_text": "Red Morgan Super 3 sits on an unmarked stand; rear blister is split",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 22701,
+        "query_forms": 126,
+        "scored_forms": 262
+      }
+    },
+    {
+      "candidates": [],
+      "case_id": "fr2-positive-aab5350cb90d72ed-lexical_variation",
+      "error": null,
+      "latency_ms": 0.882833,
+      "query_text": "ford brnoco twenty-one SUV",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 0,
+        "dense_union": 0,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 3460,
+        "query_forms": 30,
+        "scored_forms": 206
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.9999999999999999,
+          "dense_rank": 1,
+          "dense_score": 0.3614285968633786,
+          "knowledge_id": "fandom-family-aab5350cb90d72ed",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "f9818b99-bd8e-5aea-a1d7-3a72816f8b5a",
+          "matched_tokens": [
+            "21",
+            "bronco",
+            "ford"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 13.388724220449458
+        },
+        {
+          "casting_id": "human-hot-wheels-toyota-off-road-truck",
+          "character_rank": 2,
+          "character_score": 0.6201211187623181,
+          "dense_rank": 3,
+          "dense_score": 0.06437445454553696,
+          "knowledge_id": "human-hot-wheels-toyota-off-road-truck-silver-series-silver-series",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "59dee4d5-7426-5e97-aed3-2268ad55d691",
+          "matched_tokens": [
+            "off",
+            "road"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03200204813108039,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-ford-bronco-r-17-ford-f-150-raptor",
+          "character_rank": 3,
+          "character_score": 0.608058127642111,
+          "dense_rank": 2,
+          "dense_score": 0.2507294533861456,
+          "knowledge_id": "human-hot-wheels-ford-bronco-r-17-ford-f-150-raptor-2-pack-2-pack",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "c5a0ca35-28b3-58b0-845a-b9ed739ce5f3",
+          "matched_tokens": [
+            "bronco",
+            "ford"
+          ],
+          "rrf_rank": 3,
+          "rrf_score": 0.03200204813108039,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-aab5350cb90d72ed-marketplace_noise",
+      "error": null,
+      "latency_ms": 4.607916,
+      "query_text": "21 Ford Bronco blue off-road toy photographed with wrinkled price label",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 3,
+        "dense_union": 3,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 19710,
+        "query_forms": 90,
+        "scored_forms": 252
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0,
+          "dense_rank": 1,
+          "dense_score": 0.42796049251091295,
+          "knowledge_id": "fandom-family-aec11693bfe04245",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "1a0cf712-68d0-5c29-b677-78d15b0dd604",
+          "matched_tokens": [
+            "mazda"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": null,
+          "character_rank": 3,
+          "character_score": 0.5300864115302897,
+          "dense_rank": 2,
+          "dense_score": 0.260603276867479,
+          "knowledge_id": "fandom-family-e7d4d8cf1dd8c6e1",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "39731a3b-9b07-558a-a29b-76781343d5ba",
+          "matched_tokens": [
+            "mazda"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03200204813108039,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-mazda-rx7",
+          "character_rank": 2,
+          "character_score": 0.6921078525055782,
+          "dense_rank": 3,
+          "dense_score": 0.11918705622574692,
+          "knowledge_id": "human-hot-wheels-mazda-rx7-mainline-blue",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "bfe91ce3-044b-5141-812a-0274f48560ce",
+          "matched_tokens": [
+            "mazda"
+          ],
+          "rrf_rank": 3,
+          "rrf_score": 0.03200204813108039,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-aec11693bfe04245-lexical_variation",
+      "error": null,
+      "latency_ms": 0.924709,
+      "query_text": "mazda rep-u rotary pickup casting",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 3,
+        "dense_union": 3,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 3117,
+        "query_forms": 30,
+        "scored_forms": 221
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0,
+          "dense_rank": 1,
+          "dense_score": 0.3758654870776648,
+          "knowledge_id": "fandom-family-aec11693bfe04245",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "1a0cf712-68d0-5c29-b677-78d15b0dd604",
+          "matched_tokens": [
+            "mazda",
+            "repu"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 9.846247718839978
+        },
+        {
+          "casting_id": null,
+          "character_rank": 3,
+          "character_score": 0.5300864115302897,
+          "dense_rank": 2,
+          "dense_score": 0.18310433660664652,
+          "knowledge_id": "fandom-family-e7d4d8cf1dd8c6e1",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "39731a3b-9b07-558a-a29b-76781343d5ba",
+          "matched_tokens": [
+            "mazda"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03200204813108039,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-mazda-rx7",
+          "character_rank": 2,
+          "character_score": 0.6921078525055782,
+          "dense_rank": 3,
+          "dense_score": 0.033497148807399166,
+          "knowledge_id": "human-hot-wheels-mazda-rx7-mainline-blue",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "bfe91ce3-044b-5141-812a-0274f48560ce",
+          "matched_tokens": [
+            "mazda"
+          ],
+          "rrf_rank": 3,
+          "rrf_score": 0.03200204813108039,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-aec11693bfe04245-marketplace_noise",
+      "error": null,
+      "latency_ms": 4.393292,
+      "query_text": "Mazda REPU orange rotary pickup displayed beside its torn backing card",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 3,
+        "dense_union": 3,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 18066,
+        "query_forms": 90,
+        "scored_forms": 260
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.7925594579370169,
+          "dense_rank": 1,
+          "dense_score": 0.6603672505964975,
+          "knowledge_id": "fandom-family-b31d285560d8a242",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "a676a5e0-57ce-5768-ae7e-6e2929c7643c",
+          "matched_tokens": [
+            "ford",
+            "gtd"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-custom-18-ford-mustang-gt",
+          "character_rank": 2,
+          "character_score": 0.6275837272524144,
+          "dense_rank": 2,
+          "dense_score": 0.368648052685545,
+          "knowledge_id": "human-hot-wheels-custom-18-ford-mustang-gt-mainline-blue",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "7385f165-e9d2-5eb8-958c-3016a323f08c",
+          "matched_tokens": [
+            "ford"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-b31d285560d8a242-lexical_variation",
+      "error": null,
+      "latency_ms": 1.177042,
+      "query_text": "mustangg gtd ford track coupe",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 2,
+        "dense_union": 2,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 5401,
+        "query_forms": 30,
+        "scored_forms": 219
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0000000000000002,
+          "dense_rank": 1,
+          "dense_score": 0.5310771514514195,
+          "knowledge_id": "fandom-family-b31d285560d8a242",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "a676a5e0-57ce-5768-ae7e-6e2929c7643c",
+          "matched_tokens": [
+            "ford",
+            "gtd",
+            "mustang"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 12.877898596683465
+        },
+        {
+          "casting_id": "human-hot-wheels-custom-18-ford-mustang-gt",
+          "character_rank": 2,
+          "character_score": 0.7211874701592618,
+          "dense_rank": 2,
+          "dense_score": 0.25294258532846103,
+          "knowledge_id": "human-hot-wheels-custom-18-ford-mustang-gt-mainline-blue",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "7385f165-e9d2-5eb8-958c-3016a323f08c",
+          "matched_tokens": [
+            "ford",
+            "mustang"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": null,
+          "character_rank": 3,
+          "character_score": 0.681370887404004,
+          "dense_rank": 3,
+          "dense_score": 0.21785348493263376,
+          "knowledge_id": "fandom-family-c655fb5244c584ae",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "bda500e0-210b-5b19-a722-deacd97392f9",
+          "matched_tokens": [
+            "swap"
+          ],
+          "rrf_rank": 3,
+          "rrf_score": 0.031746031746031744,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-1969-ford-mustang-boss-302",
+          "character_rank": 4,
+          "character_score": 0.6008531477906431,
+          "dense_rank": 4,
+          "dense_score": 0.20216768264550758,
+          "knowledge_id": "human-hot-wheels-1969-ford-mustang-boss-302-premium-premium-fast-and-furious",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "c2f45a71-030d-5e7a-8311-21ad7e3bde10",
+          "matched_tokens": [
+            "ford",
+            "mustang"
+          ],
+          "rrf_rank": 4,
+          "rrf_score": 0.03125,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-b31d285560d8a242-marketplace_noise",
+      "error": null,
+      "latency_ms": 4.930542,
+      "query_text": "Grey Ford Mustang GTD from a toy swap; scratched clear plastic cover",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 4,
+        "dense_union": 4,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 22028,
+        "query_forms": 90,
+        "scored_forms": 272
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.813088433977595,
+          "dense_rank": 1,
+          "dense_score": 0.38494060802763264,
+          "knowledge_id": "fandom-family-b3cd4f5a5f7e196a",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "489e09ad-b7bf-5052-ab0b-1b70236c054a",
+          "matched_tokens": [
+            "corvette"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-62-corvette-gasser",
+          "character_rank": 2,
+          "character_score": 0.6380019224034847,
+          "dense_rank": 2,
+          "dense_score": 0.13782340303396173,
+          "knowledge_id": "human-hot-wheels-62-corvette-gasser-mainline-red",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "f716a704-5f48-5618-869a-0b5a58732ba3",
+          "matched_tokens": [
+            "corvette"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-b3cd4f5a5f7e196a-lexical_variation",
+      "error": null,
+      "latency_ms": 0.956,
+      "query_text": "1969 corvette racr competition car",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 2,
+        "dense_union": 2,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 3484,
+        "query_forms": 20,
+        "scored_forms": 232
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0,
+          "dense_rank": 1,
+          "dense_score": 0.4206670706315453,
+          "knowledge_id": "fandom-family-b3cd4f5a5f7e196a",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "489e09ad-b7bf-5052-ab0b-1b70236c054a",
+          "matched_tokens": [
+            "69",
+            "corvette",
+            "racer"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 15.403627240991721
+        },
+        {
+          "casting_id": "human-hot-wheels-62-corvette-gasser",
+          "character_rank": 2,
+          "character_score": 0.6380019224034847,
+          "dense_rank": 2,
+          "dense_score": 0.28591596590683693,
+          "knowledge_id": "human-hot-wheels-62-corvette-gasser-mainline-red",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "f716a704-5f48-5618-869a-0b5a58732ba3",
+          "matched_tokens": [
+            "corvette"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-b3cd4f5a5f7e196a-marketplace_noise",
+      "error": null,
+      "latency_ms": 5.174,
+      "query_text": "69 Corvette Racer yellow paint with old shop sticker still attached",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 2,
+        "dense_union": 2,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 21998,
+        "query_forms": 90,
+        "scored_forms": 262
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.9074982636041763,
+          "dense_rank": 1,
+          "dense_score": 0.364937972129928,
+          "knowledge_id": "fandom-family-c655fb5244c584ae",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "bda500e0-210b-5b19-a722-deacd97392f9",
+          "matched_tokens": [
+            "kei"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-c655fb5244c584ae-lexical_variation",
+      "error": null,
+      "latency_ms": 4.948459,
+      "query_text": "kei swapp modified microtruck",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 1714,
+        "query_forms": 20,
+        "scored_forms": 197
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0000000000000002,
+          "dense_rank": 1,
+          "dense_score": 0.290993847623689,
+          "knowledge_id": "fandom-family-c655fb5244c584ae",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "bda500e0-210b-5b19-a722-deacd97392f9",
+          "matched_tokens": [
+            "kei",
+            "swap"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 10.539394899399923
+        }
+      ],
+      "case_id": "fr2-positive-c655fb5244c584ae-marketplace_noise",
+      "error": null,
+      "latency_ms": 20.661417,
+      "query_text": "Red Kei Swap parked on seller's desk; backing card folded at top",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 31246,
+        "query_forms": 144,
+        "scored_forms": 267
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": "human-hot-wheels-honda-civic-eg",
+          "character_rank": 1,
+          "character_score": 0.6892603434121953,
+          "dense_rank": 3,
+          "dense_score": 0.25072681039762934,
+          "knowledge_id": "human-hot-wheels-honda-civic-eg-premium-fast-furious",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "a89d4de3-69d2-5f8a-9256-4832b786a8fe",
+          "matched_tokens": [
+            "honda"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.032266458495966696,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-honda-civic-si",
+          "character_rank": 3,
+          "character_score": 0.6864050436228908,
+          "dense_rank": 2,
+          "dense_score": 0.2531140627883478,
+          "knowledge_id": "human-hot-wheels-honda-civic-si-mainline-blue",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "6cfea1c3-b434-521d-afce-8db1aba526fc",
+          "matched_tokens": [
+            "honda"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03200204813108039,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": null,
+          "character_rank": 5,
+          "character_score": 0.5935859619476984,
+          "dense_rank": 1,
+          "dense_score": 0.34472512666334615,
+          "knowledge_id": "fandom-family-d114c33db6fa215b",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "78e6048e-1b7f-5553-8315-deb354a6b8e4",
+          "matched_tokens": [
+            "honda"
+          ],
+          "rrf_rank": 3,
+          "rrf_score": 0.03177805800756621,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-honda-civic-ef",
+          "character_rank": 2,
+          "character_score": 0.6867972802484069,
+          "dense_rank": 5,
+          "dense_score": 0.17736553198177024,
+          "knowledge_id": "human-hot-wheels-honda-civic-ef-mainline-green-jdm",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "26be28dd-9f6f-5cbf-b974-3f6b13bb299e",
+          "matched_tokens": [
+            "honda"
+          ],
+          "rrf_rank": 4,
+          "rrf_score": 0.0315136476426799,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-honda-cr-x",
+          "character_rank": 4,
+          "character_score": 0.6561321528153669,
+          "dense_rank": 6,
+          "dense_score": 0.08124265887265607,
+          "knowledge_id": "human-hot-wheels-honda-cr-x-silver-series-peanuts",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "76228439-893c-5f89-9040-ac1d72cd05e1",
+          "matched_tokens": [
+            "honda"
+          ],
+          "rrf_rank": 5,
+          "rrf_score": 0.030776515151515152,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-d114c33db6fa215b-lexical_variation",
+      "error": null,
+      "latency_ms": 4.0195,
+      "query_text": "honda civik e-f from ninety",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 6,
+        "dense_union": 6,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 2952,
+        "query_forms": 30,
+        "scored_forms": 184
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 2,
+          "character_score": 1.0,
+          "dense_rank": 1,
+          "dense_score": 0.4421256757101673,
+          "knowledge_id": "fandom-family-d114c33db6fa215b",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "78e6048e-1b7f-5553-8315-deb354a6b8e4",
+          "matched_tokens": [
+            "90",
+            "civic",
+            "ef",
+            "honda"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04891591750396616,
+          "sparse_rank": 1,
+          "sparse_score": 17.55980938148131
+        },
+        {
+          "casting_id": "human-hot-wheels-honda-civic-ef",
+          "character_rank": 1,
+          "character_score": 1.0000000000000002,
+          "dense_rank": 2,
+          "dense_score": 0.31785838316602316,
+          "knowledge_id": "human-hot-wheels-honda-civic-ef-mainline-green-jdm",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "26be28dd-9f6f-5cbf-b974-3f6b13bb299e",
+          "matched_tokens": [
+            "civic",
+            "ef",
+            "honda"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.048651507139079855,
+          "sparse_rank": 2,
+          "sparse_score": 12.695577039889512
+        },
+        {
+          "casting_id": "human-hot-wheels-honda-civic-eg",
+          "character_rank": 3,
+          "character_score": 0.8623755178286752,
+          "dense_rank": 5,
+          "dense_score": 0.221369656653476,
+          "knowledge_id": "human-hot-wheels-honda-civic-eg-premium-fast-furious",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "a89d4de3-69d2-5f8a-9256-4832b786a8fe",
+          "matched_tokens": [
+            "civic",
+            "honda"
+          ],
+          "rrf_rank": 3,
+          "rrf_score": 0.03125763125763126,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-honda-civic-si",
+          "character_rank": 4,
+          "character_score": 0.8474851357258849,
+          "dense_rank": 4,
+          "dense_score": 0.24204891818113305,
+          "knowledge_id": "human-hot-wheels-honda-civic-si-mainline-blue",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "6cfea1c3-b434-521d-afce-8db1aba526fc",
+          "matched_tokens": [
+            "civic",
+            "honda"
+          ],
+          "rrf_rank": 4,
+          "rrf_score": 0.03125,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-2018-honda-civic-type-r",
+          "character_rank": 7,
+          "character_score": 0.6078548778338982,
+          "dense_rank": 3,
+          "dense_score": 0.24440095704645332,
+          "knowledge_id": "human-hot-wheels-2018-honda-civic-type-r-mainline-nightspeed",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "029e8d5d-cc37-5ed1-83df-cffd5e7d7f97",
+          "matched_tokens": [
+            "civic",
+            "honda"
+          ],
+          "rrf_rank": 5,
+          "rrf_score": 0.030798389007344232,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-d114c33db6fa215b-marketplace_noise",
+      "error": null,
+      "latency_ms": 12.187792,
+      "query_text": "90 Honda Civic EF white hatchback pictured beside a crumpled shop bag",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 8,
+        "dense_union": 8,
+        "exact_candidates": 2,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 22505,
+        "query_forms": 108,
+        "scored_forms": 235
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0,
+          "dense_rank": 1,
+          "dense_score": 0.44543540318737396,
+          "knowledge_id": "fandom-family-d5c83bb87be8cab0",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "ca29331e-5db5-5396-aa2b-02fadd13acec",
+          "matched_tokens": [
+            "super",
+            "twin"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": null,
+          "character_rank": 2,
+          "character_score": 0.7606107797407677,
+          "dense_rank": 2,
+          "dense_score": 0.282842712474619,
+          "knowledge_id": "fandom-family-39b248ce2f3723cd",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "8b784ccf-938c-593f-9926-df0b038dcfdd",
+          "matched_tokens": [
+            "twin"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": null,
+          "character_rank": 3,
+          "character_score": 0.5117179295151107,
+          "dense_rank": 3,
+          "dense_score": 0.10690449676496974,
+          "knowledge_id": "fandom-family-aaafff57ac4d4daa",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "308c4fe4-bd38-5597-817e-2b1352716801",
+          "matched_tokens": [
+            "super"
+          ],
+          "rrf_rank": 3,
+          "rrf_score": 0.031746031746031744,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-d5c83bb87be8cab0-lexical_variation",
+      "error": null,
+      "latency_ms": 3.569333,
+      "query_text": "super twinmill twin engine fantasy",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 3,
+        "dense_union": 3,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 4333,
+        "query_forms": 30,
+        "scored_forms": 216
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0000000000000002,
+          "dense_rank": 1,
+          "dense_score": 0.405998971470575,
+          "knowledge_id": "fandom-family-d5c83bb87be8cab0",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "ca29331e-5db5-5396-aa2b-02fadd13acec",
+          "matched_tokens": [
+            "mill",
+            "super",
+            "twin"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 13.794189328557621
+        },
+        {
+          "casting_id": null,
+          "character_rank": 2,
+          "character_score": 0.7606107797407677,
+          "dense_rank": 2,
+          "dense_score": 0.167093470609201,
+          "knowledge_id": "fandom-family-39b248ce2f3723cd",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "8b784ccf-938c-593f-9926-df0b038dcfdd",
+          "matched_tokens": [
+            "mill",
+            "twin"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": null,
+          "character_rank": 3,
+          "character_score": 0.5117179295151107,
+          "dense_rank": 3,
+          "dense_score": 0.06766649524509584,
+          "knowledge_id": "fandom-family-aaafff57ac4d4daa",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "308c4fe4-bd38-5597-817e-2b1352716801",
+          "matched_tokens": [
+            "super"
+          ],
+          "rrf_rank": 3,
+          "rrf_score": 0.031746031746031744,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-d5c83bb87be8cab0-marketplace_noise",
+      "error": null,
+      "latency_ms": 13.4735,
+      "query_text": "Chrome Super Twin Mill has dusty packaging and a faded price sticker",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 3,
+        "dense_union": 3,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 32990,
+        "query_forms": 144,
+        "scored_forms": 268
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.7213960583734421,
+          "dense_rank": 1,
+          "dense_score": 0.454858826147342,
+          "knowledge_id": "fandom-family-d816204cf649a0c0",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "a8372fd7-0084-530c-9649-177ebaddb735",
+          "matched_tokens": [],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": null,
+          "character_rank": 2,
+          "character_score": 0.5057723885885801,
+          "dense_rank": 2,
+          "dense_score": 0.15720703638063316,
+          "knowledge_id": "fandom-family-b3cd4f5a5f7e196a",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "489e09ad-b7bf-5052-ab0b-1b70236c054a",
+          "matched_tokens": [
+            "racer"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-d816204cf649a0c0-lexical_variation",
+      "error": null,
+      "latency_ms": 0.669708,
+      "query_text": "draftinator drafting racer miniature",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 2,
+        "dense_union": 2,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 1850,
+        "query_forms": 12,
+        "scored_forms": 222
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0000000000000002,
+          "dense_rank": 1,
+          "dense_score": 0.24956859329374895,
+          "knowledge_id": "fandom-family-d816204cf649a0c0",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "a8372fd7-0084-530c-9649-177ebaddb735",
+          "matched_tokens": [
+            "draftnator"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 5.269697449699962
+        }
+      ],
+      "case_id": "fr2-positive-d816204cf649a0c0-marketplace_noise",
+      "error": null,
+      "latency_ms": 6.29975,
+      "query_text": "Black Draftnator with wrinkled backing card and no original sales receipt",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 17944,
+        "query_forms": 90,
+        "scored_forms": 265
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.7893324785262189,
+          "dense_rank": 1,
+          "dense_score": 0.3647686020700426,
+          "knowledge_id": "fandom-family-d90841788b1d98a2",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "838b2cff-2e36-54f0-a184-29685b653482",
+          "matched_tokens": [
+            "alpha"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-k-i-t-t-super-pursuit-mode",
+          "character_rank": 2,
+          "character_score": 0.5049864515481883,
+          "dense_rank": 2,
+          "dense_score": 0.14744195615489714,
+          "knowledge_id": "human-hot-wheels-k-i-t-t-super-pursuit-mode-hw-screen-time-hw-screen-time",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "37352381-fb31-562c-b49d-3383b0e21c12",
+          "matched_tokens": [],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-d90841788b1d98a2-lexical_variation",
+      "error": null,
+      "latency_ms": 0.999666,
+      "query_text": "alpha persuit police casting",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 2,
+        "dense_union": 2,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 2835,
+        "query_forms": 20,
+        "scored_forms": 225
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0000000000000002,
+          "dense_rank": 1,
+          "dense_score": 0.463070420599518,
+          "knowledge_id": "fandom-family-d90841788b1d98a2",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "838b2cff-2e36-54f0-a184-29685b653482",
+          "matched_tokens": [
+            "alpha",
+            "pursuit"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 10.13392979129176
+        },
+        {
+          "casting_id": "human-hot-wheels-k-i-t-t-super-pursuit-mode",
+          "character_rank": 2,
+          "character_score": 0.5859765996720553,
+          "dense_rank": 2,
+          "dense_score": 0.17277805059857207,
+          "knowledge_id": "human-hot-wheels-k-i-t-t-super-pursuit-mode-hw-screen-time-hw-screen-time",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "37352381-fb31-562c-b49d-3383b0e21c12",
+          "matched_tokens": [
+            "pursuit"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-d90841788b1d98a2-marketplace_noise",
+      "error": null,
+      "latency_ms": 5.156792,
+      "query_text": "Blue Alpha Pursuit patrol car has a scratch along its clear blister",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 2,
+        "dense_union": 2,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 15135,
+        "query_forms": 90,
+        "scored_forms": 252
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.7588219592750258,
+          "dense_rank": 1,
+          "dense_score": 0.6021237132863103,
+          "knowledge_id": "fandom-family-db3fe3a0103099ec",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "1ba5e3b4-8489-509f-97f3-2e03f27ae141",
+          "matched_tokens": [
+            "ford"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-db3fe3a0103099ec-lexical_variation",
+      "error": null,
+      "latency_ms": 1.125083,
+      "query_text": "2022 ford maverik cust pickup",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 3237,
+        "query_forms": 20,
+        "scored_forms": 203
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0000000000000002,
+          "dense_rank": 1,
+          "dense_score": 0.5924780524251653,
+          "knowledge_id": "fandom-family-db3fe3a0103099ec",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "1ba5e3b4-8489-509f-97f3-2e03f27ae141",
+          "matched_tokens": [
+            "22",
+            "custom",
+            "ford",
+            "maverick"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 17.965274489589472
+        },
+        {
+          "casting_id": "human-hot-wheels-custom-18-ford-mustang-gt",
+          "character_rank": 3,
+          "character_score": 0.5335922849313794,
+          "dense_rank": 2,
+          "dense_score": 0.2583392661020842,
+          "knowledge_id": "human-hot-wheels-custom-18-ford-mustang-gt-mainline-blue",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "7385f165-e9d2-5eb8-958c-3016a323f08c",
+          "matched_tokens": [
+            "custom",
+            "ford"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03200204813108039,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": null,
+          "character_rank": 2,
+          "character_score": 0.5727953066519376,
+          "dense_rank": 3,
+          "dense_score": 0.2296213588413651,
+          "knowledge_id": "fandom-family-fd96307f2dc8b421",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "f0d4f80f-107f-5ab0-86a5-191af39a30de",
+          "matched_tokens": [
+            "custom"
+          ],
+          "rrf_rank": 3,
+          "rrf_score": 0.03200204813108039,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-db3fe3a0103099ec-marketplace_noise",
+      "error": null,
+      "latency_ms": 8.982,
+      "query_text": "22 Ford Maverick Custom red truck photographed beside a damaged stand",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 3,
+        "dense_union": 3,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 32310,
+        "query_forms": 108,
+        "scored_forms": 270
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.947755104656096,
+          "dense_rank": 1,
+          "dense_score": 0.5980891671216749,
+          "knowledge_id": "fandom-family-e7d4d8cf1dd8c6e1",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "39731a3b-9b07-558a-a29b-76781343d5ba",
+          "matched_tokens": [
+            "mazda"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": null,
+          "character_rank": 3,
+          "character_score": 0.6507856793620262,
+          "dense_rank": 2,
+          "dense_score": 0.2979270115341686,
+          "knowledge_id": "fandom-family-aec11693bfe04245",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "1a0cf712-68d0-5c29-b677-78d15b0dd604",
+          "matched_tokens": [
+            "mazda"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03200204813108039,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-mazda-rx7",
+          "character_rank": 2,
+          "character_score": 0.6921078525055782,
+          "dense_rank": 4,
+          "dense_score": 0.10212026317319282,
+          "knowledge_id": "human-hot-wheels-mazda-rx7-mainline-blue",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "bfe91ce3-044b-5141-812a-0274f48560ce",
+          "matched_tokens": [
+            "mazda"
+          ],
+          "rrf_rank": 3,
+          "rrf_score": 0.031754032258064516,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": null,
+          "character_rank": 4,
+          "character_score": 0.5446476773132154,
+          "dense_rank": 3,
+          "dense_score": 0.23958376302796766,
+          "knowledge_id": "fandom-family-c655fb5244c584ae",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "bda500e0-210b-5b19-a722-deacd97392f9",
+          "matched_tokens": [
+            "kei"
+          ],
+          "rrf_rank": 4,
+          "rrf_score": 0.03149801587301587,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-e7d4d8cf1dd8c6e1-lexical_variation",
+      "error": null,
+      "latency_ms": 0.654625,
+      "query_text": "mazda autozamm kei coupe",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 4,
+        "dense_union": 4,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 1780,
+        "query_forms": 20,
+        "scored_forms": 176
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0000000000000002,
+          "dense_rank": 1,
+          "dense_score": 0.36760731104690386,
+          "knowledge_id": "fandom-family-e7d4d8cf1dd8c6e1",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "39731a3b-9b07-558a-a29b-76781343d5ba",
+          "matched_tokens": [
+            "autozam",
+            "mazda"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 9.846247718839978
+        },
+        {
+          "casting_id": "human-hot-wheels-mazda-rx7",
+          "character_rank": 2,
+          "character_score": 0.6921078525055782,
+          "dense_rank": 2,
+          "dense_score": 0.18830046126314018,
+          "knowledge_id": "human-hot-wheels-mazda-rx7-mainline-blue",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "bfe91ce3-044b-5141-812a-0274f48560ce",
+          "matched_tokens": [
+            "mazda"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": null,
+          "character_rank": 3,
+          "character_score": 0.6507856793620262,
+          "dense_rank": 3,
+          "dense_score": 0.1831167551911786,
+          "knowledge_id": "fandom-family-aec11693bfe04245",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "1a0cf712-68d0-5c29-b677-78d15b0dd604",
+          "matched_tokens": [
+            "mazda"
+          ],
+          "rrf_rank": 3,
+          "rrf_score": 0.031746031746031744,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-subaru-brz",
+          "character_rank": 4,
+          "character_score": 0.5748788322563506,
+          "dense_rank": 4,
+          "dense_score": 0.062411686559049176,
+          "knowledge_id": "human-hot-wheels-subaru-brz-walmart-exclusive-zamac-walmart-exclusive",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "3accc048-4d73-541f-8863-90170fef463f",
+          "matched_tokens": [],
+          "rrf_rank": 4,
+          "rrf_score": 0.03125,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-subaru-brat",
+          "character_rank": 5,
+          "character_score": 0.5709417495909475,
+          "dense_rank": 5,
+          "dense_score": 0.05496181100515374,
+          "knowledge_id": "human-hot-wheels-subaru-brat-hw-off-road-pearl-yellow-kmart-exclusive",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "c89257e3-9e9e-5340-b105-81a58987d4d6",
+          "matched_tokens": [],
+          "rrf_rank": 5,
+          "rrf_score": 0.03076923076923077,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-e7d4d8cf1dd8c6e1-marketplace_noise",
+      "error": null,
+      "latency_ms": 4.304833,
+      "query_text": "Blue Mazda Autozam removed from an old cabinet; seller reports roof rub",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 5,
+        "dense_union": 5,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 17514,
+        "query_forms": 90,
+        "scored_forms": 258
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.579458098083763,
+          "dense_rank": 1,
+          "dense_score": 0.3127810389390367,
+          "knowledge_id": "fandom-family-fd96307f2dc8b421",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "f0d4f80f-107f-5ab0-86a5-191af39a30de",
+          "matched_tokens": [
+            "custom"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-custom-18-ford-mustang-gt",
+          "character_rank": 2,
+          "character_score": 0.5335922849313794,
+          "dense_rank": 2,
+          "dense_score": 0.08689117930838818,
+          "knowledge_id": "human-hot-wheels-custom-18-ford-mustang-gt-mainline-blue",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "7385f165-e9d2-5eb8-958c-3016a323f08c",
+          "matched_tokens": [
+            "custom"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-fd96307f2dc8b421-lexical_variation",
+      "error": null,
+      "latency_ms": 0.715083,
+      "query_text": "custom chevie fifty-three pickup",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 2,
+        "dense_union": 2,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 2733,
+        "query_forms": 20,
+        "scored_forms": 200
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0000000000000002,
+          "dense_rank": 1,
+          "dense_score": 0.3259341380258031,
+          "knowledge_id": "fandom-family-fd96307f2dc8b421",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "f0d4f80f-107f-5ab0-86a5-191af39a30de",
+          "matched_tokens": [
+            "53",
+            "chevy",
+            "custom"
+          ],
+          "rrf_rank": 1,
+          "rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 12.918720591203721
+        },
+        {
+          "casting_id": "human-hot-wheels-custom-18-ford-mustang-gt",
+          "character_rank": 2,
+          "character_score": 0.5335922849313794,
+          "dense_rank": 2,
+          "dense_score": 0.10825379324892989,
+          "knowledge_id": "human-hot-wheels-custom-18-ford-mustang-gt-mainline-blue",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "7385f165-e9d2-5eb8-958c-3016a323f08c",
+          "matched_tokens": [
+            "custom"
+          ],
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-ground-fx",
+          "character_rank": 3,
+          "character_score": 0.5084278184011141,
+          "dense_rank": 3,
+          "dense_score": 0.057048339978741085,
+          "knowledge_id": "human-hot-wheels-ground-fx-hot-wheels-disney",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "25f8c9d7-dba5-5a27-881d-63ff2840923f",
+          "matched_tokens": [],
+          "rrf_rank": 3,
+          "rrf_score": 0.031746031746031744,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "fr2-positive-fd96307f2dc8b421-marketplace_noise",
+      "error": null,
+      "latency_ms": 4.744958,
+      "query_text": "Custom 53 Chevy red pickup found in garage carton with torn price tag",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 3,
+        "dense_union": 3,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 23761,
+        "query_forms": 90,
+        "scored_forms": 249
+      }
+    },
+    {
+      "candidates": [],
+      "case_id": "fr2-unrelated-00",
+      "error": null,
+      "latency_ms": 0.050792,
+      "query_text": "quinoa",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 0,
+        "dense_union": 0,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 56,
+        "query_forms": 2,
+        "scored_forms": 48
+      }
+    },
+    {
+      "candidates": [],
+      "case_id": "fr2-unrelated-01",
+      "error": null,
+      "latency_ms": 0.065292,
+      "query_text": "origami",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 0,
+        "dense_union": 0,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 126,
+        "query_forms": 2,
+        "scored_forms": 102
+      }
+    },
+    {
+      "candidates": [],
+      "case_id": "fr2-unrelated-02",
+      "error": null,
+      "latency_ms": 0.072541,
+      "query_text": "sourdough",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 0,
+        "dense_union": 0,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 102,
+        "query_forms": 2,
+        "scored_forms": 98
+      }
+    },
+    {
+      "candidates": [],
+      "case_id": "fr2-unrelated-03",
+      "error": null,
+      "latency_ms": 0.105916,
+      "query_text": "percolator",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 0,
+        "dense_union": 0,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 333,
+        "query_forms": 2,
+        "scored_forms": 189
+      }
+    },
+    {
+      "candidates": [],
+      "case_id": "fr2-unrelated-04",
+      "error": null,
+      "latency_ms": 0.041458,
+      "query_text": "ukulele",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 0,
+        "dense_union": 0,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 64,
+        "query_forms": 2,
+        "scored_forms": 50
+      }
+    },
+    {
+      "candidates": [],
+      "case_id": "fr2-unrelated-05",
+      "error": null,
+      "latency_ms": 0.061584,
+      "query_text": "tapestry",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 0,
+        "dense_union": 0,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 130,
+        "query_forms": 2,
+        "scored_forms": 106
+      }
+    },
+    {
+      "candidates": [],
+      "case_id": "fr2-unrelated-06",
+      "error": null,
+      "latency_ms": 0.07675,
+      "query_text": "metronome",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 0,
+        "dense_union": 0,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 189,
+        "query_forms": 2,
+        "scored_forms": 136
+      }
+    },
+    {
+      "candidates": [],
+      "case_id": "fr2-unrelated-07",
+      "error": null,
+      "latency_ms": 0.075334,
+      "query_text": "stethoscope",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 0,
+        "dense_union": 0,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 181,
+        "query_forms": 2,
+        "scored_forms": 122
+      }
+    },
+    {
+      "candidates": [],
+      "case_id": "fr2-unrelated-08",
+      "error": null,
+      "latency_ms": 0.079416,
+      "query_text": "embroidery",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 0,
+        "dense_union": 0,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 197,
+        "query_forms": 2,
+        "scored_forms": 149
+      }
+    },
+    {
+      "candidates": [],
+      "case_id": "fr2-unrelated-09",
+      "error": null,
+      "latency_ms": 0.083542,
+      "query_text": "thermocouple",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 0,
+        "dense_union": 0,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 243,
+        "query_forms": 2,
+        "scored_forms": 147
+      }
+    }
+  ],
+  "runtime": {
+    "host_isolated": false,
+    "machine": "arm64",
+    "measured_boundary": "extraction_excluded_retrieval_and_serialization_included",
+    "process_count": 1,
+    "python": "3.12.13",
+    "system": "Darwin"
+  },
+  "schema_version": "pvr-family-retrieval-raw-v2",
+  "started_at": "2026-09-14T17:09:36.322503+00:00",
+  "warmup_count": 0
+}

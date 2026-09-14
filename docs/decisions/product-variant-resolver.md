@@ -1026,3 +1026,26 @@ as a proven release match, expressly excluded here. Scope/integrity/safety/audit
 cost/extendability assessment: adequate for Lite family evaluation, insufficient for production
 variant accuracy. Final quality/runtime remains unrun; originalFAIL/defaultv2/T49 restrictions stay.
 See `docs/evidence/family-retrieval-final-v2-label-freeze.md` for produced evidence.
+# D45 — One-shot family final and packaging-only evidence-root correction
+
+Status: accepted,2026-09-14, Lite IBR-T5. Benchmark87bbd19 and evaluatorb86578c were committed
+before exactly105 final calls. Preserve raw outputs before label scoring, fixed9 gates/denominators,
+all fourlexical misses and all failures. Raw-derived final gates PASS80/84@5,77/84@1,MRR.93254,
+family42/42,merge4/4,forbidden/unrelated0; no final-set tuning or default switch.
+
+The successful host tests did not establish container readiness. Actual non-root/read-only HTTP
+revealed installed-package ROOT differs from/app evidence. Select DockerPYTHONPATH=/app/src,
+not edits to pinned loader/retriever or evidence bypass. Dependencies remain installed; exact
+bundled sources now derive the correct root. At10×, this does not alter postings/cost/model rules.
+Keep the old failing image/report and new source/image-bound successful report. Relocation alone
+was an invalid stale verifier fixture, corrected to mandatory evidenceSHA corruption;503 gates
+unchanged. No final retrieval rerun occurred.32focused/411full tests and DockerHTTP PASS.
+
+Trade-offs: source-tree execution couples this image to the existing repo-root evidence layout;
+a standalone-wheel resource design would need a new source/protocol/artifact version and must
+not be silently introduced after final scoring. Separate integrity preflight validates labels, but
+collector only accesses query signals and publishes raw105 outputs before scoring. Most likely
+remaining semantic failure is assuming family success proves real variant accuracy. Scope,
+integrity,safety,auditability,cost,extendability: adequate for Lite family closure; population and
+release/color/wheel/tampo accuracy still unevaluated. T49 DESIGN ONLY, no SQL/default deployment.
+See `docs/evidence/family-retrieval-final-v2.md` for outputs, measurements and actual failure history.

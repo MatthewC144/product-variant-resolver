@@ -1,0 +1,15 @@
+{
+  "schema_version": "pvr-human-knowledge-v4-runtime-failure-v1",
+  "verdict": "FAIL",
+  "failure_scope": "runtime_verifier_fixture_not_product_or_final_quality",
+  "image": "product-variant-resolver:ibr-t5-rootfix",
+  "image_config_sha256": "6dc9f440095aa0a1e25ab4cce19d8d2ff89a4bc8fcc7dce1fa9d06f3e365e18f",
+  "default_http_health_status": 200,
+  "v4_http_health_status": 200,
+  "missing_http_health_status": 503,
+  "malformed_http_health_status": 503,
+  "relocated_unchanged_artifact_http_health_status": 200,
+  "diagnosis": "The verifier incorrectly treated relocation of an unchanged artifact as stale evidence. Evidence ROOT is fixed at /app/src-derived /app, not derived from the artifact parent. Valid bytes loaded against a complete correct evidence chain legitimately return 200.",
+  "corrective_action": "Replace only the stale test fixture with a valid-schema artifact whose mandatory selection_evidence.sha256 is deliberately wrong. Require health/resolve503 as originally specified; do not change loader, policy, gates or final outputs.",
+  "new_final_retrieval_rerun": false
+}

@@ -1,8 +1,8 @@
 # Identity-Bounded Human Knowledge Retrieval — Design
 
-Date: 2026-09-13. Mode: Lite. Status: IBR-T1/T2/T3 complete; development quality/cost gates PASS.
-Selected experimental floor/character weight: 0.50/1.0. Independent final and default deployment remain gated.
-T4 owner approval and family labels are frozen separately; final retrieval remains pending until benchmark commit.
+Date: 2026-09-13. Updated: 2026-09-14. Mode: Lite. Status: IBR-T1–T5 complete; family final/runtime gates PASS.
+Selected experimental floor/character weight: 0.50/1.0. Default deployment remains gated.
+T4 labels were committed before one T5 final score. T49 design only is now permitted; no ingestion authorized.
 
 ## Overview and evidence
 

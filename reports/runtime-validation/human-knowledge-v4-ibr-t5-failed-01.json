@@ -1,0 +1,14 @@
+{
+  "schema_version": "pvr-human-knowledge-v4-runtime-failure-v1",
+  "verdict": "FAIL",
+  "image": "product-variant-resolver:ibr-t5-b86578c",
+  "image_config_sha256": "c8264238ce6425df0acddb8ac36a8daa611d66f371c97482985df2a2bd374d5d",
+  "default_http_health_status": 200,
+  "v4_http_health_status": 503,
+  "exception_type": "FileNotFoundError",
+  "missing_path": "/usr/local/lib/python3.12/data/evaluation/human-knowledge-identity-development-v1/protocol.json",
+  "diagnosis": "Installed package-derived ROOT points to /usr/local/lib/python3.12, while immutable evidence and source copies live at /app. Default v2 does not load the mandatory v4 protocol and therefore starts.",
+  "corrective_action": "Set Docker PYTHONPATH=/app/src to use the exact bundled source tree and its existing /app evidence root; leave pinned retriever/loader/normalizer/artifact/report/benchmark bytes unchanged.",
+  "new_final_retrieval_rerun": false,
+  "failure_record_method": "Preserved observed HTTP failure and diagnostic traceback, not a new final score"
+}

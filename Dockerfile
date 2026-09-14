@@ -2,6 +2,7 @@
 FROM python:3.12.14-slim AS runtime
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONPATH=/app/src \
     PYTHONUNBUFFERED=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PVR_CATALOG_PATH=/app/data/catalog.json \

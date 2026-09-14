@@ -1,0 +1,1205 @@
+{
+  "fixture_queries": [
+    "2022 Chevy Nomad Red #101",
+    "Toyota Supra",
+    "Chevy Nomad",
+    "red toy boxed"
+  ],
+  "http_transport": "loopback_uvicorn_one_worker_no_published_host_port",
+  "image": "product-variant-resolver:ibr-t5-rootfix",
+  "image_id": "sha256:7dbae114eb0615fb8582cce3fc79b2f19233edc453672bc5726de937dfec0fee",
+  "machine": "aarch64",
+  "new_final_queries_executed": false,
+  "outputs": {
+    "default": {
+      "debug": {
+        "candidates": [
+          {
+            "canonical_id": "hot-wheels-chevy-nomad-2022-mainline-black-103",
+            "canonical_uuid": "29cb8b88-2bd7-5e88-80ed-25cd38e89097",
+            "dense_rank": 2,
+            "dense_score": 0.46543067864690296,
+            "reranker_rank": null,
+            "reranker_score": null,
+            "rrf_rank": 1,
+            "rrf_score": 0.03200204813108039,
+            "sparse_rank": 3,
+            "sparse_score": 6.461682376270409,
+            "structured_conflicts": [],
+            "structured_matches": [],
+            "structured_rank": null,
+            "structured_score": null
+          },
+          {
+            "canonical_id": "hot-wheels-chevy-nomad-2023-hw-dream-garage-blue-106",
+            "canonical_uuid": "9bb3740e-aea2-5384-97bf-5b99eadfadfa",
+            "dense_rank": 1,
+            "dense_score": 0.4678733510650248,
+            "reranker_rank": null,
+            "reranker_score": null,
+            "rrf_rank": 2,
+            "rrf_score": 0.031099324975891997,
+            "sparse_rank": 8,
+            "sparse_score": 6.461682376270409,
+            "structured_conflicts": [],
+            "structured_matches": [],
+            "structured_rank": null,
+            "structured_score": null
+          },
+          {
+            "canonical_id": "hot-wheels-chevy-nomad-2024-then-and-now-black-111",
+            "canonical_uuid": "6eacc683-4c82-5eba-8bf4-647fe7c58c92",
+            "dense_rank": 6,
+            "dense_score": 0.4451945621839941,
+            "reranker_rank": null,
+            "reranker_score": null,
+            "rrf_rank": 3,
+            "rrf_score": 0.030776515151515152,
+            "sparse_rank": 4,
+            "sparse_score": 6.461682376270409,
+            "structured_conflicts": [],
+            "structured_matches": [],
+            "structured_rank": null,
+            "structured_score": null
+          },
+          {
+            "canonical_id": "hot-wheels-chevy-nomad-2023-hw-dream-garage-red-105",
+            "canonical_uuid": "1a91abcd-01f8-5ab2-bf5f-f52bfb2e4ae1",
+            "dense_rank": 11,
+            "dense_score": 0.416702740141187,
+            "reranker_rank": null,
+            "reranker_score": null,
+            "rrf_rank": 4,
+            "rrf_score": 0.03047794966520434,
+            "sparse_rank": 1,
+            "sparse_score": 6.461682376270409,
+            "structured_conflicts": [],
+            "structured_matches": [],
+            "structured_rank": null,
+            "structured_score": null
+          },
+          {
+            "canonical_id": "hot-wheels-chevy-nomad-2022-mainline-red-101",
+            "canonical_uuid": "1d9c1879-d413-511e-8ade-0d80d2240e4d",
+            "dense_rank": 10,
+            "dense_score": 0.4264014327112209,
+            "reranker_rank": null,
+            "reranker_score": null,
+            "rrf_rank": 5,
+            "rrf_score": 0.0304147465437788,
+            "sparse_rank": 2,
+            "sparse_score": 6.461682376270409,
+            "structured_conflicts": [],
+            "structured_matches": [],
+            "structured_rank": null,
+            "structured_score": null
+          },
+          {
+            "canonical_id": "hot-wheels-chevy-nomad-2023-hw-dream-garage-black-107",
+            "canonical_uuid": "ad36cc2f-9634-5aec-b256-736df13dd5de",
+            "dense_rank": 3,
+            "dense_score": 0.4605661864718383,
+            "reranker_rank": null,
+            "reranker_score": null,
+            "rrf_rank": 6,
+            "rrf_score": 0.030158730158730156,
+            "sparse_rank": 10,
+            "sparse_score": 6.461682376270409,
+            "structured_conflicts": [],
+            "structured_matches": [],
+            "structured_rank": null,
+            "structured_score": null
+          },
+          {
+            "canonical_id": "hot-wheels-chevy-nomad-2024-then-and-now-blue-110",
+            "canonical_uuid": "a833a7e2-e422-53ae-bca4-fe8eb6c63852",
+            "dense_rank": 4,
+            "dense_score": 0.45773770821706344,
+            "reranker_rank": null,
+            "reranker_score": null,
+            "rrf_rank": 7,
+            "rrf_score": 0.030117753623188408,
+            "sparse_rank": 9,
+            "sparse_score": 6.461682376270409,
+            "structured_conflicts": [],
+            "structured_matches": [],
+            "structured_rank": null,
+            "structured_score": null
+          },
+          {
+            "canonical_id": "hot-wheels-chevy-nomad-2024-then-and-now-silver-112",
+            "canonical_uuid": "74b341b3-2980-5513-9bf9-f33fd17d9812",
+            "dense_rank": 8,
+            "dense_score": 0.43282871518245075,
+            "reranker_rank": null,
+            "reranker_score": null,
+            "rrf_rank": 8,
+            "rrf_score": 0.030090497737556562,
+            "sparse_rank": 5,
+            "sparse_score": 6.461682376270409,
+            "structured_conflicts": [],
+            "structured_matches": [],
+            "structured_rank": null,
+            "structured_score": null
+          },
+          {
+            "canonical_id": "hot-wheels-chevy-nomad-2022-mainline-silver-104",
+            "canonical_uuid": "7ce9fb1e-af7b-5da4-be3e-4c78ee5ddf83",
+            "dense_rank": 7,
+            "dense_score": 0.4348655674453557,
+            "reranker_rank": null,
+            "reranker_score": null,
+            "rrf_rank": 9,
+            "rrf_score": 0.029850746268656716,
+            "sparse_rank": 7,
+            "sparse_score": 6.461682376270409,
+            "structured_conflicts": [],
+            "structured_matches": [],
+            "structured_rank": null,
+            "structured_score": null
+          },
+          {
+            "canonical_id": "hot-wheels-chevy-nomad-2022-mainline-blue-102",
+            "canonical_uuid": "cc8aa11f-96ca-5d7a-8b82-ea692973eb0d",
+            "dense_rank": 5,
+            "dense_score": 0.4454995476818113,
+            "reranker_rank": null,
+            "reranker_score": null,
+            "rrf_rank": 10,
+            "rrf_score": 0.02946912242686891,
+            "sparse_rank": 11,
+            "sparse_score": 6.461682376270409,
+            "structured_conflicts": [],
+            "structured_matches": [],
+            "structured_rank": null,
+            "structured_score": null
+          }
+        ],
+        "catalog_version": "fixture-v1",
+        "human_catalog_version": "human-backed-catalog-v1",
+        "human_knowledge_candidates": [
+          {
+            "brand": "Hot Wheels",
+            "casting": "2000 Chevy Nomad",
+            "casting_id": "human-hot-wheels-2000-chevy-nomad",
+            "casting_uuid": "1f8454af-4f76-58ef-8c86-572f62ec62f5",
+            "character_rank": null,
+            "character_score": null,
+            "dense_rank": 1,
+            "dense_score": 0.5201477075237814,
+            "example_initial_names": [
+              "Hot Wheels 2000 Chevy Nomad Orange #196 NIB"
+            ],
+            "human_label_names": [
+              "Hot Wheels 2000 Chevy Nomad Orange #196 NIB"
+            ],
+            "identity_status": "needs_canonical_review",
+            "knowledge_type": "provisional_variant",
+            "matched_tokens": [
+              "chevy",
+              "nomad"
+            ],
+            "provisional_variant_id": "human-hot-wheels-2000-chevy-nomad-mainline-orange",
+            "provisional_variant_uuid": "ee7b3635-6a6d-52fe-b58f-36180a9bd086",
+            "rrf_rank": 1,
+            "rrf_score": 0.03278688524590164,
+            "series_label": "mainline",
+            "source_case_ids": [
+              "ui-scan-b74f75ef-7a03-4e03-ac75-9d0d74c8b919"
+            ],
+            "sparse_rank": 1,
+            "sparse_score": 8.747635430171869,
+            "variant_label": "orange"
+          },
+          {
+            "brand": "Hot Wheels",
+            "casting": "83 Chevy Silverado",
+            "casting_id": "human-hot-wheels-83-chevy-silverado",
+            "casting_uuid": "f45ee740-cd70-5994-a453-4075bb958ca4",
+            "character_rank": null,
+            "character_score": null,
+            "dense_rank": 6,
+            "dense_score": 0.29535930709028946,
+            "example_initial_names": [
+              "2025 HOT WHEELS MAINLINE CASE H '83 CHEVY SILVERADO HW HOT TRUCKS"
+            ],
+            "human_label_names": [
+              "Hot Wheels  '83 Chevy Silverado baby blue"
+            ],
+            "identity_status": "needs_canonical_review",
+            "knowledge_type": "provisional_variant",
+            "matched_tokens": [
+              "chevy"
+            ],
+            "provisional_variant_id": "human-hot-wheels-83-chevy-silverado-mainline-baby-blue",
+            "provisional_variant_uuid": "542ce3ce-8215-5ac8-b9cd-c4e967746e7e",
+            "rrf_rank": 2,
+            "rrf_score": 0.03128054740957967,
+            "series_label": "mainline",
+            "source_case_ids": [
+              "ui-scan-27e506f5-3603-4e8b-8b60-d1f43596e3b4"
+            ],
+            "sparse_rank": 2,
+            "sparse_score": 3.477937980471907,
+            "variant_label": "baby blue"
+          },
+          {
+            "brand": "Hot Wheels",
+            "casting": "83 Chevy Silverado",
+            "casting_id": "human-hot-wheels-83-chevy-silverado",
+            "casting_uuid": "f45ee740-cd70-5994-a453-4075bb958ca4",
+            "character_rank": null,
+            "character_score": null,
+            "dense_rank": 3,
+            "dense_score": 0.35857858792282243,
+            "example_initial_names": [
+              "2024 Hot Wheels -83 Chevy Silverado- Then and Now 9/10 #249 (HTC73) – Extreme Hobbies"
+            ],
+            "human_label_names": [
+              "Hot Wheels -83 Chevy Silverado Blue"
+            ],
+            "identity_status": "needs_canonical_review",
+            "knowledge_type": "provisional_variant",
+            "matched_tokens": [
+              "chevy"
+            ],
+            "provisional_variant_id": "human-hot-wheels-83-chevy-silverado-mainline-blue",
+            "provisional_variant_uuid": "784a6750-bd5d-5a09-a4be-f60021a5023a",
+            "rrf_rank": 3,
+            "rrf_score": 0.031024531024531024,
+            "series_label": "mainline",
+            "source_case_ids": [
+              "ui-scan-b2eb568c-75f1-4043-a381-47ff3becd275"
+            ],
+            "sparse_rank": 6,
+            "sparse_score": 3.477937980471907,
+            "variant_label": "Blue"
+          },
+          {
+            "brand": "Hot Wheels",
+            "casting": "Hardnoze Chevy Monte Carlo 1974",
+            "casting_id": "human-hot-wheels-hardnoze-chevy-monte-carlo-1974",
+            "casting_uuid": "bfdaba07-c117-517b-8cb4-d2b826908fbb",
+            "character_rank": null,
+            "character_score": null,
+            "dense_rank": 5,
+            "dense_score": 0.3153167074655329,
+            "example_initial_names": [
+              "Hardnoze Chevy Monte Carlo 1974 2004 First Editions Hot Wheels"
+            ],
+            "human_label_names": [
+              "2004 Hot Wheels First Editions Hardnoze Chevy Monte Carlo 1974"
+            ],
+            "identity_status": "needs_canonical_review",
+            "knowledge_type": "provisional_variant",
+            "matched_tokens": [
+              "chevy"
+            ],
+            "provisional_variant_id": "human-hot-wheels-hardnoze-chevy-monte-carlo-1974-mainline-first-editions",
+            "provisional_variant_uuid": "76ab4657-dfef-5252-b191-a85800bc0b6f",
+            "rrf_rank": 4,
+            "rrf_score": 0.031009615384615385,
+            "series_label": "mainline",
+            "source_case_ids": [
+              "ui-scan-3414f93c-4289-4521-a77e-0249ba15dce6"
+            ],
+            "sparse_rank": 4,
+            "sparse_score": 3.477937980471907,
+            "variant_label": "First Editions"
+          },
+          {
+            "brand": "Hot Wheels",
+            "casting": "'67 Chevy C10",
+            "casting_id": "human-hot-wheels-67-chevy-c10",
+            "casting_uuid": "68568b93-4dea-54f7-a549-59e48a4967cb",
+            "character_rank": null,
+            "character_score": null,
+            "dense_rank": 8,
+            "dense_score": 0.23647338483139116,
+            "example_initial_names": [
+              "Hot Wheels, 2015 HW Workshop, '67 Chevy C10 [Green] Exclusive #208/250"
+            ],
+            "human_label_names": [
+              "Hot Wheels, HW Workshop, '67 Chevy C10 [Green]"
+            ],
+            "identity_status": "needs_canonical_review",
+            "knowledge_type": "provisional_variant",
+            "matched_tokens": [
+              "chevy"
+            ],
+            "provisional_variant_id": "human-hot-wheels-67-chevy-c10-hw-workshop-green",
+            "provisional_variant_uuid": "638e02dd-55c0-571a-b745-9ec910700fe2",
+            "rrf_rank": 5,
+            "rrf_score": 0.03057889822595705,
+            "series_label": "HW Workshop",
+            "source_case_ids": [
+              "ui-scan-fa7ff9d2-c47f-492e-87cd-aacd969b19be"
+            ],
+            "sparse_rank": 3,
+            "sparse_score": 3.477937980471907,
+            "variant_label": "Green"
+          },
+          {
+            "aliases": [
+              "Custom '53 Chevy"
+            ],
+            "brand": "Hot Wheels",
+            "casting": "Custom '53 Chevy",
+            "character_rank": null,
+            "character_score": null,
+            "dense_rank": 2,
+            "dense_score": 0.3995562949272161,
+            "identity_status": "family_accepted_variants_unreviewed",
+            "knowledge_type": "review_family",
+            "matched_tokens": [
+              "chevy"
+            ],
+            "review_family_id": "fandom-family-fd96307f2dc8b421",
+            "review_family_uuid": "f0d4f80f-107f-5ab0-86a5-191af39a30de",
+            "rrf_rank": 6,
+            "rrf_score": 0.0304147465437788,
+            "source_record_ids": [
+              "fandom-row-0d0e45a858499d4f",
+              "fandom-row-dd6e25487f1fb565"
+            ],
+            "sparse_rank": 10,
+            "sparse_score": 3.477937980471907
+          },
+          {
+            "brand": "Hot Wheels",
+            "casting": "83 Chevy Silverado",
+            "casting_id": "human-hot-wheels-83-chevy-silverado",
+            "casting_uuid": "f45ee740-cd70-5994-a453-4075bb958ca4",
+            "character_rank": null,
+            "character_score": null,
+            "dense_rank": 4,
+            "dense_score": 0.3389884610291765,
+            "example_initial_names": [
+              "Hot Wheels 2025 '83 Chevy Silverado New | Mercari"
+            ],
+            "human_label_names": [
+              "Hot Wheels  '83 Chevy Silverado black"
+            ],
+            "identity_status": "needs_canonical_review",
+            "knowledge_type": "provisional_variant",
+            "matched_tokens": [
+              "chevy"
+            ],
+            "provisional_variant_id": "human-hot-wheels-83-chevy-silverado-mainline-black",
+            "provisional_variant_uuid": "f24ded34-c29c-591b-8b41-aae5f049d6ad",
+            "rrf_rank": 7,
+            "rrf_score": 0.029709507042253523,
+            "series_label": "mainline",
+            "source_case_ids": [
+              "ui-scan-effa5c4f-99e2-4f59-b980-78eaefebb84e"
+            ],
+            "sparse_rank": 11,
+            "sparse_score": 3.477937980471907,
+            "variant_label": "black"
+          },
+          {
+            "brand": "Hot Wheels",
+            "casting": "19 Chevy Silverado Trail Boss LT",
+            "casting_id": "human-hot-wheels-19-chevy-silverado-trail-boss-lt",
+            "casting_uuid": "3eabcfe8-0851-515c-943f-fa643b3831a5",
+            "character_rank": null,
+            "character_score": null,
+            "dense_rank": 10,
+            "dense_score": 0.1815455906876489,
+            "example_initial_names": [
+              "Hot Wheels '19 Chevy Silverado Trail Boss LT, [red] Hot Trucks 299/365"
+            ],
+            "human_label_names": [
+              "Hot Wheels ‘19 Chevy Silverado Trail Boss LT red edition"
+            ],
+            "identity_status": "needs_canonical_review",
+            "knowledge_type": "provisional_variant",
+            "matched_tokens": [
+              "chevy"
+            ],
+            "provisional_variant_id": "human-hot-wheels-19-chevy-silverado-trail-boss-lt-mainline-red-edition",
+            "provisional_variant_uuid": "7756bd78-a0ef-521a-a2e8-a6ba5c2ca1a9",
+            "rrf_rank": 8,
+            "rrf_score": 0.02967032967032967,
+            "series_label": "mainline",
+            "source_case_ids": [
+              "ui-scan-a2fc8081-1fc8-4ea6-9ca8-bc88a72d3993"
+            ],
+            "sparse_rank": 5,
+            "sparse_score": 3.477937980471907,
+            "variant_label": "Red Edition"
+          },
+          {
+            "brand": "Hot Wheels",
+            "casting": "Pink Black Widow '83 Chevy Silverado",
+            "casting_id": "human-hot-wheels-pink-black-widow-83-chevy-silverado",
+            "casting_uuid": "301f5178-e62b-5f76-998b-5f60662ddd69",
+            "character_rank": null,
+            "character_score": null,
+            "dense_rank": 7,
+            "dense_score": 0.26143581447225855,
+            "example_initial_names": [
+              "2026 Hot Wheels '83 Chevy Silverado Un-Spun with Real Riders Wheels | Hotwheels® Die-Cast #1983 #chevy #silverado #hotwheels #mattel Source: Hobi.Shopee"
+            ],
+            "human_label_names": [
+              "Hot Wheels Pink Black Widow '83 Chevy Silverado"
+            ],
+            "identity_status": "needs_canonical_review",
+            "knowledge_type": "provisional_variant",
+            "matched_tokens": [
+              "chevy"
+            ],
+            "provisional_variant_id": "human-hot-wheels-pink-black-widow-83-chevy-silverado-mainline-pink-black-widow",
+            "provisional_variant_uuid": "cae68e86-4a5b-5919-a84f-848c54731122",
+            "rrf_rank": 9,
+            "rrf_score": 0.029631255487269532,
+            "series_label": "mainline",
+            "source_case_ids": [
+              "ui-scan-d9599078-3553-4c43-8025-d9e3b09a8ef5"
+            ],
+            "sparse_rank": 8,
+            "sparse_score": 3.477937980471907,
+            "variant_label": "Pink Black Widow"
+          },
+          {
+            "brand": "Hot Wheels",
+            "casting": "55 CHEVY BEL AIR GASSER",
+            "casting_id": "human-hot-wheels-55-chevy-bel-air-gasser",
+            "casting_uuid": "ba6cfc51-f515-5c1f-853b-9a04603e8e6f",
+            "character_rank": null,
+            "character_score": null,
+            "dense_rank": 9,
+            "dense_score": 0.19848822940593547,
+            "example_initial_names": [
+              "2015 Hot Wheels '55 CHEVY BEL AIR GASSER #207∞ Orange;flame∞Heat Fleet∞FACTORY ∞"
+            ],
+            "human_label_names": [
+              "Hot Wheels '55 CHEVY BEL AIR GASSER Orange"
+            ],
+            "identity_status": "needs_canonical_review",
+            "knowledge_type": "provisional_variant",
+            "matched_tokens": [
+              "chevy"
+            ],
+            "provisional_variant_id": "human-hot-wheels-55-chevy-bel-air-gasser-mainline-orange",
+            "provisional_variant_uuid": "c109fdfa-5b06-5d28-b811-848be503877e",
+            "rrf_rank": 10,
+            "rrf_score": 0.029418126757516764,
+            "series_label": "mainline",
+            "source_case_ids": [
+              "ui-scan-a5ab7ace-fc75-43d0-bf09-b2bad1c0c9ed"
+            ],
+            "sparse_rank": 7,
+            "sparse_score": 3.477937980471907,
+            "variant_label": "orange"
+          }
+        ],
+        "human_knowledge_character_index": null,
+        "human_knowledge_retrieval_artifact_sha256": null,
+        "human_knowledge_retrieval_artifact_version": null,
+        "model_versions": {
+          "calibrator": "fixture-v1-rrf-logistic-v2",
+          "dense": "hashing-v1",
+          "human_knowledge": "human-knowledge-hybrid-v2",
+          "human_knowledge_character_index": "disabled",
+          "reranker": "disabled",
+          "reranker_ablation": "heuristic-v1",
+          "sparse": "token-index-v1"
+        },
+        "review_family_knowledge_version": "review-family-knowledge-fandom-2025-r790665-v1",
+        "signals": {
+          "collector_number": null,
+          "color_hints": [],
+          "multipack_hint": false,
+          "normalized_title": "chevy nomad",
+          "parse_warnings": [],
+          "quantity": null,
+          "series_hints": [],
+          "series_position": null,
+          "tokens": [
+            "chevy",
+            "nomad"
+          ],
+          "year": null
+        },
+        "timings_ms": {
+          "calibration": 0.0042,
+          "dense": 0.5737,
+          "fusion": 0.1057,
+          "human_knowledge_retrieval": 0.1528,
+          "rerank": 0.0008,
+          "signal_extraction": 0.0138,
+          "sparse": 0.0406,
+          "structured": 0.0287,
+          "total": 0.9344
+        }
+      },
+      "health": {
+        "alive": true,
+        "dependencies": {
+          "calibrator": {
+            "detail": null,
+            "ready": true,
+            "version": "fixture-v1-rrf-logistic-v2"
+          },
+          "catalog": {
+            "detail": null,
+            "ready": true,
+            "version": "fixture-v1"
+          },
+          "database": {
+            "detail": null,
+            "ready": true,
+            "version": "offline-memory"
+          },
+          "dense_index": {
+            "detail": null,
+            "ready": true,
+            "version": "hashing-v1"
+          },
+          "human_catalog": {
+            "detail": "human-reviewed draft; retrieval evidence only, not canonical identity",
+            "ready": true,
+            "version": "human-backed-catalog-v1"
+          },
+          "human_knowledge_index": {
+            "detail": "v2 token-gated path active; no v3 artifact selected",
+            "ready": true,
+            "version": "human-knowledge-hybrid-v2"
+          },
+          "reranker": {
+            "detail": "heuristic-v1 is available for offline ablation but not the default path",
+            "ready": true,
+            "version": "disabled"
+          },
+          "review_family_knowledge": {
+            "detail": "family-only review suggestions; never canonical identity",
+            "ready": true,
+            "version": "review-family-knowledge-fandom-2025-r790665-v1"
+          },
+          "sparse_index": {
+            "detail": null,
+            "ready": true,
+            "version": "token-index-v1"
+          }
+        },
+        "ready": true
+      },
+      "health_status": 200,
+      "responses": [
+        {
+          "canonical_id": "hot-wheels-chevy-nomad-2022-mainline-red-101",
+          "canonical_uuid": "1d9c1879-d413-511e-8ade-0d80d2240e4d",
+          "confidence": 0.9275707652671901,
+          "policy_version": "fixture-v1-rrf-trained-v2",
+          "product": {
+            "brand": "Hot Wheels",
+            "casting": "Chevy Nomad",
+            "collector_number": "101",
+            "color": "Red",
+            "edition": null,
+            "rarity_tier": "mainline",
+            "release_year": 2022,
+            "series": "Mainline",
+            "series_position": "1/10"
+          },
+          "reason": "score_and_margin_above_threshold",
+          "status": "matched"
+        },
+        {
+          "canonical_id": null,
+          "canonical_uuid": null,
+          "confidence": 0.09461565421173415,
+          "policy_version": "fixture-v1-rrf-trained-v2",
+          "product": null,
+          "reason": "no_candidate_above_threshold",
+          "status": "no_match"
+        },
+        {
+          "canonical_id": null,
+          "canonical_uuid": null,
+          "confidence": 0.0952113707291569,
+          "policy_version": "fixture-v1-rrf-trained-v2",
+          "product": null,
+          "reason": "no_candidate_above_threshold",
+          "status": "no_match"
+        },
+        {
+          "canonical_id": null,
+          "canonical_uuid": null,
+          "confidence": 0.2649322501969786,
+          "policy_version": "fixture-v1-rrf-trained-v2",
+          "product": null,
+          "reason": "no_candidate_above_threshold",
+          "status": "no_match"
+        }
+      ],
+      "ui_status": 200
+    },
+    "malformed": {
+      "health": {
+        "alive": true,
+        "dependencies": {
+          "calibrator": {
+            "detail": null,
+            "ready": false,
+            "version": null
+          },
+          "catalog": {
+            "detail": "ValueError: dependency unavailable",
+            "ready": false,
+            "version": null
+          },
+          "database": {
+            "detail": null,
+            "ready": false,
+            "version": null
+          },
+          "dense_index": {
+            "detail": null,
+            "ready": false,
+            "version": null
+          },
+          "human_catalog": {
+            "detail": "ValueError: dependency unavailable",
+            "ready": false,
+            "version": null
+          },
+          "human_knowledge_index": {
+            "detail": "ValueError: dependency unavailable",
+            "ready": false,
+            "version": null
+          },
+          "reranker": {
+            "detail": "heuristic-v1 is available for offline ablation but not the default path",
+            "ready": false,
+            "version": null
+          },
+          "review_family_knowledge": {
+            "detail": "ValueError: dependency unavailable",
+            "ready": false,
+            "version": null
+          },
+          "sparse_index": {
+            "detail": null,
+            "ready": false,
+            "version": null
+          }
+        },
+        "ready": false
+      },
+      "health_status": 503,
+      "resolve_status": 503
+    },
+    "missing": {
+      "health": {
+        "alive": true,
+        "dependencies": {
+          "calibrator": {
+            "detail": null,
+            "ready": false,
+            "version": null
+          },
+          "catalog": {
+            "detail": "FileNotFoundError: dependency unavailable",
+            "ready": false,
+            "version": null
+          },
+          "database": {
+            "detail": null,
+            "ready": false,
+            "version": null
+          },
+          "dense_index": {
+            "detail": null,
+            "ready": false,
+            "version": null
+          },
+          "human_catalog": {
+            "detail": "FileNotFoundError: dependency unavailable",
+            "ready": false,
+            "version": null
+          },
+          "human_knowledge_index": {
+            "detail": "FileNotFoundError: dependency unavailable",
+            "ready": false,
+            "version": null
+          },
+          "reranker": {
+            "detail": "heuristic-v1 is available for offline ablation but not the default path",
+            "ready": false,
+            "version": null
+          },
+          "review_family_knowledge": {
+            "detail": "FileNotFoundError: dependency unavailable",
+            "ready": false,
+            "version": null
+          },
+          "sparse_index": {
+            "detail": null,
+            "ready": false,
+            "version": null
+          }
+        },
+        "ready": false
+      },
+      "health_status": 503,
+      "resolve_status": 503
+    },
+    "stale": {
+      "health": {
+        "alive": true,
+        "dependencies": {
+          "calibrator": {
+            "detail": null,
+            "ready": false,
+            "version": null
+          },
+          "catalog": {
+            "detail": "ValueError: dependency unavailable",
+            "ready": false,
+            "version": null
+          },
+          "database": {
+            "detail": null,
+            "ready": false,
+            "version": null
+          },
+          "dense_index": {
+            "detail": null,
+            "ready": false,
+            "version": null
+          },
+          "human_catalog": {
+            "detail": "ValueError: dependency unavailable",
+            "ready": false,
+            "version": null
+          },
+          "human_knowledge_index": {
+            "detail": "ValueError: dependency unavailable",
+            "ready": false,
+            "version": null
+          },
+          "reranker": {
+            "detail": "heuristic-v1 is available for offline ablation but not the default path",
+            "ready": false,
+            "version": null
+          },
+          "review_family_knowledge": {
+            "detail": "ValueError: dependency unavailable",
+            "ready": false,
+            "version": null
+          },
+          "sparse_index": {
+            "detail": null,
+            "ready": false,
+            "version": null
+          }
+        },
+        "ready": false
+      },
+      "health_status": 503,
+      "resolve_status": 503
+    },
+    "v4": {
+      "debug": {
+        "candidates": [
+          {
+            "canonical_id": "hot-wheels-chevy-nomad-2022-mainline-black-103",
+            "canonical_uuid": "29cb8b88-2bd7-5e88-80ed-25cd38e89097",
+            "dense_rank": 2,
+            "dense_score": 0.46543067864690296,
+            "reranker_rank": null,
+            "reranker_score": null,
+            "rrf_rank": 1,
+            "rrf_score": 0.03200204813108039,
+            "sparse_rank": 3,
+            "sparse_score": 6.461682376270409,
+            "structured_conflicts": [],
+            "structured_matches": [],
+            "structured_rank": null,
+            "structured_score": null
+          },
+          {
+            "canonical_id": "hot-wheels-chevy-nomad-2023-hw-dream-garage-blue-106",
+            "canonical_uuid": "9bb3740e-aea2-5384-97bf-5b99eadfadfa",
+            "dense_rank": 1,
+            "dense_score": 0.4678733510650248,
+            "reranker_rank": null,
+            "reranker_score": null,
+            "rrf_rank": 2,
+            "rrf_score": 0.031099324975891997,
+            "sparse_rank": 8,
+            "sparse_score": 6.461682376270409,
+            "structured_conflicts": [],
+            "structured_matches": [],
+            "structured_rank": null,
+            "structured_score": null
+          },
+          {
+            "canonical_id": "hot-wheels-chevy-nomad-2024-then-and-now-black-111",
+            "canonical_uuid": "6eacc683-4c82-5eba-8bf4-647fe7c58c92",
+            "dense_rank": 6,
+            "dense_score": 0.4451945621839941,
+            "reranker_rank": null,
+            "reranker_score": null,
+            "rrf_rank": 3,
+            "rrf_score": 0.030776515151515152,
+            "sparse_rank": 4,
+            "sparse_score": 6.461682376270409,
+            "structured_conflicts": [],
+            "structured_matches": [],
+            "structured_rank": null,
+            "structured_score": null
+          },
+          {
+            "canonical_id": "hot-wheels-chevy-nomad-2023-hw-dream-garage-red-105",
+            "canonical_uuid": "1a91abcd-01f8-5ab2-bf5f-f52bfb2e4ae1",
+            "dense_rank": 11,
+            "dense_score": 0.416702740141187,
+            "reranker_rank": null,
+            "reranker_score": null,
+            "rrf_rank": 4,
+            "rrf_score": 0.03047794966520434,
+            "sparse_rank": 1,
+            "sparse_score": 6.461682376270409,
+            "structured_conflicts": [],
+            "structured_matches": [],
+            "structured_rank": null,
+            "structured_score": null
+          },
+          {
+            "canonical_id": "hot-wheels-chevy-nomad-2022-mainline-red-101",
+            "canonical_uuid": "1d9c1879-d413-511e-8ade-0d80d2240e4d",
+            "dense_rank": 10,
+            "dense_score": 0.4264014327112209,
+            "reranker_rank": null,
+            "reranker_score": null,
+            "rrf_rank": 5,
+            "rrf_score": 0.0304147465437788,
+            "sparse_rank": 2,
+            "sparse_score": 6.461682376270409,
+            "structured_conflicts": [],
+            "structured_matches": [],
+            "structured_rank": null,
+            "structured_score": null
+          },
+          {
+            "canonical_id": "hot-wheels-chevy-nomad-2023-hw-dream-garage-black-107",
+            "canonical_uuid": "ad36cc2f-9634-5aec-b256-736df13dd5de",
+            "dense_rank": 3,
+            "dense_score": 0.4605661864718383,
+            "reranker_rank": null,
+            "reranker_score": null,
+            "rrf_rank": 6,
+            "rrf_score": 0.030158730158730156,
+            "sparse_rank": 10,
+            "sparse_score": 6.461682376270409,
+            "structured_conflicts": [],
+            "structured_matches": [],
+            "structured_rank": null,
+            "structured_score": null
+          },
+          {
+            "canonical_id": "hot-wheels-chevy-nomad-2024-then-and-now-blue-110",
+            "canonical_uuid": "a833a7e2-e422-53ae-bca4-fe8eb6c63852",
+            "dense_rank": 4,
+            "dense_score": 0.45773770821706344,
+            "reranker_rank": null,
+            "reranker_score": null,
+            "rrf_rank": 7,
+            "rrf_score": 0.030117753623188408,
+            "sparse_rank": 9,
+            "sparse_score": 6.461682376270409,
+            "structured_conflicts": [],
+            "structured_matches": [],
+            "structured_rank": null,
+            "structured_score": null
+          },
+          {
+            "canonical_id": "hot-wheels-chevy-nomad-2024-then-and-now-silver-112",
+            "canonical_uuid": "74b341b3-2980-5513-9bf9-f33fd17d9812",
+            "dense_rank": 8,
+            "dense_score": 0.43282871518245075,
+            "reranker_rank": null,
+            "reranker_score": null,
+            "rrf_rank": 8,
+            "rrf_score": 0.030090497737556562,
+            "sparse_rank": 5,
+            "sparse_score": 6.461682376270409,
+            "structured_conflicts": [],
+            "structured_matches": [],
+            "structured_rank": null,
+            "structured_score": null
+          },
+          {
+            "canonical_id": "hot-wheels-chevy-nomad-2022-mainline-silver-104",
+            "canonical_uuid": "7ce9fb1e-af7b-5da4-be3e-4c78ee5ddf83",
+            "dense_rank": 7,
+            "dense_score": 0.4348655674453557,
+            "reranker_rank": null,
+            "reranker_score": null,
+            "rrf_rank": 9,
+            "rrf_score": 0.029850746268656716,
+            "sparse_rank": 7,
+            "sparse_score": 6.461682376270409,
+            "structured_conflicts": [],
+            "structured_matches": [],
+            "structured_rank": null,
+            "structured_score": null
+          },
+          {
+            "canonical_id": "hot-wheels-chevy-nomad-2022-mainline-blue-102",
+            "canonical_uuid": "cc8aa11f-96ca-5d7a-8b82-ea692973eb0d",
+            "dense_rank": 5,
+            "dense_score": 0.4454995476818113,
+            "reranker_rank": null,
+            "reranker_score": null,
+            "rrf_rank": 10,
+            "rrf_score": 0.02946912242686891,
+            "sparse_rank": 11,
+            "sparse_score": 6.461682376270409,
+            "structured_conflicts": [],
+            "structured_matches": [],
+            "structured_rank": null,
+            "structured_score": null
+          }
+        ],
+        "catalog_version": "fixture-v1",
+        "human_catalog_version": "human-backed-catalog-v1",
+        "human_knowledge_candidates": [
+          {
+            "brand": "Hot Wheels",
+            "casting": "2000 Chevy Nomad",
+            "casting_id": "human-hot-wheels-2000-chevy-nomad",
+            "casting_uuid": "1f8454af-4f76-58ef-8c86-572f62ec62f5",
+            "character_rank": 1,
+            "character_score": 0.7913502892750387,
+            "dense_rank": 1,
+            "dense_score": 0.5201477075237814,
+            "example_initial_names": [
+              "Hot Wheels 2000 Chevy Nomad Orange #196 NIB"
+            ],
+            "human_label_names": [
+              "Hot Wheels 2000 Chevy Nomad Orange #196 NIB"
+            ],
+            "identity_status": "needs_canonical_review",
+            "knowledge_type": "provisional_variant",
+            "matched_tokens": [
+              "chevy",
+              "nomad"
+            ],
+            "provisional_variant_id": "human-hot-wheels-2000-chevy-nomad-mainline-orange",
+            "provisional_variant_uuid": "ee7b3635-6a6d-52fe-b58f-36180a9bd086",
+            "rrf_rank": 1,
+            "rrf_score": 0.03278688524590164,
+            "series_label": "mainline",
+            "source_case_ids": [
+              "ui-scan-b74f75ef-7a03-4e03-ac75-9d0d74c8b919"
+            ],
+            "sparse_rank": null,
+            "sparse_score": null,
+            "variant_label": "orange"
+          }
+        ],
+        "human_knowledge_character_index": {
+          "allowed_fields": {
+            "provisional_variant": [
+              "casting"
+            ],
+            "review_family": [
+              "casting",
+              "aliases"
+            ]
+          },
+          "document_count": 142,
+          "form_count": 284,
+          "gram_sizes": [
+            2,
+            3
+          ],
+          "modes": [
+            "spaced",
+            "compact"
+          ],
+          "posting_count": 3052,
+          "posting_definition": "normalized_form_gram_entries",
+          "posting_entry_count": 8051,
+          "stable_tie_break": "knowledge_uuid",
+          "version": "human-knowledge-identity-postings-v1",
+          "window_token_radius": 1
+        },
+        "human_knowledge_identity_work": {
+          "abstention_reason": null,
+          "character_candidates": 1,
+          "dense_union": 1,
+          "exact_candidates": 0,
+          "policy_version": "identity-core-policy-v1",
+          "posting_entries_visited": 654,
+          "query_forms": 6,
+          "scored_forms": 107
+        },
+        "human_knowledge_retrieval_artifact_sha256": "82c94a2629da6936bec3e4a2983e67c70d69e94cb94a9817375f891d59b1ae6b",
+        "human_knowledge_retrieval_artifact_version": "human-knowledge-retrieval-v4-dev-f52f85f77580",
+        "model_versions": {
+          "calibrator": "fixture-v1-rrf-logistic-v2",
+          "dense": "hashing-v1",
+          "human_knowledge": "human-knowledge-hybrid-v4",
+          "human_knowledge_character_index": "human-knowledge-identity-postings-v1",
+          "reranker": "disabled",
+          "reranker_ablation": "heuristic-v1",
+          "sparse": "token-index-v1"
+        },
+        "review_family_knowledge_version": "review-family-knowledge-fandom-2025-r790665-v1",
+        "signals": {
+          "collector_number": null,
+          "color_hints": [],
+          "multipack_hint": false,
+          "normalized_title": "chevy nomad",
+          "parse_warnings": [],
+          "quantity": null,
+          "series_hints": [],
+          "series_position": null,
+          "tokens": [
+            "chevy",
+            "nomad"
+          ],
+          "year": null
+        },
+        "timings_ms": {
+          "calibration": 0.0043,
+          "dense": 0.6158,
+          "fusion": 0.1288,
+          "human_knowledge_retrieval": 0.2077,
+          "rerank": 0.0008,
+          "signal_extraction": 0.0176,
+          "sparse": 0.0473,
+          "structured": 0.0303,
+          "total": 1.0683
+        }
+      },
+      "health": {
+        "alive": true,
+        "dependencies": {
+          "calibrator": {
+            "detail": null,
+            "ready": true,
+            "version": "fixture-v1-rrf-logistic-v2"
+          },
+          "catalog": {
+            "detail": null,
+            "ready": true,
+            "version": "fixture-v1"
+          },
+          "database": {
+            "detail": null,
+            "ready": true,
+            "version": "offline-memory"
+          },
+          "dense_index": {
+            "detail": null,
+            "ready": true,
+            "version": "hashing-v1"
+          },
+          "human_catalog": {
+            "detail": "human-reviewed draft; retrieval evidence only, not canonical identity",
+            "ready": true,
+            "version": "human-backed-catalog-v1"
+          },
+          "human_knowledge_index": {
+            "detail": "character index human-knowledge-identity-postings-v1; artifact human-knowledge-retrieval-v4-dev-f52f85f77580 sha256:82c94a2629da6936bec3e4a2983e67c70d69e94cb94a9817375f891d59b1ae6b; identity-core-policy-v1; limits: query=512 chars/64 tokens, forms=256, postings=1000000, sources=25, dense_union=50",
+            "ready": true,
+            "version": "human-knowledge-hybrid-v4"
+          },
+          "reranker": {
+            "detail": "heuristic-v1 is available for offline ablation but not the default path",
+            "ready": true,
+            "version": "disabled"
+          },
+          "review_family_knowledge": {
+            "detail": "family-only review suggestions; never canonical identity",
+            "ready": true,
+            "version": "review-family-knowledge-fandom-2025-r790665-v1"
+          },
+          "sparse_index": {
+            "detail": null,
+            "ready": true,
+            "version": "token-index-v1"
+          }
+        },
+        "ready": true
+      },
+      "health_status": 200,
+      "responses": [
+        {
+          "canonical_id": "hot-wheels-chevy-nomad-2022-mainline-red-101",
+          "canonical_uuid": "1d9c1879-d413-511e-8ade-0d80d2240e4d",
+          "confidence": 0.9275707652671901,
+          "policy_version": "fixture-v1-rrf-trained-v2",
+          "product": {
+            "brand": "Hot Wheels",
+            "casting": "Chevy Nomad",
+            "collector_number": "101",
+            "color": "Red",
+            "edition": null,
+            "rarity_tier": "mainline",
+            "release_year": 2022,
+            "series": "Mainline",
+            "series_position": "1/10"
+          },
+          "reason": "score_and_margin_above_threshold",
+          "status": "matched"
+        },
+        {
+          "canonical_id": null,
+          "canonical_uuid": null,
+          "confidence": 0.09461565421173415,
+          "policy_version": "fixture-v1-rrf-trained-v2",
+          "product": null,
+          "reason": "no_candidate_above_threshold",
+          "status": "no_match"
+        },
+        {
+          "canonical_id": null,
+          "canonical_uuid": null,
+          "confidence": 0.0952113707291569,
+          "policy_version": "fixture-v1-rrf-trained-v2",
+          "product": null,
+          "reason": "no_candidate_above_threshold",
+          "status": "no_match"
+        },
+        {
+          "canonical_id": null,
+          "canonical_uuid": null,
+          "confidence": 0.2649322501969786,
+          "policy_version": "fixture-v1-rrf-trained-v2",
+          "product": null,
+          "reason": "no_candidate_above_threshold",
+          "status": "no_match"
+        }
+      ],
+      "ui_status": 200
+    }
+  },
+  "packaging_sha256": {
+    ".dockerignore": "3505763fe741790d0cb0bd4918a4cc4774afbcc82c0a8c758754e42f40bc112f",
+    "Dockerfile": "cdd23bf5c7af1204b37a6d54ac330fc460863e52ecc74b2f0fe15493f2e617ab",
+    "docker-compose.yml": "7c36ba028405d76ee349b8b6c9e9e1d5a04f849a3a522e0760a3662e36612eee"
+  },
+  "python": "3.12.14",
+  "read_only_container": true,
+  "schema_version": "pvr-human-knowledge-v4-runtime-smoke-v1",
+  "source_sha256": {
+    "src/product_variant_resolver/api.py": "a847d72a95eb6e7f68b8ca1db46b47c32dde5b463986a0201b0b068a2c223bdb",
+    "src/product_variant_resolver/config.py": "bfdc81228683fd534f9b4ff6fd62f747a174af70ba62bac045789c5d23318e14",
+    "src/product_variant_resolver/human_knowledge_identity.py": "21507f19034ea740c12251746ed761a359b81668d23094ab6d66271fdf91d5fa",
+    "src/product_variant_resolver/human_knowledge_identity_artifact.py": "717c1493585fa4b56a7f5a8bbf0bdb3df273a7369b5e791aee4388ddfbd6d7a9",
+    "src/product_variant_resolver/schemas.py": "0458392b02a1aca8b5eafded233e2d9b41a6ffec97772163a2ac59a1133f40f0",
+    "src/product_variant_resolver/service.py": "9fa745b386435799c6a5d5f62826570d48ca4b68a13f6aabba5b30b62f8e662c",
+    "ui/app.js": "0104a1d7182803a830110c89bdd68f9f8dbd4672dbbf1431d0fe04de8adc9173"
+  },
+  "system": "Linux",
+  "uid": 100,
+  "verdict": "PASS",
+  "verifier_sha256": "1b34d1b910790ac6e188a4141c08e12c875ddcdbe8b3340e7eaf85d5b385b984"
+}

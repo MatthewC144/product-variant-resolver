@@ -455,8 +455,8 @@ Current project checklist (engineering completion is not retrieval-quality appro
 - [x] IBR-T3: all 21 configurations/4,179 real outputs and 2,520 scale outputs frozen; development PASS.
 - [x] IBR-T4 preparation: freeze 105 new output-blind final question/reference pairs after winner commit.
 - [x] IBR-T4 approval/labels: owner confirmed targets/scope; 105 decisions and benchmark frozen separately.
-- [ ] IBR-T5: one final score, full closure and runtime packaging verification; preserve FAIL without tuning.
-- [ ] T49 and later: design reviewed real-catalog expansion toward 3,000 rows only after final PASS.
+- [x] IBR-T5: one final score PASS, full Lite closure and fresh non-root/read-only Docker HTTP verification.
+- [ ] T49 and later: reviewed real-catalog/variant-data expansion design now permitted; no ingestion authorized.
 - [ ] End-to-end demonstration and beginner code review after project delivery.
 
 **IBR-T3 complete:** all 21 settings pass the frozen development gates. The deterministic winner is
@@ -476,14 +476,14 @@ PVR_HUMAN_KNOWLEDGE_IDENTITY_ARTIFACT=config/human-knowledge-retrieval-v4.json \
   uvicorn product_variant_resolver.api:app --host 127.0.0.1 --port 8000
 ```
 
-No final score or default switch occurred. Development is already-viewed identity-derived
+At the T3 checkpoint, no final score or default switch had occurred. Development is already-viewed identity-derived
 data, not independent final accuracy. Microbenchmarks are non-isolated Python 3.12.13/arm64/10-CPU
 in-process retrieval only; not Docker/HTTP/SQL/load/production latency. First-setting startup/early
 measurement briefly overlapped the pre-run test process, disclosed in evidence without rerunning.
-The original FAILs and T49 blockade remain. Synthetic 3,000-document workload is not 3,000 real
+The original FAILs remain published; see the T5 checkpoint below for design-only T49 eligibility. Synthetic 3,000-document workload is not 3,000 real
 products inserted into PostgreSQL.
 
-**IBR-T4 complete — owner-approved family benchmark frozen; no final score yet.**
+**IBR-T4 complete — owner-approved family benchmark frozen before the T5 score below.**
 [Review all 105 frozen questions and intended targets](data/evaluation/family-retrieval-v2/owner-review.md).
 The query pack has 84 positives (42 families × marketplace/lexical), 4 merge, 7 hold and 10 unrelated
 controls. It rejects copied old final/development/indexed strings, compact duplicates and nonempty
@@ -500,7 +500,7 @@ All 105 formal family labels are in
 [`approved/benchmark.json`](data/evaluation/family-retrieval-v2/approved/benchmark.json), bound to
 question/case/builder hashes. This is casting/family truth, not color/wheel/tampo/release-variant or
 canonical ground truth. Held controls prohibit the held family; they do not require all valid hits
-to disappear. No final-v2 retrieval/score exists. Coverage means retrieved **families/42**, not
+to disappear. That label-stage freeze did not run retrieval; T5 results are below. Coverage means retrieved **families/42**, not
 positive-query response count. A misnamed
 unapproved metadata draft is preserved under `family-retrieval-v2-superseded-draft-01`, not eligible
 for approval or scoring. Questions were unchanged and no model output informed this correction.
@@ -513,8 +513,41 @@ PYTHONPATH=src .venv/bin/python scripts/build_family_retrieval_benchmark_v2.py -
 
 The original question checker still describes its historical pending-review checkpoint; its flags
 and source bytes remain immutable. Use the new benchmark checker for current approval status;
-`--check-committed` refuses uncommitted or modified labels/builders before T5. Next: one final
-evaluation/runtime closure after benchmark commit. Default v2 and T49/real expansion remain gated.
+`--check-committed` refuses uncommitted or modified labels/builders before T5. Defaultv2 remains active.
+
+**IBR-T5 final family-quality / Lite closure PASS.** Benchmark87bbd19 and evaluatorb86578c were
+committed before exactly105 final query calls, zero final warmups/retries. All raw ranks/work/errors
+were saved before label scoring; no final-set tuning or source-bound retriever/label changes.
+
+| Final gate | Result |
+|---|---:|
+| Positive Recall@5 | 80/84 =95.24% |
+| Positive Recall@1 | 77/84 =91.67% |
+| MRR@5 | 0.93254 |
+| Marketplace / lexical Recall@5 | 42/42 /38/42 |
+| Family coverage / merge Recall@5 | 42/42 /4/4 |
+| Forbidden families / unrelated nonempty / retrieval errors | 0 /0 /0 |
+
+All9 inherited gates pass; four lexical misses remain in
+[`evaluation.md`](reports/family-retrieval-v2/evaluation.md), with all105 rows in
+[`raw-results.json`](reports/family-retrieval-v2/raw-results.json). This is approved synthetic
+same-family retrieval, not independent population/unseen-casting, release/color/wheel/tampo accuracy.
+Diagnostic finalp95=6.945209ms excludes extraction and includes serialization; no HTTP/production claim.
+
+411 full tests pass. Fresh Docker Python3.12.14/non-root/read-only loopback HTTP validates defaultv2,
+experimentalv4, identical non-debug canonical answers, debug/UI and missing/malformed/stale503.
+The real packagingROOT failure was fixed with `PYTHONPATH=/app/src`, keeping pinned loader/model
+bytes unchanged. A verifier fixture wrongly treated relocation of identical bytes as stale; corrected
+to invalid mandatory evidenceSHA. Both failures remain published beside the successful runtime report.
+
+```bash
+PYTHONPATH=src .venv/bin/python -m product_variant_resolver.family_retrieval_final_v2_evaluation --check
+```
+
+Checking uses stored ranks, never final retrieval. `--run` refuses the existing reserved run directory.
+See [final/closure evidence](docs/evidence/family-retrieval-final-v2.md). Next T49 DESIGN ONLY:
+plan reviewed real catalog/variant attributes and targeted same-casting variant tests; no SQL writes,
+3,000-row ingestion, defaultv4 deployment or production accuracy approval is implied.
 
 ## Docker and PostgreSQL status
 

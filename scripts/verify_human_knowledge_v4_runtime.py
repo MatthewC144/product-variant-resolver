@@ -43,10 +43,13 @@ def inside():
                 ("missing", "/app/config/does-not-exist-v4.json"), ("malformed", str(invalid)),
                 ("stale", "/tmp/stale-config/human-knowledge-retrieval-v4.json"))):
             if name == "stale":
-                # Correct artifact bytes but missing mandatory sibling /tmp/data and source/report chain.
+                # Stale evidence means an invalid mandatory checksum, not merely relocating the artifact.
+                # The source-derived /app evidence ROOT deliberately remains fixed after packaging fix.
                 stale = Path(option)
-                stale.parent.mkdir()
-                stale.write_bytes(artifact.read_bytes())
+                stale.parent.mkdir(exist_ok=True)
+                value = json.loads(artifact.read_text())
+                value["selection_evidence"]["sha256"] = "0" * 64
+                stale.write_text(json.dumps(value))
             port = 8120 + index
             environment = dict(os.environ, PVR_UI_PATH="/app/ui")
             environment.pop("PVR_HUMAN_KNOWLEDGE_RETRIEVAL_ARTIFACT", None)
@@ -137,7 +140,9 @@ def main():
     inspect = subprocess.run(["docker", "image", "inspect", "--format", "{{.Id}}", args.docker_image],
         capture_output=True, text=True, check=True)
     payload.update(schema_version="pvr-human-knowledge-v4-runtime-smoke-v1", image=args.docker_image,
-        image_id=inspect.stdout.strip(), verifier_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest())
+        image_id=inspect.stdout.strip(), verifier_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        packaging_sha256={name: hashlib.sha256((root / name).read_bytes()).hexdigest()
+            for name in ("Dockerfile", ".dockerignore", "docker-compose.yml")})
     for name, checksum in payload["source_sha256"].items():
         if hashlib.sha256((root / name).read_bytes()).hexdigest() != checksum:
             raise ValueError("image contains stale runtime source: " + name)

@@ -1,0 +1,11 @@
+{
+  "code_commit": "b86578c56c5016006b031fa2a18df3363f641e6d",
+  "one_shot": true,
+  "query_pack_sha256": "b23b69912c678c027461c96eb23f113484c5a8ed6218c06d90026704abe5102b",
+  "schema_version": "pvr-family-retrieval-run-start-v2",
+  "source_sha256": {
+    "scripts/generate_family_retrieval_report_v2.py": "db2c2a9c203173aabf1157ad2900bfee5137bce8c7fd01a266515214940ce78b",
+    "src/product_variant_resolver/family_retrieval_final_v2_evaluation.py": "c19a5f1b43a2ffc0e6c4727fb3ae3bc60a83438044eb0dc803088db698d943bc"
+  },
+  "started_at": "2026-09-14T17:09:36.161458+00:00"
+}

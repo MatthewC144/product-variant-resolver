@@ -1,6 +1,6 @@
 # Identity-Bounded Human Knowledge Retrieval — Tasks
 
-Mode: Lite. Status: IBR-T1/T2/T3/T4 complete; approved benchmark must be committed before T5 scoring.
+Mode: Lite. Status: IBR-T1–T5 complete; final-v2 family quality and Lite/runtime closure PASS.
 No subagents without explicit user request. All files under `Product Variant Resolver`.
 
 ## IBR-T1 — Freeze the owner-approved new execution protocol
@@ -64,11 +64,11 @@ candidates viewed during authoring/review, and labeled benchmark committed befor
 
 ## IBR-T5 — Run one final score and close the Lite gate honestly
 
-- [ ] Retrieve before final label access, publish all raw ranks/errors and unchanged final gates;
+- [x] Retrieve before final label access, publish all raw ranks/errors and unchanged final gates;
   preserve a final FAIL without tuning. _(→R15)_
-- [ ] Run full tests/historical data checks/canonical and cost regressions, compilation/API/UI/
+- [x] Run full tests/historical data checks/canonical and cost regressions, compilation/API/UI/
   packaging checks; update QA, AI-eval, README, decision and narrative Project Log. _(→R1,R11–R16)_
-- [ ] Authorize T49 design only on complete final PASS; no actual ingestion/default deployment is
+- [x] Authorize T49 design only on complete final PASS; no actual ingestion/default deployment is
   implied by closure. _(→R16)_
 
 Files: v2 evaluator/report tests, final reports, this feature's `review.md`, evidence and docs.
@@ -95,7 +95,14 @@ Owner explicitly confirmed the targets, asked about variant features, and agreed
 the casting/family-only scope explanation. The attributable conversation excerpts, 105 decisions,
 unchanged questions/derived labels, builder checksums and benchmark are now frozen together under
 `data/evaluation/family-retrieval-v2/approved/`. Recording time is not an invented message time.
-T5 scoring is NOT executed; the committed-benchmark gate must pass before one final score.
-T4 engineering/label completion is not final PASS. Family coverage
+T5 now preserves one105-query run after benchmark87bbd19 and evaluatorb86578c commits. All9
+final gates PASS: positive80/84@5,77/84@1,MRR0.93254; styles38/42 and42/42; family42/42;
+merge4/4; forbidden/unrelated0. Four lexical misses remain published; no tuning/rerun occurred.
+Fresh non-root/read-only Docker HTTP/default-v4/canonical/UI/missing-malformed-stale503 closure
+PASS after packaging-only PYTHONPATH root fix. Two runtime/verifier failures are preserved separately.
+Full/runtime/source/cost/historical/docs closure permits T49 DESIGN ONLY, not writes/deployment.
+Family coverage
 retains the inherited 42-family denominator; a pre-approval misnamed draft is preserved/superseded.
-Independent-final/runtime-closure/T49 remain gated. Synthetic scale is not real catalog expansion.
+Final accuracy is scoped to owner-reviewed synthetic same-family retrieval, not population/unseen
+casting/release variant truth. Defaultv2 and real promotion/ingestion/deployment remain gated.
+Synthetic scale is not real catalog expansion. See `docs/evidence/family-retrieval-final-v2.md`.
