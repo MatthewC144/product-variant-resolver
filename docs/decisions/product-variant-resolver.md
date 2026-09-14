@@ -905,3 +905,32 @@ frozen with builder/corpus/development/report/spec/source bindings. No retriever
 catalog change, v4 output/artifact/latency claim, final query authoring or SQL expansion. Default v2
 and T49 blockade remain. Next: IBR-T2 exact posting/oracle and isolated runtime implementation;
 limits/policy changes would require a new versioned decision/protocol, not an after-output edit.
+
+## D41 — Isolate v4 query arithmetic from qualified-evidence loading
+
+Status: ACCEPTED for IBR-T2 implementation only; no selected/default v4 release.
+
+Choice: retain the owner-approved identity/token/form-posting model in a new runtime module and
+place strict artifact/raw-report validation in a second new module. Query-local frozen work values
+return beside candidates; no shared `last_work` property or service mutation. Complete human aborts
+do not alter canonical status, while corrupted index/evidence/provider state fails dependency readiness.
+
+Reason: old v3 sources/report hashes must stay valid, and mixing evidence loading with hot-query math
+would make source provenance harder to test. Separate opt-in requires every protocol/source/fixed
+parameter/full raw report/winner check; runtime cannot activate an arbitrary floor/weight or a failed
+configuration. Tiny unit/API configurations remain ephemeral test construction, not selected artifacts.
+
+Alternatives: edit the old v3 loader/scorer (breaks published provenance); shared mutable debug counters
+(concurrent requests can overwrite evidence); silently revert to v2 on a requested v4 failure (misstates
+active configuration); or approximate eligibility/type quotas (violates exact/admission contract).
+Direct accumulation is chosen for mathematical verifiability, not an unmeasured speed promise.
+
+Evidence: 65 focused and 311 full tests pass, independent cosine/rank/cap/authority checks and old
+source-bound report reproduction pass. Docker copies source-bound reports/builder and admits the
+builder through `.dockerignore`; static context/Compose checks pass, no rebuilt runtime claim.
+
+Accepted costs: index initialization retains per-form weights and dense vectors; common gram postings
+can still reach the cap. Noise removal/synonym loss/core collisions and numeric-only synthetic probes
+remain known risks. A qualified artifact validates a full 21-grid report at startup, adding readiness
+work but avoiding query-time report replay. Complete report execution/replay is deferred to T3.
+No policy/grid/ceiling change, selected artifact, final authoring or SQL expansion follows this decision.

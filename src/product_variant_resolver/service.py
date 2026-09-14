@@ -22,6 +22,8 @@ from .human_knowledge import (
     load_human_knowledge_catalog,
     load_human_knowledge_v3_config,
 )
+from .human_knowledge_identity import HumanKnowledgeIdentityRetriever, HumanKnowledgeV4Config
+from .human_knowledge_identity_artifact import load_human_knowledge_v4_config
 from .observability import Tracer, get_tracer, observed_stage
 from .policy import DecisionPolicy
 from .postgres_retrieval import SQLAlchemyPostgresRetrieverAdapter
@@ -67,7 +69,10 @@ class ResolverService:
         dense_retriever: Retriever | None = None,
         database_version: str = "offline-memory",
         human_knowledge_v3_config: HumanKnowledgeV3Config | None = None,
+        human_knowledge_v4_config: HumanKnowledgeV4Config | None = None,
     ) -> None:
+        if human_knowledge_v3_config and human_knowledge_v4_config:
+            raise ValueError("v3 and v4 human knowledge configurations conflict")
         self.settings = settings
         self.catalog = catalog
         self.color_vocabulary = {
@@ -82,8 +87,10 @@ class ResolverService:
             raise DependencyUnavailable("external reranker provider is configured but not loaded")
         embedding = HashingEmbedding(settings.dense_dimensions)
         self.human_catalog = human_catalog
-        self.human_knowledge = HumanKnowledgeRetriever(
-            human_catalog, embedding, human_knowledge_v3_config
+        self.human_knowledge = (
+            HumanKnowledgeIdentityRetriever(human_catalog, embedding, human_knowledge_v4_config)
+            if human_knowledge_v4_config else
+            HumanKnowledgeRetriever(human_catalog, embedding, human_knowledge_v3_config)
         )
         structured = StructuredRetriever(catalog)
         self.sparse_retriever = sparse_retriever or SparseRetriever(catalog)
@@ -104,6 +111,7 @@ class ResolverService:
 
     @classmethod
     def from_settings(cls, settings: Settings) -> "ResolverService":
+        settings.validate()
         catalog = load_catalog(settings.catalog_path)
         human_catalog = load_human_knowledge_catalog(
             settings.human_catalog_path,
@@ -111,6 +119,16 @@ class ResolverService:
             settings.review_family_knowledge_manifest_path,
         )
         human_knowledge_v3_config = None
+        human_knowledge_v4_config = None
+        if settings.human_knowledge_identity_artifact_path is not None:
+            human_knowledge_v4_config = load_human_knowledge_v4_config(
+                settings.human_knowledge_identity_artifact_path,
+                human_catalog_path=settings.human_catalog_path,
+                review_family_path=settings.review_family_knowledge_path,
+                development_pack_path=settings.human_knowledge_development_path,
+                development_manifest_path=settings.human_knowledge_development_manifest_path,
+                dense_dimensions=settings.dense_dimensions,
+            )
         if settings.human_knowledge_retrieval_artifact_path is not None:
             human_knowledge_v3_config = load_human_knowledge_v3_config(
                 settings.human_knowledge_retrieval_artifact_path,
@@ -128,6 +146,7 @@ class ResolverService:
                 catalog,
                 human_catalog,
                 human_knowledge_v3_config=human_knowledge_v3_config,
+                human_knowledge_v4_config=human_knowledge_v4_config,
             )
         adapter: SQLAlchemyPostgresRetrieverAdapter | None = None
         try:
@@ -149,12 +168,14 @@ class ResolverService:
             dense_retriever=PostgresDenseRetriever(catalog, adapter, embedding),
             database_version=catalog_state.database_version,
             human_knowledge_v3_config=human_knowledge_v3_config,
+            human_knowledge_v4_config=human_knowledge_v4_config,
         )
 
     def resolve(self, request: ResolveRequest, *, request_id: str | None = None) -> ResolveResponse:
         started = time.perf_counter()
         timings: dict[str, float] = {}
         correlation_id = request_id or str(uuid.uuid4())
+        human_work = None
 
         with self.tracer.start_as_current_span("pvr.resolve") as span:
             span.set_attribute("pvr.request_id", correlation_id)
@@ -170,9 +191,14 @@ class ResolverService:
                     self.tracer, "human_knowledge_retrieval", timings
                 ) as human_span:
                     try:
-                        human_candidates = self.human_knowledge.retrieve(
-                            signals, self.settings.candidate_limit,
-                        )
+                        if isinstance(self.human_knowledge, HumanKnowledgeIdentityRetriever):
+                            human_candidates, human_work = self.human_knowledge.retrieve_with_work(
+                                signals, self.settings.candidate_limit,
+                            )
+                        else:
+                            human_candidates = self.human_knowledge.retrieve(
+                                signals, self.settings.candidate_limit,
+                            )
                     except Exception as error:  # noqa: BLE001 - dependency boundary
                         raise DependencyUnavailable(
                             "human knowledge retrieval is unavailable"
@@ -247,6 +273,7 @@ class ResolverService:
                 human_knowledge_character_index=(
                     self.human_knowledge.character_index_metadata
                 ),
+                human_knowledge_identity_work=human_work.as_dict() if human_work else None,
                 model_versions={
                     "sparse": self.sparse_retriever.version,
                     "dense": self.dense_retriever.version,

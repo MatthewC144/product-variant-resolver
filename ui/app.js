@@ -272,9 +272,13 @@
       const artifactEvidence = artifactVersion
         ? ` · artifact ${asText(artifactVersion)} sha256:${asText(artifactSha)}`
         : "";
+      const work = debugPayload.human_knowledge_identity_work;
+      const identityEvidence = work
+        ? ` · policy ${asText(work.policy_version)} · forms ${asText(work.query_forms)} · postings ${asText(work.posting_entries_visited)} · scored ${asText(work.scored_forms)} · dense union ${asText(work.dense_union)} · abstention ${asText(work.abstention_reason || "none")}`
+        : "";
       safeText(
         elements.humanCatalogVersion,
-        `catalog ${humanCatalogVersion} · family ${familyKnowledgeVersion}${artifactEvidence}`,
+        `catalog ${humanCatalogVersion} · family ${familyKnowledgeVersion}${artifactEvidence}${identityEvidence}`,
       );
       safeText(elements.humanCandidateCount, `${candidates.length} returned`);
       elements.humanCandidatesEmpty.hidden = candidates.length !== 0;

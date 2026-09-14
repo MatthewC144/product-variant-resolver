@@ -1,6 +1,7 @@
 # Identity-Bounded Human Knowledge Retrieval — Design
 
-Date: 2026-09-13. Mode: Lite. Status: owner-confirmed; IBR-T1 frozen, retriever not implemented.
+Date: 2026-09-13. Mode: Lite. Status: owner-confirmed; IBR-T1 frozen, IBR-T2 implemented and verified.
+Development selection and quality/cost gates remain unrun.
 
 ## Overview and evidence
 
@@ -38,6 +39,12 @@ v3 source-bound modules (`human_knowledge.py`, `human_knowledge_selection.py`, `
 without changing bytes, so historical v3 report checks still pass. Service/config/schema/UI changes
 wire a separate v4 opt-in; they must not route v4 through a modified v3 loader or falsely report v3.
 Do not modify canonical retrievers or governance/data projections.
+
+T2 decomposition: `human_knowledge_identity_artifact.py` keeps strict protocol/source/raw-report
+validation separate from query scoring. It does not execute the grid; the future T3 selection
+implementation and complete raw evidence are mandatory before runtime opt-in can load. Docker
+copies the frozen builder and reports, and the ignore rule admits that builder. These are dependency
+packaging/static checks, not a rebuilt-image runtime claim.
 
 ## Identity policy (owner-approved, frozen by IBR-T1)
 

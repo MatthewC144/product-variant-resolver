@@ -134,9 +134,12 @@ def create_app(
                     (
                         "character index "
                         f"{service.human_knowledge.character_index.metadata.version}; "
-                        "selected artifact "
+                        "artifact "
                         f"{service.human_knowledge.artifact_version} "
                         f"sha256:{service.human_knowledge.artifact_sha256}"
+                        + ("; identity-core-policy-v1; limits: query=512 chars/64 tokens, "
+                           "forms=256, postings=1000000, sources=25, dense_union=50"
+                           if service.human_knowledge.version == "human-knowledge-hybrid-v4" else "")
                     )
                     if ready and service and service.human_knowledge.character_index
                     else (

@@ -125,6 +125,19 @@ class HumanKnowledgeCharacterIndexDebug(StrictModel):
     window_token_radius: int = Field(ge=0)
     stable_tie_break: str
     allowed_fields: dict[str, list[str]]
+    form_count: int | None = Field(default=None, ge=1, exclude_if=lambda value: value is None)
+    posting_definition: str | None = Field(default=None, exclude_if=lambda value: value is None)
+
+
+class HumanKnowledgeIdentityWorkDebug(StrictModel):
+    policy_version: Literal["identity-core-policy-v1"]
+    query_forms: int = Field(ge=0, le=258)
+    posting_entries_visited: int = Field(ge=0, le=1_000_000)
+    scored_forms: int = Field(ge=0)
+    exact_candidates: int = Field(ge=0, le=25)
+    character_candidates: int = Field(ge=0, le=25)
+    dense_union: int = Field(ge=0, le=50)
+    abstention_reason: Literal["query_limit", "noise_only", "window_limit", "posting_limit"] | None = None
 
 
 class DebugPayload(StrictModel):
@@ -138,6 +151,9 @@ class DebugPayload(StrictModel):
     human_knowledge_retrieval_artifact_version: str | None = None
     human_knowledge_retrieval_artifact_sha256: str | None = None
     human_knowledge_character_index: HumanKnowledgeCharacterIndexDebug | None = None
+    human_knowledge_identity_work: HumanKnowledgeIdentityWorkDebug | None = Field(
+        default=None, exclude_if=lambda value: value is None,
+    )
     model_versions: dict[str, str]
 
 

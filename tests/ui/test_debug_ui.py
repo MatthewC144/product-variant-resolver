@@ -205,6 +205,20 @@ def _assert_ui_controller_smoke_states_and_contract() -> None:
           );
           assert.equal(global.pwned, undefined);
 
+          const identity = await runSuccess({{
+            status: "no_match", canonical_uuid: null, canonical_id: null, confidence: 0,
+            reason: "no_candidates", product: null, policy_version: "fixture-v1",
+            debug: {{ ...baseDebug, human_knowledge_identity_work: {{
+              policy_version: markup, query_forms: 8, posting_entries_visited: 123,
+              scored_forms: 4, dense_union: 2, abstention_reason: "posting_limit",
+            }} }},
+          }});
+          const identityText = identity.document.elements["human-catalog-version"].textContent;
+          assert.ok(identityText.includes(`policy ${{markup}}`));
+          assert.ok(identityText.includes("forms 8 · postings 123 · scored 4 · dense union 2"));
+          assert.ok(identityText.includes("abstention posting_limit"));
+          assert.equal(global.pwned, undefined);
+
           const abstention = await runSuccess({{
             status: "ambiguous", canonical_uuid: null, canonical_id: null, confidence: 0.61,
             reason: "top1_top2_margin_too_small", product: null,

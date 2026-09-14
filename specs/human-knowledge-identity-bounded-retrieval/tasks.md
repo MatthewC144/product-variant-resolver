@@ -1,6 +1,6 @@
 # Identity-Bounded Human Knowledge Retrieval — Tasks
 
-Mode: Lite. Status: owner-confirmed; IBR-T1 complete, IBR-T2 not started.
+Mode: Lite. Status: owner-confirmed; IBR-T1/T2 complete, IBR-T3 next and not executed.
 No subagents without explicit user request. All files under `Product Variant Resolver`.
 
 ## IBR-T1 — Freeze the owner-approved new execution protocol
@@ -21,13 +21,14 @@ normalize empty, stop and return to design before code/config output, not quietl
 
 ## IBR-T2 — Implement the isolated v4 identity-posting retriever
 
-- [ ] Build exact-core token/IDF and normalized form-weight postings with unknown-gram query norms,
+- [x] Build exact-core token/IDF and normalized form-weight postings with unknown-gram query norms,
   direct accumulation, deterministic fusion and all-or-nothing budgets. _(→R3–R8,R11)_
-- [ ] Wire separate strict v4 configuration, query-local debug/health/UI evidence, conflict/failure
+- [x] Wire separate strict v4 configuration, query-local debug/health/UI evidence, conflict/failure
   readiness and unchanged canonical authority. _(→R13–R14)_
 
-Files: `src/product_variant_resolver/human_knowledge_identity.py`, `config.py`, `service.py`,
-`schemas.py`, `api.py`, `ui/app.js`, unit/integration/API/UI tests.
+Files: `src/product_variant_resolver/human_knowledge_identity.py`,
+`human_knowledge_identity_artifact.py` (strict evidence/parser decomposition), `config.py`, `service.py`,
+`schemas.py`, `api.py`, `ui/app.js`, unit/integration/API/UI tests, Docker context dependency copies.
 
 Acceptance: mathematical oracle equality before capping, empty generic-core results, full identity/
 typo cases, source-rank correctness, cap discard/no shared mutable counters, evidence/conflict 503,
@@ -84,5 +85,7 @@ G1* is confirmed by the owner's `執行下一步` response to the three-spec han
 `880e4f5` and exact spec hashes is recorded in the frozen `owner-approval.json`; original approved
 spec snapshots retain their historical proposed headers. T1 passes with 142 nonempty document cores,
 284 forms, two same-casting variant collision groups, zero cross-casting collisions, and 120 scale
-queries. No v4 ranking, selection or latency result exists. T2 must preserve the frozen protocol and
-source-bound historical modules; T3 cannot execute before its upstream implementation checks.
+queries. T2 now implements v4 under ephemeral unit/API configurations; no development-selection or
+latency result exists. The frozen protocol and source-bound modules remain unchanged. See
+`docs/evidence/human-knowledge-identity-implementation-v1.md` for the oracle/runtime checkpoint.
+T3 is next; T4/T5/T49 remain blocked until a qualified, committed winner exists.

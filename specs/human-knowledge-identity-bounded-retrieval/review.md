@@ -1,4 +1,25 @@
-# Identity-Bounded Retrieval — Lite IBR-T1 Checkpoint
+# Identity-Bounded Retrieval — Lite IBR-T1/T2 Checkpoints
+
+## Current IBR-T2 checkpoint — 2026-09-14
+
+G2/G3* for IBR-T2 engineering: PASS. Entire feature/quality/cost approval: NOT EVALUATED.
+T1's original record below remains historical. R3–R8/R11 arithmetic/admission/caps/ordering are
+implemented and checked with independent cosine oracle and bounded failure tests. R13–R14 are
+checked by strict evidence parser, API readiness/conflict/local-work/health/UI and unchanged
+canonical response tests. R1–R2 remain checksum-valid without protected source/report edits.
+
+65 focused tests / 311 full tests pass (one existing warning); focused lint/type checks, compilation,
+Node syntax, historical reproduction and static Compose/context checks pass. No fresh Docker runtime
+was executed. Artifact success fixtures mock selection validation; no real qualified winner exists.
+See [T2 evidence](../../docs/evidence/human-knowledge-identity-implementation-v1.md) and
+[AI assessment](../../docs/evidence/ai-evals/human-knowledge-identity-implementation-v1.md).
+
+R9–R10/R12 real-grid metrics, 199/120 latency/correctness and full raw-report replay await T3.
+R15 final lifecycle/score and R16 full closure await T4/T5. Default v2, historical FAILs, no new
+final pack, no real ingestion and T49 blockade remain. Next permitted task is T3 under unchanged
+protocol; no winner must STOP rather than advance to final authoring.
+
+## Historical IBR-T1 checkpoint
 
 Date: 2026-09-13. Scope: protocol/approval/static core and workload validation only.
 G1* owner confirmation: PASS. IBR-T1 engineering: PASS. V4 model quality/cost: NOT EVALUATED.

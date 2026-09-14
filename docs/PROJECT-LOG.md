@@ -4636,6 +4636,83 @@ runtime package evidence are still unmeasured. Default v2, old development/final
 blocked final-authoring/T49 and no real-catalog growth remain unchanged. No subagent was spawned;
 all delivery files remain inside the project folder.
 
+## 2026-09-14 — IBR-T2: exact identity-posting implementation and isolated runtime evidence
+
+### Context, executed work and observable outcome
+
+The approved v4 protocol existed, but no code could yet enforce casting-only admission or calculate
+the new form-posting scores. V3's broad any-token path could admit generic listing words independently
+of its character floor, and its full form/window comparisons had failed cost gates. This step completes
+IBR-T2's isolated implementation and mathematical/runtime safety checks. It does not rerun selection
+or assert that the proposed architecture fixes measured quality or latency.
+
+Callers still get default v2 behavior unless they request a new v4 evidence artifact. A valid v4
+retriever now produces casting-core sparse/character evidence, a bounded dense/RRF result and its
+own work counters. Generic-only or over-budget queries return no human candidates while canonical
+resolution continues. Missing/corrupt requested evidence instead produces readiness/resolve 503.
+There is no qualified artifact yet, so normal runtime remains v2 and canonical final authority is intact.
+
+### Implementation trace and why these modules changed
+
+`human_knowledge_identity.py` implements the approved whole-token policy, identity forms, document-level
+DF/IDF and normalized weighted gram postings. Direct query posting accumulation avoids reconstructing
+every candidate's form/window cosine in the query path. Unknown grams stay in query norms, so unfamiliar
+text cannot gain an artificially high score simply by discarding its unmatched features. Exact sparse
+admission requires all tokens of one approved identity core; human labels/initial names/series/pricing
+never create forms. Dense scores apply only after bounded identity admission, then RRF preserves absent
+source ranks and deterministic UUID ties. Budget aborts discard the entire result, including otherwise
+exact candidates, rather than publishing a misleading partial shortlist.
+
+`human_knowledge_identity_artifact.py` is an implementation decomposition, not a changed product spec.
+It checks the frozen contract/corpora/source hashes and demands a complete, recomputable raw selection
+report with a matching qualified winner. Keeping readiness evidence separate from query math makes
+both responsibilities testable and leaves source-bound v3 modules unchanged. It defines future report
+validation without running the grid or creating a winner. Its positive parsing fixtures deliberately
+mock selection validation; they are not development quality evidence.
+
+`config.py` adds a separate v4 artifact setting and rejects v3/v4 conflict. `service.py` selects the
+new retriever only from an explicit validated config and retains work inside each resolve invocation.
+`schemas.py`, `api.py` and `ui/app.js` expose typed index/form/policy/work/abort evidence while safe-text
+rendering preserves inert user/source markup and old payload behavior. Canonical retrievers, policy,
+calibration and output selection were not changed. Dockerfile/ignore changes include the protocol-bound
+builder and report dependencies in the image context; these are static packaging corrections only.
+
+### Method choices, alternatives and corrections
+
+The stack remains existing Python catalog types, standard-library arithmetic/postings, hashing-v1 and
+FastAPI/Pydantic with safe vanilla-JS UI. No neural model, new dependency, network source or database
+write is necessary for this eligibility/comparison change. Exact form scores are independently checked
+against an all-form/window TF-IDF cosine oracle. An approximate shortlist or type quota could obscure
+missed targets; shared last-query debug state could mix requests. The implementation therefore keeps
+exact accumulation and immutable returned work values. Four-thread in-process tests check isolation,
+not production concurrent throughput.
+
+The initial full test command lacked `PYTHONPATH=src`, causing an existing report subprocess import
+failure; the corrected source-path run passes without regenerating reports. A Compose override command
+initially named nonexistent files and was corrected to the actual file's PostgreSQL profile. Type checks
+needed explicit casts around reused legacy helper contracts, and window-abort debug bounds account for
+the two forms added by the detection step. These are implementation/environment corrections, not
+after-output tuning of policy, grid, gates or data. No architectural selection was reversed.
+
+### Verification, remaining risks and next step
+
+Core/artifact/API/UI focused tests: **65 passed**; full repository: **311 passed**, no skips, one
+existing Starlette/AnyIO warning. Focused Ruff F/I, isolated strict MyPy on new modules/config/service,
+Python compilation, Node syntax and whitespace checks pass. The identity freeze, old 199-case freeze,
+v3 JSON/Markdown and v1 final JSON/Markdown reproduce with historical hashes/FAILs unchanged. Default
+and PostgreSQL-profile Compose/context checks pass; no Docker rebuild/run, PostgreSQL ingestion, full
+project lint/type-debt cleanup, latency sampling or 21-grid execution occurred. Detailed limits and
+commands are in [T2 evidence](evidence/human-knowledge-identity-implementation-v1.md) and scoped QA/AI
+records; live task/README checklists now distinguish engineering completion from quality approval.
+
+Common grams may still exceed the posting ceiling; stricter cores/unknown norms/noise removal can
+lose legitimate names. Numeric synthetic identity and wrapper-only typo probes remain limited evidence.
+IBR-T3 is next: implement/run the frozen 21-config development and 120-query scale evaluation, publish
+all raw outputs/work/timing and apply every gate unchanged. Only a committed qualified winner can
+unblock new output-blind final questions and owner approval. Final FAIL must remain FAIL; T49, real
+3,000-row catalog expansion, deployment and end-of-project beginner code review remain downstream.
+All delivery files stay inside the independent project folder and no subagent was spawned.
+
 ## Required format for future entries
 
 Every future project-log entry must preserve the following traceability structure:

@@ -432,8 +432,34 @@ timing claim. **IBR-T1 complete:** the owner confirmed the three specifications,
 with code/corpus/development/spec hashes, work limits and all 120 scale-query targets. The
 [core audit](docs/evidence/human-knowledge-identity-protocol-v1.md) retains 142 documents/284 forms,
 two same-casting variant collision groups and no cross-casting collision. The synthetic casting
-cores are numeric-only, so their typo probes are not true core-name typo evidence. No v4 retriever,
-ranking/latency result, selected artifact or final pack exists. Default v2 and T49 remain unchanged.
+cores are numeric-only, so their typo probes are not true core-name typo evidence.
+
+**IBR-T2 complete:** isolated v4 now implements complete-core token admission, exact normalized
+form-posting character scores, bounded dense/RRF ranking and query-local work/debug/UI metadata.
+Independent mathematical checks and API/canonical/failure regressions pass. A separate opt-in
+`PVR_HUMAN_KNOWLEDGE_IDENTITY_ARTIFACT` requires a checksum-valid, fully recomputable qualified
+development report; missing/stale/failed evidence returns readiness 503, not silent v2 fallback.
+No selected v4 artifact exists yet, so leave this unset. V3/v4 artifact settings cannot coexist.
+See [T2 evidence](docs/evidence/human-knowledge-identity-implementation-v1.md).
+
+Current project checklist (engineering completion is not retrieval-quality approval):
+
+- [x] Canonical resolver MVP: FastAPI, debug UI, sparse/dense/structured fusion, calibration/policy.
+- [x] PostgreSQL catalog/migration/ingestion and canonical retrieval plumbing with prior QA evidence.
+- [x] Human-data import/alignment: 101 source rows, 100 provisional variants, 97 real castings.
+- [x] Fandom pilot/review governance and 42 family-only knowledge docs; combined human corpus 142 docs.
+- [x] Independent v1 evaluation and v3 development comparison published, including their FAILs.
+- [x] IBR-T1: owner-approved v4 protocol/core audit and 120-query synthetic workload frozen.
+- [x] IBR-T2: v4 implementation, oracle/caps/isolated API/UI/evidence validation.
+- [ ] IBR-T3: run all 21 configurations, publish 4,179 real outputs plus scale evidence and cost gates.
+- [ ] IBR-T4: only after a committed qualified winner, author 105 unseen final questions for owner approval.
+- [ ] IBR-T5: one final score, full closure and runtime packaging verification; preserve FAIL without tuning.
+- [ ] T49 and later: design reviewed real-catalog expansion toward 3,000 rows only after final PASS.
+- [ ] End-to-end demonstration and beginner code review after project delivery.
+
+No v4 development-ranking/latency result, selected artifact or new final pack exists. Default v2,
+the original FAILs and T49 blockade remain unchanged. Synthetic 3,000-document workload is not
+3,000 real products inserted into PostgreSQL.
 
 ## Docker and PostgreSQL status
 

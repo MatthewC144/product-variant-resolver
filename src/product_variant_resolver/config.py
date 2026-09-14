@@ -19,6 +19,7 @@ class Settings:
         "data/review_family_knowledge_manifest.json"
     )
     human_knowledge_retrieval_artifact_path: Path | None = None
+    human_knowledge_identity_artifact_path: Path | None = None
     human_knowledge_development_path: Path = Path(
         "data/evaluation/family-retrieval-development-v1/development-pack.json"
     )
@@ -47,6 +48,7 @@ class Settings:
         human_knowledge_artifact = os.getenv(
             "PVR_HUMAN_KNOWLEDGE_RETRIEVAL_ARTIFACT", ""
         ).strip()
+        identity_artifact = os.getenv("PVR_HUMAN_KNOWLEDGE_IDENTITY_ARTIFACT", "").strip()
         result = cls(
             catalog_path=Path(os.getenv("PVR_CATALOG_PATH", "data/catalog.json")),
             human_catalog_path=Path(
@@ -67,6 +69,7 @@ class Settings:
             human_knowledge_retrieval_artifact_path=(
                 Path(human_knowledge_artifact) if human_knowledge_artifact else None
             ),
+            human_knowledge_identity_artifact_path=Path(identity_artifact) if identity_artifact else None,
             human_knowledge_development_path=Path(
                 os.getenv(
                     "PVR_HUMAN_KNOWLEDGE_DEVELOPMENT_PATH",
@@ -101,6 +104,8 @@ class Settings:
         return result
 
     def validate(self) -> None:
+        if self.human_knowledge_retrieval_artifact_path and self.human_knowledge_identity_artifact_path:
+            raise ValueError("v3 and v4 human knowledge artifacts cannot be configured together")
         if self.backend not in {"offline", "postgres"}:
             raise ValueError("PVR_BACKEND must be offline or postgres")
         if not 32 <= self.dense_dimensions <= 4096:
