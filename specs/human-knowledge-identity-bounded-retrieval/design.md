@@ -244,3 +244,18 @@ changed expected targets, query rewrites, and partial publication fail closed. T
 `require_approval` is a historical checkpoint, not the new label-stage validator. Before T5 scoring,
 the new validator must additionally prove all three approved artifacts and builder sources are
 committed and unmodified. T4 supplies labels only; the one-shot scorer is still T5.
+## T5 one-shot score and runtime contract
+
+Commit the new isolated final evaluator before executing105 final queries. A separate preflight
+integrity process validates committed benchmark/source bytes; the collector process does not open
+approved answers and passes only query signals to the selected0.50/1.0 v4 retriever. No final warm-up
+or rerun. Exclusively reserve `reports/family-retrieval-v2/` and preserve reservation even on failure.
+Write run-start and all raw ranks/work/error/sample rows before the scoring process accesses labels.
+Then publish JSON/Markdown gates, denominator-preserving misses and all errors. A pure checker
+validates raw candidate/RRF/work/source/event-order evidence and reproduces metrics/text without
+retrieval. Final FAIL is retained; it cannot select another configuration or authorize expansion.
+
+An independent Docker verifier uses only old canonical fixture queries, non-root/read-only runtime,
+loopback real Uvicorn HTTP and a private tmpfs. Check defaultv2, experimentalv4, identical non-debug
+canonical outputs, debug/UI, and missing/malformed/stale-evidence503. No published host port, existing
+service changes or PostgreSQL startup/writes. Freeze runtime report with image/runtime source hashes.

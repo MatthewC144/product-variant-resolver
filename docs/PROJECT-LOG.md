@@ -4951,6 +4951,36 @@ its commit gate, then T5 performs one final evaluation followed by runtime/full 
 Synthetic same-family author bias, alias/typo ambiguity and true variant-data gaps remain disclosed.
 Defaultv2 stays unchanged; old FAILs, real SQL promotion and T49/real expansion remain gated.
 
+## 2026-09-14 — IBR-T5 pre-execution evaluator freeze
+
+The committed105-question family benchmark at87bbd19 permits one final score, not final-set tuning.
+I added a separate `family_retrieval_final_v2_evaluation.py`, report entry script and28 fake-output
+tests rather than changing source-bound v4/label modules. Separate preflight integrity validation
+checks committed inputs; the collector does not open approved labels, retrieves each question
+exactly once with zero final warmups, and durably saves all ranks/work/errors before scoring.
+An exclusive run reservation survives interruptions, deliberately preventing a convenient rerun.
+JSON/Markdown check reconstructs fixed gates,84/42/4/10 denominators, all misses/safety/errors and
+nearest-rank diagnostic samples without retrieval. The new code is committed before any final run.
+
+Standard-library subprocess/JSON/hash/exclusive publication reuses the existing stack. Tests use
+fake rows, not live final retrieval. They exposed insertion-order differences in dict-rendered
+Markdown; stable sorted JSON rendering fixes byte reproduction before any real score. A temporary
+preflight fixture lacked copied source files; adding the private fixture files fixes the intended
+ValueError assertion rather than altering production behavior. Initial full run406 pass/1 fixture
+failure is preserved as development evidence; corrected results are recorded at closure.
+
+The independent `verify_human_knowledge_v4_runtime.py` runs real loopback Uvicorn HTTP within a
+non-root/read-only Docker container using only old fixture queries, with isolated tmpfs and no host
+port or PostgreSQL service. It checks default/v4 canonical equality, health/debug/UI and missing/
+malformed/stale mandatory evidence503, then binds the report to image/runtime source hashes. Docker
+socket access requires sandbox escalation; the authorized read confirmed Docker Desktop available.
+An initial dedicated image built successfully; current-code rebuild and runtime checks follow.
+
+No model rule, artifact, query, label, threshold or canonical authority changed. Before execution,
+all existing report FAILs and source-bound bytes remain untouched. Final quality is still unviewed;
+next is the single real run, followed by full/runtime/historical verification and honest PASS/FAIL
+closure. Synthetic family accuracy cannot prove release/color/wheel/tampo or production accuracy.
+
 ## Required format for future entries
 
 Every future project-log entry must preserve the following traceability structure:
