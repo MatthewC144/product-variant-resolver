@@ -1,0 +1,3196 @@
+{
+  "protocol_version": "human-knowledge-identity-development-v1",
+  "real": {
+    "collision_group_count": 2,
+    "collisions": [
+      {
+        "core": "83 chevy silverado",
+        "cross_casting_collision": false,
+        "knowledge_ids": [
+          "human-hot-wheels-83-chevy-silverado-mainline-baby-blue",
+          "human-hot-wheels-83-chevy-silverado-mainline-black",
+          "human-hot-wheels-83-chevy-silverado-mainline-blue"
+        ],
+        "original_castings": [
+          "83 Chevy Silverado"
+        ]
+      },
+      {
+        "core": "toyota supra",
+        "cross_casting_collision": false,
+        "knowledge_ids": [
+          "human-hot-wheels-toyota-supra-hot-wheels-xl-xl-greddy",
+          "human-hot-wheels-toyota-supra-mainline-fast-furious"
+        ],
+        "original_castings": [
+          "Toyota Supra"
+        ]
+      }
+    ],
+    "cross_casting_collision_group_count": 0,
+    "document_count": 142,
+    "documents": [
+      {
+        "casting": "Surf Crate",
+        "forms": [
+          {
+            "form_id": "0c8d3da09f058538d571b6028e81c4ae878eacf88cfdc834f8ec0ae7587775d6",
+            "gram_count": 15,
+            "mode": "compact",
+            "text": "surfcrate",
+            "token_count": 2
+          },
+          {
+            "form_id": "3b21b12be01dabd61054311748082a37c4f78ff91b88b03a082e88f2429a2621",
+            "gram_count": 17,
+            "mode": "spaced",
+            "text": "surf crate",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-surf-crate-mainline-2000-first-editions-2000-first-editions",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "011b7e08-cce0-5b59-92b4-e2115d4c2032"
+      },
+      {
+        "casting": "2018 Honda Civic Type R",
+        "forms": [
+          {
+            "form_id": "5c7fd8aa9c7c4200c2cb91cdd5479dce91d229526994058f6a54cc3a3a685541",
+            "gram_count": 35,
+            "mode": "compact",
+            "text": "2018hondacivictyper",
+            "token_count": 5
+          },
+          {
+            "form_id": "f49606e1b2d1d4c45fa2694c8f670efb4ae13d32a388dfd516adfcb83a81625e",
+            "gram_count": 43,
+            "mode": "spaced",
+            "text": "2018 honda civic type r",
+            "token_count": 5
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-2018-honda-civic-type-r-mainline-nightspeed",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "029e8d5d-cc37-5ed1-83df-cffd5e7d7f97"
+      },
+      {
+        "casting": "Monster High Ghoul Mobile",
+        "forms": [
+          {
+            "form_id": "0f30d7eb67f46c7ec7ac9d83411a572e9def1f9de0cd59d3d02b1e5212cf6e6e",
+            "gram_count": 39,
+            "mode": "compact",
+            "text": "monsterhighghoulmobile",
+            "token_count": 4
+          },
+          {
+            "form_id": "2d8f12e7f245111f8453ce5fe81c4d3bf4cdc654e99e35d7f34f416b551828ce",
+            "gram_count": 45,
+            "mode": "spaced",
+            "text": "monster high ghoul mobile",
+            "token_count": 4
+          }
+        ],
+        "knowledge_id": "fandom-family-2357e7eb6b4e62b8",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "02ea4376-af58-5e61-8560-29c9ab3ef4a1"
+      },
+      {
+        "casting": "10 CAMARO SS",
+        "forms": [
+          {
+            "form_id": "dcfd6530b89a9a9fa99c86b43a2b2e3d02f6b9bc55d88f513a52cb13180f7b20",
+            "gram_count": 17,
+            "mode": "compact",
+            "text": "10camaross",
+            "token_count": 3
+          },
+          {
+            "form_id": "aae006838a70d95fe6a352911e9d2b56237568b93aa4cc6b81accc0e79d7075a",
+            "gram_count": 21,
+            "mode": "spaced",
+            "text": "10 camaro ss",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-10-camaro-ss-hw-city-treasure-hunt",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "03ddd793-177a-505d-897e-5979613b56c2"
+      },
+      {
+        "casting": "1994 AMG-Mercedes C-Class DTM",
+        "forms": [
+          {
+            "form_id": "21c8dd61fad94c37423fd2697eeb53050840ff5436ace0b6bde188c2f1b3cdc7",
+            "gram_count": 45,
+            "mode": "compact",
+            "text": "1994amgmercedescclassdtm",
+            "token_count": 6
+          },
+          {
+            "form_id": "a7c0a9053c11e86337041211152118e80aac38d07274ffc60e74995fb224a1c0",
+            "gram_count": 53,
+            "mode": "spaced",
+            "text": "1994 amg mercedes c class dtm",
+            "token_count": 6
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-1994-amg-mercedes-c-class-dtm-car-culture-premium-deutschland-design",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "0d1b71f2-4909-5688-921a-e05e7bba2043"
+      },
+      {
+        "casting": "De Tomaso Pantera Gruppo 4",
+        "forms": [
+          {
+            "form_id": "3f5bb3535f00c0d7c4d7b6b7324ac742a02023fa3f66ba9d52bded80e84013d3",
+            "gram_count": 41,
+            "mode": "compact",
+            "text": "detomasopanteragruppo4",
+            "token_count": 5
+          },
+          {
+            "form_id": "8b912820e690db85114bcadfcf748968853864b3bcb3e719d86d78e4d5d1f0b4",
+            "gram_count": 48,
+            "mode": "spaced",
+            "text": "de tomaso pantera gruppo 4",
+            "token_count": 5
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-de-tomaso-pantera-gruppo-4-premium-yellow",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "0fa3db99-a9f7-5742-a6d9-12addfe311a9"
+      },
+      {
+        "casting": "Lamborghini Sesto Elemento",
+        "forms": [
+          {
+            "form_id": "71f06e7227e4d8e08b6255d4ee63231006fd619193f7d67b4ff736e386f636aa",
+            "gram_count": 44,
+            "mode": "compact",
+            "text": "lamborghinisestoelemento",
+            "token_count": 3
+          },
+          {
+            "form_id": "9c620823bc8c7ae2e38a4d90917742fdb473ed9e2b061fa97417dd09833b38df",
+            "gram_count": 48,
+            "mode": "spaced",
+            "text": "lamborghini sesto elemento",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-lamborghini-sesto-elemento-mainline-hw-exotics",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "1448af9f-78d7-55fe-adf8-5e21df6ade73"
+      },
+      {
+        "casting": "Toyota Supra",
+        "forms": [
+          {
+            "form_id": "c546ed8446a51a516c928957fe1e32725dfc6c62449427c9eaf181614e520f57",
+            "gram_count": 19,
+            "mode": "compact",
+            "text": "toyotasupra",
+            "token_count": 2
+          },
+          {
+            "form_id": "e7d63fa4f0351a66d0bb68314aea907de2785ff7ca10bd90d9382d2d3c60e663",
+            "gram_count": 21,
+            "mode": "spaced",
+            "text": "toyota supra",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-toyota-supra-mainline-fast-furious",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "15713c2d-9ac3-5a7f-96a0-3acf9ff1f394"
+      },
+      {
+        "casting": "Mazda REPU",
+        "forms": [
+          {
+            "form_id": "035e34580b94bb0f3c410edababb7a6a4bd5019087739e58d59d086b75aafa30",
+            "gram_count": 15,
+            "mode": "compact",
+            "text": "mazdarepu",
+            "token_count": 2
+          },
+          {
+            "form_id": "a68eeea3a30fe4e8599448eb46911644689c1ac2bcd651d6ead21100152fdbb2",
+            "gram_count": 17,
+            "mode": "spaced",
+            "text": "mazda repu",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "fandom-family-aec11693bfe04245",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "1a0cf712-68d0-5c29-b677-78d15b0dd604"
+      },
+      {
+        "casting": "Fangster Car",
+        "forms": [
+          {
+            "form_id": "940cbe1a480357c982b41e13ce87624b37ac7e6e0606d5e1d76fe461a3c2a373",
+            "gram_count": 13,
+            "mode": "compact",
+            "text": "fangster",
+            "token_count": 1
+          },
+          {
+            "form_id": "885af2b9c0c3f1c88cba215edef72566d6ca75e2794ed83e0cb676962c08dff3",
+            "gram_count": 13,
+            "mode": "spaced",
+            "text": "fangster",
+            "token_count": 1
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-fangster-car-hw-city-treasure-hunts",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "1ab974b8-44b1-518d-8b57-33169bc35a9d"
+      },
+      {
+        "casting": "'22 Ford Maverick Custom",
+        "forms": [
+          {
+            "form_id": "5ef5396454c0011a7b36ae7bd9a70cc47b27d5ffe82b1550b885183d01c94a4b",
+            "gram_count": 37,
+            "mode": "compact",
+            "text": "22fordmaverickcustom",
+            "token_count": 4
+          },
+          {
+            "form_id": "5ed18f475dc51f6c886bf63343150369dbea0df2e89cb0cd993a9bb474bf68b8",
+            "gram_count": 43,
+            "mode": "spaced",
+            "text": "22 ford maverick custom",
+            "token_count": 4
+          }
+        ],
+        "knowledge_id": "fandom-family-db3fe3a0103099ec",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "1ba5e3b4-8489-509f-97f3-2e03f27ae141"
+      },
+      {
+        "casting": "65 Dodge Coronet",
+        "forms": [
+          {
+            "form_id": "a0759e5aa545cfec9169838f5fc6c049fa4e2ab2037ae86c61d09d889274fe42",
+            "gram_count": 25,
+            "mode": "compact",
+            "text": "65dodgecoronet",
+            "token_count": 3
+          },
+          {
+            "form_id": "1e9e8e49be29da2d3f4eba891eb02dba487198ff4df2f1b233020efe7470ad8c",
+            "gram_count": 29,
+            "mode": "spaced",
+            "text": "65 dodge coronet",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-65-dodge-coronet-premium-car-culture",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "1d167a04-98ac-5c05-873c-25b32f6c870c"
+      },
+      {
+        "casting": "Nissan Skyline GTR (R34)",
+        "forms": [
+          {
+            "form_id": "f224547a0d71472f190a81cf96111514adaeedec2e191c51a5fb2bb8119889ad",
+            "gram_count": 35,
+            "mode": "compact",
+            "text": "nissanskylinegtrr34",
+            "token_count": 4
+          },
+          {
+            "form_id": "dba0205aa3af131dc2e1b7349e39d21bb1ca730b0870f4ff4ee4869ba6ca1d10",
+            "gram_count": 41,
+            "mode": "spaced",
+            "text": "nissan skyline gtr r34",
+            "token_count": 4
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-nissan-skyline-gtr-r34-premium-fast-furious-superstars",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "1e1be4a7-030e-5d53-9bc8-df4cd55ffde1"
+      },
+      {
+        "casting": "'90 ACURA NSX",
+        "forms": [
+          {
+            "form_id": "ff67db1881edb67e61b77457ebffcf5604b40b45c628b49f50e86ed631803811",
+            "gram_count": 17,
+            "mode": "compact",
+            "text": "90acuransx",
+            "token_count": 3
+          },
+          {
+            "form_id": "7233442ae88e218b14862bfe57b51204b540446046fb7158c4609b4ce2667fc6",
+            "gram_count": 21,
+            "mode": "spaced",
+            "text": "90 acura nsx",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-90-acura-nsx-mainline-white",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "1e8e8935-51fc-505b-bcaa-6ca1dc1cea8a"
+      },
+      {
+        "casting": "‘72 Ford Grab Torino",
+        "forms": [
+          {
+            "form_id": "49c46054cf829ac24ccd8456cf6d02b93bc031d1ab5825f1703970757a57167b",
+            "gram_count": 28,
+            "mode": "compact",
+            "text": "72fordgrabtorino",
+            "token_count": 4
+          },
+          {
+            "form_id": "51e10e131b01676ed82259ec36d3f9bb3e5796499c0557f4ade36640677f0fe4",
+            "gram_count": 34,
+            "mode": "spaced",
+            "text": "72 ford grab torino",
+            "token_count": 4
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-72-ford-grab-torino-mainline-2011-new-models",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "25e04271-04c4-51f0-8884-53fb94f1fc3a"
+      },
+      {
+        "casting": "Ground FX",
+        "forms": [
+          {
+            "form_id": "d91e56a4c9903fb6689fe7aab55d6c63b104b02b7e0fe73cf7fbe1f91e0902c3",
+            "gram_count": 13,
+            "mode": "compact",
+            "text": "groundfx",
+            "token_count": 2
+          },
+          {
+            "form_id": "233ddb923a523f8243d3566b0a595385675530c298ff6ef0e96f74fff22c8b1b",
+            "gram_count": 15,
+            "mode": "spaced",
+            "text": "ground fx",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-ground-fx-hot-wheels-disney",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "25f8c9d7-dba5-5a27-881d-63ff2840923f"
+      },
+      {
+        "casting": "HONDA CIVIC EF",
+        "forms": [
+          {
+            "form_id": "7f74e51c43d796e32153916475d78230c4aec9048c44a0ba1680c6b1757ed838",
+            "gram_count": 21,
+            "mode": "compact",
+            "text": "hondacivicef",
+            "token_count": 3
+          },
+          {
+            "form_id": "8c428907e18ca0d68d745fa28488affe6e76232615c688a0da56acd79dc556a7",
+            "gram_count": 25,
+            "mode": "spaced",
+            "text": "honda civic ef",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-honda-civic-ef-mainline-green-jdm",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "26be28dd-9f6f-5cbf-b974-3f6b13bb299e"
+      },
+      {
+        "casting": "ANGRY BIRDS MINION PIG",
+        "forms": [
+          {
+            "form_id": "275ed3101d3f32747e81363aec18c324a4680506e41c999abde9eae39a8f4cc4",
+            "gram_count": 35,
+            "mode": "compact",
+            "text": "angrybirdsminionpig",
+            "token_count": 4
+          },
+          {
+            "form_id": "8342ff265b3a4e5c6f69622bfa15d4aaa254e4f6d228c7e88ed429c07675e7e2",
+            "gram_count": 41,
+            "mode": "spaced",
+            "text": "angry birds minion pig",
+            "token_count": 4
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-angry-birds-minion-pig-mainline-angry-birds-minion-pig",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "2888ddde-18dc-59e9-a6a0-132c8b7caea4"
+      },
+      {
+        "casting": "Ferrari SF90 Stradale",
+        "forms": [
+          {
+            "form_id": "12cef2e2c12232950119abc52451ae1deb26b247c86cd170ffda61f3b1ff561f",
+            "gram_count": 34,
+            "mode": "compact",
+            "text": "ferrarisf90stradale",
+            "token_count": 3
+          },
+          {
+            "form_id": "b86860e1ab1e5cb887692366c846caf35e57a8251b3b4dd4c2b2722f407257fc",
+            "gram_count": 37,
+            "mode": "spaced",
+            "text": "ferrari sf90 stradale",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-ferrari-sf90-stradale-mainline-blue",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "2a8a89f2-9373-5410-9465-6e77704a89b3"
+      },
+      {
+        "casting": "'08 Ford Focus",
+        "forms": [
+          {
+            "form_id": "8a63bd94199d818a40787f5ebe60c917651288747764886617d50acf512e5751",
+            "gram_count": 18,
+            "mode": "compact",
+            "text": "08fordfocus",
+            "token_count": 3
+          },
+          {
+            "form_id": "e3d6a6e9369ae2c7cef334ff9e29a66fda1cf00bf22e2bc387895e08353e8eeb",
+            "gram_count": 20,
+            "mode": "spaced",
+            "text": "08 ford focus",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-08-ford-focus-street-racers-street-racers",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "2de2463a-a888-5120-98d9-84385b31c1ae"
+      },
+      {
+        "casting": "Morgan Super 3",
+        "forms": [
+          {
+            "form_id": "aca8560669e16861740536c1b9ecd6f93a03d14740bb35bee94ada6394cd6012",
+            "gram_count": 21,
+            "mode": "compact",
+            "text": "morgansuper3",
+            "token_count": 3
+          },
+          {
+            "form_id": "65545260eb332861c37bf09bbb0c658fb03453e106fe983bb30394e0b9191d00",
+            "gram_count": 25,
+            "mode": "spaced",
+            "text": "morgan super 3",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "fandom-family-aaafff57ac4d4daa",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "308c4fe4-bd38-5597-817e-2b1352716801"
+      },
+      {
+        "casting": "70 Chevelle SS Wagon",
+        "forms": [
+          {
+            "form_id": "4172cd6de05b900cd7ad9272a3ea6aa72da0fb03e3e1677d4065325e422ab5a6",
+            "gram_count": 31,
+            "mode": "compact",
+            "text": "70chevellesswagon",
+            "token_count": 4
+          },
+          {
+            "form_id": "5da620f1aeaddc284b3734a531f81a27055cce46644feee5de6cf0c707fc5ccc",
+            "gram_count": 37,
+            "mode": "spaced",
+            "text": "70 chevelle ss wagon",
+            "token_count": 4
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-70-chevelle-ss-wagon-mainline-blue",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "32782cde-954a-5509-9fb1-11120045c986"
+      },
+      {
+        "casting": "Crescendo",
+        "forms": [
+          {
+            "form_id": "3401783c4e95145472bcd74c7acd99f61f443ab47fa5908c68af44a6f7c1b7eb",
+            "gram_count": 15,
+            "mode": "compact",
+            "text": "crescendo",
+            "token_count": 1
+          },
+          {
+            "form_id": "8e6f63fd522c4d6c4f0ce5001d477afd15428be77ac71967442f6c028b957d80",
+            "gram_count": 15,
+            "mode": "spaced",
+            "text": "crescendo",
+            "token_count": 1
+          }
+        ],
+        "knowledge_id": "fandom-family-4d2de6db3d5bba63",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "35fb8efc-6a08-5119-9db0-81b17945b0a9"
+      },
+      {
+        "casting": "K.I.T.T. Super Pursuit Mode",
+        "forms": [
+          {
+            "form_id": "a1a12a3ef556a358030294b00c3cb74aee7112d5f614ad079957c8c1cb0868ee",
+            "gram_count": 35,
+            "mode": "compact",
+            "text": "kittsuperpursuitmode",
+            "token_count": 7
+          },
+          {
+            "form_id": "6f0bae946b59447c1560db89bc106c5199302e69b2d9bda8f669f3d4a9d9c034",
+            "gram_count": 44,
+            "mode": "spaced",
+            "text": "k i t t super pursuit mode",
+            "token_count": 7
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-k-i-t-t-super-pursuit-mode-hw-screen-time-hw-screen-time",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "37352381-fb31-562c-b49d-3383b0e21c12"
+      },
+      {
+        "casting": "Mazda Autozam",
+        "forms": [
+          {
+            "form_id": "00e7ff33bea3cba12657f983eeef7ddcfa2335347479c7f6f1f43bbabc3be33d",
+            "gram_count": 21,
+            "mode": "compact",
+            "text": "mazdaautozam",
+            "token_count": 2
+          },
+          {
+            "form_id": "c24ce01113ec4946449f303b1dd7b1faa512a6350e481a7d87898a8f6ec54fbc",
+            "gram_count": 23,
+            "mode": "spaced",
+            "text": "mazda autozam",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "fandom-family-e7d4d8cf1dd8c6e1",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "39731a3b-9b07-558a-a29b-76781343d5ba"
+      },
+      {
+        "casting": "1959 VW Microbus Deluxe USA",
+        "forms": [
+          {
+            "form_id": "bc11ad8a304aaf9bc50449b8c31a76abdc99fa51d8dcbbb3571d6098b3941d71",
+            "gram_count": 42,
+            "mode": "compact",
+            "text": "1959vwmicrobusdeluxeusa",
+            "token_count": 5
+          },
+          {
+            "form_id": "335916c54cd0fe774ee9207378219406da55c3ae8a97b5c2c246e4b523afee85",
+            "gram_count": 50,
+            "mode": "spaced",
+            "text": "1959 vw microbus deluxe usa",
+            "token_count": 5
+          }
+        ],
+        "knowledge_id": "human-m2-1959-vw-microbus-deluxe-usa-coca-cola-share-a-coke-with-mom",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "3a1806aa-6c0d-5a56-b122-0b65887c4ac3"
+      },
+      {
+        "casting": "Subaru BRZ",
+        "forms": [
+          {
+            "form_id": "17c9f1c083b7986833b3e22d61a09cb54c6f02e25ee7ee0340126c7d82622a2a",
+            "gram_count": 14,
+            "mode": "compact",
+            "text": "subarubrz",
+            "token_count": 2
+          },
+          {
+            "form_id": "29aa61615ed16055406c6e74ba9bfecbfa69ab6bed1047a9e217fe8e20817f1e",
+            "gram_count": 17,
+            "mode": "spaced",
+            "text": "subaru brz",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-subaru-brz-walmart-exclusive-zamac-walmart-exclusive",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "3accc048-4d73-541f-8863-90170fef463f"
+      },
+      {
+        "casting": "Mercedes-Benz Sprinter",
+        "forms": [
+          {
+            "form_id": "f8972b2b059ad641bd52bab9cb8f6cda386405b5bb26e134f24f40d8be21abea",
+            "gram_count": 36,
+            "mode": "compact",
+            "text": "mercedesbenzsprinter",
+            "token_count": 3
+          },
+          {
+            "form_id": "a34d6cb552b312e2446d3e2847296b6234b319b3ef535da1e377b8aacd9e29a9",
+            "gram_count": 40,
+            "mode": "spaced",
+            "text": "mercedes benz sprinter",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-mercedes-benz-sprinter-car-culture-premium-deutschland-design",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "3c179714-b537-59e6-a954-82720906012d"
+      },
+      {
+        "casting": "67 Chevrolet Camaro",
+        "forms": [
+          {
+            "form_id": "4d29a3d2412621d7ad56097a48acf21d4d504f09aac13801171890b7bd42e39a",
+            "gram_count": 30,
+            "mode": "compact",
+            "text": "67chevroletcamaro",
+            "token_count": 3
+          },
+          {
+            "form_id": "a57dd84c4b3fccdd3e28dc295ff651043eb67e535822800c4bbcec418e15fb80",
+            "gram_count": 33,
+            "mode": "spaced",
+            "text": "67 chevrolet camaro",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-67-chevrolet-camaro-premium-premium-fast-and-furious",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "408c8d89-f0ee-5172-8735-7fe334e48c4e"
+      },
+      {
+        "casting": "Ford Shelby GT-500 Super Snake",
+        "forms": [
+          {
+            "form_id": "93211ac9de939854df867fcaa82f3b33b27df2ecb480c49655f5a9340e6e9c7f",
+            "gram_count": 47,
+            "mode": "compact",
+            "text": "fordshelbygt500supersnake",
+            "token_count": 6
+          },
+          {
+            "form_id": "04e2a1947b68d11bc49724c79daf5a4e9f06ff3e7df2cddad2b5614c61386fce",
+            "gram_count": 55,
+            "mode": "spaced",
+            "text": "ford shelby gt 500 super snake",
+            "token_count": 6
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-ford-shelby-gt-500-super-snake-mainline-faster-than-ever",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "40a02f33-9e0e-5b9b-b21b-15e71210a788"
+      },
+      {
+        "casting": "1973 Plymouth Cuda NHRA Funny Car",
+        "forms": [
+          {
+            "form_id": "360b3a5c075eed5af9d4b72a0043808772e1b23add4562f11fa27271aa692188",
+            "gram_count": 47,
+            "mode": "compact",
+            "text": "1973plymouthcudanhrafunny",
+            "token_count": 5
+          },
+          {
+            "form_id": "56acfc03cf1ef319bbf083345f3096c2bc6d559ff4e4243959c5bddff7311e7e",
+            "gram_count": 54,
+            "mode": "spaced",
+            "text": "1973 plymouth cuda nhra funny",
+            "token_count": 5
+          }
+        ],
+        "knowledge_id": "human-racing-champions-1973-plymouth-cuda-nhra-funny-car-racing-champions-yellow",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "41d9d2fa-b5ef-5e73-817b-904a8f3ce0cc"
+      },
+      {
+        "casting": "Donut Drifter",
+        "forms": [
+          {
+            "form_id": "83dd3a28b84dd42a75f1c90cab2c66eb7452ef78544909a30c55f01a6d781de3",
+            "gram_count": 21,
+            "mode": "compact",
+            "text": "donutdrifter",
+            "token_count": 2
+          },
+          {
+            "form_id": "2ff31a813fbc1dd4c9792369c47a1dc2d19636685df58156684cf95a2aae0443",
+            "gram_count": 23,
+            "mode": "spaced",
+            "text": "donut drifter",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "fandom-family-9069156ec909a92e",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "45ec7b42-3fb8-5d54-a222-695b3b62d218"
+      },
+      {
+        "casting": "X-34 Landspeeder",
+        "forms": [
+          {
+            "form_id": "9176c74fd0f4090d0b16f02b788dbd268482a9985157e7f83e13516af416d0b8",
+            "gram_count": 25,
+            "mode": "compact",
+            "text": "x34landspeeder",
+            "token_count": 3
+          },
+          {
+            "form_id": "277e6e77ded35a15f3112c2133ac2a1ae1b7261e2b2359793ce16068d73e5172",
+            "gram_count": 29,
+            "mode": "spaced",
+            "text": "x 34 landspeeder",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "fandom-family-7e221ec8ecd02815",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "47128b94-3d78-5f67-bce1-d8916db74369"
+      },
+      {
+        "casting": "BMW M3 GT2",
+        "forms": [
+          {
+            "form_id": "671cdb0062dc95ce31d0bf55d2e05676b29d7485abafc35239601e1c1f950c50",
+            "gram_count": 13,
+            "mode": "compact",
+            "text": "bmwm3gt2",
+            "token_count": 3
+          },
+          {
+            "form_id": "73e61fc8816c411d1ffa6fef59da1851a6eec99b323c9fbed083265d06e2920b",
+            "gram_count": 17,
+            "mode": "spaced",
+            "text": "bmw m3 gt2",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-bmw-m3-gt2-neon-speeders-neon-speeders",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "4721e966-c0ef-5009-8444-9d772a12f7ae"
+      },
+      {
+        "casting": "Nissan Skyline RS",
+        "forms": [
+          {
+            "form_id": "e46c5e60c34decb96e2afcb5d44cbbca7ac5a67c2dd7f95557cb8ab7a68fde40",
+            "gram_count": 27,
+            "mode": "compact",
+            "text": "nissanskyliners",
+            "token_count": 3
+          },
+          {
+            "form_id": "c800a8c5bfdf805be7f6abaeeab6fb21dad553b12e1fa13527625041a76470ff",
+            "gram_count": 31,
+            "mode": "spaced",
+            "text": "nissan skyline rs",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-nissan-skyline-rs-the-hot-ones-the-hot-ones",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "47fbe5d3-ac95-5c39-aea9-0b569c7acd4d"
+      },
+      {
+        "casting": "'69 Corvette Racer",
+        "forms": [
+          {
+            "form_id": "dfa327e7eec0b215980c61278a77b6dbb59c7020627acbc622b22c67ef6b7b50",
+            "gram_count": 26,
+            "mode": "compact",
+            "text": "69corvetteracer",
+            "token_count": 3
+          },
+          {
+            "form_id": "06a30cb46584c01c8efc8efcd09cb05307139cfe27644d07783104eb9ab11630",
+            "gram_count": 31,
+            "mode": "spaced",
+            "text": "69 corvette racer",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "fandom-family-b3cd4f5a5f7e196a",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "489e09ad-b7bf-5052-ab0b-1b70236c054a"
+      },
+      {
+        "casting": "2020 Ford F-150 Lariat",
+        "forms": [
+          {
+            "form_id": "42ffd5c24eb35649fe9e802ace3558c934a2a51cc02948225ffad2c8f90719c8",
+            "gram_count": 32,
+            "mode": "compact",
+            "text": "2020fordf150lariat",
+            "token_count": 5
+          },
+          {
+            "form_id": "81e575bf0a34a02763861ead64b20b7b89f3933e40613c5e0ded8e18a9f961ce",
+            "gram_count": 38,
+            "mode": "spaced",
+            "text": "2020 ford f 150 lariat",
+            "token_count": 5
+          }
+        ],
+        "knowledge_id": "human-auto-world-2020-ford-f-150-lariat-auto-world-red",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "48f5b742-14d0-5d55-9139-f203372c5a52"
+      },
+      {
+        "casting": "Purple Passion",
+        "forms": [
+          {
+            "form_id": "61304e8caf5b4db2bf6480a93489f4daf739429471c218688732332eb51e9104",
+            "gram_count": 11,
+            "mode": "compact",
+            "text": "passion",
+            "token_count": 1
+          },
+          {
+            "form_id": "ea031e798754c731681093bf6391151cac2268dad7a5e5db4b3eddd7fada78a6",
+            "gram_count": 11,
+            "mode": "spaced",
+            "text": "passion",
+            "token_count": 1
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-purple-passion-mainline-pink",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "493365fb-691c-508a-8fa9-83b4ad9aefde"
+      },
+      {
+        "casting": "Bugatti Veyron",
+        "forms": [
+          {
+            "form_id": "ada51733a76f117a2c3653d72d92735d451ff1d443f4c134d33b71e1bafbca2b",
+            "gram_count": 23,
+            "mode": "compact",
+            "text": "bugattiveyron",
+            "token_count": 2
+          },
+          {
+            "form_id": "506990976c313cf1ed376f85594c32f4ed845083d22678165d5827b0068c7a59",
+            "gram_count": 25,
+            "mode": "spaced",
+            "text": "bugatti veyron",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-bugatti-veyron-1-4-mile-finals-1-4-mile-finals",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "4b7020dd-da61-560e-8aa5-9ffaa233cb4a"
+      },
+      {
+        "casting": "BMW M1",
+        "forms": [
+          {
+            "form_id": "22a68f445cd48b4927e9e69927de6d4967d70716d64b14813c9d144ae9448fbe",
+            "gram_count": 7,
+            "mode": "compact",
+            "text": "bmwm1",
+            "token_count": 2
+          },
+          {
+            "form_id": "db19102e373c71a7e71319581d5a25700f9862e6bb7e824c399f641caaafa9d5",
+            "gram_count": 9,
+            "mode": "spaced",
+            "text": "bmw m1",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-bmw-m1-walmart-exclusive-walmart-exclusive-red",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "4cb5ae0b-5f99-5fd1-8b95-9cef42158ff9"
+      },
+      {
+        "casting": "Nissan 300ZX Twin Turbo 90s",
+        "forms": [
+          {
+            "form_id": "609c78fbc9a578e5fa1e438f7b27d6bbce280c457af92d3a48ee2c6722dc9198",
+            "gram_count": 43,
+            "mode": "compact",
+            "text": "nissan300zxtwinturbo90s",
+            "token_count": 5
+          },
+          {
+            "form_id": "e982f681dee48042c835f598a464df07d63de8018c7855e66aa7754c5ecc6dac",
+            "gram_count": 49,
+            "mode": "spaced",
+            "text": "nissan 300zx twin turbo 90s",
+            "token_count": 5
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-nissan-300zx-twin-turbo-90s-silver-series-street-scene",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "4cc36bf7-1203-579c-a74a-2fddff23cbf3"
+      },
+      {
+        "casting": "1985 Honda City Turbo II",
+        "forms": [
+          {
+            "form_id": "87759f84b8d94efb050d687e386c1deeb8e564a395910120fdeaf5f8f4525853",
+            "gram_count": 37,
+            "mode": "compact",
+            "text": "1985hondacityturboii",
+            "token_count": 5
+          },
+          {
+            "form_id": "fe25cb40cff79d2ea7463dd8d6f979a17069eb1597119db7ab9927966f8e9a6d",
+            "gram_count": 45,
+            "mode": "spaced",
+            "text": "1985 honda city turbo ii",
+            "token_count": 5
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-1985-honda-city-turbo-ii-mainline-compact-kings",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "4e57e53b-4866-59d7-8602-0a8bfc53c190"
+      },
+      {
+        "casting": "Range Rover Velar",
+        "forms": [
+          {
+            "form_id": "0d5f3c4626c6d315dee36d5ff323f573075c3700854ec7cb2380c326539c2d24",
+            "gram_count": 25,
+            "mode": "compact",
+            "text": "rangerovervelar",
+            "token_count": 3
+          },
+          {
+            "form_id": "50d185e98d8b87c41a7533e5daf4c858406ded9b8c3253687ebb381906bfbbac",
+            "gram_count": 30,
+            "mode": "spaced",
+            "text": "range rover velar",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-range-rover-velar-mainline-hw-turbo",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "5125d870-c312-5bcf-9c54-ecda0f2616c3"
+      },
+      {
+        "casting": "83 Chevy Silverado",
+        "forms": [
+          {
+            "form_id": "8905fd75bd070d3af444e99b6c905df7a43fa181be6641aeb1ea7c1b962463cd",
+            "gram_count": 29,
+            "mode": "compact",
+            "text": "83chevysilverado",
+            "token_count": 3
+          },
+          {
+            "form_id": "7479f207678aa043a0fe6fbcb3ed65a228b8aaaf97c993a0c8778149f566cd88",
+            "gram_count": 33,
+            "mode": "spaced",
+            "text": "83 chevy silverado",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-83-chevy-silverado-mainline-baby-blue",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "542ce3ce-8215-5ac8-b9cd-c4e967746e7e"
+      },
+      {
+        "casting": "Toyota Off-Road Truck",
+        "forms": [
+          {
+            "form_id": "f6662cefbfcd82460fa07326e8816a53d7f814751fd3184a0cf80d76876471bf",
+            "gram_count": 33,
+            "mode": "compact",
+            "text": "toyotaoffroadtruck",
+            "token_count": 4
+          },
+          {
+            "form_id": "3d4fa84e5f5e5098fb0b5ef7060aa341031bafa994d91dfb9335fb313b1ca222",
+            "gram_count": 39,
+            "mode": "spaced",
+            "text": "toyota off road truck",
+            "token_count": 4
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-toyota-off-road-truck-silver-series-silver-series",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "59dee4d5-7426-5e97-aed3-2268ad55d691"
+      },
+      {
+        "casting": "Toyota Supra",
+        "forms": [
+          {
+            "form_id": "20a4128c3980b78d14beb2c8ff23305e42c135af97a9394611afaaf1917b5712",
+            "gram_count": 19,
+            "mode": "compact",
+            "text": "toyotasupra",
+            "token_count": 2
+          },
+          {
+            "form_id": "cf58d7fdfc24a4e16bd978f78c6429c7fa90cbc3d6b77730a81ea8573b631a2a",
+            "gram_count": 21,
+            "mode": "spaced",
+            "text": "toyota supra",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-toyota-supra-hot-wheels-xl-xl-greddy",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "62efa870-7aff-5807-8beb-71a69af113ec"
+      },
+      {
+        "casting": "Hot Wheels High",
+        "forms": [
+          {
+            "form_id": "b4b20c9d77fe7b26926576768c7098dd773c1b17129a6735f8c416cf3dba558d",
+            "gram_count": 5,
+            "mode": "compact",
+            "text": "high",
+            "token_count": 1
+          },
+          {
+            "form_id": "b2976135b50492e7f14f50c3d4dda603580af64fe6d033972064c751d4cab1ff",
+            "gram_count": 5,
+            "mode": "spaced",
+            "text": "high",
+            "token_count": 1
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-hot-wheels-high-mainline-fast-transit-green",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "634900c9-6ac9-539b-b9af-75480440369e"
+      },
+      {
+        "casting": "'67 Chevy C10",
+        "forms": [
+          {
+            "form_id": "ab71149f20ec917fad3de06b59720be4751f0c3891e566ca8ef67e8c0abbf72f",
+            "gram_count": 17,
+            "mode": "compact",
+            "text": "67chevyc10",
+            "token_count": 3
+          },
+          {
+            "form_id": "c14649e2b0796801600de9866498d4b4e5e358a3be4ed083c03f8ad1b39e65b9",
+            "gram_count": 20,
+            "mode": "spaced",
+            "text": "67 chevy c10",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-67-chevy-c10-hw-workshop-green",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "638e02dd-55c0-571a-b745-9ec910700fe2"
+      },
+      {
+        "casting": "Lamborghini Huracán Sterrato",
+        "forms": [
+          {
+            "form_id": "9044d084ba17c0c8f6d00482ca0ee55d59b645811acfae39615de72bc8821985",
+            "gram_count": 48,
+            "mode": "compact",
+            "text": "lamborghinihuracánsterrato",
+            "token_count": 3
+          },
+          {
+            "form_id": "26e2b94c208da35e30330234a35138f33651a33e2c8d7996dd65ea0f81ba0437",
+            "gram_count": 52,
+            "mode": "spaced",
+            "text": "lamborghini huracán sterrato",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "fandom-family-174efb9bce3a441e",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "63d66a4a-c106-5a18-b478-8b5ef572db39"
+      },
+      {
+        "casting": "DMC DeLorean",
+        "forms": [
+          {
+            "form_id": "b06d7586c343844b303a933abf978f03e63af987e7e3571a270406398fd6777e",
+            "gram_count": 19,
+            "mode": "compact",
+            "text": "dmcdelorean",
+            "token_count": 2
+          },
+          {
+            "form_id": "41abad5d55c1a4e4a96f1a254be0e0fed7dac79aabc2923a12a3b4faa2653360",
+            "gram_count": 21,
+            "mode": "spaced",
+            "text": "dmc delorean",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "fandom-family-a8e0dec4abdc4131",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "689d5988-ede3-5627-8cc9-13fe6c7ade95"
+      },
+      {
+        "casting": "Haulerback",
+        "forms": [
+          {
+            "form_id": "0f24494b75cd013f531de92e3b662d2f77cf13196ba9dc2fbfbd077a175f4c6d",
+            "gram_count": 17,
+            "mode": "compact",
+            "text": "haulerback",
+            "token_count": 1
+          },
+          {
+            "form_id": "c63907eb8caa203237eec32637d6013caa031d21c52a632decf241c8b48d0c1d",
+            "gram_count": 17,
+            "mode": "spaced",
+            "text": "haulerback",
+            "token_count": 1
+          }
+        ],
+        "knowledge_id": "fandom-family-440103f8ef3c6b70",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "6ba4fb4a-beb8-5315-a1a9-a81ae1b2869e"
+      },
+      {
+        "casting": "Bad To The Blade",
+        "forms": [
+          {
+            "form_id": "c5560f670f3404c485a309318745926daa9f3f71bc29a5c7f343effab92c609b",
+            "gram_count": 16,
+            "mode": "compact",
+            "text": "badtoblade",
+            "token_count": 3
+          },
+          {
+            "form_id": "fc5ddc8b6c7eb3470822d3c65abadda74fc3235ca80d5d415a746358eda50ebd",
+            "gram_count": 20,
+            "mode": "spaced",
+            "text": "bad to blade",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-bad-to-the-blade-hw-racing-treasure-hunts",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "6c28510f-b6eb-5e97-86e5-713123840e10"
+      },
+      {
+        "casting": "Honda Civic Si",
+        "forms": [
+          {
+            "form_id": "7fa50da4b50404f90890e458a402269e835a0366e79be58c8ee793869e9bd2c9",
+            "gram_count": 21,
+            "mode": "compact",
+            "text": "hondacivicsi",
+            "token_count": 3
+          },
+          {
+            "form_id": "89a6c0cd0e08a7f079af36a5c5476f9662bbeb64c5d9634a4a9e3e44021f7b65",
+            "gram_count": 25,
+            "mode": "spaced",
+            "text": "honda civic si",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-honda-civic-si-mainline-blue",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "6cfea1c3-b434-521d-afce-8db1aba526fc"
+      },
+      {
+        "casting": "Chrysler Pacifica",
+        "forms": [
+          {
+            "form_id": "a59af7e2eff88a2dd977704e753200461659493c1119a86b178bd34caca7d146",
+            "gram_count": 29,
+            "mode": "compact",
+            "text": "chryslerpacifica",
+            "token_count": 2
+          },
+          {
+            "form_id": "c86b2be7259e4288a09db618abfee9dec694a2704b1bc6477b38548cdb76468d",
+            "gram_count": 31,
+            "mode": "spaced",
+            "text": "chrysler pacifica",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-chrysler-pacifica-hw-metro-treasure-hunts",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "6d2af1cc-d11d-54a7-908f-c545d7161c9c"
+      },
+      {
+        "casting": "Kick Kart",
+        "forms": [
+          {
+            "form_id": "0d465b6b715c32ae5092d64615f6a8ca8b4968daac2cb5c06614efe43f143f53",
+            "gram_count": 13,
+            "mode": "compact",
+            "text": "kickkart",
+            "token_count": 2
+          },
+          {
+            "form_id": "e5e90637d1bb72e5338327c9ada5eae558c50eb739bdb212af999a56429deea4",
+            "gram_count": 15,
+            "mode": "spaced",
+            "text": "kick kart",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "fandom-family-3c9f928f085efaae",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "6dac43c2-e013-53d7-a22d-60829a90edb4"
+      },
+      {
+        "casting": "CUSTOM '18 FORD MUSTANG GT",
+        "forms": [
+          {
+            "form_id": "7dc588906d70cd1f66e9be8909609fbd0b760bd32a7f03fd12ed2052e3dac366",
+            "gram_count": 36,
+            "mode": "compact",
+            "text": "custom18fordmustanggt",
+            "token_count": 5
+          },
+          {
+            "form_id": "72e8c615e8875aec8e6f9b936b8204cd3c22f47ad59e89f48eae35fc362a81e5",
+            "gram_count": 44,
+            "mode": "spaced",
+            "text": "custom 18 ford mustang gt",
+            "token_count": 5
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-custom-18-ford-mustang-gt-mainline-blue",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "7385f165-e9d2-5eb8-958c-3016a323f08c"
+      },
+      {
+        "casting": "1970 Chevrolet Chevelle SS",
+        "forms": [
+          {
+            "form_id": "a882c46afa64473692220dc1d6135f40230faef80359c4b69306ef2baaa61575",
+            "gram_count": 37,
+            "mode": "compact",
+            "text": "1970chevroletchevelless",
+            "token_count": 4
+          },
+          {
+            "form_id": "b1a4f2a4165ebcb782c5fbd14f2939d6e5113e17bbde49b43a392dd07dd56fb0",
+            "gram_count": 41,
+            "mode": "spaced",
+            "text": "1970 chevrolet chevelle ss",
+            "token_count": 4
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-1970-chevrolet-chevelle-ss-premium-premium-fast-and-furious",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "73a59942-603f-5210-a67b-6eb6b9606b6b"
+      },
+      {
+        "casting": "Honda CR-X",
+        "forms": [
+          {
+            "form_id": "c3c538a3b6c862abb5f9a1a8a1b40eb1d3d1514053c6a6a377952b85668071bf",
+            "gram_count": 13,
+            "mode": "compact",
+            "text": "hondacrx",
+            "token_count": 3
+          },
+          {
+            "form_id": "67a5758379c3a429ec8fed8bd08de9b1af10bd82b1b0a157865f59b68b3e62d0",
+            "gram_count": 17,
+            "mode": "spaced",
+            "text": "honda cr x",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-honda-cr-x-silver-series-peanuts",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "76228439-893c-5f89-9040-ac1d72cd05e1"
+      },
+      {
+        "casting": "Hardnoze Chevy Monte Carlo 1974",
+        "forms": [
+          {
+            "form_id": "c8ea94fb3ecb0579c1c96a3efcf7200fb378966c9cd25eac809dc7236e6c5b46",
+            "gram_count": 49,
+            "mode": "compact",
+            "text": "hardnozechevymontecarlo1974",
+            "token_count": 5
+          },
+          {
+            "form_id": "52acc9bc3a54d4dc514bd3acbe26299d2694d84e70021db610cba1868b33df73",
+            "gram_count": 55,
+            "mode": "spaced",
+            "text": "hardnoze chevy monte carlo 1974",
+            "token_count": 5
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-hardnoze-chevy-monte-carlo-1974-mainline-first-editions",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "76ab4657-dfef-5252-b191-a85800bc0b6f"
+      },
+      {
+        "casting": "'87 Audi quattro",
+        "forms": [
+          {
+            "form_id": "927da03597e55885e4325bf6885aa0b619b045538fefab9552bfb88ad95fd302",
+            "gram_count": 23,
+            "mode": "compact",
+            "text": "87audiquattro",
+            "token_count": 3
+          },
+          {
+            "form_id": "578173927d749e58adca25d9398a471e0a47454a620c439d75552c990ee72593",
+            "gram_count": 27,
+            "mode": "spaced",
+            "text": "87 audi quattro",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "fandom-family-18e55e067083dbd1",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "76daff81-50f6-535a-afae-272d523347db"
+      },
+      {
+        "casting": "19 Chevy Silverado Trail Boss LT",
+        "forms": [
+          {
+            "form_id": "803a79fbae8ec7818d0052cbf623d77e2013e5e124e9c1284beff6524b8d33bc",
+            "gram_count": 49,
+            "mode": "compact",
+            "text": "19chevysilveradotrailbosslt",
+            "token_count": 6
+          },
+          {
+            "form_id": "85e5f82a871cb0ee70087135e5d3644b44c74a1b8c34272cd375faa3168ad111",
+            "gram_count": 59,
+            "mode": "spaced",
+            "text": "19 chevy silverado trail boss lt",
+            "token_count": 6
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-19-chevy-silverado-trail-boss-lt-mainline-red-edition",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "7756bd78-a0ef-521a-a2e8-a6ba5c2ca1a9"
+      },
+      {
+        "casting": "83 Chevy Silverado",
+        "forms": [
+          {
+            "form_id": "cce3f9a202c45ffdbffb19a0b042558872490a404e15eaf17e83198f8aed5377",
+            "gram_count": 29,
+            "mode": "compact",
+            "text": "83chevysilverado",
+            "token_count": 3
+          },
+          {
+            "form_id": "6d1e698ac717b7a42a79f9a07b2f71c5bce8f922e7a92faa0ae592d4640beb3f",
+            "gram_count": 33,
+            "mode": "spaced",
+            "text": "83 chevy silverado",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-83-chevy-silverado-mainline-blue",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "784a6750-bd5d-5a09-a4be-f60021a5023a"
+      },
+      {
+        "casting": "'90 Honda Civic EF",
+        "forms": [
+          {
+            "form_id": "364723362522b617e4d854c2ca9ed271f30b2e55523bfaf28b16f1871327f041",
+            "gram_count": 25,
+            "mode": "compact",
+            "text": "90hondacivicef",
+            "token_count": 4
+          },
+          {
+            "form_id": "e0110cf40e7c69f57652e8cdbd0ab3da54f02c4b72d8cc400d045e5386f285c1",
+            "gram_count": 31,
+            "mode": "spaced",
+            "text": "90 honda civic ef",
+            "token_count": 4
+          }
+        ],
+        "knowledge_id": "fandom-family-d114c33db6fa215b",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "78e6048e-1b7f-5553-8315-deb354a6b8e4"
+      },
+      {
+        "casting": "Nissan Fairlady Z",
+        "forms": [
+          {
+            "form_id": "64d1690aa173b14d5f09f39a8e68f5f2954e908aacb898c5edd395f8c3eaf943",
+            "gram_count": 27,
+            "mode": "compact",
+            "text": "nissanfairladyz",
+            "token_count": 3
+          },
+          {
+            "form_id": "0f26caade832b562b87fb3b4b9fd0aa7dee4b495673c153f47757f0ec029e269",
+            "gram_count": 31,
+            "mode": "spaced",
+            "text": "nissan fairlady z",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-nissan-fairlady-z-silver-series-pantone-blue",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "7b7360f6-ffac-5b62-9f8d-c420d8c741c5"
+      },
+      {
+        "casting": "Silverado Trail Boss LT",
+        "forms": [
+          {
+            "form_id": "ce2a3a8fd0def4d141cc11385d056a7ad0b7769ca1e9b252c286b3dfa236c49d",
+            "gram_count": 35,
+            "mode": "compact",
+            "text": "silveradotrailbosslt",
+            "token_count": 4
+          },
+          {
+            "form_id": "60168e47590deb46775838aacd9c4e1482e83e8ca755c579b1e8488a49bd9c4b",
+            "gram_count": 41,
+            "mode": "spaced",
+            "text": "silverado trail boss lt",
+            "token_count": 4
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-silverado-trail-boss-lt-silver-series-performance-trucks",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "7ead937d-ee21-50e7-8e1a-e3a41dc82f11"
+      },
+      {
+        "casting": "1988 Jeep Wagoneer",
+        "forms": [
+          {
+            "form_id": "07c6c6194e2f890d32f008cd63826feb6251b6f21e72179a81e9cae48ca4ad47",
+            "gram_count": 28,
+            "mode": "compact",
+            "text": "1988jeepwagoneer",
+            "token_count": 3
+          },
+          {
+            "form_id": "cc51145f725ae3ac9878376b48881b7313a407c332ed6a087137507ca8d56971",
+            "gram_count": 32,
+            "mode": "spaced",
+            "text": "1988 jeep wagoneer",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "fandom-family-08cb7fadb9fed12d",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "80496fc1-fbe8-59ea-b310-6cd63d806e64"
+      },
+      {
+        "casting": "Crooze Bedtime",
+        "forms": [
+          {
+            "form_id": "4e2c463e6908939f406bddad242eef1075d9acbe9157febd81052b868e9b4f7f",
+            "gram_count": 23,
+            "mode": "compact",
+            "text": "croozebedtime",
+            "token_count": 2
+          },
+          {
+            "form_id": "7a34204f1d53b6b962dc5a4e5534757206a34a1d40e03e9c7c038b940dbb1aa4",
+            "gram_count": 25,
+            "mode": "spaced",
+            "text": "crooze bedtime",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-crooze-bedtime-mainline-first-editions",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "82ae266f-928b-5290-bfda-f3bb5eecd306"
+      },
+      {
+        "casting": "Alpha Pursuit",
+        "forms": [
+          {
+            "form_id": "232bd81fdc95a035857c3de2432011121da15e992b3a1f7485acf7ef65b2560d",
+            "gram_count": 21,
+            "mode": "compact",
+            "text": "alphapursuit",
+            "token_count": 2
+          },
+          {
+            "form_id": "029499614ddc76f57da4e3d72eeb131c89bf9cf6efddae49b1ee3c95c6121329",
+            "gram_count": 23,
+            "mode": "spaced",
+            "text": "alpha pursuit",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "fandom-family-d90841788b1d98a2",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "838b2cff-2e36-54f0-a184-29685b653482"
+      },
+      {
+        "casting": "1935 Cadillac",
+        "forms": [
+          {
+            "form_id": "4e8f3ea7dc536929107fc352aed3b4c93be756163ea79495a175915f78342e29",
+            "gram_count": 21,
+            "mode": "compact",
+            "text": "1935cadillac",
+            "token_count": 2
+          },
+          {
+            "form_id": "2f5205d2c6007e0958af542c232aef5d02a080eed84961e357924ee4dd0ca622",
+            "gram_count": 23,
+            "mode": "spaced",
+            "text": "1935 cadillac",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-1935-cadillac-mainline-gold",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "83cf0482-3798-52b1-8048-425a2eefe663"
+      },
+      {
+        "casting": "Twin Mill Gen-E",
+        "forms": [
+          {
+            "form_id": "4bafd6db4d3effd61a9ff6bfbfcaa1c41d2e2bfc2d57df98486ee99591c5ff77",
+            "gram_count": 21,
+            "mode": "compact",
+            "text": "twinmillgene",
+            "token_count": 4
+          },
+          {
+            "form_id": "c2c69c80b9152016b3f2d9c0b93cfcfd7fbb538dfbf5ce29ac25635bf70eb33a",
+            "gram_count": 26,
+            "mode": "spaced",
+            "text": "twin mill gen e",
+            "token_count": 4
+          }
+        ],
+        "knowledge_id": "fandom-family-39b248ce2f3723cd",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "8b784ccf-938c-593f-9926-df0b038dcfdd"
+      },
+      {
+        "casting": "Hirohata Merc",
+        "forms": [
+          {
+            "form_id": "64aad6193286722934136519fe2dea0f06f6e46ff2239de35ff7dfe300d26a0c",
+            "gram_count": 21,
+            "mode": "compact",
+            "text": "hirohatamerc",
+            "token_count": 2
+          },
+          {
+            "form_id": "aa356dc7e4b178e57f0ec435c03264901886857d2ebc9f9070ebdc932465192d",
+            "gram_count": 23,
+            "mode": "spaced",
+            "text": "hirohata merc",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "fandom-family-4bf5341a133d433b",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "8f8ccc44-46e2-5425-b019-3d4bf4362b4e"
+      },
+      {
+        "casting": "Shelby Cobra Daytona Coupe",
+        "forms": [
+          {
+            "form_id": "a1ecd159a22da0dd6af7ae62965c4c8fa5e7459c555e84e0292cb4bdcd4dacc4",
+            "gram_count": 42,
+            "mode": "compact",
+            "text": "shelbycobradaytonacoupe",
+            "token_count": 4
+          },
+          {
+            "form_id": "c38f6f6bfd944361d2d6bdf812773338916104471111736c97ce661c0a2d06c0",
+            "gram_count": 45,
+            "mode": "spaced",
+            "text": "shelby cobra daytona coupe",
+            "token_count": 4
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-shelby-cobra-daytona-coupe-mainline-hw-race-day-gulf",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "92d31881-4d32-5fe9-803e-148c9bf474bc"
+      },
+      {
+        "casting": "Alien",
+        "forms": [
+          {
+            "form_id": "d22b05444d1a446da197f8a38c70f419b9803f797cacb262f024766284afa4ac",
+            "gram_count": 7,
+            "mode": "compact",
+            "text": "alien",
+            "token_count": 1
+          },
+          {
+            "form_id": "753d22987682c94ecd3310f9fed0363e9a57beff07f36d4439df83d86052a445",
+            "gram_count": 7,
+            "mode": "spaced",
+            "text": "alien",
+            "token_count": 1
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-alien-mainline-space-series-space-series",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "978e4d8e-0826-5830-817d-c164332dab6d"
+      },
+      {
+        "casting": "Fish'd & Chip'd",
+        "forms": [
+          {
+            "form_id": "097ea90d92178bac929eaa3956809d3c39065247db9d997ef13cf9a1fa15ed36",
+            "gram_count": 17,
+            "mode": "compact",
+            "text": "fishdchipd",
+            "token_count": 4
+          },
+          {
+            "form_id": "b187cbd9302aeebf0cffe1c65184c26faa609d445837569f5392720cdfbfe55b",
+            "gram_count": 22,
+            "mode": "spaced",
+            "text": "fish d chip d",
+            "token_count": 4
+          }
+        ],
+        "knowledge_id": "fandom-family-356e4ef63275a661",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "9a6d9a47-4b73-57ff-984e-99e504ee587d"
+      },
+      {
+        "casting": "88 HONDA CR-X",
+        "forms": [
+          {
+            "form_id": "de1bdb172f5e2f833563e3304861ed7bd40f5d5af37dfc34ec666f65185eda26",
+            "gram_count": 17,
+            "mode": "compact",
+            "text": "88hondacrx",
+            "token_count": 4
+          },
+          {
+            "form_id": "febf83b879b6c7d9db824aaec4d1cce7fc6091f18f6aa56a3bbe5825c5eaaf19",
+            "gram_count": 23,
+            "mode": "spaced",
+            "text": "88 honda cr x",
+            "token_count": 4
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-88-honda-cr-x-street-racers-street-racers",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "9aa31d37-132e-5ff0-8bee-849f9f7ebbe2"
+      },
+      {
+        "casting": "18 Dodge Challenger SRT Demon",
+        "forms": [
+          {
+            "form_id": "21257b7ae0ca06cd4a186b20938a5bcc9b2a43ec3d72cb4877f14b2c759d361f",
+            "gram_count": 46,
+            "mode": "compact",
+            "text": "18dodgechallengersrtdemon",
+            "token_count": 5
+          },
+          {
+            "form_id": "5a0c9cd59b18cd57cbc2e46c8986ca69be6eec3eb55b6abb3bcb685071ab5906",
+            "gram_count": 53,
+            "mode": "spaced",
+            "text": "18 dodge challenger srt demon",
+            "token_count": 5
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-18-dodge-challenger-srt-demon-premium-power-trip",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "a59dd85f-4b9d-5ae4-9f2d-2409590f1f00"
+      },
+      {
+        "casting": "Ford Mustang GTD",
+        "forms": [
+          {
+            "form_id": "e67ba6915ec3385a9b1b277bb53fadfd902ab7e885817206c99888e71ccebdc1",
+            "gram_count": 25,
+            "mode": "compact",
+            "text": "fordmustanggtd",
+            "token_count": 3
+          },
+          {
+            "form_id": "c914c11a9748a23a1310979fb736cc978f2ec7a2218c8e03581afcc6039253ff",
+            "gram_count": 29,
+            "mode": "spaced",
+            "text": "ford mustang gtd",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "fandom-family-b31d285560d8a242",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "a676a5e0-57ce-5768-ae7e-6e2929c7643c"
+      },
+      {
+        "casting": "Nerve Hammer",
+        "forms": [
+          {
+            "form_id": "91eab07bf1d7934e090a904c59a27d900e2bc26aa91612c08a9069920069f37a",
+            "gram_count": 18,
+            "mode": "compact",
+            "text": "nervehammer",
+            "token_count": 2
+          },
+          {
+            "form_id": "1fecb8dbaa46343c3798f49dea740ce8d2bfb55129421be32f8c33ccf3a3f83c",
+            "gram_count": 20,
+            "mode": "spaced",
+            "text": "nerve hammer",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "fandom-family-4d00e96d12341b4d",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "a79ec2e1-a65e-5c1a-8706-d3792e4d3100"
+      },
+      {
+        "casting": "Proton Saga",
+        "forms": [
+          {
+            "form_id": "5bb8343300146d276880ae58e06e308c855c69fcda3cf0c8f049a1eed49f7eb3",
+            "gram_count": 17,
+            "mode": "compact",
+            "text": "protonsaga",
+            "token_count": 2
+          },
+          {
+            "form_id": "a938c650da7b51617a7f1a19a08214f0a5239ef54fe676c0bb09f7764ae14e60",
+            "gram_count": 19,
+            "mode": "spaced",
+            "text": "proton saga",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "fandom-family-59e5682e50af879e",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "a8007ff3-fcd1-5c69-b132-f38d380d1490"
+      },
+      {
+        "casting": "Draftnator",
+        "forms": [
+          {
+            "form_id": "95154311c8ed2043e9b8190b1bfeaf4c3c9be863e08b32b9021531bc4dd7348c",
+            "gram_count": 17,
+            "mode": "compact",
+            "text": "draftnator",
+            "token_count": 1
+          },
+          {
+            "form_id": "2d9fabfe5b549dd6750e3e044ea36740288af9aadab5580f11cb2e61a96d33cd",
+            "gram_count": 17,
+            "mode": "spaced",
+            "text": "draftnator",
+            "token_count": 1
+          }
+        ],
+        "knowledge_id": "fandom-family-d816204cf649a0c0",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "a8372fd7-0084-530c-9649-177ebaddb735"
+      },
+      {
+        "casting": "Honda Civic EG",
+        "forms": [
+          {
+            "form_id": "f7f645cb0bd0f8773bb5c11a3b88e24fac37f152c6aa213494fcc2ee4aab6aa5",
+            "gram_count": 21,
+            "mode": "compact",
+            "text": "hondaciviceg",
+            "token_count": 3
+          },
+          {
+            "form_id": "363c380c3befc1c780292caa929dafadc4efd27755a1fadae508569047a400ac",
+            "gram_count": 25,
+            "mode": "spaced",
+            "text": "honda civic eg",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-honda-civic-eg-premium-fast-furious",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "a89d4de3-69d2-5f8a-9256-4832b786a8fe"
+      },
+      {
+        "casting": "The Vanster",
+        "forms": [
+          {
+            "form_id": "acef787ad1a1892019fbd1d017802b19f202c3db44f72d1499000cfc80616744",
+            "gram_count": 11,
+            "mode": "compact",
+            "text": "vanster",
+            "token_count": 1
+          },
+          {
+            "form_id": "a19a809724be980a8fc92076426f6b8a5753e63577565dda27195266d473e86a",
+            "gram_count": 11,
+            "mode": "spaced",
+            "text": "vanster",
+            "token_count": 1
+          }
+        ],
+        "knowledge_id": "fandom-family-57cf5c31afbadc57",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "a8ac2a98-3a4d-51b8-8425-1fb8de67ec0a"
+      },
+      {
+        "casting": "Tesla Model S Plaid",
+        "forms": [
+          {
+            "form_id": "73656cbf5c1004c3ab3ef345ce6dc74817b0fad7d165e090b235d993e7c213fd",
+            "gram_count": 18,
+            "mode": "compact",
+            "text": "teslasplaid",
+            "token_count": 3
+          },
+          {
+            "form_id": "86e926845c0e1b2d5ee5679bbe5a405d8103e6581ff958f8971224aac71184bc",
+            "gram_count": 22,
+            "mode": "spaced",
+            "text": "tesla s plaid",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-tesla-model-s-plaid-mainline-red",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "a9246e30-e08c-5d32-a3b4-045742e8aabc"
+      },
+      {
+        "casting": "'80 El Camino",
+        "forms": [
+          {
+            "form_id": "5ceb36ca6811d8cdee0d54629e1ef2988203b53dfc805d990991e4d63d449de6",
+            "gram_count": 17,
+            "mode": "compact",
+            "text": "80elcamino",
+            "token_count": 3
+          },
+          {
+            "form_id": "b82a63ea07745050104a1bea603330f1764375a659b4b9a0792a3b1df9493be8",
+            "gram_count": 21,
+            "mode": "spaced",
+            "text": "80 el camino",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "fandom-family-526b697937fde7cc",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "aba0fed4-3be9-5964-9e24-19eaf025d6a2"
+      },
+      {
+        "casting": "2023 bmw m2",
+        "forms": [
+          {
+            "form_id": "b0902f5345ca37e3d66d7e7e00cf5c9de2c4d257dc6ba2efff8417b05e557061",
+            "gram_count": 15,
+            "mode": "compact",
+            "text": "2023bmwm2",
+            "token_count": 3
+          },
+          {
+            "form_id": "89d7d345d3af2e300134ad7975874f52894ce846a74a9806a8963f92fa594126",
+            "gram_count": 19,
+            "mode": "spaced",
+            "text": "2023 bmw m2",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-matchbox-2023-bmw-m2-match-box-mainline-red",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "ad31f643-ca49-5653-8426-27d3bd8ec174"
+      },
+      {
+        "casting": "'66 Buick Riviera",
+        "forms": [
+          {
+            "form_id": "2bc4036d1137cb9405cc91c8165d6d405429c458933aafcb40a431f9b84d8667",
+            "gram_count": 25,
+            "mode": "compact",
+            "text": "66buickriviera",
+            "token_count": 3
+          },
+          {
+            "form_id": "fdd6caeab0dcd63ff0ce73643c8068c12a5c76803d60d285013860d081b9d92e",
+            "gram_count": 29,
+            "mode": "spaced",
+            "text": "66 buick riviera",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "fandom-family-a2097eead3bd8db9",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "b1fef4ef-65ec-5136-b015-7ec8fcf88618"
+      },
+      {
+        "casting": "'94 Audi Avant RS2",
+        "forms": [
+          {
+            "form_id": "bc118b6b4918e64ade699cca19727b709938b7c479bc95d0ac9adced3a13d137",
+            "gram_count": 25,
+            "mode": "compact",
+            "text": "94audiavantrs2",
+            "token_count": 4
+          },
+          {
+            "form_id": "1f09bcaca1927485f22b31c048c2ab9c414d56b1d99dfdf3e03ef0eba2167755",
+            "gram_count": 30,
+            "mode": "spaced",
+            "text": "94 audi avant rs2",
+            "token_count": 4
+          }
+        ],
+        "knowledge_id": "fandom-family-1555c05ceeb491cb",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "b702a2cf-94be-5dd6-9382-a9daaace93e1"
+      },
+      {
+        "casting": "2020 Ram 1500 Rebel",
+        "forms": [
+          {
+            "form_id": "5a82e8e580bfa77d1bab4765e9bf98e0423978c1fc348060e0d559902f9ff750",
+            "gram_count": 27,
+            "mode": "compact",
+            "text": "2020ram1500rebel",
+            "token_count": 4
+          },
+          {
+            "form_id": "c080304edccf16611e53ad145495f410a6ef5e6fa08050e035d48e8d87392f3e",
+            "gram_count": 31,
+            "mode": "spaced",
+            "text": "2020 ram 1500 rebel",
+            "token_count": 4
+          }
+        ],
+        "knowledge_id": "fandom-family-99200212d1475ef2",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "b79039a5-c724-57d2-8553-c66f40c2dd8e"
+      },
+      {
+        "casting": "ALFA ROMEO GTV6 3.0",
+        "forms": [
+          {
+            "form_id": "e5aa661b534ba95bb8c36c9ed1db29d8ce324999272d12079aea34313d674ad1",
+            "gram_count": 27,
+            "mode": "compact",
+            "text": "alfaromeogtv630",
+            "token_count": 5
+          },
+          {
+            "form_id": "e49b1ed4a30f229bce8b0128082cd3557b9adffa809d028920a8e495d9685dfb",
+            "gram_count": 35,
+            "mode": "spaced",
+            "text": "alfa romeo gtv6 3 0",
+            "token_count": 5
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-alfa-romeo-gtv6-3-0-car-culture-premium-world-tour-series",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "b82bbb96-bb61-5341-a86a-1b566499a1a7"
+      },
+      {
+        "casting": "1956 Ford F-100 Truck",
+        "forms": [
+          {
+            "form_id": "2cdb0224da17a72dbadeb49d8cb9b69ee39fc5e7cd53370dd24d643b169a5ef2",
+            "gram_count": 31,
+            "mode": "compact",
+            "text": "1956fordf100truck",
+            "token_count": 5
+          },
+          {
+            "form_id": "7eee19e922134e638c819c52a2e124a713a1ed9f1722f6a1e2f2fbca255e1aae",
+            "gram_count": 38,
+            "mode": "spaced",
+            "text": "1956 ford f 100 truck",
+            "token_count": 5
+          }
+        ],
+        "knowledge_id": "human-m2-1956-ford-f-100-truck-m2-target-exclusive",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "ba7ed284-9c38-589b-9960-43d74aaee1d3"
+      },
+      {
+        "casting": "1954 Studebaker 3R Truck",
+        "forms": [
+          {
+            "form_id": "897130c9c6a70119b0c30d1f0fd471eaf13760b47a53c290a209be165037a72f",
+            "gram_count": 39,
+            "mode": "compact",
+            "text": "1954studebaker3rtruck",
+            "token_count": 4
+          },
+          {
+            "form_id": "fa7c5ca1b5f990625c991640dabc5f82b3ec7340d039d752e68b36f05c287312",
+            "gram_count": 44,
+            "mode": "spaced",
+            "text": "1954 studebaker 3r truck",
+            "token_count": 4
+          }
+        ],
+        "knowledge_id": "human-m2-1954-studebaker-3r-truck-planters-planters",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "bc4b6601-a61b-509c-908a-e65620099f12"
+      },
+      {
+        "casting": "Kowloon'd Hypervan",
+        "forms": [
+          {
+            "form_id": "2cfd774ca244b04bfa75c379d10d65b4f98df217ad4042ff1281c7b6f5a68719",
+            "gram_count": 29,
+            "mode": "compact",
+            "text": "kowloondhypervan",
+            "token_count": 3
+          },
+          {
+            "form_id": "a2ab8a3e28704940ac7bc1d347622f963c7b3b6502bac9de0d6a1e524c02bcfc",
+            "gram_count": 33,
+            "mode": "spaced",
+            "text": "kowloon d hypervan",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "fandom-family-89930c384be2e8bf",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "bcd60a59-9498-5cda-b422-9c4508de1834"
+      },
+      {
+        "casting": "Custom Cadillac Fleetwood",
+        "forms": [
+          {
+            "form_id": "daac00552f3d22b84c4688bbeed1cfa69788c6e84814b084e4751aff92c01fba",
+            "gram_count": 43,
+            "mode": "compact",
+            "text": "customcadillacfleetwood",
+            "token_count": 3
+          },
+          {
+            "form_id": "8419d598486f14563339d0438dd9fa17c1e6596e0c2002db0e56df0a2b4fef45",
+            "gram_count": 47,
+            "mode": "spaced",
+            "text": "custom cadillac fleetwood",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "fandom-family-45af5b93f3f6650f",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "bd871995-1ec2-5b3d-a50d-acbcb0d09693"
+      },
+      {
+        "casting": "Kei Swap",
+        "forms": [
+          {
+            "form_id": "935092ca505b819322fd519b25a278983fb01a81b371af0a845412e3f902b1f8",
+            "gram_count": 11,
+            "mode": "compact",
+            "text": "keiswap",
+            "token_count": 2
+          },
+          {
+            "form_id": "646b999d3f6e67e4a79666631ee2432a6d37f0040b61ca9dc9427a83b6643603",
+            "gram_count": 13,
+            "mode": "spaced",
+            "text": "kei swap",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "fandom-family-c655fb5244c584ae",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "bda500e0-210b-5b19-a722-deacd97392f9"
+      },
+      {
+        "casting": "20 Toyota Tacoma",
+        "forms": [
+          {
+            "form_id": "7bb1b26134c6dbc380c002f855595a6de08e06e0d2c819dfde913b2c8a8f73e8",
+            "gram_count": 24,
+            "mode": "compact",
+            "text": "20toyotatacoma",
+            "token_count": 3
+          },
+          {
+            "form_id": "9fa97e0ec4bc17c2fb09218c0011c530dc495591c371273e19d9b9d86a5380ce",
+            "gram_count": 27,
+            "mode": "spaced",
+            "text": "20 toyota tacoma",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-20-toyota-tacoma-mainline-white",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "be166078-68fe-51ea-94c6-48740b83aa1c"
+      },
+      {
+        "casting": "MAZDA RX7",
+        "forms": [
+          {
+            "form_id": "55d65d44f5aab5b9037c3d8319c6f9f3fb1444571a662545e6cda56f862b4d8c",
+            "gram_count": 13,
+            "mode": "compact",
+            "text": "mazdarx7",
+            "token_count": 2
+          },
+          {
+            "form_id": "4652273b4f483bd8886af5be573bd71ae8c8139fa91f77c30489269b66dade00",
+            "gram_count": 15,
+            "mode": "spaced",
+            "text": "mazda rx7",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-mazda-rx7-mainline-blue",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "bfe91ce3-044b-5141-812a-0274f48560ce"
+      },
+      {
+        "casting": "55 CHEVY BEL AIR GASSER",
+        "forms": [
+          {
+            "form_id": "db2363c733c92bc826bb0c846b4faeeee381ff108fcc76c30f1851b1c8662fa6",
+            "gram_count": 35,
+            "mode": "compact",
+            "text": "55chevybelairgasser",
+            "token_count": 5
+          },
+          {
+            "form_id": "e067679fe936e597a67b83c5b806902cf33d5b0c661b913eb8fc2ba7df03cef7",
+            "gram_count": 43,
+            "mode": "spaced",
+            "text": "55 chevy bel air gasser",
+            "token_count": 5
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-55-chevy-bel-air-gasser-mainline-orange",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "c109fdfa-5b06-5d28-b811-848be503877e"
+      },
+      {
+        "casting": "1997 Toyota Supra HKS",
+        "forms": [
+          {
+            "form_id": "31a75aeb4bb9596c8d8c7a7c7d75e8616896608523f48d75df4acca0763c03ce",
+            "gram_count": 33,
+            "mode": "compact",
+            "text": "1997toyotasuprahks",
+            "token_count": 4
+          },
+          {
+            "form_id": "fa6d05856219542d11c940d57c96ccc0b6cfad5d093ece26ae92e10684eed7f1",
+            "gram_count": 38,
+            "mode": "spaced",
+            "text": "1997 toyota supra hks",
+            "token_count": 4
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-1997-toyota-supra-hks-rlc-hks",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "c23f4c2e-95ba-58ed-9621-8637be6a0c25"
+      },
+      {
+        "casting": "1969 Ford Mustang Boss 302",
+        "forms": [
+          {
+            "form_id": "42a96e39d18cd45d4baad1375fcd74f55d186af4e246dc18e0efdc57694f7609",
+            "gram_count": 41,
+            "mode": "compact",
+            "text": "1969fordmustangboss302",
+            "token_count": 5
+          },
+          {
+            "form_id": "27ad2f0b263a481026e381cd4d939e78cfe483de82d8d10ce8c6f3d05719e884",
+            "gram_count": 49,
+            "mode": "spaced",
+            "text": "1969 ford mustang boss 302",
+            "token_count": 5
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-1969-ford-mustang-boss-302-premium-premium-fast-and-furious",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "c2f45a71-030d-5e7a-8311-21ad7e3bde10"
+      },
+      {
+        "casting": "Ford Bronco R & ’17 Ford F-150 Raptor",
+        "forms": [
+          {
+            "form_id": "d34286f93bbd4eba992efedbaa579071d31f8934e109dcf04399661e7f0c0f91",
+            "gram_count": 44,
+            "mode": "compact",
+            "text": "fordbroncor17fordf150raptor",
+            "token_count": 8
+          },
+          {
+            "form_id": "e2f5c48b42708034b4ed7fedd0f5ee3d7916871d986be74369154b28f964d9ac",
+            "gram_count": 54,
+            "mode": "spaced",
+            "text": "ford bronco r 17 ford f 150 raptor",
+            "token_count": 8
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-ford-bronco-r-17-ford-f-150-raptor-2-pack-2-pack",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "c5a0ca35-28b3-58b0-845a-b9ed739ce5f3"
+      },
+      {
+        "casting": "Small Bloc",
+        "forms": [
+          {
+            "form_id": "7cec3564bc4b40b8e80c2d8534316e41cb7d9533ceb564201edeb2fab9799bd9",
+            "gram_count": 5,
+            "mode": "compact",
+            "text": "bloc",
+            "token_count": 1
+          },
+          {
+            "form_id": "edb803d5d44f16a2f3e05bc54e1491f8b2f34feec612b4ab4a074e2c57d32efd",
+            "gram_count": 5,
+            "mode": "spaced",
+            "text": "bloc",
+            "token_count": 1
+          }
+        ],
+        "knowledge_id": "fandom-family-85e407525ac7bf41",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "c68064b7-3d3c-552f-a238-caf3ae2d426c"
+      },
+      {
+        "casting": "Toyota AE-86 Corolla",
+        "forms": [
+          {
+            "form_id": "14caebd6c6a6865b0ee31bd192c5cfe5e26dc35e1242b35ebef8edf3cb3f9d3f",
+            "gram_count": 31,
+            "mode": "compact",
+            "text": "toyotaae86corolla",
+            "token_count": 4
+          },
+          {
+            "form_id": "ae92729bcdb513cfea854570c62ea458d8c702aa04bfa3def0035a909a200545",
+            "gram_count": 37,
+            "mode": "spaced",
+            "text": "toyota ae 86 corolla",
+            "token_count": 4
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-toyota-ae-86-corolla-mainline-hw-workshop",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "c6aaeef5-44c1-5b9f-8b13-4e42d93bd1a2"
+      },
+      {
+        "casting": "birthday burner",
+        "forms": [
+          {
+            "form_id": "767fa72acbf0e9b0b0ea9aacc65d59e4d197bede74c2e3c695aca35bb39afa0c",
+            "gram_count": 25,
+            "mode": "compact",
+            "text": "birthdayburner",
+            "token_count": 2
+          },
+          {
+            "form_id": "0d8d76b063e2802c6abe579feaac239d120b4cad4627fd3a70bf7f815510004f",
+            "gram_count": 27,
+            "mode": "spaced",
+            "text": "birthday burner",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-birthday-burner-mainline-treasure-hunt-factory-sealed",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "c831ac53-5ffe-50f6-936c-5f319ead19f2"
+      },
+      {
+        "casting": "Subaru Brat",
+        "forms": [
+          {
+            "form_id": "7517935897a42a1d865720db723a2bcc3533e7628d6dc0dfcaa884b356fbaada",
+            "gram_count": 16,
+            "mode": "compact",
+            "text": "subarubrat",
+            "token_count": 2
+          },
+          {
+            "form_id": "5afffdf00673f22755cba050ebfca909fe452d7fda085e0127a7d316178c84de",
+            "gram_count": 19,
+            "mode": "spaced",
+            "text": "subaru brat",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-subaru-brat-hw-off-road-pearl-yellow-kmart-exclusive",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "c89257e3-9e9e-5340-b105-81a58987d4d6"
+      },
+      {
+        "casting": "16 Bugatti Chiron",
+        "forms": [
+          {
+            "form_id": "e1b10f98af56c5107212af70b1c84e5235bf89014b3df7cd4a40fab740e119bf",
+            "gram_count": 27,
+            "mode": "compact",
+            "text": "16bugattichiron",
+            "token_count": 3
+          },
+          {
+            "form_id": "5e0ead229ad2371421822e01614a8260cff67fff81d13d8696242efa39655898",
+            "gram_count": 31,
+            "mode": "spaced",
+            "text": "16 bugatti chiron",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-16-bugatti-chiron-mainline-hw-exotics",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "c899ab91-3dcc-5f18-a830-560dd7a4b2de"
+      },
+      {
+        "casting": "Super Twin Mill",
+        "forms": [
+          {
+            "form_id": "0c4d1c7af1ac2eabd1109741d1d0a30d924fbb59dc55a25f32fe86b958d73d6b",
+            "gram_count": 23,
+            "mode": "compact",
+            "text": "supertwinmill",
+            "token_count": 3
+          },
+          {
+            "form_id": "86fbec8c1ee368f169899a78c94997c6b65fb40d74400ebe63c09c75cc460ac3",
+            "gram_count": 27,
+            "mode": "spaced",
+            "text": "super twin mill",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "fandom-family-d5c83bb87be8cab0",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "ca29331e-5db5-5396-aa2b-02fadd13acec"
+      },
+      {
+        "casting": "Pink Black Widow '83 Chevy Silverado",
+        "forms": [
+          {
+            "form_id": "512dc8e056254fdedcf088dc3fba32231a669a82ce42cd278379edc4c00c3758",
+            "gram_count": 46,
+            "mode": "compact",
+            "text": "pinkwidow83chevysilverado",
+            "token_count": 5
+          },
+          {
+            "form_id": "80a9c22ef556196739af9bc0007ecfb59393e12030a8f3f4c20c4a3ebffc6e06",
+            "gram_count": 54,
+            "mode": "spaced",
+            "text": "pink widow 83 chevy silverado",
+            "token_count": 5
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-pink-black-widow-83-chevy-silverado-mainline-pink-black-widow",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "cae68e86-4a5b-5919-a84f-848c54731122"
+      },
+      {
+        "casting": "ICE CHARGER",
+        "forms": [
+          {
+            "form_id": "3defa1c39dd4a2ae3b5b6c05a1cace999a027cd551b43b3a95c2f338b3658337",
+            "gram_count": 17,
+            "mode": "compact",
+            "text": "icecharger",
+            "token_count": 2
+          },
+          {
+            "form_id": "1b82330b873b369fd38c6fd1d47f60709dc79951d19d56c8bff96a6ed55efd08",
+            "gram_count": 19,
+            "mode": "spaced",
+            "text": "ice charger",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-ice-charger-hw-screen-time-hw-screen-time",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "cd69973c-1bbf-527a-b5e2-5cad3e6fcae5"
+      },
+      {
+        "casting": "1969 Pontiac GTO",
+        "forms": [
+          {
+            "form_id": "b70583bd0a9cf53c698da43add1ab449dafda4ca3ed25367569efba93901ae17",
+            "gram_count": 25,
+            "mode": "compact",
+            "text": "1969pontiacgto",
+            "token_count": 3
+          },
+          {
+            "form_id": "568306f269c78ef8efe31c31da14e69082cc7a8264f212c2798e2b5026ff222c",
+            "gram_count": 29,
+            "mode": "spaced",
+            "text": "1969 pontiac gto",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-1969-pontiac-gto-hot-wheels-classics-hot-wheels-classics",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "cdc6fc59-7574-5a33-a59e-85e61004c3e6"
+      },
+      {
+        "casting": "70 Dodge Hemi Challenger",
+        "forms": [
+          {
+            "form_id": "0d93d3f694d9e768de8b132dff04d6137896c863ebd0653729aeb0a7a34e0910",
+            "gram_count": 38,
+            "mode": "compact",
+            "text": "70dodgehemichallenger",
+            "token_count": 4
+          },
+          {
+            "form_id": "eb4cc36b3bce22b4d45396a8fbe443dfd23d13681be898a6502efcf536609255",
+            "gram_count": 44,
+            "mode": "spaced",
+            "text": "70 dodge hemi challenger",
+            "token_count": 4
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-70-dodge-hemi-challenger-mainline-hw-racing-12",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "ce8bb064-54f9-533b-ac6d-0d409e3ed6bb"
+      },
+      {
+        "casting": "NISSAN LEAF NISMO RC",
+        "forms": [
+          {
+            "form_id": "e105a524367b6bdc50e7ce512672666e8e8dfb200921f59000db3b37d6c4906e",
+            "gram_count": 28,
+            "mode": "compact",
+            "text": "nissanleafnismorc",
+            "token_count": 4
+          },
+          {
+            "form_id": "025d003e67418d0a58ab238123db01ae4cc918edc7fbf3db20e6f347deb65e6f",
+            "gram_count": 34,
+            "mode": "spaced",
+            "text": "nissan leaf nismo rc",
+            "token_count": 4
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-nissan-leaf-nismo-rc-mainline-treasure-hunt",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "d284fa7d-d89d-5223-92ba-41cae44afa4c"
+      },
+      {
+        "casting": "HUMMER H1",
+        "forms": [
+          {
+            "form_id": "5f51ad27356f6709f8a617d61ca0e6b5214af553adefe9bf383e308ffe606596",
+            "gram_count": 13,
+            "mode": "compact",
+            "text": "hummerh1",
+            "token_count": 2
+          },
+          {
+            "form_id": "df33c7e44119d672d33e4ce2eee8fa83d3d7c7284034c53b9be105f1586fbaa0",
+            "gram_count": 15,
+            "mode": "spaced",
+            "text": "hummer h1",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-hummer-h1-silver-series-fast-furious",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "d4457197-efb9-5b4c-ae34-940a3907f0aa"
+      },
+      {
+        "casting": "Shelby Cobra 427 S/C",
+        "forms": [
+          {
+            "form_id": "32d14a0d6600be9c448c44c819ea0b18e544f80f66380a3d7e4014accddf0686",
+            "gram_count": 29,
+            "mode": "compact",
+            "text": "shelbycobra427sc",
+            "token_count": 5
+          },
+          {
+            "form_id": "0c62d84d09053b13108a63a33df617ab05482ae7436853cedfb7c6216a94a02c",
+            "gram_count": 36,
+            "mode": "spaced",
+            "text": "shelby cobra 427 s c",
+            "token_count": 5
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-shelby-cobra-427-s-c-mainline-yellow",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "d6bcef30-5752-5c98-ae5f-c2feff7dcfff"
+      },
+      {
+        "casting": "Porsche 911 Carrera RS 2.7",
+        "forms": [
+          {
+            "form_id": "33fbaecb9e42765a7b89f4b3e6a7d17782815e187d0822f0ca8e8fdcd9f90be9",
+            "gram_count": 37,
+            "mode": "compact",
+            "text": "porsche911carrerars27",
+            "token_count": 6
+          },
+          {
+            "form_id": "9d8723c14c617b98aec18aad4000a5a2b5008d21be8dfadce1dc886bf8ea47dc",
+            "gram_count": 48,
+            "mode": "spaced",
+            "text": "porsche 911 carrera rs 2 7",
+            "token_count": 6
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-porsche-911-carrera-rs-2-7-mainline-red",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "d6bdcb43-ca8e-5503-9fe3-021f3fc41338"
+      },
+      {
+        "casting": "McLaren Elva",
+        "forms": [
+          {
+            "form_id": "6b5e1e4a854096ba52854c90f2ac73ced9dff6875ccde8ffb90e269091bc367c",
+            "gram_count": 19,
+            "mode": "compact",
+            "text": "mclarenelva",
+            "token_count": 2
+          },
+          {
+            "form_id": "207077405cbdd6af32ab9347663437a4979079b9018472ede407e01ea54056fc",
+            "gram_count": 21,
+            "mode": "spaced",
+            "text": "mclaren elva",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-mclaren-elva-mainline-hw-roadsters-gold",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "d74f0729-1b65-5218-83a1-0921f0e7aa99"
+      },
+      {
+        "casting": "'96 Nissan 180SX Type X",
+        "forms": [
+          {
+            "form_id": "12f349ac424e1b1aada7af4f92023a537e7dc612ba22f251ce91ac9943479cdb",
+            "gram_count": 33,
+            "mode": "compact",
+            "text": "96nissan180sxtypex",
+            "token_count": 5
+          },
+          {
+            "form_id": "0bb5586a3a89b368ab5a54eb9c1f4a3a9fe55a23635d4eb49ba09d5ee09f45eb",
+            "gram_count": 41,
+            "mode": "spaced",
+            "text": "96 nissan 180sx type x",
+            "token_count": 5
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-96-nissan-180sx-type-x-hw-race-team-blue",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "d97ecc3c-4a7b-5aa5-a7fb-ac1872aedf67"
+      },
+      {
+        "casting": "Bogzilla",
+        "forms": [
+          {
+            "form_id": "7a54e69da442a0ebe777867f45d3f83c06e2eee80c9c8fa06fe1e41f08694c3b",
+            "gram_count": 13,
+            "mode": "compact",
+            "text": "bogzilla",
+            "token_count": 1
+          },
+          {
+            "form_id": "467421d9d85a612dcd9509e0075e90624fee4969d624e25cf19a1bca3de00665",
+            "gram_count": 13,
+            "mode": "spaced",
+            "text": "bogzilla",
+            "token_count": 1
+          }
+        ],
+        "knowledge_id": "fandom-family-8a07157f2af2ddd5",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "da4e3339-1ace-5689-acd8-720161aea455"
+      },
+      {
+        "casting": "SWITCHBACK",
+        "forms": [
+          {
+            "form_id": "0df9bab2e0bde3944cadae4f8459aafa472b6c4f2d9e36e906e03b76fcf3da16",
+            "gram_count": 17,
+            "mode": "compact",
+            "text": "switchback",
+            "token_count": 1
+          },
+          {
+            "form_id": "839aa702b0781eb50a07158af257dae2662d9d43b0db1108c5bca8ba6fc2b7dc",
+            "gram_count": 17,
+            "mode": "spaced",
+            "text": "switchback",
+            "token_count": 1
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-switchback-first-editions-orange",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "ddb6132e-e724-5d17-a3e4-a84fc6cba424"
+      },
+      {
+        "casting": "Ford Escort RS2000",
+        "forms": [
+          {
+            "form_id": "3576a592250a043ce4f70f93c6eb6f9d0a30e835b6f23dc14e2dbf7564ac62fd",
+            "gram_count": 27,
+            "mode": "compact",
+            "text": "fordescortrs2000",
+            "token_count": 3
+          },
+          {
+            "form_id": "d3fd6d2e8dacb856a2680dc0582c26d5db0d4c1a6fe69f2848df7303b4208837",
+            "gram_count": 31,
+            "mode": "spaced",
+            "text": "ford escort rs2000",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-ford-escort-rs2000-mainline-red-edition",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "dfd32e67-c62b-5202-bad1-e05dc46fb83f"
+      },
+      {
+        "casting": "08 Tesla Roadster",
+        "forms": [
+          {
+            "form_id": "d31ef1482ef64b31dc8d920868c607282ac6956690be99f1dd8dfbc8e578c780",
+            "gram_count": 26,
+            "mode": "compact",
+            "text": "08teslaroadster",
+            "token_count": 3
+          },
+          {
+            "form_id": "cc9f4674d0556da62bb96f518c8310fd35c6aa2027b56eefdebae3746caef9f5",
+            "gram_count": 30,
+            "mode": "spaced",
+            "text": "08 tesla roadster",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-08-tesla-roadster-hot-wheels-tesla-greetings-from-space",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "e414ef07-58a4-5257-a574-97b0170819b8"
+      },
+      {
+        "casting": "Chevy Bel Air Gasser",
+        "forms": [
+          {
+            "form_id": "6364fe29d683d6b84f34dc5af870a3dc1ba64780b4b349352dda2b3f49c6e73d",
+            "gram_count": 31,
+            "mode": "compact",
+            "text": "chevybelairgasser",
+            "token_count": 4
+          },
+          {
+            "form_id": "31b0b11517a2fe720bfe24f5c508059a0d9637e54224d0e011255ae8ba85da08",
+            "gram_count": 37,
+            "mode": "spaced",
+            "text": "chevy bel air gasser",
+            "token_count": 4
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-chevy-bel-air-gasser-mainline-speed-graphics",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "e4b4200d-1be3-585a-8c44-c770a6554096"
+      },
+      {
+        "casting": "Max Steel",
+        "forms": [
+          {
+            "form_id": "0eef60d4a8e35395f1ce57adb495294d1ea42c04af2517cbe3ee4ce40304d07d",
+            "gram_count": 13,
+            "mode": "compact",
+            "text": "maxsteel",
+            "token_count": 2
+          },
+          {
+            "form_id": "6f3d367f5dc3e7aa229cd104f7f1ac7e928828f548a8bd3e920293bb3d546acb",
+            "gram_count": 15,
+            "mode": "spaced",
+            "text": "max steel",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "fandom-family-0573861db69878eb",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "e6a31104-98fb-5230-8163-2a585b99bfc4"
+      },
+      {
+        "casting": "Mercedes-Benz 500 E",
+        "forms": [
+          {
+            "form_id": "82dc0ea7451fd66b80939f6bd7e3ed3d3beaa8919b01df885a107ba5b305aec9",
+            "gram_count": 29,
+            "mode": "compact",
+            "text": "mercedesbenz500e",
+            "token_count": 4
+          },
+          {
+            "form_id": "d9a17c006ef93198640849484326a5e47cb1858849f66a9cd267e31aca7939ae",
+            "gram_count": 35,
+            "mode": "spaced",
+            "text": "mercedes benz 500 e",
+            "token_count": 4
+          }
+        ],
+        "knowledge_id": "fandom-family-1b2a4227b4e5decd",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "e81a61b9-2dbf-5254-a8dd-c083430928fd"
+      },
+      {
+        "casting": "Honda City Turbo ll",
+        "forms": [
+          {
+            "form_id": "31bb216b2328e9ab777c4cd789d25a9e4b51d324b84dc79c1ce53e8e84f81683",
+            "gram_count": 29,
+            "mode": "compact",
+            "text": "hondacityturboll",
+            "token_count": 4
+          },
+          {
+            "form_id": "71baf84091b39a1fa7cf98e49f7ba44363c84e2fb7f1c08e0fbde7ee5db85316",
+            "gram_count": 35,
+            "mode": "spaced",
+            "text": "honda city turbo ll",
+            "token_count": 4
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-honda-city-turbo-ll-mainline-compact-king",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "e933c950-6e23-52d9-990e-156c921aead1"
+      },
+      {
+        "casting": "'72 Ford Ranchero",
+        "forms": [
+          {
+            "form_id": "f539f0d67e2dd1ec89ec8695e8522094225a4f00a7d610fb13a38e2d1a75c5ec",
+            "gram_count": 25,
+            "mode": "compact",
+            "text": "72fordranchero",
+            "token_count": 3
+          },
+          {
+            "form_id": "2f1f3050ac80056e495217999be04ce1f958c5c3a000988053b34069a9c2091c",
+            "gram_count": 29,
+            "mode": "spaced",
+            "text": "72 ford ranchero",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-72-ford-ranchero-mainline-hw-art-cars",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "e937f22f-a599-579b-adb6-fb623927266c"
+      },
+      {
+        "casting": "Nissan Skyline RS (KDR30)",
+        "forms": [
+          {
+            "form_id": "d98611efd229dddee3c333275dca7a3b85a030dc7ff14e201738cb343af60390",
+            "gram_count": 36,
+            "mode": "compact",
+            "text": "nissanskylinerskdr30",
+            "token_count": 4
+          },
+          {
+            "form_id": "c1e6ff6f88eaaf107388783904b8b67c95b6c17871288b0d4f6196c37c73f37e",
+            "gram_count": 43,
+            "mode": "spaced",
+            "text": "nissan skyline rs kdr30",
+            "token_count": 4
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-nissan-skyline-rs-kdr30-mainline-j-imports-purple",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "ede0706b-cfc7-5cca-a18a-973897cddd87"
+      },
+      {
+        "casting": "Custom '01 Acura Integra GSR",
+        "forms": [
+          {
+            "form_id": "e8b70f0d0a212ce63d9b344f2bd2339ccf54e8bc4305f1d1779339f90991253b",
+            "gram_count": 41,
+            "mode": "compact",
+            "text": "custom01acuraintegragsr",
+            "token_count": 5
+          },
+          {
+            "form_id": "903f7e0dd3b8d873ee3b5665c4d578670ca17524e4ad6bc6f993c9b8e4b9052d",
+            "gram_count": 47,
+            "mode": "spaced",
+            "text": "custom 01 acura integra gsr",
+            "token_count": 5
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-custom-01-acura-integra-gsr-premium-purple",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "ee48d6ec-3ed2-5bdf-91e5-070e5ace9976"
+      },
+      {
+        "casting": "2000 Chevy Nomad",
+        "forms": [
+          {
+            "form_id": "856b7b9601139725f0d8759a61d94d27eff3eb5e5b900f7fc87b82d63cf52ccb",
+            "gram_count": 24,
+            "mode": "compact",
+            "text": "2000chevynomad",
+            "token_count": 3
+          },
+          {
+            "form_id": "0a817e87d320061a0cbc251f4dc23277be5dc5119b414b4f33d4195eb87bb057",
+            "gram_count": 28,
+            "mode": "spaced",
+            "text": "2000 chevy nomad",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-2000-chevy-nomad-mainline-orange",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "ee7b3635-6a6d-52fe-b58f-36180a9bd086"
+      },
+      {
+        "casting": "Fiat 500e",
+        "forms": [
+          {
+            "form_id": "fa878a1a944b2c63d2e84b0b4896ab3ab73e21c61ff465273dc4e328d6435c64",
+            "gram_count": 13,
+            "mode": "compact",
+            "text": "fiat500e",
+            "token_count": 2
+          },
+          {
+            "form_id": "dc3674e865000dae02bbc5464ad14956d5e214d679f9562f69e8e2e475d4efe1",
+            "gram_count": 15,
+            "mode": "spaced",
+            "text": "fiat 500e",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "fandom-family-85226ac5ac0d3f77",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "eeb124d9-93e6-5c63-9578-24e3f843df96"
+      },
+      {
+        "casting": "Custom '53 Chevy",
+        "forms": [
+          {
+            "form_id": "93bdaad990182c96acc02577bcbe670b408fcaf18c580ce44f1ae4192b6b55cd",
+            "gram_count": 23,
+            "mode": "compact",
+            "text": "custom53chevy",
+            "token_count": 3
+          },
+          {
+            "form_id": "202bcb2d8858c180fea4dc4e0548c3d07757e5837ad13d47f883ed989f42d8c4",
+            "gram_count": 27,
+            "mode": "spaced",
+            "text": "custom 53 chevy",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "fandom-family-fd96307f2dc8b421",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "f0d4f80f-107f-5ab0-86a5-191af39a30de"
+      },
+      {
+        "casting": "83 Chevy Silverado",
+        "forms": [
+          {
+            "form_id": "9562f3acf82230e79ace8543614dc11f68049021191cccb217a20b5bfd356901",
+            "gram_count": 29,
+            "mode": "compact",
+            "text": "83chevysilverado",
+            "token_count": 3
+          },
+          {
+            "form_id": "7f40e361134984d4f9dd37292249dfc06cd0f7c921cc364ee69cd2a836ce8fbd",
+            "gram_count": 33,
+            "mode": "spaced",
+            "text": "83 chevy silverado",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-83-chevy-silverado-mainline-black",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "f24ded34-c29c-591b-8b41-aae5f049d6ad"
+      },
+      {
+        "casting": "Gangster Grin",
+        "forms": [
+          {
+            "form_id": "02e71af456b025d0f6fdd699361f0c9103c9151e861be8616259fa0c8700a3af",
+            "gram_count": 21,
+            "mode": "compact",
+            "text": "gangstergrin",
+            "token_count": 2
+          },
+          {
+            "form_id": "c605dd8a5a233f112bdebaeba0741277bccd354566c20f578d150dabd8d7aab2",
+            "gram_count": 23,
+            "mode": "spaced",
+            "text": "gangster grin",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-gangster-grin-mainline-treasure-hunts",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "f272b3e3-9b7d-52e5-bd6d-a22e9d9cd711"
+      },
+      {
+        "casting": "Deora III",
+        "forms": [
+          {
+            "form_id": "85d436f0e8a7ddb7c457902b216d6f98beae15420f7adad35e90697ff95fecab",
+            "gram_count": 12,
+            "mode": "compact",
+            "text": "deoraiii",
+            "token_count": 2
+          },
+          {
+            "form_id": "ab2efb68b97ca02a1534dcb7a01c5aaac010cd5c1ea301453946edd34daca1b0",
+            "gram_count": 14,
+            "mode": "spaced",
+            "text": "deora iii",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "fandom-family-8cce01fa7d44112a",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "f5c60f52-ed72-5293-aec9-82b6d9c7e87f"
+      },
+      {
+        "casting": "Dodge Van",
+        "forms": [
+          {
+            "form_id": "ea0b24ca644dabfe5376e59d8b04fed50ee16efdd8c399f8ee71c2813307141a",
+            "gram_count": 13,
+            "mode": "compact",
+            "text": "dodgevan",
+            "token_count": 2
+          },
+          {
+            "form_id": "24b26d3b31374400f665cdc3b6bff4a2a4c3aac868d44955e602240fd4d76949",
+            "gram_count": 15,
+            "mode": "spaced",
+            "text": "dodge van",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-dodge-van-mainline-hw-metro-best-buy-exclusive",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "f69893d6-6738-5e04-b616-daf022aa9eea"
+      },
+      {
+        "casting": "62 Corvette Gasser",
+        "forms": [
+          {
+            "form_id": "e5b2fae1dc0924c5f689624d76b5fd0545ae5a23bee708cc3cf6267b5ebc5b32",
+            "gram_count": 29,
+            "mode": "compact",
+            "text": "62corvettegasser",
+            "token_count": 3
+          },
+          {
+            "form_id": "39a7406596d30e3d54396da8f8b22959ad296d1fa33e1c253ea7972208e79ebf",
+            "gram_count": 33,
+            "mode": "spaced",
+            "text": "62 corvette gasser",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-62-corvette-gasser-mainline-red",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "f716a704-5f48-5618-869a-0b5a58732ba3"
+      },
+      {
+        "casting": "Ford Performance SuperVan 4",
+        "forms": [
+          {
+            "form_id": "1ba1fb21cdbf2998475a31e6ec8ffc48979e55123aa9800218eeacc6ec36753e",
+            "gram_count": 38,
+            "mode": "compact",
+            "text": "fordperformancesupervan4",
+            "token_count": 4
+          },
+          {
+            "form_id": "a32d8c6ba318c0162b1ef1ab44fcd28a9c0e499c7882b3cb850fdd646f99969f",
+            "gram_count": 44,
+            "mode": "spaced",
+            "text": "ford performance supervan 4",
+            "token_count": 4
+          }
+        ],
+        "knowledge_id": "fandom-family-a1b198f7d235f778",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "f7fa5052-cef7-59e4-b861-86367745300c"
+      },
+      {
+        "casting": "Optimus Prime",
+        "forms": [
+          {
+            "form_id": "9e57e0855c3de57149216c31b6936344afbf90b95a3bcf39ef9bed121e09f3ac",
+            "gram_count": 20,
+            "mode": "compact",
+            "text": "optimusprime",
+            "token_count": 2
+          },
+          {
+            "form_id": "ba76a81a7bb2d6d517e97419d5fc161159e3095a7a5a50de1a98e8416cbf2081",
+            "gram_count": 22,
+            "mode": "spaced",
+            "text": "optimus prime",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-optimus-prime-hw-screen-time-hw-screen-time",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "f97b3a2d-b107-5f2f-9c95-9e143ba83d24"
+      },
+      {
+        "casting": "'21 Ford Bronco",
+        "forms": [
+          {
+            "form_id": "8a6fdfeb5cc14cbc97aa3d3e9fa4f65f526fc47001d259c8e9f28b941b5c5621",
+            "gram_count": 21,
+            "mode": "compact",
+            "text": "21fordbronco",
+            "token_count": 3
+          },
+          {
+            "form_id": "24d69ab408cfa289b778a5d926df91646189c5cc5b8a920fbba6eef3b5d6cdfc",
+            "gram_count": 25,
+            "mode": "spaced",
+            "text": "21 ford bronco",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "fandom-family-aab5350cb90d72ed",
+        "knowledge_type": "review_family",
+        "knowledge_uuid": "f9818b99-bd8e-5aea-a1d7-3a72816f8b5a"
+      },
+      {
+        "casting": "1970 Pontiac Firebird",
+        "forms": [
+          {
+            "form_id": "65fce24e0bba80fafc2ad1f2d0d4d902f4e89551a39d29e11cfd914c7b879c11",
+            "gram_count": 34,
+            "mode": "compact",
+            "text": "1970pontiacfirebird",
+            "token_count": 3
+          },
+          {
+            "form_id": "62e90e8597cc31a2d993970cf172385870c597b1e938a7aed3d66c0b0617cd67",
+            "gram_count": 38,
+            "mode": "spaced",
+            "text": "1970 pontiac firebird",
+            "token_count": 3
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-1970-pontiac-firebird-mainline-kroger-exclusive",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "fb2882d7-a711-5f11-9ce2-b73b29f021eb"
+      },
+      {
+        "casting": "2012 Mustang Boss 302 Laguna Seca",
+        "forms": [
+          {
+            "form_id": "66479d9ee0078e1570df8b576d75d2431b6c9e5efa8943dbf6004656b8135585",
+            "gram_count": 53,
+            "mode": "compact",
+            "text": "2012mustangboss302lagunaseca",
+            "token_count": 6
+          },
+          {
+            "form_id": "099c18472d1c398686be05d4a0e97994f113ba0128191a89b52e06f4665a5ff4",
+            "gram_count": 62,
+            "mode": "spaced",
+            "text": "2012 mustang boss 302 laguna seca",
+            "token_count": 6
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-2012-mustang-boss-302-laguna-seca-mainline-2012-new-model-black-and-red",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "fd31b1db-193d-54ea-891e-5c72257296ca"
+      },
+      {
+        "casting": "Dodge Challenger",
+        "forms": [
+          {
+            "form_id": "77582fb8c825cfa61ea5198d5dcbdc9a79d8041168525f681f724a9c9524507e",
+            "gram_count": 26,
+            "mode": "compact",
+            "text": "dodgechallenger",
+            "token_count": 2
+          },
+          {
+            "form_id": "d97133cd7efd2d3881ebbead9f9dd61a19fa56cb2634c81927e923fe6ede0f1f",
+            "gram_count": 28,
+            "mode": "spaced",
+            "text": "dodge challenger",
+            "token_count": 2
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-dodge-challenger-mainline-hw-speed-graphics",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "fe2ecfa4-20dc-5f5c-8819-1f9c04b04d89"
+      },
+      {
+        "casting": "Nissan Skyline GTR (BNR34)",
+        "forms": [
+          {
+            "form_id": "ee8539a888aabd8f7837fb91ca9c94bf5994fbe6657cd21619cfac13c2ce2dbc",
+            "gram_count": 39,
+            "mode": "compact",
+            "text": "nissanskylinegtrbnr34",
+            "token_count": 4
+          },
+          {
+            "form_id": "ab7f59fe33a206f6129324d89a08b2fc80658dae368d90d755252fd532e83587",
+            "gram_count": 45,
+            "mode": "spaced",
+            "text": "nissan skyline gtr bnr34",
+            "token_count": 4
+          }
+        ],
+        "knowledge_id": "human-hot-wheels-nissan-skyline-gtr-bnr34-mainline-blue-2026-k-case",
+        "knowledge_type": "provisional_variant",
+        "knowledge_uuid": "ff06387d-a01d-5e4b-baae-180b8f3bab1c"
+      }
+    ],
+    "form_count": 284,
+    "form_posting_entry_count": 8051,
+    "gram_posting_key_count": 3052,
+    "identity_token_lengths": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "knowledge_type_counts": {
+      "provisional_variant": 100,
+      "review_family": 42
+    },
+    "max_forms_per_document": 2
+  },
+  "schema_version": "pvr-human-knowledge-identity-core-audit-v1",
+  "synthetic_documents_sha256": "01ae996d90decd09d05c924961781b4efe7583f8ebfa175db585da672f91505e",
+  "synthetic_summary": {
+    "collision_group_count": 0,
+    "collisions": [],
+    "cross_casting_collision_group_count": 0,
+    "document_count": 3000,
+    "form_count": 12000,
+    "form_posting_entry_count": 257640,
+    "gram_posting_key_count": 2332,
+    "identity_token_lengths": [
+      1,
+      3
+    ],
+    "knowledge_type_counts": {
+      "review_family": 3000
+    },
+    "max_forms_per_document": 4
+  }
+}

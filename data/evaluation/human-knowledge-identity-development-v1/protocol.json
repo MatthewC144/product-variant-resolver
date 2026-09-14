@@ -1,0 +1,1563 @@
+{
+  "approved_spec_sha256": {
+    "design.md": "eb2867ad77def038c6d689154f80403d3437a918349441a6c07a0b87da57bc17",
+    "requirements.md": "45bf456d1890e26cbfa9e3afbfa8cce7be1ca9a4d2ddc5a526058b2f111bce62",
+    "tasks.md": "e2e772f5b2e7f95bc4290e07cb6cc40c6b7c8e1917e578deae321a85203cf4f1"
+  },
+  "audit_summary": {
+    "max_real_query_forms": 90,
+    "max_scale_query_forms": 60,
+    "real": {
+      "collision_group_count": 2,
+      "collisions": [
+        {
+          "core": "83 chevy silverado",
+          "cross_casting_collision": false,
+          "knowledge_ids": [
+            "human-hot-wheels-83-chevy-silverado-mainline-baby-blue",
+            "human-hot-wheels-83-chevy-silverado-mainline-black",
+            "human-hot-wheels-83-chevy-silverado-mainline-blue"
+          ],
+          "original_castings": [
+            "83 Chevy Silverado"
+          ]
+        },
+        {
+          "core": "toyota supra",
+          "cross_casting_collision": false,
+          "knowledge_ids": [
+            "human-hot-wheels-toyota-supra-hot-wheels-xl-xl-greddy",
+            "human-hot-wheels-toyota-supra-mainline-fast-furious"
+          ],
+          "original_castings": [
+            "Toyota Supra"
+          ]
+        }
+      ],
+      "cross_casting_collision_group_count": 0,
+      "document_count": 142,
+      "form_count": 284,
+      "form_posting_entry_count": 8051,
+      "gram_posting_key_count": 3052,
+      "identity_token_lengths": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "knowledge_type_counts": {
+        "provisional_variant": 100,
+        "review_family": 42
+      },
+      "max_forms_per_document": 2
+    },
+    "synthetic": {
+      "collision_group_count": 0,
+      "collisions": [],
+      "cross_casting_collision_group_count": 0,
+      "document_count": 3000,
+      "form_count": 12000,
+      "form_posting_entry_count": 257640,
+      "gram_posting_key_count": 2332,
+      "identity_token_lengths": [
+        1,
+        3
+      ],
+      "knowledge_type_counts": {
+        "review_family": 3000
+      },
+      "max_forms_per_document": 4
+    }
+  },
+  "character_score": {
+    "document_score": "max_matching_mode_form_window_cosine",
+    "dot_method": "weighted_form_posting_accumulation",
+    "form_normalization": "L2",
+    "gram_sizes": [
+      2,
+      3
+    ],
+    "idf": "log((N+1)/(document_df+1))+1",
+    "index_version": "human-knowledge-identity-postings-v1",
+    "modes": [
+      "spaced",
+      "compact"
+    ],
+    "query_window_token_radius": 1,
+    "tf": "raw_count",
+    "tie_break": "knowledge_uuid",
+    "unknown_query_idf": "log(N+1)+1"
+  },
+  "cost_protocol": {
+    "candidate_k": 5,
+    "clock": "perf_counter_ns",
+    "excluded": [
+      "index_build",
+      "serialization",
+      "HTTP",
+      "SQL",
+      "network",
+      "concurrency",
+      "production"
+    ],
+    "original_20_subgroup_report_required": true,
+    "percentile_method": "nearest_rank",
+    "positive_abstentions_count_as_misses": true,
+    "process_count": 1,
+    "real_p95_max_ms": 25,
+    "real_sample_count": 199,
+    "scale_context_hits_required": 20,
+    "scale_exact_hits_required": 60,
+    "scale_p95_max_ms": 150,
+    "scale_sample_count": 120,
+    "scale_single_edit_hits_required": 17,
+    "warmups_per_corpus_configuration": 3
+  },
+  "excluded_from": [
+    "canonical_resolution",
+    "final_accuracy_claim",
+    "postgresql_ingestion",
+    "default_deployment"
+  ],
+  "identity_policy": {
+    "admission_fields": {
+      "provisional_variant": [
+        "casting"
+      ],
+      "review_family": [
+        "casting",
+        "aliases"
+      ]
+    },
+    "noise_tokens": [
+      "as",
+      "black",
+      "blister",
+      "blue",
+      "box",
+      "boxed",
+      "cabinet",
+      "car",
+      "carded",
+      "case",
+      "collectible",
+      "collector",
+      "diecast",
+      "display",
+      "estate",
+      "find",
+      "from",
+      "gray",
+      "green",
+      "grey",
+      "hot",
+      "hotwheels",
+      "in",
+      "item",
+      "light",
+      "local",
+      "loose",
+      "maker",
+      "miniature",
+      "missing",
+      "model",
+      "new",
+      "orange",
+      "outer",
+      "pack",
+      "package",
+      "pickup",
+      "pictured",
+      "piece",
+      "protective",
+      "purple",
+      "red",
+      "scale",
+      "sealed",
+      "shelf",
+      "silver",
+      "small",
+      "sold",
+      "storage",
+      "the",
+      "toy",
+      "unknown",
+      "unopened",
+      "vehicle",
+      "wear",
+      "wheels",
+      "white",
+      "with",
+      "yellow"
+    ],
+    "normalization": "NFKC_casefold_word_tokens",
+    "removal": "whole_tokens",
+    "token_admission": "all_tokens_of_one_complete_nonempty_identity_core",
+    "version": "identity-core-policy-v1"
+  },
+  "limit_failure": "discard_all_human_candidates_no_partial_ranks",
+  "limitations": [
+    "viewed_identity_derived_199_development_cases_reused_not_blind",
+    "v3_report_diagnostic_only_not_final_accuracy",
+    "no_v1_final_selection_access",
+    "synthetic_scale_not_real_database_growth",
+    "synthetic_casting_cores_are_numeric_only",
+    "scale_single_edit_changes_noise_token_not_numeric_target_identity",
+    "no_v4_quality_or_latency_result_yet",
+    "human_debug_only_no_canonical_authority"
+  ],
+  "limits": {
+    "dense_union": 50,
+    "identity_forms_per_document": 32,
+    "posting_entries_per_query": 1000000,
+    "query_characters": 512,
+    "query_forms": 256,
+    "query_tokens_before_noise": 64,
+    "source_candidates": 25
+  },
+  "owner_approval": {
+    "approval_basis": "instruction_immediately_after_three_spec_confirmation_handoff",
+    "approval_instruction": "執行下一步",
+    "approved_commit": "880e4f5b7c556a50e35de900a530e16280bab833",
+    "approved_spec_sha256": {
+      "design.md": "eb2867ad77def038c6d689154f80403d3437a918349441a6c07a0b87da57bc17",
+      "requirements.md": "45bf456d1890e26cbfa9e3afbfa8cce7be1ca9a4d2ddc5a526058b2f111bce62",
+      "tasks.md": "e2e772f5b2e7f95bc4290e07cb6cc40c6b7c8e1917e578deae321a85203cf4f1"
+    },
+    "authority": "project_owner",
+    "recorded_at_utc": "2026-09-14T01:29:45Z",
+    "schema_version": "pvr-identity-retrieval-owner-approval-v1",
+    "scope": "IBR-T1_only_no_v4_retrieval_or_selection"
+  },
+  "protocol_version": "human-knowledge-identity-development-v1",
+  "real_query_case_ids": [
+    "frd-hold-089ff8645b5f2de7",
+    "frd-hold-0e07a7139454d2e8",
+    "frd-hold-369b0be5855c0a1c",
+    "frd-hold-4f9ee66afdfe8cac",
+    "frd-hold-8403e21a29c27eab",
+    "frd-hold-8d24c626a51b1804",
+    "frd-hold-c639dc688e21d33b",
+    "frd-merge-04829924a36830a6",
+    "frd-merge-6062af64f2e5a66c",
+    "frd-merge-aa499ddb791c6991",
+    "frd-merge-b60363832032d566",
+    "frd-positive-0573861db69878eb-abbreviation-numeric",
+    "frd-positive-0573861db69878eb-contextual-noise",
+    "frd-positive-0573861db69878eb-single-edit",
+    "frd-positive-0573861db69878eb-spacing-punctuation",
+    "frd-positive-08cb7fadb9fed12d-abbreviation-numeric",
+    "frd-positive-08cb7fadb9fed12d-contextual-noise",
+    "frd-positive-08cb7fadb9fed12d-single-edit",
+    "frd-positive-08cb7fadb9fed12d-spacing-punctuation",
+    "frd-positive-1555c05ceeb491cb-abbreviation-numeric",
+    "frd-positive-1555c05ceeb491cb-contextual-noise",
+    "frd-positive-1555c05ceeb491cb-single-edit",
+    "frd-positive-1555c05ceeb491cb-spacing-punctuation",
+    "frd-positive-174efb9bce3a441e-abbreviation-numeric",
+    "frd-positive-174efb9bce3a441e-contextual-noise",
+    "frd-positive-174efb9bce3a441e-single-edit",
+    "frd-positive-174efb9bce3a441e-spacing-punctuation",
+    "frd-positive-18e55e067083dbd1-abbreviation-numeric",
+    "frd-positive-18e55e067083dbd1-contextual-noise",
+    "frd-positive-18e55e067083dbd1-single-edit",
+    "frd-positive-18e55e067083dbd1-spacing-punctuation",
+    "frd-positive-1b2a4227b4e5decd-abbreviation-numeric",
+    "frd-positive-1b2a4227b4e5decd-contextual-noise",
+    "frd-positive-1b2a4227b4e5decd-single-edit",
+    "frd-positive-1b2a4227b4e5decd-spacing-punctuation",
+    "frd-positive-2357e7eb6b4e62b8-abbreviation-numeric",
+    "frd-positive-2357e7eb6b4e62b8-contextual-noise",
+    "frd-positive-2357e7eb6b4e62b8-single-edit",
+    "frd-positive-2357e7eb6b4e62b8-spacing-punctuation",
+    "frd-positive-356e4ef63275a661-abbreviation-numeric",
+    "frd-positive-356e4ef63275a661-contextual-noise",
+    "frd-positive-356e4ef63275a661-single-edit",
+    "frd-positive-356e4ef63275a661-spacing-punctuation",
+    "frd-positive-39b248ce2f3723cd-abbreviation-numeric",
+    "frd-positive-39b248ce2f3723cd-contextual-noise",
+    "frd-positive-39b248ce2f3723cd-single-edit",
+    "frd-positive-39b248ce2f3723cd-spacing-punctuation",
+    "frd-positive-3c9f928f085efaae-abbreviation-numeric",
+    "frd-positive-3c9f928f085efaae-contextual-noise",
+    "frd-positive-3c9f928f085efaae-single-edit",
+    "frd-positive-3c9f928f085efaae-spacing-punctuation",
+    "frd-positive-440103f8ef3c6b70-abbreviation-numeric",
+    "frd-positive-440103f8ef3c6b70-contextual-noise",
+    "frd-positive-440103f8ef3c6b70-single-edit",
+    "frd-positive-440103f8ef3c6b70-spacing-punctuation",
+    "frd-positive-45af5b93f3f6650f-abbreviation-numeric",
+    "frd-positive-45af5b93f3f6650f-contextual-noise",
+    "frd-positive-45af5b93f3f6650f-single-edit",
+    "frd-positive-45af5b93f3f6650f-spacing-punctuation",
+    "frd-positive-4bf5341a133d433b-abbreviation-numeric",
+    "frd-positive-4bf5341a133d433b-contextual-noise",
+    "frd-positive-4bf5341a133d433b-single-edit",
+    "frd-positive-4bf5341a133d433b-spacing-punctuation",
+    "frd-positive-4d00e96d12341b4d-abbreviation-numeric",
+    "frd-positive-4d00e96d12341b4d-contextual-noise",
+    "frd-positive-4d00e96d12341b4d-single-edit",
+    "frd-positive-4d00e96d12341b4d-spacing-punctuation",
+    "frd-positive-4d2de6db3d5bba63-abbreviation-numeric",
+    "frd-positive-4d2de6db3d5bba63-contextual-noise",
+    "frd-positive-4d2de6db3d5bba63-single-edit",
+    "frd-positive-4d2de6db3d5bba63-spacing-punctuation",
+    "frd-positive-526b697937fde7cc-abbreviation-numeric",
+    "frd-positive-526b697937fde7cc-contextual-noise",
+    "frd-positive-526b697937fde7cc-single-edit",
+    "frd-positive-526b697937fde7cc-spacing-punctuation",
+    "frd-positive-57cf5c31afbadc57-abbreviation-numeric",
+    "frd-positive-57cf5c31afbadc57-contextual-noise",
+    "frd-positive-57cf5c31afbadc57-single-edit",
+    "frd-positive-57cf5c31afbadc57-spacing-punctuation",
+    "frd-positive-59e5682e50af879e-abbreviation-numeric",
+    "frd-positive-59e5682e50af879e-contextual-noise",
+    "frd-positive-59e5682e50af879e-single-edit",
+    "frd-positive-59e5682e50af879e-spacing-punctuation",
+    "frd-positive-7e221ec8ecd02815-abbreviation-numeric",
+    "frd-positive-7e221ec8ecd02815-contextual-noise",
+    "frd-positive-7e221ec8ecd02815-single-edit",
+    "frd-positive-7e221ec8ecd02815-spacing-punctuation",
+    "frd-positive-85226ac5ac0d3f77-abbreviation-numeric",
+    "frd-positive-85226ac5ac0d3f77-contextual-noise",
+    "frd-positive-85226ac5ac0d3f77-single-edit",
+    "frd-positive-85226ac5ac0d3f77-spacing-punctuation",
+    "frd-positive-85e407525ac7bf41-abbreviation-numeric",
+    "frd-positive-85e407525ac7bf41-contextual-noise",
+    "frd-positive-85e407525ac7bf41-single-edit",
+    "frd-positive-85e407525ac7bf41-spacing-punctuation",
+    "frd-positive-89930c384be2e8bf-abbreviation-numeric",
+    "frd-positive-89930c384be2e8bf-contextual-noise",
+    "frd-positive-89930c384be2e8bf-single-edit",
+    "frd-positive-89930c384be2e8bf-spacing-punctuation",
+    "frd-positive-8a07157f2af2ddd5-abbreviation-numeric",
+    "frd-positive-8a07157f2af2ddd5-contextual-noise",
+    "frd-positive-8a07157f2af2ddd5-single-edit",
+    "frd-positive-8a07157f2af2ddd5-spacing-punctuation",
+    "frd-positive-8cce01fa7d44112a-abbreviation-numeric",
+    "frd-positive-8cce01fa7d44112a-contextual-noise",
+    "frd-positive-8cce01fa7d44112a-single-edit",
+    "frd-positive-8cce01fa7d44112a-spacing-punctuation",
+    "frd-positive-9069156ec909a92e-abbreviation-numeric",
+    "frd-positive-9069156ec909a92e-contextual-noise",
+    "frd-positive-9069156ec909a92e-single-edit",
+    "frd-positive-9069156ec909a92e-spacing-punctuation",
+    "frd-positive-99200212d1475ef2-abbreviation-numeric",
+    "frd-positive-99200212d1475ef2-contextual-noise",
+    "frd-positive-99200212d1475ef2-single-edit",
+    "frd-positive-99200212d1475ef2-spacing-punctuation",
+    "frd-positive-a1b198f7d235f778-abbreviation-numeric",
+    "frd-positive-a1b198f7d235f778-contextual-noise",
+    "frd-positive-a1b198f7d235f778-single-edit",
+    "frd-positive-a1b198f7d235f778-spacing-punctuation",
+    "frd-positive-a2097eead3bd8db9-abbreviation-numeric",
+    "frd-positive-a2097eead3bd8db9-contextual-noise",
+    "frd-positive-a2097eead3bd8db9-single-edit",
+    "frd-positive-a2097eead3bd8db9-spacing-punctuation",
+    "frd-positive-a8e0dec4abdc4131-abbreviation-numeric",
+    "frd-positive-a8e0dec4abdc4131-contextual-noise",
+    "frd-positive-a8e0dec4abdc4131-single-edit",
+    "frd-positive-a8e0dec4abdc4131-spacing-punctuation",
+    "frd-positive-aaafff57ac4d4daa-abbreviation-numeric",
+    "frd-positive-aaafff57ac4d4daa-contextual-noise",
+    "frd-positive-aaafff57ac4d4daa-single-edit",
+    "frd-positive-aaafff57ac4d4daa-spacing-punctuation",
+    "frd-positive-aab5350cb90d72ed-abbreviation-numeric",
+    "frd-positive-aab5350cb90d72ed-contextual-noise",
+    "frd-positive-aab5350cb90d72ed-single-edit",
+    "frd-positive-aab5350cb90d72ed-spacing-punctuation",
+    "frd-positive-aec11693bfe04245-abbreviation-numeric",
+    "frd-positive-aec11693bfe04245-contextual-noise",
+    "frd-positive-aec11693bfe04245-single-edit",
+    "frd-positive-aec11693bfe04245-spacing-punctuation",
+    "frd-positive-b31d285560d8a242-abbreviation-numeric",
+    "frd-positive-b31d285560d8a242-contextual-noise",
+    "frd-positive-b31d285560d8a242-single-edit",
+    "frd-positive-b31d285560d8a242-spacing-punctuation",
+    "frd-positive-b3cd4f5a5f7e196a-abbreviation-numeric",
+    "frd-positive-b3cd4f5a5f7e196a-contextual-noise",
+    "frd-positive-b3cd4f5a5f7e196a-single-edit",
+    "frd-positive-b3cd4f5a5f7e196a-spacing-punctuation",
+    "frd-positive-c655fb5244c584ae-abbreviation-numeric",
+    "frd-positive-c655fb5244c584ae-contextual-noise",
+    "frd-positive-c655fb5244c584ae-single-edit",
+    "frd-positive-c655fb5244c584ae-spacing-punctuation",
+    "frd-positive-d114c33db6fa215b-abbreviation-numeric",
+    "frd-positive-d114c33db6fa215b-contextual-noise",
+    "frd-positive-d114c33db6fa215b-single-edit",
+    "frd-positive-d114c33db6fa215b-spacing-punctuation",
+    "frd-positive-d5c83bb87be8cab0-abbreviation-numeric",
+    "frd-positive-d5c83bb87be8cab0-contextual-noise",
+    "frd-positive-d5c83bb87be8cab0-single-edit",
+    "frd-positive-d5c83bb87be8cab0-spacing-punctuation",
+    "frd-positive-d816204cf649a0c0-abbreviation-numeric",
+    "frd-positive-d816204cf649a0c0-contextual-noise",
+    "frd-positive-d816204cf649a0c0-single-edit",
+    "frd-positive-d816204cf649a0c0-spacing-punctuation",
+    "frd-positive-d90841788b1d98a2-abbreviation-numeric",
+    "frd-positive-d90841788b1d98a2-contextual-noise",
+    "frd-positive-d90841788b1d98a2-single-edit",
+    "frd-positive-d90841788b1d98a2-spacing-punctuation",
+    "frd-positive-db3fe3a0103099ec-abbreviation-numeric",
+    "frd-positive-db3fe3a0103099ec-contextual-noise",
+    "frd-positive-db3fe3a0103099ec-single-edit",
+    "frd-positive-db3fe3a0103099ec-spacing-punctuation",
+    "frd-positive-e7d4d8cf1dd8c6e1-abbreviation-numeric",
+    "frd-positive-e7d4d8cf1dd8c6e1-contextual-noise",
+    "frd-positive-e7d4d8cf1dd8c6e1-single-edit",
+    "frd-positive-e7d4d8cf1dd8c6e1-spacing-punctuation",
+    "frd-positive-fd96307f2dc8b421-abbreviation-numeric",
+    "frd-positive-fd96307f2dc8b421-contextual-noise",
+    "frd-positive-fd96307f2dc8b421-single-edit",
+    "frd-positive-fd96307f2dc8b421-spacing-punctuation",
+    "frd-unrelated-generic-00",
+    "frd-unrelated-generic-01",
+    "frd-unrelated-generic-02",
+    "frd-unrelated-generic-03",
+    "frd-unrelated-generic-04",
+    "frd-unrelated-generic-05",
+    "frd-unrelated-generic-06",
+    "frd-unrelated-generic-07",
+    "frd-unrelated-generic-08",
+    "frd-unrelated-generic-09",
+    "frd-unrelated-opaque-00",
+    "frd-unrelated-opaque-01",
+    "frd-unrelated-opaque-02",
+    "frd-unrelated-opaque-03",
+    "frd-unrelated-opaque-04",
+    "frd-unrelated-opaque-05",
+    "frd-unrelated-opaque-06",
+    "frd-unrelated-opaque-07",
+    "frd-unrelated-opaque-08",
+    "frd-unrelated-opaque-09"
+  ],
+  "retriever_version": "human-knowledge-hybrid-v4",
+  "scale_workload": [
+    {
+      "case_id": "scale-original-frd-hold-089ff8645b5f2de7",
+      "correctness_eligible": false,
+      "group": "original_dev_20",
+      "query_text": "unverified listing '55 Chevy loose model lineage unclear",
+      "source_case_id": "frd-hold-089ff8645b5f2de7",
+      "target_knowledge_id": null,
+      "target_knowledge_uuid": null
+    },
+    {
+      "case_id": "scale-original-frd-hold-0e07a7139454d2e8",
+      "correctness_eligible": false,
+      "group": "original_dev_20",
+      "query_text": "unverified listing Nissan Skyline GT-R (BNR32) loose model lineage unclear",
+      "source_case_id": "frd-hold-0e07a7139454d2e8",
+      "target_knowledge_id": null,
+      "target_knowledge_uuid": null
+    },
+    {
+      "case_id": "scale-original-frd-hold-369b0be5855c0a1c",
+      "correctness_eligible": false,
+      "group": "original_dev_20",
+      "query_text": "unverified listing Nissan Skyline 2000GT-R LBWK loose model lineage unclear",
+      "source_case_id": "frd-hold-369b0be5855c0a1c",
+      "target_knowledge_id": null,
+      "target_knowledge_uuid": null
+    },
+    {
+      "case_id": "scale-original-frd-hold-4f9ee66afdfe8cac",
+      "correctness_eligible": false,
+      "group": "original_dev_20",
+      "query_text": "unverified listing Power Wheels Dune Racer loose model lineage unclear",
+      "source_case_id": "frd-hold-4f9ee66afdfe8cac",
+      "target_knowledge_id": null,
+      "target_knowledge_uuid": null
+    },
+    {
+      "case_id": "scale-original-frd-hold-8403e21a29c27eab",
+      "correctness_eligible": false,
+      "group": "original_dev_20",
+      "query_text": "unverified listing Standard Kart loose model lineage unclear",
+      "source_case_id": "frd-hold-8403e21a29c27eab",
+      "target_knowledge_id": null,
+      "target_knowledge_uuid": null
+    },
+    {
+      "case_id": "scale-original-frd-hold-8d24c626a51b1804",
+      "correctness_eligible": false,
+      "group": "original_dev_20",
+      "query_text": "unverified listing Batman and Robin Batmobile loose model lineage unclear",
+      "source_case_id": "frd-hold-8d24c626a51b1804",
+      "target_knowledge_id": null,
+      "target_knowledge_uuid": null
+    },
+    {
+      "case_id": "scale-original-frd-hold-c639dc688e21d33b",
+      "correctness_eligible": false,
+      "group": "original_dev_20",
+      "query_text": "unverified listing Mazda MX-5 Miata loose model lineage unclear",
+      "source_case_id": "frd-hold-c639dc688e21d33b",
+      "target_knowledge_id": null,
+      "target_knowledge_uuid": null
+    },
+    {
+      "case_id": "scale-original-frd-merge-04829924a36830a6",
+      "correctness_eligible": false,
+      "group": "original_dev_20",
+      "query_text": "preowned Purple Passion miniature from collector cabinet",
+      "source_case_id": "frd-merge-04829924a36830a6",
+      "target_knowledge_id": null,
+      "target_knowledge_uuid": null
+    },
+    {
+      "case_id": "scale-original-frd-merge-6062af64f2e5a66c",
+      "correctness_eligible": false,
+      "group": "original_dev_20",
+      "query_text": "preowned Tesla Model S Plaid miniature from collector cabinet",
+      "source_case_id": "frd-merge-6062af64f2e5a66c",
+      "target_knowledge_id": null,
+      "target_knowledge_uuid": null
+    },
+    {
+      "case_id": "scale-original-frd-merge-aa499ddb791c6991",
+      "correctness_eligible": false,
+      "group": "original_dev_20",
+      "query_text": "preowned '67 Chevy C10 miniature from collector cabinet",
+      "source_case_id": "frd-merge-aa499ddb791c6991",
+      "target_knowledge_id": null,
+      "target_knowledge_uuid": null
+    },
+    {
+      "case_id": "scale-original-frd-merge-b60363832032d566",
+      "correctness_eligible": false,
+      "group": "original_dev_20",
+      "query_text": "preowned Subaru BRZ miniature from collector cabinet",
+      "source_case_id": "frd-merge-b60363832032d566",
+      "target_knowledge_id": null,
+      "target_knowledge_uuid": null
+    },
+    {
+      "case_id": "scale-original-frd-positive-0573861db69878eb-abbreviation-numeric",
+      "correctness_eligible": false,
+      "group": "original_dev_20",
+      "query_text": "max st diecast vehicle",
+      "source_case_id": "frd-positive-0573861db69878eb-abbreviation-numeric",
+      "target_knowledge_id": null,
+      "target_knowledge_uuid": null
+    },
+    {
+      "case_id": "scale-original-frd-positive-0573861db69878eb-contextual-noise",
+      "correctness_eligible": false,
+      "group": "original_dev_20",
+      "query_text": "warehouse find Max Steel unboxed collector sale",
+      "source_case_id": "frd-positive-0573861db69878eb-contextual-noise",
+      "target_knowledge_id": null,
+      "target_knowledge_uuid": null
+    },
+    {
+      "case_id": "scale-original-frd-positive-0573861db69878eb-single-edit",
+      "correctness_eligible": false,
+      "group": "original_dev_20",
+      "query_text": "max stel loose collector piece",
+      "source_case_id": "frd-positive-0573861db69878eb-single-edit",
+      "target_knowledge_id": null,
+      "target_knowledge_uuid": null
+    },
+    {
+      "case_id": "scale-original-frd-positive-0573861db69878eb-spacing-punctuation",
+      "correctness_eligible": false,
+      "group": "original_dev_20",
+      "query_text": "carded maxsteel miniature",
+      "source_case_id": "frd-positive-0573861db69878eb-spacing-punctuation",
+      "target_knowledge_id": null,
+      "target_knowledge_uuid": null
+    },
+    {
+      "case_id": "scale-original-frd-positive-08cb7fadb9fed12d-abbreviation-numeric",
+      "correctness_eligible": false,
+      "group": "original_dev_20",
+      "query_text": "88 jeep wagoneer diecast vehicle",
+      "source_case_id": "frd-positive-08cb7fadb9fed12d-abbreviation-numeric",
+      "target_knowledge_id": null,
+      "target_knowledge_uuid": null
+    },
+    {
+      "case_id": "scale-original-frd-positive-08cb7fadb9fed12d-contextual-noise",
+      "correctness_eligible": false,
+      "group": "original_dev_20",
+      "query_text": "warehouse find 1988 Jeep Wagoneer unboxed collector sale",
+      "source_case_id": "frd-positive-08cb7fadb9fed12d-contextual-noise",
+      "target_knowledge_id": null,
+      "target_knowledge_uuid": null
+    },
+    {
+      "case_id": "scale-original-frd-positive-08cb7fadb9fed12d-single-edit",
+      "correctness_eligible": false,
+      "group": "original_dev_20",
+      "query_text": "1988 jeep wagoeer loose collector piece",
+      "source_case_id": "frd-positive-08cb7fadb9fed12d-single-edit",
+      "target_knowledge_id": null,
+      "target_knowledge_uuid": null
+    },
+    {
+      "case_id": "scale-original-frd-positive-08cb7fadb9fed12d-spacing-punctuation",
+      "correctness_eligible": false,
+      "group": "original_dev_20",
+      "query_text": "carded 1988jeepwagoneer miniature",
+      "source_case_id": "frd-positive-08cb7fadb9fed12d-spacing-punctuation",
+      "target_knowledge_id": null,
+      "target_knowledge_uuid": null
+    },
+    {
+      "case_id": "scale-original-frd-positive-1555c05ceeb491cb-abbreviation-numeric",
+      "correctness_eligible": false,
+      "group": "original_dev_20",
+      "query_text": "94x audi avant rs2 diecast vehicle",
+      "source_case_id": "frd-positive-1555c05ceeb491cb-abbreviation-numeric",
+      "target_knowledge_id": null,
+      "target_knowledge_uuid": null
+    },
+    {
+      "case_id": "scale-exact_identity-0000",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0000",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0000",
+      "target_knowledge_uuid": "ebba2472-9c35-5677-9aad-e08e7b675a2e"
+    },
+    {
+      "case_id": "scale-exact_identity-0001",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0001",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0001",
+      "target_knowledge_uuid": "37c60948-05cf-5124-8423-5a19c1295dac"
+    },
+    {
+      "case_id": "scale-exact_identity-0002",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0002",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0002",
+      "target_knowledge_uuid": "665ef605-706a-5b7d-8cd4-769a92901836"
+    },
+    {
+      "case_id": "scale-exact_identity-0003",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0003",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0003",
+      "target_knowledge_uuid": "90eee913-51da-5ea7-9c27-ec0e9be3c22c"
+    },
+    {
+      "case_id": "scale-exact_identity-0004",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0004",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0004",
+      "target_knowledge_uuid": "fe3ad651-965d-54ad-b169-9165dbb54913"
+    },
+    {
+      "case_id": "scale-exact_identity-0005",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0005",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0005",
+      "target_knowledge_uuid": "0528aada-b54f-5f30-8636-84f0a44b9e80"
+    },
+    {
+      "case_id": "scale-exact_identity-0006",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0006",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0006",
+      "target_knowledge_uuid": "f3a2d996-d7ae-5985-a273-4482ad4bc4e5"
+    },
+    {
+      "case_id": "scale-exact_identity-0007",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0007",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0007",
+      "target_knowledge_uuid": "d65f88ad-b53b-5c1c-972c-690916e4735d"
+    },
+    {
+      "case_id": "scale-exact_identity-0008",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0008",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0008",
+      "target_knowledge_uuid": "19fbe909-cacc-56ff-87ed-0bb0038292c1"
+    },
+    {
+      "case_id": "scale-exact_identity-0009",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0009",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0009",
+      "target_knowledge_uuid": "e24b2c00-2f56-5b81-a632-5ade2b6ec39f"
+    },
+    {
+      "case_id": "scale-exact_identity-0010",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0010",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0010",
+      "target_knowledge_uuid": "22880a78-132d-5b8a-8625-76d82901620d"
+    },
+    {
+      "case_id": "scale-exact_identity-0011",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0011",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0011",
+      "target_knowledge_uuid": "be96aa4c-9c57-5cf9-bfee-a67ac336d54c"
+    },
+    {
+      "case_id": "scale-exact_identity-0012",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0012",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0012",
+      "target_knowledge_uuid": "0bbb52ef-a50a-5c95-aaba-5319cc3dfd6c"
+    },
+    {
+      "case_id": "scale-exact_identity-0013",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0013",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0013",
+      "target_knowledge_uuid": "52467618-6d57-5dbb-aa99-cc33a474c7e8"
+    },
+    {
+      "case_id": "scale-exact_identity-0014",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0014",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0014",
+      "target_knowledge_uuid": "f748c18f-025a-5a20-8dc8-e1672dcee489"
+    },
+    {
+      "case_id": "scale-exact_identity-0015",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0015",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0015",
+      "target_knowledge_uuid": "f6f1c4e9-a399-5af6-ba63-84098d47bc63"
+    },
+    {
+      "case_id": "scale-exact_identity-0016",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0016",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0016",
+      "target_knowledge_uuid": "2e221b35-b3bf-50af-ad93-596581abb104"
+    },
+    {
+      "case_id": "scale-exact_identity-0017",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0017",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0017",
+      "target_knowledge_uuid": "b0644c77-2fd4-5d62-a67d-18ab84c027a9"
+    },
+    {
+      "case_id": "scale-exact_identity-0018",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0018",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0018",
+      "target_knowledge_uuid": "461a9d0e-96f6-5462-8603-2ff2fff64ec4"
+    },
+    {
+      "case_id": "scale-exact_identity-0019",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0019",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0019",
+      "target_knowledge_uuid": "51339667-b1ea-5c79-980d-bf6584e1a5fb"
+    },
+    {
+      "case_id": "scale-exact_identity-0020",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0020",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0020",
+      "target_knowledge_uuid": "7af2eb33-5493-5d86-897d-a847318a8cca"
+    },
+    {
+      "case_id": "scale-exact_identity-0021",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0021",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0021",
+      "target_knowledge_uuid": "1a9059fe-946d-5552-82c2-a158c4442e55"
+    },
+    {
+      "case_id": "scale-exact_identity-0022",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0022",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0022",
+      "target_knowledge_uuid": "34f60192-fd05-5e8f-97d7-a0f0c165c63c"
+    },
+    {
+      "case_id": "scale-exact_identity-0023",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0023",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0023",
+      "target_knowledge_uuid": "b2fc3800-1cad-551e-a470-4a7906d92e3c"
+    },
+    {
+      "case_id": "scale-exact_identity-0024",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0024",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0024",
+      "target_knowledge_uuid": "19e2b3f1-e1b4-587d-a119-2d9a7dea3795"
+    },
+    {
+      "case_id": "scale-exact_identity-0025",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0025",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0025",
+      "target_knowledge_uuid": "e845a066-6b77-5fee-b558-4f6374619eb1"
+    },
+    {
+      "case_id": "scale-exact_identity-0026",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0026",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0026",
+      "target_knowledge_uuid": "2bd3b5ae-ed43-5559-93c4-e4d242eb0b0b"
+    },
+    {
+      "case_id": "scale-exact_identity-0027",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0027",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0027",
+      "target_knowledge_uuid": "31ddfe4b-d781-5dce-bef5-f5812340bc07"
+    },
+    {
+      "case_id": "scale-exact_identity-0028",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0028",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0028",
+      "target_knowledge_uuid": "b1116fce-9014-5e98-b61a-0f8e38b10790"
+    },
+    {
+      "case_id": "scale-exact_identity-0029",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0029",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0029",
+      "target_knowledge_uuid": "24f31917-9189-5620-9b7d-7b97e74e13ea"
+    },
+    {
+      "case_id": "scale-exact_identity-0030",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0030",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0030",
+      "target_knowledge_uuid": "01460e21-5f35-5bcb-bf08-f699b85d40e6"
+    },
+    {
+      "case_id": "scale-exact_identity-0031",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0031",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0031",
+      "target_knowledge_uuid": "1ba2fd22-7f3d-5f67-af59-97e00b1fc893"
+    },
+    {
+      "case_id": "scale-exact_identity-0032",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0032",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0032",
+      "target_knowledge_uuid": "1c8dbde7-0d81-5733-aa4b-47dd78f134d0"
+    },
+    {
+      "case_id": "scale-exact_identity-0033",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0033",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0033",
+      "target_knowledge_uuid": "352132fc-38fb-5b75-9776-e5a78ea05907"
+    },
+    {
+      "case_id": "scale-exact_identity-0034",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0034",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0034",
+      "target_knowledge_uuid": "f3af5856-045d-5867-b625-5094237f6674"
+    },
+    {
+      "case_id": "scale-exact_identity-0035",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0035",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0035",
+      "target_knowledge_uuid": "77488796-95a9-5c99-a638-4ed6effa4703"
+    },
+    {
+      "case_id": "scale-exact_identity-0036",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0036",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0036",
+      "target_knowledge_uuid": "2fec2a38-1527-564c-92e8-f2929ec72933"
+    },
+    {
+      "case_id": "scale-exact_identity-0037",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0037",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0037",
+      "target_knowledge_uuid": "b1885485-559b-5f5c-a15a-a297ae7f2969"
+    },
+    {
+      "case_id": "scale-exact_identity-0038",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0038",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0038",
+      "target_knowledge_uuid": "274872cf-553a-545a-8470-acf603cecbc7"
+    },
+    {
+      "case_id": "scale-exact_identity-0039",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0039",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0039",
+      "target_knowledge_uuid": "808e88b4-276f-5e55-9ca0-fc31c262731b"
+    },
+    {
+      "case_id": "scale-exact_identity-0040",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0040",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0040",
+      "target_knowledge_uuid": "3a382de5-836d-5883-9b31-cb46ed580ddd"
+    },
+    {
+      "case_id": "scale-exact_identity-0041",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0041",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0041",
+      "target_knowledge_uuid": "cd45fea7-9a48-5ebc-936f-c3f1b24e308d"
+    },
+    {
+      "case_id": "scale-exact_identity-0042",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0042",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0042",
+      "target_knowledge_uuid": "b7bb7042-d4a2-5061-9794-bccdf7a79a81"
+    },
+    {
+      "case_id": "scale-exact_identity-0043",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0043",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0043",
+      "target_knowledge_uuid": "ea8176d8-d2b2-50b6-9f80-d86f6307557e"
+    },
+    {
+      "case_id": "scale-exact_identity-0044",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0044",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0044",
+      "target_knowledge_uuid": "69341b80-52ed-5ffd-9356-c3e561ef11d3"
+    },
+    {
+      "case_id": "scale-exact_identity-0045",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0045",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0045",
+      "target_knowledge_uuid": "3f6762d0-4ed6-5f43-8ca1-b0af04a1b06e"
+    },
+    {
+      "case_id": "scale-exact_identity-0046",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0046",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0046",
+      "target_knowledge_uuid": "41b7dfb3-050a-5dd4-a5e4-11dce1d88a6f"
+    },
+    {
+      "case_id": "scale-exact_identity-0047",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0047",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0047",
+      "target_knowledge_uuid": "1732508c-ed42-5b5e-8dc1-9457b9a3043a"
+    },
+    {
+      "case_id": "scale-exact_identity-0048",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0048",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0048",
+      "target_knowledge_uuid": "bc21dce4-4f86-5931-9e32-067929d73ab8"
+    },
+    {
+      "case_id": "scale-exact_identity-0049",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0049",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0049",
+      "target_knowledge_uuid": "0cd22a22-a11e-5694-9829-3a143cb267c2"
+    },
+    {
+      "case_id": "scale-exact_identity-0050",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0050",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0050",
+      "target_knowledge_uuid": "e861e1ec-a4f9-528b-9b55-f55d5dff2753"
+    },
+    {
+      "case_id": "scale-exact_identity-0051",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0051",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0051",
+      "target_knowledge_uuid": "5a51f91f-d0a1-5afc-849f-8e96a1e344bf"
+    },
+    {
+      "case_id": "scale-exact_identity-0052",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0052",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0052",
+      "target_knowledge_uuid": "eefaff19-a8c1-58b9-87d4-c75a32faa9d6"
+    },
+    {
+      "case_id": "scale-exact_identity-0053",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0053",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0053",
+      "target_knowledge_uuid": "ba81165c-6d31-53da-b1b2-58cd66fd2240"
+    },
+    {
+      "case_id": "scale-exact_identity-0054",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0054",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0054",
+      "target_knowledge_uuid": "35509475-f80f-5b42-b60d-9e979a668f42"
+    },
+    {
+      "case_id": "scale-exact_identity-0055",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0055",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0055",
+      "target_knowledge_uuid": "9e34785c-1302-5fbd-9fa4-c279375f7a8e"
+    },
+    {
+      "case_id": "scale-exact_identity-0056",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0056",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0056",
+      "target_knowledge_uuid": "cbeaef9b-e28f-5d32-9142-e42ff3d0742d"
+    },
+    {
+      "case_id": "scale-exact_identity-0057",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0057",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0057",
+      "target_knowledge_uuid": "351b5eb8-7e01-555c-87ec-13a3179e482f"
+    },
+    {
+      "case_id": "scale-exact_identity-0058",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0058",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0058",
+      "target_knowledge_uuid": "b41fedd6-7ae6-548b-8193-bd78ef330b95"
+    },
+    {
+      "case_id": "scale-exact_identity-0059",
+      "correctness_eligible": true,
+      "group": "exact_identity",
+      "query_text": "Scale vehicle model 0059",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0059",
+      "target_knowledge_uuid": "7b77cf37-4946-5b73-b464-bc42b54af679"
+    },
+    {
+      "case_id": "scale-single_edit-0060",
+      "correctness_eligible": true,
+      "group": "single_edit",
+      "query_text": "Scxle vehicle model 0060",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0060",
+      "target_knowledge_uuid": "1c927a62-900b-52bd-b623-029a990038a9"
+    },
+    {
+      "case_id": "scale-single_edit-0061",
+      "correctness_eligible": true,
+      "group": "single_edit",
+      "query_text": "Scxle vehicle model 0061",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0061",
+      "target_knowledge_uuid": "f1377075-f131-5cfb-905b-6cd865b35fb6"
+    },
+    {
+      "case_id": "scale-single_edit-0062",
+      "correctness_eligible": true,
+      "group": "single_edit",
+      "query_text": "Scxle vehicle model 0062",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0062",
+      "target_knowledge_uuid": "dc1e605a-120f-5592-a194-1645a4125cb7"
+    },
+    {
+      "case_id": "scale-single_edit-0063",
+      "correctness_eligible": true,
+      "group": "single_edit",
+      "query_text": "Scxle vehicle model 0063",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0063",
+      "target_knowledge_uuid": "d362a0c1-f81c-5352-a591-317b9ca3f9c2"
+    },
+    {
+      "case_id": "scale-single_edit-0064",
+      "correctness_eligible": true,
+      "group": "single_edit",
+      "query_text": "Scxle vehicle model 0064",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0064",
+      "target_knowledge_uuid": "aae0ed4a-ec1b-51e9-9dcd-bc66b10c9491"
+    },
+    {
+      "case_id": "scale-single_edit-0065",
+      "correctness_eligible": true,
+      "group": "single_edit",
+      "query_text": "Scxle vehicle model 0065",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0065",
+      "target_knowledge_uuid": "19d8c77f-a280-565a-ad8d-ced4d0443625"
+    },
+    {
+      "case_id": "scale-single_edit-0066",
+      "correctness_eligible": true,
+      "group": "single_edit",
+      "query_text": "Scxle vehicle model 0066",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0066",
+      "target_knowledge_uuid": "48166d88-9a5b-5e48-aa6c-35b3bd9d3e16"
+    },
+    {
+      "case_id": "scale-single_edit-0067",
+      "correctness_eligible": true,
+      "group": "single_edit",
+      "query_text": "Scxle vehicle model 0067",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0067",
+      "target_knowledge_uuid": "8fb62aed-84e5-5cc4-a256-5d5f545d0c6c"
+    },
+    {
+      "case_id": "scale-single_edit-0068",
+      "correctness_eligible": true,
+      "group": "single_edit",
+      "query_text": "Scxle vehicle model 0068",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0068",
+      "target_knowledge_uuid": "bbfc7030-c20b-5387-af50-119ed5e19ac1"
+    },
+    {
+      "case_id": "scale-single_edit-0069",
+      "correctness_eligible": true,
+      "group": "single_edit",
+      "query_text": "Scxle vehicle model 0069",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0069",
+      "target_knowledge_uuid": "77006487-f866-5f18-a3aa-1e36879de0ff"
+    },
+    {
+      "case_id": "scale-single_edit-0070",
+      "correctness_eligible": true,
+      "group": "single_edit",
+      "query_text": "Scxle vehicle model 0070",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0070",
+      "target_knowledge_uuid": "9926209c-d604-5afe-a7ba-7e8ad2610b1d"
+    },
+    {
+      "case_id": "scale-single_edit-0071",
+      "correctness_eligible": true,
+      "group": "single_edit",
+      "query_text": "Scxle vehicle model 0071",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0071",
+      "target_knowledge_uuid": "25df2719-d901-505d-a3d9-510018a5ea0a"
+    },
+    {
+      "case_id": "scale-single_edit-0072",
+      "correctness_eligible": true,
+      "group": "single_edit",
+      "query_text": "Scxle vehicle model 0072",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0072",
+      "target_knowledge_uuid": "7d6dd07c-4a09-5a1a-90ac-f67b41b2961a"
+    },
+    {
+      "case_id": "scale-single_edit-0073",
+      "correctness_eligible": true,
+      "group": "single_edit",
+      "query_text": "Scxle vehicle model 0073",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0073",
+      "target_knowledge_uuid": "ed37cd7d-a642-5467-99c6-e7a1ff7a7eed"
+    },
+    {
+      "case_id": "scale-single_edit-0074",
+      "correctness_eligible": true,
+      "group": "single_edit",
+      "query_text": "Scxle vehicle model 0074",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0074",
+      "target_knowledge_uuid": "74fbee03-1d95-5742-af3e-1e27549954ce"
+    },
+    {
+      "case_id": "scale-single_edit-0075",
+      "correctness_eligible": true,
+      "group": "single_edit",
+      "query_text": "Scxle vehicle model 0075",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0075",
+      "target_knowledge_uuid": "4a86417e-1715-5ad4-9732-f5b834d3e163"
+    },
+    {
+      "case_id": "scale-single_edit-0076",
+      "correctness_eligible": true,
+      "group": "single_edit",
+      "query_text": "Scxle vehicle model 0076",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0076",
+      "target_knowledge_uuid": "18bd4dd1-d019-5de2-b5d9-a14335b2c334"
+    },
+    {
+      "case_id": "scale-single_edit-0077",
+      "correctness_eligible": true,
+      "group": "single_edit",
+      "query_text": "Scxle vehicle model 0077",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0077",
+      "target_knowledge_uuid": "2552f7c4-3135-5706-8b75-757309aa46b4"
+    },
+    {
+      "case_id": "scale-single_edit-0078",
+      "correctness_eligible": true,
+      "group": "single_edit",
+      "query_text": "Scxle vehicle model 0078",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0078",
+      "target_knowledge_uuid": "5342031a-6b22-5fa3-beb7-46860fe15633"
+    },
+    {
+      "case_id": "scale-single_edit-0079",
+      "correctness_eligible": true,
+      "group": "single_edit",
+      "query_text": "Scxle vehicle model 0079",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0079",
+      "target_knowledge_uuid": "07a7c1f0-6941-5c74-b035-e9b8ec36fc15"
+    },
+    {
+      "case_id": "scale-contextual_identity-0080",
+      "correctness_eligible": true,
+      "group": "contextual_identity",
+      "query_text": "listing Scale vehicle model 0080 local pickup",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0080",
+      "target_knowledge_uuid": "d0c2ed60-8181-5d84-9deb-6cfaa22fee6c"
+    },
+    {
+      "case_id": "scale-contextual_identity-0081",
+      "correctness_eligible": true,
+      "group": "contextual_identity",
+      "query_text": "listing Scale vehicle model 0081 local pickup",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0081",
+      "target_knowledge_uuid": "8e1fc646-305d-5c81-a1fa-ea90add5be25"
+    },
+    {
+      "case_id": "scale-contextual_identity-0082",
+      "correctness_eligible": true,
+      "group": "contextual_identity",
+      "query_text": "listing Scale vehicle model 0082 local pickup",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0082",
+      "target_knowledge_uuid": "6fbe8ae4-d023-5895-9d86-91907cd961cc"
+    },
+    {
+      "case_id": "scale-contextual_identity-0083",
+      "correctness_eligible": true,
+      "group": "contextual_identity",
+      "query_text": "listing Scale vehicle model 0083 local pickup",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0083",
+      "target_knowledge_uuid": "2c857b3f-765c-5b07-958e-bbf97b94c418"
+    },
+    {
+      "case_id": "scale-contextual_identity-0084",
+      "correctness_eligible": true,
+      "group": "contextual_identity",
+      "query_text": "listing Scale vehicle model 0084 local pickup",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0084",
+      "target_knowledge_uuid": "6059b67a-ed04-5575-b1dd-3cbec1ee8f4c"
+    },
+    {
+      "case_id": "scale-contextual_identity-0085",
+      "correctness_eligible": true,
+      "group": "contextual_identity",
+      "query_text": "listing Scale vehicle model 0085 local pickup",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0085",
+      "target_knowledge_uuid": "9448934d-ed6e-5495-8183-b38c52865ca4"
+    },
+    {
+      "case_id": "scale-contextual_identity-0086",
+      "correctness_eligible": true,
+      "group": "contextual_identity",
+      "query_text": "listing Scale vehicle model 0086 local pickup",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0086",
+      "target_knowledge_uuid": "4f35fe17-1a2e-53f2-84da-9d2eba88aca3"
+    },
+    {
+      "case_id": "scale-contextual_identity-0087",
+      "correctness_eligible": true,
+      "group": "contextual_identity",
+      "query_text": "listing Scale vehicle model 0087 local pickup",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0087",
+      "target_knowledge_uuid": "e73fefb4-c9ba-5288-be0c-ce96f35d2b8d"
+    },
+    {
+      "case_id": "scale-contextual_identity-0088",
+      "correctness_eligible": true,
+      "group": "contextual_identity",
+      "query_text": "listing Scale vehicle model 0088 local pickup",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0088",
+      "target_knowledge_uuid": "e846a7b6-506f-58fd-9aa6-0a7e8043dc5b"
+    },
+    {
+      "case_id": "scale-contextual_identity-0089",
+      "correctness_eligible": true,
+      "group": "contextual_identity",
+      "query_text": "listing Scale vehicle model 0089 local pickup",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0089",
+      "target_knowledge_uuid": "462b306d-57db-5200-8adb-9c1440212728"
+    },
+    {
+      "case_id": "scale-contextual_identity-0090",
+      "correctness_eligible": true,
+      "group": "contextual_identity",
+      "query_text": "listing Scale vehicle model 0090 local pickup",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0090",
+      "target_knowledge_uuid": "fa05631d-ed9d-5917-8b79-043fb568684e"
+    },
+    {
+      "case_id": "scale-contextual_identity-0091",
+      "correctness_eligible": true,
+      "group": "contextual_identity",
+      "query_text": "listing Scale vehicle model 0091 local pickup",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0091",
+      "target_knowledge_uuid": "0331097e-84c0-5bc4-8812-21e2fbb4fd1d"
+    },
+    {
+      "case_id": "scale-contextual_identity-0092",
+      "correctness_eligible": true,
+      "group": "contextual_identity",
+      "query_text": "listing Scale vehicle model 0092 local pickup",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0092",
+      "target_knowledge_uuid": "2ee51095-e104-5929-9241-4c61182d0661"
+    },
+    {
+      "case_id": "scale-contextual_identity-0093",
+      "correctness_eligible": true,
+      "group": "contextual_identity",
+      "query_text": "listing Scale vehicle model 0093 local pickup",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0093",
+      "target_knowledge_uuid": "a2d2ad15-a1d7-5937-8bf6-07d9f273f6cd"
+    },
+    {
+      "case_id": "scale-contextual_identity-0094",
+      "correctness_eligible": true,
+      "group": "contextual_identity",
+      "query_text": "listing Scale vehicle model 0094 local pickup",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0094",
+      "target_knowledge_uuid": "9e395463-5b63-52fe-9356-92d79eb3e11f"
+    },
+    {
+      "case_id": "scale-contextual_identity-0095",
+      "correctness_eligible": true,
+      "group": "contextual_identity",
+      "query_text": "listing Scale vehicle model 0095 local pickup",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0095",
+      "target_knowledge_uuid": "466bbb3e-4947-5f14-86de-959534e6408d"
+    },
+    {
+      "case_id": "scale-contextual_identity-0096",
+      "correctness_eligible": true,
+      "group": "contextual_identity",
+      "query_text": "listing Scale vehicle model 0096 local pickup",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0096",
+      "target_knowledge_uuid": "124b4c95-e66a-5494-be4d-b418b0026594"
+    },
+    {
+      "case_id": "scale-contextual_identity-0097",
+      "correctness_eligible": true,
+      "group": "contextual_identity",
+      "query_text": "listing Scale vehicle model 0097 local pickup",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0097",
+      "target_knowledge_uuid": "5b7d256b-6c04-54ad-a934-928dc404abb5"
+    },
+    {
+      "case_id": "scale-contextual_identity-0098",
+      "correctness_eligible": true,
+      "group": "contextual_identity",
+      "query_text": "listing Scale vehicle model 0098 local pickup",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0098",
+      "target_knowledge_uuid": "aa8415fd-0366-5b56-a2c0-7e9deb8efcc8"
+    },
+    {
+      "case_id": "scale-contextual_identity-0099",
+      "correctness_eligible": true,
+      "group": "contextual_identity",
+      "query_text": "listing Scale vehicle model 0099 local pickup",
+      "source_case_id": null,
+      "target_knowledge_id": "scale-0099",
+      "target_knowledge_uuid": "c2bf7b6a-e252-559e-bb0c-1caca2885527"
+    }
+  ],
+  "schema_version": "pvr-human-knowledge-identity-protocol-v1",
+  "selection_contract": {
+    "candidate_limit": 5,
+    "character_rrf_weights": [
+      0.5,
+      1.0,
+      1.5
+    ],
+    "character_score_floors": [
+      0.25,
+      0.3,
+      0.35,
+      0.4,
+      0.45,
+      0.5,
+      0.55
+    ],
+    "configuration_count": 21,
+    "dense_dimensions": 192,
+    "dense_weight": 1.0,
+    "failure_rule": "no_qualifying_configuration_means_fail_without_runtime_artifact",
+    "rrf_k": 60,
+    "safety_gates": {
+      "hold_materialized_count": 0,
+      "merge_recall_at_5_minimum": 1.0,
+      "merge_wrong_family_count": 0,
+      "positive_recall_at_5_minimum": 0.9,
+      "positive_style_recall_at_5_minimum": 0.85,
+      "unrelated_nonempty_count": 0
+    },
+    "sparse_weight": 1.0,
+    "tie_break_order": [
+      "positive_mrr_desc",
+      "positive_recall_at_1_desc",
+      "character_score_floor_desc",
+      "character_rrf_weight_asc"
+    ]
+  },
+  "split": "dev",
+  "status": "frozen_before_v4_configuration_execution",
+  "v4_configuration_output_viewed": false,
+  "v4_retrieval_executed": false
+}

@@ -4553,6 +4553,89 @@ limits and freezes/commits a new protocol before any v4 retrieval. If validation
 design before output rather than quietly drop approved names. T49 and new final holdout authoring
 remain blocked. No subagent was spawned and all delivery files stay in the project folder.
 
+## 2026-09-13 — IBR-T1 validates identity cores and freezes the approved v4 protocol
+
+### Context, execution and observable outcome
+
+The owner's `執行下一步` instruction immediately followed the three-spec confirmation handoff, so
+this step records approval of the exact requirements/design/tasks at commit `880e4f5` and executes
+IBR-T1 only. The goal is to make the new experiment reproducible before its outputs exist, not to
+retry the failed v3 grid. The execution protocol now freezes the policy, formula, work ceilings,
+unchanged 21 settings, safety/quality/cost gates, all 199 dev query IDs and 120 scale queries/targets.
+No v4 retrieval, new rank/metric/latency result, selected runtime artifact or database operation occurs.
+
+The static check finds 142 valid documents and 284 spaced/compact forms, at most 2/document against
+the ceiling 32. Two core collision groups contain the already distinct `83 Chevy Silverado` and
+`Toyota Supra` variants. These are same-casting version distinctions, not different casting names
+collapsing under the policy; all 142 IDs remain separate. No core is empty/too short and no cross-
+casting collision occurs. The 199 real queries peak at 90 forms and the scale workload at 60, below
+256. These are construction counts, not a scored or timed runtime index.
+
+### Implementation trace and reasons for each file group
+
+`scripts/build_human_knowledge_identity_protocol.py` is an offline deterministic artifact builder.
+It reuses the unchanged catalog/normalizer and synthetic document construction, but reads only
+provisional casting and family casting/aliases for the core audit. It does not call a retriever.
+Strict approved-spec hashes and noise-block validation prevent the code's policy drifting from the
+approved design. Stable form IDs, deduplication, gram-reference counts and full collision groups
+make future implementation and review inspectable instead of reporting only a total count.
+
+The new `data/evaluation/human-knowledge-identity-development-v1/` contains protocol/manifest, full
+real core audit, owner approval and original approved spec snapshots. Snapshots are extracted from
+the approved Git commit when freezing, then checks use delivered snapshots without requiring old
+Git history. This both preserves attribution and avoids stale integrity checks when live task
+checkboxes/statuses change. The snapshots retain historical proposed headers; approval is recorded
+as a separate event with actual UTC time, not a retroactive rewrite. Source hashes bind old corpus/
+governance/development/v3 evidence and the builder; every delivered artifact is checksum-bound.
+
+`tests/test_human_knowledge_identity_protocol.py` adds 12 checks for portable byte reproduction,
+guarded no-v1 reads/no ranking calls, approval/leakage disclosure, exact real/scale counts/targets,
+ignored broad human fields, Unicode/whole-token/numeric cores, invalid/empty/duplicate/excessive
+forms and query ceilings, all source/file bindings and preservation/idempotence. Evidence, AI-artifact
+assessment and scoped QA review separate a valid contract from unmeasured v4 retrieval. README/live
+spec statuses and D40 now reflect approval and T1 completion; runtime source files are unchanged.
+
+### Method choices, corrections and trade-offs
+
+The stack remains standard-library JSON/hash/file/Git reading plus existing project models; no
+model dependency, external API or PostgreSQL is necessary for protocol construction. Frozen output
+checks compare deterministic bytes, and freeze validates all inputs/existing outputs before writes.
+Different existing frozen files are rejected rather than overwritten; repeating identical freeze
+does not even replace their timestamps. These semantics preserve meaningful pre-output provenance.
+
+An initial freeze attempt stopped before writing because the approved Markdown noise block's fence
+language `text` was parsed as an extra token. Stripping that language line fixes the parser without
+changing the approved noise set. Initial MyPy checks also needed `MYPYPATH=src` and explicit set
+annotations. These were builder/parser/type corrections before v4 output, not data, gate or ranking
+tuning. The resulting script and artifacts now reproduce unchanged.
+
+One limitation became concrete during static validation: synthetic `Scale vehicle model NNNN`
+casting cores retain only numbers because `scale`, `vehicle`, `model` are approved noise tokens.
+The `Scale` → `Scxle` probe edits a removed wrapper, not retained numeric identity. I preserved the
+approved workload and explicitly recorded this limitation, rather than change it silently. The
+100 target probes still prevent an entirely empty fast implementation from passing, but cannot
+prove genuine core-name typo robustness. Real four-style dev quality and independent final tests
+remain required. Form-level gram references also cannot be compared to old document postings as
+an observed speed/memory improvement; no such measurement was run.
+
+### Verification evidence and next step
+
+Focused tests: **12 passed**. Full repository: **248 passed**, no skips, one existing Starlette/
+AnyIO warning. Protocol `--check`, focused Ruff F/I, isolated strict MyPy builder check, compilation
+and whitespace checks pass. The old 199-case freeze, v3 JSON/Markdown and v1 final-report checks all
+pass without historical source/data/report edits. Protocol SHA-256 is
+`31802be99f02698423c4526bbd8752e6f517fcbef8ca8080926d019f55083fde`; its manifest is
+`b7634f7f3d52277c4ee4d92489b656fcf1a6c446d56085c5affb7cb7a12c6ea7`.
+See [freeze evidence](evidence/human-knowledge-identity-protocol-v1.md) and
+[QA checkpoint](../specs/human-knowledge-identity-bounded-retrieval/review.md).
+
+IBR-T1's freeze must be committed before v4 output; IBR-T2 is the next highest-value task: implement
+the isolated identity/posting retriever, verify exact scores against a brute-force oracle, and test
+query-local budget/debug/canonical readiness isolation. Posting cost, budget-abstention quality and
+runtime package evidence are still unmeasured. Default v2, old development/final FAIL verdicts,
+blocked final-authoring/T49 and no real-catalog growth remain unchanged. No subagent was spawned;
+all delivery files remain inside the project folder.
+
 ## Required format for future entries
 
 Every future project-log entry must preserve the following traceability structure:

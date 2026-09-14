@@ -870,3 +870,38 @@ If policy/limits/workload must change after output, preserve FAIL and freeze ano
 Impact now: documentation only. No code/provider/data/runtime changes, no v4 outputs/quality PASS,
 no new final authoring, no actual ingestion/default deployment. G1* remains pending owner approval.
 Next permitted task after approval is IBR-T1 protocol validation/freeze/commit, not immediate scoring.
+
+## D40 — Confirm D39's exact specification and freeze before v4 output
+
+Status: ACCEPTED for IBR-T1. The owner's `執行下一步` response to the explicit three-spec confirmation
+handoff confirms commit `880e4f5` and its exact requirements/design/tasks hashes. D39's proposed design
+is accepted under the unchanged Lite task order, not authorization for scoring, ingestion or deployment.
+
+Choice: preserve original approved text in checksum-validated in-project snapshots, record separate
+owner approval/time/scope, and freeze a deterministic protocol/core audit/workload/manifest before
+any v4 output. Runtime rules remain fixed to the approved global noise set, casting/alias fields,
+new formula, original 21 settings and all prior gates. Freeze refuses to overwrite different
+existing artifacts; checks use snapshots without requiring old Git history. Live progress/status
+edits therefore do not rewrite the approved baseline or break its artifact references.
+
+Evidence: all 142 documents retain valid cores, with 284 forms, max 2/document, zero cross-casting
+collision and two same-casting variant collision groups. Real/scale query forms peak at 90/60 below
+256. Synthetic 3,000 documents have 12,000 forms/max 4 per document. Workload counts are exactly
+20 original cost, 60 exact, 20 edited, 20 contextual; positive target IDs/UUIDs and correctness gates
+are frozen. Twelve new focused tests and 248 full tests pass, and old source-bound reports still check.
+
+Trade-off preserved: approved synthetic casting cores are numeric-only and edits affect the removed
+`Scale` wrapper. This workload catches empty-only fast outputs, not retained-core spelling quality;
+do not generalize it or secretly replace it after outputs. Static form/gram counts are not measured
+runtime memory/cost. Genuine four-style real development and new unseen final quality remain gated.
+
+Alternatives rejected: rewrite proposed historical snapshots as though they had already been approved;
+bind mutable task checkboxes as immutable source; silently drop/merge cores; improve scale probes
+without recording a changed design; or run retrieval now to see which rule passes. Each weakens
+attribution, artifact stability, identity preservation or pre-output separation.
+
+Impact: protocol SHA-256 `31802be99f02698423c4526bbd8752e6f517fcbef8ca8080926d019f55083fde` is
+frozen with builder/corpus/development/report/spec/source bindings. No retriever/service/model/data-
+catalog change, v4 output/artifact/latency claim, final query authoring or SQL expansion. Default v2
+and T49 blockade remain. Next: IBR-T2 exact posting/oracle and isolated runtime implementation;
+limits/policy changes would require a new versioned decision/protocol, not an after-output edit.

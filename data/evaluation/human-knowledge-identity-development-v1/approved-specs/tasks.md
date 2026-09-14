@@ -1,13 +1,13 @@
 # Identity-Bounded Human Knowledge Retrieval — Tasks
 
-Mode: Lite. Status: owner-confirmed; IBR-T1 complete, IBR-T2 not started.
+Mode: Lite. Status: proposed; no implementation/evaluation started.
 No subagents without explicit user request. All files under `Product Variant Resolver`.
 
 ## IBR-T1 — Freeze the owner-approved new execution protocol
 
-- [x] Validate restricted identity cores/collisions/form limits and author the exact 120-query scale
+- [ ] Validate restricted identity cores/collisions/form limits and author the exact 120-query scale
   workload without viewing v4 output. _(→R2–R4,R7,R12)_
-- [x] Freeze/commit protocol, policy, ceilings, same 21-config grid, source/development hashes and
+- [ ] Freeze/commit protocol, policy, ceilings, same 21-config grid, source/development hashes and
   viewed-development reuse disclosure before any configuration execution. _(→R1–R2,R9)_
 
 Files: `scripts/build_human_knowledge_identity_protocol.py`,
@@ -80,9 +80,4 @@ Owner confirms requirements → design → tasks → T1 protocol freeze/commit �
 T3 selection/cost → qualified winner commit → T4 output-blind questions → owner approval/labels →
 T5 one final score/closure. No winner branches to STOP/design, not T4.
 
-G1* is confirmed by the owner's `執行下一步` response to the three-spec handoff. Approval of commit
-`880e4f5` and exact spec hashes is recorded in the frozen `owner-approval.json`; original approved
-spec snapshots retain their historical proposed headers. T1 passes with 142 nonempty document cores,
-284 forms, two same-casting variant collision groups, zero cross-casting collisions, and 120 scale
-queries. No v4 ranking, selection or latency result exists. T2 must preserve the frozen protocol and
-source-bound historical modules; T3 cannot execute before its upstream implementation checks.
+G1* is pending owner confirmation; this document does not authorize v4 execution by itself.

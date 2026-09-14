@@ -1,6 +1,6 @@
 # Identity-Bounded Human Knowledge Retrieval — Design
 
-Date: 2026-09-13. Mode: Lite. Status: owner-confirmed; IBR-T1 frozen, retriever not implemented.
+Date: 2026-09-13. Mode: Lite. Status: proposed, not implemented or output-tested.
 
 ## Overview and evidence
 
@@ -39,7 +39,7 @@ without changing bytes, so historical v3 report checks still pass. Service/confi
 wire a separate v4 opt-in; they must not route v4 through a modified v3 loader or falsely report v3.
 Do not modify canonical retrievers or governance/data projections.
 
-## Identity policy (owner-approved, frozen by IBR-T1)
+## Identity policy (fixed proposal, frozen by IBR-T1)
 
 Admission inputs: provisional casting only; family casting plus approved aliases. This deliberately
 narrows v3's provisional admission inputs: human-verified labels may be verbose listings and are not
@@ -93,7 +93,7 @@ uses exactly this new policy/formula, not the old raw v3 scores.
 
 ## Fixed limits and abstention contract
 
-Frozen engineering ceilings, not fitted parameters:
+Proposed engineering ceilings, not fitted parameters:
 
 | Limit | Fixed value | Exceeded behavior |
 |---|---:|---|
@@ -144,16 +144,6 @@ This is synthetic diagnostic correctness, not an independent test. Require aggre
 Index/startup/serialization/HTTP/SQL/network/concurrency are excluded. Report isolated microkernel
 oracle timing only as supplemental; full retrieval query timing decides the budget. If limit or
 workload changes after viewing output, version/freeze a new protocol and preserve the old FAIL.
-
-IBR-T1 has now validated/frozen this unchanged workload and policy. Real cores: 142 documents,
-284 forms, maximum 2 forms/document, two same-casting variant collision groups, no cross-casting
-collision. Static query forms peak at 90 real / 60 scale, below 256; synthetic cores have 12,000
-forms, maximum 4/document. Snapshot/protocol evidence is in
-`data/evaluation/human-knowledge-identity-development-v1/`. No scores or timing were generated.
-Because `scale`, `vehicle`, and `model` are noise tokens, synthetic casting cores are numeric-only;
-`Scale` → `Scxle` changes a removed wrapper token, not the retained numeric target. The frozen
-workload therefore is not evidence of true casting-core typo robustness. Preserve this limitation;
-real four-style development and later independent final gates remain mandatory.
 
 ## Runtime/API/artifact interfaces
 

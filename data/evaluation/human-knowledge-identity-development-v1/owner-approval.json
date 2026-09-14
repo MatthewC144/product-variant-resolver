@@ -1,0 +1,14 @@
+{
+  "approval_basis": "instruction_immediately_after_three_spec_confirmation_handoff",
+  "approval_instruction": "執行下一步",
+  "approved_commit": "880e4f5b7c556a50e35de900a530e16280bab833",
+  "approved_spec_sha256": {
+    "design.md": "eb2867ad77def038c6d689154f80403d3437a918349441a6c07a0b87da57bc17",
+    "requirements.md": "45bf456d1890e26cbfa9e3afbfa8cce7be1ca9a4d2ddc5a526058b2f111bce62",
+    "tasks.md": "e2e772f5b2e7f95bc4290e07cb6cc40c6b7c8e1917e578deae321a85203cf4f1"
+  },
+  "authority": "project_owner",
+  "recorded_at_utc": "2026-09-14T01:29:45Z",
+  "schema_version": "pvr-identity-retrieval-owner-approval-v1",
+  "scope": "IBR-T1_only_no_v4_retrieval_or_selection"
+}

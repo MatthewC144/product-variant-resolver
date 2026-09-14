@@ -1,7 +1,7 @@
 # Identity-Bounded Human Knowledge Retrieval — Requirements
 
 Date: 2026-09-13. Mode: Lite / Lean Industrial.
-Status: owner-confirmed; IBR-T1 protocol frozen; no v4 retrieval executed.
+Status: proposed; project-owner confirmation required before implementation or retrieval.
 Proposed experimental version: `human-knowledge-hybrid-v4`.
 
 ## Purpose

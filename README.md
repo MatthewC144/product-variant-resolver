@@ -420,15 +420,20 @@ new final holdout was created, and T49/real-catalog expansion remain blocked. Th
 checkpoint passes 236 tests; the development-quality verdict remains FAIL. See the
 [`AI-eval record`](docs/evidence/ai-evals/human-knowledge-retrieval-development-v1.md).
 
-The proposed next Lite step is
+The active Lite follow-up is
 [`Identity-Bounded Human Knowledge Retrieval`](specs/human-knowledge-identity-bounded-retrieval/requirements.md).
 Its [design](specs/human-knowledge-identity-bounded-retrieval/design.md) replaces broad any-token
 admission with casting-core evidence and redundant character pair comparisons with direct weighted
 form-posting accumulation, under an isolated experimental v4 path. It retains the same 21-config
 grid, all quality/safety/cost gates and owner-approved unseen final-test lifecycle. The new scale
 workload also requires known synthetic identities to be retrieved, preventing a cheap empty-output
-timing claim. **Planning only:** owner confirmation is pending; no v4 code, protocol freeze, output,
-artifact or new final pack exists. Default v2 and T49's blocked status remain unchanged.
+timing claim. **IBR-T1 complete:** the owner confirmed the three specifications, and the
+[execution protocol](data/evaluation/human-knowledge-identity-development-v1/protocol.json) is frozen
+with code/corpus/development/spec hashes, work limits and all 120 scale-query targets. The
+[core audit](docs/evidence/human-knowledge-identity-protocol-v1.md) retains 142 documents/284 forms,
+two same-casting variant collision groups and no cross-casting collision. The synthetic casting
+cores are numeric-only, so their typo probes are not true core-name typo evidence. No v4 retriever,
+ranking/latency result, selected artifact or final pack exists. Default v2 and T49 remain unchanged.
 
 ## Docker and PostgreSQL status
 
