@@ -2,6 +2,7 @@
 
 Date: 2026-09-13. Mode: Lite. Status: IBR-T1/T2/T3 complete; development quality/cost gates PASS.
 Selected experimental floor/character weight: 0.50/1.0. Independent final and default deployment remain gated.
+T4 query-only freeze is prepared; owner approval, expected labels and final retrieval remain pending.
 
 ## Overview and evidence
 
@@ -187,6 +188,17 @@ debug evaluation capability, not authorization for default deployment. Runtime/c
 must include the bound report/protocol or fail readiness honestly.
 
 ## Errors, security and testing strategy
+
+T4 preparation uses new `family_retrieval_final_v2.py` and an explicit new question-authoring script,
+without editing source-bound v4/v3 code. It verifies winner commit/input byte provenance before
+authoring, covers all 42 family pairs plus 4/7/10 controls, rejects normalized/compact old/indexed
+questions and nonempty old identity-core reuse, and stages pack/manifest/review as one directory.
+Owner review shows every intended-reference/query pair with case checksum references; no formal
+expected labels/approval/retrieval exist. This is same-family, synthetically composed and output-blind
+to these new results, not an independent author/marketplace/population or unseen-casting sample.
+The inherited coverage gate is `family_coverage_at_5` over 42 groups. A query-identical pre-approval
+draft naming it positive coverage was preserved/superseded before owner handoff, without outputs.
+Approval/label/scorer implementations are deliberately deferred until explicit owner confirmation.
 
 Malformed/stale inputs, empty cores, duplicate IDs, index-limit violation or nonfinite weights fail
 closed before artifact/output replacement. Posting abort discards both token and character partial

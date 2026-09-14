@@ -4797,6 +4797,84 @@ Viewed development can overstate generalization; unseen identity/noise/alias amb
 primary risk. T49/3,000-real-row planning remains gated until final/closure PASS. No subagent was
 spawned; all delivery stays inside Product Variant Resolver, ready for its independent GitHub repo.
 
+## 2026-09-14 — IBR-T4 preparation: new final query pairs frozen for owner review
+
+### Context, executed work and observable outcome
+
+The development experiment passed and its v4 winner/report/artifact were committed, but final
+generalization had not been tested. The approved lifecycle requires new questions **after** that
+commit and owner approval **before** labels/retrieval. This step completes only question preparation,
+not the whole IBR-T4 task or a final PASS. There are now 105 immutable query/reference pairs and a
+complete owner-review table. No owner decisions, expected labels, benchmark, new-final candidates
+or score exists. Default v2, canonical authority and the real-expansion/T49 gate stay unchanged.
+
+The pack includes 84 positives, each of 42 approved families with marketplace and lexical questions,
+four existing-casting merge controls, seven held-family exclusions and ten ordinary nonvehicle words.
+The intended references help the owner judge fairness; they are not model outputs or preapproved
+ground-truth labels. Hold means the unapproved family must not be materialized, not that every
+provisional candidate must disappear. All questions remain synthetic and same-family, not a live
+marketplace or unseen-casting sample.
+
+### Implementation trace and reasons for the changed files
+
+`scripts/author_family_retrieval_query_pack_v2.py` holds explicitly composed question strings, rather
+than extracting searchable text or applying a global typo template. It does not import/call a query
+retriever or generate expected answers. `family_retrieval_final_v2.py` verifies winner ancestry and
+input bytes against commit `a9a3730`, confirms the new pack did not exist there, validates coverage
+and static reuse, and builds the query pack/manifest/owner table. A staged directory publishes all
+three files together; invalid inputs, existing artifacts and simulated write failure cannot expose
+a partial new final folder. Rechecking compares exact case/source/review checksums and timestamps.
+
+Static comparisons cover the old 105 final and 199 dev queries plus 561 indexed/governance/human-label
+strings. They reject normalized/compact duplicates and nonempty old query identity-core equality,
+without changing the normalizer/noise policy or trying new candidates. All 42 paired families and
+4/7 controls are present; ten unrelated words have zero corpus-token overlap. This does not guarantee
+zero character matches or semantic independence. The new tests guard no-new-retrieval/no-old-final-
+label/result reads, cover invalid references/styles/counts/labels/metadata/stale sources, repeat-freeze
+preservation, atomic publication failure and genuine frozen pair hashes. Temporary Git fixtures are
+mocked only after a separate real committed-winner proof.
+
+Live specs, README/QA, D43 and AI evidence now say T4 **preparation** complete but owner approval
+pending. All delivery remains in the independent project folder. Source-bound v4/v3/runtime files,
+selected report/artifact, existing final benchmark/FAIL reports and data corpus were not edited.
+
+### Method selection, correction and accepted limitations
+
+The stack is existing Python plus standard-library Git subprocess/JSON/normalization/hash/staging;
+no new dependency, database/network operation or subagent is needed. Explicit strings preserve varied
+marketplace context, spelling, spacing and numeric wording. Machine-score screening would bias final
+questions toward success, so the new questions were not queried or filtered by retrieval performance.
+The author does know previous development results and model rules: output blindness is limited to
+these new candidates, not an independent author/population claim. Human review cannot remove every
+construction bias but provides attributable relevance approval before formal truth.
+
+A pre-approval metadata mistake was caught while checking the old final formula: coverage was named
+`positive_coverage`, while the inherited 0.90 gate is **family_coverage_at_5 over 42 groups**. I preserved
+that unapproved initial pack/manifest/review and exact author-source snapshots in a superseded folder,
+then corrected the field name and re-froze the identical 105 cases. No question, threshold, model,
+approval, label or candidate output was changed or used for this correction. The old draft SHA is
+explicitly ineligible for approval/scoring; the authoritative current SHA is presented to the owner.
+This is a contract-fidelity correction before scoring, not relaxed acceptance or a new fitted metric.
+
+### Actual verification, pending approval and next permitted work
+
+22 new focused tests and 351 full repository tests pass, no skips, one prior Starlette/AnyIO warning.
+Focused Ruff F/I, isolated strict MyPy live authoring module, Python compilation, Node syntax, whitespace
+and static default/PostgreSQL-profile Compose checks pass. The authoritative query check and old
+identity protocol/dev/v3 JSON+Markdown/v1 JSON+Markdown reproduction pass. These engineering checks
+do not establish final ranking quality; full-suite retrieval tests use existing fixtures, not this
+new 105-question final set. No fresh container runtime, SQL promotion or real 3,000-row ingestion ran.
+
+Authoritative query SHA is `b23b69912c678c027461c96eb23f113484c5a8ed6218c06d90026704abe5102b`;
+freeze time 14:15:13Z follows winner commit 14:04:23Z. See
+[all 105 owner-review pairs](../data/evaluation/family-retrieval-v2/owner-review.md) and
+[freeze evidence](evidence/family-retrieval-final-v2-query-freeze.md). Per-case checksums and input
+fingerprints are in the manifest. The next action is **explicit owner confirmation of those exact
+pairs/checksum**, or Case IDs for a versioned pre-score revision. Stop here under Lite/spec-dev-loop;
+approval/label/scoring implementation is intentionally deferred. After approval, freeze attributable
+labels and commit benchmark before one final score, then runtime/regression closure. Unseen typo/
+numeric/alias ambiguity and negative character overlap remain risks; T49 is still not authorized.
+
 ## Required format for future entries
 
 Every future project-log entry must preserve the following traceability structure:

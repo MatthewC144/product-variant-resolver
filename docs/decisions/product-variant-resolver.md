@@ -969,3 +969,39 @@ Non-isolated timings include a brief initial verification-process overlap and ar
 proof; no samples were resampled. At 10×, common postings may still cap-abstain. New independent
 owner-reviewed questions and fresh runtime/regression closure remain necessary. Commit winner before
 authoring and stop for owner approval before labels/retrieval; only final/closure PASS authorizes T49 design.
+
+## D43 — Freeze new final questions after winner commit; stop before owner truth
+
+Status: ACCEPTED for IBR-T4 query preparation only. Owner relevance approval/labels/final score pending.
+
+Choice: explicitly compose 105 synthetic questions after committed winner `a9a3730`, keeping the
+same 42 families/two positive styles and 4/7/10 controls. Freeze every query/intended-registry-reference
+pair, case/source/pack hash and human-readable owner table. Do not derive questions by a uniform
+mutation program, consult new retrieval results, label automatically or treat generic proceed as
+confirmation of previously unseen pairs. Output-blind concerns these new results, not author knowledge
+of old development/policy; same-family synthetic final is not unseen-casting/population evidence.
+
+Method: standard-library explicit literal strings and Git/JSON/hash checks; unchanged normalization
+and identity-noise policy only for static reuse detection. Reject normalized/compact old/indexed
+query equality and nonempty old question-core equality. Static checks are stricter than raw equality
+but do not prove semantic independence or remove all author bias. Ordinary unrelated nouns are
+chosen for nonvehicle relevance, not experimentally low character scores. Owner judgment remains
+required before expected labels. No new model/network/dependency, catalog mutation or agent.
+
+Provenance: compare all selected/runtime/evaluator/protocol/corpus/dedup input bytes with the winner
+commit and verify new pack absence there. Stage pack/manifest/owner-review as one directory and
+publish after validation, preserving invalid/preexisting artifacts. Twenty-two new tests and 351
+full tests pass, with one existing warning; no new-final retrieval or label artifact is created.
+
+Correction preserved: initial unapproved metadata named 0.90 coverage `positive_coverage`. Reading
+the inherited gate/formula established **family_coverage_at_5 over 42 groups**. Preserve draft/source
+snapshots under `family-retrieval-v2-superseded-draft-01`, re-freeze the identical 105 cases with the
+correct name before owner handoff. This changes a misleading metric name, not the approved threshold,
+query content/model or output-based selection. No initial-draft approval/score occurred.
+
+Authoritative query SHA: `b23b69912c678c027461c96eb23f113484c5a8ed6218c06d90026704abe5102b`.
+Owner must explicitly confirm these 105 pairs/checksum (or identify cases for versioned revision).
+Next separate phase records real approval/attributable labels and commits benchmark before one final
+score. Avoid closest-result tuning on final FAIL. Most likely failure: natural abbreviations/numeric
+forms or broad negative character overlap generalize poorly despite perfect dev Recall@5. At10×,
+posting limits/generalization still need evidence. Defaultv2, final/runtime closure and T49 remain gated.

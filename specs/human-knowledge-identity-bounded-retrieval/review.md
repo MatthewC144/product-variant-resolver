@@ -1,6 +1,25 @@
-# Identity-Bounded Retrieval — Lite IBR-T1/T2/T3 Checkpoints
+# Identity-Bounded Retrieval — Lite IBR-T1/T2/T3/T4-preparation Checkpoints
 
-## Current IBR-T3 checkpoint — 2026-09-14
+## Current IBR-T4 preparation checkpoint — 2026-09-14
+
+Query preparation engineering: PASS. Owner approval/expected labels: PENDING; whole T4 incomplete.
+Final model quality/closure/T49: NOT EVALUATED. STOP here, do not infer approval from proceed requests.
+
+R15 partial: verified winner commit `a9a3730` ancestor/input bytes before query freeze; all105 new
+query/reference pairs cover84/4/7/10,42 families×2styles; old/dev/indexed/compact/nonempty-core
+reuse and no-v1-label/no-new-retrieval guards pass. Complete owner table/105 case hashes are delivered.
+Query SHA `b23b69912c678c027461c96eb23f113484c5a8ed6218c06d90026704abe5102b` is awaiting approval.
+Family coverage keeps42-group denominator; unapproved misnamed draft/source snapshots preserved,
+same questions and no outputs. No expected labels/benchmark/approval/final score exists.
+
+22 new focused /351 full tests pass, one old warning; lint/type/compile/static Compose/Node and
+historical reproduction pass. No fresh image runtime; no source-bound runtime or catalog changes.
+See [freeze evidence](../../docs/evidence/family-retrieval-final-v2-query-freeze.md) and
+[AI artifact assessment](../../docs/evidence/ai-evals/family-retrieval-final-v2-query-freeze.md).
+Next only after explicit owner confirmation: approval recording/attributable labels/benchmark commit,
+then one final score and full closure. Defaultv2, originalFAILs and T49 remain unchanged.
+
+## Historical IBR-T3 checkpoint — 2026-09-14
 
 T3 G2/G3* engineering: PASS. Frozen development quality/safety/cost: PASS, all 21 configurations.
 Entire feature/final/runtime closure: NOT EVALUATED. Selected 0.50/1.0 artifact is experimental only.

@@ -1,0 +1,1118 @@
+{
+  "authored_at": "2026-09-14T14:15:13Z",
+  "authored_by": "evaluation_query_author",
+  "authorship_policy": {
+    "independent_human_review_required": true,
+    "method": "explicitly_composed_synthetic_questions_after_committed_v4_winner",
+    "new_final_candidate_outputs_viewed": false,
+    "not_independent_author_or_population_sample": true,
+    "not_live_marketplace_data": true,
+    "prior_development_outputs_known": true,
+    "same_families_not_unseen_casting_split": true
+  },
+  "benchmark_version": "family-retrieval-holdout-v2",
+  "cases": [
+    {
+      "case_id": "fr2-hold-089ff8645b5f2de7",
+      "case_type": "hold_control",
+      "challenge_style": "held_identity",
+      "query_text": "Chevrolet fifty-five casting; seller unsure which original tool this is",
+      "review_reference": {
+        "kind": "hold_control",
+        "review_family_id": "fandom-family-089ff8645b5f2de7"
+      }
+    },
+    {
+      "case_id": "fr2-hold-0e07a7139454d2e8",
+      "case_type": "hold_control",
+      "challenge_style": "held_identity",
+      "query_text": "Nissan Skyline GT-R R32 labelled BNR32; base stamp not photographed",
+      "review_reference": {
+        "kind": "hold_control",
+        "review_family_id": "fandom-family-0e07a7139454d2e8"
+      }
+    },
+    {
+      "case_id": "fr2-hold-369b0be5855c0a1c",
+      "case_type": "hold_control",
+      "challenge_style": "held_identity",
+      "query_text": "Liberty Walk Nissan Skyline 2000 GT-R without a readable base stamp",
+      "review_reference": {
+        "kind": "hold_control",
+        "review_family_id": "fandom-family-369b0be5855c0a1c"
+      }
+    },
+    {
+      "case_id": "fr2-hold-4f9ee66afdfe8cac",
+      "case_type": "hold_control",
+      "challenge_style": "held_identity",
+      "query_text": "Power Wheels Dune Racer miniature beside a handwritten garage-sale tag",
+      "review_reference": {
+        "kind": "hold_control",
+        "review_family_id": "fandom-family-4f9ee66afdfe8cac"
+      }
+    },
+    {
+      "case_id": "fr2-hold-8403e21a29c27eab",
+      "case_type": "hold_control",
+      "challenge_style": "held_identity",
+      "query_text": "Standard Kart with Mario markings; chassis version absent from listing",
+      "review_reference": {
+        "kind": "hold_control",
+        "review_family_id": "fandom-family-8403e21a29c27eab"
+      }
+    },
+    {
+      "case_id": "fr2-hold-8d24c626a51b1804",
+      "case_type": "hold_control",
+      "challenge_style": "held_identity",
+      "query_text": "Batman and Robin Batmobile; seller gives no movie/tool lineage information",
+      "review_reference": {
+        "kind": "hold_control",
+        "review_family_id": "fandom-family-8d24c626a51b1804"
+      }
+    },
+    {
+      "case_id": "fr2-hold-c639dc688e21d33b",
+      "case_type": "hold_control",
+      "challenge_style": "held_identity",
+      "query_text": "MX-5 Mazda Miata offered without generation or tooling description",
+      "review_reference": {
+        "kind": "hold_control",
+        "review_family_id": "fandom-family-c639dc688e21d33b"
+      }
+    },
+    {
+      "case_id": "fr2-merge-04829924a36830a6",
+      "case_type": "merge_control",
+      "challenge_style": "merge_existing_family",
+      "query_text": "Purple Passion blue hot rod photographed beside an empty display plinth",
+      "review_reference": {
+        "kind": "merge_control",
+        "review_family_id": "fandom-family-04829924a36830a6"
+      }
+    },
+    {
+      "case_id": "fr2-merge-6062af64f2e5a66c",
+      "case_type": "merge_control",
+      "challenge_style": "merge_existing_family",
+      "query_text": "Tesla Model S Plaid red saloon with sticker residue on the windshield",
+      "review_reference": {
+        "kind": "merge_control",
+        "review_family_id": "fandom-family-6062af64f2e5a66c"
+      }
+    },
+    {
+      "case_id": "fr2-merge-aa499ddb791c6991",
+      "case_type": "merge_control",
+      "challenge_style": "merge_existing_family",
+      "query_text": "Chevy C10 from 1967 with orange paint and a creased hanger tab",
+      "review_reference": {
+        "kind": "merge_control",
+        "review_family_id": "fandom-family-aa499ddb791c6991"
+      }
+    },
+    {
+      "case_id": "fr2-merge-b60363832032d566",
+      "case_type": "merge_control",
+      "challenge_style": "merge_existing_family",
+      "query_text": "Subaru BRZ blue coupe found in garage cartons with scratched blister",
+      "review_reference": {
+        "kind": "merge_control",
+        "review_family_id": "fandom-family-b60363832032d566"
+      }
+    },
+    {
+      "case_id": "fr2-positive-0573861db69878eb-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "maxstiel fantasy racer wanted",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-0573861db69878eb"
+      }
+    },
+    {
+      "case_id": "fr2-positive-0573861db69878eb-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Rear blister dent on blue Max Steel from weekend swap table",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-0573861db69878eb"
+      }
+    },
+    {
+      "case_id": "fr2-positive-08cb7fadb9fed12d-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "jeep wagonear eighty eight casting",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-08cb7fadb9fed12d"
+      }
+    },
+    {
+      "case_id": "fr2-positive-08cb7fadb9fed12d-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Seller found 1988 Jeep Wagoneer under an old display stand",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-08cb7fadb9fed12d"
+      }
+    },
+    {
+      "case_id": "fr2-positive-1555c05ceeb491cb-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "audi rs-two avante 1994 estate",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-1555c05ceeb491cb"
+      }
+    },
+    {
+      "case_id": "fr2-positive-1555c05ceeb491cb-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Silver 94 Audi Avant RS2 with price sticker across front window",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-1555c05ceeb491cb"
+      }
+    },
+    {
+      "case_id": "fr2-positive-174efb9bce3a441e-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "lmborghini huracn sterratto offroader",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-174efb9bce3a441e"
+      }
+    },
+    {
+      "case_id": "fr2-positive-174efb9bce3a441e-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Dusty orange Lamborghini Huracan Sterrato photographed beside its blister",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-174efb9bce3a441e"
+      }
+    },
+    {
+      "case_id": "fr2-positive-18e55e067083dbd1-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "audy quatrro eighty-seven rally miniature",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-18e55e067083dbd1"
+      }
+    },
+    {
+      "case_id": "fr2-positive-18e55e067083dbd1-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "87 Audi quattro has a bent hanger tab and silver paint flecks",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-18e55e067083dbd1"
+      }
+    },
+    {
+      "case_id": "fr2-positive-1b2a4227b4e5decd-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "mercedez five-hundred-E saloon",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-1b2a4227b4e5decd"
+      }
+    },
+    {
+      "case_id": "fr2-positive-1b2a4227b4e5decd-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Seller bundles black Mercedes Benz 500 E with an empty acrylic stand",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-1b2a4227b4e5decd"
+      }
+    },
+    {
+      "case_id": "fr2-positive-2357e7eb6b4e62b8-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "ghoul mobil from monster high",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-2357e7eb6b4e62b8"
+      }
+    },
+    {
+      "case_id": "fr2-positive-2357e7eb6b4e62b8-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Pink Monster High Ghoul Mobile shown outside packaging on a cloth",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-2357e7eb6b4e62b8"
+      }
+    },
+    {
+      "case_id": "fr2-positive-356e4ef63275a661-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "fishd and chipd novelty casting",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-356e4ef63275a661"
+      }
+    },
+    {
+      "case_id": "fr2-positive-356e4ef63275a661-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Green Fish'd & Chip'd with shelf dust and a crumpled price tag",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-356e4ef63275a661"
+      }
+    },
+    {
+      "case_id": "fr2-positive-39b248ce2f3723cd-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "twinmil gen-ee electric concept",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-39b248ce2f3723cd"
+      }
+    },
+    {
+      "case_id": "fr2-positive-39b248ce2f3723cd-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Twin Mill Gen-E silver paint photographed on the seller's desk",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-39b248ce2f3723cd"
+      }
+    },
+    {
+      "case_id": "fr2-positive-3c9f928f085efaae-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "kickkart kart racer miniature",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-3c9f928f085efaae"
+      }
+    },
+    {
+      "case_id": "fr2-positive-3c9f928f085efaae-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Kick Kart yellow fantasy racer with shop stamp on cardboard back",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-3c9f928f085efaae"
+      }
+    },
+    {
+      "case_id": "fr2-positive-440103f8ef3c6b70-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "hawlerback hauler casting",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-440103f8ef3c6b70"
+      }
+    },
+    {
+      "case_id": "fr2-positive-440103f8ef3c6b70-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Haulerback purple truck pulled from a dusty cabinet after moving house",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-440103f8ef3c6b70"
+      }
+    },
+    {
+      "case_id": "fr2-positive-45af5b93f3f6650f-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "cust Cadillac Fleetwod lowrider",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-45af5b93f3f6650f"
+      }
+    },
+    {
+      "case_id": "fr2-positive-45af5b93f3f6650f-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Gold Custom Cadillac Fleetwood has rubbed corners on its backing card",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-45af5b93f3f6650f"
+      }
+    },
+    {
+      "case_id": "fr2-positive-4bf5341a133d433b-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "hirohata merck custom coupe",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-4bf5341a133d433b"
+      }
+    },
+    {
+      "case_id": "fr2-positive-4bf5341a133d433b-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Teal Hirohata Merc with scratched blister offered at a toy swap",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-4bf5341a133d433b"
+      }
+    },
+    {
+      "case_id": "fr2-positive-4d00e96d12341b4d-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "nervehamer fantasy hammer car",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-4d00e96d12341b4d"
+      }
+    },
+    {
+      "case_id": "fr2-positive-4d00e96d12341b4d-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Orange Nerve Hammer pictured with a torn receipt beneath the stand",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-4d00e96d12341b4d"
+      }
+    },
+    {
+      "case_id": "fr2-positive-4d2de6db3d5bba63-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "crecsendo music inspired casting",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-4d2de6db3d5bba63"
+      }
+    },
+    {
+      "case_id": "fr2-positive-4d2de6db3d5bba63-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Red Crescendo music car in a cloudy blister with faded shop sticker",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-4d2de6db3d5bba63"
+      }
+    },
+    {
+      "case_id": "fr2-positive-526b697937fde7cc-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "1980 el camno pickup casting",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-526b697937fde7cc"
+      }
+    },
+    {
+      "case_id": "fr2-positive-526b697937fde7cc-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "80 El Camino black pickup from garage collection; hanger tab creased",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-526b697937fde7cc"
+      }
+    },
+    {
+      "case_id": "fr2-positive-57cf5c31afbadc57-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "the vansterr fantasy van",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-57cf5c31afbadc57"
+      }
+    },
+    {
+      "case_id": "fr2-positive-57cf5c31afbadc57-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Green The Vanster with loose axle photographed at a flea-market stall",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-57cf5c31afbadc57"
+      }
+    },
+    {
+      "case_id": "fr2-positive-59e5682e50af879e-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "proton sagga malaysian saloon",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-59e5682e50af879e"
+      }
+    },
+    {
+      "case_id": "fr2-positive-59e5682e50af879e-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "White Proton Saga from storage tub; paint has a tiny roof chip",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-59e5682e50af879e"
+      }
+    },
+    {
+      "case_id": "fr2-positive-7e221ec8ecd02815-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "x thirty-four landspeeder vehicle",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-7e221ec8ecd02815"
+      }
+    },
+    {
+      "case_id": "fr2-positive-7e221ec8ecd02815-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Tan X-34 Landspeeder Star Wars toy beside a handwritten price label",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-7e221ec8ecd02815"
+      }
+    },
+    {
+      "case_id": "fr2-positive-85226ac5ac0d3f77-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "fiat 500 ee electric hatchback",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-85226ac5ac0d3f77"
+      }
+    },
+    {
+      "case_id": "fr2-positive-85226ac5ac0d3f77-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Yellow Fiat 500e has crushed packaging near the lower right corner",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-85226ac5ac0d3f77"
+      }
+    },
+    {
+      "case_id": "fr2-positive-85e407525ac7bf41-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "smal bloc fantasy smallblock",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-85e407525ac7bf41"
+      }
+    },
+    {
+      "case_id": "fr2-positive-85e407525ac7bf41-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Blue Small Bloc with rubbed roof; seller cannot locate original blister",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-85e407525ac7bf41"
+      }
+    },
+    {
+      "case_id": "fr2-positive-89930c384be2e8bf-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "kowloond hyper-van custom van",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-89930c384be2e8bf"
+      }
+    },
+    {
+      "case_id": "fr2-positive-89930c384be2e8bf-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Red Kowloon'd Hypervan from display cabinet; price sticker left on back",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-89930c384be2e8bf"
+      }
+    },
+    {
+      "case_id": "fr2-positive-8a07157f2af2ddd5-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "bogzillla monster racer miniature",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-8a07157f2af2ddd5"
+      }
+    },
+    {
+      "case_id": "fr2-positive-8a07157f2af2ddd5-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Bogzilla green creature racer shown next to a cracked protective case",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-8a07157f2af2ddd5"
+      }
+    },
+    {
+      "case_id": "fr2-positive-8cce01fa7d44112a-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "deorra iii surf concept",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-8cce01fa7d44112a"
+      }
+    },
+    {
+      "case_id": "fr2-positive-8cce01fa7d44112a-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Purple Deora III with a shop security label covering the collector art",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-8cce01fa7d44112a"
+      }
+    },
+    {
+      "case_id": "fr2-positive-9069156ec909a92e-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "doughnut drifter pastry car",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-9069156ec909a92e"
+      }
+    },
+    {
+      "case_id": "fr2-positive-9069156ec909a92e-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Pink Donut Drifter with bent card edges photographed on a kitchen cloth",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-9069156ec909a92e"
+      }
+    },
+    {
+      "case_id": "fr2-positive-99200212d1475ef2-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "2020 ram 15 hundred rebel truck",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-99200212d1475ef2"
+      }
+    },
+    {
+      "case_id": "fr2-positive-99200212d1475ef2-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "2020 Ram 1500 Rebel pickup from seller's cabinet; dusty but boxed",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-99200212d1475ef2"
+      }
+    },
+    {
+      "case_id": "fr2-positive-a1b198f7d235f778-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "ford performance supervn iv racer",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-a1b198f7d235f778"
+      }
+    },
+    {
+      "case_id": "fr2-positive-a1b198f7d235f778-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "White Ford Performance SuperVan 4 offered with a damaged acrylic stand",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-a1b198f7d235f778"
+      }
+    },
+    {
+      "case_id": "fr2-positive-a2097eead3bd8db9-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "1966 buick riviera coupe miniature",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-a2097eead3bd8db9"
+      }
+    },
+    {
+      "case_id": "fr2-positive-a2097eead3bd8db9-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "66 Buick Riviera teal paint under cloudy blister; seller notes shelf wear",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-a2097eead3bd8db9"
+      }
+    },
+    {
+      "case_id": "fr2-positive-a8e0dec4abdc4131-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "dmc de-lorien stainless coupe",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-a8e0dec4abdc4131"
+      }
+    },
+    {
+      "case_id": "fr2-positive-a8e0dec4abdc4131-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Silver DMC DeLorean found in moving cartons with no paper receipt",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-a8e0dec4abdc4131"
+      }
+    },
+    {
+      "case_id": "fr2-positive-aaafff57ac4d4daa-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "morgan supr 3 three-wheeler",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-aaafff57ac4d4daa"
+      }
+    },
+    {
+      "case_id": "fr2-positive-aaafff57ac4d4daa-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Red Morgan Super 3 sits on an unmarked stand; rear blister is split",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-aaafff57ac4d4daa"
+      }
+    },
+    {
+      "case_id": "fr2-positive-aab5350cb90d72ed-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "ford brnoco twenty-one SUV",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-aab5350cb90d72ed"
+      }
+    },
+    {
+      "case_id": "fr2-positive-aab5350cb90d72ed-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "21 Ford Bronco blue off-road toy photographed with wrinkled price label",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-aab5350cb90d72ed"
+      }
+    },
+    {
+      "case_id": "fr2-positive-aec11693bfe04245-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "mazda rep-u rotary pickup casting",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-aec11693bfe04245"
+      }
+    },
+    {
+      "case_id": "fr2-positive-aec11693bfe04245-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Mazda REPU orange rotary pickup displayed beside its torn backing card",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-aec11693bfe04245"
+      }
+    },
+    {
+      "case_id": "fr2-positive-b31d285560d8a242-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "mustangg gtd ford track coupe",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-b31d285560d8a242"
+      }
+    },
+    {
+      "case_id": "fr2-positive-b31d285560d8a242-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Grey Ford Mustang GTD from a toy swap; scratched clear plastic cover",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-b31d285560d8a242"
+      }
+    },
+    {
+      "case_id": "fr2-positive-b3cd4f5a5f7e196a-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "1969 corvette racr competition car",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-b3cd4f5a5f7e196a"
+      }
+    },
+    {
+      "case_id": "fr2-positive-b3cd4f5a5f7e196a-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "69 Corvette Racer yellow paint with old shop sticker still attached",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-b3cd4f5a5f7e196a"
+      }
+    },
+    {
+      "case_id": "fr2-positive-c655fb5244c584ae-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "kei swapp modified microtruck",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-c655fb5244c584ae"
+      }
+    },
+    {
+      "case_id": "fr2-positive-c655fb5244c584ae-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Red Kei Swap parked on seller's desk; backing card folded at top",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-c655fb5244c584ae"
+      }
+    },
+    {
+      "case_id": "fr2-positive-d114c33db6fa215b-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "honda civik e-f from ninety",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-d114c33db6fa215b"
+      }
+    },
+    {
+      "case_id": "fr2-positive-d114c33db6fa215b-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "90 Honda Civic EF white hatchback pictured beside a crumpled shop bag",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-d114c33db6fa215b"
+      }
+    },
+    {
+      "case_id": "fr2-positive-d5c83bb87be8cab0-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "super twinmill twin engine fantasy",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-d5c83bb87be8cab0"
+      }
+    },
+    {
+      "case_id": "fr2-positive-d5c83bb87be8cab0-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Chrome Super Twin Mill has dusty packaging and a faded price sticker",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-d5c83bb87be8cab0"
+      }
+    },
+    {
+      "case_id": "fr2-positive-d816204cf649a0c0-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "draftinator drafting racer miniature",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-d816204cf649a0c0"
+      }
+    },
+    {
+      "case_id": "fr2-positive-d816204cf649a0c0-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Black Draftnator with wrinkled backing card and no original sales receipt",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-d816204cf649a0c0"
+      }
+    },
+    {
+      "case_id": "fr2-positive-d90841788b1d98a2-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "alpha persuit police casting",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-d90841788b1d98a2"
+      }
+    },
+    {
+      "case_id": "fr2-positive-d90841788b1d98a2-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Blue Alpha Pursuit patrol car has a scratch along its clear blister",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-d90841788b1d98a2"
+      }
+    },
+    {
+      "case_id": "fr2-positive-db3fe3a0103099ec-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "2022 ford maverik cust pickup",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-db3fe3a0103099ec"
+      }
+    },
+    {
+      "case_id": "fr2-positive-db3fe3a0103099ec-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "22 Ford Maverick Custom red truck photographed beside a damaged stand",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-db3fe3a0103099ec"
+      }
+    },
+    {
+      "case_id": "fr2-positive-e7d4d8cf1dd8c6e1-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "mazda autozamm kei coupe",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-e7d4d8cf1dd8c6e1"
+      }
+    },
+    {
+      "case_id": "fr2-positive-e7d4d8cf1dd8c6e1-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Blue Mazda Autozam removed from an old cabinet; seller reports roof rub",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-e7d4d8cf1dd8c6e1"
+      }
+    },
+    {
+      "case_id": "fr2-positive-fd96307f2dc8b421-lexical_variation",
+      "case_type": "positive_family",
+      "challenge_style": "lexical_variation",
+      "query_text": "custom chevie fifty-three pickup",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-fd96307f2dc8b421"
+      }
+    },
+    {
+      "case_id": "fr2-positive-fd96307f2dc8b421-marketplace_noise",
+      "case_type": "positive_family",
+      "challenge_style": "marketplace_noise",
+      "query_text": "Custom 53 Chevy red pickup found in garage carton with torn price tag",
+      "review_reference": {
+        "kind": "review_family",
+        "review_family_id": "fandom-family-fd96307f2dc8b421"
+      }
+    },
+    {
+      "case_id": "fr2-unrelated-00",
+      "case_type": "unrelated_control",
+      "challenge_style": "no_overlap",
+      "query_text": "quinoa",
+      "review_reference": {
+        "control_id": "nonvehicle-00",
+        "kind": "unrelated_control"
+      }
+    },
+    {
+      "case_id": "fr2-unrelated-01",
+      "case_type": "unrelated_control",
+      "challenge_style": "no_overlap",
+      "query_text": "origami",
+      "review_reference": {
+        "control_id": "nonvehicle-01",
+        "kind": "unrelated_control"
+      }
+    },
+    {
+      "case_id": "fr2-unrelated-02",
+      "case_type": "unrelated_control",
+      "challenge_style": "no_overlap",
+      "query_text": "sourdough",
+      "review_reference": {
+        "control_id": "nonvehicle-02",
+        "kind": "unrelated_control"
+      }
+    },
+    {
+      "case_id": "fr2-unrelated-03",
+      "case_type": "unrelated_control",
+      "challenge_style": "no_overlap",
+      "query_text": "percolator",
+      "review_reference": {
+        "control_id": "nonvehicle-03",
+        "kind": "unrelated_control"
+      }
+    },
+    {
+      "case_id": "fr2-unrelated-04",
+      "case_type": "unrelated_control",
+      "challenge_style": "no_overlap",
+      "query_text": "ukulele",
+      "review_reference": {
+        "control_id": "nonvehicle-04",
+        "kind": "unrelated_control"
+      }
+    },
+    {
+      "case_id": "fr2-unrelated-05",
+      "case_type": "unrelated_control",
+      "challenge_style": "no_overlap",
+      "query_text": "tapestry",
+      "review_reference": {
+        "control_id": "nonvehicle-05",
+        "kind": "unrelated_control"
+      }
+    },
+    {
+      "case_id": "fr2-unrelated-06",
+      "case_type": "unrelated_control",
+      "challenge_style": "no_overlap",
+      "query_text": "metronome",
+      "review_reference": {
+        "control_id": "nonvehicle-06",
+        "kind": "unrelated_control"
+      }
+    },
+    {
+      "case_id": "fr2-unrelated-07",
+      "case_type": "unrelated_control",
+      "challenge_style": "no_overlap",
+      "query_text": "stethoscope",
+      "review_reference": {
+        "control_id": "nonvehicle-07",
+        "kind": "unrelated_control"
+      }
+    },
+    {
+      "case_id": "fr2-unrelated-08",
+      "case_type": "unrelated_control",
+      "challenge_style": "no_overlap",
+      "query_text": "embroidery",
+      "review_reference": {
+        "control_id": "nonvehicle-08",
+        "kind": "unrelated_control"
+      }
+    },
+    {
+      "case_id": "fr2-unrelated-09",
+      "case_type": "unrelated_control",
+      "challenge_style": "no_overlap",
+      "query_text": "thermocouple",
+      "review_reference": {
+        "control_id": "nonvehicle-09",
+        "kind": "unrelated_control"
+      }
+    }
+  ],
+  "counts": {
+    "hold_control": 7,
+    "merge_control": 4,
+    "positive_family": 84,
+    "unrelated_control": 10
+  },
+  "eligible_for": [
+    "human_knowledge_retrieval_evaluation_after_owner_approval"
+  ],
+  "excluded_from": [
+    "training",
+    "calibration",
+    "threshold_selection",
+    "retriever_tuning",
+    "query_rewriting",
+    "canonical_identity",
+    "release_variant_truth",
+    "postgresql_ingestion",
+    "production_accuracy_claim"
+  ],
+  "final_gates": {
+    "family_coverage_at_5": 0.9,
+    "forbidden_family_candidates": 0,
+    "merge_recall_at_5": 1.0,
+    "mrr_at_5": 0.75,
+    "positive_recall_at_1": 0.65,
+    "positive_recall_at_5": 0.85,
+    "positive_style_recall_at_5": 0.75,
+    "unrelated_nonempty": 0
+  },
+  "query_pack_version": "family-retrieval-query-pack-v2",
+  "schema_version": "pvr-family-retrieval-query-pack-v2",
+  "split": "test",
+  "status": "pending_owner_review",
+  "styles": {
+    "held_identity": 7,
+    "lexical_variation": 42,
+    "marketplace_noise": 42,
+    "merge_existing_family": 4,
+    "no_overlap": 10
+  },
+  "winner": {
+    "artifact": "config/human-knowledge-retrieval-v4.json",
+    "artifact_sha256": "82c94a2629da6936bec3e4a2983e67c70d69e94cb94a9817375f891d59b1ae6b",
+    "artifact_version": "human-knowledge-retrieval-v4-dev-f52f85f77580",
+    "commit": "a9a3730bf4d6ae47ddb1fff853e951081c81570c",
+    "committed_at": "2026-09-14T10:04:23-04:00",
+    "configuration": {
+      "character_rrf_weight": 1.0,
+      "character_score_floor": 0.5
+    }
+  }
+}
