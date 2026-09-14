@@ -2,7 +2,7 @@
 
 Date: 2026-09-13. Mode: Lite. Status: IBR-T1/T2/T3 complete; development quality/cost gates PASS.
 Selected experimental floor/character weight: 0.50/1.0. Independent final and default deployment remain gated.
-T4 query-only freeze is prepared; owner approval, expected labels and final retrieval remain pending.
+T4 owner approval and family labels are frozen separately; final retrieval remains pending until benchmark commit.
 
 ## Overview and evidence
 
@@ -228,3 +228,19 @@ names; unknown-gram norms can reduce recall; bounded work can abstain on difficu
 are explicit risks to be tested, not reasons to waive gates. At 10×, frequent gram postings can still
 grow; direct accumulation removes redundant pair comparisons but does not prove the budget. If v4
 fails, retain evidence and decide a new policy/representation separately before output.
+## T4 approved-label publication contract
+
+After explicit owner target confirmation and consent to proceed following the scope explanation,
+the new label builder records the actual conversation excerpts and recording time (not an invented
+message time). It binds every decision to the committed question pack and full case hash. Approval
+is of proposed casting/family targets, not canonical variants or color/wheel/tampo ground truth.
+No retrieval is performed. The original query author sources and question manifests remain immutable.
+
+A separate `family_retrieval_final_v2_labels.py` and builder script publish
+`data/evaluation/family-retrieval-v2/approved/` as one exclusively created, complete staged directory:
+`owner-decisions.json`, `benchmark.json`, and `benchmark-manifest.json`. The manifest binds input,
+builder, question, decision, and benchmark bytes. Repetition, incomplete approvals, stale sources,
+changed expected targets, query rewrites, and partial publication fail closed. The old query-only
+`require_approval` is a historical checkpoint, not the new label-stage validator. Before T5 scoring,
+the new validator must additionally prove all three approved artifacts and builder sources are
+committed and unmodified. T4 supplies labels only; the one-shot scorer is still T5.

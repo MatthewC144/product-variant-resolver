@@ -1005,3 +1005,24 @@ Next separate phase records real approval/attributable labels and commits benchm
 score. Avoid closest-result tuning on final FAIL. Most likely failure: natural abbreviations/numeric
 forms or broad negative character overlap generalize poorly despite perfect dev Recall@5. At10×,
 posting limits/generalization still need evidence. Defaultv2, final/runtime closure and T49 remain gated.
+# D44 — Separate approved family labels from immutable question/runtime artifacts
+
+Status: accepted,2026-09-14; Lite IBR-T4 only. The owner confirmed targets, asked about distinguishing
+features, then agreed to proceed after the family-versus-variant scope explanation. That actual
+context authorizes whole-pack family labels, not canonical/color/wheel/tampo/release truth.
+
+Use a new builder/module and one exclusive complete `approved/` directory rather than modifying
+source-bound question author/runtime modules or independently writing partially visible files.
+Derive positive ID/UUID, merge casting ID/UUID and held/unrelated governance labels only from
+unchanged frozen registry/projection/human inputs. Record actual excerpts and recording time;
+unavailable message time stays null. Validate exact type-sensitive objects/source hashes and
+commit-before-score provenance, without retrieving new questions.28 new/379 full tests PASS.
+
+Trade-offs: conversation records are not signed identity proofs;105 pairs approved as a whole pack,
+not individually authored new labels. Historical query pending flags remain immutable and the
+new validator owns current approval state. At10×, hashing/validation scales with artifact bytes;
+no new index/model/database choice needed. Most likely semantic failure is treating a family hit
+as a proven release match, expressly excluded here. Scope/integrity/safety/auditability/operational
+cost/extendability assessment: adequate for Lite family evaluation, insufficient for production
+variant accuracy. Final quality/runtime remains unrun; originalFAIL/defaultv2/T49 restrictions stay.
+See `docs/evidence/family-retrieval-final-v2-label-freeze.md` for produced evidence.

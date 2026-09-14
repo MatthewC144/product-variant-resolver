@@ -1,6 +1,6 @@
 # Identity-Bounded Human Knowledge Retrieval — Tasks
 
-Mode: Lite. Status: IBR-T1/T2/T3 complete; IBR-T4 question freeze complete, WAIT for owner approval.
+Mode: Lite. Status: IBR-T1/T2/T3/T4 complete; approved benchmark must be committed before T5 scoring.
 No subagents without explicit user request. All files under `Product Variant Resolver`.
 
 ## IBR-T1 — Freeze the owner-approved new execution protocol
@@ -53,7 +53,7 @@ Winner/code/protocol/report must be committed before T4. FAIL blocks T4–T5 and
 
 - [x] After winner/code commit, author/freeze 105 new output-blind questions with 84/4/7/10 coverage,
   reject reused original/dev/indexed queries and present every pair/checksum to owner. _(→R15)_
-- [ ] Stop for explicit owner approval before labels or retrieval; then freeze attributable labels/
+- [x] Stop for explicit owner approval before labels or retrieval; then freeze attributable labels/
   benchmark against unchanged queries. _(→R15)_
 
 Files: v2 final authoring/decision/builder scripts, `data/evaluation/family-retrieval-v2/`,
@@ -91,7 +91,11 @@ All gates PASS; default remains v2, original reports/FAILs and protocol remain u
 `docs/evidence/human-knowledge-identity-development-v1.md`. Winner/code/report/artifact must be
 committed before T4 authoring. T4 now freezes 105 query/reference pairs and a full owner-review
 table, bound to winner commit `a9a3730`. See `data/evaluation/family-retrieval-v2/owner-review.md`.
-Owner approval/labels and T5 scoring are NOT executed; stop here for explicit approval of the frozen
-pairs/checksum. Engineering preparation is not whole T4 completion or final PASS. Family coverage
+Owner explicitly confirmed the targets, asked about variant features, and agreed to proceed after
+the casting/family-only scope explanation. The attributable conversation excerpts, 105 decisions,
+unchanged questions/derived labels, builder checksums and benchmark are now frozen together under
+`data/evaluation/family-retrieval-v2/approved/`. Recording time is not an invented message time.
+T5 scoring is NOT executed; the committed-benchmark gate must pass before one final score.
+T4 engineering/label completion is not final PASS. Family coverage
 retains the inherited 42-family denominator; a pre-approval misnamed draft is preserved/superseded.
 Independent-final/runtime-closure/T49 remain gated. Synthetic scale is not real catalog expansion.

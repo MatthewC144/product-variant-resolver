@@ -148,14 +148,15 @@ def test_partial_staging_failure_never_publishes_final_directory(temporary_freez
     assert not list((tmp_path / module.DIRECTORY.parent).glob(".family-retrieval-v2-*"))
 
 
-def test_actual_frozen_pack_has_no_labels_approval_or_new_candidates(monkeypatch):
+def test_actual_question_freeze_remains_immutable_without_inline_labels_or_candidates(monkeypatch):
     def forbidden(*args, **kwargs):
         raise AssertionError("no final retrieval before owner confirmation")
     monkeypatch.setattr(HumanKnowledgeIdentityRetriever, "retrieve_with_work", forbidden)
     pack = module.check(cases())
     assert pack["status"] == "pending_owner_review" and len(pack["cases"]) == 105
     directory = module.ROOT / module.DIRECTORY
-    assert sorted(path.name for path in directory.iterdir()) == ["owner-review.md", "query-pack-manifest.json", "query-pack.json"]
+    # Later approvals live in a separate child; historical query-level bytes/flags stay unchanged.
+    assert sorted(path.name for path in directory.iterdir() if path.is_file()) == ["owner-review.md", "query-pack-manifest.json", "query-pack.json"]
     with pytest.raises(ValueError, match="owner approval"):
         module.require_approval()
 

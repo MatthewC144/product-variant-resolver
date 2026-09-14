@@ -1,6 +1,30 @@
-# Identity-Bounded Retrieval — Lite IBR-T1/T2/T3/T4-preparation Checkpoints
+# Identity-Bounded Retrieval — Lite IBR-T1/T2/T3/T4 Checkpoints
 
-## Current IBR-T4 preparation checkpoint — 2026-09-14
+## Current IBR-T4 approval/label checkpoint — 2026-09-14
+
+T4 engineering and family-target approval: PASS. Final model quality/runtime closure/T49:
+NOT EVALUATED. Explicit owner target confirmation followed by scope explanation and consent to
+proceed are recorded verbatim; generic next-step messages alone were not accepted as approval.
+
+R15: all105 decisions bind committed query SHA/case hashes; positive42×2 target review-family IDs/
+UUIDs, merge4 target provisional casting IDs/UUIDs with forbidden source IDs, held7 exclusions
+(not a forced-empty condition), unrelated10 zero-result controls. No canonical/release variant
+truth inferred. Query/winner/source bytes unchanged. All three approved documents are exclusively
+published in a separate complete child directory; strict type-sensitive metadata/target/source
+validation and commit-before-score checks are implemented without new-final retrieval.
+
+28 new label tests /50 focused /379 full tests PASS, no skips, one existing warning. The initial
+full invocation without PYTHONPATH failed one module-resolution subprocess test (378 pass); the
+correct PYTHONPATH=src invocation passes all379 without product-code changes. Focused Ruff F/I,
+isolated strict MyPy, compilation, correct Node UI syntax and historical protocol/v4/v1 replay PASS.
+No fresh Docker runtime or final-v2 retrieval/scoring. See
+[approval evidence](../../docs/evidence/family-retrieval-final-v2-label-freeze.md) and
+[AI artifact assessment](../../docs/evidence/ai-evals/family-retrieval-final-v2-label-freeze.md).
+
+Next: commit/verify approved benchmark, then T5 single final evaluation and runtime/full closure.
+Defaultv2 and originalFAILs remain unchanged; real catalog expansion remains unauthorized.
+
+## Historical IBR-T4 preparation checkpoint — 2026-09-14
 
 Query preparation engineering: PASS. Owner approval/expected labels: PENDING; whole T4 incomplete.
 Final model quality/closure/T49: NOT EVALUATED. STOP here, do not infer approval from proceed requests.

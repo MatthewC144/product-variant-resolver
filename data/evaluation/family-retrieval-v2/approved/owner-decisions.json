@@ -1,0 +1,1058 @@
+{
+  "conversation_context": {
+    "proceed_confirmation": "沒有問題，請繼續下一步",
+    "scope_explained": "105 題即使通過，也只能證明這一批 casting／family 檢索達標，不能宣稱整個版本辨識已完成。",
+    "target_confirmation": "首先驗證對象沒有問題。但是想確認，車子除了casting重要外，顏色或是一些特點也對於最終結果一樣重要。請問這部分會在其他部分被考慮到嗎？"
+  },
+  "decided_by": "project_owner",
+  "decision_granularity": "whole_pack_confirmed_targets",
+  "decisions": [
+    {
+      "case_id": "fr2-hold-089ff8645b5f2de7",
+      "case_sha256": "ec2d0d7835e51429a33cb5aa01a218f8ddeefaafe0710d995357b09942d627e8",
+      "decision": "approve",
+      "expected": {
+        "expected_materialized": false,
+        "forbidden_review_family_id": "fandom-family-089ff8645b5f2de7"
+      }
+    },
+    {
+      "case_id": "fr2-hold-0e07a7139454d2e8",
+      "case_sha256": "d2bab49dbc2309342c451d23b83ef09070dcb7d8d43934b7fbec11e53e6366bf",
+      "decision": "approve",
+      "expected": {
+        "expected_materialized": false,
+        "forbidden_review_family_id": "fandom-family-0e07a7139454d2e8"
+      }
+    },
+    {
+      "case_id": "fr2-hold-369b0be5855c0a1c",
+      "case_sha256": "8a793f37b3b69544dd938f3f23e65d4767bfbb0e55e905b267c51b9d6cf9d9ea",
+      "decision": "approve",
+      "expected": {
+        "expected_materialized": false,
+        "forbidden_review_family_id": "fandom-family-369b0be5855c0a1c"
+      }
+    },
+    {
+      "case_id": "fr2-hold-4f9ee66afdfe8cac",
+      "case_sha256": "72f68db3569878429a86a8419e1d4ad04c8910271150637827e8eb5b85870c18",
+      "decision": "approve",
+      "expected": {
+        "expected_materialized": false,
+        "forbidden_review_family_id": "fandom-family-4f9ee66afdfe8cac"
+      }
+    },
+    {
+      "case_id": "fr2-hold-8403e21a29c27eab",
+      "case_sha256": "1b6944a5b1e19b67cefd089d104d56f4bac781d0190053513ef1b31073ef104f",
+      "decision": "approve",
+      "expected": {
+        "expected_materialized": false,
+        "forbidden_review_family_id": "fandom-family-8403e21a29c27eab"
+      }
+    },
+    {
+      "case_id": "fr2-hold-8d24c626a51b1804",
+      "case_sha256": "db0c49c1d43234dd00e9bf5908d7bbb8e2f55b37acfabf75d1cc12ba6fc1dd66",
+      "decision": "approve",
+      "expected": {
+        "expected_materialized": false,
+        "forbidden_review_family_id": "fandom-family-8d24c626a51b1804"
+      }
+    },
+    {
+      "case_id": "fr2-hold-c639dc688e21d33b",
+      "case_sha256": "10cd55d78186ea3142e78b53634f0b6875f58d06d34b991327d6f8af5ebb0cc6",
+      "decision": "approve",
+      "expected": {
+        "expected_materialized": false,
+        "forbidden_review_family_id": "fandom-family-c639dc688e21d33b"
+      }
+    },
+    {
+      "case_id": "fr2-merge-04829924a36830a6",
+      "case_sha256": "b1777920d7296f510e73287105ad975bc20c69e3e3b742a8134253c3ccc65dee",
+      "decision": "approve",
+      "expected": {
+        "casting_id": "human-hot-wheels-purple-passion",
+        "casting_uuid": "ee92a130-18db-5daf-9066-01bceca0679c",
+        "forbidden_review_family_id": "fandom-family-04829924a36830a6",
+        "knowledge_type": "provisional_variant"
+      }
+    },
+    {
+      "case_id": "fr2-merge-6062af64f2e5a66c",
+      "case_sha256": "300590da66f49572ffa61c94b4c55fd7e45c281acddb69fdcd1cde2fd3c5e580",
+      "decision": "approve",
+      "expected": {
+        "casting_id": "human-hot-wheels-tesla-model-s-plaid",
+        "casting_uuid": "ee4b281f-a3a6-518a-8446-9826ea2243ea",
+        "forbidden_review_family_id": "fandom-family-6062af64f2e5a66c",
+        "knowledge_type": "provisional_variant"
+      }
+    },
+    {
+      "case_id": "fr2-merge-aa499ddb791c6991",
+      "case_sha256": "190391f518f3a051c291fd9afea449fcb528dc436d4c31b329b07b8c003bf056",
+      "decision": "approve",
+      "expected": {
+        "casting_id": "human-hot-wheels-67-chevy-c10",
+        "casting_uuid": "68568b93-4dea-54f7-a549-59e48a4967cb",
+        "forbidden_review_family_id": "fandom-family-aa499ddb791c6991",
+        "knowledge_type": "provisional_variant"
+      }
+    },
+    {
+      "case_id": "fr2-merge-b60363832032d566",
+      "case_sha256": "08724ac0ce0aef20999fbd4b87a09557242d070278322b61e7581fbf8c6fb606",
+      "decision": "approve",
+      "expected": {
+        "casting_id": "human-hot-wheels-subaru-brz",
+        "casting_uuid": "23fc1d0c-2753-5030-8046-fca661bdb184",
+        "forbidden_review_family_id": "fandom-family-b60363832032d566",
+        "knowledge_type": "provisional_variant"
+      }
+    },
+    {
+      "case_id": "fr2-positive-0573861db69878eb-lexical_variation",
+      "case_sha256": "bed257c5899f7b1708313db74b0f69480abe41c7dbdf9777a7e3327a7894a0ea",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-0573861db69878eb",
+        "review_family_uuid": "e6a31104-98fb-5230-8163-2a585b99bfc4"
+      }
+    },
+    {
+      "case_id": "fr2-positive-0573861db69878eb-marketplace_noise",
+      "case_sha256": "1edc394da2d82d4680f95e72bc396df3d5d81bcb36aa1e899b07b711d02614af",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-0573861db69878eb",
+        "review_family_uuid": "e6a31104-98fb-5230-8163-2a585b99bfc4"
+      }
+    },
+    {
+      "case_id": "fr2-positive-08cb7fadb9fed12d-lexical_variation",
+      "case_sha256": "df17d5245bcc1937a85cba22faf219b555f9f652d673b8e4fa0119cebe8cf829",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-08cb7fadb9fed12d",
+        "review_family_uuid": "80496fc1-fbe8-59ea-b310-6cd63d806e64"
+      }
+    },
+    {
+      "case_id": "fr2-positive-08cb7fadb9fed12d-marketplace_noise",
+      "case_sha256": "872d57a8e189affea1dbabd594cf33bf053471ac9753fa7bcf4e43040cf9cedf",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-08cb7fadb9fed12d",
+        "review_family_uuid": "80496fc1-fbe8-59ea-b310-6cd63d806e64"
+      }
+    },
+    {
+      "case_id": "fr2-positive-1555c05ceeb491cb-lexical_variation",
+      "case_sha256": "9729ce160d08ba825e77653dcb813d9befcd96cf0c27d2118f35a98647b211fc",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-1555c05ceeb491cb",
+        "review_family_uuid": "b702a2cf-94be-5dd6-9382-a9daaace93e1"
+      }
+    },
+    {
+      "case_id": "fr2-positive-1555c05ceeb491cb-marketplace_noise",
+      "case_sha256": "5b9265afcdab3194ddfa14f32f9153053b344114885cfa8375c28e0abba8e017",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-1555c05ceeb491cb",
+        "review_family_uuid": "b702a2cf-94be-5dd6-9382-a9daaace93e1"
+      }
+    },
+    {
+      "case_id": "fr2-positive-174efb9bce3a441e-lexical_variation",
+      "case_sha256": "e93b176b68ffe79d5aebd511c760c6d2dae1dce2ab2957d4aa33305a8fefea0c",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-174efb9bce3a441e",
+        "review_family_uuid": "63d66a4a-c106-5a18-b478-8b5ef572db39"
+      }
+    },
+    {
+      "case_id": "fr2-positive-174efb9bce3a441e-marketplace_noise",
+      "case_sha256": "1be445a0bfb2b41bd6e331fc3a4a2d9f0d4ff0b31c1ee46c53129c1752b476f6",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-174efb9bce3a441e",
+        "review_family_uuid": "63d66a4a-c106-5a18-b478-8b5ef572db39"
+      }
+    },
+    {
+      "case_id": "fr2-positive-18e55e067083dbd1-lexical_variation",
+      "case_sha256": "d1c66e1f52ddf69065b0e84162b2edd5a606210adc09fe2d21172a3f3efabf6e",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-18e55e067083dbd1",
+        "review_family_uuid": "76daff81-50f6-535a-afae-272d523347db"
+      }
+    },
+    {
+      "case_id": "fr2-positive-18e55e067083dbd1-marketplace_noise",
+      "case_sha256": "0f90237ee0842808785782a5391185beaef1856ac3efdd47cb8609cfd4866b33",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-18e55e067083dbd1",
+        "review_family_uuid": "76daff81-50f6-535a-afae-272d523347db"
+      }
+    },
+    {
+      "case_id": "fr2-positive-1b2a4227b4e5decd-lexical_variation",
+      "case_sha256": "5ebcaab2160c515f074dd67cf0f444e4858fe26ff7a5207ebd8757436b03f043",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-1b2a4227b4e5decd",
+        "review_family_uuid": "e81a61b9-2dbf-5254-a8dd-c083430928fd"
+      }
+    },
+    {
+      "case_id": "fr2-positive-1b2a4227b4e5decd-marketplace_noise",
+      "case_sha256": "bb2a0f3dbb2f58baeb08a9841cfcaed4c2ecd40f13f065dca12e38440d36fd2f",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-1b2a4227b4e5decd",
+        "review_family_uuid": "e81a61b9-2dbf-5254-a8dd-c083430928fd"
+      }
+    },
+    {
+      "case_id": "fr2-positive-2357e7eb6b4e62b8-lexical_variation",
+      "case_sha256": "c605182702af9f8472ad081cb62acfacca673a55dcc14f9794d8c43e38a8266c",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-2357e7eb6b4e62b8",
+        "review_family_uuid": "02ea4376-af58-5e61-8560-29c9ab3ef4a1"
+      }
+    },
+    {
+      "case_id": "fr2-positive-2357e7eb6b4e62b8-marketplace_noise",
+      "case_sha256": "33b63f7a14a6db097203ff27b67961806aada3ad4b1f19aad9fb86a36e75e627",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-2357e7eb6b4e62b8",
+        "review_family_uuid": "02ea4376-af58-5e61-8560-29c9ab3ef4a1"
+      }
+    },
+    {
+      "case_id": "fr2-positive-356e4ef63275a661-lexical_variation",
+      "case_sha256": "b1ea2ddc71598fa5fe39a3865b728a0759c3b2902c8330081e5bcee26ccdc4d7",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-356e4ef63275a661",
+        "review_family_uuid": "9a6d9a47-4b73-57ff-984e-99e504ee587d"
+      }
+    },
+    {
+      "case_id": "fr2-positive-356e4ef63275a661-marketplace_noise",
+      "case_sha256": "6f82c452884739f556b3b71d0edb88c1fc84e42b22da9afe189ee9cbec51efb5",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-356e4ef63275a661",
+        "review_family_uuid": "9a6d9a47-4b73-57ff-984e-99e504ee587d"
+      }
+    },
+    {
+      "case_id": "fr2-positive-39b248ce2f3723cd-lexical_variation",
+      "case_sha256": "43d8882ecc6b8ce10f488bafe8481a4c58a737d34626921e60414498dcd97492",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-39b248ce2f3723cd",
+        "review_family_uuid": "8b784ccf-938c-593f-9926-df0b038dcfdd"
+      }
+    },
+    {
+      "case_id": "fr2-positive-39b248ce2f3723cd-marketplace_noise",
+      "case_sha256": "eba4aff72411d95e6fdf6c9028a259fecc506308c38aa61b4aa7ebd91319afc9",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-39b248ce2f3723cd",
+        "review_family_uuid": "8b784ccf-938c-593f-9926-df0b038dcfdd"
+      }
+    },
+    {
+      "case_id": "fr2-positive-3c9f928f085efaae-lexical_variation",
+      "case_sha256": "78af5f01370f25652e6399ce8bb1a1d923beddc51d3583f845512a6ac78c6841",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-3c9f928f085efaae",
+        "review_family_uuid": "6dac43c2-e013-53d7-a22d-60829a90edb4"
+      }
+    },
+    {
+      "case_id": "fr2-positive-3c9f928f085efaae-marketplace_noise",
+      "case_sha256": "f4e9ab6ffdb6373ccb094c0e2724b9e0a87e9007e9264b839b7eb053551e07c7",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-3c9f928f085efaae",
+        "review_family_uuid": "6dac43c2-e013-53d7-a22d-60829a90edb4"
+      }
+    },
+    {
+      "case_id": "fr2-positive-440103f8ef3c6b70-lexical_variation",
+      "case_sha256": "0f58753bc417fabdded21f68776a9cefc32402911e13c5a0a4d4544a9b67a6a5",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-440103f8ef3c6b70",
+        "review_family_uuid": "6ba4fb4a-beb8-5315-a1a9-a81ae1b2869e"
+      }
+    },
+    {
+      "case_id": "fr2-positive-440103f8ef3c6b70-marketplace_noise",
+      "case_sha256": "bb839fc180e5d4b11bec56628a06355113e2b705e97f3de596f6a2b9d2a818d5",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-440103f8ef3c6b70",
+        "review_family_uuid": "6ba4fb4a-beb8-5315-a1a9-a81ae1b2869e"
+      }
+    },
+    {
+      "case_id": "fr2-positive-45af5b93f3f6650f-lexical_variation",
+      "case_sha256": "ebd866893c125491047157a37db5001c1966fd1c4b35a3b334cbf90fcb657200",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-45af5b93f3f6650f",
+        "review_family_uuid": "bd871995-1ec2-5b3d-a50d-acbcb0d09693"
+      }
+    },
+    {
+      "case_id": "fr2-positive-45af5b93f3f6650f-marketplace_noise",
+      "case_sha256": "a98b06efb73bb749dd4b1c05ba8da5c9fb0aa09a08151fef8de4e3faae0fb21a",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-45af5b93f3f6650f",
+        "review_family_uuid": "bd871995-1ec2-5b3d-a50d-acbcb0d09693"
+      }
+    },
+    {
+      "case_id": "fr2-positive-4bf5341a133d433b-lexical_variation",
+      "case_sha256": "bb2242d58664c81b278727f07fdf6f8b5be7290920a28f112ce0a8e7ce2a923e",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-4bf5341a133d433b",
+        "review_family_uuid": "8f8ccc44-46e2-5425-b019-3d4bf4362b4e"
+      }
+    },
+    {
+      "case_id": "fr2-positive-4bf5341a133d433b-marketplace_noise",
+      "case_sha256": "06b0cbbe0d99ed94d7493523973dc379b1e733ba21efa8c0747aac77902e62be",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-4bf5341a133d433b",
+        "review_family_uuid": "8f8ccc44-46e2-5425-b019-3d4bf4362b4e"
+      }
+    },
+    {
+      "case_id": "fr2-positive-4d00e96d12341b4d-lexical_variation",
+      "case_sha256": "bd22e93b8ba187ffdc2ec6dcc3cde9c5ae839eb2facf975b587d7ce320c950fd",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-4d00e96d12341b4d",
+        "review_family_uuid": "a79ec2e1-a65e-5c1a-8706-d3792e4d3100"
+      }
+    },
+    {
+      "case_id": "fr2-positive-4d00e96d12341b4d-marketplace_noise",
+      "case_sha256": "43a7daabb6251c157fb627fabba705e2e4cf4406f8192aa92abb591b798f613f",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-4d00e96d12341b4d",
+        "review_family_uuid": "a79ec2e1-a65e-5c1a-8706-d3792e4d3100"
+      }
+    },
+    {
+      "case_id": "fr2-positive-4d2de6db3d5bba63-lexical_variation",
+      "case_sha256": "8770baf365fc6fcb16ba7d3d56a7c1271c8a60aeb426376a5eb12d7c8107a46c",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-4d2de6db3d5bba63",
+        "review_family_uuid": "35fb8efc-6a08-5119-9db0-81b17945b0a9"
+      }
+    },
+    {
+      "case_id": "fr2-positive-4d2de6db3d5bba63-marketplace_noise",
+      "case_sha256": "88492230d5fcdc8fffce154ee38bdf9a8287831cd75bd848d8d54b98a7df3fd6",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-4d2de6db3d5bba63",
+        "review_family_uuid": "35fb8efc-6a08-5119-9db0-81b17945b0a9"
+      }
+    },
+    {
+      "case_id": "fr2-positive-526b697937fde7cc-lexical_variation",
+      "case_sha256": "8958eb7fa41bf8978fc93dc6aa6ba7cf03358f68ea17f3464bd34dd600b85993",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-526b697937fde7cc",
+        "review_family_uuid": "aba0fed4-3be9-5964-9e24-19eaf025d6a2"
+      }
+    },
+    {
+      "case_id": "fr2-positive-526b697937fde7cc-marketplace_noise",
+      "case_sha256": "39d0a4e08f0349e66d2b43dc3c2c6ae2ff60f89f77b632261a7dac56f421833c",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-526b697937fde7cc",
+        "review_family_uuid": "aba0fed4-3be9-5964-9e24-19eaf025d6a2"
+      }
+    },
+    {
+      "case_id": "fr2-positive-57cf5c31afbadc57-lexical_variation",
+      "case_sha256": "9df6e1701e2327a79d97b85fec96aef85c4c4501db21f27c3a09cfb1f693c7a5",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-57cf5c31afbadc57",
+        "review_family_uuid": "a8ac2a98-3a4d-51b8-8425-1fb8de67ec0a"
+      }
+    },
+    {
+      "case_id": "fr2-positive-57cf5c31afbadc57-marketplace_noise",
+      "case_sha256": "91428c79aeb8617106d1cdf0f0122ba94e4ead36337b4ab09fac236bdec7219c",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-57cf5c31afbadc57",
+        "review_family_uuid": "a8ac2a98-3a4d-51b8-8425-1fb8de67ec0a"
+      }
+    },
+    {
+      "case_id": "fr2-positive-59e5682e50af879e-lexical_variation",
+      "case_sha256": "84c9b2c14c3adaaab801e6c6b030a14e6b709220af25796d3f1054913071b9fd",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-59e5682e50af879e",
+        "review_family_uuid": "a8007ff3-fcd1-5c69-b132-f38d380d1490"
+      }
+    },
+    {
+      "case_id": "fr2-positive-59e5682e50af879e-marketplace_noise",
+      "case_sha256": "8ee74bf80bb65689565e0951cefd4c84fc8d6c8fbb9a2f794a355b7ed0e26051",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-59e5682e50af879e",
+        "review_family_uuid": "a8007ff3-fcd1-5c69-b132-f38d380d1490"
+      }
+    },
+    {
+      "case_id": "fr2-positive-7e221ec8ecd02815-lexical_variation",
+      "case_sha256": "60e97805159c53fae7e708787c065ebcbcbb8e1fe0c944b30249f3c49f0c3e7c",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-7e221ec8ecd02815",
+        "review_family_uuid": "47128b94-3d78-5f67-bce1-d8916db74369"
+      }
+    },
+    {
+      "case_id": "fr2-positive-7e221ec8ecd02815-marketplace_noise",
+      "case_sha256": "cdb16bc3e435a7d769dbfa0924ec630ba95483568f2cef1dc603b0c8c4ea65c9",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-7e221ec8ecd02815",
+        "review_family_uuid": "47128b94-3d78-5f67-bce1-d8916db74369"
+      }
+    },
+    {
+      "case_id": "fr2-positive-85226ac5ac0d3f77-lexical_variation",
+      "case_sha256": "3b6f4f434245cf1d5b658372bf9ac0223cbddbcd3a5b8b2d5a585ad45b8b4834",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-85226ac5ac0d3f77",
+        "review_family_uuid": "eeb124d9-93e6-5c63-9578-24e3f843df96"
+      }
+    },
+    {
+      "case_id": "fr2-positive-85226ac5ac0d3f77-marketplace_noise",
+      "case_sha256": "5a77eba2129eb5c83f174e81c18784abb0a783ba142848f935506cf239209dde",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-85226ac5ac0d3f77",
+        "review_family_uuid": "eeb124d9-93e6-5c63-9578-24e3f843df96"
+      }
+    },
+    {
+      "case_id": "fr2-positive-85e407525ac7bf41-lexical_variation",
+      "case_sha256": "29e4781e1a2e9b9617a704016c6f81385725ae892ddeaea71d716c6dbb266b88",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-85e407525ac7bf41",
+        "review_family_uuid": "c68064b7-3d3c-552f-a238-caf3ae2d426c"
+      }
+    },
+    {
+      "case_id": "fr2-positive-85e407525ac7bf41-marketplace_noise",
+      "case_sha256": "57041bc13750e8bff3b4f71fb138541b22d2f1866e39cda94b424074a7765be5",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-85e407525ac7bf41",
+        "review_family_uuid": "c68064b7-3d3c-552f-a238-caf3ae2d426c"
+      }
+    },
+    {
+      "case_id": "fr2-positive-89930c384be2e8bf-lexical_variation",
+      "case_sha256": "116f0334c4b5ef689518585f232cd100d53463922d3e25a6c801e345bbab1bdb",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-89930c384be2e8bf",
+        "review_family_uuid": "bcd60a59-9498-5cda-b422-9c4508de1834"
+      }
+    },
+    {
+      "case_id": "fr2-positive-89930c384be2e8bf-marketplace_noise",
+      "case_sha256": "a5c1d5c3a412693897eef67ce55ccdd4477c72811d8d37419c7ed0dee9f41e44",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-89930c384be2e8bf",
+        "review_family_uuid": "bcd60a59-9498-5cda-b422-9c4508de1834"
+      }
+    },
+    {
+      "case_id": "fr2-positive-8a07157f2af2ddd5-lexical_variation",
+      "case_sha256": "de79b3fe43d6bfb3d18566910b268f799a9f4257e18aaba8acf9745450b150b0",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-8a07157f2af2ddd5",
+        "review_family_uuid": "da4e3339-1ace-5689-acd8-720161aea455"
+      }
+    },
+    {
+      "case_id": "fr2-positive-8a07157f2af2ddd5-marketplace_noise",
+      "case_sha256": "7c2a30c0331ac2d41766d5840e9317374eff615c336d469539d48dc2a6833197",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-8a07157f2af2ddd5",
+        "review_family_uuid": "da4e3339-1ace-5689-acd8-720161aea455"
+      }
+    },
+    {
+      "case_id": "fr2-positive-8cce01fa7d44112a-lexical_variation",
+      "case_sha256": "eae3007148fef8af93ea6633de9a4d51ee3a647ff9d5e7de28796de642353a2b",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-8cce01fa7d44112a",
+        "review_family_uuid": "f5c60f52-ed72-5293-aec9-82b6d9c7e87f"
+      }
+    },
+    {
+      "case_id": "fr2-positive-8cce01fa7d44112a-marketplace_noise",
+      "case_sha256": "f8faa9cad40f60082948efd5063e7bb22608cf352af73fea558c3528406b0e05",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-8cce01fa7d44112a",
+        "review_family_uuid": "f5c60f52-ed72-5293-aec9-82b6d9c7e87f"
+      }
+    },
+    {
+      "case_id": "fr2-positive-9069156ec909a92e-lexical_variation",
+      "case_sha256": "548ea98040d02d17cdecf1508388a7b201cbddce795a35bc861c17c8cb01c576",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-9069156ec909a92e",
+        "review_family_uuid": "45ec7b42-3fb8-5d54-a222-695b3b62d218"
+      }
+    },
+    {
+      "case_id": "fr2-positive-9069156ec909a92e-marketplace_noise",
+      "case_sha256": "d192fffd0bb0526a29a10e4800b7bf5f662cf757ff5b68e1b8003886046a5676",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-9069156ec909a92e",
+        "review_family_uuid": "45ec7b42-3fb8-5d54-a222-695b3b62d218"
+      }
+    },
+    {
+      "case_id": "fr2-positive-99200212d1475ef2-lexical_variation",
+      "case_sha256": "0786b4609b0ce56e1a465a219991a5c0b0c912d1423ac308ee155a82416b7659",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-99200212d1475ef2",
+        "review_family_uuid": "b79039a5-c724-57d2-8553-c66f40c2dd8e"
+      }
+    },
+    {
+      "case_id": "fr2-positive-99200212d1475ef2-marketplace_noise",
+      "case_sha256": "9d21f54fa706132f9d42a44aec671f7aec4d06a761e17a8220becdb65e6de311",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-99200212d1475ef2",
+        "review_family_uuid": "b79039a5-c724-57d2-8553-c66f40c2dd8e"
+      }
+    },
+    {
+      "case_id": "fr2-positive-a1b198f7d235f778-lexical_variation",
+      "case_sha256": "1c16bb00caaf08c6739cec1d59bf75d23971f9d900757d0d33711353643472dc",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-a1b198f7d235f778",
+        "review_family_uuid": "f7fa5052-cef7-59e4-b861-86367745300c"
+      }
+    },
+    {
+      "case_id": "fr2-positive-a1b198f7d235f778-marketplace_noise",
+      "case_sha256": "0fbd4665a434381e47adb178f9c9cf8b8beb0e3491644bc46877227c6be7e151",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-a1b198f7d235f778",
+        "review_family_uuid": "f7fa5052-cef7-59e4-b861-86367745300c"
+      }
+    },
+    {
+      "case_id": "fr2-positive-a2097eead3bd8db9-lexical_variation",
+      "case_sha256": "9828872f68562618f58adf8c9a8e1e19aedf51676bfcb608e3cea2e3b5e4c82c",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-a2097eead3bd8db9",
+        "review_family_uuid": "b1fef4ef-65ec-5136-b015-7ec8fcf88618"
+      }
+    },
+    {
+      "case_id": "fr2-positive-a2097eead3bd8db9-marketplace_noise",
+      "case_sha256": "31eb90e4744bb099e5f7db4c3a0f94e97f3343d06d0381806d0b6d61a83412cf",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-a2097eead3bd8db9",
+        "review_family_uuid": "b1fef4ef-65ec-5136-b015-7ec8fcf88618"
+      }
+    },
+    {
+      "case_id": "fr2-positive-a8e0dec4abdc4131-lexical_variation",
+      "case_sha256": "03ff3ed9d50054d2c9a79a9c6a723e3835f769e1437d607b2422536550fc118c",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-a8e0dec4abdc4131",
+        "review_family_uuid": "689d5988-ede3-5627-8cc9-13fe6c7ade95"
+      }
+    },
+    {
+      "case_id": "fr2-positive-a8e0dec4abdc4131-marketplace_noise",
+      "case_sha256": "17b9a9e278eda64280e7a4f8210a08c1190cfa422e81522e8bc2f9d3df3de2dc",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-a8e0dec4abdc4131",
+        "review_family_uuid": "689d5988-ede3-5627-8cc9-13fe6c7ade95"
+      }
+    },
+    {
+      "case_id": "fr2-positive-aaafff57ac4d4daa-lexical_variation",
+      "case_sha256": "823ab294d0f1d5621f8178952d7d54c03a6d138456c4c5ef89df7b6090a63005",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-aaafff57ac4d4daa",
+        "review_family_uuid": "308c4fe4-bd38-5597-817e-2b1352716801"
+      }
+    },
+    {
+      "case_id": "fr2-positive-aaafff57ac4d4daa-marketplace_noise",
+      "case_sha256": "b5c2a875a3d8a87b22e3ed4d31687ceb7bf17d0d5f6b90da3ae5aab603ef423e",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-aaafff57ac4d4daa",
+        "review_family_uuid": "308c4fe4-bd38-5597-817e-2b1352716801"
+      }
+    },
+    {
+      "case_id": "fr2-positive-aab5350cb90d72ed-lexical_variation",
+      "case_sha256": "d8b7f68e9ab7cc08e2a0d24f229c14ee98a30267888b1b20668eb6a013f2576b",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-aab5350cb90d72ed",
+        "review_family_uuid": "f9818b99-bd8e-5aea-a1d7-3a72816f8b5a"
+      }
+    },
+    {
+      "case_id": "fr2-positive-aab5350cb90d72ed-marketplace_noise",
+      "case_sha256": "a4dcce6d2dde18d10c116fba34d7bbb9cefc902db91b20a60a4d5a77bd4c7f32",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-aab5350cb90d72ed",
+        "review_family_uuid": "f9818b99-bd8e-5aea-a1d7-3a72816f8b5a"
+      }
+    },
+    {
+      "case_id": "fr2-positive-aec11693bfe04245-lexical_variation",
+      "case_sha256": "79325bc5bf10dab3aa9d08db3759c06b36593db4c25d96a8f0eaeeae947bc10c",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-aec11693bfe04245",
+        "review_family_uuid": "1a0cf712-68d0-5c29-b677-78d15b0dd604"
+      }
+    },
+    {
+      "case_id": "fr2-positive-aec11693bfe04245-marketplace_noise",
+      "case_sha256": "dd70732c1dceca5c915465851a85787ad1fb843fa7586d01ac7f2e4bd246cb56",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-aec11693bfe04245",
+        "review_family_uuid": "1a0cf712-68d0-5c29-b677-78d15b0dd604"
+      }
+    },
+    {
+      "case_id": "fr2-positive-b31d285560d8a242-lexical_variation",
+      "case_sha256": "e41da889d8fbfca6af66cd922d80ea018eedd370040fb34b75d920a4b9066707",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-b31d285560d8a242",
+        "review_family_uuid": "a676a5e0-57ce-5768-ae7e-6e2929c7643c"
+      }
+    },
+    {
+      "case_id": "fr2-positive-b31d285560d8a242-marketplace_noise",
+      "case_sha256": "8ebe65032fa67c004b4cd26222462aadd98f1e21cd3d7bd6bd692025c6435934",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-b31d285560d8a242",
+        "review_family_uuid": "a676a5e0-57ce-5768-ae7e-6e2929c7643c"
+      }
+    },
+    {
+      "case_id": "fr2-positive-b3cd4f5a5f7e196a-lexical_variation",
+      "case_sha256": "fa2a045e1fe93212f27ba5e8b9d94e859ed532eab608a3b1376cae4c9d1a360f",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-b3cd4f5a5f7e196a",
+        "review_family_uuid": "489e09ad-b7bf-5052-ab0b-1b70236c054a"
+      }
+    },
+    {
+      "case_id": "fr2-positive-b3cd4f5a5f7e196a-marketplace_noise",
+      "case_sha256": "deb14a55f237b3e0510647ade280fb4560922c20343a40880ea9c262f2f3ff8a",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-b3cd4f5a5f7e196a",
+        "review_family_uuid": "489e09ad-b7bf-5052-ab0b-1b70236c054a"
+      }
+    },
+    {
+      "case_id": "fr2-positive-c655fb5244c584ae-lexical_variation",
+      "case_sha256": "c54f4610a0af337319cc65fb45547d30b15f8a9f56074f7236e31216b3b806e1",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-c655fb5244c584ae",
+        "review_family_uuid": "bda500e0-210b-5b19-a722-deacd97392f9"
+      }
+    },
+    {
+      "case_id": "fr2-positive-c655fb5244c584ae-marketplace_noise",
+      "case_sha256": "f7294810a613aa7a072aa2572d0aaf6e22058b9b84fc9a78c045c8c1eecb6530",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-c655fb5244c584ae",
+        "review_family_uuid": "bda500e0-210b-5b19-a722-deacd97392f9"
+      }
+    },
+    {
+      "case_id": "fr2-positive-d114c33db6fa215b-lexical_variation",
+      "case_sha256": "e9b959588fec070d4665cdf0a929148c65b7fd5d2e498c3fc4d992a5c8a0969a",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d114c33db6fa215b",
+        "review_family_uuid": "78e6048e-1b7f-5553-8315-deb354a6b8e4"
+      }
+    },
+    {
+      "case_id": "fr2-positive-d114c33db6fa215b-marketplace_noise",
+      "case_sha256": "0656ca1c1f027202d3abde4fecee8a46dcbf2c72cadc51655b6bdbb9374501f6",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d114c33db6fa215b",
+        "review_family_uuid": "78e6048e-1b7f-5553-8315-deb354a6b8e4"
+      }
+    },
+    {
+      "case_id": "fr2-positive-d5c83bb87be8cab0-lexical_variation",
+      "case_sha256": "2f0e5d316b065dcf3fdb085c8060a647c3050e3ef435791fed8021d0a90168dc",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d5c83bb87be8cab0",
+        "review_family_uuid": "ca29331e-5db5-5396-aa2b-02fadd13acec"
+      }
+    },
+    {
+      "case_id": "fr2-positive-d5c83bb87be8cab0-marketplace_noise",
+      "case_sha256": "d806748e1fa7c5b2ca5c3f6780f0876c168ead11911c27dc3983d2f9aa90334a",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d5c83bb87be8cab0",
+        "review_family_uuid": "ca29331e-5db5-5396-aa2b-02fadd13acec"
+      }
+    },
+    {
+      "case_id": "fr2-positive-d816204cf649a0c0-lexical_variation",
+      "case_sha256": "3221baccec4e03d8346b2fcd2a848361747b92eeafe5395e2cfd3990c9ff186e",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d816204cf649a0c0",
+        "review_family_uuid": "a8372fd7-0084-530c-9649-177ebaddb735"
+      }
+    },
+    {
+      "case_id": "fr2-positive-d816204cf649a0c0-marketplace_noise",
+      "case_sha256": "87158023fae8887bceada5b8c0cf4283db6c8f951b676c7b552de3c81a3be99c",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d816204cf649a0c0",
+        "review_family_uuid": "a8372fd7-0084-530c-9649-177ebaddb735"
+      }
+    },
+    {
+      "case_id": "fr2-positive-d90841788b1d98a2-lexical_variation",
+      "case_sha256": "413af9f1ff1612c9c062a759154fbd692a5b6a083499726326e90e95f7f76e0d",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d90841788b1d98a2",
+        "review_family_uuid": "838b2cff-2e36-54f0-a184-29685b653482"
+      }
+    },
+    {
+      "case_id": "fr2-positive-d90841788b1d98a2-marketplace_noise",
+      "case_sha256": "9edab1d94f857b6af5e639a4a5cfdd5484989bc28b58bf0b9dc55cc7ebdf4569",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-d90841788b1d98a2",
+        "review_family_uuid": "838b2cff-2e36-54f0-a184-29685b653482"
+      }
+    },
+    {
+      "case_id": "fr2-positive-db3fe3a0103099ec-lexical_variation",
+      "case_sha256": "62f0071f80a239ecd71c9abb006a5185f1b90567ba2545926f71e3afb29d996b",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-db3fe3a0103099ec",
+        "review_family_uuid": "1ba5e3b4-8489-509f-97f3-2e03f27ae141"
+      }
+    },
+    {
+      "case_id": "fr2-positive-db3fe3a0103099ec-marketplace_noise",
+      "case_sha256": "82c562e5b703e827078f68da7bb359e413d78fbd8b8e0a2395303dfe97d5157d",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-db3fe3a0103099ec",
+        "review_family_uuid": "1ba5e3b4-8489-509f-97f3-2e03f27ae141"
+      }
+    },
+    {
+      "case_id": "fr2-positive-e7d4d8cf1dd8c6e1-lexical_variation",
+      "case_sha256": "9e8409211c12b3f07eb861b29a4ff288cd2991b06f26a004d6504c014d52164c",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-e7d4d8cf1dd8c6e1",
+        "review_family_uuid": "39731a3b-9b07-558a-a29b-76781343d5ba"
+      }
+    },
+    {
+      "case_id": "fr2-positive-e7d4d8cf1dd8c6e1-marketplace_noise",
+      "case_sha256": "f46cf6132f44daf3f318cb9baea0e745176b3929a1e88a5498805b79cce40e75",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-e7d4d8cf1dd8c6e1",
+        "review_family_uuid": "39731a3b-9b07-558a-a29b-76781343d5ba"
+      }
+    },
+    {
+      "case_id": "fr2-positive-fd96307f2dc8b421-lexical_variation",
+      "case_sha256": "3b3e932dcf04c99a5eb98ed3e29ffdb663b523e3f378ea3143ad11bb87e8d9e2",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-fd96307f2dc8b421",
+        "review_family_uuid": "f0d4f80f-107f-5ab0-86a5-191af39a30de"
+      }
+    },
+    {
+      "case_id": "fr2-positive-fd96307f2dc8b421-marketplace_noise",
+      "case_sha256": "6a99d447d21466afa4fab5b849a934ee0066a1afbf2d2fc5067a581a7bad626b",
+      "decision": "approve",
+      "expected": {
+        "knowledge_type": "review_family",
+        "review_family_id": "fandom-family-fd96307f2dc8b421",
+        "review_family_uuid": "f0d4f80f-107f-5ab0-86a5-191af39a30de"
+      }
+    },
+    {
+      "case_id": "fr2-unrelated-00",
+      "case_sha256": "5f0f6156e000813a58aea6fa25e38573924054a326e7566e1bc6fd603193655d",
+      "decision": "approve",
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": true
+      }
+    },
+    {
+      "case_id": "fr2-unrelated-01",
+      "case_sha256": "6f1d4ea2c00a25760c8f76f739ae2a920be52c64ba1ca0941598644ad4e11b02",
+      "decision": "approve",
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": true
+      }
+    },
+    {
+      "case_id": "fr2-unrelated-02",
+      "case_sha256": "b69175d28377eaae2889bddb823b29b1959801f657dfaf39f04b81c095d2e9a9",
+      "decision": "approve",
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": true
+      }
+    },
+    {
+      "case_id": "fr2-unrelated-03",
+      "case_sha256": "188d226c371b3242479b013685f31a8078653a7e769cde2bb7555c9ef33b1c81",
+      "decision": "approve",
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": true
+      }
+    },
+    {
+      "case_id": "fr2-unrelated-04",
+      "case_sha256": "50e7e18a710ba907914675e96319269ff6937318c31cba12d67e3add60da30be",
+      "decision": "approve",
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": true
+      }
+    },
+    {
+      "case_id": "fr2-unrelated-05",
+      "case_sha256": "1fa3777130738451fd53126209e3d911e7032b943f586aa4bd7d0bdf92a6046f",
+      "decision": "approve",
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": true
+      }
+    },
+    {
+      "case_id": "fr2-unrelated-06",
+      "case_sha256": "211c9820f477369b148fd5089d81409ab87f0989fda2012193f996f405e865d5",
+      "decision": "approve",
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": true
+      }
+    },
+    {
+      "case_id": "fr2-unrelated-07",
+      "case_sha256": "2fadfa9280e851ebe8e740dbfe48b25a9e98cfbb9e32a8e2879b2d101b7a78f9",
+      "decision": "approve",
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": true
+      }
+    },
+    {
+      "case_id": "fr2-unrelated-08",
+      "case_sha256": "562dcdce77de2520cc8192170aaa18c58357edf2bd52e780d6fcabd4bd19334f",
+      "decision": "approve",
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": true
+      }
+    },
+    {
+      "case_id": "fr2-unrelated-09",
+      "case_sha256": "f3b81278131d1f11a8f141eb6f13cce56c5962219dc7f42c4400606b5d4d3a13",
+      "decision": "approve",
+      "expected": {
+        "expected_candidate_count": 0,
+        "zero_token_overlap": true
+      }
+    }
+  ],
+  "evidence_method": "visible_conversation_excerpts_not_signed_identity_proof",
+  "message_timestamp": null,
+  "new_final_retrieval_executed": false,
+  "query_commit": "8f2891882f2836bfe492c7404e01654dea8b9fd9",
+  "query_pack_sha256": "b23b69912c678c027461c96eb23f113484c5a8ed6218c06d90026704abe5102b",
+  "recorded_at": "2026-09-14T16:36:32Z",
+  "recorded_by": "codex",
+  "schema_version": "pvr-family-retrieval-owner-decisions-v2",
+  "scope": "casting_family_targets_only_not_release_variant_or_canonical_ground_truth",
+  "status": "approved"
+}

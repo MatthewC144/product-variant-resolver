@@ -4875,6 +4875,82 @@ approval/label/scoring implementation is intentionally deferred. After approval,
 labels and commit benchmark before one final score, then runtime/regression closure. Unseen typo/
 numeric/alias ambiguity and negative character overlap remain risks; T49 is still not authorized.
 
+## 2026-09-14 — IBR-T4 owner-approved family labels and benchmark
+
+### Context, problem and observable outcome
+
+The105 output-blind questions were frozen but deliberately had no formal answers because owner
+consent was missing. A generic next-step message did not close that gate. The owner then explicitly
+confirmed the validation targets and raised an important scope question: colors and distinguishing
+features matter as much as casting for the final product. I inspected the actual signal/identity/
+structured-ranking/policy code and explained that existing color/year/series/number mechanisms
+do not amount to complete wheel/tampo or real variant validation. This105-question pack validates
+casting/family retrieval only. After that explanation, the owner replied `沒有問題，請繼續下一步`.
+The approved targets now have105 attributable, reproducible family-level answers and a frozen
+benchmark, without running any of their retrieval queries or inferring release/canonical truth.
+
+### Code changes and why they are separate
+
+The new `src/product_variant_resolver/family_retrieval_final_v2_labels.py` validates committed
+question/review bytes at8f28918 and the existing winner/input chain, derives labels from the frozen
+registry/projection/human casting data, records actual conversation excerpts, and provides strict
+label/source/metadata and commit-before-score checks. The new
+`scripts/build_family_retrieval_benchmark_v2.py` offers exclusive freeze, pure validation and
+committed validation commands. Keeping these separate is necessary: the previous question author
+and v4 runtime/evaluator sources are checksum-bound and must not be retroactively changed. Their
+pending-review flags describe a historical freeze, not the new approval status.
+
+The three approved documents are published together under `data/evaluation/family-retrieval-v2/
+approved/`, preserving the original questions. Positive answers name review-family IDs/UUIDs;
+merge answers name provisional casting IDs/UUIDs, not release UUIDs. Held controls exclude only
+the held identity and may return other legitimate evidence; unrelated controls require no hits.
+The manifest binds every case and all input/builder bytes. The new28-test label suite checks
+exact mappings, missing/partial/duplicate/rejected approvals, generic-only proceed instructions,
+changed queries/targets/gates/scope, stale builders, bool/int substitutions, recording times,
+repeat-preservation, partial-publication failure and commit gates. The old query test was narrowed
+to immutable top-level files so a legitimate separate approved child does not invalidate history.
+Live design/tasks/QA/README, evidence/AI rubric and D44 now describe this completed label stage.
+
+### Method choice, trade-offs and decision boundaries
+
+Existing Python standard-library JSON/SHA/Git/private staging is sufficient; no new dependencies,
+agents, database writes or external model are needed. Reusing confirmed registry targets avoids
+inventing colors or converting provisional labels to canonical truth. Publishing one complete
+child directory was selected over writing three independent final files, which could leave a
+partially approved benchmark after an interrupted write. Exact type-sensitive reconstruction
+guards against metadata and scope drift; the scorer must also prove committed, unchanged bytes.
+
+Consent is recorded as a whole-pack target approval, not105 independent hand-labeling events or
+cryptographically signed identity evidence. Recording time16:36:32Z is available; actual message
+timestamps are not, so the record stores null rather than inventing them. The version's context
+validator requires the actual target/scope/proceed excerpts, not a generic consent NLP classifier.
+At10×, data validation and SHA reads grow with artifact size but do not run retrieval or train a
+model. The most damaging failure would be promoting family answers to release truth; explicit
+scope and tests prevent that claim. No threshold, query, identity policy or winner decision changed.
+The earlier broader variant goal remains required work, not implicitly satisfied by family tests.
+
+### Verification actually run
+
+28 new label tests and50 combined query/label tests PASS; the correct
+`PYTHONPATH=src .venv/bin/python -m pytest` invocation passes379 tests, no skips, one existing
+Starlette/AnyIO deprecation warning. The initial full invocation omitted PYTHONPATH and had
+378 pass/1 subprocess module-resolution failure; fixing the launch environment, without product
+edits, resolves it. The first Node check named a nonexistent nested UI path; the correct
+`node --check ui/app.js` passes. Focused Ruff F/I and isolated strict MyPy, compilation, current
+label and original question validators, v4 JSON/Markdown replay, protocol, v1 benchmark/Markdown
+reproduction PASS. These are actual engineering checks, not final-v2 ranking or runtime benchmarks.
+The actual precommit benchmark CLI refuses scoring eligibility until the label artifacts are committed.
+No fresh container/HTTP/SQL/load check or real3000-product ingestion ran.
+
+### Remaining risks and next step
+
+See [approval/label evidence](evidence/family-retrieval-final-v2-label-freeze.md) for all artifact
+hashes and consent details. Query SHA remainsb23b6991; the benchmark is now frozen independently.
+The final-v2 retrieval/ranks/score are still absent. Next commit/push this benchmark and verify
+its commit gate, then T5 performs one final evaluation followed by runtime/full regression closure.
+Synthetic same-family author bias, alias/typo ambiguity and true variant-data gaps remain disclosed.
+Defaultv2 stays unchanged; old FAILs, real SQL promotion and T49/real expansion remain gated.
+
 ## Required format for future entries
 
 Every future project-log entry must preserve the following traceability structure:

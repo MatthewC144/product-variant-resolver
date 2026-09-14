@@ -454,7 +454,7 @@ Current project checklist (engineering completion is not retrieval-quality appro
 - [x] IBR-T2: v4 implementation, oracle/caps/isolated API/UI/evidence validation.
 - [x] IBR-T3: all 21 configurations/4,179 real outputs and 2,520 scale outputs frozen; development PASS.
 - [x] IBR-T4 preparation: freeze 105 new output-blind final question/reference pairs after winner commit.
-- [ ] IBR-T4 approval/labels: owner confirms frozen pairs/checksum, then record approval/build benchmark.
+- [x] IBR-T4 approval/labels: owner confirmed targets/scope; 105 decisions and benchmark frozen separately.
 - [ ] IBR-T5: one final score, full closure and runtime packaging verification; preserve FAIL without tuning.
 - [ ] T49 and later: design reviewed real-catalog expansion toward 3,000 rows only after final PASS.
 - [ ] End-to-end demonstration and beginner code review after project delivery.
@@ -483,7 +483,7 @@ measurement briefly overlapped the pre-run test process, disclosed in evidence w
 The original FAILs and T49 blockade remain. Synthetic 3,000-document workload is not 3,000 real
 products inserted into PostgreSQL.
 
-**IBR-T4 preparation complete — owner confirmation required.**
+**IBR-T4 complete — owner-approved family benchmark frozen; no final score yet.**
 [Review all 105 frozen questions and intended targets](data/evaluation/family-retrieval-v2/owner-review.md).
 The query pack has 84 positives (42 families × marketplace/lexical), 4 merge, 7 hold and 10 unrelated
 controls. It rejects copied old final/development/indexed strings, compact duplicates and nonempty
@@ -494,17 +494,27 @@ unseen-casting split. No new final candidate has been executed or viewed.
 Authoritative query-pack SHA-256:
 `b23b69912c678c027461c96eb23f113484c5a8ed6218c06d90026704abe5102b`.
 Full case hashes/source checks are in its manifest; the owner table presents every query/target pair.
-No owner decisions, expected labels, benchmark or final score exist. Explicit approval must precede
-those steps. Coverage means retrieved **families/42**, not positive-query response count. A misnamed
+Owner target confirmation and consent following the variant-scope explanation are recorded in
+[`approved/owner-decisions.json`](data/evaluation/family-retrieval-v2/approved/owner-decisions.json).
+All 105 formal family labels are in
+[`approved/benchmark.json`](data/evaluation/family-retrieval-v2/approved/benchmark.json), bound to
+question/case/builder hashes. This is casting/family truth, not color/wheel/tampo/release-variant or
+canonical ground truth. Held controls prohibit the held family; they do not require all valid hits
+to disappear. No final-v2 retrieval/score exists. Coverage means retrieved **families/42**, not
+positive-query response count. A misnamed
 unapproved metadata draft is preserved under `family-retrieval-v2-superseded-draft-01`, not eligible
 for approval or scoring. Questions were unchanged and no model output informed this correction.
 
 ```bash
 PYTHONPATH=src .venv/bin/python scripts/author_family_retrieval_query_pack_v2.py --check
+PYTHONPATH=src .venv/bin/python scripts/build_family_retrieval_benchmark_v2.py --check
+PYTHONPATH=src .venv/bin/python scripts/build_family_retrieval_benchmark_v2.py --check-committed
 ```
 
-Next: owner approval of frozen 105 pairs/checksum → approval/labels and committed benchmark →
-one final evaluation/runtime closure. Default v2 and T49/real expansion remain gated.
+The original question checker still describes its historical pending-review checkpoint; its flags
+and source bytes remain immutable. Use the new benchmark checker for current approval status;
+`--check-committed` refuses uncommitted or modified labels/builders before T5. Next: one final
+evaluation/runtime closure after benchmark commit. Default v2 and T49/real expansion remain gated.
 
 ## Docker and PostgreSQL status
 
