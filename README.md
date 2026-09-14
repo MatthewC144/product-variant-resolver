@@ -459,7 +459,7 @@ Current project checklist (engineering completion is not retrieval-quality appro
 - [x] T49 planning: persistence/variant-roadmap drafted; broader owner G1 confirmation pending.
 - [x] T49.1: narrowly authorized local-only142-document import-plan/checker;37focused tests PASS, no DB/network write.
 - [x] T49.2: isolated PostgreSQL142doc storage/transaction verification;25new/473full tests PASS; owned test resources cleaned.
-- [x] T49.3 planning: optionalfile/DBprofile +199dev parity/failure/costprotocol drafted; requirements confirmed, design/tasks pending, no newruntime results.
+- [x] T49.3 planning: optionalfile/DBprofile +199dev parity/failure/costprotocol drafted; requirements/design confirmed, tasks/budgets pending, no newruntime results.
 - [ ] T49.3: freeze a new optional storage-profile/source/development-cost protocol before runtime integration.
 - [ ] Later: isolated persistence and source/field-reviewed real variant expansion; separate rollout gates.
 - [ ] End-to-end demonstration and beginner code review after project delivery.
@@ -578,8 +578,9 @@ propose newfile/DB hydration plus perrequestfullsnapshot readonlyintegrity gate/
 unchangedv4math/canonicalauthority. SQLvalidates142docs, not vector/candidateTopK; itsnetwork/time
 is included inproposedHTTPcost.199dev parity and fixedbudgets requireconfirmation/freeze before
 implementation/measurement. FullT49.3/HSP1–4/T49.4 remainunchecked; currentdraft has no newprofile
-runtime results. [Requirements confirmation](specs/human-storage-profile-development/approval.md)
-is recorded; design and tasks/budgets still need separate confirmation. There is no newprofile
+runtime results. [Requirements/design confirmation](specs/human-storage-profile-development/approval.md)
+is recorded; tasks/budgets still need confirmation, and a new isolated SQL run needs separate
+authorization. There is no newprofile
 code/DBoperation/latency/accuracy output. Current source access/rights
 remain unverified; no bypass/media collection/real3kexpansion.
 

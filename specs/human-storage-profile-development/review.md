@@ -2,7 +2,8 @@
 
 Date:2026-09-14. Lite. Draft completeness/grounding PASS; G1* owner confirmation WAIT.
 Requirements now CONFIRMED at the exact source recorded in [approval ledger](approval.md);
-design and tasks/budgets remain WAIT. Requirements confirmation is not implementation approval.
+design now CONFIRMED at the ledger's exact source; tasks/budgets remain WAIT. These two
+confirmations do not yet pass G1 or authorize implementation or a new isolated SQL run.
 HSP1–4 implementation/freeze/SQL/profilecost:NOT RUN. FullT49.3/T49.4 remain unchecked.
 
 | Requirement | Draft acceptance path |

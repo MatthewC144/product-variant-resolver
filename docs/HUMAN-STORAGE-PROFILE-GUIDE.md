@@ -44,6 +44,33 @@ typed內容與work counters；正式nondebug商品結果也要與原API完全相
 這次交付[需求](../specs/human-storage-profile-development/requirements.md)、
 [設計](../specs/human-storage-profile-development/design.md)、
 [任務／測試步驟](../specs/human-storage-profile-development/tasks.md)與協議草案。
-需求已確認，見[確認紀錄](../specs/human-storage-profile-development/approval.md)。接著確認設計，
-再確認任務與預算，才freeze並開始實作。沒有新增DB、角色、資料、
+需求與設計已確認，見[確認紀錄](../specs/human-storage-profile-development/approval.md)。接著
+確認任務與預算，才freeze並開始實作。沒有新增DB、角色、資料、
 UUID或正式部署；T49.3完整實作、T49.4封裝驗收與約3,000筆真實資料擴充都尚未完成。
+
+## 待確認：任務與測試時間上限
+
+HSP-1先封存已確認的規格、資料版本與測試協議，防止看到結果後更換資料或標準。
+HSP-2再新增讀檔案／資料庫的profile與API入口，先用單元及模擬測試驗證正常、失敗與
+既有API契約；模擬測試不代表真實PostgreSQL已通過。
+
+HSP-3需要另外明確批准新的隔離測試環境，才建立一次性資料庫與唯讀角色。
+用固定199題各跑file／DB一路，另199次原API作正式答案參考；逐筆比對排序、分數、
+ID及資料內容，要求199/199一致。零重試、零正確性預熱，未命中與錯誤原樣保留；
+另外驗證缺資料、斷線、資料被改、503鎖定及讀取角色不能寫入，清理僅限新建資源。
+
+HSP-4依封存協議量測成本、完成QA與日誌，不能為了過關而修改門檻或重跑挑結果。
+每一路啟動取5個獨立程序樣本；HTTP與純檢索各預熱3次，再各取199個樣本，單一worker、
+循序請求。原API的199次只是正確性參考，不是新的效能基準。
+
+| 測量部分 | 提議p95上限 | 計時範圍 |
+|---|---|---|
+| profile啟動初始化 | 5,000毫秒 | 驗證知識與建立索引；不含Python匯入、程序／Docker啟動及DB建立 |
+| 每次snapshot完整性核對 | 150毫秒 | 新adapter記錄的完整核對工作 |
+| 完整HTTP請求 | 250毫秒 | 含核對、SQL／網路、檢索、回應序列化與解析 |
+| 純human檢索 | 25毫秒 | 已建好索引與抽取訊號，不含SQL、核對或HTTP |
+
+p95是將耗時排序後約95%樣本不超過的數值，採nearest-rank。啟動只有5個樣本，
+其p95等於最慢樣本，不代表可靠的長期統計。這些是142筆知識的本機工程驗收門檻，
+不是已達成的結果、正式服務保證或3,000筆規模承諾；「預算」指耗時上限，不是金錢。
+任務／預算確認後先執行HSP-1；不因此自動取得HSP-3新隔離SQL run的授權。

@@ -5441,6 +5441,31 @@ canonical仍控制正式答案，human仍只提供debug證據，舊檢索數學�
 下一步先取得設計確認，再送交任務／預算確認，之後才可執行HSP-1的封存工作。
 Full T49.3/HSP1–4/T49.4仍未完成，所有本次文件都保留在獨立專案資料夾。
 
+## 2026-09-14 — T49.3 設計確認與任務／成本交接（Lite）
+
+Owner在設計說明後回覆「確認 繼續下一步」。本次把確認綁定到7a90be0的design文件
+SHA-256，補入[確認ledger](../specs/human-storage-profile-development/approval.md)，
+保留已確認的需求及設計bytes。這解決需求已批准但設計狀態仍停留WAIT的追蹤落差，
+並且沒有把「下一步」擴大成全部任務、成本預算或新SQL環境已獲批准。
+
+修改僅涉及protocol的design flag、ledger、tasks/review、README、教學指南與AI rubric。
+教學指南補充四個任務順序及成本計時界線，讓不熟程式的owner知道先封存再實作、
+模擬API測試與真實SQL證據不同，以及為何完整HTTP耗時不能用純記憶體檢索耗時代替。
+沒有新增產品模組或migration。整體G1仍等待第三份任務／預算確認，execution bindings
+仍null，新輸出與執行flags仍false；HSP1–4及Full T49.3仍未勾選。
+
+方法與技術棧維持已確認設計，不重新挑選檢索模型。成本協議保留每一路5個獨立程序
+初始化樣本、HTTP／core各3次預熱及199樣本、單worker循序測量，及5000／150／250／25ms
+四個p95門檻。門檻是待批准的本機工程上限，不是已測SLA；特別說明5個啟動樣本的
+nearest-rank p95就是最慢樣本，避免讓小樣本看起來像可靠的長期延遲統計。成本預熱
+不混入199題零預熱的正確性比較，也不重跑挑選成功結果。HSP-3新隔離SQL run仍需
+另外明確授權，既有測試庫或volume不在scope內。
+
+實際驗證只有JSON確認界線、原需求／設計SHA未變與git diff whitespace檢查PASS。
+本次没有新測試套件、SQL、檢索或效能輸出，既有473 tests仍只屬上游證據。下一個
+最高價值步驟是確認任務／耗時預算，然後執行HSP-1封存，不是立刻建立工作資料庫。
+所有文件仍限於Product Variant Resolver資料夾，project log保留原因、取捨與未完成項。
+
 ## Required format for future entries
 
 Every future project-log entry must preserve the following traceability structure:

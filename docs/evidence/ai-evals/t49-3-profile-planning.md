@@ -13,3 +13,11 @@ real3kclaim. Extendability SCOPE ONLY:142immutable namespace, newprofile/source/
 legacyguard/count constraints not silentlyrelaxed. Docs/log/status distinguish draftfromfullcompletion.
 Storedupstreamchecks PASS without newSQL/retrieval; no currentruntime/profileaccuracy gatepassed.
 See `docs/evidence/t49-3-planning.md` and the newprofile specifications.
+
+Subsequent confirmation review: requirements and design are now owner-confirmed with exact
+commit/file SHA anchors in `specs/human-storage-profile-development/approval.md`; their bytes
+remain unchanged. Tasks/budgets and overall G1 remain WAIT. Updated draft flags retain null
+execution bindings and false new-output/execution flags. The beginner task/cost explanation
+matches the draft's sample counts, stages and ceilings and does not claim measured performance;
+five-startup-sample p95 is explicitly the maximum. Static approval-state/hash/whitespace checks
+PASS; no new code, SQL, retrieval, test-suite run or runtime PASS is asserted.
