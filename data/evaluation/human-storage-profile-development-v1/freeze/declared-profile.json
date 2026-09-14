@@ -1,0 +1,67 @@
+{
+  "actual_adapter_source_manifest_sha256": null,
+  "credentials": "temporary_external_environment_only_not_in_artifacts",
+  "human_authority": "debug_only_canonical_unchanged",
+  "legacy_math_protocol_sha256": "31802be99f02698423c4526bbd8752e6f517fcbef8ca8080926d019f55083fde",
+  "mathematics": {
+    "character_rrf_weight": 1.0,
+    "character_score_floor": 0.5,
+    "dense_union_max": 50,
+    "hash_dimensions": 192,
+    "http_title_max_characters": 500,
+    "identity_forms_per_document": 32,
+    "legacy_math_manifest_sha256": "b7634f7f3d52277c4ee4d92489b656fcf1a6c446d56085c5affb7cb7a12c6ea7",
+    "legacy_math_protocol_sha256": "31802be99f02698423c4526bbd8752e6f517fcbef8ca8080926d019f55083fde",
+    "parameter_search": false,
+    "posting_entries_visited_max": 1000000,
+    "profile_winner_selection": false,
+    "query_characters": 512,
+    "query_forms_max": 256,
+    "query_tokens_before_noise": 64,
+    "retriever": "human-knowledge-hybrid-v4",
+    "rrf_k": 60,
+    "source_candidates": 25
+  },
+  "modes": [
+    "file_snapshot_reference",
+    "postgres_snapshot_experiment"
+  ],
+  "planned_entrypoint": "product_variant_resolver.human_knowledge_storage_app:create_app",
+  "planned_modules": [
+    "src/product_variant_resolver/human_knowledge_storage_profile.py",
+    "src/product_variant_resolver/human_knowledge_storage_app.py"
+  ],
+  "profile_version": "human-storage-hydration-development-v1",
+  "readiness": {
+    "application_migration_import_or_repair": false,
+    "automatic_retry": false,
+    "canonical_backend": "offline",
+    "db_application_transaction": "repeatable_read_read_only",
+    "db_role": "dedicated_select_only_on_two_human_tables",
+    "db_url_environment": "PVR_HUMAN_STORAGE_TEST_DATABASE_URL",
+    "disposable_database_name": "pvr_t49_2_<12hex>",
+    "failure_latch": "until_process_restart",
+    "fallback_or_latest_selection": false,
+    "index_hydration": "once_at_startup",
+    "integrity_gate": "full_selected_snapshot_and_pinned_sources_before_health_or_valid_resolve",
+    "runtime_failure_status": 503,
+    "sql_vector_or_candidate_retrieval": false,
+    "startup_failure_status": 503
+  },
+  "ready_for_real_outputs": false,
+  "runtime_image_ids": null,
+  "schema_version": "pvr-human-storage-declared-profile-v1",
+  "snapshot": {
+    "content_sha256": "f7830e460650e99ab5107ec0f049c96d2dcf322daa5c140c5847a53f969e144f",
+    "documents": 142,
+    "id": "human-knowledge-plan-v1-f7830e460650e99ab5107ec0f049c96d2dcf322daa5c140c5847a53f969e144f",
+    "pinned_source_file_count": 12,
+    "plan_byte_sha256": "d56391d19bf2d61acb422c05c9e9b8a21aaab81efe5c0185b0529a58d39a11a2",
+    "plan_file": "reports/human-knowledge-snapshot-v1/plan.json",
+    "type_counts": {
+      "provisional_variant": 100,
+      "review_family": 42
+    }
+  },
+  "status": "declared_contract_not_runtime_artifact"
+}

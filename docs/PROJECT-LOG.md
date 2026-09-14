@@ -5466,6 +5466,40 @@ nearest-rank p95就是最慢樣本，避免讓小樣本看起來像可靠的長�
 最高價值步驟是確認任務／耗時預算，然後執行HSP-1封存，不是立刻建立工作資料庫。
 所有文件仍限於Product Variant Resolver資料夾，project log保留原因、取捨與未完成項。
 
+## 2026-09-14 — HSP-1 開始實作：封存已批准的輸入，而非宣稱API整合完成
+
+Owner在任務／耗時上限說明後指示「開始執行」。本次完成第三份確認，通過限定於新
+storage profile的G1，並實際執行第一個任務。原本只有草案與口頭確認，尚不能確定日後
+測試用的是哪份規格；現在新增8檔案封存，保存原需求、設計、任務、協議草案bytes，
+以及批准紀錄、新protocol、宣告profile與manifest。它綁定26個既有輸入指紋，不新增
+142筆副本或商品UUID，也沒有開始199題實驗／SQL run。參見[實際驗收證據](evidence/t49-3-input-freeze.md)。
+
+新增`scripts/freeze_human_storage_development.py`負責明確Git版本的規格讀取、SHA核對、
+衍生批准協議、exclusive publication與check；新增test文件以暫存資料測資料改動、
+缺檔／多檔／symlink、改規格或producer、拒絕覆寫及pending狀態。程式選用Python標準庫，
+沒有安裝SQL或模型依賴：這一步只需Git與檔案驗證，用資料庫工具反而增加範圍與憑證風險。
+先提交producer為448f9c0，再產生封存，讓manifest能指回真正已提交的產生程式。
+
+設計沒有重新選型。保留舊math protocol，另建storage protocol；approved_spec hash是
+四份commit/path/SHA bindings的canonical JSON指紋，原文件各自也有byte SHA。
+選Git snapshot而非改寫所有draft標頭，是為了留下owner實際確認內容。選exclusive
+publication而非覆寫既有結果，是為了留下失敗或變動痕跡；代價是程序被殺可能留partial
+directory，必須由check拒絕，不能宣稱crash-atomic或OS強制不可寫。
+新profile仍只是合約，actual adapter/import manifest及image IDs都null，ready=false；
+後续HSP-2需補完並封存全imported sources/runtime，不能沿用此次不完整runtime binding。
+
+實際新增16項測試PASS；Ruff F/I與isolated strict MyPy PASS，freeze／check均PASS。
+第一次完整pytest未帶PYTHONPATH，488PASS／1FAIL：既有report測試的子程序找不到套件。
+沒有改產品碼或測試assertion，補上既有執行方式`PYTHONPATH=src`後489PASS，保留一項
+Starlette／AnyIO既有deprecation warning。這是修正測試呼叫環境，不是重跑真實實驗挑結果；
+兩次結果都寫入evidence。14.22秒是測試套件耗時，不當成profile latency。
+既有src、migration、config、核心資料與舊supervisor差異為空；沒有新增DB或憑證。
+
+決策D50只接受input freeze，D49 runtime安全／成本尚未驗證。HSP-1勾選完成，但Full
+T49.3、HSP2–4與T49.4不勾選。下一步新增profile loader、唯讀完整性gate與組合式API入口，
+先以單元／模擬測試驗證；HSP-3真實SQL隔離環境仍須另外明確批准。所有產物與日誌
+都位於Product Variant Resolver獨立repo，沒有把root agent設定納入推送。
+
 ## Required format for future entries
 
 Every future project-log entry must preserve the following traceability structure:

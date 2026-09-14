@@ -9,6 +9,11 @@ T49.2 scoped G2/G3*:PASS:realPostgreSQL142roundtrip,71docfaultfullrollback, conc
 repeat identical rows/timestamp, corrupt/partial rejection, canonical7tables unchanged, ownershipcleanup.
 25new/473full tests PASS. No production/runtime-profile/per-query-SQL/cost/variant-quality gate passed.
 
+Subsequent scoped T49.3 G1:PASS after three sequential confirmations with exact commit/SHA sources.
+HSP-1:PASS,8file inputfreeze/26pins,16new/489full tests, Ruff F/I/isolated strict MyPy PASS;
+see `docs/evidence/t49-3-input-freeze.md`. This does not retroactively approve the historical broader
+T49 draft. HSP2–4/fullT49.3/T49.4 remain incomplete; new adapter/SQL/cost results and run approval absent.
+
 RequirementsR1–R14 have observable boundaries and tasks; design includes overview/models/interfaces/
 error handling/security/testing/alternatives. Existing canonical migration cannot accept unreviewed
 human knowledge without violating identity authority, so new independent snapshot tables are proposed.

@@ -1165,3 +1165,26 @@ staysunchanged, no synthetic3000claim. Most likely failure is calling storagehyd
 or treating human evidence as canonicaltruth. Scope/grounding/auditability PASS for planning;
 integrity/safety/cost/extendability runtimeclaims WAIT. See `docs/evidence/t49-3-planning.md`;
 owner confirms requirements, then design/tasks/budgets before approvedfreeze/build.
+
+# D50 — Freeze approved inputs separately from unimplemented runtime artifacts
+
+Status:ACCEPTED for HSP-1 input freeze only,2026-09-14. Subsequent three scoped confirmations
+accept D49 design/task-budget proposal, but do not certify its runtime behavior or authorize SQL execution.
+
+Copy the approved specification bytes from explicit Git commits with fixed SHA checks, then derive
+a new approved storage protocol/declared profile and source-bound manifest via a committed stdlib-only
+producer. Leave actual adapter/import manifest and runtime IDs null, and ready_for_real_outputs=false.
+Canonical sources, math protocol and old artifacts remain unchanged. New approval record supersedes
+historical draft flags; mutable current checklists are not the approved specification authority.
+
+Alternatives: editing every old draft header/flag would obscure exactly what the owner reviewed;
+calling an input freeze runtime-ready would invent code/environment evidence; adding database access
+here would exceed the first bounded task. Git snapshots and SHA comparison need no new dependencies
+or DB credentials. Exclusive publication rejects overwrite and checks reject drift/partial bundles;
+it is not crash-atomic or OS-enforced write protection. Most likely failure is confusing a declared
+profile with a runnable one; explicit pending bindings/readiness state prevents that claim.
+
+At10×data, hashing all sources grows in cost, but this offline approval gate is not per-request work.
+Measure the later fullsnapshot request gate before changing it; do not infer3kthroughput from hashes.
+Six-axis scope review:grounding/authority/auditability/local safety PASS; runtime cost/extendability
+NOT RUN. Evidence:`docs/evidence/t49-3-input-freeze.md` and its AI rubric;16new/489full tests PASS.

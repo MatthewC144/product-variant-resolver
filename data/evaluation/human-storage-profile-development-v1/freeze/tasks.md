@@ -10,16 +10,12 @@ G1*:owner confirms requirements, then design, then tasks/proposedcostprotocol be
 Planning was authorized by「請幫我執行下一步」. Subsequent「確認完成，請繼續執行」after the
 requirements explanation confirms requirements only; see [approval ledger](approval.md).
 Subsequent「確認 繼續下一步」after the design explanation confirms design at the ledger's exact
-source. Owner「開始執行」after the task/budget confirmation question completes scoped G1 and
-authorizes HSP-1. Frozen approval/spec copies record exact sources; no isolated SQL-run approval.
+source. Tasks/budgets remain WAIT; no third confirmation or isolated runtime approval is fabricated.
 
-- [x] HSP-1:freeze confirmedspecs/protocol and declarednewprofilecontract. _(→R1,R2,R5–R9)_
+- [ ] HSP-1:freeze confirmedspecs/protocol and declarednewprofilecontract. _(→R1,R2,R5–R9)_
   Files:newapprovedspec snapshot/protocol/manifest/approval in a newdevelopment directory and
   newfreezescript. Acceptance:committedapprovedversions; legacydev/finaloutput exposure disclosed;
   allplannedsourcebindings mandatory before realoutputs; no SQL/retrieval in this task.
-  Evidence:`data/evaluation/human-storage-profile-development-v1/freeze/` and
-  `docs/evidence/t49-3-input-freeze.md`;8files/26input pins,16new/489full tests PASS.
-  This is input freeze only; actual adapter/import/runtime bindings remain pending HSP-2.
 
 - [ ] HSP-2:implement newfile/DB readonlyprofile hydration/integrity gate and compositional app
   factory; unit/mock/APIcontract tests, then freeze actualsources/newartifacts. _(→R1–R5,R7)_

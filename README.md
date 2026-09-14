@@ -459,8 +459,9 @@ Current project checklist (engineering completion is not retrieval-quality appro
 - [x] T49 planning: persistence/variant-roadmap drafted; broader owner G1 confirmation pending.
 - [x] T49.1: narrowly authorized local-only142-document import-plan/checker;37focused tests PASS, no DB/network write.
 - [x] T49.2: isolated PostgreSQL142doc storage/transaction verification;25new/473full tests PASS; owned test resources cleaned.
-- [x] T49.3 planning: optionalfile/DBprofile +199dev parity/failure/costprotocol drafted; requirements/design confirmed, tasks/budgets pending, no newruntime results.
-- [ ] T49.3: freeze a new optional storage-profile/source/development-cost protocol before runtime integration.
+- [x] T49.3 planning: optionalfile/DBprofile +199dev parity/failure/costprotocol; all three scoped confirmations recorded.
+- [x] T49.3 HSP-1: approved inputs/declared profile frozen;8files/26input pins,16new/489full tests PASS, no runtime results.
+- [ ] T49.3 complete: implement profiles/API, freeze actual runtime sources and verify parity/failure/cost.
 - [ ] Later: isolated persistence and source/field-reviewed real variant expansion; separate rollout gates.
 - [ ] End-to-end demonstration and beginner code review after project delivery.
 
@@ -576,13 +577,21 @@ The [T49.3 beginnerguide](docs/HUMAN-STORAGE-PROFILE-GUIDE.md) and
 [newprofile specifications/protocol draft](specs/human-storage-profile-development/tasks.md) now
 propose newfile/DB hydration plus perrequestfullsnapshot readonlyintegrity gate/503latch, retaining
 unchangedv4math/canonicalauthority. SQLvalidates142docs, not vector/candidateTopK; itsnetwork/time
-is included inproposedHTTPcost.199dev parity and fixedbudgets requireconfirmation/freeze before
-implementation/measurement. FullT49.3/HSP1–4/T49.4 remainunchecked; currentdraft has no newprofile
-runtime results. [Requirements/design confirmation](specs/human-storage-profile-development/approval.md)
-is recorded; tasks/budgets still need confirmation, and a new isolated SQL run needs separate
-authorization. There is no newprofile
+is included inapprovedHTTPcost protocol. Scoped requirements/design/tasks-budgets confirmations
+and [HSP-1 input freeze](docs/evidence/t49-3-input-freeze.md) are recorded. Original approvedspec copies,
+protocol, declaredprofile and manifest are in `data/evaluation/human-storage-profile-development-v1/freeze/`.
+FullT49.3/HSP2–4/T49.4 remainunchecked; actual adapter/import manifest and images remainpending
+before realoutputs. A new isolated SQL run needs separate authorization. There is no newprofile
 code/DBoperation/latency/accuracy output. Current source access/rights
 remain unverified; no bypass/media collection/real3kexpansion.
+
+```sh
+.venv/bin/python scripts/freeze_human_storage_development.py --check
+```
+
+This checks existing approved inputs only: no SQL/HTTP/retrieval. `--freeze` refuses existing output;
+partial/tampered bundles fail closed. The original protocol draft's publication flags are historical;
+the new frozen approval/protocol records are authoritative. This is not a runtime-ready artifact.
 
 ```sh
 .venv/bin/python scripts/plan_human_knowledge_snapshot.py --check

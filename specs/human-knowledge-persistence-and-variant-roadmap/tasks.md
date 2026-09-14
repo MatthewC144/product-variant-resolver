@@ -38,6 +38,10 @@ historical draft commit/hashes and explicit narrow execution exception; no separ
   Evidence:`specs/human-storage-profile-development/` and `docs/evidence/t49-3-planning.md`.
   Planningonly:ownerG1WAIT; noapprovedfreeze/newprofilecode/SQL/costoutput. FullT49.3 remainsunchecked.
 
+- [x] T49.3-FREEZE: scoped three-confirmation G1 and HSP-1 approved input freeze. _(→R1,R5–R6,R14)_
+  Evidence:`docs/evidence/t49-3-input-freeze.md`;8files/26input hashes,16new/489full tests PASS.
+  No adapter/SQL/cost results; pending runtime-source/image binding before real outputs.
+
 - [ ] T49.3: freeze new optional storage-profile/runtime/cost protocol; implement and measure only
   approved adapter strategy without altering scored v4/v3 sources in place. _(→R1,R5–R6)_
   Acceptance:profile/source/config versions frozen before output; file/DB typed parity, eligibility/
@@ -70,5 +74,6 @@ VAR-PLAN2 and explicitly reviewed VAR-PLAN3. Dataset count expansion does not de
 all releases verified; approved canonical rollout remains another separately specified feature.
 No task automatically enablesv4 default, writes production tables, mints canonical IDs or certifies
 variant accuracy. One bounded task per approved handoff. T49.3 protocol/profile draft nowdelivered;
-next owner confirms newprofile requirements first, then design/tasks/budgets before freeze/build.
-No default rollout; broader sequentialG1 confirmations remain unrecorded.
+scoped T49.3 requirements/design/tasks-budgets confirmations now recorded and HSP-1 inputfreeze PASS.
+Next HSP-2 implements only new adapter/app modules. New SQL-run approval remains separate.
+No default rollout; this does not retroactively fabricate broader historical T49 approvals.

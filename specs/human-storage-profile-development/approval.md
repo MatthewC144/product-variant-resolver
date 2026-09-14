@@ -17,8 +17,8 @@ this ledger records the subsequent limited confirmation, without rewriting the a
 | Requirements | CONFIRMED for the exact source above |
 | Design | CONFIRMED for the exact source below |
 | Tasks and proposed cost protocol/budgets | CONFIRMED for the exact sources below |
-| Overall G1 / approved execution freeze | PASS / NOT RUN yet |
-| HSP1–4 implementation, new SQL run, profile measurements | NOT RUN |
+| Overall G1 / approved input freeze | PASS / HSP-1 PASS |
+| HSP2–4 implementation, new SQL run, profile measurements | NOT RUN |
 
 The owner subsequently said「確認 繼續下一步」after the design explanation and its explicit
 design-confirmation question. Approved design source: commit
@@ -44,3 +44,10 @@ those publication states. They do not lift legacy exclusions or approve a new SQ
 HSP-1 must bind a committed freeze producer before publication. Actual adapter/import manifests
 and runtime image IDs remain pending before any real experimental output. No new profile output
 exists. Full T49.3 and T49.4 remain unchecked; isolated SQL run approval remains separate.
+
+HSP-1 was then published and checked using committed producer
+`448f9c0b498b3372f28e03059aa2cf6a816ce512` at
+`data/evaluation/human-storage-profile-development-v1/freeze/`. The frozen `approval.json`,
+`protocol.json` and original specification copies are now the execution-input authority;
+the live ledger and task checklist may advance without rewriting those approved snapshots.
+See [HSP-1 evidence](../../docs/evidence/t49-3-input-freeze.md). Runtime execution remains gated.

@@ -1,0 +1,42 @@
+{
+  "approved_spec_bindings": {
+    "design.md": {
+      "commit": "7a90be004a017493c61bf52a364a89ef4fb6477e",
+      "path": "specs/human-storage-profile-development/design.md",
+      "sha256": "26037641051b08799c99d079d4d43b6ffc33b6a6308ba446669d7ff78736a5dd"
+    },
+    "protocol-draft.json": {
+      "commit": "10ee18aca16c85d349ecc56d09abf2615c6a10e8",
+      "path": "specs/human-storage-profile-development/protocol-draft.json",
+      "sha256": "e23678bd02f7ad00871a2eca43f05ad1ae2d4139adfe39a1c92e155567d5b235"
+    },
+    "requirements.md": {
+      "commit": "c197d0fbca1a6d16803ba9809933a9c194ca8046",
+      "path": "specs/human-storage-profile-development/requirements.md",
+      "sha256": "54dfd2dd31fe51a628344832c3eae3463dac811a9cd489347204ecaac47df918"
+    },
+    "tasks.md": {
+      "commit": "10ee18aca16c85d349ecc56d09abf2615c6a10e8",
+      "path": "specs/human-storage-profile-development/tasks.md",
+      "sha256": "26aa54b33e8ef54c0de0242c17d0960dfc510f49d986e580d7518d9eb5a91fb9"
+    }
+  },
+  "confirmation_context": "three sequential requirements/design/tasks confirmation questions",
+  "design": {
+    "confirmed": true,
+    "owner_message": "確認 繼續下一步"
+  },
+  "execution_scope": "HSP-1 local input freeze only",
+  "mode": "Lite",
+  "new_isolated_sql_run_authorized": false,
+  "production_rollout_authorized": false,
+  "requirements": {
+    "confirmed": true,
+    "owner_message": "確認完成，請繼續執行"
+  },
+  "schema_version": "pvr-human-storage-approval-v1",
+  "tasks_and_budgets": {
+    "confirmed": true,
+    "owner_message": "開始執行"
+  }
+}
