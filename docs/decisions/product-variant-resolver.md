@@ -1135,3 +1135,33 @@ PASS for isolatedSQL; cost/extendability limited until T49.3 protocol.25new/473f
 actualSQL invocation PASS,71visible-doc uniquefault fullrollback, concurrentinsert/noop and repeat
 timestamps identical, canonical7tables unchanged, ownedcontainers/network removed. See
 `docs/evidence/t49-2-human-knowledge-postgres.md`; no real3k/production/defaultrollout claim.
+
+# D49 — Propose an explicit human-storage profile with live full-snapshot integrity gating
+
+Status:PROPOSED,2026-09-14. Currentnextstep follows planninghandoff; draftonly, ownerG1WAIT.
+Do not mark fullT49.3complete or claim approvedprotocol/newadapter/SQL/cost results.
+
+Propose newcompositional appfactory via existingservice_factory/constructor, twofile/DB profiles
+and newstorageartifact/sourcebinding. Keep oldAPI/config/service/v4/identity/T49.2/artifacts unchanged.
+Reuse unchanged0.5/1.0/hash192/RRF60/identityadmission/limits. V4constructor pins the oldmathprotocol;
+newstorageprotocol must be referenced separately, not overwrite thatfield or relax oldartifact exclusions.
+
+Startup builds a142docmemoryindex; eachhealth/validresolve fullyrevalidatesselectedsnapshot readonly
+beforeusingcache. This catches poststartDBloss/header/child corruption rather than declaringcached
+data healthy while configuredstorage is broken. SELECT-only applicationrole/noimportrepair/fallback/
+latestsnapshot, sticky503untilrestart proposed. It is NOT SQLvector/candidate retrieval:SQLintegrity
+fetchesfullsnapshot andHTTPtiming includesitsnetwork/validation, while coretiming is explicitly separate.
+
+Alternatives:startup-onlycache is cheaper but weakenslivefailuresemantics; header-onlyprobe can miss
+childpayload changes; perquerySQL/ANN changes admission/fusion/indexprotocol and is a laterfeature.
+Choose fullsmall142snapshot probes for thisproposedcontract, not premature throughputoptimization.
+199existingdevcases fixedcomparison/rawbefore-score, no tuning/winner/final105 replay. Proposed
+5startup/199pairedHTTP/core after3warmups, nearest-rank ceilings5000/150/250/25ms needownerapproval,
+not observedSLA. Legacydev/finaloutputs alreadyviewed; onlynewstorage outputs remain unexecuted.
+
+Trade-offs:readonlyrequestSQL and503latch cost latency/availability; at10×, fullsnapshotvalidation
+cost/lock/network/JSONsize must be measured before redesign. Currentrepo142/disposable-name guard
+staysunchanged, no synthetic3000claim. Most likely failure is calling storagehydration SQLvectorRAG
+or treating human evidence as canonicaltruth. Scope/grounding/auditability PASS for planning;
+integrity/safety/cost/extendability runtimeclaims WAIT. See `docs/evidence/t49-3-planning.md`;
+owner confirms requirements, then design/tasks/budgets before approvedfreeze/build.

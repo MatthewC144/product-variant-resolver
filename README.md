@@ -459,6 +459,7 @@ Current project checklist (engineering completion is not retrieval-quality appro
 - [x] T49 planning: persistence/variant-roadmap drafted; broader owner G1 confirmation pending.
 - [x] T49.1: narrowly authorized local-only142-document import-plan/checker;37focused tests PASS, no DB/network write.
 - [x] T49.2: isolated PostgreSQL142doc storage/transaction verification;25new/473full tests PASS; owned test resources cleaned.
+- [x] T49.3 planning: optionalfile/DBprofile +199dev parity/failure/costprotocol drafted; ownerconfirmation pending, no newruntime results.
 - [ ] T49.3: freeze a new optional storage-profile/source/development-cost protocol before runtime integration.
 - [ ] Later: isolated persistence and source/field-reviewed real variant expansion; separate rollout gates.
 - [ ] End-to-end demonstration and beginner code review after project delivery.
@@ -571,7 +572,13 @@ authorized the [disposable T49.2 environment](docs/T49-2-ISOLATED-TEST-PLAN.md):
 repeat unchanged timestamp and seven canonical tables unchanged. Testcontainers/network removed;
 this is not a currently populated working database or optional runtime rollout. New Alembic0002
 adds only hk_snapshot/hk_document; original source exclusions and API/v4/default remain unchanged.
-Next T49.3 is a new protocol/profile plan, not production deployment. Current source access/rights
+The [T49.3 beginnerguide](docs/HUMAN-STORAGE-PROFILE-GUIDE.md) and
+[newprofile specifications/protocol draft](specs/human-storage-profile-development/tasks.md) now
+propose newfile/DB hydration plus perrequestfullsnapshot readonlyintegrity gate/503latch, retaining
+unchangedv4math/canonicalauthority. SQLvalidates142docs, not vector/candidateTopK; itsnetwork/time
+is included inproposedHTTPcost.199dev parity and fixedbudgets requireconfirmation/freeze before
+implementation/measurement. FullT49.3/HSP1–4/T49.4 remainunchecked; currentdraft has no newprofile
+code/DBoperation/latency/accuracy output. Current source access/rights
 remain unverified; no bypass/media collection/real3kexpansion.
 
 ```sh

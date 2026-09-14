@@ -5341,6 +5341,83 @@ durability／optional runtime hydration／perquery SQL cost 尚未驗證，不�
 不在已scored v4模組原地改寫，不重用final105questions做live selection/replay。
 網站權限、約3,000真實資料與exactvariant evidence仍是獨立後續工作；本次授權沒有擴張。
 
+## T49.3 規劃 — 人工知識 storage profile 與 development 驗證協議草案
+
+Date:2026-09-14. Lite mode. Planningdelivery only; approvalfreeze/build/SQL/cost NOT RUN.
+
+### 新執行內容與問題
+
+前一步證明142筆人工知識可以在新隔離PostgreSQL完整保存，並且不改canonical rows；
+測試庫已清除，還沒有讓查詢API使用這種來源。你在「下一步規劃profile／測試協議」的
+交接後要求執行，因此本次交付限定的T49.3規劃草案，不推定新的DB操作／正式部署授權。
+要解決的問題是：換人工知識儲存來源後，如何保證候選與正式答案不變、運作中資料庫
+失效時如何拒絕回覆，以及哪些新增成本需要誠實量測。沒有捏造三份規格獨立確認或新輸出。
+
+### 改動位置與理由
+
+新增 `specs/human-storage-profile-development/` 的 requirements/design/tasks/review 與
+`protocol-draft.json`，把profile、完整性／錯誤行為、版本綁定、199dev比較與成本步驟寫成
+可驗收契約。新增[新手guide](HUMAN-STORAGE-PROFILE-GUIDE.md)解釋儲存來源和RAG計算的差別；
+planning evidence／AIrubric、D49、README與上層task同步區分planning／freeze／implementation。
+這次沒有修改產品Python、API、config、migration、原始資料或封存report；原因是新adapter
+策略與協議需要先確認，不能把草案當成已批准實作。FullT49.3仍未勾選，僅T49.3-PLAN完成。
+
+### 技術選型與從真實介面得到的設計限制
+
+唯讀inspection確認現有API提供 `service_factory` hook，ResolverService constructor 可接
+明確HumanKnowledgeCatalog與v4config。因此提議新增compositional factory，而不是修改
+已scored service/config/api或monkeypatch舊global app。PostgreSQL只作人工snapshot儲存與
+完整性來源，human候選仍用未修改castingidentity gate／hash192／RRF60／floor0.5／weight1.0。
+不能因此稱為perquery SQLvector retrieval；canonical RAG仍唯一控制正式UUID、product、
+status、confidence、policy／calibration，human RAG僅debug。顏色／輪圈／tampo仍需後續
+release evidence，不能由casting family結果推定。
+
+另一個實際限制是HumanKnowledgeV4Config固定oldmathprotocol SHA，不能把新storageprotocol
+hash塞進同一欄位。草案將兩個protocol／newartifact references分開，保留原math參數與
+oldsource/artifact的排除界線。T49.2repository固定142與disposableDBnameguard也不放寬；
+新的readprofile只在另外確認的新隔離環境使用，沒有任意workingDB URL／latestfallback。
+HTTPtitlemax500和直接human core512char／64pretokens等限制分開，不偷偷改公開API上限。
+
+### 儲存／健康檢查方法的取捨
+
+草案選擇啟動时建立cached142docindex，但在每次health／有效resolve前唯讀核對完整
+selectedsnapshot。Startup-only hydration較省，但DB在啟動後斷線／被改／少文件仍可能
+顯示healthy，不符合本次failclosed語意；header-only probe又無法發現childpayload被改。
+因此提議SELECT-only application role、完整snapshot/source比對，失敗503且latch至restart，
+不autoretry／repair／filefallback。代價是每請求SQL與network完整性工作、較嚴格availability；
+HTTP成本要包含這些，不能只量memory核心。此方法仍待確認，沒有把它寫成已測功能。
+
+10倍規模下fullsnapshot JSON／sourcevalidation／network成本會增長，應先依新協議量測
+再改validation策略，不能提早宣稱3,000真實商品或高吞吐能力。Current142-only snapshot
+合約也不能直接塞synthetic3000拿來當SQLscale結果。PerquerySQLvector／ANN／neuralindex
+會影響admission／fusion與artifact，另案處理，不綑綁在保存資料這一步。
+
+### 驗證協議草案與本次實際檢查
+
+固定199devcases：168positive／4merge／7hold／20unrelated，新file／DB兩路各199一次性
+correctness calls（無prewarmup／retry），原default另199nondebugreferencecalls。候選排序、
+全部score／rank／type／ID／UUID／typedpayload／workcounters要一致，正式nondebug body
+與default完全相同。這是已見過輸出的development資料，不是新holdout；草案誠實記錄
+legacydev/final outputs viewed=true，newstorage outputs=false，不重跑final105或做參數搜索。
+Raw先發布再score，失敗run保留。Cost另5startup/profile與199pairedHTTP/core samples，
+3warmups/profile，nearest-rankp95；提出5000msstartup／150msintegrity／250msHTTP／25mscore
+工程上限，需先批准封存，不是已測SLA或從新輸出倒推的門檻。
+
+本次實際只有JSONparse／draftfalse-null狀態／199與142counts／11baseline sourcehash checks、
+文件whitespace以及唯讀upstreamplan／T49.2／storedfinal integrity checks PASS。原有473tests
+和SQLPASS是上一步證據，沒有重新包裝成新增profiletest；沒有profileadapter、role、DB、
+retrieval或新latency／accuracy输出。Approvedspec／actualadapter manifest／runtimeimage欄位
+維持null，protocol狀態 `draft_unapproved_not_executable`，不宣稱已freeze或可執行。
+詳見[planning evidence](evidence/t49-3-planning.md)與[AI rubric](evidence/ai-evals/t49-3-profile-planning.md)。
+
+### 下一步與未完成範圍
+
+依spec-dev-loopLite先請owner確認新需求，再確認設計、任務與budgets，才建立approvedspec/
+protocol與sourcefreeze；之後新file／DBadapter、完整性gate與新的隔離測試依HSP1–4分步做。
+本次只送交草案，不做正式rollout或新DB寫入。T49.3fullimplementation／T49.4runtimepackaging/
+closure、約3,000真實來源與exactvariant review都未完成。所有deliverables限於獨立Product
+Variant Resolver repo，project log繼續保留原因、選型、scope與真實驗證，而不是只列已做事項。
+
 ## Required format for future entries
 
 Every future project-log entry must preserve the following traceability structure:

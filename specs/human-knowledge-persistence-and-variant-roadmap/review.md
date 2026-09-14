@@ -33,6 +33,12 @@ Application importer/reader enforce complete immutable snapshots; privileged dir
 is detected, not prevented by triggers. Process-kill cleanup/crashdurability untested; these are
 disclosed limitations, not blockers to this bounded temporary SQL correctness task.
 
+T49.3 planningdelivered in `specs/human-storage-profile-development/`:draftreview PASS/G1WAIT;
+fullT49.3/HSP1–4 implementation/approvedfreeze/cost NOT RUN. Proposed fullrequestreadonlyintegrity
+gate is distinct from SQLcandidate/vector retrieval; HTTPcost includesitsSQL/network work.
+Newprotocol references unchangedmathprotocol separately,199dev only, fixedparameters/no finalreplay.
+Source/JSON/draftstatus checks and storedupstreamchecks PASS without newprofile/SQL/retrieval output.
+
 ## T49.2 requirement coverage
 
 | Requirement | Verification and result |

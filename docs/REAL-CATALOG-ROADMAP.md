@@ -50,6 +50,8 @@ PostgreSQL在這裡是保存資料的工具，不會自動判斷資料真假。�
 不爬網站、不寫PostgreSQL，也沒有增加142筆正式商品。
 其後你指示「執行測試」，T49.2 已在另建的臨時 PostgreSQL 匯入並讀回142筆人工知識，
 證明失敗整批回滾、重複匯入不變、商品資料前後一致。測試庫已清理，未部署正式資料庫。
-詳見[SQL 測試證據](evidence/t49-2-human-knowledge-postgres.md)。下一步規劃新的選用
-storage profile 與測試協議，才考慮讓查詢服務接到資料庫；保存資料不等於用它判斷正式版本。
+詳見[SQL 測試證據](evidence/t49-2-human-knowledge-postgres.md)。新的選用storage profile
+與測試協議草案已寫好，見[新手說明](HUMAN-STORAGE-PROFILE-GUIDE.md)。先確認需求、
+設計、任務與預算，再freeze／實作，才考慮讓查詢服務接到資料庫；保存資料不等於用它
+判斷正式版本。本次沒有接API或新增測試結果。
 其後的資料庫測試、額外來源蒐集與正式商品promotion，都有各自的明確邊界。
