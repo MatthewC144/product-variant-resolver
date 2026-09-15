@@ -1,6 +1,7 @@
 # 下一階段：從「找到車型」走向「找到具體版本」
 
-2026-09-14，Lite mode。T49.1 匯入計畫與 T49.2 隔離資料庫測試已完成；正式資料庫整合與版本辨識尚未完成。
+2026-09-15，Lite mode。T49.1–T49.4 儲存與可選file runtime已完成；正式PostgreSQL rollout與
+release版本辨識尚未完成。VAR-PLAN1現已建立100筆離線欄位證據計畫，尚無人工欄位決策。
 
 ## 現在已經能證明什麼？
 
@@ -55,3 +56,16 @@ PostgreSQL在這裡是保存資料的工具，不會自動判斷資料真假。�
 設計、任務與預算，再freeze／實作，才考慮讓查詢服務接到資料庫；保存資料不等於用它
 判斷正式版本。本次沒有接API或新增測試結果。
 其後的資料庫測試、額外來源蒐集與正式商品promotion，都有各自的明確邊界。
+
+## VAR-PLAN1已完成：先把不知道的內容誠實列出來
+
+目前100筆來源資料都已放入[欄位證據計畫](../reports/release-field-evidence-review-v1/plan.md)。
+每筆都有獨立的來源ID與觀察ID；這些ID只表示「看過哪一列資料」，不是商品UUID，也不表示
+兩列是同一個版本。顏色、輪圈、tampo、edition與包裝欄位仍全部是unknown。45筆雖然寫有
+2nd／3rd Color或Zamac，但那只能證明來源有這段文字，不能得知實際顏色或其他實體特徵。
+
+第一批建議人工看4個完整families、共11列：Lamborghini Huracán Sterrato、Subaru BRZ、
+Nissan Skyline 2000GT-R LBWK和'87 Audi quattro。選它們是因為可以一次看到new／merge／hold、
+不同series、Zamac提示與完全沒有variant note等問題，不是因為它們比較容易得到正確答案。
+目前沒有任何欄位被人工確認，100筆仍全部held。下一步應先由owner看這11筆的逐欄證據；
+若要再讀網站，仍須另外完成VAR-PLAN2的存取權利與請求預算確認。

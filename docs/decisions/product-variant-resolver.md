@@ -1285,3 +1285,29 @@ current full-snapshot request gate still requires new measurement before redesig
 Six-axis result:grounding,authority,integrity,local safety and auditability PASS; extendability is
 BOUNDED to142 documents/file mode/concurrency1. Evidence:
 `docs/evidence/t49-4-human-storage-runtime-package.md`; full559/focused71 tests PASS.
+
+# D55 — Treat every release row as an observation before treating any pair as a variant
+
+Status:ACCEPTED for VAR-PLAN1 offline planning,2026-09-15. Join the frozen normalized/review/final
+queue by exact source-record ID,then assign a separate deterministic observation ID. Preserve the
+family decision as casting context only;leave variant-equivalence ID,canonical UUID and owner field
+decision null. Every physical field keeps its own raw value,state and evidence pointer. Null means
+unknown,not equality;`2nd Color`,`3rd Color`and`Zamac`remain literal notes rather than inferred colors.
+
+Alternatives rejected:a spreadsheet with one row and a single confidence hides which field is sourced;
+grouping by casting+null attributes would merge unknowns;using toy number as identity confuses source
+references with product truth;fetching pages now would cross the unresolved rights gate. A deterministic
+JSON envelope plus readable Markdown is more verbose,but it can later become append-only review/database
+records without rewriting what was originally observed.
+
+Choose the first workload by greedy new-pattern coverage over complete families,cap5families/15rows,
+and stop when no new pattern remains. This produces4families/11rows covering create/merge/hold,
+2nd/3rd Color,Zamac,series divergence,three-row families and repeated rows without notes. It is an
+educational risk batch,not a random sample or quality estimate. An initial uncommitted selector compared
+mutable dictionaries and repeated a family;stable family IDs and a uniqueness test replace that choice.
+
+At10×,100 full JSON evidence envelopes suggest pagination/storage may eventually help,but no database
+is selected before humans validate the workflow. The most likely failure is promoting a family decision
+into release truth. Grounding,authority,integrity,safety and auditability PASS for the plan;
+extendability BOUNDED and variant quality/source permission NOT EVALUATED. Evidence:
+`docs/evidence/var-plan1-release-field-evidence-review.md`;9focused/568full tests PASS.

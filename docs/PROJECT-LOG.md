@@ -5743,3 +5743,67 @@ deployment、正式TLS/proxy、concurrency/durability/SLA或3,000筆成本，也
 或顏色／輪圈／tampo的release-level identity。下一個最高價值功能工作是VAR-PLAN1：先建立
 100筆來源列的欄位證據審查計畫，保留unknown/conflict，再提出小批人工review；不能把目前
 casting storage PASS直接升級為variant資料已完成。
+
+## 2026-09-15 — VAR-PLAN1：把100筆來源列拆成可逐欄審查的證據，而不是直接叫作版本
+
+### 背景、問題與可觀察結果
+
+使用者在T49.4完成並被告知下一步是VAR-PLAN1後要求繼續。專案此前已能辨識casting family，
+也能保存142份human knowledge，但同一casting的顏色、輪圈、tampo和包裝差異仍沒有release
+truth。這次讀取現有100筆2025來源，確認100筆color全是null、wheel/tampo欄位不存在；45筆
+只有`2nd Color`、`3rd Color`或`Zamac`文字提示。因此可觀察成果是完整100筆欄位證據plan，
+不是100個已驗證variant：每筆仍held、沒有canonical UUID或variant equivalence，並提出一個
+4families/11rows的第一批人工review工作量。
+
+### 程式修改與原因
+
+新增`plan_release_field_evidence_review.py`，在本機將normalized100、cross-catalog review100與
+最終53-family queue以`source_record_id`做嚴格一對一join。每列得到另一個deterministic
+observation ID，避免把來源列ID誤當產品identity。十三個欄位各自保存raw value、
+`observed_unverified/unknown`狀態、來源JSON pointer及未來允許的人類狀態；variant note只照錄，
+不解析成顏色。`--run`只能發布到不存在的資料夾，`--check`從三個來源重新產生並逐byte比較。
+
+新spec定義EARS需求、資料權限、批次選擇及錯誤界線；JSON計畫保留100筆機器可驗證資料，
+Markdown讓初學者能先看差距與批次。九項test覆蓋100筆membership、null、all-held、ID分離、
+完整family批次、不可覆寫／漂移、來源刪列及無network/DB client。review、evidence、AI rubric、
+架構決策、README與本日誌同步更新，因為「如何知道這個值能不能相信」是此功能的主要產物。
+
+### 技術選型、替代方案與代價
+
+採逐欄evidence envelope而非只有一個row-level confidence，因為series可能有來源而color未知，
+不能讓整列看起來同樣可信。選用observation ID而不產生variant ID，因為觀察一列只證明來源
+存在；兩列都缺wheel也不能推出同一版本。第一批使用complete-family greedy pattern coverage，
+最多5 families/15 rows，讓reviewer同時看到same-casting siblings並涵蓋create/merge/hold、
+series差異、Zamac與無note情境。代價是這批刻意多樣，不是隨機抽樣，不能估計variant accuracy。
+
+沒有用spreadsheet手填固定清單，因為那難以重現來源hash與遺漏；沒有先爬casting pages，因為
+目前source-specific rights/access仍未重新確認。JSON在100筆規模最簡單，10倍時可能需要分頁或
+資料庫，但現在先驗證review工作流，避免替尚未證明可用的流程過早做基礎建設。
+
+### 決策改變與觸發證據
+
+第一次未提交的plan顯示第五個family重複Lamborghini Huracán Sterrato。根因是selector將加入
+`new_coverage_at_selection`後的字典，拿去和原candidate做整個字典相等比較；shape不同便被當成
+尚未選過。錯誤兩個產物被精確刪除，selector改以immutable`family_review_id`集合追蹤，test要求
+family ID unique。進一步發現第五組沒有增加任何風險覆蓋，因此不再為了湊到5組而選；當三種
+decision與所有資料pattern已覆蓋就停止，最終得到較小的4families/11rows，來源與欄位規則不變。
+
+### 驗證證據
+
+最終JSON/Markdown SHA為`f470d731…675a`/`ae3ffe3a…c43f`，綁定三個輸入SHA
+`e5e0384a…b9a6`,`72029287…c4e`,`989bc914…e4d8`。計數為100 source/100 observation/53 families；
+color/wheel/tampo/edition/packaging unknown各100，literal variant note45；held100，canonical UUID、
+variant equivalence、owner field decision皆0。第一批包含Lamborghini Huracán Sterrato3、Subaru
+BRZ3、Nissan Skyline 2000GT-R LBWK3及'87 Audi quattro2。
+
+聚焦9項與完整568項測試PASS。changed-file Ruff F/I、strict MyPy、compileall與artifact`--check`
+PASS；只有既有Starlette／AnyIO deprecation warning。測試還以刪成99筆的暫存來源確認planner會
+fail closed，並確認script沒有requests/httpx/urllib/SQLAlchemy/psycopg/Docker client import。
+
+### 未完成、風險與下一步
+
+沒有任何欄位被owner確認，也沒有檢查目前Fandom授權／robots／API可用性、讀新頁面、處理圖片、
+寫SQL或改runtime。這不是100 verified variants，更不是3,000產品進度。下一個最高價值動作是
+owner逐欄審查batch01的11筆：每個非null值要綁文字證據，無法證明保持unknown，有歧義標
+conflicted，並分別決定same release/different release/unresolved。完成這個人類authority事件後，
+才能決定是否建立append-only decision artifact；VAR-PLAN2遠端收集仍須另行確認rights與budget。

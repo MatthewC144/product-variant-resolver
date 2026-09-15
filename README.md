@@ -466,6 +466,8 @@ Current project checklist (engineering completion is not retrieval-quality appro
 - [x] T49.3 complete: HSP-3 exact199 file/DB parity+failure safety and HSP-4 frozen local cost gates PASS;79focused/552full tests PASS.
 - [x] T49.4: dedicated file-backed optional runtime package,immutable profile,isolated Docker smoke,
   runbook and QA/AI evidence PASS; default API and PostgreSQL rollout remain unchanged.
+- [x] VAR-PLAN1: all100 held release rows have separate source/observation IDs and per-field
+  unknown/evidence states; first manual batch proposes4 complete families/11 rows,no inferred values.
 - [ ] Later: isolated persistence and source/field-reviewed real variant expansion; separate rollout gates.
 - [ ] End-to-end demonstration and beginner code review after project delivery.
 
@@ -592,11 +594,20 @@ protocol, declaredprofile and manifest are in `data/evaluation/human-storage-pro
 HSP-3 now provides [exact199 real PostgreSQL parity and failure evidence](docs/evidence/t49-3-storage-profile-sql.md).
 HSP-4 provides [raw-first local cost evidence](docs/evidence/t49-3-storage-profile-cost.md): file/DB
 startup p95`271.142/300.175ms`, loopback HTTP`38.645/46.163ms`, full integrity`34.204/42.773ms`,
-and initialized human core`2.311/2.306ms`; all approved local ceilings pass. This completes bounded
-T49.3, not T49.4 packaging/default rollout. Results cover142 documents,one worker/concurrency1 on
-local arm64; they do not establish production SLA,throughput,durability,real3k scaling or
-color/wheel/tampo release identity. Current source access/rights remain unverified; no bypass/media
-collection/real3k expansion.
+and initialized human core`2.311/2.306ms`; all approved local ceilings pass. That result completed
+bounded T49.3;the later T49.4 file-backed opt-in package is now also complete without a default or
+PostgreSQL rollout. Results cover142 documents,one worker/concurrency1 on local arm64;they do not
+establish production SLA,throughput,durability,real3k scaling or color/wheel/tampo release identity.
+Current source access/rights remain unverified;no bypass/media collection/real3k expansion.
+
+**VAR-PLAN1 complete — this is a review worksheet,not100 verified variants.** The offline
+[field-evidence plan](reports/release-field-evidence-review-v1/plan.md) joins all100 frozen pilot rows
+to the prior review and final family decisions. Color,wheel,tampo,edition and packaging remain unknown
+for every row;45 literal`2nd/3rd Color`or`Zamac`notes are preserved but not converted into physical
+attributes. Source-record IDs and observation IDs are separate;variant-equivalence/canonical UUIDs
+remain null and all100 releases stay held. The proposed first owner review covers4 whole families/
+11 rows. See [evidence](docs/evidence/var-plan1-release-field-evidence-review.md). No website access,
+SQL or runtime change occurred;current source rights and any new collection remain VAR-PLAN2 gates.
 
 ```sh
 .venv/bin/python scripts/freeze_human_storage_development.py --check

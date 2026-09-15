@@ -57,10 +57,12 @@ historical draft commit/hashes and explicit narrow execution exception; no separ
   Acceptance:exact142roundtrip, transaction/no-canonical-mutation/idempotence/readiness/source tests
   PASS; complete new development/cost evidence without old-final tuning; continued debug-only authority.
 
-- [ ] VAR-PLAN1: build an offline100-source-row field-evidence review plan preserving nulls and
+- [x] VAR-PLAN1: build an offline100-source-row field-evidence review plan preserving nulls and
   all release-held statuses, with a bounded first review batch proposal. _(→R7–R10)_
   Acceptance:zero inferred color/wheel/tampo values or canonical IDs; provenance and per-field
   unknown/conflict statuses; source/observation IDs distinct from reviewed variant equivalence.
+  Evidence:`reports/release-field-evidence-review-v1/` and
+  `docs/evidence/var-plan1-release-field-evidence-review.md`;9focused/568full tests PASS.
 
 - [ ] VAR-PLAN2: obtain source-specific access/rights and page/revision/budget approval before
   collecting any extra text or staging500/1,500/about3,000unique real source rows. _(→R11–R12)_
@@ -82,6 +84,7 @@ variant accuracy. One bounded task per approved handoff. T49.3 protocol/profile 
 scoped T49.3 requirements/design/tasks-budgets confirmations now recorded and HSP-1 inputfreeze PASS.
 HSP-1 through HSP-4 and the bounded T49.4 file-runtime package are now complete. The PostgreSQL
 profile remains isolated evidence rather than an installed service, and no default rollout occurred.
-The next independent roadmap item is VAR-PLAN1; it requires field-level source review and cannot be
-inferred from the completed casting/storage work. This does not retroactively fabricate broader
-historical T49 approvals.
+VAR-PLAN1 now provides the full100-row evidence envelope and a four-family/11-row owner-review
+proposal. No field decisions have occurred. The next action is owner review of that exact batch;
+VAR-PLAN2 remains blocked on current source-specific access/rights and request-budget approval.
+This does not retroactively fabricate broader historical T49 approvals.
