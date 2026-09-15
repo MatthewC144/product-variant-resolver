@@ -5609,3 +5609,69 @@ Starlette／AnyIO deprecation warning。詳細證據在`docs/evidence/t49-3-stor
 HSP-3因此完成，但Full T49.3仍不能勾選：HSP-4尚未量啟動、每次完整snapshot revalidation、
 真實loopback HTTP及core成本，也沒有3k/concurrency/durability/production證據。下一個最高價值
 動作是先依凍結cost protocol檢查HSP-4執行條件與資源界線，再決定是否啟動新的測量環境。
+
+## 2026-09-15 — HSP-4：量出完整snapshot安全門的成本，完成限定T49.3
+
+### 背景、問題與可觀察結果
+
+使用者在HSP-3完成且下一步已明確說明為HSP-4後要求「繼續執行」。先前已證明file與真實
+PostgreSQL保存同一142筆human knowledge時，固定199題的檢索結果完全相同，但「每個有效
+request都重讀完整snapshot」的時間成本仍未知。因此這次不是再調Dual RAG準確率，而是依
+已批准且預先封存的工程上限，量profile初始化、完整性核對、真實HTTP與純human retrieval。
+最後八個file／PostgreSQL p95 gate全數PASS；bounded T49.3因此完成，原default API仍未切換，
+T49.4封裝／rollout、3,000筆與顏色／輪圈／tampo release identity仍保持未完成。
+
+### 程式修改與原因
+
+新增的四個HSP-4 scripts把「固定考卷」「建立一次性環境」「收集raw」「離線評分」分開。
+`freeze_human_storage_hsp4_run.py`先綁implementation commit、兩個profile、199題pack、cost
+protocol、image IDs及owner resource名稱，避免看到速度後改條件。`run_human_storage_profile_cost.py`
+只建立帶`pvr.t49-4.owner`label的internal network、tmpfs PostgreSQL與read-only runner，密碼只在
+執行時隨機產生；完成後只按精確label與ID清理。`verify_human_storage_profile_cost.py`建立
+SELECT-only reader，取兩路各5次新process初始化、3次HTTP／core預熱與199次交錯正式樣本，
+並保留每筆duration、status、error、abstention。`score_human_storage_profile_cost.py`不再碰DB
+或HTTP，只驗合約／數量後用nearest-rank套固定門檻。新test覆蓋percentile、PASS／FAIL門檻、
+樣本數、隔離參數與不得依賴缺失`httpx`。產品retrieval、API、資料、migration及門檻未修改。
+
+### 技術選型、替代方案與代價
+
+測量使用真實Uvicorn loopback而非TestClient，因為HTTP預算需包含ASGI server、序列化與client
+解析；core則用已初始化service及預先抽取signals，刻意排除SQL／integrity／canonical／HTTP，
+讓兩個數字回答不同問題。file與PostgreSQL按奇偶交錯，避免固定「永遠先file」的順序偏差。
+nearest-rank不用插值；5個startup的p95等於最慢值，計算保守但樣本小，不能冒充長期SLA。
+資料庫沿用PostgreSQL16、SQLAlchemy2、Alembic與whole-snapshot adapter；沒有改成SQL TopK或
+ANN，因為那會同時改候選數學而破壞storage-only比較。代價是每個有效request完整讀142筆，
+PostgreSQL HTTP p95比file多約7.52ms，但42.77ms integrity與46.16ms整體HTTP仍低於原門檻。
+
+### 決策改變與觸發證據
+
+Run-v1在任何計時樣本產生前停止。原因不是速度不合格，而是固定runner映像有Uvicorn卻沒有
+`httpx`，module import時即失敗，原supervisor只得到空stdout的JSONDecodeError。v1 raw仍保留，
+兩container與network全數清除，且沒有密碼／DB URL。沒有臨時下載套件或換一個較有利的映像；
+改用Python內建`urllib`維持相同real-HTTP計時邊界，並讓supervisor對空／非法stdout產生結構化
+runtime_error及stdout/stderr SHA。修正先commit`31a97e4`，再建立獨立run-v2 freeze`ff5b7d4`。
+兩版image、資料、protocol與門檻不變；v2不是看到慢結果後的重跑，也沒有timed retry。
+
+### 驗證證據
+
+Run-v2 raw SHA`78e9eb938ff3615ebc3cf51418e9c06c463cf397a4f6138526863a0ced6c87ed`
+先以unscored發布，包含10個startup、12個warmup、398個HTTP與398個core正式結果；HTTP／core
+error均為0。之後evaluation SHA`af5ff062fb1f269f3b07ab27c9059a9d9ad31a4487f5ac131aadf724805dcccc`
+才評分。file／PostgreSQL p95依序為：startup271.142／300.175ms（上限5000）、HTTP38.645／
+46.163ms（250）、integrity34.204／42.773ms（150）、core2.311／2.306ms（25），八項PASS。
+環境為Linux arm64、Python3.12.14、PostgreSQL16.14、Uvicorn0.52.4、SQLAlchemy2.0.52、
+Alembic1.20.0、psycopg3.3.5、UID100。reader只有LOGIN+兩表SELECT，無super/inherit/create
+role/database。兩containers與internal network已刪除，cleanup errors與remaining均空。
+
+聚焦79項測試PASS。第一次完整pytest未帶`PYTHONPATH=src`，既有evaluation子程序因找不到
+package而1FAIL；沒有改碼或assertion，依專案既有方式補`PYTHONPATH=src`後552/552 PASS。
+changed-file Ruff F/I、strict isolated MyPy與compileall PASS，仍有一項既有Starlette/AnyIO
+warning。全repo Ruff另列54個本次以前的import-order債務，沒有趁此任務大量改無關檔案。
+
+### 未完成、風險與下一步
+
+這份PASS只涵蓋本機ARM64、142份文件、單worker、concurrency1；沒有測throughput、多worker、
+durability、production SLA或10倍／3,000筆完整snapshot成本，也沒有驗證來源權利與release-level
+顏色／輪圈／tampo。下一個最高價值動作是T49.4：把已通過的可選profile整理成可操作的
+runtime packaging/runbook，明確決定仍維持opt-in或另行批准rollout；不能因T49.3通過就自動
+更改default API或建立長期本機資料庫。

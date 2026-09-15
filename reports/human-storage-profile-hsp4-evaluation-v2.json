@@ -1,0 +1,83 @@
+{
+  "metrics": {
+    "core": {
+      "file": {
+        "budget_p95_max_ms": 25,
+        "max_ms": 4.55675,
+        "p50_ms": 0.236375,
+        "p95_ms": 2.311458,
+        "pass": true,
+        "samples": 199
+      },
+      "postgres": {
+        "budget_p95_max_ms": 25,
+        "max_ms": 4.511125,
+        "p50_ms": 0.2425,
+        "p95_ms": 2.306458,
+        "pass": true,
+        "samples": 199
+      }
+    },
+    "http": {
+      "file": {
+        "budget_p95_max_ms": 250,
+        "max_ms": 73.185459,
+        "p50_ms": 22.590584,
+        "p95_ms": 38.644583,
+        "pass": true,
+        "samples": 199
+      },
+      "postgres": {
+        "budget_p95_max_ms": 250,
+        "max_ms": 80.340458,
+        "p50_ms": 28.30225,
+        "p95_ms": 46.16325,
+        "pass": true,
+        "samples": 199
+      }
+    },
+    "integrity": {
+      "file": {
+        "budget_p95_max_ms": 150,
+        "max_ms": 63.9808,
+        "p50_ms": 19.8303,
+        "p95_ms": 34.2035,
+        "pass": true,
+        "samples": 199
+      },
+      "postgres": {
+        "budget_p95_max_ms": 150,
+        "max_ms": 75.22,
+        "p50_ms": 25.5566,
+        "p95_ms": 42.7726,
+        "pass": true,
+        "samples": 199
+      }
+    },
+    "startup": {
+      "file": {
+        "budget_p95_max_ms": 5000,
+        "max_ms": 271.141791,
+        "p50_ms": 255.270958,
+        "p95_ms": 271.141791,
+        "pass": true,
+        "samples": 5
+      },
+      "postgres": {
+        "budget_p95_max_ms": 5000,
+        "max_ms": 300.174791,
+        "p50_ms": 265.496542,
+        "p95_ms": 300.174791,
+        "pass": true,
+        "samples": 5
+      }
+    }
+  },
+  "percentile_method": "nearest_rank",
+  "raw_file": "reports/human-storage-profile-hsp4-raw-v2.json",
+  "raw_published_before_scoring": true,
+  "raw_sha256": "78e9eb938ff3615ebc3cf51418e9c06c463cf397a4f6138526863a0ced6c87ed",
+  "schema_version": "pvr-human-storage-hsp4-evaluation-v1",
+  "scope": "local arm64,142 documents,concurrency1; not production,real3k,throughput,durability or SLA",
+  "verdict": "PASS"
+}

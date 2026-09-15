@@ -462,7 +462,8 @@ Current project checklist (engineering completion is not retrieval-quality appro
 - [x] T49.3 planning: optionalfile/DBprofile +199dev parity/failure/costprotocol; all three scoped confirmations recorded.
 - [x] T49.3 HSP-1: approved inputs/declared profile frozen;8files/26input pins,16new/489full tests PASS, no runtime results.
 - [x] T49.3 HSP-2: strict file/DB adapter + complete request integrity/503 latch + versioned health;55focused/544full tests PASS.
-- [ ] T49.3 complete: implement profiles/API, freeze actual runtime sources and verify parity/failure/cost.
+- [x] T49.3 complete: HSP-3 exact199 file/DB parity+failure safety and HSP-4 frozen local cost gates PASS;79focused/552full tests PASS.
+- [ ] T49.4: package/operate the optional profile and make any separately approved rollout decision.
 - [ ] Later: isolated persistence and source/field-reviewed real variant expansion; separate rollout gates.
 - [ ] End-to-end demonstration and beginner code review after project delivery.
 
@@ -581,11 +582,14 @@ unchangedv4math/canonicalauthority. SQLvalidates142docs, not vector/candidateTop
 is included inapprovedHTTPcost protocol. Scoped requirements/design/tasks-budgets confirmations
 and [HSP-1 input freeze](docs/evidence/t49-3-input-freeze.md) are recorded. Original approvedspec copies,
 protocol, declaredprofile and manifest are in `data/evaluation/human-storage-profile-development-v1/freeze/`.
-FullT49.3/HSP3–4/T49.4 remainunchecked. HSP-2 has an accepted
-[42-source candidate2 freeze](docs/evidence/t49-3-storage-adapter.md), but no runnable profile/image IDs.
-A new isolated SQL run needs separate authorization. There is no real SQL/profile latency/accuracy
-output. Current source access/rights
-remain unverified; no bypass/media collection/real3kexpansion.
+HSP-3 now provides [exact199 real PostgreSQL parity and failure evidence](docs/evidence/t49-3-storage-profile-sql.md).
+HSP-4 provides [raw-first local cost evidence](docs/evidence/t49-3-storage-profile-cost.md): file/DB
+startup p95`271.142/300.175ms`, loopback HTTP`38.645/46.163ms`, full integrity`34.204/42.773ms`,
+and initialized human core`2.311/2.306ms`; all approved local ceilings pass. This completes bounded
+T49.3, not T49.4 packaging/default rollout. Results cover142 documents,one worker/concurrency1 on
+local arm64; they do not establish production SLA,throughput,durability,real3k scaling or
+color/wheel/tampo release identity. Current source access/rights remain unverified; no bypass/media
+collection/real3k expansion.
 
 ```sh
 .venv/bin/python scripts/freeze_human_storage_development.py --check

@@ -1,7 +1,8 @@
 # 下一步：讓服務選用人工知識儲存來源
 
-2026-09-14，Lite mode。T49.3需求／設計／任務已确认，HSP-1輸入封存與其測試已完成；
-尚未改 API、部署新資料庫或執行新profile的真實檢索／效能測試。
+2026-09-15，Lite mode。T49.3需求、實作與限定驗證均已完成：HSP-1封存輸入，HSP-2新增
+可選storage app，HSP-3證明file／PostgreSQL結果一致與失敗安全，HSP-4完成本機成本測量。
+原本API仍未自動切換，PostgreSQL測試庫已清除；T49.4封裝／rollout與3,000筆擴充尚未開始。
 
 ## 我們現在要解決什麼
 
@@ -12,8 +13,8 @@ T49.2 證明142筆人工知識可以安全存進資料庫；測試庫已清理�
 | 路徑 | 人工知識來源 | 目前狀態 |
 |---|---|---|
 | 原有 API | 原有本機檔案／原有設定 | 不修改、不自動切換 |
-| 新 file-reference profile | 已固定版本的142筆 plan | 提案，作為比較基準 |
-| 新 PostgreSQL profile | 新隔離庫中的同一份142筆 snapshot | 提案，尚未接上 API |
+| 新 file-reference profile | 已固定版本的142筆 plan | 已通過正確性、失敗與成本驗證 |
+| 新 PostgreSQL profile | 隔離庫中的同一份142筆 snapshot | 已通過實驗驗證；測試庫已清除 |
 
 Profile 可以理解成「明確選用的一組設定」，不是另一套商品真相。Snapshot 是指定版本
 的整份知識，不能選最新一份就算數，也不能少幾筆而悄悄補成另一個版本。
@@ -42,14 +43,14 @@ typed內容與work counters；正式nondebug商品結果也要與原API完全相
 
 ## 本次與後續界線
 
-這次交付[需求](../specs/human-storage-profile-development/requirements.md)、
+本階段交付[需求](../specs/human-storage-profile-development/requirements.md)、
 [設計](../specs/human-storage-profile-development/design.md)、
 [任務／測試步驟](../specs/human-storage-profile-development/tasks.md)與協議草案。
 需求、設計、任務與預算已依序確認，見[確認紀錄](../specs/human-storage-profile-development/approval.md)。
-HSP-1規格封存與HSP-2新API儲存入口／模擬驗證已完成。沒有新增真實DB、角色、資料、
-UUID或正式部署；T49.3完整實作、T49.4封裝驗收與約3,000筆真實資料擴充都尚未完成。
+HSP-1至HSP-4均已完成。曾建立真實但一次性的隔離DB與唯讀角色，測試後已精確清除；
+沒有新增正式DB、UUID或部署。T49.4封裝驗收與約3,000筆真實資料擴充仍未完成。
 
-## 已確認：任務與測試時間上限（尚未量測）
+## 已確認且完成：任務與測試時間上限
 
 HSP-1先封存已確認的規格、資料版本與測試協議，防止看到結果後更換資料或標準。
 HSP-2再新增讀檔案／資料庫的profile與API入口，先用單元及模擬測試驗證正常、失敗與
@@ -74,7 +75,7 @@ HSP-4依封存協議量測成本、完成QA與日誌，不能為了過關而修�
 p95是將耗時排序後約95%樣本不超過的數值，採nearest-rank。啟動只有5個樣本，
 其p95等於最慢樣本，不代表可靠的長期統計。這些是142筆知識的本機工程驗收門檻，
 不是已達成的結果、正式服務保證或3,000筆規模承諾；「預算」指耗時上限，不是金錢。
-任務／預算已確認並完成HSP-1；不因此自動取得HSP-3新隔離SQL run的授權。
+任務／預算已確認，HSP-3及HSP-4也在後續明確指示下完成；這仍不等於正式部署授權。
 
 封存可以理解為「測試前先保存考卷版本、規則與資料指紋」，不是已完成測試。
 新封存共8個檔案：原需求、設計、任務與協議草案副本，以及確認紀錄、已批准協議、
@@ -97,6 +98,28 @@ canonical backend。正式nondebug response沒有storage欄，human仍只在debu
 
 55項聚焦測試與544項完整測試通過，但DB是fake reader；它證明程式怎麼呼叫、怎麼失敗，
 不證明PostgreSQL帳號權限或網路。42個來源在candidate2封存；candidate1因缺health欄被保留
-而不覆寫。候選2仍`ready=false`，缺兩個runtime image IDs、實際隔離DB名稱及另一次明確
-SQL run批准。所以下一步不是正式部署，而是先說明HSP-3隔離環境，再由owner決定是否執行。
+而不覆寫。在HSP-2當時，候選2仍`ready=false`，缺兩個runtime image IDs、實際隔離DB名稱
+與SQL run批准；這段是當時的階段界線。後續HSP-3／HSP-4已完成，但仍不是正式部署。
 詳見[HSP-2證據](evidence/t49-3-storage-adapter.md)。
+
+## HSP-3與HSP-4最後證明了什麼
+
+HSP-3把固定199題分別交給file與真實PostgreSQL profile。兩路候選順序、分數、型別、
+UUID、payload與work counters全數相同，原canonical正式答案也沒有變；reader只能SELECT，
+資料缺失、被改或連線中斷會503且同一process不會偷偷恢復。這證明更換「保存位置」沒有
+更換Dual RAG的數學或答案權限，詳見[SQL正確性證據](evidence/t49-3-storage-profile-sql.md)。
+
+HSP-4再量「這個安全做法要花多久」。每組5次初始化、3次預熱後199次真實Uvicorn HTTP
+與199次純human retrieval，先保存raw再評分。p95如下；斜線前是file，後是PostgreSQL：
+
+| 測量部分 | file／PostgreSQL p95 | 已確認上限 | 結果 |
+|---|---:|---:|---|
+| profile初始化 | 271.142／300.175 ms | 5,000 ms | PASS |
+| 完整snapshot核對 | 34.204／42.773 ms | 150 ms | PASS |
+| 完整loopback HTTP | 38.645／46.163 ms | 250 ms | PASS |
+| 純human retrieval | 2.311／2.306 ms | 25 ms | PASS |
+
+第一次HSP-4嘗試在任何計時樣本產生前失敗，原因是固定runner映像沒有`httpx`。改用Python
+內建`urllib`後建立全新的v2 freeze再測，不下載依賴、不換映像、不改門檻，也沒有重跑
+挑較快結果。詳見[成本證據](evidence/t49-3-storage-profile-cost.md)。這些數字只代表本機
+ARM64、142份文件、單worker及concurrency1，不是3,000筆、正式流量或SLA。

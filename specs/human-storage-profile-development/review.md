@@ -1,11 +1,12 @@
-# T49.3 planning review
+# T49.3 bounded implementation review
 
-Date:2026-09-14. Lite. Draft completeness/grounding PASS; scoped G1 PASS after three sequential
+Date:2026-09-15. Lite. Draft completeness/grounding PASS; scoped G1 PASS after three sequential
 confirmations at exact sources in [approval ledger](approval.md). HSP-1 input-freeze QA PASS:
 8immutable-publication files,26input hashes, committed producer,16new/489full tests PASS,
 Ruff F/I and strict isolated MyPy PASS. See [evidence](../../docs/evidence/t49-3-input-freeze.md).
 HSP-2 adapter/mock/source-freeze PASS; see current findings below. HSP-3 isolated SQL correctness
-PASS after explicit owner continuation; HSP-4 profile cost NOT RUN. FullT49.3/T49.4 remain unchecked.
+PASS after explicit owner continuation. HSP-4 frozen local cost protocol PASS; therefore bounded
+T49.3 is complete. T49.4 packaging/default-rollout closure remains separate and unchecked.
 
 | Requirement | Draft acceptance path |
 |---|---|
@@ -14,7 +15,7 @@ PASS after explicit owner continuation; HSP-4 profile cost NOT RUN. FullT49.3/T4
 | R3/R4 readonly/failclosed | SELECT-only role, fullrequestsnapshot probe, startup/poststart503/latch, existinginvalidHTTP contract |
 | R5 math/authority parity | Frozen0.5/1.0/hash192/RRF60/admission/limits, separate math/storageprotocols, canonicalbody unchanged |
 | R6/R7 dev/freeze |199dev eachprofile+199defaultreference, no tuning/final105, committedsources beforeoutputs, raw before score |
-| R8 cost |5startup/profile;3warmups/profile;199pairedHTTP/core; rawerrors/nearest-rank; owner-approved ceilings, measurement pending |
+| R8 cost |5startup/profile;3warmups/profile;199pairedHTTP/core; rawerrors/nearest-rank; all eight local p95 gates PASS |
 
 Inspection confirms APIalready supports `service_factory` and ResolverService accepts explicit
 human catalog/v4config, so compositional newfactory is feasible without editing frozen sources.
@@ -84,4 +85,32 @@ cleaned only its exact owned resources and led to a new committed source/run fre
 overwriting evidence. The first raw error echoed an expired generated credential; it was deliberately
 not retained and a transparent sanitized failure record replaces it. Full suite548PASS plus focused59,
 Ruff F/I, strict isolated MyPy and compileall PASS; one existing Starlette/AnyIO warning remains.
-HSP-4 must separately measure startup/HTTP/core cost under its frozen protocol before T49.3 closes.
+At the HSP-3 checkpoint,HSP-4 still had to measure startup/HTTP/core cost. The addendum below records
+that later execution and supersedes this carry item without rewriting the historical HSP-3 evidence.
+
+## HSP-4 local cost addendum
+
+Verdict:PASS for the approved local142-document,concurrency1 cost scope. Run-v2 binds implementation
+commit`31a97e4`, exact profiles/protocol/development pack and two image IDs before output. Raw SHA
+`78e9eb…7ed` was published and the two containers/internal network were removed before independent
+scoring produced evaluation SHA`af5ff0…cccc`. There were5 fresh startup samples/profile,3 HTTP and
+3 core warmups/profile, then199 HTTP and199 core samples/profile in alternating order. All HTTP/core
+samples succeeded; raw durations,status/errors/abstentions and environment are retained.
+
+Nearest-rank p95 file/PostgreSQL results respectively:startup271.142/300.175ms under5000ms;
+full loopback Uvicorn HTTP38.645/46.163ms under250ms; complete-snapshot integrity34.204/42.773ms
+under150ms; initialized human core2.311/2.306ms under25ms. The PostgreSQL reader stayed SELECT-only
+and cleanup had no errors or remaining owned resources. Runtime was Linux arm64,Python3.12.14,
+PostgreSQL16.14,Uvicorn0.52.4,SQLAlchemy2.0.52,Alembic1.20.0 and psycopg3.3.5,UID100.
+
+Run-v1 stopped before timing because the frozen runner image did not include`httpx`; its sanitized raw
+failure and complete cleanup remain committed. The collector changed to Python stdlib`urllib`, which
+preserved the frozen image and measurement semantics, and the supervisor now records hashed malformed
+output failures. This correction was committed before a distinct v2 freeze; no budget or retrieval
+setting changed and no timed retry occurred. Focused79 and corrected-environment full552 tests PASS;
+the first full invocation without`PYTHONPATH=src` reproduced the known subprocess import failure.
+Changed-file Ruff F/I,strict isolated MyPy and compileall PASS; the existing Starlette warning remains.
+
+This closes only T49.3's bounded optional-storage experiment. It does not prove3k scaling,throughput,
+durability,multi-worker behavior,production SLA,default rollout or color/wheel/tampo release identity.
+Those remain T49.4/later work.

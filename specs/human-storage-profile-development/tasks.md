@@ -44,12 +44,15 @@ authorizes HSP-1. Frozen approval/spec copies record exact sources; no isolated 
   10startup+4poststartup failures,5invalidHTTP and4write denials PASS. Canonical7 tables unchanged,
   v4 owned resources removed. Runs v1–v3 remain visible as setup-fixture failures, not scored retries.
 
-- [ ] HSP-4:run approvedstartup/revalidation/HTTP/core cost protocol and publish QA/rubric/log.
+- [x] HSP-4:run approvedstartup/revalidation/HTTP/core cost protocol and publish QA/rubric/log.
   _(→R1,R6–R9)_
   Acceptance:5startup samples/profile,3warmups/profile,199pairedHTTP/core rawsamples perprofile,
   fixedceilings checked without reruns, nearest-rankp50/p95, errors/abstentions/environment/stages
   reported; scope142only, no oldfinal/live3k/productionclaims. FullT49.3checked onlywhen HSP1–4PASS;
   T49.4 remains separate runtimepackaging/closure, not silentlycompleted by planning.
+  Evidence:`reports/human-storage-profile-hsp4-raw-v2.json` was published unscored before
+  `reports/human-storage-profile-hsp4-evaluation-v2.json`; all eight file/PostgreSQL p95 gates PASS.
+  The dependency-failed v1 attempt is retained and contains no timing samples. Focused79/full552 PASS.
 
 ## Hard exclusions
 

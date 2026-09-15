@@ -1237,3 +1237,24 @@ Trade-off:full snapshot checks passed correctness but their cost is still unknow
 latency,3k scalability,durability/concurrency or production readiness from the25.6-second test run.
 Grounding/authority/integrity/safety/auditability PASS for HSP-3; cost/10×extendability WAIT.
 Evidence:`docs/evidence/t49-3-storage-profile-sql.md`; full suite548PASS.
+
+# D53 — Keep the frozen runtime and replace a missing optional HTTP client with stdlib
+
+Status:ACCEPTED for HSP-4,2026-09-15. The first cost attempt stopped before any timing sample because
+the already-frozen runner image did not install`httpx`. Do not download a dependency during the run,
+rebuild/select a different image after seeing the failure,or weaken the real-HTTP requirement. Use
+Python3's bundled`urllib` for loopback requests,commit that correction,then create a distinct v2
+pre-output freeze with the same database/runner image IDs,development pack,measurement boundary and
+ceilings. Retain the cleaned v1 failure as evidence.
+
+This choice minimizes changed variables:both clients perform real HTTP against the two single-worker
+Uvicorn processes, and the timer still starts before the request and ends after JSON parsing. The
+supervisor additionally treats empty/malformed child stdout as a structured runner failure and stores
+only stdout/stderr hashes. The trade-off is less convenient HTTP exception handling than`httpx`, but
+no network install or new runtime image is needed and the cost run remains reproducible.
+
+Run-v2 raw SHA`78e9eb…7ed` preceded evaluation SHA`af5ff0…cccc`; all eight frozen p95 gates pass with
+no timed retries,threshold changes or cleanup residue. This accepts the local142/concurrency1 cost of
+full-snapshot checks and completes boundedT49.3. It does not approve T49.4 packaging/default rollout,
+production SLA,throughput/durability,real3k scaling or release-variant attributes. Evidence:
+`docs/evidence/t49-3-storage-profile-cost.md`; focused79/full552 tests PASS.
