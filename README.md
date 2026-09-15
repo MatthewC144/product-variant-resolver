@@ -456,16 +456,23 @@ Current project checklist (engineering completion is not retrieval-quality appro
 - [x] IBR-T4 preparation: freeze 105 new output-blind final question/reference pairs after winner commit.
 - [x] IBR-T4 approval/labels: owner confirmed targets/scope; 105 decisions and benchmark frozen separately.
 - [x] IBR-T5: one final score PASS, full Lite closure and fresh non-root/read-only Docker HTTP verification.
-- [x] T49 planning: persistence/variant-roadmap drafted; broader owner G1 confirmation pending.
+- [x] T49 planning: persistence/variant roadmap drafted; later scoped confirmations and T49.1–T49.4
+  execution are recorded below.
 - [x] T49.1: narrowly authorized local-only142-document import-plan/checker;37focused tests PASS, no DB/network write.
 - [x] T49.2: isolated PostgreSQL142doc storage/transaction verification;25new/473full tests PASS; owned test resources cleaned.
 - [x] T49.3 planning: optionalfile/DBprofile +199dev parity/failure/costprotocol; all three scoped confirmations recorded.
 - [x] T49.3 HSP-1: approved inputs/declared profile frozen;8files/26input pins,16new/489full tests PASS, no runtime results.
 - [x] T49.3 HSP-2: strict file/DB adapter + complete request integrity/503 latch + versioned health;55focused/544full tests PASS.
 - [x] T49.3 complete: HSP-3 exact199 file/DB parity+failure safety and HSP-4 frozen local cost gates PASS;79focused/552full tests PASS.
-- [ ] T49.4: package/operate the optional profile and make any separately approved rollout decision.
+- [x] T49.4: dedicated file-backed optional runtime package,immutable profile,isolated Docker smoke,
+  runbook and QA/AI evidence PASS; default API and PostgreSQL rollout remain unchanged.
 - [ ] Later: isolated persistence and source/field-reviewed real variant expansion; separate rollout gates.
 - [ ] End-to-end demonstration and beginner code review after project delivery.
+
+The optional human-storage service is intentionally separate from the historical default package.
+Before starting it, follow the exact-image and cleanup checks in the
+[T49.4 runbook](docs/runbooks/human-storage-file-runtime.md). The currently verified package uses
+`docker-compose.human-storage.yml`,profile`human-storage`,and listens only on`127.0.0.1:8001`.
 
 **IBR-T3 complete:** all 21 settings pass the frozen development gates. The deterministic winner is
 floor `0.50`, character weight `1.0`: positive Recall@5 `168/168`, Recall@1 `165/168`, MRR@5

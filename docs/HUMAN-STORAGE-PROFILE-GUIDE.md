@@ -48,7 +48,8 @@ typed內容與work counters；正式nondebug商品結果也要與原API完全相
 [任務／測試步驟](../specs/human-storage-profile-development/tasks.md)與協議草案。
 需求、設計、任務與預算已依序確認，見[確認紀錄](../specs/human-storage-profile-development/approval.md)。
 HSP-1至HSP-4均已完成。曾建立真實但一次性的隔離DB與唯讀角色，測試後已精確清除；
-沒有新增正式DB、UUID或部署。T49.4封裝驗收與約3,000筆真實資料擴充仍未完成。
+沒有新增正式DB、UUID或部署。T49.4也已完成獨立file-backed封裝與Docker驗收，但它仍是
+明確選用的本機服務，不是正式PostgreSQL rollout。約3,000筆真實資料擴充仍未完成。
 
 ## 已確認且完成：任務與測試時間上限
 
@@ -123,3 +124,16 @@ HSP-4再量「這個安全做法要花多久」。每組5次初始化、3次預�
 內建`urllib`後建立全新的v2 freeze再測，不下載依賴、不換映像、不改門檻，也沒有重跑
 挑較快結果。詳見[成本證據](evidence/t49-3-storage-profile-cost.md)。這些數字只代表本機
 ARM64、142份文件、單worker及concurrency1，不是3,000筆、正式流量或SLA。
+
+## T49.4現在完成了什麼
+
+新增的`Dockerfile.human-storage`與`docker-compose.human-storage.yml`只服務可選路徑，不改動
+原本三個Docker封裝檔。映像內帶齊142份人工知識所依賴的固定資料與證據；外部profile則
+以唯讀方式掛載，並綁定確切映像ID。若profile遺失、版本或checksum錯誤，服務不會自動改讀
+別的資料。Docker實測確認四組正式答案與default reference相同，human資料只出現在debug。
+
+第一版封裝曾因漏掉一個被數學協議間接引用的selection檔而無法啟動。第二版沒有放寬檢查，
+而是補齊確切依賴後重新build、重新freeze、再跑獨立測試；v1失敗報告仍保留。詳細操作請見
+[file runtime runbook](runbooks/human-storage-file-runtime.md)，驗收數據見
+[T49.4 evidence](evidence/t49-4-human-storage-runtime-package.md)。下一個功能規劃是VAR-PLAN1：
+先審查顏色、輪圈、tampo等欄位證據，不會把casting相同直接當成release variant相同。

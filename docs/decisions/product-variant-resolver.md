@@ -1258,3 +1258,30 @@ no timed retries,threshold changes or cleanup residue. This accepts the local142
 full-snapshot checks and completes boundedT49.3. It does not approve T49.4 packaging/default rollout,
 production SLA,throughput/durability,real3k scaling or release-variant attributes. Evidence:
 `docs/evidence/t49-3-storage-profile-cost.md`; focused79/full552 tests PASS.
+
+# D54 — Add a dedicated opt-in image instead of rewriting historical packaging
+
+Status:ACCEPTED for bounded T49.4,2026-09-15. Preserve the original`Dockerfile`,`.dockerignore` and
+`docker-compose.yml` byte-for-byte because their hashes are part of the passed IBR-T5 runtime record.
+Package the optional file-backed storage app through separately named Dockerfile,ignore and Compose
+files,with an explicit`human-storage` profile and an external read-only profile bound to the exact
+image ID. This keeps`docker compose up api` and canonical authority unchanged while making the
+already-tested human gate operable on demand.
+
+An initial direct edit of the old packaging files was reversed when the frozen IBR-T5 regression test
+correctly detected SHA drift. The first dedicated image then failed strict startup because the runtime
+allowlist contained all direct profile inputs but omitted a selection file and producer reached through
+the v4 math protocol. Do not weaken recursive verification or include all reports. Instead, enumerate
+the exact transitive evidence,create a new image and exclusive v2 freeze,and retain the sanitized v1
+failure. This gives a smaller and auditable context at the cost of maintaining an explicit allowlist.
+
+The passing v2 run uses image`sha256:d8ccf54d…0e718`,profile SHA`a51d3112…980a` and raw report
+SHA`bac44242…761c`. It proves local ARM64/file-mode packaging,one worker,loopback transport,nonroot,
+read-only runtime,missing-profile rejection,four unchanged canonical responses and exact cleanup.
+It does not install PostgreSQL:that would require persistent naming,secret,migration/import and volume
+lifecycle decisions that the current disposable-name guard deliberately rejects. At10× scale,the
+current full-snapshot request gate still requires new measurement before redesign or rollout.
+
+Six-axis result:grounding,authority,integrity,local safety and auditability PASS; extendability is
+BOUNDED to142 documents/file mode/concurrency1. Evidence:
+`docs/evidence/t49-4-human-storage-runtime-package.md`; full559/focused71 tests PASS.

@@ -1,0 +1,113 @@
+{
+  "checks": {
+    "canonical_comparisons": [
+      {
+        "response_sha256": "f5fc94d70b3f3e0bdf6b4396a29ecbfa1dfbd8eaffeae0f891bc4fb2e6372a47",
+        "same": true,
+        "status": [
+          200,
+          200
+        ],
+        "title": "2022 Chevy Nomad Red #101"
+      },
+      {
+        "response_sha256": "cad5cb91062573a5785927f47b295b4b0f64bc1143e684f8202fb8e3f053391a",
+        "same": true,
+        "status": [
+          200,
+          200
+        ],
+        "title": "Toyota Supra"
+      },
+      {
+        "response_sha256": "d10b5e33aa31738550b8baad31de6e117db564e99769a46932a8030309bb61ab",
+        "same": true,
+        "status": [
+          200,
+          200
+        ],
+        "title": "Chevy Nomad"
+      },
+      {
+        "response_sha256": "746f00dfa10b6f6f0b38448807d74b81c0484b8e591e3f5cbd71dd354b3fe99e",
+        "same": true,
+        "status": [
+          200,
+          200
+        ],
+        "title": "red toy boxed"
+      }
+    ],
+    "containers": {
+      "default_reference": {
+        "image_id": "sha256:d8ccf54d58931a0ec41276d659e117de6a935c58d962d8f146ea2b2d8450e718",
+        "mounts": [],
+        "port_bindings": {
+          "8000/tcp": [
+            {
+              "HostIp": "127.0.0.1",
+              "HostPort": "18080"
+            }
+          ]
+        },
+        "read_only_root": true,
+        "user": "pvr"
+      },
+      "human_storage_file": {
+        "image_id": "sha256:d8ccf54d58931a0ec41276d659e117de6a935c58d962d8f146ea2b2d8450e718",
+        "mounts": [
+          {
+            "destination": "/runtime/profile.json",
+            "rw": false,
+            "type": "bind"
+          }
+        ],
+        "port_bindings": {
+          "8000/tcp": [
+            {
+              "HostIp": "127.0.0.1",
+              "HostPort": "18081"
+            }
+          ]
+        },
+        "read_only_root": true,
+        "user": "pvr"
+      }
+    },
+    "debug": {
+      "integrity_ms_present": true,
+      "status": 200,
+      "storage_sha256": "a51d3112031c638e9744163fe5f1614fb31009fe2bb23dd17e378e56e4a8980a",
+      "storage_version": "human-storage-profile-development-v1-1ac55edae809"
+    },
+    "health": {
+      "default_status": 200,
+      "storage_dependency": {
+        "detail": "file_snapshot_reference; immutable142 snapshot; complete integrity gate",
+        "ready": true,
+        "version": "human-storage-profile-development-v1-1ac55edae809"
+      },
+      "storage_status": 200
+    },
+    "missing_profile": {
+      "exit_code": 1,
+      "path_created": false,
+      "rejected": true,
+      "stderr_sha256": "a2df9797c3f0b3304f7c99d0d5bc9389bb4c213a0e5dce36e4f83ef7f460b781"
+    }
+  },
+  "cleanup": {
+    "errors": [],
+    "remaining": []
+  },
+  "finished_at_utc": "2026-09-15T15:23:29.132809+00:00",
+  "image": {
+    "id": "sha256:d8ccf54d58931a0ec41276d659e117de6a935c58d962d8f146ea2b2d8450e718",
+    "reference": "product-variant-resolver:human-storage-lite"
+  },
+  "package_manifest_sha256": "b89dfbc4bb7bc3162322c736c31d6a23b5b656b6534ac96731bc9d7f1016d624",
+  "project": "pvr-t49-4-runtime-2a136c10e4e1",
+  "schema_version": "pvr-human-storage-runtime-package-report-v1",
+  "started_at_utc": "2026-09-15T15:23:21.756868+00:00",
+  "verdict": "PASS"
+}

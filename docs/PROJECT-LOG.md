@@ -5675,3 +5675,71 @@ durability、production SLA或10倍／3,000筆完整snapshot成本，也沒有�
 顏色／輪圈／tampo。下一個最高價值動作是T49.4：把已通過的可選profile整理成可操作的
 runtime packaging/runbook，明確決定仍維持opt-in或另行批准rollout；不能因T49.3通過就自動
 更改default API或建立長期本機資料庫。
+
+## 2026-09-15 — T49.4：把可選file profile做成可重現的Docker服務
+
+### 背景、問題與可觀察結果
+
+使用者在HSP-4完成、下一步已明確指出為T49.4後要求繼續執行。當時程式已證明file與
+PostgreSQL保存相同142筆human knowledge會產生相同候選，也量過本機成本，但一般使用者仍
+沒有一條被驗證過的方式把storage-gated app啟動起來。這次新增的是可選runtime package，
+不是新的Dual RAG演算法或資料。現在操作員可透過獨立Compose profile啟動file-backed服務；
+缺profile會停止，正常服務health會顯示固定storage version，四組非debug正式回應與default
+reference完全相同。原本API的Docker路徑、canonical權限與預設行為沒有被切換。
+
+### 程式修改與原因
+
+`Dockerfile.human-storage`與專用`.dockerignore`建立一個能執行strict profile loader的最小映像，
+只帶`src/data/config/ui`、必要scripts和被遞迴驗證的selection/plan證據；這樣後來新增一般QA
+report不會無意改變映像。`docker-compose.human-storage.yml`同時提供default reference與只有
+明確`--profile human-storage`才選到的storage service，將profile以read-only bind掛入，並保留
+nonroot、read-only root、tmpfs、loopback和single worker界線。
+
+`freeze_human_storage_runtime_package.py`在看runtime輸出前，將implementation commit、確切
+image ID、profile SHA、來源與封裝檔hash寫入不可覆寫的versioned package；`verify_...py`則建立
+唯一Compose project，先測缺profile，再測health/debug／四筆正式回應／Docker inspect，最後
+只清理由owner label辨識的資源。新增七項static tests檢查opt-in、allowlist、freeze與cleanup
+合約。規格、review、runbook、QA evidence及AI rubric同步建立，避免只有程式沒有接手說明。
+
+### 技術選型、替代方案與代價
+
+採用獨立Dockerfile/Compose而不是修改歷史封裝，因為IBR-T5已把原三個檔案的SHA當作驗收
+證據。外部profile不能直接烘進自己所綁定的image，否則會形成「要先知道image ID才能build
+該image」的循環，所以先build再exclusive freeze，runtime只讀掛載。選擇file mode是因為它
+不需要放寬目前只允許一次性DB名稱的guard，也不需要發明正式secret、migration/import、backup
+與volume生命週期。代價是這一步沒有帶來長期PostgreSQL服務，而且顯式allowlist在協議新增
+間接證據時必須維護；這是可稽核性換來的維護成本。
+
+### 決策改變與觸發證據
+
+最初曾直接修改`.dockerignore`、`Dockerfile`與`docker-compose.yml`加入storage service；聚焦
+回歸測試立刻以IBR-T5封裝SHA漂移失敗，因此三檔完整還原，改成三個專用新檔。這不是單純
+換檔名，而是保留歷史runtime證據與不改default路徑的必要決策。
+
+第一個專用映像`923da9b4…8617`及v1 freeze也沒有被包裝成成功。缺profile測試正常拒絕，
+但真正startup因v4 math protocol遞迴要求`family-retrieval-development-v1/selection.json`而失敗；
+profile直接列出的檔案完整，間接證據卻沒進image。沒有關掉遞迴SHA檢查或粗暴複製所有reports，
+而是加入確切selection/plan與兩個producer，再以新commit重build成`d8ccf54d…0e718`並另建v2
+freeze。v1 sanitized failure仍在repo，能回答「為何現在image需要那些看似不像產品碼的檔案」。
+
+### 驗證證據
+
+v2 manifest/profile SHA為`b89dfbc4…624`/`a51d3112…980a`。隔離Docker report先於本次收尾文件
+產生，SHA`bac44242…761c`、verdict PASS：missing profile exit1且path未被建立；兩service health
+200；四個canonical comparison均200/200且內容hash一致；debug有固定storage version/SHA及
+integrity timing。Docker inspect確認兩container都是確切image、user`pvr`、read-only root，
+storage profile mount為RO，host僅`127.0.0.1:18080/18081`。cleanup errors與remaining皆空。
+
+完整`PYTHONPATH=src .venv/bin/pytest -q`為559/559 PASS，聚焦package/storage/API/v4 closure為
+71/71 PASS；兩個scripts的strict isolated MyPy、compileall、changed-Python Ruff F/I和Compose
+config均PASS，仍只有既有Starlette／AnyIO deprecation warning。一次QA命令誤把Dockerfile交給
+Ruff當Python而得到78個syntax findings；適用的Python-only Ruff隨後PASS，Dockerfile也已成功
+build及實際啟動，因此該次結果是命令選檔錯誤，不是隱藏的產品失敗。
+
+### 未完成、風險與下一步
+
+T49.4只涵蓋本機ARM64、142 documents、file mode、one worker及循序smoke。沒有PostgreSQL
+deployment、正式TLS/proxy、concurrency/durability/SLA或3,000筆成本，也沒有證明外部來源權利
+或顏色／輪圈／tampo的release-level identity。下一個最高價值功能工作是VAR-PLAN1：先建立
+100筆來源列的欄位證據審查計畫，保留unknown/conflict，再提出小批人工review；不能把目前
+casting storage PASS直接升級為variant資料已完成。

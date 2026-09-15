@@ -47,13 +47,13 @@ historical draft commit/hashes and explicit narrow execution exception; no separ
   Evidence:`docs/evidence/t49-3-storage-adapter.md`;55focused/544full PASS. Original default and
   scored sources unchanged. Runtime IDs/profile, actual SQL/199 parity/costs remain absent.
 
-- [ ] T49.3: freeze new optional storage-profile/runtime/cost protocol; implement and measure only
+- [x] T49.3: freeze new optional storage-profile/runtime/cost protocol; implement and measure only
   approved adapter strategy without altering scored v4/v3 sources in place. _(→R1,R5–R6)_
   Acceptance:profile/source/config versions frozen before output; file/DB typed parity, eligibility/
   fusion/budget evidence, failure503, default unchanged, raw samples/errors and scope disclosed.
   No old final105 live replay or ANN/neural/global-vector shortlist; no implicit DB feature rollout.
 
-- [ ] T49.4: verify storage gates/full tests/runtime packaging and publish QA/AI evidence/log. _(→R1–R6,R14)_
+- [x] T49.4: verify storage gates/full tests/runtime packaging and publish QA/AI evidence/log. _(→R1–R6,R14)_
   Acceptance:exact142roundtrip, transaction/no-canonical-mutation/idempotence/readiness/source tests
   PASS; complete new development/cost evidence without old-final tuning; continued debug-only authority.
 
@@ -80,5 +80,8 @@ all releases verified; approved canonical rollout remains another separately spe
 No task automatically enablesv4 default, writes production tables, mints canonical IDs or certifies
 variant accuracy. One bounded task per approved handoff. T49.3 protocol/profile draft nowdelivered;
 scoped T49.3 requirements/design/tasks-budgets confirmations now recorded and HSP-1 inputfreeze PASS.
-Next HSP-2 implements only new adapter/app modules. New SQL-run approval remains separate.
-No default rollout; this does not retroactively fabricate broader historical T49 approvals.
+HSP-1 through HSP-4 and the bounded T49.4 file-runtime package are now complete. The PostgreSQL
+profile remains isolated evidence rather than an installed service, and no default rollout occurred.
+The next independent roadmap item is VAR-PLAN1; it requires field-level source review and cannot be
+inferred from the completed casting/storage work. This does not retroactively fabricate broader
+historical T49 approvals.
