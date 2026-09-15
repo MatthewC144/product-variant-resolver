@@ -46,7 +46,7 @@ typed內容與work counters；正式nondebug商品結果也要與原API完全相
 [設計](../specs/human-storage-profile-development/design.md)、
 [任務／測試步驟](../specs/human-storage-profile-development/tasks.md)與協議草案。
 需求、設計、任務與預算已依序確認，見[確認紀錄](../specs/human-storage-profile-development/approval.md)。
-HSP-1規格／資料版本／協議封存已完成，接著才是新API儲存入口實作。沒有新增DB、角色、資料、
+HSP-1規格封存與HSP-2新API儲存入口／模擬驗證已完成。沒有新增真實DB、角色、資料、
 UUID或正式部署；T49.3完整實作、T49.4封裝驗收與約3,000筆真實資料擴充都尚未完成。
 
 ## 已確認：任務與測試時間上限（尚未量測）
@@ -81,3 +81,22 @@ p95是將耗時排序後約95%樣本不超過的數值，採nearest-rank。啟�
 宣告的profile合約與manifest。Manifest記錄26個輸入指紋；不複製一套新的142筆商品資料。
 檢查腳本會拒絕資料改動、缺檔、多檔或覆寫。API程式與執行環境仍待實作／固定，
 所以封存明確標示不能產生真實測試輸出，詳見[驗收證據](evidence/t49-3-input-freeze.md)。
+
+## HSP-2現在完成了什麼
+
+新`human_knowledge_storage_profile.py`像「嚴格的入場檢查員」：profile多欄、少欄、重複
+JSON key、錯版本／SHA、未固定映像，或PostgreSQL名稱不是隔離測試格式，都直接拒絕。
+檔案模式每次核對plan與12個來源；DB模式透過既有repository讀整份142筆，而不是只問
+「資料庫還連得上嗎」。啟動時將同一142筆typed資料建立記憶體索引，之後不重建索引。
+
+新`human_knowledge_storage_app.py`像「原API外面的安全門」。有效`/resolve`才先核對來源，
+再呼叫原本ResolverService；錯誤JSON、內容類型、空標題、超長標題或禁用debug仍保留
+400／415／422，沒有先碰儲存層。核對失敗後將服務鎖為not ready，health及後續有效resolve
+都是503，來源恢復也不自動重試。`/health`新增獨立版本狀態，原`database`欄仍只代表
+canonical backend。正式nondebug response沒有storage欄，human仍只在debug顯示候選證據。
+
+55項聚焦測試與544項完整測試通過，但DB是fake reader；它證明程式怎麼呼叫、怎麼失敗，
+不證明PostgreSQL帳號權限或網路。42個來源在candidate2封存；candidate1因缺health欄被保留
+而不覆寫。候選2仍`ready=false`，缺兩個runtime image IDs、實際隔離DB名稱及另一次明確
+SQL run批准。所以下一步不是正式部署，而是先說明HSP-3隔離環境，再由owner決定是否執行。
+詳見[HSP-2證據](evidence/t49-3-storage-adapter.md)。

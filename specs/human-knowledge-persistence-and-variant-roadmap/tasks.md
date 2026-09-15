@@ -42,6 +42,11 @@ historical draft commit/hashes and explicit narrow execution exception; no separ
   Evidence:`docs/evidence/t49-3-input-freeze.md`;8files/26input hashes,16new/489full tests PASS.
   No adapter/SQL/cost results; pending runtime-source/image binding before real outputs.
 
+- [x] T49.3-ADAPTER: HSP-2 strict file/DBprofile, complete integrity gate, compositional API,
+  private mock/API tests and committed42-source freeze. _(→R1,R5–R6,R14)_
+  Evidence:`docs/evidence/t49-3-storage-adapter.md`;55focused/544full PASS. Original default and
+  scored sources unchanged. Runtime IDs/profile, actual SQL/199 parity/costs remain absent.
+
 - [ ] T49.3: freeze new optional storage-profile/runtime/cost protocol; implement and measure only
   approved adapter strategy without altering scored v4/v3 sources in place. _(→R1,R5–R6)_
   Acceptance:profile/source/config versions frozen before output; file/DB typed parity, eligibility/

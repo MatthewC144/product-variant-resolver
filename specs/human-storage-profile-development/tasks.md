@@ -21,13 +21,17 @@ authorizes HSP-1. Frozen approval/spec copies record exact sources; no isolated 
   `docs/evidence/t49-3-input-freeze.md`;8files/26input pins,16new/489full tests PASS.
   This is input freeze only; actual adapter/import/runtime bindings remain pending HSP-2.
 
-- [ ] HSP-2:implement newfile/DB readonlyprofile hydration/integrity gate and compositional app
+- [x] HSP-2:implement newfile/DB readonlyprofile hydration/integrity gate and compositional app
   factory; unit/mock/APIcontract tests, then freeze actualsources/newartifacts. _(→R1–R5,R7)_
   Owner:mainagent withoutsubagents. Files:newprofile/appmodules and newtests/scripts only.
   Acceptance:142typed/raw/sourcechecks, math/storageprotocolsdistinct, no legacy sourcechanges;
   default unchanged, startup/runtime503latch/no fallback, invalidHTTPcontract unchanged, explicit
   versionedhealthdependency; productionURL/default/credentials excluded. Source/runtimeartifact
   freeze before realdev/costoutput. Privatefake tests are not SQL evidence.
+  Evidence:`docs/evidence/t49-3-storage-adapter.md`; strict profiles/file+fakeDBcomplete reads,
+  valid-request/health gate, sticky503/no fallback, invalidHTTP preservation, versionedhealth,
+  default/nondebug boundary;55focused/544full tests PASS. Accepted source candidate2 binds42
+  inputs at commit`bd2a838`; runtimeimages/runnableprofile/realSQL/results remain pending HSP-3.
 
 - [ ] HSP-3:after explicitisolatedrun approval, bootstrap a newdisposable DB/readrole and collect
   immutable paired199dev correctness outputs; score parity onlyafterrawpublication. _(→R1–R7,R9)_

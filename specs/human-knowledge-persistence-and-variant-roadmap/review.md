@@ -12,7 +12,10 @@ repeat identical rows/timestamp, corrupt/partial rejection, canonical7tables unc
 Subsequent scoped T49.3 G1:PASS after three sequential confirmations with exact commit/SHA sources.
 HSP-1:PASS,8file inputfreeze/26pins,16new/489full tests, Ruff F/I/isolated strict MyPy PASS;
 see `docs/evidence/t49-3-input-freeze.md`. This does not retroactively approve the historical broader
-T49 draft. HSP2–4/fullT49.3/T49.4 remain incomplete; new adapter/SQL/cost results and run approval absent.
+T49 draft. HSP-2 subsequently PASS:two new modules plus private file/fake-DB/API tests and a42-source
+manifest,55focused/544full tests PASS; see `docs/evidence/t49-3-storage-adapter.md`. HSP3–4/
+fullT49.3/T49.4 remain incomplete; real SQL authorization, runnable profile/image IDs,199parity/
+failure results and measured costs are absent.
 
 RequirementsR1–R14 have observable boundaries and tasks; design includes overview/models/interfaces/
 error handling/security/testing/alternatives. Existing canonical migration cannot accept unreviewed

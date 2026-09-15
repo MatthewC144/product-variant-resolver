@@ -4,7 +4,8 @@ Date:2026-09-14. Lite. Draft completeness/grounding PASS; scoped G1 PASS after t
 confirmations at exact sources in [approval ledger](approval.md). HSP-1 input-freeze QA PASS:
 8immutable-publication files,26input hashes, committed producer,16new/489full tests PASS,
 Ruff F/I and strict isolated MyPy PASS. See [evidence](../../docs/evidence/t49-3-input-freeze.md).
-HSP2–4 adapter/SQL/profilecost NOT RUN. FullT49.3/T49.4 remain unchecked; no new SQL-run approval.
+HSP-2 adapter/mock/source-freeze PASS; see current findings below. HSP3–4 SQL/profilecost NOT RUN.
+FullT49.3/T49.4 remain unchecked; no new SQL-run approval.
 
 | Requirement | Draft acceptance path |
 |---|---|
@@ -35,3 +36,28 @@ without PYTHONPATH had1failure/488passes due to subprocess import environment; c
 Carry: HSP-2 new adapter/app and runtime-source freeze; HSP-3 separately authorized SQL environment;
 HSP-4 actual costs; existing Starlette/AnyIO deprecation remains. Publication is exclusive, not
 OS-enforced immutability or crash-atomicity; partial bundles fail checks and cannot be overwritten.
+
+## HSP-2 QA addendum
+
+Verdict:PASS for implementation plus private file/fake-DB/API tests and source freeze; no real SQL.
+New modules only:`human_knowledge_storage_profile.py` validates strict/no-duplicate profile JSON,
+all source/protocol/math/snapshot hashes, explicitly selected file/DB mode and runtime/mock state;
+hydrates complete142typed documents once and re-reads the complete source for every probe.
+`human_knowledge_storage_app.py` composes the existing factory/service. It probes only after a valid
+resolve passes existing validation, adds debug-only storage timing/version, wraps health with a
+versioned `human_knowledge_storage` dependency, and latches app service unavailable after a failure.
+Original api/service/config/v4/snapshot/persistence/migrations/data/default files remain unchanged.
+
+Coverage:R1/R5 original default +4 nondebug sample bodies byte-equal and old math artifact retained;
+R2 exact142/100/42 and plan/source hashes;R3 file/fakeDB startup+each probe full read, explicit DB env;
+R4 startup/runtime failure, health+resolve503/latch/no retry,400/415/422 no probes;R7 private mock
+not-runtime-ready plus committed42-source candidate2. R3 SELECT-role SQL permissions and actual DB
+transactions, R5 exact199 parity, all runtime failure fixtures and R8 costs belong to HSP3–4.
+
+Focused55 and full544 tests PASS; Ruff F/I, strict isolated MyPy and compileall PASS. Initial test
+iteration retained:reserved pytest parameter blocked collection; then37PASS/1FAIL exposed an invalid
+test assumption that short`Chevy Nomad` must match (changed to the catalog-specific year/# case,
+not production logic); first source-freeze tests50PASS/4FAIL exposed missing commit-wide byte checks,
+which were implemented before publication. Candidate1 at5d9e2f3 lacked the required health field and
+is retained/superseded; accepted candidate2 manifestSHA`ebd0fe…` binds42sources at`bd2a838` and
+ready=false. Existing Starlette warning remains. Next:HSP-3 needs explicit isolated SQL-run approval.

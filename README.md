@@ -461,6 +461,7 @@ Current project checklist (engineering completion is not retrieval-quality appro
 - [x] T49.2: isolated PostgreSQL142doc storage/transaction verification;25new/473full tests PASS; owned test resources cleaned.
 - [x] T49.3 planning: optionalfile/DBprofile +199dev parity/failure/costprotocol; all three scoped confirmations recorded.
 - [x] T49.3 HSP-1: approved inputs/declared profile frozen;8files/26input pins,16new/489full tests PASS, no runtime results.
+- [x] T49.3 HSP-2: strict file/DB adapter + complete request integrity/503 latch + versioned health;55focused/544full tests PASS.
 - [ ] T49.3 complete: implement profiles/API, freeze actual runtime sources and verify parity/failure/cost.
 - [ ] Later: isolated persistence and source/field-reviewed real variant expansion; separate rollout gates.
 - [ ] End-to-end demonstration and beginner code review after project delivery.
@@ -580,9 +581,10 @@ unchangedv4math/canonicalauthority. SQLvalidates142docs, not vector/candidateTop
 is included inapprovedHTTPcost protocol. Scoped requirements/design/tasks-budgets confirmations
 and [HSP-1 input freeze](docs/evidence/t49-3-input-freeze.md) are recorded. Original approvedspec copies,
 protocol, declaredprofile and manifest are in `data/evaluation/human-storage-profile-development-v1/freeze/`.
-FullT49.3/HSP2–4/T49.4 remainunchecked; actual adapter/import manifest and images remainpending
-before realoutputs. A new isolated SQL run needs separate authorization. There is no newprofile
-code/DBoperation/latency/accuracy output. Current source access/rights
+FullT49.3/HSP3–4/T49.4 remainunchecked. HSP-2 has an accepted
+[42-source candidate2 freeze](docs/evidence/t49-3-storage-adapter.md), but no runnable profile/image IDs.
+A new isolated SQL run needs separate authorization. There is no real SQL/profile latency/accuracy
+output. Current source access/rights
 remain unverified; no bypass/media collection/real3kexpansion.
 
 ```sh
@@ -592,6 +594,13 @@ remain unverified; no bypass/media collection/real3kexpansion.
 This checks existing approved inputs only: no SQL/HTTP/retrieval. `--freeze` refuses existing output;
 partial/tampered bundles fail closed. The original protocol draft's publication flags are historical;
 the new frozen approval/protocol records are authoritative. This is not a runtime-ready artifact.
+
+The optional implementation lives only at
+`product_variant_resolver.human_knowledge_storage_app:app`. Without an explicit, fully bound profile
+it starts not-ready; the original `product_variant_resolver.api:app` remains unchanged and ready.
+File/private-fake-DB tests do not authorize or prove PostgreSQL. The accepted HSP-2 source freeze is
+`data/evaluation/human-storage-profile-development-v1/runtime-source-freeze-v2/`; candidate1 is
+retained as superseded because it lacked the separate versioned storage dependency in `/health`.
 
 ```sh
 .venv/bin/python scripts/plan_human_knowledge_snapshot.py --check

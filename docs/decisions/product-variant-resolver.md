@@ -1188,3 +1188,26 @@ At10×data, hashing all sources grows in cost, but this offline approval gate is
 Measure the later fullsnapshot request gate before changing it; do not infer3kthroughput from hashes.
 Six-axis scope review:grounding/authority/auditability/local safety PASS; runtime cost/extendability
 NOT RUN. Evidence:`docs/evidence/t49-3-input-freeze.md` and its AI rubric;16new/489full tests PASS.
+
+# D51 — Compose a strict storage gate around frozen resolution instead of editing it
+
+Status:ACCEPTED for HSP-2 private/mock implementation,2026-09-14. Use two new modules only. A strict
+profile loader verifies explicit mode, complete snapshot/source/protocol/math bindings and runtime
+state. A service subclass probes storage then delegates to unchangedResolverService; a new app wrapper
+probes health, publishes a separate versioned dependency and latches app unavailable on failure.
+
+This avoids editing source-bound API/service/v4 math and keeps canonical output authority unchanged.
+Alternatives rejected:startup-only cache reports success after storage loss; header-only checks miss
+child changes; per-query SQL candidates alter RAG mathematics; route/source monkeypatching obscures
+the contract; automatic file fallback answers from a source the operator did not select. Full142
+reads cost availability/latency but match the approved fail-closed design and will be measured later.
+
+Private profiles require literal mock opt-in and cannot carry runtime images/ready=true. Runtime
+profiles require two content-addressed image IDs; HSP-2 publishes only a non-runnable template.
+Candidate1 was not overwritten when review found missing health dependency; candidate2 binds the fix
+and42 sources at a single commit. Most likely failure is presenting fake-repository behavior as SQL
+proof, so HSP-3 remains separately authorized. At10×scale, full snapshot checks may need an immutable
+server digest/transaction strategy, but no optimization happens before honest142 cost evidence.
+
+Six-axis:grounding/authority/auditability/mock-integrity PASS; realSQL safety/runtime cost WAIT;
+extendability bounded. Evidence:`docs/evidence/t49-3-storage-adapter.md`;55focused/544full PASS.

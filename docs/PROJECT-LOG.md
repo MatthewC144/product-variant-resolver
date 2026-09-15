@@ -5500,6 +5500,46 @@ T49.3、HSP2–4與T49.4不勾選。下一步新增profile loader、唯讀完整
 先以單元／模擬測試驗證；HSP-3真實SQL隔離環境仍須另外明確批准。所有產物與日誌
 都位於Product Variant Resolver獨立repo，沒有把root agent設定納入推送。
 
+## 2026-09-14 — HSP-2：接上可選儲存安全門，但不把fake DB說成PostgreSQL證據
+
+Owner在HSP-1完成、下一步明確標為HSP-2後要求「執行下一步」。此前只有固定的協議，
+API還不能選擇file／PostgreSQL snapshot，也不能在啟動後偵測來源失效。本次新增獨立
+storage profile與app入口：啟動驗證完整142筆並建立既有v4記憶體索引，每個health／
+有效resolve再完整唯讀核對來源；一旦失敗便清空app service，直到process restart都503。
+原`api:app`仍正常ready，新entrypoint沒profile則not ready，沒有默認切換或舊路fallback。
+
+`human_knowledge_storage_profile.py`修改的是儲存合約邊界：strict/no-duplicate JSON、相對
+contained paths、storage/math protocol分離、plan與source SHA、兩種mode、外部URL env及
+runtime/mock狀態；Postgres只接受既有`pvr_t49_2_<12hex>`guard。它透過既有repository
+的whole-snapshot reader，不新增寫入／修復方法。`human_knowledge_storage_app.py`修改的是
+組合邊界：subclass先probe再`super.resolve`，debug在既有timing/model maps增加storage
+版本，nondebug canonical body不增加欄位。Health wrapper增加獨立storage dependency，
+不把human SQL冒充原`database`（canonical backend）。舊API/service/config/v4/data未修改。
+
+選subclass+factory是因為既有API已提供service_factory、ResolverService已接受明確human
+catalog/v4 config；直接改凍結模組較短，卻會破壞先前source-bound證據。選每次完整142
+核對而非啟動一次／只看header，才能發現斷線與child payload變動；代價是SQL/network
+成本與較嚴格availability，留給HSP-4按已批准門檻實測。沒有用SQL做TopK或改0.5／1.0／
+hash192／RRF60，Dual RAG仍由canonical決定正式答案，human只在debug提供casting證據。
+
+測試選private fake repository，使HSP-2能驗證呼叫與故障語意而不偷啟動DB。42項adapter/API
+測試後，來源封存測試共55PASS；完整套件544PASS，Ruff/MyPy/compileall與只讀上游checks
+PASS。過程保留三類問題：pytest保留參數造成collection error；短`Chevy Nomad`不保證
+matched的錯誤測試假設（換成既有明確catalog case，產品碼未改）；第一次source generator
+只hash工作檔，50PASS/4FAIL揭露未綁同commit，後改為42檔逐一比對Git bytes。
+Starlette/AnyIO既有deprecation仍1項。這些是開發測試，不是199題新結果或latency。
+
+最初commit5d9e2f3的candidate1在review時又發現health缺獨立versioned dependency；依不覆寫
+原則保留並加SUPERSEDED說明。補強後commit bd2a838產生accepted candidate2，adapter
+manifest`93a8b631…`、42inputs、ready=false、runtime images=null。此決策改變的是「來源
+候選版本」，不改需求、數學或輸出權限。HSP-2因此完成，但HSP-3真實SQL仍未授權：
+SELECT-only role拒寫、199file/DB逐筆parity、完整fault matrix與runtime image還沒驗證；
+HSP-4成本也未量。下一步先向owner說明新的隔離環境與動作，再取得明確SQL run指示。
+
+所有程式、tests、兩個candidate與敘述證據只在Product Variant Resolver repo；沒有加入
+root agent設定、憑證、資料庫URL或現有volume。3,000真實資料及顏色／輪圈／tampo精確
+variant仍屬後續來源審查，不從本次casting-level storage結果推論。
+
 ## Required format for future entries
 
 Every future project-log entry must preserve the following traceability structure:

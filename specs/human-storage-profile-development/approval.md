@@ -51,3 +51,9 @@ HSP-1 was then published and checked using committed producer
 `protocol.json` and original specification copies are now the execution-input authority;
 the live ledger and task checklist may advance without rewriting those approved snapshots.
 See [HSP-1 evidence](../../docs/evidence/t49-3-input-freeze.md). Runtime execution remains gated.
+
+Owner subsequently said「執行下一步」after HSP-1 completion and the explicit handoff naming
+HSP-2. This authorizes the bounded adapter/mock/source-freeze task, not HSP-3's isolated SQL run.
+HSP-2 implementation and final source candidate PASS are recorded in
+[HSP-2 evidence](../../docs/evidence/t49-3-storage-adapter.md). Runtime image IDs, runnable profile,
+real199 outputs and cost results remain absent. HSP-3 still requires separate explicit approval.
