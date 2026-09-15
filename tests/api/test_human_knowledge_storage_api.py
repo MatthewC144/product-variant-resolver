@@ -107,7 +107,12 @@ def test_health_and_each_valid_resolve_run_integrity_gate(
         return original()
 
     monkeypatch.setattr(service.storage, "probe", counted_probe)
-    assert experimental.get("/health").status_code == 200
+    health = experimental.get("/health")
+    assert health.status_code == 200
+    dependency = health.json()["dependencies"]["human_knowledge_storage"]
+    assert dependency == {"ready": True,
+        "version": service.storage_profile.artifact_version,
+        "detail": "file_snapshot_reference; immutable142 snapshot; complete integrity gate"}
     assert experimental.post("/resolve", json={"title": "Chevy Nomad"}).status_code == 200
     assert calls == 2
 
@@ -177,6 +182,10 @@ def test_runtime_integrity_failure_is_sticky_503_without_identity(
     first = (experimental.get("/health") if endpoint == "health" else
              experimental.post("/resolve", json={"title": "Chevy Nomad"}))
     assert first.status_code == 503
+    if endpoint == "health":
+        dependency = first.json()["dependencies"]["human_knowledge_storage"]
+        assert dependency["ready"] is False
+        assert dependency["version"] == service.storage_profile.artifact_version
     if endpoint == "resolve":
         assert "canonical_uuid" not in first.json() and first.json()["error"]["code"] == "dependency_unavailable"
     assert app.state.service is None
@@ -195,6 +204,9 @@ def test_startup_profile_failure_is_notready_without_default_fallback(tmp_path: 
                      profile_path=path, root=ROOT, allow_private_mock=True)
     client = TestClient(app)
     assert client.get("/health").status_code == 503
+    dependency = client.get("/health").json()["dependencies"]["human_knowledge_storage"]
+    assert dependency == {"ready": False, "version": None,
+                          "detail": "configured human storage is unavailable"}
     response = client.post("/resolve", json={"title": "Chevy Nomad"})
     assert response.status_code == 503 and "canonical_uuid" not in response.json()
 

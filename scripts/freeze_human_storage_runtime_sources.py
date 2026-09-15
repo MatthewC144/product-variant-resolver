@@ -30,7 +30,7 @@ from product_variant_resolver.human_knowledge_storage_profile import (  # noqa: 
 )
 
 PRODUCER = "scripts/freeze_human_storage_runtime_sources.py"
-OUTPUT = "data/evaluation/human-storage-profile-development-v1/runtime-source-freeze"
+OUTPUT = "data/evaluation/human-storage-profile-development-v1/runtime-source-freeze-v2"
 
 
 def sha(raw: bytes) -> str:

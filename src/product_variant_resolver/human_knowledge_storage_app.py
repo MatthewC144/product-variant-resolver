@@ -1,6 +1,7 @@
 """Explicit T49.3 experimental app; the original ``api:app`` remains unchanged."""
 from __future__ import annotations
 
+import json
 import os
 from collections.abc import Mapping
 from dataclasses import replace
@@ -8,6 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 
 from .api import create_app as create_base_app
 from .catalog import load_catalog
@@ -146,7 +148,25 @@ def create_app(settings: Settings | None = None, *, profile_path: Path | None = 
                 current.probe_storage()
             except DependencyUnavailable:
                 pass  # Callback latched app.state.service=None; base health emits safe 503.
-        return await call_next(request)
+        response = await call_next(request)
+        if request.method != "GET" or request.url.path != "/health":
+            return response
+        body = b"".join([chunk async for chunk in response.body_iterator])
+        payload = json.loads(body)
+        active = app.state.service
+        profile = current.storage_profile if isinstance(current, HumanStorageResolverService) else None
+        payload["dependencies"]["human_knowledge_storage"] = {
+            "ready": isinstance(active, HumanStorageResolverService),
+            "version": profile.artifact_version if profile else None,
+            "detail": (
+                f"{profile.mode}; immutable142 snapshot; complete integrity gate"
+                if isinstance(active, HumanStorageResolverService) and profile else
+                "configured human storage is unavailable"
+            ),
+        }
+        headers = {key: value for key, value in response.headers.items()
+                   if key.lower() not in {"content-length", "content-type"}}
+        return JSONResponse(status_code=response.status_code, content=payload, headers=headers)
 
     return app
 
