@@ -1,0 +1,44 @@
+{
+  "schema_version": "pvr-human-storage-hsp3-failed-run-v1",
+  "verdict": "FAIL",
+  "publication_status": "sanitized_failure_record_not_correctness_evidence",
+  "started_at_utc": "2026-09-15T14:10:13.525593+00:00",
+  "finished_at_utc": "2026-09-15T14:10:16.274415+00:00",
+  "implementation_commit": "090847eb64d7560e93c5cb5d6c3337be122b316b",
+  "run_manifest_sha256": "370f150710a30c8ec90e62b90604ff96afc14e130f3fa5134fd29e9d8b2ba708",
+  "owner_token": "68e44bb572ac",
+  "failure_stage": "create_select_only_reader_role_before_fixed199_calls",
+  "failure": {
+    "type": "ProgrammingError",
+    "sqlstate": "42601",
+    "cause": "PostgreSQL role DDL rejected a bound password parameter",
+    "correctness_cases_executed": 0
+  },
+  "credential_redaction": {
+    "performed": true,
+    "reason": "the raw SQLAlchemy exception echoed an ephemeral reader password",
+    "impact": "the temporary database and role were already destroyed; the credential cannot be used",
+    "original_sensitive_report_retained": false
+  },
+  "resources": {
+    "containers": [
+      "ea7d5ce5f120efe984dbf80aadb427129b7a6b84decf1ce12bef02e5d60ac76a",
+      "63282e51d36a7d2b8b593f167c5021d977b1da5202789da017037abc899ee307"
+    ],
+    "network": "b8aeed2830f4602b741e8f1b6359242be212c1786ea11f25b6b10d60d38061cb"
+  },
+  "cleanup": {
+    "errors": [],
+    "remaining_owned_resources": [],
+    "removed": [
+      "63282e51d36a7d2b8b593f167c5021d977b1da5202789da017037abc899ee307",
+      "ea7d5ce5f120efe984dbf80aadb427129b7a6b84decf1ce12bef02e5d60ac76a",
+      "b8aeed2830f4602b741e8f1b6359242be212c1786ea11f25b6b10d60d38061cb"
+    ]
+  },
+  "images": {
+    "pgvector/pgvector:pg16": "sha256:131dcf7ff6a900545df8e7e092c270aa8c6db2f2c818e408cb45ec21316b74e6",
+    "product-variant-resolver:ibr-t5-rootfix": "sha256:7dbae114eb0615fb8582cce3fc79b2f19233edc453672bc5726de937dfec0fee"
+  },
+  "next_action": "freeze corrected source as a distinct HSP-3 run-v2 before producing any new real output"
+}

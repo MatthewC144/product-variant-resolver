@@ -154,8 +154,11 @@ def test_scorer_rejects_one_candidate_mismatch(tmp_path: Path) -> None:
 
 def test_supervisor_has_strict_owned_cleanup_and_no_compose_or_volume_path() -> None:
     source = (ROOT / "scripts/run_human_storage_profile_sql.py").read_text()
+    verifier = (ROOT / "scripts/verify_human_storage_profile_sql.py").read_text()
     assert 'LABEL = "pvr.t49-3.owner"' in source
     assert '"--internal"' in source and '"--read-only"' in source
     assert '"--tmpfs"' in source and '"--force"' in source
     assert "docker-compose" not in source and "volume create" not in source
+    assert "pvr-hsp3-bootstrap-only" not in source
+    assert "PASSWORD :password" not in verifier
     assert "remaining_owned_resources" in source

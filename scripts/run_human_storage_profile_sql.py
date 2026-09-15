@@ -19,8 +19,8 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 LABEL = "pvr.t49-3.owner"
-RUN_FREEZE = ROOT / "data/evaluation/human-storage-profile-development-v1/hsp3-run-v1"
-OUTPUT = ROOT / "reports/human-storage-profile-hsp3-raw-v1.json"
+RUN_FREEZE = ROOT / "data/evaluation/human-storage-profile-development-v1/hsp3-run-v2"
+OUTPUT = ROOT / "reports/human-storage-profile-hsp3-raw-v2.json"
 
 
 def sha(path: Path) -> str:
@@ -151,6 +151,7 @@ def run(path: Path) -> dict[str, Any]:
     }
     try:
         paths = tracked_paths()
+        bootstrap_password = secrets.token_hex(24)
         with tempfile.TemporaryDirectory(prefix="pvr-hsp3-") as staging_name:
             stage = Path(staging_name)
             stage.chmod(0o755)
@@ -186,7 +187,7 @@ def run(path: Path) -> dict[str, Any]:
                 "-e",
                 "POSTGRES_USER=pvr_t49_3",
                 "-e",
-                "POSTGRES_PASSWORD=pvr-hsp3-bootstrap-only",
+                f"POSTGRES_PASSWORD={bootstrap_password}",
                 images[db_tag],
             ).stdout.strip()
             resources["containers"].append(db_id)
@@ -248,7 +249,9 @@ def run(path: Path) -> dict[str, Any]:
                 "-e",
                 f"PVR_T49_3_EXPECTED_DATABASE={database}",
                 "-e",
-                "PVR_T49_3_BOOTSTRAP_DATABASE_URL=postgresql+psycopg://pvr_t49_3:pvr-hsp3-bootstrap-only@postgres:5432/"
+                "PVR_T49_3_BOOTSTRAP_DATABASE_URL=postgresql+psycopg://pvr_t49_3:"
+                + bootstrap_password
+                + "@postgres:5432/"
                 + database,
                 "-e",
                 f"PVR_T49_3_READER_PASSWORD={reader_password}",
@@ -286,7 +289,8 @@ def run(path: Path) -> dict[str, Any]:
             if execution.returncode:
                 report["runner_failure"] = {
                     "exit_code": execution.returncode,
-                    "stderr": execution.stderr[-4000:],
+                    "stderr_sha256": hashlib.sha256(execution.stderr.encode()).hexdigest(),
+                    "stderr_redacted": True,
                 }
     except Exception as error:
         report["supervisor_failure"] = f"{type(error).__name__}: {error}"

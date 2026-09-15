@@ -17,7 +17,7 @@ TEMPLATE = (
     ROOT
     / "data/evaluation/human-storage-profile-development-v1/runtime-source-freeze-v2/profile-template.json"
 )
-DEFAULT_OUTPUT = ROOT / "data/evaluation/human-storage-profile-development-v1/hsp3-run-v1"
+DEFAULT_OUTPUT = ROOT / "data/evaluation/human-storage-profile-development-v1/hsp3-run-v2"
 DB_IMAGE = "pgvector/pgvector:pg16"
 DB_IMAGE_ID = "sha256:131dcf7ff6a900545df8e7e092c270aa8c6db2f2c818e408cb45ec21316b74e6"
 RUNNER_IMAGE = "product-variant-resolver:ibr-t5-rootfix"
@@ -164,7 +164,7 @@ def freeze(output: Path = DEFAULT_OUTPUT) -> dict[str, Any]:
         "postgres-profile.json": db_raw,
         "run-manifest.json": manifest_raw,
         "README.md": (
-            "# HSP-3 run freeze v1\n\nThis directory was published before real SQL/dev outputs. "
+            f"# HSP-3 {output.name} freeze\n\nThis directory was published before real SQL/dev outputs. "
             "It binds the approved disposable database name, exact image IDs, two runtime "
             "profiles, fixed 199-case pack, protocol, and execution code. It contains no "
             "credential or database URL.\n"

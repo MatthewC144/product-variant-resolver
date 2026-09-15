@@ -271,13 +271,14 @@ def verify() -> dict[str, Any]:
     if admin.import_snapshot(plan, root=ROOT) != "inserted":
         raise ValueError("new database did not receive the exact snapshot once")
     reader = role_name(token)
+    if not re.fullmatch(r"[0-9a-f]{48}", reader_password):
+        raise ValueError("generated reader password shape differs")
     with engine.begin() as connection:
         connection.execute(
             sa.text(
-                f"CREATE ROLE {reader} LOGIN PASSWORD :password "
+                f"CREATE ROLE {reader} LOGIN PASSWORD '{reader_password}' "
                 "NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT"
             ),
-            {"password": reader_password},
         )
         connection.execute(sa.text(f"GRANT CONNECT ON DATABASE {database} TO {reader}"))
         connection.execute(sa.text(f"GRANT USAGE ON SCHEMA public TO {reader}"))
@@ -589,8 +590,10 @@ def verify() -> dict[str, Any]:
 
 
 def _alter_password(engine: Any, role: str, password: str) -> None:
+    if not re.fullmatch(r"[A-Za-z0-9]+", password):
+        raise ValueError("unsafe test password")
     with engine.begin() as connection:
-        connection.execute(sa.text(f"ALTER ROLE {role} PASSWORD :password"), {"password": password})
+        connection.execute(sa.text(f"ALTER ROLE {role} PASSWORD '{password}'"))
 
 
 def _replace_header(engine: Any, snapshot_id: str, header: dict[str, Any]) -> None:
@@ -623,11 +626,16 @@ if __name__ == "__main__":
     try:
         print(json.dumps(verify(), ensure_ascii=False, sort_keys=True, indent=2))
     except Exception as error:
+        sqlstate = getattr(getattr(error, "orig", None), "sqlstate", None)
         print(
             json.dumps(
                 {
                     "schema_version": "pvr-human-storage-hsp3-runner-raw-v1",
-                    "runtime_error": f"{type(error).__name__}: {error}",
+                    "runtime_error": {
+                        "type": type(error).__name__,
+                        "sqlstate": sqlstate,
+                        "detail": "redacted; inspect source-bound gate and exit code",
+                    },
                 },
                 ensure_ascii=False,
                 sort_keys=True,
