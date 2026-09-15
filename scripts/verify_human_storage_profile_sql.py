@@ -425,6 +425,9 @@ def verify() -> dict[str, Any]:
     admin.import_snapshot(plan, root=ROOT)
     with engine.begin() as connection:
         connection.execute(
+            sa.text("ALTER TABLE public.hk_snapshot DROP CONSTRAINT ck_hk_namespace")
+        )
+        connection.execute(
             sa.text(
                 "UPDATE public.hk_snapshot SET persistence_namespace='wrong' WHERE snapshot_id=:id"
             ),
@@ -439,6 +442,12 @@ def verify() -> dict[str, Any]:
                 "UPDATE public.hk_snapshot SET persistence_namespace=:value WHERE snapshot_id=:id"
             ),
             {"value": PERSISTENCE_NAMESPACE, "id": plan["snapshot_id"]},
+        )
+        connection.execute(
+            sa.text(
+                "ALTER TABLE public.hk_snapshot ADD CONSTRAINT ck_hk_namespace CHECK "
+                "(persistence_namespace = 'human-knowledge-isolated-storage-test-v1')"
+            )
         )
         connection.execute(
             sa.text("DELETE FROM public.hk_document WHERE snapshot_id=:id AND ordinal=141"),

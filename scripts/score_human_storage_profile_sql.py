@@ -12,8 +12,8 @@ from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
-RAW = ROOT / "reports/human-storage-profile-hsp3-raw-v3.json"
-OUTPUT = ROOT / "reports/human-storage-profile-hsp3-evaluation-v3.json"
+RAW = ROOT / "reports/human-storage-profile-hsp3-raw-v4.json"
+OUTPUT = ROOT / "reports/human-storage-profile-hsp3-evaluation-v4.json"
 
 
 def sha(path: Path) -> str:

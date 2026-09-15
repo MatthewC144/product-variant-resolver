@@ -19,8 +19,8 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 LABEL = "pvr.t49-3.owner"
-RUN_FREEZE = ROOT / "data/evaluation/human-storage-profile-development-v1/hsp3-run-v3"
-OUTPUT = ROOT / "reports/human-storage-profile-hsp3-raw-v3.json"
+RUN_FREEZE = ROOT / "data/evaluation/human-storage-profile-development-v1/hsp3-run-v4"
+OUTPUT = ROOT / "reports/human-storage-profile-hsp3-raw-v4.json"
 
 
 def sha(path: Path) -> str:
