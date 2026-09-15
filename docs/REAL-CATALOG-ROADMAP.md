@@ -74,3 +74,7 @@ Nissan Skyline 2000GT-R LBWK和'87 Audi quattro。選它們是因為可以一次
 顯示11筆原始值，並把同family內10種兩兩關係列成必答題。只有三個既有文字主張能安全連到
 特定toy number；它們仍只是候選證據。尤其Nissan來源網址含顏色文字，但既有觀察摘要沒有
 明說顏色，因此不能從網址自動補值。所有決定欄現在都是空白；下一步需要專案owner確認。
+
+Owner已確認第一組Lamborghini的保守結果：HYW93名稱／toy number／2025年份成立；HYW93、
+HYY45、JBB86視為三個不同release；三列的顏色、輪圈、tampo、edition與包裝仍未知。這只完成
+batch01的1/4，下一組是Subaru BRZ。

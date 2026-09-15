@@ -48,3 +48,10 @@ exclusive/drift/tamper behavior and no network/database clients. Full QA checks 
 The packet intentionally repeats enough context for a beginner reviewer. At10×,a UI/database may replace
 Markdown,but the review contract should remain. The largest risk is treating a convenient series name,
 URL slug or family-level Zamac phrase as row-specific physical truth.
+
+## Owner decision event01
+
+The owner answered`繼續下一步`immediately after the explicit Lamborghini conservative-decision question.
+Record that response as authorization for Lamborghini only. A generic read-only validator checks the
+event against packet SHA,required candidate/physical fields,all family pairs,grounded values,evidence,
+reasons and summary. It performs no publication or mutation. Other families remain outside the event.

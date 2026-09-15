@@ -10,3 +10,11 @@
 
 No remote fetch,field inference,prefilled human choice,release merge,canonical/runtime/database change,
 or claim that historical source metadata is current permission.
+
+## Owner decision progress
+
+- [x] VBR-D1:record and validate the scoped Lamborghini decision event against the frozen packet;
+  confirm3 grounded HYW93 fields,keep15 physical fields unknown,and decide3 pairs as different release.
+- [ ] VBR-D2:obtain and record the Subaru BRZ owner decision.
+- [ ] VBR-D3:obtain and record the Nissan Skyline 2000GT-R LBWK owner decision.
+- [ ] VBR-D4:obtain and record the'87 Audi quattro owner decision and close batch01.

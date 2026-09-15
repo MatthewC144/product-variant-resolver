@@ -471,6 +471,7 @@ Current project checklist (engineering completion is not retrieval-quality appro
 - [x] VAR-REVIEW1-PREP: owner-readable4-family/11-row packet and143-field/10-pair empty decision
   template frozen;only3 row-specific candidate claims,no owner decision yet.
 - [ ] VAR-REVIEW1: owner reviews the exact batch01 fields and within-family relationships.
+  Progress1/4:Lamborghini accepted conservatively;Subaru,Nissan,Audi remain pending.
 - [ ] Later: isolated persistence and source/field-reviewed real variant expansion; separate rollout gates.
 - [ ] End-to-end demonstration and beginner code review after project delivery.
 
@@ -619,6 +620,11 @@ surfaced but remain pending:HYW93 Lamborghini2025 release,JBC35 Audi Super Treas
 Nissan Tooned tool. The [decision template](reports/release-field-review-batch-01/decisions.template.json)
 contains zero prefilled choices. The owner must confirm exact evidence before an immutable decision
 artifact is created;preparation alone does not advance VAR-PLAN2/3.
+
+The first immutable owner event now records Lamborghini only:HYW93 casting/toy/year confirmed,all15
+physical slots across its three rows unknown,and all three row pairs different releases. See
+[decision evidence](docs/evidence/var-review1-decision-01-lamborghini.md). This does not approve the
+remaining families or create canonical products.
 
 ```sh
 .venv/bin/python scripts/freeze_human_storage_development.py --check

@@ -5870,3 +5870,62 @@ manifest測試逐一重算三個artifact SHA。
 same_release/different_release/unresolved並附理由。若owner希望先採最保守安全狀態，可將缺乏
 row-specific證據的欄位保持unknown、關係保持unresolved；但這仍必須由owner明確確認，不能由
 preparer代簽。確認後才建立不可覆寫的decision artifact；VAR-PLAN2仍不是自動下一步。
+
+## 2026-09-15 — VAR-REVIEW1 decision01：只記錄owner確認的Lamborghini範圍
+
+### 背景、問題與可觀察結果
+
+上一輪最後以明確問題詢問owner是否接受Lamborghini保守審查：只確認HYW93的casting/toy/
+2025，三個toy numbers視為不同release，所有physical fields維持unknown。owner緊接回答
+「繼續下一步」。本次將短回答視為該問題的同意，但不擴張成整個batch。現在可觀察到一個
+packet-SHA-bound decision event：3 confirmed fields、15 unknown physical fields、3 different-release
+pairs、canonical changes0；Subaru/Nissan/Audi仍pending，batch進度1/4。
+
+### 程式修改與原因
+
+新增read-only`validate_release_field_review_decision.py`，以原packet與manifest為authority，驗
+event的owner question/response/scope/time、family membership、required fields、confirmed value是否
+等於raw或candidate evidence、無支持physical field是否unknown、所有pair是否完整、reason/
+evidence是否存在及summary能否重算。validator不寫檔，避免驗證工具自己改authority artifact。
+
+`decision-01-lamborghini.json`保存原問題與`繼續下一步`原文，明確列出不批准的三個families、
+source access與canonical promotion。18個required field decisions由HYW93三個已支持欄位，加上
+三列各五個physical unknown組成；其他source-observed欄位保持未確認而非默認接受。新增10項測試
+涵蓋正常事件與packet SHA、canonical flag、grounding、缺field、缺pair等篡改失敗。spec進度、
+QA/evidence/rubric/roadmap/README/decision與本日誌同步回寫。
+
+### 技術選型、替代方案與代價
+
+採用一family一append-only event，不直接填滿可變的整批template，因為owner正在逐組學習與確認；
+這可保留每次對話的真正授權範圍。短答可以要求重講完整內容，語意最明確但會在剛問完精確問題後
+增加不必要摩擦；也可以當作整批批准，卻明顯越權。因此選擇保存question+response+窄化interpretation，
+讓reviewer日後能判斷這個推論是否合理。
+
+confirmed value只能等於packet raw或candidate value；不是靠任意reason補一個新值。所有三個pair
+設different release，是owner接受上一輪已明說的保守建議，依據是三個不同toy-number source rows
+和base/2nd/3rd release markers；這不代表知道它們的顏色。代價是其他21個Lamborghini來源欄位仍
+只是observed-unverified，但這比一次把整列全部升格為人類真相更誠實。
+
+### 決策改變與觸發證據
+
+沒有把`Red Edition`複製成color或edition。HYY45的color/edition各自unknown；JBB86的`3rd Color`
+也只支援它是另一個release marker，不支援物理顏色。事件scope完成的定義從「39欄全部人工
+confirm」窄化為「所有row-specific candidate fields、所有physical unknowns、所有family pairs」；
+其餘欄位可保持source observation。這符合owner實際確認內容，也避免杜撰未問過的決定。
+
+### 驗證證據
+
+Decision event SHA`b05c52842626b2c9dfadc66901dd6544ce237a7f7a010ce25611facc3475e5ef`，
+綁定packet SHA`2e2adee3…00b2`。Validator輸出PASS：family`174efb…`、fields18、pairs3。
+confirmed為casting name`Lamborghini Huracán Sterrato`、toy`HYW93`、year`2025`；unknown15；
+different release3；same/unresolved/conflicted/rejected全0。
+
+聚焦10與完整589項測試PASS，Ruff F/I、strict MyPy、compileall、CLI validation PASS，只有既有
+Starlette／AnyIO warning。五種tamper cases全部fail closed，validator也沒有network/SQL/write path。
+
+### 未完成、風險與下一步
+
+VAR-REVIEW1仍未完成；進度1/4。Lamborghini的color/wheel/tampo/edition/packaging仍未知，沒有
+canonical UUID。下一個owner問題是Subaru BRZ：HYW99、HYY12、JBB55是否應視為不同release；
+`2nd Color - Zamac`能否只確認HYY12的Zamac finish，還是因family-level human evidence無法安全
+對應該row而繼續unknown。為遵守authority邊界，必須先向owner呈現保守建議再記錄decision02。

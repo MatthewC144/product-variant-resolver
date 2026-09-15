@@ -1,0 +1,216 @@
+{
+  "canonical_promotion_authorized": false,
+  "decision_version": "release-field-review-batch-01-decision-01-v1",
+  "family_review_id": "fandom-family-174efb9bce3a441e",
+  "family_review_scope": "required_candidate_fields_physical_unknowns_and_within_family_relationships",
+  "field_decisions": [
+    {
+      "decision": "confirmed",
+      "evidence_references": [
+        "reports/release-field-review-batch-01/packet.json#fandom-row-cd91a09d2fb2f780",
+        "data/external/hot-wheels-wiki/pilot-2025/priority-2-batch-04-research.json#fandom-family-174efb9bce3a441e"
+      ],
+      "field": "casting_name",
+      "reason": "Owner accepted the frozen secondary claim that explicitly names the casting for HYW93.",
+      "reviewed_value": "Lamborghini Huracán Sterrato",
+      "source_record_id": "fandom-row-cd91a09d2fb2f780"
+    },
+    {
+      "decision": "confirmed",
+      "evidence_references": [
+        "reports/release-field-review-batch-01/packet.json#fandom-row-cd91a09d2fb2f780",
+        "data/external/hot-wheels-wiki/pilot-2025/priority-2-batch-04-research.json#fandom-family-174efb9bce3a441e"
+      ],
+      "field": "toy_number",
+      "reason": "Owner accepted the frozen secondary claim that explicitly maps HYW93 to this release.",
+      "reviewed_value": "HYW93",
+      "source_record_id": "fandom-row-cd91a09d2fb2f780"
+    },
+    {
+      "decision": "confirmed",
+      "evidence_references": [
+        "reports/release-field-review-batch-01/packet.json#fandom-row-cd91a09d2fb2f780",
+        "data/external/hot-wheels-wiki/pilot-2025/priority-2-batch-04-research.json#fandom-family-174efb9bce3a441e"
+      ],
+      "field": "release_year",
+      "reason": "Owner accepted the frozen secondary claim that explicitly describes HYW93 as a 2025 release.",
+      "reviewed_value": 2025,
+      "source_record_id": "fandom-row-cd91a09d2fb2f780"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-cd91a09d2fb2f780"],
+      "field": "color",
+      "reason": "The approved conservative review retains color as unknown because no attributable physical color is stated.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-cd91a09d2fb2f780"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-cd91a09d2fb2f780"],
+      "field": "wheel_type",
+      "reason": "The approved conservative review retains wheel type as unknown because no attributable value is stated.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-cd91a09d2fb2f780"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-cd91a09d2fb2f780"],
+      "field": "tampo_description",
+      "reason": "The approved conservative review retains tampo as unknown because no attributable value is stated.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-cd91a09d2fb2f780"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-cd91a09d2fb2f780"],
+      "field": "edition",
+      "reason": "The approved conservative review retains edition as unknown because no attributable value is stated.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-cd91a09d2fb2f780"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-cd91a09d2fb2f780"],
+      "field": "packaging_variant",
+      "reason": "The approved conservative review retains packaging as unknown because no attributable value is stated.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-cd91a09d2fb2f780"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-ccf12c7503be5c7c"],
+      "field": "color",
+      "reason": "Red Edition is a source series label and 2nd Color is an ordinal note;neither is accepted as physical color.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-ccf12c7503be5c7c"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-ccf12c7503be5c7c"],
+      "field": "wheel_type",
+      "reason": "The approved conservative review retains wheel type as unknown because no attributable value is stated.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-ccf12c7503be5c7c"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-ccf12c7503be5c7c"],
+      "field": "tampo_description",
+      "reason": "The approved conservative review retains tampo as unknown because no attributable value is stated.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-ccf12c7503be5c7c"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-ccf12c7503be5c7c"],
+      "field": "edition",
+      "reason": "Red Edition remains the observed series and is not copied into the separate edition field without explicit evidence.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-ccf12c7503be5c7c"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-ccf12c7503be5c7c"],
+      "field": "packaging_variant",
+      "reason": "The approved conservative review retains packaging as unknown because no attributable value is stated.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-ccf12c7503be5c7c"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-5334ae3b3e4446e6"],
+      "field": "color",
+      "reason": "3rd Color is an ordinal source note and is not accepted as an actual physical color.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-5334ae3b3e4446e6"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-5334ae3b3e4446e6"],
+      "field": "wheel_type",
+      "reason": "The approved conservative review retains wheel type as unknown because no attributable value is stated.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-5334ae3b3e4446e6"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-5334ae3b3e4446e6"],
+      "field": "tampo_description",
+      "reason": "The approved conservative review retains tampo as unknown because no attributable value is stated.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-5334ae3b3e4446e6"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-5334ae3b3e4446e6"],
+      "field": "edition",
+      "reason": "The approved conservative review retains edition as unknown because no attributable value is stated.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-5334ae3b3e4446e6"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-5334ae3b3e4446e6"],
+      "field": "packaging_variant",
+      "reason": "The approved conservative review retains packaging as unknown because no attributable value is stated.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-5334ae3b3e4446e6"
+    }
+  ],
+  "owner_authorization": {
+    "interpreted_scope": "Accept only the immediately preceding conservative Lamborghini Huracán Sterrato recommendation;do not approve Subaru,Nissan,Audi,canonical promotion,or new source access.",
+    "question": "你是否確認採用這個 Lamborghini 審查結果？確認後我才能將它寫成不可覆寫的人工作決策紀錄。",
+    "recorded_at_utc": "2026-09-15T17:20:45Z",
+    "response": "繼續下一步"
+  },
+  "packet_sha256": "2e2adee366d968b0308d64dbde6b513e53055316b5ec5d58c6e0f4b7ae2700b2",
+  "relationship_decisions": [
+    {
+      "decision": "different_release",
+      "evidence_references": [
+        "reports/release-field-review-batch-01/packet.json#fandom-family-174efb9bce3a441e",
+        "reports/release-field-review-batch-01/owner-review.md#lamborghini-huracán-sterrato"
+      ],
+      "left_source_record_id": "fandom-row-cd91a09d2fb2f780",
+      "reason": "Owner accepted the conservative result:distinct toy-number source rows and base/2nd Color release markers are treated as different releases,without inferring their colors.",
+      "right_source_record_id": "fandom-row-ccf12c7503be5c7c"
+    },
+    {
+      "decision": "different_release",
+      "evidence_references": [
+        "reports/release-field-review-batch-01/packet.json#fandom-family-174efb9bce3a441e",
+        "reports/release-field-review-batch-01/owner-review.md#lamborghini-huracán-sterrato"
+      ],
+      "left_source_record_id": "fandom-row-cd91a09d2fb2f780",
+      "reason": "Owner accepted the conservative result:distinct toy-number source rows and base/3rd Color release markers are treated as different releases,without inferring their colors.",
+      "right_source_record_id": "fandom-row-5334ae3b3e4446e6"
+    },
+    {
+      "decision": "different_release",
+      "evidence_references": [
+        "reports/release-field-review-batch-01/packet.json#fandom-family-174efb9bce3a441e",
+        "reports/release-field-review-batch-01/owner-review.md#lamborghini-huracán-sterrato"
+      ],
+      "left_source_record_id": "fandom-row-ccf12c7503be5c7c",
+      "reason": "Owner accepted the conservative result:distinct toy-number source rows and 2nd/3rd Color release markers are treated as different releases,without inferring their colors.",
+      "right_source_record_id": "fandom-row-5334ae3b3e4446e6"
+    }
+  ],
+  "review_scope_complete": true,
+  "reviewer": "project_owner",
+  "schema_version": "pvr-release-field-review-decision-event-v1",
+  "status": "accepted_scoped_family_review",
+  "summary": {
+    "canonical_changes": 0,
+    "confirmed_fields": 3,
+    "conflicted_fields": 0,
+    "different_release": 3,
+    "rejected_fields": 0,
+    "relationship_pairs": 3,
+    "required_field_decisions": 18,
+    "same_release": 0,
+    "unknown_fields": 15,
+    "unresolved": 0
+  }
+}

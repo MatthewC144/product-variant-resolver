@@ -1335,3 +1335,23 @@ Most likely failure is interpreting a familiar marketing phrase or URL as an app
 Grounding,authority,integrity,safety and auditability PASS for preparation;human correctness,source
 permission and scale are NOT EVALUATED. Evidence:`docs/evidence/var-review1-batch-01-preparation.md`;
 11focused/579full tests PASS.
+
+# D57 — Interpret continuation only within the immediately preceding owner question
+
+Status:ACCEPTED for VAR-REVIEW1 decision01,2026-09-15. The owner replied`繼續下一步`directly after the
+question asking whether to accept the stated Lamborghini conservative result. Record approval only for
+that exact result:confirm HYW93 casting/toy/year;keep five physical fields unknown on each of three rows;
+mark its three row pairs different releases. Do not infer approval for Subaru,Nissan,Audi,unmentioned
+source fields,new access or canonical promotion.
+
+Alternatives:requiring the owner to repeat the full recommendation would be less ambiguous but adds
+friction after a direct scoped question;interpreting“continue”as the entire batch would exceed authority.
+The event therefore stores verbatim question,response,interpretation and recording time,and a validator
+requires every field/pair in this conservative scope. The remaining source-observed fields stay
+unconfirmed rather than silently accepted.
+
+This completes1/4 owner families,not VAR-REVIEW1. At10×,event sequence/version rules need automation,
+but scoped append-only records already prevent later conversations from overwriting earlier evidence.
+Most likely failure is scope creep from a short affirmative reply. Grounding/authority/integrity/safety/
+auditability PASS;extendability bounded. Evidence:`docs/evidence/var-review1-decision-01-lamborghini.md`;
+10focused/589full tests PASS.
