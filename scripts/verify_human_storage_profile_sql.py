@@ -412,6 +412,10 @@ def verify() -> dict[str, Any]:
 
     with engine.begin() as connection:
         connection.execute(
+            sa.text("DELETE FROM public.hk_document WHERE snapshot_id=:id"),
+            {"id": plan["snapshot_id"]},
+        )
+        connection.execute(
             sa.text("DELETE FROM public.hk_snapshot WHERE snapshot_id=:id"),
             {"id": plan["snapshot_id"]},
         )

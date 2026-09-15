@@ -17,7 +17,7 @@ TEMPLATE = (
     ROOT
     / "data/evaluation/human-storage-profile-development-v1/runtime-source-freeze-v2/profile-template.json"
 )
-DEFAULT_OUTPUT = ROOT / "data/evaluation/human-storage-profile-development-v1/hsp3-run-v2"
+DEFAULT_OUTPUT = ROOT / "data/evaluation/human-storage-profile-development-v1/hsp3-run-v3"
 DB_IMAGE = "pgvector/pgvector:pg16"
 DB_IMAGE_ID = "sha256:131dcf7ff6a900545df8e7e092c270aa8c6db2f2c818e408cb45ec21316b74e6"
 RUNNER_IMAGE = "product-variant-resolver:ibr-t5-rootfix"
