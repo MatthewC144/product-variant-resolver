@@ -1,0 +1,35 @@
+{
+  "cleanup": {
+    "errors": [],
+    "remaining_owned_resources": [],
+    "removed": [
+      "c993abf21011144cd1e15703d8bdaa3769d02e3141c3af23b54b6e256d6ea5c8",
+      "c69af45b884d723d3ca7b76658cd70ae23c7cc8669f513136d6a5bf7af13672b",
+      "0ab762564bca0d35e06d4c9f948f992d7a9a1eb709b974cb08b59f3704b5d6f1"
+    ]
+  },
+  "finished_at_utc": "2026-09-15T14:37:07.349758+00:00",
+  "images": {
+    "pgvector/pgvector:pg16": "sha256:131dcf7ff6a900545df8e7e092c270aa8c6db2f2c818e408cb45ec21316b74e6",
+    "product-variant-resolver:ibr-t5-rootfix": "sha256:7dbae114eb0615fb8582cce3fc79b2f19233edc453672bc5726de937dfec0fee"
+  },
+  "implementation_commit": "7c30dcfad42c63e934350291dfbca087ebe5780b",
+  "owner_token": "2b3286006ece",
+  "publication_status": "raw_unscored",
+  "resources": {
+    "containers": [
+      "c69af45b884d723d3ca7b76658cd70ae23c7cc8669f513136d6a5bf7af13672b",
+      "c993abf21011144cd1e15703d8bdaa3769d02e3141c3af23b54b6e256d6ea5c8"
+    ],
+    "network": "0ab762564bca0d35e06d4c9f948f992d7a9a1eb709b974cb08b59f3704b5d6f1"
+  },
+  "run_freeze": "data/evaluation/human-storage-profile-development-v1/hsp4-run-v1",
+  "run_manifest_sha256": "432acb7644741d228f2fd4fa049958c16473680845854bcc869be7a61f202208",
+  "runner_result": {
+    "runtime_error": "collector did not produce parseable output",
+    "schema_version": "pvr-human-storage-hsp4-runner-raw-v1"
+  },
+  "schema_version": "pvr-human-storage-hsp4-raw-v1",
+  "started_at_utc": "2026-09-15T14:37:05.174335+00:00",
+  "supervisor_failure": "JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+}

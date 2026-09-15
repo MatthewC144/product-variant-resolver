@@ -19,8 +19,8 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 LABEL = "pvr.t49-4.owner"
-FREEZE = ROOT / "data/evaluation/human-storage-profile-development-v1/hsp4-run-v1"
-OUTPUT = ROOT / "reports/human-storage-profile-hsp4-raw-v1.json"
+FREEZE = ROOT / "data/evaluation/human-storage-profile-development-v1/hsp4-run-v2"
+OUTPUT = ROOT / "reports/human-storage-profile-hsp4-raw-v2.json"
 
 
 def sha(path: Path) -> str:
@@ -281,10 +281,20 @@ def run(output: Path) -> dict[str, Any]:
             ):
                 raise ValueError("HSP-4 runner isolation differs")
             execution = docker("start", "--attach", runner_id, timeout=1200, required=False)
-            report["runner_result"] = json.loads(execution.stdout)
-            if execution.returncode:
+            try:
+                report["runner_result"] = json.loads(execution.stdout)
+            except json.JSONDecodeError:
+                report["runner_result"] = {
+                    "schema_version": "pvr-human-storage-hsp4-runner-raw-v1",
+                    "runtime_error": {
+                        "type": "UnparseableRunnerOutput",
+                        "detail": "redacted collector failure",
+                    },
+                }
+            if execution.returncode or "runtime_error" in report["runner_result"]:
                 report["runner_failure"] = {
                     "exit_code": execution.returncode,
+                    "stdout_sha256": hashlib.sha256(execution.stdout.encode()).hexdigest(),
                     "stderr_sha256": hashlib.sha256(execution.stderr.encode()).hexdigest(),
                     "stderr_redacted": True,
                 }

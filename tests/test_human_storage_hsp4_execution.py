@@ -115,3 +115,5 @@ def test_hsp4_supervisor_is_isolated_and_credentials_are_generated() -> None:
     assert "docker-compose" not in supervisor and "volume create" not in supervisor
     assert "PASSWORD :password" not in verifier
     assert "timed_retries" in verifier
+    assert "import httpx" not in verifier
+    assert "urllib.request" in verifier

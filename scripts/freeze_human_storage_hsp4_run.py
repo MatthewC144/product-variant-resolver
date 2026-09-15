@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 BASE_PROFILE = (
     ROOT / "data/evaluation/human-storage-profile-development-v1/hsp3-run-v4/file-profile.json"
 )
-OUTPUT = ROOT / "data/evaluation/human-storage-profile-development-v1/hsp4-run-v1"
+OUTPUT = ROOT / "data/evaluation/human-storage-profile-development-v1/hsp4-run-v2"
 DB_IMAGE = "pgvector/pgvector:pg16"
 DB_IMAGE_ID = "sha256:131dcf7ff6a900545df8e7e092c270aa8c6db2f2c818e408cb45ec21316b74e6"
 RUNNER_IMAGE = "product-variant-resolver:ibr-t5-rootfix"
@@ -144,7 +144,7 @@ def freeze(output: Path = OUTPUT) -> dict[str, Any]:
             "file-profile.json": file_raw,
             "postgres-profile.json": db_raw,
             "run-manifest.json": manifest_raw,
-            "README.md": b"# HSP-4 run v1\n\nPre-output freeze for the approved 142-document cost protocol.\n",
+            "README.md": b"# HSP-4 run v2\n\nPre-output freeze for the approved 142-document cost protocol.\n",
         },
     )
     return {

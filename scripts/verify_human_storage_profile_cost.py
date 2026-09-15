@@ -12,11 +12,12 @@ import re
 import subprocess
 import sys
 import time
+import urllib.error
+import urllib.request
 from pathlib import Path
 from typing import Any
 
 import alembic
-import httpx
 import psycopg
 import sqlalchemy as sa
 import uvicorn
@@ -154,35 +155,39 @@ def collect_startups(profile: Path, samples: int) -> list[dict[str, Any]]:
 
 def wait_ready(url: str) -> None:
     deadline = time.monotonic() + 30
-    with httpx.Client(timeout=3) as client:
-        while True:
-            try:
-                if client.get(url + "/health").status_code == 200:
+    while True:
+        try:
+            with urllib.request.urlopen(url + "/health", timeout=3) as response:
+                if response.status == 200:
                     return
-            except httpx.HTTPError:
-                pass
-            if time.monotonic() >= deadline:
-                raise RuntimeError("Uvicorn profile server did not become ready")
-            time.sleep(0.05)
+        except (urllib.error.URLError, TimeoutError):
+            pass
+        if time.monotonic() >= deadline:
+            raise RuntimeError("Uvicorn profile server did not become ready")
+        time.sleep(0.05)
 
 
-def http_call(
-    client: httpx.Client, base: str, case: dict[str, Any], request_id: str, *, warmup: bool
-) -> dict[str, Any]:
+def http_call(base: str, case: dict[str, Any], request_id: str, *, warmup: bool) -> dict[str, Any]:
     started = time.perf_counter_ns()
     try:
-        response = client.post(
+        payload = json.dumps(
+            {"title": case["query_text"], "debug": True, "debug_candidate_limit": 5}
+        ).encode()
+        request = urllib.request.Request(
             base + "/resolve",
-            headers={"x-request-id": request_id},
-            json={"title": case["query_text"], "debug": True, "debug_candidate_limit": 5},
+            data=payload,
+            headers={"x-request-id": request_id, "content-type": "application/json"},
+            method="POST",
         )
-        body = response.json()
+        with urllib.request.urlopen(request, timeout=30) as response:
+            status = response.status
+            body = json.loads(response.read())
         elapsed = duration_ms(started)
         return {
             "duration_ms": elapsed,
-            "status": response.status_code,
-            "error": None if response.status_code == 200 else body,
-            "abstention": body.get("status") if response.status_code == 200 else None,
+            "status": status,
+            "error": None if status == 200 else body,
+            "abstention": body.get("status") if status == 200 else None,
             "candidate_count": len(body.get("debug", {}).get("human_knowledge_candidates", [])),
             "integrity_ms": body.get("debug", {})
             .get("timings_ms", {})
@@ -310,33 +315,31 @@ def collect() -> dict[str, Any]:
     try:
         for base in bases.values():
             wait_ready(base)
-        with httpx.Client(timeout=30) as client:
-            for name in ("file", "postgres"):
-                for index in range(cost["warmups_before_http_per_profile"]):
-                    http_warmups[name].append(
-                        http_call(
-                            client,
-                            bases[name],
-                            cases[0],
-                            f"hsp4-http-warmup-{name}-{index}",
-                            warmup=True,
-                        )
+        for name in ("file", "postgres"):
+            for index in range(cost["warmups_before_http_per_profile"]):
+                http_warmups[name].append(
+                    http_call(
+                        bases[name],
+                        cases[0],
+                        f"hsp4-http-warmup-{name}-{index}",
+                        warmup=True,
                     )
-            for index, case in enumerate(cases):
-                order = ("file", "postgres") if index % 2 == 0 else ("postgres", "file")
-                values = {}
-                for name in order:
-                    values[name] = http_call(
-                        client, bases[name], case, f"hsp4-http-{index:03d}-{name}", warmup=False
-                    )
-                http_rows.append(
-                    {
-                        "case_id": case["case_id"],
-                        "case_type": case["case_type"],
-                        "order": list(order),
-                        **values,
-                    }
                 )
+        for index, case in enumerate(cases):
+            order = ("file", "postgres") if index % 2 == 0 else ("postgres", "file")
+            values = {}
+            for name in order:
+                values[name] = http_call(
+                    bases[name], case, f"hsp4-http-{index:03d}-{name}", warmup=False
+                )
+            http_rows.append(
+                {
+                    "case_id": case["case_id"],
+                    "case_type": case["case_type"],
+                    "order": list(order),
+                    **values,
+                }
+            )
     finally:
         for process in processes.values():
             process.terminate()
@@ -396,7 +399,7 @@ def collect() -> dict[str, Any]:
                 "alembic": alembic.__version__,
                 "psycopg": psycopg.__version__,
                 "uvicorn": uvicorn.__version__,
-                "httpx": httpx.__version__,
+                "http_client": "python-urllib",
             },
         },
         "measurement_contract": cost,
