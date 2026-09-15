@@ -1311,3 +1311,27 @@ is selected before humans validate the workflow. The most likely failure is prom
 into release truth. Grounding,authority,integrity,safety and auditability PASS for the plan;
 extendability BOUNDED and variant quality/source permission NOT EVALUATED. Evidence:
 `docs/evidence/var-plan1-release-field-evidence-review.md`;9focused/568full tests PASS.
+
+# D56 — Freeze a question packet before recording owner release decisions
+
+Status:ACCEPTED for VAR-REVIEW1-PREP only,2026-09-15. Present the exact4family/11row VAR-PLAN1 batch
+beside already-frozen research,then generate a separate all-null decision template bound to the packet
+SHA. Earlier family approvals remain casting-only. A secondary claim becomes a row-level candidate only
+when its frozen observed text explicitly names that toy number;URL slugs,series labels and family-level
+variant overlap cannot add physical fields.
+
+This rule produces exactly three candidate claims:HYW93 Lamborghini release,JBC35 Audi Super Treasure
+Hunt,and HYX54 Nissan Tooned lineage. It deliberately does not map Subaru's family-level Zamac evidence
+to HYY12,and it rejects a color hinted only by Nissan's URL. Alternatives—prefilling “obvious” choices,
+using variant-note order as distinct identity,or asking only one family-level question—would make review
+faster but would hide the evidence gap and collapse source observation into release truth.
+
+Every one of143 field slots and10 pairwise relationships starts null. A completed event must name the
+reviewer,time,reason,evidence and exact packet SHA;unknown/conflicted remains valid. The extra packet/
+template/manifest files cost repetition,but let a reviewer distinguish what the machine assembled from
+what the owner authorized. At10×,a review UI may be needed;this Markdown batch does not measure that.
+
+Most likely failure is interpreting a familiar marketing phrase or URL as an approved color/edition.
+Grounding,authority,integrity,safety and auditability PASS for preparation;human correctness,source
+permission and scale are NOT EVALUATED. Evidence:`docs/evidence/var-review1-batch-01-preparation.md`;
+11focused/579full tests PASS.

@@ -69,3 +69,8 @@ Nissan Skyline 2000GT-R LBWK和'87 Audi quattro。選它們是因為可以一次
 不同series、Zamac提示與完全沒有variant note等問題，不是因為它們比較容易得到正確答案。
 目前沒有任何欄位被人工確認，100筆仍全部held。下一步應先由owner看這11筆的逐欄證據；
 若要再讀網站，仍須另外完成VAR-PLAN2的存取權利與請求預算確認。
+
+現在[batch01審查表](../reports/release-field-review-batch-01/owner-review.md)也已準備完成。表中逐列
+顯示11筆原始值，並把同family內10種兩兩關係列成必答題。只有三個既有文字主張能安全連到
+特定toy number；它們仍只是候選證據。尤其Nissan來源網址含顏色文字，但既有觀察摘要沒有
+明說顏色，因此不能從網址自動補值。所有決定欄現在都是空白；下一步需要專案owner確認。

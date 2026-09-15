@@ -1,0 +1,22 @@
+{
+  "artifact_sha256": {
+    "decisions.template.json": "bc01138a96a5ce679345d1170ecbca544f4089cfaffc200d7fddede813c03724",
+    "owner-review.md": "08bd164aad71f6b6df91a5d5d62c79b78257b29ff4e1af3a3f8f081170f38e69",
+    "packet.json": "2e2adee366d968b0308d64dbde6b513e53055316b5ec5d58c6e0f4b7ae2700b2"
+  },
+  "constraints": {
+    "all_rows_held": true,
+    "canonical_changes": 0,
+    "network_requests": 0,
+    "owner_decisions": 0
+  },
+  "schema_version": "pvr-release-field-review-batch-manifest-v1",
+  "source_sha256": {
+    "data/external/hot-wheels-wiki/pilot-2025/normalized.json": "e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6",
+    "data/external/hot-wheels-wiki/pilot-2025/priority-1-evidence.json": "4d6ede8ba1bbb3447f2d403885d4d68bb9d71893cbf012994b2be37e77ad8294",
+    "data/external/hot-wheels-wiki/pilot-2025/priority-2-batch-01-research.json": "a802f64478b73a0c40f43c1d43fa44b182ebdbcde9f67d3d0c97f237c92a241c",
+    "data/external/hot-wheels-wiki/pilot-2025/priority-2-batch-04-research.json": "07ae79197f81f3595b5323a38834fbfd776fd7043180bd3f6961c3a03d2c9673",
+    "reports/release-field-evidence-review-v1/plan.json": "f470d731188e7f8b00dd2c0b23c589abed08bcea97be2234f949fc008a44675a"
+  },
+  "status": "frozen_before_owner_decisions"
+}

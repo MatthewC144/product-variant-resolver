@@ -64,6 +64,16 @@ historical draft commit/hashes and explicit narrow execution exception; no separ
   Evidence:`reports/release-field-evidence-review-v1/` and
   `docs/evidence/var-plan1-release-field-evidence-review.md`;9focused/568full tests PASS.
 
+- [x] VAR-REVIEW1-PREP: freeze an owner-readable packet and all-pending decision template for the
+  selected4families/11rows/10pairs,using only existing attributable evidence. _(→R7–R10)_
+  Evidence:`reports/release-field-review-batch-01/` and
+  `docs/evidence/var-review1-batch-01-preparation.md`;11focused/579full tests PASS.
+
+- [ ] VAR-REVIEW1: obtain owner decisions bound to the exact batch01 packet for each field claim and
+  within-family relationship;keep insufficient/conflicting items unresolved. _(→R8–R10)_
+  Acceptance:reviewer/time/reason/evidence complete,no inferred physical fields,all decisions validate
+  against packet SHA,and no canonical promotion or unreviewed equality.
+
 - [ ] VAR-PLAN2: obtain source-specific access/rights and page/revision/budget approval before
   collecting any extra text or staging500/1,500/about3,000unique real source rows. _(→R11–R12)_
   Acceptance:current permissions/endpoint evidence, no bypass/images, serial cached bounded reads,
@@ -84,7 +94,8 @@ variant accuracy. One bounded task per approved handoff. T49.3 protocol/profile 
 scoped T49.3 requirements/design/tasks-budgets confirmations now recorded and HSP-1 inputfreeze PASS.
 HSP-1 through HSP-4 and the bounded T49.4 file-runtime package are now complete. The PostgreSQL
 profile remains isolated evidence rather than an installed service, and no default rollout occurred.
-VAR-PLAN1 now provides the full100-row evidence envelope and a four-family/11-row owner-review
-proposal. No field decisions have occurred. The next action is owner review of that exact batch;
+VAR-PLAN1 now provides the full100-row evidence envelope;VAR-REVIEW1-PREP freezes the four-family/
+11-row packet and empty decision contract. No field decisions have occurred. The next action is owner
+review of that exact packet;
 VAR-PLAN2 remains blocked on current source-specific access/rights and request-budget approval.
 This does not retroactively fabricate broader historical T49 approvals.

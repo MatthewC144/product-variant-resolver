@@ -468,6 +468,9 @@ Current project checklist (engineering completion is not retrieval-quality appro
   runbook and QA/AI evidence PASS; default API and PostgreSQL rollout remain unchanged.
 - [x] VAR-PLAN1: all100 held release rows have separate source/observation IDs and per-field
   unknown/evidence states; first manual batch proposes4 complete families/11 rows,no inferred values.
+- [x] VAR-REVIEW1-PREP: owner-readable4-family/11-row packet and143-field/10-pair empty decision
+  template frozen;only3 row-specific candidate claims,no owner decision yet.
+- [ ] VAR-REVIEW1: owner reviews the exact batch01 fields and within-family relationships.
 - [ ] Later: isolated persistence and source/field-reviewed real variant expansion; separate rollout gates.
 - [ ] End-to-end demonstration and beginner code review after project delivery.
 
@@ -608,6 +611,14 @@ attributes. Source-record IDs and observation IDs are separate;variant-equivalen
 remain null and all100 releases stay held. The proposed first owner review covers4 whole families/
 11 rows. See [evidence](docs/evidence/var-plan1-release-field-evidence-review.md). No website access,
 SQL or runtime change occurred;current source rights and any new collection remain VAR-PLAN2 gates.
+
+**Batch01 is ready for owner review.** Open the
+[beginner worksheet](reports/release-field-review-batch-01/owner-review.md). It preserves all11 raw
+rows and shows10 required same/different/unresolved pair decisions. Three existing text claims are
+surfaced but remain pending:HYW93 Lamborghini2025 release,JBC35 Audi Super Treasure Hunt,and HYX54
+Nissan Tooned tool. The [decision template](reports/release-field-review-batch-01/decisions.template.json)
+contains zero prefilled choices. The owner must confirm exact evidence before an immutable decision
+artifact is created;preparation alone does not advance VAR-PLAN2/3.
 
 ```sh
 .venv/bin/python scripts/freeze_human_storage_development.py --check

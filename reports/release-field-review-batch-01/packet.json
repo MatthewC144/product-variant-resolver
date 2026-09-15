@@ -1,0 +1,727 @@
+{
+  "authority": {
+    "all_rows_held": true,
+    "prior_family_decisions_are_release_decisions": false,
+    "unknown_values_imply_equality": false,
+    "url_slug_inference_allowed": false
+  },
+  "counts": {
+    "canonical_uuids": 0,
+    "families": 4,
+    "owner_field_decisions": 0,
+    "owner_relationship_decisions": 0,
+    "relationship_pairs": 10,
+    "row_specific_candidate_claims": 3,
+    "source_rows": 11
+  },
+  "families": [
+    {
+      "casting_name": "Lamborghini Huracán Sterrato",
+      "family_evidence": {
+        "approved_scope": "casting_family_only",
+        "family_recommendation": {
+          "family_decision": "create_new_casting",
+          "reason": "the queue name resolves to one dedicated Wiki casting page and at least one separate publisher confirms the exact Hot Wheels casting name",
+          "scope": "casting_family_only",
+          "variant_decision": "hold"
+        },
+        "frozen_evidence": {
+          "distinct_source_hosts": [
+            "catalog.hwcollectorsnews.com",
+            "hotwheels.fandom.com"
+          ],
+          "independent_source_count": 1,
+          "independent_sources": [
+            {
+              "confirms_exact_casting_name": true,
+              "observed_claim": "The casting catalog records Lamborghini Huracán Sterrato and its HYW93 2025 release under the exact name.",
+              "publisher": "Hot Wheels Collectors News Catalog",
+              "source_type": "independent_casting_catalog",
+              "url": "https://catalog.hwcollectorsnews.com/Castings/Details/dc9e9612-131c-4191-9352-fddd4609402d"
+            }
+          ],
+          "wiki_casting_page": {
+            "observed_claim": "A dedicated page identifies the casting, its 2024 debut, HRY87 tool number, and HYW93/HYY45/JBB86 2025 releases.",
+            "page_classification": "single_casting",
+            "publisher": "Hot Wheels Wiki contributors",
+            "url": "https://hotwheels.fandom.com/wiki/Lamborghini_Hurac%C3%A1n_Sterrato"
+          }
+        },
+        "release_effect": "none_all_source_rows_remain_held",
+        "source_artifact": "data/external/hot-wheels-wiki/pilot-2025/priority-2-batch-04-research.json"
+      },
+      "family_review_id": "fandom-family-174efb9bce3a441e",
+      "prior_family_decision": "create_new_casting",
+      "relationship_pairs": [
+        {
+          "allowed_decisions": [
+            "same_release",
+            "different_release",
+            "unresolved"
+          ],
+          "decision": null,
+          "left_source_record_id": "fandom-row-cd91a09d2fb2f780",
+          "right_source_record_id": "fandom-row-ccf12c7503be5c7c"
+        },
+        {
+          "allowed_decisions": [
+            "same_release",
+            "different_release",
+            "unresolved"
+          ],
+          "decision": null,
+          "left_source_record_id": "fandom-row-cd91a09d2fb2f780",
+          "right_source_record_id": "fandom-row-5334ae3b3e4446e6"
+        },
+        {
+          "allowed_decisions": [
+            "same_release",
+            "different_release",
+            "unresolved"
+          ],
+          "decision": null,
+          "left_source_record_id": "fandom-row-ccf12c7503be5c7c",
+          "right_source_record_id": "fandom-row-5334ae3b3e4446e6"
+        }
+      ],
+      "rows": [
+        {
+          "candidate_secondary_claims": [
+            {
+              "candidate_fields": {
+                "casting_name": "Lamborghini Huracán Sterrato",
+                "release_year": 2025,
+                "toy_number": "HYW93"
+              },
+              "explicit_non_claims": [],
+              "observed_claim": "The casting catalog records Lamborghini Huracán Sterrato and its HYW93 2025 release under the exact name.",
+              "publisher": "Hot Wheels Collectors News Catalog",
+              "source_artifact": "data/external/hot-wheels-wiki/pilot-2025/priority-2-batch-04-research.json",
+              "status": "candidate_pending_owner_review",
+              "url": "https://catalog.hwcollectorsnews.com/Castings/Details/dc9e9612-131c-4191-9352-fddd4609402d"
+            }
+          ],
+          "observation_id": "release-observation-a162dae087ec84f6a5ad",
+          "raw_fields": {
+            "brand": "Hot Wheels",
+            "casting_name": "Lamborghini Huracán Sterrato",
+            "collector_number": "041",
+            "color": null,
+            "edition": null,
+            "packaging_variant": null,
+            "release_year": 2025,
+            "series": "Safari Mode",
+            "series_position": "1/5",
+            "tampo_description": null,
+            "toy_number": "HYW93",
+            "variant_note": null,
+            "wheel_type": null
+          },
+          "review_state": {
+            "canonical_uuid": null,
+            "field_decision_count": 0,
+            "status": "held_pending_owner_review",
+            "variant_equivalence_id": null
+          },
+          "source_markers": [],
+          "source_record_id": "fandom-row-cd91a09d2fb2f780",
+          "source_row": 79
+        },
+        {
+          "candidate_secondary_claims": [],
+          "observation_id": "release-observation-166530248f91131d2867",
+          "raw_fields": {
+            "brand": "Hot Wheels",
+            "casting_name": "Lamborghini Huracán Sterrato",
+            "collector_number": "041",
+            "color": null,
+            "edition": null,
+            "packaging_variant": null,
+            "release_year": 2025,
+            "series": "Red Edition",
+            "series_position": "8/12",
+            "tampo_description": null,
+            "toy_number": "HYY45",
+            "variant_note": "2nd Color",
+            "wheel_type": null
+          },
+          "review_state": {
+            "canonical_uuid": null,
+            "field_decision_count": 0,
+            "status": "held_pending_owner_review",
+            "variant_equivalence_id": null
+          },
+          "source_markers": [
+            "TG"
+          ],
+          "source_record_id": "fandom-row-ccf12c7503be5c7c",
+          "source_row": 80
+        },
+        {
+          "candidate_secondary_claims": [],
+          "observation_id": "release-observation-200e14d8d8352fb72bc1",
+          "raw_fields": {
+            "brand": "Hot Wheels",
+            "casting_name": "Lamborghini Huracán Sterrato",
+            "collector_number": "041",
+            "color": null,
+            "edition": null,
+            "packaging_variant": null,
+            "release_year": 2025,
+            "series": "Safari Mode",
+            "series_position": "1/5",
+            "tampo_description": null,
+            "toy_number": "JBB86",
+            "variant_note": "3rd Color",
+            "wheel_type": null
+          },
+          "review_state": {
+            "canonical_uuid": null,
+            "field_decision_count": 0,
+            "status": "held_pending_owner_review",
+            "variant_equivalence_id": null
+          },
+          "source_markers": [],
+          "source_record_id": "fandom-row-5334ae3b3e4446e6",
+          "source_row": 81
+        }
+      ]
+    },
+    {
+      "casting_name": "Subaru BRZ",
+      "family_evidence": {
+        "approved_scope": "casting_family_only",
+        "family_recommendation": {
+          "family_decision": "merge_existing_family",
+          "reason": "brand and casting match exactly after normalization across the frozen Wiki review and confirmed-label human catalog",
+          "scope": "casting_family_only",
+          "target_family_id": "human-hot-wheels-subaru-brz",
+          "variant_decision": "hold",
+          "variant_reason": "year, series, color, edition, and release identity are not jointly verified"
+        },
+        "frozen_evidence": {
+          "comparison": {
+            "family_name_exact": true,
+            "series_labels_exact": false,
+            "shared_explicit_variant_tokens": [
+              "zamac"
+            ],
+            "variant_identity_verified": false
+          },
+          "human_evidence": {
+            "series_labels": [
+              "Walmart Exclusive"
+            ],
+            "source_case_ids": [
+              "ui-scan-7e20ecfd-b69c-451d-97a9-6936c7597f12"
+            ],
+            "variants": [
+              {
+                "failure_categories": [
+                  "year_mismatch"
+                ],
+                "human_label_names": [
+                  "Hot Wheels Subaru BRZ Walmart Exclusive Zamac"
+                ],
+                "initial_names": [
+                  "2025 Hot Wheels Subaru BRZ Walmart Exclusive Zamac"
+                ],
+                "provisional_variant_id": "human-hot-wheels-subaru-brz-walmart-exclusive-zamac-walmart-exclusive",
+                "series_label": "Walmart Exclusive",
+                "source_case_ids": [
+                  "ui-scan-7e20ecfd-b69c-451d-97a9-6936c7597f12"
+                ],
+                "variant_label": "zamac, Walmart Exclusive"
+              }
+            ]
+          },
+          "wiki_evidence": {
+            "release_years": [
+              2025
+            ],
+            "series_labels": [
+              "HW J-Imports"
+            ],
+            "source_rows": [
+              {
+                "collector_number": "048",
+                "release_year": 2025,
+                "series": "HW J-Imports",
+                "source_record_id": "fandom-row-78748248e56441f5",
+                "source_row": 92,
+                "toy_number": "HYW99",
+                "variant_note": null
+              },
+              {
+                "collector_number": "048",
+                "release_year": 2025,
+                "series": "HW J-Imports",
+                "source_record_id": "fandom-row-3aa2e8967b2f55bf",
+                "source_row": 93,
+                "toy_number": "HYY12",
+                "variant_note": "2nd Color - Zamac"
+              },
+              {
+                "collector_number": "048",
+                "release_year": 2025,
+                "series": "HW J-Imports",
+                "source_record_id": "fandom-row-26b0ba519bca3a01",
+                "source_row": 94,
+                "toy_number": "JBB55",
+                "variant_note": "3rd Color"
+              }
+            ]
+          }
+        },
+        "release_effect": "none_all_source_rows_remain_held",
+        "source_artifact": "data/external/hot-wheels-wiki/pilot-2025/priority-1-evidence.json"
+      },
+      "family_review_id": "fandom-family-b60363832032d566",
+      "prior_family_decision": "merge_existing_family",
+      "relationship_pairs": [
+        {
+          "allowed_decisions": [
+            "same_release",
+            "different_release",
+            "unresolved"
+          ],
+          "decision": null,
+          "left_source_record_id": "fandom-row-78748248e56441f5",
+          "right_source_record_id": "fandom-row-3aa2e8967b2f55bf"
+        },
+        {
+          "allowed_decisions": [
+            "same_release",
+            "different_release",
+            "unresolved"
+          ],
+          "decision": null,
+          "left_source_record_id": "fandom-row-78748248e56441f5",
+          "right_source_record_id": "fandom-row-26b0ba519bca3a01"
+        },
+        {
+          "allowed_decisions": [
+            "same_release",
+            "different_release",
+            "unresolved"
+          ],
+          "decision": null,
+          "left_source_record_id": "fandom-row-3aa2e8967b2f55bf",
+          "right_source_record_id": "fandom-row-26b0ba519bca3a01"
+        }
+      ],
+      "rows": [
+        {
+          "candidate_secondary_claims": [],
+          "observation_id": "release-observation-f8ca5ebf241e564c15be",
+          "raw_fields": {
+            "brand": "Hot Wheels",
+            "casting_name": "Subaru BRZ",
+            "collector_number": "048",
+            "color": null,
+            "edition": null,
+            "packaging_variant": null,
+            "release_year": 2025,
+            "series": "HW J-Imports",
+            "series_position": "3/5",
+            "tampo_description": null,
+            "toy_number": "HYW99",
+            "variant_note": null,
+            "wheel_type": null
+          },
+          "review_state": {
+            "canonical_uuid": null,
+            "field_decision_count": 0,
+            "status": "held_pending_owner_review",
+            "variant_equivalence_id": null
+          },
+          "source_markers": [
+            "NIM"
+          ],
+          "source_record_id": "fandom-row-78748248e56441f5",
+          "source_row": 92
+        },
+        {
+          "candidate_secondary_claims": [],
+          "observation_id": "release-observation-c8df6092698468ff74e7",
+          "raw_fields": {
+            "brand": "Hot Wheels",
+            "casting_name": "Subaru BRZ",
+            "collector_number": "048",
+            "color": null,
+            "edition": null,
+            "packaging_variant": null,
+            "release_year": 2025,
+            "series": "HW J-Imports",
+            "series_position": "3/5",
+            "tampo_description": null,
+            "toy_number": "HYY12",
+            "variant_note": "2nd Color - Zamac",
+            "wheel_type": null
+          },
+          "review_state": {
+            "canonical_uuid": null,
+            "field_decision_count": 0,
+            "status": "held_pending_owner_review",
+            "variant_equivalence_id": null
+          },
+          "source_markers": [
+            "NIM",
+            "WM"
+          ],
+          "source_record_id": "fandom-row-3aa2e8967b2f55bf",
+          "source_row": 93
+        },
+        {
+          "candidate_secondary_claims": [],
+          "observation_id": "release-observation-364e26f99e80f5d2f371",
+          "raw_fields": {
+            "brand": "Hot Wheels",
+            "casting_name": "Subaru BRZ",
+            "collector_number": "048",
+            "color": null,
+            "edition": null,
+            "packaging_variant": null,
+            "release_year": 2025,
+            "series": "HW J-Imports",
+            "series_position": "3/5",
+            "tampo_description": null,
+            "toy_number": "JBB55",
+            "variant_note": "3rd Color",
+            "wheel_type": null
+          },
+          "review_state": {
+            "canonical_uuid": null,
+            "field_decision_count": 0,
+            "status": "held_pending_owner_review",
+            "variant_equivalence_id": null
+          },
+          "source_markers": [
+            "NIM"
+          ],
+          "source_record_id": "fandom-row-26b0ba519bca3a01",
+          "source_row": 94
+        }
+      ]
+    },
+    {
+      "casting_name": "Nissan Skyline 2000GT-R LBWK",
+      "family_evidence": {
+        "approved_scope": "casting_family_only",
+        "family_recommendation": {
+          "family_decision": "hold",
+          "reason": "the queued display name is also used by a separate casting tool, so the source rows need a tool-specific identity before family creation",
+          "scope": "casting_family_only",
+          "variant_decision": "hold"
+        },
+        "frozen_evidence": {
+          "distinct_source_hosts": [
+            "diecastradar.app",
+            "hotwheels.fandom.com"
+          ],
+          "independent_source_count": 1,
+          "independent_sources": [
+            {
+              "confirms_exact_casting_name": true,
+              "observed_claim": "The collector record maps HYX54 to the Nissan Skyline 2000GT-R LBWK (Tooned) casting and its 2025 HW J-Imports release.",
+              "publisher": "Diecast Radar",
+              "source_type": "independent_collector_catalog",
+              "url": "https://diecastradar.app/product/hot-wheels-nissan-skyline-2000gt-r-lbwk-tooned-metalflake-blue-hyx54"
+            }
+          ],
+          "wiki_casting_page": {
+            "observed_claim": "HYW79/HYY30/HYX54 belong to the dedicated Tooned page, but a separate same-scale non-Tooned tool also uses the Nissan Skyline 2000GT-R LBWK display name; the grouped name is not tool-unique.",
+            "page_classification": "homonymous_castings",
+            "publisher": "Hot Wheels Wiki contributors",
+            "related_casting_pages": [
+              {
+                "distinction": "Separate non-Tooned 1:64 tool HCW32 designed by Ryu Asada and introduced in 2022 under the same display name.",
+                "url": "https://hotwheels.fandom.com/wiki/Nissan_Skyline_2000GT-R_LBWK"
+              }
+            ],
+            "url": "https://hotwheels.fandom.com/wiki/Nissan_Skyline_2000GT-R_LBWK_%28Tooned%29"
+          }
+        },
+        "release_effect": "none_all_source_rows_remain_held",
+        "source_artifact": "data/external/hot-wheels-wiki/pilot-2025/priority-2-batch-04-research.json"
+      },
+      "family_review_id": "fandom-family-369b0be5855c0a1c",
+      "prior_family_decision": "hold",
+      "relationship_pairs": [
+        {
+          "allowed_decisions": [
+            "same_release",
+            "different_release",
+            "unresolved"
+          ],
+          "decision": null,
+          "left_source_record_id": "fandom-row-77ecedc5e3db3f77",
+          "right_source_record_id": "fandom-row-ebf5fc720ec1d06d"
+        },
+        {
+          "allowed_decisions": [
+            "same_release",
+            "different_release",
+            "unresolved"
+          ],
+          "decision": null,
+          "left_source_record_id": "fandom-row-77ecedc5e3db3f77",
+          "right_source_record_id": "fandom-row-27fe2c9ab41942b8"
+        },
+        {
+          "allowed_decisions": [
+            "same_release",
+            "different_release",
+            "unresolved"
+          ],
+          "decision": null,
+          "left_source_record_id": "fandom-row-ebf5fc720ec1d06d",
+          "right_source_record_id": "fandom-row-27fe2c9ab41942b8"
+        }
+      ],
+      "rows": [
+        {
+          "candidate_secondary_claims": [],
+          "observation_id": "release-observation-167d0203c84315e3e5dc",
+          "raw_fields": {
+            "brand": "Hot Wheels",
+            "casting_name": "Nissan Skyline 2000GT-R LBWK",
+            "collector_number": "026",
+            "color": null,
+            "edition": null,
+            "packaging_variant": null,
+            "release_year": 2025,
+            "series": "HW J-Imports",
+            "series_position": "1/5",
+            "tampo_description": null,
+            "toy_number": "HYW79",
+            "variant_note": null,
+            "wheel_type": null
+          },
+          "review_state": {
+            "canonical_uuid": null,
+            "field_decision_count": 0,
+            "status": "held_pending_owner_review",
+            "variant_equivalence_id": null
+          },
+          "source_markers": [],
+          "source_record_id": "fandom-row-77ecedc5e3db3f77",
+          "source_row": 54
+        },
+        {
+          "candidate_secondary_claims": [],
+          "observation_id": "release-observation-3e2baecf70e2225dc31d",
+          "raw_fields": {
+            "brand": "Hot Wheels",
+            "casting_name": "Nissan Skyline 2000GT-R LBWK",
+            "collector_number": "026",
+            "color": null,
+            "edition": null,
+            "packaging_variant": null,
+            "release_year": 2025,
+            "series": "HW J-Imports",
+            "series_position": "1/5",
+            "tampo_description": null,
+            "toy_number": "HYY30",
+            "variant_note": "2nd Color",
+            "wheel_type": null
+          },
+          "review_state": {
+            "canonical_uuid": null,
+            "field_decision_count": 0,
+            "status": "held_pending_owner_review",
+            "variant_equivalence_id": null
+          },
+          "source_markers": [
+            "KR"
+          ],
+          "source_record_id": "fandom-row-ebf5fc720ec1d06d",
+          "source_row": 55
+        },
+        {
+          "candidate_secondary_claims": [
+            {
+              "candidate_fields": {
+                "casting_name": "Nissan Skyline 2000GT-R LBWK",
+                "release_year": 2025,
+                "series": "HW J-Imports",
+                "tool_lineage_ref": "Tooned",
+                "toy_number": "HYX54"
+              },
+              "explicit_non_claims": [
+                "color is not accepted from the URL slug; the frozen observed claim does not state it"
+              ],
+              "observed_claim": "The collector record maps HYX54 to the Nissan Skyline 2000GT-R LBWK (Tooned) casting and its 2025 HW J-Imports release.",
+              "publisher": "Diecast Radar",
+              "source_artifact": "data/external/hot-wheels-wiki/pilot-2025/priority-2-batch-04-research.json",
+              "status": "candidate_pending_owner_review",
+              "url": "https://diecastradar.app/product/hot-wheels-nissan-skyline-2000gt-r-lbwk-tooned-metalflake-blue-hyx54"
+            }
+          ],
+          "observation_id": "release-observation-78f0cc1b763401ddf6d2",
+          "raw_fields": {
+            "brand": "Hot Wheels",
+            "casting_name": "Nissan Skyline 2000GT-R LBWK",
+            "collector_number": "026",
+            "color": null,
+            "edition": null,
+            "packaging_variant": null,
+            "release_year": 2025,
+            "series": "HW J-Imports",
+            "series_position": "1/5",
+            "tampo_description": null,
+            "toy_number": "HYX54",
+            "variant_note": "3rd Color",
+            "wheel_type": null
+          },
+          "review_state": {
+            "canonical_uuid": null,
+            "field_decision_count": 0,
+            "status": "held_pending_owner_review",
+            "variant_equivalence_id": null
+          },
+          "source_markers": [],
+          "source_record_id": "fandom-row-27fe2c9ab41942b8",
+          "source_row": 56
+        }
+      ]
+    },
+    {
+      "casting_name": "'87 Audi quattro",
+      "family_evidence": {
+        "approved_scope": "casting_family_only",
+        "family_recommendation": {
+          "family_decision": "create_new_casting",
+          "reason": "the queue name resolves to one dedicated Wiki casting page and at least one separate publisher confirms the exact Hot Wheels casting name",
+          "scope": "casting_family_only",
+          "variant_decision": "hold"
+        },
+        "frozen_evidence": {
+          "distinct_source_hosts": [
+            "hotwheels.fandom.com",
+            "www.hwtreasure.com"
+          ],
+          "independent_source_count": 1,
+          "independent_sources": [
+            {
+              "confirms_exact_casting_name": true,
+              "observed_claim": "The guide identifies JBC35 as a 2025 Super Treasure Hunt using the '87 Audi quattro casting, which debuted in 2024.",
+              "publisher": "HW Treasure",
+              "source_type": "independent_collector_guide",
+              "url": "https://www.hwtreasure.com/2025-super/87-audi-quattro/"
+            }
+          ],
+          "wiki_casting_page": {
+            "observed_claim": "A dedicated page identifies the casting, its 2024 debut, and HRY55 tool number.",
+            "page_classification": "single_casting",
+            "publisher": "Hot Wheels Wiki contributors",
+            "url": "https://hotwheels.fandom.com/wiki/%2787_Audi_quattro"
+          }
+        },
+        "release_effect": "none_all_source_rows_remain_held",
+        "source_artifact": "data/external/hot-wheels-wiki/pilot-2025/priority-2-batch-01-research.json"
+      },
+      "family_review_id": "fandom-family-18e55e067083dbd1",
+      "prior_family_decision": "create_new_casting",
+      "relationship_pairs": [
+        {
+          "allowed_decisions": [
+            "same_release",
+            "different_release",
+            "unresolved"
+          ],
+          "decision": null,
+          "left_source_record_id": "fandom-row-987feb62698aa51b",
+          "right_source_record_id": "fandom-row-65987b3eab315de1"
+        }
+      ],
+      "rows": [
+        {
+          "candidate_secondary_claims": [],
+          "observation_id": "release-observation-a26019eca06f7388d271",
+          "raw_fields": {
+            "brand": "Hot Wheels",
+            "casting_name": "'87 Audi quattro",
+            "collector_number": "016",
+            "color": null,
+            "edition": null,
+            "packaging_variant": null,
+            "release_year": 2025,
+            "series": "Factory Fresh",
+            "series_position": "2/5",
+            "tampo_description": null,
+            "toy_number": "HYW72",
+            "variant_note": null,
+            "wheel_type": null
+          },
+          "review_state": {
+            "canonical_uuid": null,
+            "field_decision_count": 0,
+            "status": "held_pending_owner_review",
+            "variant_equivalence_id": null
+          },
+          "source_markers": [],
+          "source_record_id": "fandom-row-987feb62698aa51b",
+          "source_row": 34
+        },
+        {
+          "candidate_secondary_claims": [
+            {
+              "candidate_fields": {
+                "casting_name": "'87 Audi quattro",
+                "edition": "Super Treasure Hunt",
+                "release_year": 2025,
+                "toy_number": "JBC35"
+              },
+              "explicit_non_claims": [],
+              "observed_claim": "The guide identifies JBC35 as a 2025 Super Treasure Hunt using the '87 Audi quattro casting, which debuted in 2024.",
+              "publisher": "HW Treasure",
+              "source_artifact": "data/external/hot-wheels-wiki/pilot-2025/priority-2-batch-01-research.json",
+              "status": "candidate_pending_owner_review",
+              "url": "https://www.hwtreasure.com/2025-super/87-audi-quattro/"
+            }
+          ],
+          "observation_id": "release-observation-96f6c9ae7ce611bf4d2b",
+          "raw_fields": {
+            "brand": "Hot Wheels",
+            "casting_name": "'87 Audi quattro",
+            "collector_number": "016",
+            "color": null,
+            "edition": null,
+            "packaging_variant": null,
+            "release_year": 2025,
+            "series": "Factory Fresh",
+            "series_position": "2/5",
+            "tampo_description": null,
+            "toy_number": "JBC35",
+            "variant_note": null,
+            "wheel_type": null
+          },
+          "review_state": {
+            "canonical_uuid": null,
+            "field_decision_count": 0,
+            "status": "held_pending_owner_review",
+            "variant_equivalence_id": null
+          },
+          "source_markers": [
+            "STH"
+          ],
+          "source_record_id": "fandom-row-65987b3eab315de1",
+          "source_row": 35
+        }
+      ]
+    }
+  ],
+  "owner_gate": "review exact row fields and every within-family relationship; bind completed choices to this packet SHA in a new append-only decision artifact",
+  "packet_version": "release-field-review-batch-01-packet-v1",
+  "rights_status": "historical evidence only; no current access/rights revalidation or fetch",
+  "schema_version": "pvr-release-field-review-packet-v1",
+  "source_bindings": {
+    "data/external/hot-wheels-wiki/pilot-2025/normalized.json": "e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6",
+    "data/external/hot-wheels-wiki/pilot-2025/priority-1-evidence.json": "4d6ede8ba1bbb3447f2d403885d4d68bb9d71893cbf012994b2be37e77ad8294",
+    "data/external/hot-wheels-wiki/pilot-2025/priority-2-batch-01-research.json": "a802f64478b73a0c40f43c1d43fa44b182ebdbcde9f67d3d0c97f237c92a241c",
+    "data/external/hot-wheels-wiki/pilot-2025/priority-2-batch-04-research.json": "07ae79197f81f3595b5323a38834fbfd776fd7043180bd3f6961c3a03d2c9673",
+    "reports/release-field-evidence-review-v1/plan.json": "f470d731188e7f8b00dd2c0b23c589abed08bcea97be2234f949fc008a44675a"
+  },
+  "status": "awaiting_owner_review_no_decisions"
+}

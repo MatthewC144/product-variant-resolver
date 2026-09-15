@@ -5807,3 +5807,66 @@ fail closed，並確認script沒有requests/httpx/urllib/SQLAlchemy/psycopg/Dock
 owner逐欄審查batch01的11筆：每個非null值要綁文字證據，無法證明保持unknown，有歧義標
 conflicted，並分別決定same release/different release/unresolved。完成這個人類authority事件後，
 才能決定是否建立append-only decision artifact；VAR-PLAN2遠端收集仍須另行確認rights與budget。
+
+## 2026-09-15 — VAR-REVIEW1-PREP：把11筆資料變成owner真正能逐項回答的審查表
+
+### 背景、問題與可觀察結果
+
+使用者在VAR-PLAN1完成並被告知下一步是審查11筆後要求繼續。上一階段只決定「先看哪四個
+families」，但plan.json有100筆×13欄，並未將過去research中的文字證據、每列差異與需要回答
+的same/different/unresolved問題放在同一畫面。本次可觀察成果是batch01 packet：4families、
+11rows、10個within-family pairs、143個欄位決定slot，以及一份全部空白的owner decision
+template。它仍標示owner decisions0、canonical changes0、all rows held，沒有替使用者簽核。
+
+### 程式修改與原因
+
+新增`prepare_release_field_review_batch.py`，先驗VAR-PLAN1固定SHA與4/11 membership，再讀
+normalized source、priority-1 evidence、priority-2 batch01與batch04 research。preparer將過去
+family證據統一標記`casting_family_only`，逐列保留toy/collector/year/series position/variant
+note/source markers及五個unknown physical fields。只有已封存摘要明確點名toy number的文字才
+進入`candidate_pending_owner_review`；程式以exact publisher/URL/observed claim驗drift。
+
+輸出四檔：`packet.json`保存機器可驗證證據，`owner-review.md`為新手表格，
+`decisions.template.json`列出11×13欄與10個pair問題，`manifest.json`固定來源與三個主artifact
+SHA。`--run`拒絕覆寫、`--check`逐byte重算。11項測試覆蓋membership/nulls/scope/claim白名單/
+pairs/pending template/manifest/drift/changed plan與無network/DB client。spec、QA review、evidence、
+AI rubric、roadmap、decision和本日誌同步更新。
+
+### 技術選型、替代方案與代價
+
+決策模板與證據packet分檔，是為了讓「機器整理了什麼」和「owner同意什麼」永遠可區分；若直接
+在packet填預設答案，空白也可能被誤讀成默認同意。每個三列family產生三個pair、兩列family
+一個pair，總計10題；不只問「這family有幾個variant」，因為那會跳過哪兩列相同的關係證據。
+
+沒有重新開網頁。既有research已留下可歸屬文字，足以製作問題但不等於目前source rights或
+真實欄位再次驗證。明確protocol只接受三個row claim，雖比通用NLP不靈活，卻避免從URL、series
+或關鍵字自行杜撰。10倍資料時手工Markdown會太慢，未來可做UI；目前先確認決策契約是否讓owner
+看得懂，避免先建大系統再發現問題問錯。
+
+### 決策改變與觸發證據
+
+Nissan HYX54的來源URL帶`metalflake-blue`，但凍結的`observed_claim`只明確支持toy、2025、
+HW J-Imports與Tooned tool。原本可把URL視為顏色線索，但這與既有「不得從filename/URL推顏色」
+邊界衝突，因此packet加入`explicit_non_claim`並維持color unknown。Subaru HYY12雖有`2nd Color -
+Zamac`且human family也有Zamac label，兩份證據只因casting重疊，沒有row-level join authority；
+所以整個Subaru family沒有row-specific claim。這些窄化降低自動填值數量，但保留真實證據強度。
+
+### 驗證證據
+
+packet/Markdown/template/manifest SHA為`2e2adee3…00b2`,`08bd164a…8e69`,`bc01138a…3724`,
+`6957176f…5c63`。計數：4families、11rows、10pairs、3candidate claims、0owner field/pair
+decisions、0canonical UUID。candidate只涵蓋HYW93 Lamborghini2025 release、JBC35 Audi2025
+Super Treasure Hunt、HYX54 Nissan2025 J-Imports Tooned；三者狀態仍pending。
+
+聚焦11與完整579項測試PASS，Ruff F/I、strict MyPy、compileall與exact artifact check PASS，
+只剩既有Starlette／AnyIO warning。changed-plan測試把batch family count改成3後確認fail closed；
+manifest測試逐一重算三個artifact SHA。
+
+### 未完成、風險與下一步
+
+這一步沒有owner field decisions，無法勾選VAR-REVIEW1。current rights、網站內容、圖片、顏色、
+輪圈、tampo、release equivalence與canonical promotion都未驗證。下一步必須由owner閱讀
+`owner-review.md`：先逐family判斷三個candidate claims是否接受，再為10個row pairs選
+same_release/different_release/unresolved並附理由。若owner希望先採最保守安全狀態，可將缺乏
+row-specific證據的欄位保持unknown、關係保持unresolved；但這仍必須由owner明確確認，不能由
+preparer代簽。確認後才建立不可覆寫的decision artifact；VAR-PLAN2仍不是自動下一步。

@@ -1,0 +1,1926 @@
+{
+  "canonical_promotion_authorized": false,
+  "decision_version": null,
+  "overall_reason": null,
+  "packet_sha256": "2e2adee366d968b0308d64dbde6b513e53055316b5ec5d58c6e0f4b7ae2700b2",
+  "relationship_decisions": [
+    {
+      "allowed_decisions": [
+        "same_release",
+        "different_release",
+        "unresolved"
+      ],
+      "decision": null,
+      "evidence_references": [],
+      "family_review_id": "fandom-family-174efb9bce3a441e",
+      "left_source_record_id": "fandom-row-cd91a09d2fb2f780",
+      "reason": null,
+      "right_source_record_id": "fandom-row-ccf12c7503be5c7c"
+    },
+    {
+      "allowed_decisions": [
+        "same_release",
+        "different_release",
+        "unresolved"
+      ],
+      "decision": null,
+      "evidence_references": [],
+      "family_review_id": "fandom-family-174efb9bce3a441e",
+      "left_source_record_id": "fandom-row-cd91a09d2fb2f780",
+      "reason": null,
+      "right_source_record_id": "fandom-row-5334ae3b3e4446e6"
+    },
+    {
+      "allowed_decisions": [
+        "same_release",
+        "different_release",
+        "unresolved"
+      ],
+      "decision": null,
+      "evidence_references": [],
+      "family_review_id": "fandom-family-174efb9bce3a441e",
+      "left_source_record_id": "fandom-row-ccf12c7503be5c7c",
+      "reason": null,
+      "right_source_record_id": "fandom-row-5334ae3b3e4446e6"
+    },
+    {
+      "allowed_decisions": [
+        "same_release",
+        "different_release",
+        "unresolved"
+      ],
+      "decision": null,
+      "evidence_references": [],
+      "family_review_id": "fandom-family-b60363832032d566",
+      "left_source_record_id": "fandom-row-78748248e56441f5",
+      "reason": null,
+      "right_source_record_id": "fandom-row-3aa2e8967b2f55bf"
+    },
+    {
+      "allowed_decisions": [
+        "same_release",
+        "different_release",
+        "unresolved"
+      ],
+      "decision": null,
+      "evidence_references": [],
+      "family_review_id": "fandom-family-b60363832032d566",
+      "left_source_record_id": "fandom-row-78748248e56441f5",
+      "reason": null,
+      "right_source_record_id": "fandom-row-26b0ba519bca3a01"
+    },
+    {
+      "allowed_decisions": [
+        "same_release",
+        "different_release",
+        "unresolved"
+      ],
+      "decision": null,
+      "evidence_references": [],
+      "family_review_id": "fandom-family-b60363832032d566",
+      "left_source_record_id": "fandom-row-3aa2e8967b2f55bf",
+      "reason": null,
+      "right_source_record_id": "fandom-row-26b0ba519bca3a01"
+    },
+    {
+      "allowed_decisions": [
+        "same_release",
+        "different_release",
+        "unresolved"
+      ],
+      "decision": null,
+      "evidence_references": [],
+      "family_review_id": "fandom-family-369b0be5855c0a1c",
+      "left_source_record_id": "fandom-row-77ecedc5e3db3f77",
+      "reason": null,
+      "right_source_record_id": "fandom-row-ebf5fc720ec1d06d"
+    },
+    {
+      "allowed_decisions": [
+        "same_release",
+        "different_release",
+        "unresolved"
+      ],
+      "decision": null,
+      "evidence_references": [],
+      "family_review_id": "fandom-family-369b0be5855c0a1c",
+      "left_source_record_id": "fandom-row-77ecedc5e3db3f77",
+      "reason": null,
+      "right_source_record_id": "fandom-row-27fe2c9ab41942b8"
+    },
+    {
+      "allowed_decisions": [
+        "same_release",
+        "different_release",
+        "unresolved"
+      ],
+      "decision": null,
+      "evidence_references": [],
+      "family_review_id": "fandom-family-369b0be5855c0a1c",
+      "left_source_record_id": "fandom-row-ebf5fc720ec1d06d",
+      "reason": null,
+      "right_source_record_id": "fandom-row-27fe2c9ab41942b8"
+    },
+    {
+      "allowed_decisions": [
+        "same_release",
+        "different_release",
+        "unresolved"
+      ],
+      "decision": null,
+      "evidence_references": [],
+      "family_review_id": "fandom-family-18e55e067083dbd1",
+      "left_source_record_id": "fandom-row-987feb62698aa51b",
+      "reason": null,
+      "right_source_record_id": "fandom-row-65987b3eab315de1"
+    }
+  ],
+  "reviewed_at": null,
+  "reviewer": null,
+  "row_field_decisions": [
+    {
+      "family_review_id": "fandom-family-174efb9bce3a441e",
+      "fields": {
+        "brand": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "casting_name": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "collector_number": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "color": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "edition": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "packaging_variant": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "release_year": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "series": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "series_position": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "tampo_description": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "toy_number": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "variant_note": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "wheel_type": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        }
+      },
+      "source_record_id": "fandom-row-cd91a09d2fb2f780"
+    },
+    {
+      "family_review_id": "fandom-family-174efb9bce3a441e",
+      "fields": {
+        "brand": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "casting_name": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "collector_number": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "color": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "edition": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "packaging_variant": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "release_year": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "series": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "series_position": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "tampo_description": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "toy_number": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "variant_note": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "wheel_type": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        }
+      },
+      "source_record_id": "fandom-row-ccf12c7503be5c7c"
+    },
+    {
+      "family_review_id": "fandom-family-174efb9bce3a441e",
+      "fields": {
+        "brand": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "casting_name": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "collector_number": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "color": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "edition": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "packaging_variant": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "release_year": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "series": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "series_position": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "tampo_description": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "toy_number": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "variant_note": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "wheel_type": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        }
+      },
+      "source_record_id": "fandom-row-5334ae3b3e4446e6"
+    },
+    {
+      "family_review_id": "fandom-family-b60363832032d566",
+      "fields": {
+        "brand": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "casting_name": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "collector_number": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "color": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "edition": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "packaging_variant": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "release_year": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "series": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "series_position": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "tampo_description": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "toy_number": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "variant_note": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "wheel_type": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        }
+      },
+      "source_record_id": "fandom-row-78748248e56441f5"
+    },
+    {
+      "family_review_id": "fandom-family-b60363832032d566",
+      "fields": {
+        "brand": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "casting_name": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "collector_number": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "color": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "edition": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "packaging_variant": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "release_year": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "series": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "series_position": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "tampo_description": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "toy_number": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "variant_note": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "wheel_type": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        }
+      },
+      "source_record_id": "fandom-row-3aa2e8967b2f55bf"
+    },
+    {
+      "family_review_id": "fandom-family-b60363832032d566",
+      "fields": {
+        "brand": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "casting_name": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "collector_number": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "color": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "edition": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "packaging_variant": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "release_year": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "series": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "series_position": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "tampo_description": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "toy_number": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "variant_note": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "wheel_type": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        }
+      },
+      "source_record_id": "fandom-row-26b0ba519bca3a01"
+    },
+    {
+      "family_review_id": "fandom-family-369b0be5855c0a1c",
+      "fields": {
+        "brand": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "casting_name": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "collector_number": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "color": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "edition": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "packaging_variant": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "release_year": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "series": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "series_position": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "tampo_description": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "toy_number": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "variant_note": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "wheel_type": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        }
+      },
+      "source_record_id": "fandom-row-77ecedc5e3db3f77"
+    },
+    {
+      "family_review_id": "fandom-family-369b0be5855c0a1c",
+      "fields": {
+        "brand": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "casting_name": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "collector_number": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "color": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "edition": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "packaging_variant": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "release_year": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "series": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "series_position": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "tampo_description": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "toy_number": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "variant_note": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "wheel_type": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        }
+      },
+      "source_record_id": "fandom-row-ebf5fc720ec1d06d"
+    },
+    {
+      "family_review_id": "fandom-family-369b0be5855c0a1c",
+      "fields": {
+        "brand": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "casting_name": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "collector_number": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "color": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "edition": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "packaging_variant": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "release_year": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "series": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "series_position": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "tampo_description": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "toy_number": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "variant_note": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "wheel_type": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        }
+      },
+      "source_record_id": "fandom-row-27fe2c9ab41942b8"
+    },
+    {
+      "family_review_id": "fandom-family-18e55e067083dbd1",
+      "fields": {
+        "brand": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "casting_name": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "collector_number": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "color": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "edition": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "packaging_variant": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "release_year": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "series": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "series_position": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "tampo_description": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "toy_number": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "variant_note": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "wheel_type": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        }
+      },
+      "source_record_id": "fandom-row-987feb62698aa51b"
+    },
+    {
+      "family_review_id": "fandom-family-18e55e067083dbd1",
+      "fields": {
+        "brand": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "casting_name": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "collector_number": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "color": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "edition": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "packaging_variant": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "release_year": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "series": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "series_position": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "tampo_description": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "toy_number": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "variant_note": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        },
+        "wheel_type": {
+          "allowed_decisions": [
+            "confirmed",
+            "conflicted",
+            "rejected",
+            "unknown"
+          ],
+          "decision": null,
+          "evidence_references": [],
+          "reason": null,
+          "reviewed_value": null
+        }
+      },
+      "source_record_id": "fandom-row-65987b3eab315de1"
+    }
+  ],
+  "schema_version": "pvr-release-field-review-owner-decisions-v1",
+  "status": "template_all_decisions_pending"
+}
