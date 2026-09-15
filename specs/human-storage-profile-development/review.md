@@ -4,8 +4,8 @@ Date:2026-09-14. Lite. Draft completeness/grounding PASS; scoped G1 PASS after t
 confirmations at exact sources in [approval ledger](approval.md). HSP-1 input-freeze QA PASS:
 8immutable-publication files,26input hashes, committed producer,16new/489full tests PASS,
 Ruff F/I and strict isolated MyPy PASS. See [evidence](../../docs/evidence/t49-3-input-freeze.md).
-HSP-2 adapter/mock/source-freeze PASS; see current findings below. HSP3–4 SQL/profilecost NOT RUN.
-FullT49.3/T49.4 remain unchecked; no new SQL-run approval.
+HSP-2 adapter/mock/source-freeze PASS; see current findings below. HSP-3 isolated SQL correctness
+PASS after explicit owner continuation; HSP-4 profile cost NOT RUN. FullT49.3/T49.4 remain unchecked.
 
 | Requirement | Draft acceptance path |
 |---|---|
@@ -61,3 +61,27 @@ not production logic); first source-freeze tests50PASS/4FAIL exposed missing com
 which were implemented before publication. Candidate1 at5d9e2f3 lacked the required health field and
 is retained/superseded; accepted candidate2 manifestSHA`ebd0fe…` binds42sources at`bd2a838` and
 ready=false. Existing Starlette warning remains. Next:HSP-3 needs explicit isolated SQL-run approval.
+
+## HSP-3 SQL correctness addendum
+
+Verdict:PASS for the fixed199 correctness/failure scope, not cost or deployment. Run-v4 binds
+implementation commit`a9aa120`, exact file/DB profiles, fixed dev pack/protocol and two image IDs
+before outputs. Its raw report SHA`193015…` was published and all owned containers/network removed
+before the independent scorer created evaluation SHA`a6fdcb…`. File and PostgreSQL candidate ranks,
+scores, discriminated types, UUIDs, payloads, v4 metadata and work counters match199/199; both
+canonical projections equal the original nondebug API. All per-case health checks are200 and all
+request IDs match. The21zero-candidate rows are retained.
+
+The actual reader is LOGIN+SELECT on only`hk_snapshot`/`hk_document`, with super/inherit/create-role/
+create-db false; INSERT/UPDATE/DELETE/TRUNCATE each returned42501. Ten startup faults returned
+health/resolve503. Four post-start faults returned503 and remained503 after privileged restoration,
+proving process-lifetime latch/no retry. Five invalid HTTP cases kept400/415/422 and zero probes.
+Canonical seven-table digest stayed`1d7b7f…`; no production URL, host port, volume or oldfinal was used.
+
+Runs v1–v3 are retained as unscored infrastructure evidence:DDL password bind syntax, FK-safe missing
+snapshot deletion order and namespace CHECK constraint fault injection respectively. Each stopped,
+cleaned only its exact owned resources and led to a new committed source/run freeze rather than
+overwriting evidence. The first raw error echoed an expired generated credential; it was deliberately
+not retained and a transparent sanitized failure record replaces it. Full suite548PASS plus focused59,
+Ruff F/I, strict isolated MyPy and compileall PASS; one existing Starlette/AnyIO warning remains.
+HSP-4 must separately measure startup/HTTP/core cost under its frozen protocol before T49.3 closes.

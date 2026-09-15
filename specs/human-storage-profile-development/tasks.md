@@ -33,12 +33,16 @@ authorizes HSP-1. Frozen approval/spec copies record exact sources; no isolated 
   default/nondebug boundary;55focused/544full tests PASS. Accepted source candidate2 binds42
   inputs at commit`bd2a838`; runtimeimages/runnableprofile/realSQL/results remain pending HSP-3.
 
-- [ ] HSP-3:after explicitisolatedrun approval, bootstrap a newdisposable DB/readrole and collect
+- [x] HSP-3:after explicitisolatedrun approval, bootstrap a newdisposable DB/readrole and collect
   immutable paired199dev correctness outputs; score parity onlyafterrawpublication. _(→R1–R7,R9)_
   Files:newownedDockerverifier and newreports. Acceptance:file/DB ranks/scores/types/UUIDs/payloads/
   workcounters exactlyequal199/199; fullnondebugcanonicalbodies sameas default; errors/emptycases
   retained, no retries or parameter search; SELECT-only denials and startup/poststart503matrixPASS;
   canonical7tables unchanged; newresourcesonly cleanup, rawsource/image-bound failureevidence.
+  Evidence:`reports/human-storage-profile-hsp3-raw-v4.json` was published before
+  `reports/human-storage-profile-hsp3-evaluation-v4.json`; exact parity199/199,21empty retained,
+  10startup+4poststartup failures,5invalidHTTP and4write denials PASS. Canonical7 tables unchanged,
+  v4 owned resources removed. Runs v1–v3 remain visible as setup-fixture failures, not scored retries.
 
 - [ ] HSP-4:run approvedstartup/revalidation/HTTP/core cost protocol and publish QA/rubric/log.
   _(→R1,R6–R9)_

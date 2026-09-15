@@ -1211,3 +1211,29 @@ server digest/transaction strategy, but no optimization happens before honest142
 
 Six-axis:grounding/authority/auditability/mock-integrity PASS; realSQL safety/runtime cost WAIT;
 extendability bounded. Evidence:`docs/evidence/t49-3-storage-adapter.md`;55focused/544full PASS.
+
+# D52 — Accept exact file/PostgreSQL parity only from raw-first isolated evidence
+
+Status:ACCEPTED for HSP-3 correctness only,2026-09-15. Owner「繼續執行下一步」after HSP-3 was
+named as the next separately authorized action permits new disposable resources, not production,
+cost benchmarking or default rollout. Select precommitted profiles/images/source/run settings,
+internal-network tmpfs PostgreSQL, an actual SELECT-only role and raw publication before scoring.
+
+The passing run-v4 compares the frozen199 development cases in alternating profile order with fixed
+request IDs, top5 output and zero retries/search. SQL performs whole142-snapshot integrity reads,
+not TopK/vector retrieval. Candidate mathematics/payload/work and canonical authority remain unchanged.
+All failure fixtures and canonical-seven-table hashes are part of the same isolated raw artifact;
+cleanup validates exact ownership labels before deletion.
+
+Three earlier infrastructure failures are evidence, not erased attempts:PostgreSQL role DDL rejects
+bound password parameters; FK constraints require child-before-header deletion; namespace CHECK
+constraints require a controlled drop/restore to exercise application validation. Each correction
+received a new source commit and pre-output run freeze. A v1 traceback exposed an already-destroyed
+ephemeral credential, so the sensitive raw file was removed and replaced with an explicit sanitized
+failure record; later supervisors store only stderr hashes. This narrows auditability slightly for that
+failed setup attempt but avoids committing secrets and has no effect on v4 scored output.
+
+Trade-off:full snapshot checks passed correctness but their cost is still unknown. Do not infer HSP-4
+latency,3k scalability,durability/concurrency or production readiness from the25.6-second test run.
+Grounding/authority/integrity/safety/auditability PASS for HSP-3; cost/10×extendability WAIT.
+Evidence:`docs/evidence/t49-3-storage-profile-sql.md`; full suite548PASS.

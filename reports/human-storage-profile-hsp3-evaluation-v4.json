@@ -1,0 +1,28 @@
+{
+  "case_type_counts": {
+    "hold_control": 7,
+    "merge_control": 4,
+    "positive_family": 168,
+    "unrelated_control": 20
+  },
+  "empty_candidate_cases_retained": 21,
+  "exact_parity_cases": 199,
+  "gates": {
+    "canonical_body_unchanged": true,
+    "canonical_seven_tables_unchanged": true,
+    "invalid_http_no_storage_probe": true,
+    "owned_resource_cleanup": true,
+    "poststartup_latch_matrix": true,
+    "rank_score_type_uuid_payload_work_parity": true,
+    "select_only_reader": true,
+    "source_and_image_bound": true,
+    "startup_failure_matrix": true
+  },
+  "raw_file": "reports/human-storage-profile-hsp3-raw-v4.json",
+  "raw_published_before_scoring": true,
+  "raw_sha256": "19301513cf057abd263564324cbb21158ad2d0da7aa5e86f07a4d7f650ea0454",
+  "required_parity_cases": 199,
+  "schema_version": "pvr-human-storage-hsp3-evaluation-v1",
+  "scope": "HSP-3 fixed199 correctness and failure evidence only; no cost, final105, real3k, production or canonical promotion claim",
+  "verdict": "PASS"
+}

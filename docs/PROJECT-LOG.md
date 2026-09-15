@@ -5560,3 +5560,52 @@ Every future project-log entry must preserve the following traceability structur
 
 Entries may use a small table or compact list for navigation, but the main record must remain an
 explanatory engineering narrative linked to existing specifications, code, QA evidence, or reports.
+
+## 2026-09-15 — HSP-3：證明 file 與 PostgreSQL 儲存等價，保留三次測試基礎設施失敗
+
+使用者在上一階段已被明確告知下一步是另建隔離SQL環境後，要求「繼續執行下一步」，因此
+本次只執行HSP-3，不擴張到HSP-4成本測試或正式部署。問題不是再改善檢索準確率，而是此前
+只有private fake repository，尚未證明同一份142筆human knowledge放在JSON file或真實
+PostgreSQL時會得到相同結果。現在可觀察的成果是：固定199題的兩路human候選與work
+counters逐筆完全一致，正式canonical body也與原default API一致；真實reader只能SELECT，
+斷線／內容破壞會503並鎖住到restart。Dual RAG權限未改，human仍不能填入正式UUID答案。
+
+程式修改集中在四個新HSP-3 scripts與一個test。`freeze_human_storage_hsp3_run.py`先固定每次
+執行的source commit、兩個runtime profile、development pack、protocol、image ID及一次性
+resource名稱，避免先看到結果再改條件。`run_human_storage_profile_sql.py`只建立帶本次label的
+internal network、tmpfs PostgreSQL和read-only runner，不使用compose／host port／volume；
+密碼每次隨機產生，只進短期container environment，錯誤報告只保存stderr hash。
+`verify_human_storage_profile_sql.py`先migration及匯入canonical120+human142，再建SELECT-only
+role，交錯執行199組file／DB health+resolve與199個default reference，最後注入10個啟動故障、
+4個啟動後故障、5個無效HTTP和4種寫入。`score_human_storage_profile_sql.py`只讀已發布raw，
+不呼叫SQL或retrieval。這個分離是為了滿足raw-before-score，而不是單一script邊跑邊挑結果。
+
+方法選擇延續PostgreSQL16、SQLAlchemy2、Alembic與既有whole-snapshot reader，因為HSP-3
+要隔離「storage」變因；沒有改成SQL TopK／pgvector ANN，否則同時改了candidate admission與
+數學，無法知道差異來自儲存還是模型。每個有效health／resolve完整讀142筆，能看見child
+corruption，但成本較高；HSP-4才會按已固定的5次startup、3次warmup與199 HTTP/core樣本評估，
+本次25.6秒總執行時間不能當作latency。相同request ID及奇偶交錯順序降低固定順序偏差；
+21個空候選保留，沒有只報好看的178筆。3,000筆、顏色、輪圈、tampo與release identity仍未驗證。
+
+執行過程的決策有三次窄化，全部保留而沒有覆寫成一次成功。Run-v1在建立role時發現
+PostgreSQL DDL不能用`$1`綁password；改成只接受48位hex後安全嵌入DDL。該失敗trace曾回顯
+已隨DB刪除而失效的短期密碼，基於密鑰零落地刪除敏感raw，留下明示redaction的sanitized
+失敗紀錄，後續supervisor只存stderr SHA。Run-v2的missing-snapshot fixture先刪header，
+被FK23503正確拒絕；改為children先刪。Run-v3直接寫錯namespace，被CHECK23514拒絕；
+改成bootstrap暫時drop該human-table constraint、寫錯值讓app驗503，再恢復值與constraint。
+每次修改先commit，再另建run-v2/v3/v4 freeze；每組container/network都確認cleanup errors=0、
+remaining owned resources=[]。這些是故障注入方法修正，沒有改產品碼、資料或正確性門檻。
+
+最終run-v4 raw SHA`19301513…0454`先發布，之後evaluation SHA`a6fdcb34…0895`才產生，
+exact parity199/199；case組成168positive/4merge/7hold/20unrelated，兩路各21空候選、262個
+候選總數，所有per-case health=200及request ID一致。Reader attributes為LOGIN true，
+super/inherit/create-role/create-db false，兩張human tables只有SELECT；四種寫入均SQLSTATE42501。
+10startup及4post-start故障皆503，修復來源後同process仍503；無效HTTP為400/415/422且probe0。
+七張canonical table前後SHA同為`1d7b7f8a…bc172`。Linux aarch64、Python3.12.14、
+PostgreSQL16.14、SQLAlchemy2.0.52、Alembic1.20.0、psycopg3.3.5、runner UID100。
+Focused59、完整548測試PASS，Ruff F/I/format、strict isolated MyPy與compileall PASS；只剩既有
+Starlette／AnyIO deprecation warning。詳細證據在`docs/evidence/t49-3-storage-profile-sql.md`。
+
+HSP-3因此完成，但Full T49.3仍不能勾選：HSP-4尚未量啟動、每次完整snapshot revalidation、
+真實loopback HTTP及core成本，也沒有3k/concurrency/durability/production證據。下一個最高價值
+動作是先依凍結cost protocol檢查HSP-4執行條件與資源界線，再決定是否啟動新的測量環境。
