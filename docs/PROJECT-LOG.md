@@ -5929,3 +5929,64 @@ VAR-REVIEW1仍未完成；進度1/4。Lamborghini的color/wheel/tampo/edition/pa
 canonical UUID。下一個owner問題是Subaru BRZ：HYW99、HYY12、JBB55是否應視為不同release；
 `2nd Color - Zamac`能否只確認HYY12的Zamac finish，還是因family-level human evidence無法安全
 對應該row而繼續unknown。為遵守authority邊界，必須先向owner呈現保守建議再記錄decision02。
+
+## 2026-09-15 — VAR-REVIEW1 decision02：確認Subaru字面variant note，不推論實體顏色
+
+### 背景、問題與可觀察結果
+
+在Lamborghini完成後，我們把Subaru BRZ的保守審查結果逐項說明，並以「你是否確認採用這個
+Subaru BRZ審查結果？」向owner取得明確回答「是」。本次只把這個回答解讀為Subaru範圍的核准，
+沒有延伸到Nissan、Audi、canonical promotion或新的網站存取。現在batch01有2/4 families完成：
+Subaru事件確認1個字面欄位、保留15個physical fields為unknown、將3個row pairs判定為不同release，
+且canonical changes仍為0。
+
+### 程式修改與原因
+
+新增`decision-02-subaru-brz.json`，保存原始問題、回答、時間、窄化後scope與packet SHA。事件只確認
+HYY12的`variant_note = 2nd Color - Zamac`；HYW99、HYY12、JBB55各自的color、wheel type、
+tampo、edition和packaging variant均明列unknown，三個兩兩關係均為different release。這讓「來源
+真的寫了什麼」與「我們能否知道實體車色」成為兩個可獨立稽核的決定。
+
+原validator的required field集合只涵蓋candidate fields加五種physical fields，無法合法表達來源列上
+值得owner單獨確認的variant note。因此加入`additional_required_fields`契約：額外欄位必須存在於同一
+packet row，且一旦宣告就進入exact required set，不能多填、漏填或跨row引用。同時把owner response
+驗證由硬編碼`繼續下一步`改為要求非空原文，讓每個decision event能保存實際回答；測試仍逐事件核對
+預期問答與scope。新增Subaru正常路徑、唯一confirmed note、physical unknown與pair結果測試，並同步
+更新spec、roadmap、README、決策記錄、驗收證據與AI rubric。
+
+### 技術選型、替代方案與代價
+
+選擇確認字面`variant_note`，而不是把Zamac寫入`color`或自動合併到舊有Walmart Exclusive variant。
+「2nd Color - Zamac」能證明來源如何描述這一列，但沒有足夠row-level authority證明我們資料模型中的
+實體色值，也沒有可靠join把它對應到另一份family-level人工標籤。代價是搜尋者暫時只能看見文字note，
+不能用結構化color篩選；好處是後續取得圖片或可信release page時，可以新增證據而不用撤回錯誤真值。
+
+validator採通用的額外欄位清單，而不是寫死Subaru/HYY12特例，因為未來其他family也可能出現有價值但
+不屬於physical五欄的source observation。這個擴充仍保持fail-closed：欄位必須屬於packet、值必須等於
+raw或candidate evidence、決定總集合必須精確相等。相較允許任意JSON欄位，稍微增加event撰寫成本，
+但避免理由文字被拿來創造新事實。
+
+### 決策改變與觸發證據
+
+上一輪日誌曾把待確認問題簡化成「能否確認HYY12的Zamac finish」。實際審查後將它再窄化：只確認
+來源的完整字串`2nd Color - Zamac`，不宣告Zamac是已驗證的實體color。觸發原因是packet的Subaru
+證據只有family-level重疊，沒有row-level join authority；同時三個不同toy numbers及base/2nd/3rd
+release markers足以支持owner採用「不同release」的保守分類，但不支持猜測它們各自外觀。
+
+### 驗證證據
+
+Decision event SHA為`119b972f7108222ef50b3ded3d1b38608f679bbbd5f47ef5c2b91eb4954f3cf1`，
+綁定packet SHA`2e2adee366d968b0308d64dbde6b513e53055316b5ec5d58c6e0f4b7ae2700b2`。
+Validator重算結果為required fields16、confirmed1、unknown15、different-release pairs3、canonical0；
+Lamborghini與Subaru兩個events均PASS。
+
+聚焦decision測試13項、完整測試592項全部PASS；Ruff F/I、strict MyPy、compileall和兩個CLI artifact
+validation均PASS。完整測試只保留既有Starlette／AnyIO deprecation warning，沒有本次新增失敗。
+
+### 未完成、風險與下一步
+
+VAR-REVIEW1目前完成2/4，仍有Nissan與Audi。Subaru的五種physical fields仍未知、沒有canonical UUID，
+本次也沒有重開Fandom網站或取得新的來源授權。下一步應先審Nissan：它有三個不同toy numbers與
+base/2nd/3rd markers；HYX54另有明確Tooned tool lineage candidate，但同名casting也出現在非Tooned
+工具中。應把release關係、可確認的來源欄位與family/tool歧義分開判斷，不從URL中的`metalflake-blue`
+自行填入color。owner確認後才能建立decision03；Audi仍保持pending。

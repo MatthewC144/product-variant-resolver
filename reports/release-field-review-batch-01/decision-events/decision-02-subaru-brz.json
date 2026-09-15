@@ -1,0 +1,199 @@
+{
+  "additional_required_fields": [
+    {
+      "field": "variant_note",
+      "source_record_id": "fandom-row-3aa2e8967b2f55bf"
+    }
+  ],
+  "canonical_promotion_authorized": false,
+  "decision_version": "release-field-review-batch-01-decision-02-v1",
+  "family_review_id": "fandom-family-b60363832032d566",
+  "family_review_scope": "source_variant_note_physical_unknowns_and_within_family_relationships",
+  "field_decisions": [
+    {
+      "decision": "confirmed",
+      "evidence_references": [
+        "reports/release-field-review-batch-01/packet.json#fandom-row-3aa2e8967b2f55bf"
+      ],
+      "field": "variant_note",
+      "reason": "Owner confirms only that the frozen source text for HYY12 reads 2nd Color - Zamac;this does not confirm a physical color or row-level match to the older human variant.",
+      "reviewed_value": "2nd Color - Zamac",
+      "source_record_id": "fandom-row-3aa2e8967b2f55bf"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-78748248e56441f5"],
+      "field": "color",
+      "reason": "No attributable physical color is stated for HYW99.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-78748248e56441f5"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-78748248e56441f5"],
+      "field": "wheel_type",
+      "reason": "No attributable wheel type is stated for HYW99.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-78748248e56441f5"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-78748248e56441f5"],
+      "field": "tampo_description",
+      "reason": "No attributable tampo description is stated for HYW99.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-78748248e56441f5"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-78748248e56441f5"],
+      "field": "edition",
+      "reason": "No attributable edition is stated for HYW99.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-78748248e56441f5"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-78748248e56441f5"],
+      "field": "packaging_variant",
+      "reason": "No attributable packaging variant is stated for HYW99.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-78748248e56441f5"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-3aa2e8967b2f55bf"],
+      "field": "color",
+      "reason": "Zamac is retained only inside the confirmed source note and is not converted into an actual color.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-3aa2e8967b2f55bf"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-3aa2e8967b2f55bf"],
+      "field": "wheel_type",
+      "reason": "No attributable wheel type is stated for HYY12.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-3aa2e8967b2f55bf"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-3aa2e8967b2f55bf"],
+      "field": "tampo_description",
+      "reason": "No attributable tampo description is stated for HYY12.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-3aa2e8967b2f55bf"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-3aa2e8967b2f55bf"],
+      "field": "edition",
+      "reason": "The older family-level Walmart Exclusive evidence is not safely joined to HYY12,so edition remains unknown.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-3aa2e8967b2f55bf"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-3aa2e8967b2f55bf"],
+      "field": "packaging_variant",
+      "reason": "No attributable packaging variant is stated for HYY12.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-3aa2e8967b2f55bf"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-26b0ba519bca3a01"],
+      "field": "color",
+      "reason": "3rd Color is an ordinal source note and does not state JBB55's physical color.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-26b0ba519bca3a01"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-26b0ba519bca3a01"],
+      "field": "wheel_type",
+      "reason": "No attributable wheel type is stated for JBB55.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-26b0ba519bca3a01"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-26b0ba519bca3a01"],
+      "field": "tampo_description",
+      "reason": "No attributable tampo description is stated for JBB55.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-26b0ba519bca3a01"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-26b0ba519bca3a01"],
+      "field": "edition",
+      "reason": "No attributable edition is stated for JBB55.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-26b0ba519bca3a01"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-26b0ba519bca3a01"],
+      "field": "packaging_variant",
+      "reason": "No attributable packaging variant is stated for JBB55.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-26b0ba519bca3a01"
+    }
+  ],
+  "owner_authorization": {
+    "interpreted_scope": "Accept only the immediately preceding conservative Subaru BRZ recommendation;do not approve Nissan,Audi,canonical promotion,or new source access.",
+    "question": "你是否確認採用這個 Subaru BRZ 審查結果？",
+    "recorded_at_utc": "2026-09-15T17:34:19Z",
+    "response": "是"
+  },
+  "packet_sha256": "2e2adee366d968b0308d64dbde6b513e53055316b5ec5d58c6e0f4b7ae2700b2",
+  "relationship_decisions": [
+    {
+      "decision": "different_release",
+      "evidence_references": [
+        "reports/release-field-review-batch-01/packet.json#fandom-family-b60363832032d566",
+        "reports/release-field-review-batch-01/owner-review.md#subaru-brz"
+      ],
+      "left_source_record_id": "fandom-row-78748248e56441f5",
+      "reason": "Owner accepts the conservative distinction between the base and 2nd Color - Zamac source rows with different toy numbers,without assigning physical attributes.",
+      "right_source_record_id": "fandom-row-3aa2e8967b2f55bf"
+    },
+    {
+      "decision": "different_release",
+      "evidence_references": [
+        "reports/release-field-review-batch-01/packet.json#fandom-family-b60363832032d566",
+        "reports/release-field-review-batch-01/owner-review.md#subaru-brz"
+      ],
+      "left_source_record_id": "fandom-row-78748248e56441f5",
+      "reason": "Owner accepts the conservative distinction between the base and 3rd Color source rows with different toy numbers,without assigning physical attributes.",
+      "right_source_record_id": "fandom-row-26b0ba519bca3a01"
+    },
+    {
+      "decision": "different_release",
+      "evidence_references": [
+        "reports/release-field-review-batch-01/packet.json#fandom-family-b60363832032d566",
+        "reports/release-field-review-batch-01/owner-review.md#subaru-brz"
+      ],
+      "left_source_record_id": "fandom-row-3aa2e8967b2f55bf",
+      "reason": "Owner accepts the conservative distinction between the 2nd Color - Zamac and 3rd Color source rows with different toy numbers,without assigning physical attributes.",
+      "right_source_record_id": "fandom-row-26b0ba519bca3a01"
+    }
+  ],
+  "review_scope_complete": true,
+  "reviewer": "project_owner",
+  "schema_version": "pvr-release-field-review-decision-event-v1",
+  "status": "accepted_scoped_family_review",
+  "summary": {
+    "canonical_changes": 0,
+    "confirmed_fields": 1,
+    "conflicted_fields": 0,
+    "different_release": 3,
+    "rejected_fields": 0,
+    "relationship_pairs": 3,
+    "required_field_decisions": 16,
+    "same_release": 0,
+    "unknown_fields": 15,
+    "unresolved": 0
+  }
+}

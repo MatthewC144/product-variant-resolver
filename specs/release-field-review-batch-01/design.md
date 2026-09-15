@@ -55,3 +55,8 @@ The owner answered`繼續下一步`immediately after the explicit Lamborghini co
 Record that response as authorization for Lamborghini only. A generic read-only validator checks the
 event against packet SHA,required candidate/physical fields,all family pairs,grounded values,evidence,
 reasons and summary. It performs no publication or mutation. Other families remain outside the event.
+
+Decision02 extends the same validator with explicit additional source-observation fields. The owner
+answered`是`to the Subaru conservative proposal,so HYY12's literal variant note is required and confirmed
+while its physical color remains unknown. This extension accepts no arbitrary field:the field must exist
+in the same packet row,and a confirmed value must equal the frozen raw value.

@@ -12,6 +12,9 @@ ROOT = Path(__file__).resolve().parents[1]
 EVENT = ROOT / (
     "reports/release-field-review-batch-01/decision-events/decision-01-lamborghini.json"
 )
+SUBARU_EVENT = ROOT / (
+    "reports/release-field-review-batch-01/decision-events/decision-02-subaru-brz.json"
+)
 
 
 def _load_validator() -> ModuleType:
@@ -67,6 +70,46 @@ def test_all_three_lamborghini_pairs_are_different_release() -> None:
     relationships = event["relationship_decisions"]
     assert len(relationships) == 3
     assert {item["decision"] for item in relationships} == {"different_release"}
+
+
+def test_subaru_event_validates_with_exact_owner_scope() -> None:
+    event = VALIDATOR.validate_event(SUBARU_EVENT)
+    assert event["family_review_id"] == "fandom-family-b60363832032d566"
+    assert event["owner_authorization"]["response"] == "是"
+    assert "do not approve Nissan,Audi" in event["owner_authorization"]["interpreted_scope"]
+    assert event["summary"]["required_field_decisions"] == 16
+    assert event["summary"]["canonical_changes"] == 0
+
+
+def test_subaru_confirms_only_literal_hyy12_note() -> None:
+    event = VALIDATOR.validate_event(SUBARU_EVENT)
+    confirmed = [decision for decision in event["field_decisions"] if decision["decision"] == "confirmed"]
+    assert confirmed == [
+        {
+            "decision": "confirmed",
+            "evidence_references": [
+                "reports/release-field-review-batch-01/packet.json#fandom-row-3aa2e8967b2f55bf"
+            ],
+            "field": "variant_note",
+            "reason": (
+                "Owner confirms only that the frozen source text for HYY12 reads 2nd Color - "
+                "Zamac;this does not confirm a physical color or row-level match to the older "
+                "human variant."
+            ),
+            "reviewed_value": "2nd Color - Zamac",
+            "source_record_id": "fandom-row-3aa2e8967b2f55bf",
+        }
+    ]
+
+
+def test_subaru_physical_fields_unknown_and_rows_different() -> None:
+    event = VALIDATOR.validate_event(SUBARU_EVENT)
+    unknown = [decision for decision in event["field_decisions"] if decision["decision"] == "unknown"]
+    assert len(unknown) == 15
+    assert {decision["field"] for decision in unknown} == VALIDATOR.PHYSICAL_FIELDS
+    assert {decision["decision"] for decision in event["relationship_decisions"]} == {
+        "different_release"
+    }
 
 
 @pytest.mark.parametrize(

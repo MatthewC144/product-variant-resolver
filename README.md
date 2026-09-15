@@ -471,7 +471,7 @@ Current project checklist (engineering completion is not retrieval-quality appro
 - [x] VAR-REVIEW1-PREP: owner-readable4-family/11-row packet and143-field/10-pair empty decision
   template frozen;only3 row-specific candidate claims,no owner decision yet.
 - [ ] VAR-REVIEW1: owner reviews the exact batch01 fields and within-family relationships.
-  Progress1/4:Lamborghini accepted conservatively;Subaru,Nissan,Audi remain pending.
+  Progress2/4:Lamborghini and Subaru accepted conservatively;Nissan/Audi remain pending.
 - [ ] Later: isolated persistence and source/field-reviewed real variant expansion; separate rollout gates.
 - [ ] End-to-end demonstration and beginner code review after project delivery.
 
@@ -625,6 +625,11 @@ The first immutable owner event now records Lamborghini only:HYW93 casting/toy/y
 physical slots across its three rows unknown,and all three row pairs different releases. See
 [decision evidence](docs/evidence/var-review1-decision-01-lamborghini.md). This does not approve the
 remaining families or create canonical products.
+
+The second immutable event records Subaru only:HYY12's literal`2nd Color - Zamac`note is confirmed,
+all15 physical slots remain unknown,and HYW99/HYY12/JBB55 are different releases. It does not join
+HYY12 to the older Walmart Exclusive variant. See
+[decision02 evidence](docs/evidence/var-review1-decision-02-subaru-brz.md).
 
 ```sh
 .venv/bin/python scripts/freeze_human_storage_development.py --check

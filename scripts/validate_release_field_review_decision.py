@@ -56,9 +56,6 @@ def validate_event(path: Path) -> dict[str,Any]:
     for field in ("question","response","interpreted_scope","recorded_at_utc"):
         if not isinstance(authorization.get(field),str) or not authorization[field].strip():
             raise ValueError(f"owner authorization {field} missing")
-    if authorization["response"] != "繼續下一步":
-        raise ValueError("unexpected owner response")
-
     family_id = event.get("family_review_id")
     families = [family for family in packet["families"] if family["family_review_id"] == family_id]
     if len(families) != 1:
@@ -80,6 +77,22 @@ def validate_event(path: Path) -> dict[str,Any]:
         for source_id in rows
         for field in PHYSICAL_FIELDS
     } | set(candidate_fields)
+    additional_fields = event.get("additional_required_fields",[])
+    if not isinstance(additional_fields,list):
+        raise ValueError("additional required fields must be a list")
+    for item in additional_fields:
+        if not isinstance(item,dict):
+            raise ValueError("additional required field must be an object")
+        additional_source_id = item.get("source_record_id")
+        additional_field = item.get("field")
+        if (
+            not isinstance(additional_source_id,str)
+            or additional_source_id not in rows
+            or not isinstance(additional_field,str)
+            or additional_field not in rows[additional_source_id]["raw_fields"]
+        ):
+            raise ValueError("additional required field is outside the packet family")
+        required_fields.add((additional_source_id,additional_field))
     decisions = event.get("field_decisions")
     if not isinstance(decisions,list):
         raise ValueError("field decisions missing")

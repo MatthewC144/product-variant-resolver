@@ -1355,3 +1355,20 @@ but scoped append-only records already prevent later conversations from overwrit
 Most likely failure is scope creep from a short affirmative reply. Grounding/authority/integrity/safety/
 auditability PASS;extendability bounded. Evidence:`docs/evidence/var-review1-decision-01-lamborghini.md`;
 10focused/589full tests PASS.
+
+# D58 — Confirm literal variant notes without promoting their implied physical attribute
+
+Status:ACCEPTED for VAR-REVIEW1 decision02,2026-09-15. The owner answered`是`to the scoped Subaru
+proposal. Confirm exactly HYY12's frozen`2nd Color - Zamac`variant-note text,mark HYW99/HYY12/JBB55
+as different releases,and keep all15 physical fields unknown. Do not translate Zamac into body color,
+join HYY12 to the older human Walmart Exclusive variant,or approve Nissan/Audi/canonical/source work.
+
+The validator accepts additional reviewed fields only when explicitly declared and present in the
+same packet row;confirmed value must still equal frozen evidence. This is preferable to either ignoring
+the owner's source-text confirmation or treating a meaningful token as all the physical facts it may
+suggest. The trade-off is two layers—literal note confirmed,physical field unknown—but that difference
+is the core provenance boundary.
+
+Batch progress is2/4. Most likely failure remains collapsing family-level Zamac overlap into row-level
+identity. Six-axis grounding/authority/integrity/safety/auditability PASS,extendability bounded.
+Evidence:`docs/evidence/var-review1-decision-02-subaru-brz.md`;13focused/592full tests PASS.
