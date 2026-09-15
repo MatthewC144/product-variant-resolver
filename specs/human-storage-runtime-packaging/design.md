@@ -19,7 +19,8 @@ dedicated compose default-reference ► new image running api:app
 
 ## Interfaces and data
 
-Host input:`runtime/human-storage-file-v1/profile.json`. Container input:`/runtime/profile.json` via
+Host input:`runtime/human-storage-file-v2/profile.json` after the retained v1 missing-dependency
+failure. Container input:`/runtime/profile.json` via
 read-only bind with`create_host_path:false`. Environment variable
 `PVR_HUMAN_STORAGE_PROFILE_HOST_PATH` may select another explicit host file for verification; the app
 always receives`PVR_HUMAN_STORAGE_PROFILE_PATH=/runtime/profile.json`. Host port defaults to8001 and
@@ -27,8 +28,9 @@ binds127.0.0.1 only. Package manifest records image ID,profile SHA,source commit
 entrypoint and packaging-source hashes.
 
 A Dockerfile-specific ignore file admits only the four external JSON inputs required by the frozen
-source manifest and the source-freeze producer. Under`reports/`, only selection.json and snapshot
-plan.json are sent to the image. This prevents future QA reports from perturbing the runtime image
+source manifest and both required protocol producers. Under`reports/`, only the v3 development
+selection JSON/Markdown,the v4 selection JSON and snapshot plan are sent to the image. This prevents
+future QA reports from perturbing the runtime image
 while preserving the historical Dockerfile,ignore and Compose hashes.
 
 ## Error handling and safety

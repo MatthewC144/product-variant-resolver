@@ -44,6 +44,9 @@ def test_docker_context_contains_only_required_storage_evidence() -> None:
     assert ignore.startswith("**\n") and "!reports/**" not in ignore
     assert "!reports/human-knowledge-identity-development-v1/selection.json" in ignore
     assert "!reports/human-knowledge-snapshot-v1/plan.json" in ignore
+    assert "!reports/family-retrieval-development-v1/selection.json" in ignore
+    assert "!reports/family-retrieval-development-v1/selection.md" in ignore
+    assert "COPY scripts/build_human_knowledge_identity_protocol.py" in dockerfile
     assert "COPY scripts/freeze_human_storage_runtime_sources.py" in dockerfile
 
 

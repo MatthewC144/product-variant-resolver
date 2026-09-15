@@ -15,7 +15,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / "data/evaluation/human-storage-profile-development-v1/hsp4-run-v2/file-profile.json"
-OUTPUT = ROOT / "runtime/human-storage-file-v1"
+OUTPUT = ROOT / "runtime/human-storage-file-v2"
 IMAGE = "product-variant-resolver:human-storage-lite"
 PACKAGE_SOURCES = (
     "Dockerfile.human-storage",
@@ -92,7 +92,7 @@ def package_payloads(image_id: str, commit: str) -> tuple[bytes, bytes, bytes]:
         "owner_project": "pvr-t49-4-runtime-" + token,
         "image": {"reference": IMAGE, "id": image_id},
         "profile": {
-            "path": "runtime/human-storage-file-v1/profile.json",
+            "path": "runtime/human-storage-file-v2/profile.json",
             "sha256": hashlib.sha256(profile_raw).hexdigest(),
             "mode": "file_snapshot_reference",
         },
@@ -116,7 +116,7 @@ def package_payloads(image_id: str, commit: str) -> tuple[bytes, bytes, bytes]:
         },
     }
     readme = (
-        "# Human storage file runtime v1\n\n"
+        "# Human storage file runtime v2\n\n"
         "Image-bound opt-in T49.4 package. Default API and PostgreSQL rollout remain unchanged.\n"
     ).encode()
     return profile_raw, stable(manifest), readme

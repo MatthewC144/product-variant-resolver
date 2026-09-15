@@ -64,7 +64,7 @@ services:
       - "127.0.0.1:${PVR_HUMAN_STORAGE_PORT:-8001}:8000"
     volumes:
       - type: bind
-        source: ${PVR_HUMAN_STORAGE_PROFILE_HOST_PATH:-./runtime/human-storage-file-v1/profile.json}
+        source: ${PVR_HUMAN_STORAGE_PROFILE_HOST_PATH:-./runtime/human-storage-file-v2/profile.json}
         target: /runtime/profile.json
         read_only: true
         bind:

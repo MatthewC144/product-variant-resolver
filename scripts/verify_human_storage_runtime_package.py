@@ -18,8 +18,8 @@ from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
-PACKAGE = ROOT / "runtime/human-storage-file-v1"
-OUTPUT = ROOT / "reports/human-storage-runtime-package-v1.json"
+PACKAGE = ROOT / "runtime/human-storage-file-v2"
+OUTPUT = ROOT / "reports/human-storage-runtime-package-v2.json"
 
 
 def command(
@@ -168,6 +168,7 @@ def run(output: Path = OUTPUT) -> dict[str, Any]:
         "checks": {},
         "cleanup": {"errors": [], "remaining": []},
     }
+    stage = "docker_context"
     try:
         endpoint = json.loads(
             docker(
@@ -191,8 +192,10 @@ def run(output: Path = OUTPUT) -> dict[str, Any]:
         ).stdout.split()
         if existing:
             raise ValueError("owned Compose project already exists")
+        stage = "compose_config"
         compose(project, "config", "--quiet", environment=environment)
 
+        stage = "missing_profile_rejection"
         missing_path = PACKAGE / "missing-profile.json"
         missing_environment = {
             **environment,
@@ -216,6 +219,7 @@ def run(output: Path = OUTPUT) -> dict[str, Any]:
             raise ValueError("missing profile did not fail before startup")
         compose(project, "down", "--remove-orphans", environment=environment, required=False)
 
+        stage = "services_startup"
         compose(
             project,
             "up",
@@ -232,10 +236,12 @@ def run(output: Path = OUTPUT) -> dict[str, Any]:
         storage_id = compose(
             project, "ps", "-q", "human-storage-file", environment=environment
         ).stdout.strip()
+        stage = "container_safety"
         containers = {
             "default_reference": inspect_container(default_id, manifest["image"]["id"]),
             "human_storage_file": inspect_container(storage_id, manifest["image"]["id"]),
         }
+        stage = "health_contract"
         default_health_status, _default_health = request(18080, "/health")
         storage_health_status, storage_health = request(18081, "/health")
         storage_dependency = storage_health["dependencies"]["human_knowledge_storage"]
@@ -248,6 +254,7 @@ def run(output: Path = OUTPUT) -> dict[str, Any]:
         ):
             raise ValueError("runtime health contract differs")
 
+        stage = "canonical_comparison"
         cases = ["2022 Chevy Nomad Red #101", "Toyota Supra", "Chevy Nomad", "red toy boxed"]
         comparisons = []
         for index, title in enumerate(cases):
@@ -266,6 +273,7 @@ def run(output: Path = OUTPUT) -> dict[str, Any]:
             if left_status != 200 or right_status != 200 or not same:
                 raise ValueError("default/storage canonical response differs")
 
+        stage = "debug_contract"
         debug_status, debug = request(
             18081,
             "/resolve",
@@ -300,6 +308,7 @@ def run(output: Path = OUTPUT) -> dict[str, Any]:
     except Exception as error:
         report["failure"] = {
             "type": type(error).__name__,
+            "stage": stage,
             "detail": "runtime package verification failed",
         }
     finally:

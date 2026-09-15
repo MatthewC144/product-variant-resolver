@@ -1,0 +1,28 @@
+{
+  "checks": {
+    "missing_profile": {
+      "exit_code": 1,
+      "path_created": false,
+      "rejected": true,
+      "stderr_sha256": "23800e0fdaf2eae29efd7d6372e90584f99900dd02afe28d12369e37d334ad04"
+    }
+  },
+  "cleanup": {
+    "errors": [],
+    "remaining": []
+  },
+  "failure": {
+    "detail": "runtime package verification failed",
+    "type": "RuntimeError"
+  },
+  "finished_at_utc": "2026-09-15T15:19:07.212149+00:00",
+  "image": {
+    "id": "sha256:923da9b428656a3936833c6d92ed10b50e83eb6492c08f55789a55747c678617",
+    "reference": "product-variant-resolver:human-storage-lite"
+  },
+  "package_manifest_sha256": "dbf7bea7312541fd770341bcfcba74d3d0e43035a04b054e4ca738611afcfed3",
+  "project": "pvr-t49-4-runtime-894105f447f3",
+  "schema_version": "pvr-human-storage-runtime-package-report-v1",
+  "started_at_utc": "2026-09-15T15:18:07.025125+00:00",
+  "verdict": "FAIL"
+}

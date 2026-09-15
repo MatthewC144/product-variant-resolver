@@ -19,8 +19,12 @@ data/external/**
 !ui/**
 !scripts/
 scripts/**
+!scripts/build_human_knowledge_identity_protocol.py
 !scripts/freeze_human_storage_runtime_sources.py
 !reports/
+!reports/family-retrieval-development-v1/
+!reports/family-retrieval-development-v1/selection.json
+!reports/family-retrieval-development-v1/selection.md
 !reports/human-knowledge-identity-development-v1/
 !reports/human-knowledge-identity-development-v1/selection.json
 !reports/human-knowledge-snapshot-v1/
