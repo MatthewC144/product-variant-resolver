@@ -1,0 +1,72 @@
+name: product-variant-resolver-human-storage
+
+x-runtime: &runtime
+  profiles: ["human-storage"]
+  build:
+    context: .
+    dockerfile: Dockerfile.human-storage
+  image: product-variant-resolver:human-storage-lite
+  init: true
+  read_only: true
+  tmpfs:
+    - /tmp:size=16m,mode=1777
+  environment: &runtime-environment
+    PVR_CATALOG_PATH: /app/data/catalog.json
+    PVR_HUMAN_CATALOG_PATH: /app/data/human_backed_catalog.json
+    PVR_REVIEW_FAMILY_KNOWLEDGE_PATH: /app/data/review_family_knowledge.json
+    PVR_REVIEW_FAMILY_KNOWLEDGE_MANIFEST_PATH: /app/data/review_family_knowledge_manifest.json
+    PVR_BENCHMARK_PATH: /app/data/benchmark.json
+    PVR_UI_PATH: /app/ui
+    PVR_BACKEND: offline
+    PVR_DENSE_PROVIDER: hashing-v1
+    PVR_DENSE_DIMENSIONS: "192"
+    PVR_RERANKER_PROVIDER: heuristic-v1
+    PVR_RERANKER_ENABLED: "false"
+    PVR_POLICY_VERSION: fixture-v1-rrf-trained-v2
+    PVR_CANDIDATE_LIMIT: "25"
+    PVR_DEBUG_ENABLED: "true"
+    PVR_TRACING_ENABLED: "false"
+  healthcheck: &runtime-healthcheck
+    test:
+      - CMD
+      - python
+      - -c
+      - >-
+        import urllib.request;
+        urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=2).read()
+    interval: 5s
+    timeout: 3s
+    start_period: 10s
+    retries: 10
+  restart: "no"
+
+services:
+  default-reference:
+    <<: *runtime
+    ports:
+      - "127.0.0.1:${PVR_DEFAULT_REFERENCE_PORT:-8000}:8000"
+
+  human-storage-file:
+    <<: *runtime
+    environment:
+      <<: *runtime-environment
+      PVR_HUMAN_STORAGE_PROFILE_PATH: /runtime/profile.json
+    command:
+      - uvicorn
+      - product_variant_resolver.human_knowledge_storage_app:app
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8000"
+      - --workers
+      - "1"
+    ports:
+      - "127.0.0.1:${PVR_HUMAN_STORAGE_PORT:-8001}:8000"
+    volumes:
+      - type: bind
+        source: ${PVR_HUMAN_STORAGE_PROFILE_HOST_PATH:-./runtime/human-storage-file-v1/profile.json}
+        target: /runtime/profile.json
+        read_only: true
+        bind:
+          create_host_path: false
+    healthcheck: *runtime-healthcheck
