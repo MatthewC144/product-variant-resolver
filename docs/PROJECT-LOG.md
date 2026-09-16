@@ -6049,3 +6049,64 @@ VAR-REVIEW1尚未完成，進度3/4。Nissan實體顏色、輪圈、tampo、edit
 只剩'87 Audi quattro：需向owner呈現JBC35 Super Treasure Hunt候選主張、兩筆來源列的實體欄位與
 單一pair關係，再取得獨立確認。Audi decision04通過後才能關閉batch01並評估後續VAR-PLAN2，不能
 因完成3/4就自動抓取網站或擴充資料庫。
+
+## 2026-09-16 — VAR-REVIEW1 decision04：完成Audi審查並關閉batch01，不自動promotion
+
+### 背景、問題與可觀察結果
+
+在Nissan decision03完成後，我們把最後一組'87 Audi quattro的保守建議說清楚，並以「你是否確認
+採用這個Audi審查結果？」取得owner回答「繼續下一步」。本次只把回答解讀為Audi decision04，
+不包含網站抓取、PostgreSQL擴充、canonical建立或任何未提到的實體特徵。Audi事件完成後，batch01
+四個families全部有獨立、綁定相同packet SHA的owner event；可觀察總計為67個必要欄位決定，其中
+13 confirmed、54 unknown，10個row pairs全為different release，canonical changes仍為0。
+
+### 程式修改與原因
+
+新增`decision-04-87-audi-quattro.json`。只確認凍結的獨立HW Treasure摘要明確支持的JBC35 casting
+name、toy number、2025與`edition = Super Treasure Hunt`。HYW72五個physical fields全部unknown；
+JBC35的edition雖可確認，但color、wheel type、tampo與packaging仍unknown。兩列因不同toy numbers
+且只有JBC35有可歸屬STH證據，判定為different release。
+
+現有validator已能處理candidate-supported physical field：edition同時屬於physical集合與JBC35候選
+欄位，所以允許confirmed；同一欄在HYW72沒有候選證據，必須保持unknown。這正好驗證契約能依
+row-level evidence處理相同欄位，不會因family名稱相同而把edition橫向複製。測試新增Audi scope、
+四個confirmed欄位、九個unknown、pair關係與四事件aggregate closure，使聚焦測試由16增至20；spec、README、roadmap、
+decision、QA/evidence/rubric與主tasks同步將VAR-REVIEW1標記4/4完成。
+
+### 技術選型、替代方案與代價
+
+最重要的選擇是把「審查完成」與「資料promotion」分成兩道門。四組問題都回答完，只證明owner已對
+目前凍結證據做出決定；它不會讓54個unknown消失，也沒有提供source rights、最新page revision或
+canonical identity。若在4/4後自動寫進正式catalog，流程看似更快，卻會把review workflow誤當成
+publication authority。因此所有11列仍維持unpromoted，不改runtime與資料庫。
+
+對Audi本身，也沒有從`Super Treasure Hunt`推論顏色、輪圈或tampo。STH是來源明確支持的edition，
+不是完整外觀規格；把常見STH特徵自動補入會混合一般知識與本列可歸屬證據。代價是成品資料仍不完整，
+但能明確知道下一輪應找哪些欄位，而不是把推測藏成真值。
+
+### 決策改變與觸發證據
+
+JBC35的四個candidate fields由pending變為owner-confirmed；HYW72與JBC35 release關係由pending變為
+different release。更高層的狀態則是VAR-REVIEW1由3/4變為complete 4/4，但catalog promotion狀態不變。
+觸發依據是獨立來源摘要逐字點名JBC35、2025、Super Treasure Hunt與casting，而不是單靠`STH`
+marker。HYW72沒有同等row-level主張，因此它的edition保持unknown。
+
+### 驗證證據
+
+Decision event SHA為`5aa8a19c2573e37e01ffeec24799599574a99bb06a7619580c48c1d31a149d6e`，
+綁定packet SHA`2e2adee366d968b0308d64dbde6b513e53055316b5ec5d58c6e0f4b7ae2700b2`。
+Audi validator重算required fields13、confirmed4、unknown9、different-release pair1、canonical0；四份
+owner events全部PASS。全batch重算為67 fields、13 confirmed、54 unknown、10 different pairs、
+0 canonical changes。
+
+聚焦decision測試20項、完整測試599項全部PASS；Ruff F/I、strict MyPy、compileall與四個CLI
+artifact validations均PASS。完整測試仍只有既有Starlette／AnyIO deprecation warning，沒有本次
+新增失敗。
+
+### 未完成、風險與下一步
+
+VAR-REVIEW1已完成，但這不是整個專案完成。11筆來源列仍未promotion，54個必要欄位仍unknown，
+也沒有canonical UUID；本次沒有讀取新網站、確認目前授權、寫入PostgreSQL或改變API。下一步是
+VAR-PLAN2：先定義要向哪些來源取得哪些欄位、確認存取權利與page/revision記錄、設定串行請求和快取
+預算，再規劃500／1,500／約3,000筆的分階段蒐集。這會是新的外部資料工作範圍，應先向owner說明
+草案並取得明確批准，不能把本次「繼續下一步」延伸成網路抓取授權。

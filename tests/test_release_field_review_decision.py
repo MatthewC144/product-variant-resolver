@@ -19,6 +19,9 @@ NISSAN_EVENT = ROOT / (
     "reports/release-field-review-batch-01/decision-events/"
     "decision-03-nissan-skyline-2000gt-r-lbwk.json"
 )
+AUDI_EVENT = ROOT / (
+    "reports/release-field-review-batch-01/decision-events/decision-04-87-audi-quattro.json"
+)
 
 
 def _load_validator() -> ModuleType:
@@ -156,6 +159,68 @@ def test_nissan_url_color_is_unknown_and_rows_are_different() -> None:
     assert {decision["decision"] for decision in event["relationship_decisions"]} == {
         "different_release"
     }
+
+
+def test_audi_event_validates_and_closes_the_four_family_review() -> None:
+    event = VALIDATOR.validate_event(AUDI_EVENT)
+    assert event["family_review_id"] == "fandom-family-18e55e067083dbd1"
+    assert event["owner_authorization"]["response"] == "繼續下一步"
+    assert "do not authorize source access" in event["owner_authorization"]["interpreted_scope"]
+    assert event["summary"]["required_field_decisions"] == 13
+    assert event["summary"]["canonical_changes"] == 0
+
+
+def test_audi_confirms_only_grounded_jbc35_candidate_fields() -> None:
+    event = VALIDATOR.validate_event(AUDI_EVENT)
+    confirmed = [decision for decision in event["field_decisions"] if decision["decision"] == "confirmed"]
+    assert {
+        (decision["source_record_id"],decision["field"],str(decision["reviewed_value"]))
+        for decision in confirmed
+    } == {
+        ("fandom-row-65987b3eab315de1","casting_name","'87 Audi quattro"),
+        ("fandom-row-65987b3eab315de1","toy_number","JBC35"),
+        ("fandom-row-65987b3eab315de1","release_year","2025"),
+        ("fandom-row-65987b3eab315de1","edition","Super Treasure Hunt"),
+    }
+
+
+def test_audi_keeps_unproven_physical_fields_unknown_and_rows_different() -> None:
+    event = VALIDATOR.validate_event(AUDI_EVENT)
+    unknown = [decision for decision in event["field_decisions"] if decision["decision"] == "unknown"]
+    assert len(unknown) == 9
+    assert all(decision["reviewed_value"] is None for decision in unknown)
+    assert {
+        decision["field"]
+        for decision in unknown
+        if decision["source_record_id"] == "fandom-row-987feb62698aa51b"
+    } == VALIDATOR.PHYSICAL_FIELDS
+    assert {
+        decision["field"]
+        for decision in unknown
+        if decision["source_record_id"] == "fandom-row-65987b3eab315de1"
+    } == VALIDATOR.PHYSICAL_FIELDS - {"edition"}
+    assert [decision["decision"] for decision in event["relationship_decisions"]] == [
+        "different_release"
+    ]
+
+
+def test_four_events_exhaust_batch01_without_canonical_changes() -> None:
+    events = [
+        VALIDATOR.validate_event(path)
+        for path in (EVENT,SUBARU_EVENT,NISSAN_EVENT,AUDI_EVENT)
+    ]
+    assert {event["family_review_id"] for event in events} == {
+        "fandom-family-174efb9bce3a441e",
+        "fandom-family-b60363832032d566",
+        "fandom-family-369b0be5855c0a1c",
+        "fandom-family-18e55e067083dbd1",
+    }
+    assert sum(event["summary"]["required_field_decisions"] for event in events) == 67
+    assert sum(event["summary"]["confirmed_fields"] for event in events) == 13
+    assert sum(event["summary"]["unknown_fields"] for event in events) == 54
+    assert sum(event["summary"]["relationship_pairs"] for event in events) == 10
+    assert sum(event["summary"]["different_release"] for event in events) == 10
+    assert sum(event["summary"]["canonical_changes"] for event in events) == 0
 
 
 @pytest.mark.parametrize(

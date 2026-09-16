@@ -1,0 +1,156 @@
+{
+  "additional_required_fields": [],
+  "canonical_promotion_authorized": false,
+  "decision_version": "release-field-review-batch-01-decision-04-v1",
+  "family_review_id": "fandom-family-18e55e067083dbd1",
+  "family_review_scope": "candidate_claim_physical_unknowns_and_within_family_relationships",
+  "field_decisions": [
+    {
+      "decision": "confirmed",
+      "evidence_references": [
+        "reports/release-field-review-batch-01/packet.json#fandom-row-65987b3eab315de1"
+      ],
+      "field": "casting_name",
+      "reason": "Owner accepts the frozen independent collector claim that identifies the JBC35 casting.",
+      "reviewed_value": "'87 Audi quattro",
+      "source_record_id": "fandom-row-65987b3eab315de1"
+    },
+    {
+      "decision": "confirmed",
+      "evidence_references": [
+        "reports/release-field-review-batch-01/packet.json#fandom-row-65987b3eab315de1"
+      ],
+      "field": "toy_number",
+      "reason": "Owner accepts the independent collector guide mapping to toy number JBC35.",
+      "reviewed_value": "JBC35",
+      "source_record_id": "fandom-row-65987b3eab315de1"
+    },
+    {
+      "decision": "confirmed",
+      "evidence_references": [
+        "reports/release-field-review-batch-01/packet.json#fandom-row-65987b3eab315de1"
+      ],
+      "field": "release_year",
+      "reason": "Owner accepts 2025 only for the independently described JBC35 release.",
+      "reviewed_value": 2025,
+      "source_record_id": "fandom-row-65987b3eab315de1"
+    },
+    {
+      "decision": "confirmed",
+      "evidence_references": [
+        "reports/release-field-review-batch-01/packet.json#fandom-row-65987b3eab315de1"
+      ],
+      "field": "edition",
+      "reason": "Owner accepts the independent collector guide's explicit Super Treasure Hunt classification for JBC35.",
+      "reviewed_value": "Super Treasure Hunt",
+      "source_record_id": "fandom-row-65987b3eab315de1"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-987feb62698aa51b"],
+      "field": "color",
+      "reason": "No attributable physical color is stated for HYW72.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-987feb62698aa51b"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-987feb62698aa51b"],
+      "field": "wheel_type",
+      "reason": "No attributable wheel type is stated for HYW72.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-987feb62698aa51b"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-987feb62698aa51b"],
+      "field": "tampo_description",
+      "reason": "No attributable tampo description is stated for HYW72.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-987feb62698aa51b"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-987feb62698aa51b"],
+      "field": "edition",
+      "reason": "No attributable edition is stated for HYW72;JBC35's Super Treasure Hunt evidence does not transfer across rows.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-987feb62698aa51b"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-987feb62698aa51b"],
+      "field": "packaging_variant",
+      "reason": "No attributable packaging variant is stated for HYW72.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-987feb62698aa51b"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-65987b3eab315de1"],
+      "field": "color",
+      "reason": "Super Treasure Hunt confirms JBC35's edition but does not state its physical color.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-65987b3eab315de1"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-65987b3eab315de1"],
+      "field": "wheel_type",
+      "reason": "No attributable wheel type is stated for JBC35.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-65987b3eab315de1"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-65987b3eab315de1"],
+      "field": "tampo_description",
+      "reason": "No attributable tampo description is stated for JBC35.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-65987b3eab315de1"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-65987b3eab315de1"],
+      "field": "packaging_variant",
+      "reason": "No attributable packaging variant is stated for JBC35.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-65987b3eab315de1"
+    }
+  ],
+  "owner_authorization": {
+    "interpreted_scope": "Accept only the immediately preceding conservative Audi recommendation;do not authorize source access,database expansion,canonical promotion,or unmentioned physical attributes.",
+    "question": "你是否確認採用這個 Audi 審查結果？",
+    "recorded_at_utc": "2026-09-16T18:57:57Z",
+    "response": "繼續下一步"
+  },
+  "packet_sha256": "2e2adee366d968b0308d64dbde6b513e53055316b5ec5d58c6e0f4b7ae2700b2",
+  "relationship_decisions": [
+    {
+      "decision": "different_release",
+      "evidence_references": [
+        "reports/release-field-review-batch-01/packet.json#fandom-family-18e55e067083dbd1",
+        "reports/release-field-review-batch-01/owner-review.md#87-audi-quattro"
+      ],
+      "left_source_record_id": "fandom-row-987feb62698aa51b",
+      "reason": "Owner accepts HYW72 and JBC35 as different releases because they are separate source rows with different toy numbers,and only JBC35 has attributable Super Treasure Hunt evidence.",
+      "right_source_record_id": "fandom-row-65987b3eab315de1"
+    }
+  ],
+  "review_scope_complete": true,
+  "reviewer": "project_owner",
+  "schema_version": "pvr-release-field-review-decision-event-v1",
+  "status": "accepted_scoped_family_review",
+  "summary": {
+    "canonical_changes": 0,
+    "confirmed_fields": 4,
+    "conflicted_fields": 0,
+    "different_release": 1,
+    "rejected_fields": 0,
+    "relationship_pairs": 1,
+    "required_field_decisions": 13,
+    "same_release": 0,
+    "unknown_fields": 9,
+    "unresolved": 0
+  }
+}

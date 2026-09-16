@@ -1,6 +1,6 @@
 # VAR-REVIEW1-PREP batch01 review
 
-Date:2026-09-15. Lite. Verdict:PASS for packet preparation;OWNER REVIEW PENDING.
+Date:2026-09-15. Lite. Verdict:PASS for packet preparation;OWNER REVIEW WAS PENDING AT THIS CHECKPOINT.
 
 | Requirement | Evidence and result |
 |---|---|
@@ -16,6 +16,7 @@ Date:2026-09-15. Lite. Verdict:PASS for packet preparation;OWNER REVIEW PENDING.
 QA:11 focused/579 full tests,Ruff F/I,strict MyPy,compileall and exact artifact check PASS. One
 existing Starlette/AnyIO deprecation warning remains.
 
-Blocking authority:not a technical failure. The owner must now review exact field claims and all10
-within-family pairs. Until an explicit decision arrives,no decision artifact may be published and the
-11 releases remain held.
+Historical owner gate:not a technical failure. At this preparation checkpoint,the owner still had to
+review exact field claims and all10 within-family pairs. That gate was later completed through four
+separate SHA-bound events;see`decision-01-review.md`through`decision-04-review.md`. The original11 source
+rows remain unpromoted because review completion did not authorize canonical or runtime changes.

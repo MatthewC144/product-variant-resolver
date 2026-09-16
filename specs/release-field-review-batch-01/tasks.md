@@ -19,4 +19,5 @@ or claim that historical source metadata is current permission.
   physical fields unknown,and decide3 pairs as different release.
 - [x] VBR-D3:record the Nissan owner decision;confirm5 grounded HYX54 candidate fields,keep15 physical
   fields unknown,decide3 pairs as different release,and retain the homonymous-tool hold.
-- [ ] VBR-D4:obtain and record the'87 Audi quattro owner decision and close batch01.
+- [x] VBR-D4:record the Audi owner decision;confirm4 grounded JBC35 fields,keep9 unsupported physical
+  fields unknown,decide its pair as different release,and close batch01 at4/4 without promotion.

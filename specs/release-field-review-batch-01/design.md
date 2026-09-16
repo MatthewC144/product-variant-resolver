@@ -66,3 +66,9 @@ HYX54's five frozen candidate fields—including`tool_lineage_ref = Tooned`—ar
 physical fields remain unknown and all three toy-number rows are different releases. The family itself
 remains held because the display name is shared by Tooned and non-Tooned tools. In particular,the
 `metalflake-blue`URL text remains an explicit non-claim and cannot populate color.
+
+Decision04 records the owner's`繼續下一步`reply only against the immediately preceding Audi proposal.
+JBC35's four candidate fields are confirmed,including the explicitly supported`Super Treasure Hunt`
+edition. HYW72 keeps all five physical fields unknown;JBC35 keeps color,wheel,tampo and packaging unknown.
+The two toy-number rows are different releases. This completes review of all four selected families,but
+does not alter held source rows,create canonical UUIDs,access sources,write SQL,or start VAR-PLAN2.

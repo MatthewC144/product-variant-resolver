@@ -470,8 +470,9 @@ Current project checklist (engineering completion is not retrieval-quality appro
   unknown/evidence states; first manual batch proposes4 complete families/11 rows,no inferred values.
 - [x] VAR-REVIEW1-PREP: owner-readable4-family/11-row packet and143-field/10-pair empty decision
   template frozen;only3 row-specific candidate claims,no owner decision yet.
-- [ ] VAR-REVIEW1: owner reviews the exact batch01 fields and within-family relationships.
-  Progress3/4:Lamborghini,Subaru and Nissan accepted conservatively;Audi remains pending.
+- [x] VAR-REVIEW1: owner reviewed all four batch01 families against the exact frozen packet.
+  Complete4/4:67 field decisions(13 confirmed,54 unknown),10 different-release pairs,0 canonical changes;
+  all source rows remain unpromoted and VAR-PLAN2 still requires separate approval.
 - [ ] Later: isolated persistence and source/field-reviewed real variant expansion; separate rollout gates.
 - [ ] End-to-end demonstration and beginner code review after project delivery.
 
@@ -636,6 +637,12 @@ candidate fields are confirmed,all15 physical slots remain unknown,and HYW79/HYY
 releases. The shared Tooned/non-Tooned display name keeps the family held,and`metalflake-blue`in the URL
 does not become a color fact. See
 [decision03 evidence](docs/evidence/var-review1-decision-03-nissan-skyline-2000gt-r-lbwk.md).
+
+The fourth immutable event records Audi only:JBC35's casting/toy/year/`Super Treasure Hunt`edition are
+confirmed,the remaining9 unsupported physical slots across HYW72/JBC35 stay unknown,and the two rows are
+different releases. This closes batch01 at4/4 with13 confirmed/54 unknown fields and10 different-release
+pairs,but no row is promoted and no canonical UUID is created. See
+[decision04/closure evidence](docs/evidence/var-review1-decision-04-87-audi-quattro.md).
 
 ```sh
 .venv/bin/python scripts/freeze_human_storage_development.py --check

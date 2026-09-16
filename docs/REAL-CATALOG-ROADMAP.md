@@ -88,3 +88,9 @@ HW J-Imports與Tooned工具血統升為confirmed；HYW79、HYY30、HYX54是不�
 physical fields仍未知。網址中的`metalflake-blue`不是來源主張，不能當成顏色。相同display name
 仍可能指Tooned或非Tooned工具，所以family繼續held，不建立canonical UUID。Batch進度3/4，
 下一組是'87 Audi quattro。
+
+Owner最後確認Audi：JBC35的名稱、toy number、2025與`Super Treasure Hunt`edition有獨立來源支持；
+HYW72與JBC35是不同release。HYW72的五個physical fields，以及JBC35除edition外的color、wheel、
+tampo與packaging仍未知。至此batch01完成4/4：共67個欄位決定（13 confirmed、54 unknown）與10個
+different-release pairs，canonical changes為0。這只是完成審查，不等於已把11列promotion為正式商品；
+下一階段VAR-PLAN2仍須先確認來源存取權利、revision與請求預算，才能收集更多真實資料。

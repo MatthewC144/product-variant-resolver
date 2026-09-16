@@ -1392,3 +1392,23 @@ The chosen event confirms only attributable values while retaining the family ho
 Most likely failure is treating display-name equality as tool identity. Grounding/authority/integrity/safety/
 auditability PASS;extendability bounded. Evidence:
 `docs/evidence/var-review1-decision-03-nissan-skyline-2000gt-r-lbwk.md`;16focused/595full tests PASS.
+
+# D60 — Close owner review without promoting reviewed observations
+
+Status:ACCEPTED for VAR-REVIEW1 decision04 and batch01 closure,2026-09-16. The owner replied
+`繼續下一步`to the scoped Audi proposal. Confirm only JBC35's four frozen candidate fields:casting name,
+toy number,2025,and`edition = Super Treasure Hunt`. Keep all five HYW72 physical fields and JBC35's
+color,wheel,tampo,packaging unknown;mark the two rows different releases. Do not transfer JBC35's edition
+to HYW72 or infer any visual details from the marketing class.
+
+Four family events now exhaust the exact batch01 review scope:67 required field decisions are13 confirmed
+and54 unknown;all10 pairs are different releases;canonical changes remain0. Mark VAR-REVIEW1 complete,
+but do not change the frozen packet's held rows,write canonical IDs,alter runtime/PostgreSQL,or treat reviewed
+source observations as promoted products. Review completion and catalog publication are separate gates.
+
+The alternative was to auto-promote rows once all questions were answered,which would collapse human
+review into canonical authority and bypass unresolved physical evidence. The chosen closure preserves a
+clean handoff to VAR-PLAN2,where source rights,page revisions and request budgets must be approved before
+new collection. Most likely failure is reporting4/4 as11 fully verified variants. Grounding/authority/
+integrity/safety/auditability PASS;extendability bounded. Evidence:
+`docs/evidence/var-review1-decision-04-87-audi-quattro.md`;20focused/599full tests PASS.

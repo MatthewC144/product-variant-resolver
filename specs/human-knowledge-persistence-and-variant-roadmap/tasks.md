@@ -69,12 +69,13 @@ historical draft commit/hashes and explicit narrow execution exception; no separ
   Evidence:`reports/release-field-review-batch-01/` and
   `docs/evidence/var-review1-batch-01-preparation.md`;11focused/579full tests PASS.
 
-- [ ] VAR-REVIEW1: obtain owner decisions bound to the exact batch01 packet for each field claim and
+- [x] VAR-REVIEW1: obtain owner decisions bound to the exact batch01 packet for each field claim and
   within-family relationship;keep insufficient/conflicting items unresolved. _(→R8–R10)_
   Acceptance:reviewer/time/reason/evidence complete,no inferred physical fields,all decisions validate
   against packet SHA,and no canonical promotion or unreviewed equality.
-  Progress:3/4 families;Lamborghini SHA`b05c5284…e5ef`,Subaru SHA`119b972f…3cf1`,and Nissan
-  SHA`686942b6…a480`valid;Audi pending.
+  Complete:4/4 families;Lamborghini SHA`b05c5284…e5ef`,Subaru SHA`119b972f…3cf1`,Nissan
+  SHA`686942b6…a480`,and Audi SHA`5aa8a19c…9d6e`valid. Aggregate:67 field decisions(13 confirmed,
+  54 unknown),10 different-release pairs,0 canonical changes;all source rows remain unpromoted.
 
 - [ ] VAR-PLAN2: obtain source-specific access/rights and page/revision/budget approval before
   collecting any extra text or staging500/1,500/about3,000unique real source rows. _(→R11–R12)_
