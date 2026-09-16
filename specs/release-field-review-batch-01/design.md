@@ -60,3 +60,9 @@ Decision02 extends the same validator with explicit additional source-observatio
 answered`是`to the Subaru conservative proposal,so HYY12's literal variant note is required and confirmed
 while its physical color remains unknown. This extension accepts no arbitrary field:the field must exist
 in the same packet row,and a confirmed value must equal the frozen raw value.
+
+Decision03 records the owner's`繼好下一步`reply only against the immediately preceding Nissan proposal.
+HYX54's five frozen candidate fields—including`tool_lineage_ref = Tooned`—are confirmed,while all15
+physical fields remain unknown and all three toy-number rows are different releases. The family itself
+remains held because the display name is shared by Tooned and non-Tooned tools. In particular,the
+`metalflake-blue`URL text remains an explicit non-claim and cannot populate color.

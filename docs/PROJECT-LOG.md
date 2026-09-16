@@ -5990,3 +5990,62 @@ VAR-REVIEW1目前完成2/4，仍有Nissan與Audi。Subaru的五種physical field
 base/2nd/3rd markers；HYX54另有明確Tooned tool lineage candidate，但同名casting也出現在非Tooned
 工具中。應把release關係、可確認的來源欄位與family/tool歧義分開判斷，不從URL中的`metalflake-blue`
 自行填入color。owner確認後才能建立decision03；Audi仍保持pending。
+
+## 2026-09-16 — VAR-REVIEW1 decision03：確認HYX54工具血統，同名family仍保持held
+
+### 背景、問題與可觀察結果
+
+上一輪已向owner完整說明Nissan保守建議，最後以「你是否確認採用這個Nissan審查結果？」取得
+回覆「繼好下一步」。依對話位置判斷這是「繼續下一步」的輸入誤差，但事件仍保存原文，且只解讀
+為Nissan範圍，不包含Audi、canonical promotion、新網站存取或從URL推論顏色。現在可觀察成果是
+一份綁定既有packet SHA的decision03：HYX54確認5個候選欄位、三列共15個physical fields未知、
+3個row pairs均為different release、canonical changes0；batch進度由2/4變為3/4。
+
+### 程式修改與原因
+
+新增`decision-03-nissan-skyline-2000gt-r-lbwk.json`。HYX54只確認凍結獨立來源明確支持的casting
+name、toy number、2025、HW J-Imports與`tool_lineage_ref = Tooned`。HYW79、HYY30、HYX54各自的
+color、wheel type、tampo、edition、packaging全部明列unknown；三筆不同toy numbers與base/2nd/3rd
+markers形成三組different-release決定。family recommendation繼續held，不建立variant或canonical ID。
+
+本輪不需要改validator，因為五個HYX54欄位已經存在packet的`candidate_secondary_claims`，現有契約
+會把它們自動加入exact required set並驗證值必須一致。測試新增Nissan事件scope、五個confirmed欄位、
+URL顏色保持unknown與三組release關係，共使聚焦測試由13增至16。同步更新spec tasks、design、
+README、roadmap、decision record、QA review、evidence與AI rubric。
+
+### 技術選型、替代方案與代價
+
+核心選擇是將「某一筆release屬於Tooned工具血統」和「整個同名family已唯一識別」分開。獨立來源
+明確把HYX54連到Tooned，因此這個row-level欄位可以確認；但Wiki研究同時指出另有非Tooned的1:64
+工具使用相同display name，所以不能把名稱相同當作工具相同。代價是Nissan family仍無法promotion，
+但避免把不同模具的車錯誤合併，之後取得tool-number或可靠頁面證據時仍可安全延伸。
+
+另一個選擇是是否把URL中的`metalflake-blue`轉成color。採用不推論：URL是路由／描述字串，凍結的
+`observed_claim`沒有聲明顏色，packet甚至把它列為explicit non-claim。這會暫時少一個可搜尋顏色，
+卻保住來源可追溯性；若日後真正頁面文字或圖片審查證實顏色，可新增獨立欄位事件，而不用修正假真值。
+
+### 決策改變與觸發證據
+
+這一步沒有改變前一輪提出的保守建議，而是把它固化成可驗證事件。重要的狀態變化是HYX54的五個
+candidate fields由pending變成owner-confirmed；Nissan family本身仍是held。觸發證據是packet中
+Diecast Radar的凍結摘要明確同時點名HYX54、Tooned、2025與HW J-Imports，而同一packet的Wiki摘要
+明確記錄同名非Tooned工具。這兩份證據共同要求「確認row lineage、保留family歧義」。
+
+### 驗證證據
+
+Decision event SHA為`686942b60ce6f9e3086e8bf77d832e494ae860f3aa9745c5e6f02ca600a4a480`，
+綁定packet SHA`2e2adee366d968b0308d64dbde6b513e53055316b5ec5d58c6e0f4b7ae2700b2`。
+Validator重算required fields20、confirmed5、unknown15、different-release pairs3、canonical0；前三份
+owner events全部PASS。
+
+聚焦decision測試16項、完整測試595項全部PASS；Ruff F/I、strict MyPy、compileall和三個CLI
+artifact validations均PASS。完整測試仍只有既有Starlette／AnyIO deprecation warning，沒有本次
+新增失敗。
+
+### 未完成、風險與下一步
+
+VAR-REVIEW1尚未完成，進度3/4。Nissan實體顏色、輪圈、tampo、edition、packaging仍未知，family
+工具歧義未解除，也沒有canonical UUID。本次沒有重開網站、寫入PostgreSQL或修改runtime。下一步
+只剩'87 Audi quattro：需向owner呈現JBC35 Super Treasure Hunt候選主張、兩筆來源列的實體欄位與
+單一pair關係，再取得獨立確認。Audi decision04通過後才能關閉batch01並評估後續VAR-PLAN2，不能
+因完成3/4就自動抓取網站或擴充資料庫。

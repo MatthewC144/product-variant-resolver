@@ -17,5 +17,6 @@ or claim that historical source metadata is current permission.
   confirm3 grounded HYW93 fields,keep15 physical fields unknown,and decide3 pairs as different release.
 - [x] VBR-D2:obtain and record the Subaru BRZ owner decision;confirm literal HYY12 note,keep15
   physical fields unknown,and decide3 pairs as different release.
-- [ ] VBR-D3:obtain and record the Nissan Skyline 2000GT-R LBWK owner decision.
+- [x] VBR-D3:record the Nissan owner decision;confirm5 grounded HYX54 candidate fields,keep15 physical
+  fields unknown,decide3 pairs as different release,and retain the homonymous-tool hold.
 - [ ] VBR-D4:obtain and record the'87 Audi quattro owner decision and close batch01.

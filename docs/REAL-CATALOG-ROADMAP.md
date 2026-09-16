@@ -81,4 +81,10 @@ batch01的1/4，下一組是Subaru BRZ。
 
 Owner也已確認Subaru的保守結果：HYW99、HYY12、JBB55是不同release；HYY12只確認來源文字
 `2nd Color - Zamac`，不把Zamac當實際顏色，也不自動對應舊Walmart Exclusive variant。
-三列physical fields仍未知。Batch進度2/4，下一組是Nissan Skyline 2000GT-R LBWK。
+三列physical fields仍未知。
+
+Owner接著確認Nissan的保守結果：只把獨立來源明確支持的HYX54名稱、toy number、2025、
+HW J-Imports與Tooned工具血統升為confirmed；HYW79、HYY30、HYX54是不同release，三列共15個
+physical fields仍未知。網址中的`metalflake-blue`不是來源主張，不能當成顏色。相同display name
+仍可能指Tooned或非Tooned工具，所以family繼續held，不建立canonical UUID。Batch進度3/4，
+下一組是'87 Audi quattro。

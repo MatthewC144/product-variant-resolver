@@ -1372,3 +1372,23 @@ is the core provenance boundary.
 Batch progress is2/4. Most likely failure remains collapsing family-level Zamac overlap into row-level
 identity. Six-axis grounding/authority/integrity/safety/auditability PASS,extendability bounded.
 Evidence:`docs/evidence/var-review1-decision-02-subaru-brz.md`;13focused/592full tests PASS.
+
+# D59 — Keep tool-lineage confirmation separate from homonymous family identity and URL color
+
+Status:ACCEPTED for VAR-REVIEW1 decision03,2026-09-16. The owner replied`繼好下一步`to the scoped
+Nissan proposal. Treat the apparent typo as continuation of the immediately preceding explicit question,
+but preserve the verbatim response and narrow its authority to Nissan only. Confirm HYX54's five frozen
+candidate fields:casting name,toy number,2025,HW J-Imports,and`tool_lineage_ref = Tooned`. Mark
+HYW79/HYY30/HYX54 as different releases and keep all15 physical fields unknown.
+
+The independent source URL contains`metalflake-blue`,but the frozen observed claim does not state color;
+the event therefore records null color rather than deriving a fact from routing text. A separate non-Tooned
+tool shares the display name,so one row's Tooned lineage does not authorize creation or merge of the whole
+family. This preserves three distinct layers:source row,tool lineage,and canonical family identity.
+
+Alternatives were to infer blue from the URL,apply Tooned to every same-name row,or leave the five explicit
+candidate fields pending. The first two overstate evidence;the last discards the owner's scoped confirmation.
+The chosen event confirms only attributable values while retaining the family hold. Batch progress is3/4.
+Most likely failure is treating display-name equality as tool identity. Grounding/authority/integrity/safety/
+auditability PASS;extendability bounded. Evidence:
+`docs/evidence/var-review1-decision-03-nissan-skyline-2000gt-r-lbwk.md`;16focused/595full tests PASS.

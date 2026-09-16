@@ -1,0 +1,234 @@
+{
+  "additional_required_fields": [],
+  "canonical_promotion_authorized": false,
+  "decision_version": "release-field-review-batch-01-decision-03-v1",
+  "family_review_id": "fandom-family-369b0be5855c0a1c",
+  "family_review_scope": "candidate_claim_physical_unknowns_and_within_family_relationships",
+  "field_decisions": [
+    {
+      "decision": "confirmed",
+      "evidence_references": [
+        "reports/release-field-review-batch-01/packet.json#fandom-row-27fe2c9ab41942b8"
+      ],
+      "field": "casting_name",
+      "reason": "Owner accepts the frozen independent collector claim for HYX54 while the broader homonymous family remains held.",
+      "reviewed_value": "Nissan Skyline 2000GT-R LBWK",
+      "source_record_id": "fandom-row-27fe2c9ab41942b8"
+    },
+    {
+      "decision": "confirmed",
+      "evidence_references": [
+        "reports/release-field-review-batch-01/packet.json#fandom-row-27fe2c9ab41942b8"
+      ],
+      "field": "toy_number",
+      "reason": "Owner accepts the independent collector mapping to toy number HYX54.",
+      "reviewed_value": "HYX54",
+      "source_record_id": "fandom-row-27fe2c9ab41942b8"
+    },
+    {
+      "decision": "confirmed",
+      "evidence_references": [
+        "reports/release-field-review-batch-01/packet.json#fandom-row-27fe2c9ab41942b8"
+      ],
+      "field": "release_year",
+      "reason": "Owner accepts 2025 only for the independently described HYX54 release.",
+      "reviewed_value": 2025,
+      "source_record_id": "fandom-row-27fe2c9ab41942b8"
+    },
+    {
+      "decision": "confirmed",
+      "evidence_references": [
+        "reports/release-field-review-batch-01/packet.json#fandom-row-27fe2c9ab41942b8"
+      ],
+      "field": "series",
+      "reason": "Owner accepts HW J-Imports only for the independently described HYX54 release.",
+      "reviewed_value": "HW J-Imports",
+      "source_record_id": "fandom-row-27fe2c9ab41942b8"
+    },
+    {
+      "decision": "confirmed",
+      "evidence_references": [
+        "reports/release-field-review-batch-01/packet.json#fandom-row-27fe2c9ab41942b8"
+      ],
+      "field": "tool_lineage_ref",
+      "reason": "Owner accepts that the independent collector record specifically maps HYX54 to the Tooned casting lineage;this does not resolve every row sharing the display name.",
+      "reviewed_value": "Tooned",
+      "source_record_id": "fandom-row-27fe2c9ab41942b8"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-77ecedc5e3db3f77"],
+      "field": "color",
+      "reason": "No attributable physical color is stated for HYW79.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-77ecedc5e3db3f77"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-77ecedc5e3db3f77"],
+      "field": "wheel_type",
+      "reason": "No attributable wheel type is stated for HYW79.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-77ecedc5e3db3f77"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-77ecedc5e3db3f77"],
+      "field": "tampo_description",
+      "reason": "No attributable tampo description is stated for HYW79.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-77ecedc5e3db3f77"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-77ecedc5e3db3f77"],
+      "field": "edition",
+      "reason": "No attributable edition is stated for HYW79.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-77ecedc5e3db3f77"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-77ecedc5e3db3f77"],
+      "field": "packaging_variant",
+      "reason": "No attributable packaging variant is stated for HYW79.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-77ecedc5e3db3f77"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-ebf5fc720ec1d06d"],
+      "field": "color",
+      "reason": "2nd Color is an ordinal source note and does not state HYY30's physical color.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-ebf5fc720ec1d06d"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-ebf5fc720ec1d06d"],
+      "field": "wheel_type",
+      "reason": "No attributable wheel type is stated for HYY30.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-ebf5fc720ec1d06d"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-ebf5fc720ec1d06d"],
+      "field": "tampo_description",
+      "reason": "No attributable tampo description is stated for HYY30.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-ebf5fc720ec1d06d"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-ebf5fc720ec1d06d"],
+      "field": "edition",
+      "reason": "The KR marker is not converted into a physical edition without an attributable source claim.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-ebf5fc720ec1d06d"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-ebf5fc720ec1d06d"],
+      "field": "packaging_variant",
+      "reason": "No attributable packaging variant is stated for HYY30.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-ebf5fc720ec1d06d"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-27fe2c9ab41942b8"],
+      "field": "color",
+      "reason": "The URL slug contains metalflake-blue but the frozen observed claim does not state a color,so HYX54 color remains unknown.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-27fe2c9ab41942b8"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-27fe2c9ab41942b8"],
+      "field": "wheel_type",
+      "reason": "No attributable wheel type is stated for HYX54.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-27fe2c9ab41942b8"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-27fe2c9ab41942b8"],
+      "field": "tampo_description",
+      "reason": "No attributable tampo description is stated for HYX54.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-27fe2c9ab41942b8"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-27fe2c9ab41942b8"],
+      "field": "edition",
+      "reason": "No attributable edition is stated for HYX54.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-27fe2c9ab41942b8"
+    },
+    {
+      "decision": "unknown",
+      "evidence_references": ["reports/release-field-review-batch-01/packet.json#fandom-row-27fe2c9ab41942b8"],
+      "field": "packaging_variant",
+      "reason": "No attributable packaging variant is stated for HYX54.",
+      "reviewed_value": null,
+      "source_record_id": "fandom-row-27fe2c9ab41942b8"
+    }
+  ],
+  "owner_authorization": {
+    "interpreted_scope": "Accept only the immediately preceding conservative Nissan recommendation;do not approve Audi,canonical promotion,new source access,or color inference from URL text.",
+    "question": "你是否確認採用這個 Nissan 審查結果？",
+    "recorded_at_utc": "2026-09-16T16:45:27Z",
+    "response": "繼好下一步"
+  },
+  "packet_sha256": "2e2adee366d968b0308d64dbde6b513e53055316b5ec5d58c6e0f4b7ae2700b2",
+  "relationship_decisions": [
+    {
+      "decision": "different_release",
+      "evidence_references": [
+        "reports/release-field-review-batch-01/packet.json#fandom-family-369b0be5855c0a1c",
+        "reports/release-field-review-batch-01/owner-review.md#nissan-skyline-2000gt-r-lbwk"
+      ],
+      "left_source_record_id": "fandom-row-77ecedc5e3db3f77",
+      "reason": "Owner accepts the conservative distinction between the base and 2nd Color source rows with different toy numbers,without assigning physical attributes.",
+      "right_source_record_id": "fandom-row-ebf5fc720ec1d06d"
+    },
+    {
+      "decision": "different_release",
+      "evidence_references": [
+        "reports/release-field-review-batch-01/packet.json#fandom-family-369b0be5855c0a1c",
+        "reports/release-field-review-batch-01/owner-review.md#nissan-skyline-2000gt-r-lbwk"
+      ],
+      "left_source_record_id": "fandom-row-77ecedc5e3db3f77",
+      "reason": "Owner accepts the conservative distinction between the base and 3rd Color source rows with different toy numbers,without assigning physical attributes.",
+      "right_source_record_id": "fandom-row-27fe2c9ab41942b8"
+    },
+    {
+      "decision": "different_release",
+      "evidence_references": [
+        "reports/release-field-review-batch-01/packet.json#fandom-family-369b0be5855c0a1c",
+        "reports/release-field-review-batch-01/owner-review.md#nissan-skyline-2000gt-r-lbwk"
+      ],
+      "left_source_record_id": "fandom-row-ebf5fc720ec1d06d",
+      "reason": "Owner accepts the conservative distinction between the 2nd Color and 3rd Color source rows with different toy numbers,without assigning physical attributes.",
+      "right_source_record_id": "fandom-row-27fe2c9ab41942b8"
+    }
+  ],
+  "review_scope_complete": true,
+  "reviewer": "project_owner",
+  "schema_version": "pvr-release-field-review-decision-event-v1",
+  "status": "accepted_scoped_family_review",
+  "summary": {
+    "canonical_changes": 0,
+    "confirmed_fields": 5,
+    "conflicted_fields": 0,
+    "different_release": 3,
+    "rejected_fields": 0,
+    "relationship_pairs": 3,
+    "required_field_decisions": 20,
+    "same_release": 0,
+    "unknown_fields": 15,
+    "unresolved": 0
+  }
+}

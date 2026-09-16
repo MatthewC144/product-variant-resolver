@@ -15,6 +15,10 @@ EVENT = ROOT / (
 SUBARU_EVENT = ROOT / (
     "reports/release-field-review-batch-01/decision-events/decision-02-subaru-brz.json"
 )
+NISSAN_EVENT = ROOT / (
+    "reports/release-field-review-batch-01/decision-events/"
+    "decision-03-nissan-skyline-2000gt-r-lbwk.json"
+)
 
 
 def _load_validator() -> ModuleType:
@@ -107,6 +111,48 @@ def test_subaru_physical_fields_unknown_and_rows_different() -> None:
     unknown = [decision for decision in event["field_decisions"] if decision["decision"] == "unknown"]
     assert len(unknown) == 15
     assert {decision["field"] for decision in unknown} == VALIDATOR.PHYSICAL_FIELDS
+    assert {decision["decision"] for decision in event["relationship_decisions"]} == {
+        "different_release"
+    }
+
+
+def test_nissan_event_validates_with_exact_owner_scope() -> None:
+    event = VALIDATOR.validate_event(NISSAN_EVENT)
+    assert event["family_review_id"] == "fandom-family-369b0be5855c0a1c"
+    assert event["owner_authorization"]["response"] == "繼好下一步"
+    assert "do not approve Audi" in event["owner_authorization"]["interpreted_scope"]
+    assert event["summary"]["required_field_decisions"] == 20
+    assert event["summary"]["canonical_changes"] == 0
+
+
+def test_nissan_confirms_only_grounded_hyx54_candidate_fields() -> None:
+    event = VALIDATOR.validate_event(NISSAN_EVENT)
+    confirmed = [decision for decision in event["field_decisions"] if decision["decision"] == "confirmed"]
+    assert {
+        (decision["source_record_id"],decision["field"],str(decision["reviewed_value"]))
+        for decision in confirmed
+    } == {
+        ("fandom-row-27fe2c9ab41942b8","casting_name","Nissan Skyline 2000GT-R LBWK"),
+        ("fandom-row-27fe2c9ab41942b8","toy_number","HYX54"),
+        ("fandom-row-27fe2c9ab41942b8","release_year","2025"),
+        ("fandom-row-27fe2c9ab41942b8","series","HW J-Imports"),
+        ("fandom-row-27fe2c9ab41942b8","tool_lineage_ref","Tooned"),
+    }
+
+
+def test_nissan_url_color_is_unknown_and_rows_are_different() -> None:
+    event = VALIDATOR.validate_event(NISSAN_EVENT)
+    unknown = [decision for decision in event["field_decisions"] if decision["decision"] == "unknown"]
+    assert len(unknown) == 15
+    assert {decision["field"] for decision in unknown} == VALIDATOR.PHYSICAL_FIELDS
+    hyx54_color = next(
+        decision
+        for decision in unknown
+        if decision["source_record_id"] == "fandom-row-27fe2c9ab41942b8"
+        and decision["field"] == "color"
+    )
+    assert hyx54_color["reviewed_value"] is None
+    assert "URL slug" in hyx54_color["reason"]
     assert {decision["decision"] for decision in event["relationship_decisions"]} == {
         "different_release"
     }

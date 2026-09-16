@@ -471,7 +471,7 @@ Current project checklist (engineering completion is not retrieval-quality appro
 - [x] VAR-REVIEW1-PREP: owner-readable4-family/11-row packet and143-field/10-pair empty decision
   template frozen;only3 row-specific candidate claims,no owner decision yet.
 - [ ] VAR-REVIEW1: owner reviews the exact batch01 fields and within-family relationships.
-  Progress2/4:Lamborghini and Subaru accepted conservatively;Nissan/Audi remain pending.
+  Progress3/4:Lamborghini,Subaru and Nissan accepted conservatively;Audi remains pending.
 - [ ] Later: isolated persistence and source/field-reviewed real variant expansion; separate rollout gates.
 - [ ] End-to-end demonstration and beginner code review after project delivery.
 
@@ -630,6 +630,12 @@ The second immutable event records Subaru only:HYY12's literal`2nd Color - Zamac
 all15 physical slots remain unknown,and HYW99/HYY12/JBB55 are different releases. It does not join
 HYY12 to the older Walmart Exclusive variant. See
 [decision02 evidence](docs/evidence/var-review1-decision-02-subaru-brz.md).
+
+The third immutable event records Nissan only:HYX54's frozen casting/toy/year/series/Tooned-lineage
+candidate fields are confirmed,all15 physical slots remain unknown,and HYW79/HYY30/HYX54 are different
+releases. The shared Tooned/non-Tooned display name keeps the family held,and`metalflake-blue`in the URL
+does not become a color fact. See
+[decision03 evidence](docs/evidence/var-review1-decision-03-nissan-skyline-2000gt-r-lbwk.md).
 
 ```sh
 .venv/bin/python scripts/freeze_human_storage_development.py --check

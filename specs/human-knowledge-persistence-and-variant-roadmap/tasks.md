@@ -73,8 +73,8 @@ historical draft commit/hashes and explicit narrow execution exception; no separ
   within-family relationship;keep insufficient/conflicting items unresolved. _(→R8–R10)_
   Acceptance:reviewer/time/reason/evidence complete,no inferred physical fields,all decisions validate
   against packet SHA,and no canonical promotion or unreviewed equality.
-  Progress:2/4 families;Lamborghini SHA`b05c5284…e5ef`and Subaru SHA`119b972f…3cf1`valid;
-  Nissan/Audi pending.
+  Progress:3/4 families;Lamborghini SHA`b05c5284…e5ef`,Subaru SHA`119b972f…3cf1`,and Nissan
+  SHA`686942b6…a480`valid;Audi pending.
 
 - [ ] VAR-PLAN2: obtain source-specific access/rights and page/revision/budget approval before
   collecting any extra text or staging500/1,500/about3,000unique real source rows. _(→R11–R12)_
