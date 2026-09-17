@@ -1,0 +1,44 @@
+{
+  "schema_version": "pvr-local-release-public-summary-v1",
+  "batch_id": "local-release-staging-v1-85dae23a1a302845f59b63450b9d90623b4c9893ddcde672bffc8eb5b53849af",
+  "content_sha256": "85dae23a1a302845f59b63450b9d90623b4c9893ddcde672bffc8eb5b53849af",
+  "source_rights_state": "access_permission_and_republication_rights_not_provided",
+  "public_scope": "summary_and_checksums_only_no_source_rows",
+  "counts": {
+    "staged_observations": 1763,
+    "unique_source_record_ids": 1763,
+    "unique_toy_numbers": 1763,
+    "unique_casting_names": 678,
+    "unknown_colors": 1763,
+    "variant_note_observations": 699,
+    "parse_errors": 0,
+    "reviewed_variants": 0,
+    "canonical_products": 0
+  },
+  "files": [
+    {
+      "filename": "catalog-2023.xlsx",
+      "release_year": 2023,
+      "row_count": 445,
+      "sha256": "b644ff52f4a2ded13a077fd4e80be0939bc84fe8d29da758a7297a0e62ff1826"
+    },
+    {
+      "filename": "catalog-2024.xlsx",
+      "release_year": 2024,
+      "row_count": 441,
+      "sha256": "9b1ae1f24f9a43c43618ef4df2e7cde85b54d282e45ef2648488917b8677f55c"
+    },
+    {
+      "filename": "catalog-2025.xlsx",
+      "release_year": 2025,
+      "row_count": 440,
+      "sha256": "265968be0a5fd08f3825f1ab30fcc044244313cd0ebd2b2a07aeb34f5011a62e"
+    },
+    {
+      "filename": "catalog-2026.xlsx",
+      "release_year": 2026,
+      "row_count": 437,
+      "sha256": "9746e016e0308b4b8faa7781dece8b2df14f91329be952dd22e8a9166fc7c19c"
+    }
+  ]
+}

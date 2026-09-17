@@ -54,6 +54,13 @@ Debug UI / API client
         +------------------------------+
         |
  matched | ambiguous | no_match + debug evidence
+
+owner-supplied XLSX (2023–2026)
+        |
+ strict offline normalization
+        |
+ release_source_batch + release_source_record
+ (review-only PostgreSQL staging; not a RAG corpus)
 ```
 
 Product knowledge—aliases, colors, series, identifiers, and variant attributes—lives in the
@@ -475,6 +482,9 @@ Current project checklist (engineering completion is not retrieval-quality appro
   all source rows remain unpromoted and VAR-PLAN2 still requires separate approval.
 - [x] VAR-PLAN2-DRAFT: current Fandom terms/licensing and MediaWiki guidance recorded in a deterministic
   source gate;collection/endpoints/current request budgets remain disabled/empty/zero.
+- [x] LRS-T1–T4: four owner-supplied 2023–2026 workbooks normalized offline and 1,763 release
+  observations imported into isolated PostgreSQL staging; repeat import is unchanged, all colors remain
+  `NULL`, and zero rows are linked to canonical products or either Dual RAG corpus.
 - [ ] VAR-PLAN2-CANARY: obtain express written Fandom permission,verify the Hot Wheels Wiki-specific
   license/robots/endpoints,and separately approve at most3 read-only requests before any collection.
 - [ ] Later: isolated persistence and source/field-reviewed real variant expansion; separate rollout gates.
@@ -687,6 +697,36 @@ T49.2 uses the separately authorized `human-knowledge-isolated-storage-test-v1` 
 not canonical ingestion. Its new verifier covers0002; the historical T04 verifier is0001-bound
 and must not be used as a claimed passing check for new migrationhead. No privileged-writer-proof
 DBimmutability, crashdurability, Dockerprocess-kill cleanup or runtime query cost is claimed.
+
+## Local 2023–2026 release staging
+
+The four owner-supplied `HW data/catalog-2023.xlsx` through `catalog-2026.xlsx` files now expand the
+local evidence store without changing resolver answers. `pvr-stage-releases` reads them offline with
+`openpyxl`, enforces the fixed 19-column/row-count contract, preserves raw provenance, and checks a
+deterministic local bundle. The original `HW data/` directory and complete normalized bundle are
+gitignored because local possession is not evidence of republication rights. Version control retains
+only the aggregate [manifest and report](reports/local-release-staging-v1/), with source-file hashes
+and no source rows.
+Test support creates exact-shape synthetic XLSX workbooks so a public fresh clone remains verifiable:
+17 portable focused tests pass and the two owner-byte integrations skip explicitly when `HW data/`
+is absent. With the four local files present, all 19 focused tests pass; the full local suite is
+629/629 PASS with one pre-existing warning. The committed public manifest's batch identity, file
+checksums and 1,763-row aggregate are checked in both environments. This test fixture does not relax the real CLI: runtime
+normalization remains bound to the four direct `HW data/` files and fails when they are unavailable.
+
+```bash
+pvr-stage-releases --check
+alembic upgrade head
+pvr-import-release-staging --database-url 'postgresql+psycopg://USER:PASSWORD@HOST/DB'
+```
+
+Migration `0003` adds `release_source_batch` and `release_source_record`, separate from canonical,
+search, embedding and `hk_*` tables. The retained local project volume contains 1 batch / 1,763
+observations: 445 from 2023, 441 from 2024, 440 from 2025 and 437 from 2026. They contain 1,763 unique
+source IDs, 1,763 unique toy numbers and 678 casting names; all 1,763 colors remain `NULL`, and there
+are zero canonical links. The first import returned `inserted`; an identical second import returned
+`unchanged`. These are staged observations—not verified products, evaluation truth or Dual RAG inputs.
+See the [QA evidence](docs/evidence/local-release-staging-ingestion.md).
 
 ## Docker and PostgreSQL status
 

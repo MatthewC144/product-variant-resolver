@@ -12,4 +12,5 @@ artifacts/*.json
 reports/generated/
 model-cache/
 postgres-data/
-
+/HW data/
+/data/external/hot-wheels-wiki/local-export-2023-2026/

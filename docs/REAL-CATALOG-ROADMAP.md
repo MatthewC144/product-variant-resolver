@@ -1,7 +1,8 @@
 # 下一階段：從「找到車型」走向「找到具體版本」
 
-2026-09-15，Lite mode。T49.1–T49.4 儲存與可選file runtime已完成；正式PostgreSQL rollout與
-release版本辨識尚未完成。VAR-PLAN1現已建立100筆離線欄位證據計畫，尚無人工欄位決策。
+2026-09-16，Lite mode。T49.1–T49.4 儲存與可選file runtime已完成；VAR-REVIEW1也已完成第一批
+11筆人工欄位審查。另有1,763筆owner提供的2023–2026 release資料已進入獨立PostgreSQL staging；
+它們尚未成為已驗證版本、canonical商品或Dual RAG輸入，顏色仍全部未知。
 
 ## 現在已經能證明什麼？
 
@@ -111,3 +112,24 @@ collection false、permission null、approved endpoints空白、已執行與各m
 保存與再發布條件的書面同意。若取得，再透過獲准方式確認Hot Wheels Wiki當下license、robots與
 endpoint，凍結頁面/revision清單，然後再次請owner批准最多3個GET的canary。沒有回覆、拒絕或範圍
 不清楚時都必須維持blocked；不能改用proxy、browser impersonation、CAPTCHA繞過或搜尋快取補資料。
+
+## 本機HW data擴充已完成：1,763筆只進入待審staging
+
+Owner後續提供了四份本機Excel，不需要重新連線或爬取網站。系統以固定檔名與SHA-256讀取2023–2026
+資料，嚴格驗證19欄結構和每年445／441／440／437筆，再建立可重現的normalized snapshot。原始
+`HW data/`與完整normalized bundle都加入gitignore，避免把沒有再發布權證明的XLSX或1,763筆衍生列
+推到公開repo；可提交的只有不含來源列的aggregate manifest與report。
+
+為避免gitignore造成公開clone「沒有私人XLSX就整套測試失敗」，測試層另建相同19欄與1,763筆分布的
+synthetic workbooks。Fresh clone可通過17項portable tests，僅2項需要owner原始bytes的integration明確
+skip；本機有資料時19/19全過，完整套件629/629全過。Committed public manifest的batch ID、來源檔
+checksum與aggregate筆數仍被驗證，實際CLI也仍只接受`HW data/`四個直接檔案，因此portable test不會放寬runtime來源邊界。
+
+Alembic migration `0003`新增獨立的`release_source_batch`與`release_source_record`，沒有把資料混進
+canonical商品、搜尋／embedding或`hk_*`表。本機project PostgreSQL volume現保留1 batch／1,763筆，
+包含1,763個唯一source IDs、1,763個唯一toy numbers、678個casting names、1,763個`NULL` colors和
+0 canonical links。第一次匯入為`inserted`，相同資料第二次為`unchanged`；可安全重跑而不重複新增。
+
+這次擴充解決的是「把owner已提供的大批release觀測資料安全保存並可追溯」，不是「已能辨識每台車的
+顏色與具體版本」。下一步仍是建立人工／來源證據充分的promotion流程；顏色可在取得可靠row-level
+證據後再補，不能從`2nd Color`、網址或常識推測。新的網路蒐集仍受上方VAR-PLAN2 source gate阻擋。

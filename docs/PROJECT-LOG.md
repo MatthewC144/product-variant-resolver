@@ -3436,7 +3436,7 @@ the published history.
 ### Implementation trace
 
 No product code was changed to make publication work. The important implementation boundary is the
-nested repository itself: `/Users/yuchen/Desktop/resume project2/Product Variant Resolver/.git`
+nested repository itself: `Product Variant Resolver/.git`
 owns only the project subtree, while the outer workspace remains outside that repository. The
 tracked-file inventory begins with project-owned files such as `.dockerignore`, `.env.example`,
 `.gitignore`, `Dockerfile`, `README.md`, configuration, fixture data, evidence, migrations, source,
@@ -6179,3 +6179,96 @@ VAR-PLAN2-DRAFT完成，但VAR-PLAN2 collection仍blocked。現在沒有新增�
 取得明確書面許可，或選擇另一個有清楚bulk/API授權的來源。若收到回覆，要先保存私人原件、只提交
 redacted hash/evidence，再檢查實際範圍；不清楚、拒絕、無回覆或過期都維持blocked。即使獲准，也要
 再次請owner批准3-request canary，不能自動進入500筆批次。
+
+## 2026-09-17 — LRS-T1–T4：把1,763筆本機release資料擴充到獨立PostgreSQL staging
+
+### 新執行了什麼、解決什麼問題
+
+Owner在專案內提供`HW data/catalog-2023.xlsx`至`catalog-2026.xlsx`，並明確要求先擴充、顏色後續再
+考慮。本輪把這四份既有本機檔案離線正規化成一個可重現snapshot，再透過migration`0003`匯入獨立的
+release staging。這解決了先前資料量只有100筆Wiki pilot、且沒有一個可持久保存1,763筆release觀測的
+位置；同時沒有把「資料已保存」誤報成「商品已驗證」。結果是1 batch、1,763筆observations、1,763個
+唯一source IDs、1,763個唯一toy numbers與678個跨年casting names。年份分布維持2023=445、2024=441、
+2025=440、2026=437；所有1,763筆color仍為`NULL`，canonical links為0。
+
+### 修改了哪些程式部分，為什麼
+
+`release_staging.py`新增嚴格XLSX parser、跨檔驗證、deterministic snapshot／manifest／report與
+`pvr-stage-releases`CLI。它只接受`HW data/`直屬的四個固定檔名，驗證`Releases`sheet、第6列19欄header、
+年份、預期筆數、必要欄位、timestamp、raw JSON、parse狀態、公式、重複source ID／toy number與全檔順序，
+並保存原始欄位、來源頁／表／列、輸入檔名和SHA-256。這些限制讓換檔、增欄或資料漂移直接失敗，避免
+格式相似但語意不同的Excel被默默接收。
+
+`0003_release_source_staging.py`新增`release_source_batch`與`release_source_record`；
+`postgres_release_staging.py`新增參數化SQL、`pvr-import-release-staging`CLI、單交易匯入、重複批次核對與
+精確readback。資料沒有寫入`product_variant`、aliases、identifiers、provenance、search、embeddings或
+`hk_*`。`test_release_staging.py`、`test_postgres_release_staging.py`與實際SQL verifier分別覆蓋parser、
+determinism、tamper／collision、真實constraint rollback、migration downgrade／upgrade和protected-table
+isolation。`pyproject.toml`與Python3.12 constraints加入`openpyxl 3.1.x`，並註冊兩個CLI。
+
+完整`data/external/hot-wheels-wiki/local-export-2023-2026/`只留在本機，`.gitignore`同時排除它與
+`/HW data/`；公開repo只提交`reports/local-release-staging-v1/`的aggregate manifest與report，不含
+1,763筆來源列。原因不是原始檔不重要，而是owner只提供本機檔案，沒有提供重新發布權證明。Repo仍可
+用檔名、筆數和checksum稽核來源，但不會意外把四份XLSX或完整衍生資料公開推送。
+
+### 技術選型與替代方案取捨
+
+選`openpyxl`而不是把Excel當CSV或引入pandas，是因為這項工作需要辨認worksheet、cell type、公式與
+超出第19欄的內容；CSV會丟失workbook結構，pandas也不能取代formula／shape contract，卻會增加依賴與
+隱式型別轉換。parser採read-only／data-only分離讀取，先掃描公式與整個有效列，再解析值；代價是同一
+檔案讀兩次，但在1,763筆規模下比接受不可見公式或欄位更安全。
+
+選deterministic snapshot，是為了讓相同四份bytes永遠得到相同row ordering、payload、content checksum
+與batch ID。替代做法是每次匯入產生隨機batch或直接逐列寫SQL，但那會使重跑難以比較，也無法證明
+資料庫內容對應哪一版輸入。Snapshot同時把「解析正確」與「SQL持久化正確」拆成兩個可驗證步驟。
+
+選獨立`release_source_*`tables而不是直接擴充canonical或`hk_*`，是因為這1,763筆只有來源觀測權威，
+沒有human-verified variant或canonical UUID。獨立表增加了日後promotion步驟，卻能在schema層阻止
+待審資料改變Dual RAG答案、校準或evaluation。顏色全部保留`NULL`，不從`Variant note`、URL、model
+label或常識推論；`2nd Color`只表示來源中的release marker，不等於知道實際顏色。這是刻意延後完整性，
+換取可追溯和可修正性。
+
+SQL選擇atomic、idempotent與fail-closed checksum collision：batch與1,763 rows在同一transaction，任何
+一筆失敗就整批rollback；完全相同的batch第二次只核對並回傳`unchanged`；相同batch ID若對應不同
+content checksum則拒絕，而不是upsert覆蓋歷史。逐列best-effort upsert看似方便，但可能留下半批資料、
+掩蓋來源漂移或在兩個匯入者競爭時產生混合版本，因此不採用。
+
+### QA發現、退回修正與驗證閉環
+
+第一次QA不是直接放行。測試把副本的`Releases!T6/T7`加入第20欄值後，發現原scanner只看前19欄，
+會錯誤接受額外欄位。這是LRS-R2的實際漏洞，因此工作退回Phase2：scanner改為檢查完整已填儲存格，
+並新增「第20欄一般值」和「第20欄公式」兩個regression tests。修正沒有改變正常輸入的snapshot checksum。
+最終有owner資料時focused 19/19與完整629/629 tests PASS；changed-file Ruff、strict MyPy、compileall與artifact check也
+PASS。完整套件只保留一個既有Starlette／AnyIO deprecation warning；whole-repository Ruff仍有56個
+既有I001，沒有把它們誤記成本功能回歸。
+
+### Repo portability修正與技術取捨
+
+原始`HW data/`因再發布權未確認而必須gitignore，但這也帶來新的工程問題：公開repo或fresh clone拿不到
+四份私人XLSX，如果測試在collection/setup階段無條件讀檔，其他人會在尚未測到parser前就整套FAIL。
+這不只是開發便利性問題，也會讓履歷repo無法重現「程式本身是否正確」。因此QA後續加入synthetic XLSX
+support：用測試程式建立相同19欄contract、相同每年445／441／440／437筆和相同1,763總筆數，讓parser、
+determinism、tamper rejection與repository transaction在沒有私人檔案時仍可執行。
+
+取捨上，沒有把owner XLSX提交進Git，也沒有讓runtime接受任意fixture path。兩個真正比較owner bytes、
+年份與checksum的integration tests只在`HW data/`存在時執行；fresh-clone simulation得到17 PASS／2個附
+明確理由的SKIP，本機有資料時19/19 PASS。Committed public manifest仍驗證batch ID、四個來源檔
+checksum與1,763筆aggregate；完整normalized artifact則繼續由本機owner-data integration驗證。這比「缺檔就跳過所有測試」保留更多
+契約覆蓋，也比「測試方便所以公開原始XLSX」更符合來源權利邊界。Production CLI的source-bound檢查
+完全未放寬，仍只允許專案`HW data/`下四個固定直接檔案；synthetic support只存在測試層。
+
+Disposable QA PostgreSQL 16.14先跑`0001→0002→0003`、downgrade回`0002`再upgrade，並在第881筆觸發
+真實unique violation，確認rollback後兩張staging tables都是0且protected tables未變。正常匯入後第一次
+為`inserted`、第二次為`unchanged`，readback與snapshot完全一致；QA container使用`--rm`停止後已清除。
+其後另在本機project PostgreSQL volume套用`0003`並持久匯入，相同地得到第一次`inserted`、第二次
+`unchanged`及1 batch／1,763 rows／1,763 null colors／0 canonical links。這個project volume刻意保留，
+不要和已刪除的disposable QA database混為一談。
+
+### 留下的債與下一步
+
+LRS-T1–T4已完成，但這不是variant resolution完成。1,763筆仍是`needs_canonical_review`與
+`staging_only_not_evaluation_or_canonical`；來源存取許可／再發布權未提供，顏色、輪圈、tampo、edition
+等欄位尚未完成row-level驗證，也沒有3,000筆效能、備份恢復、promotion workflow或新的resolver準確率
+證據。Lite mode下architect、security與performance review維持deferred。下一步應先為staging設計可
+稽核的人工review／promotion批次；顏色只在取得可歸屬到特定toy number的可靠證據後補入。新的網站
+蒐集仍由VAR-PLAN2 permission gate控制，不能因本機資料已匯入就自動啟動crawler。

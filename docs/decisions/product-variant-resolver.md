@@ -1434,3 +1434,55 @@ acquisition. At10×,source rights remain the throughput bottleneck,not PostgreSQ
 reporting general license text as automated-access consent. Six-axis grounding/authority/integrity/safety/
 auditability PASS;extendability bounded. Evidence:`docs/evidence/var-plan2-source-expansion-draft.md`;
 11focused/610full tests PASS.
+
+# D62 — Import owner-supplied release workbooks into isolated deterministic staging
+
+Status:ACCEPTED for LRS-T1–T4,2026-09-16. The owner explicitly asked to expand the database from four
+local 2023–2026 workbooks while deferring color. Treat the 1,763 rows as source observations only:
+normalize them offline, preserve their provenance, and write them to new`release_source_batch`and
+`release_source_record`tables. Do not insert them into canonical product/alias/identifier/search/
+embedding tables,`hk_*`,evaluation labels or either Dual RAG corpus.
+
+Choose`openpyxl`because XLSX is a zipped workbook format with worksheet types,formula cells and sparse
+dimensions that a CSV parser cannot validate honestly. Read-only/data-only passes keep memory bounded and
+separate formula rejection from value parsing. The alternative—manual export to CSV or a heavier dataframe
+stack—would either lose workbook structure/provenance or add machinery without solving the strict sheet/header
+contract. A fixed19-column schema, exact filenames/years/counts and per-file SHA-256 fail closed when an input
+is replaced. QA exposed one real weakness:the first scanner stopped at column19 and silently accepted populated
+column20. The task returned to Phase2; scanning the full populated row plus two regressions closed the gap before
+the final owner-data run passed19 focused tests and629 full tests.
+
+Build a deterministic normalized snapshot before SQL so the same four bytes produce the same ordering,payload,
+content checksum and batch ID. The complete normalized snapshot remains local with the unpublished XLSX files.
+`/HW data/`and its generated bundle are gitignored because local possession does not establish redistribution
+rights;omitting all evidence would make the import unauditable,while committing source rows would overstate
+publication authority. The public repo therefore keeps only an aggregate manifest/report with filenames,
+checksums,counts and the missing-rights state,not the1,763 source rows.
+
+Portability follow-up,2026-09-17:because gitignored owner files will not exist in a public clone,keep exact owner-byte checks as two explicit
+integration tests but generate exact-shape synthetic workbooks for the17 portable parser/repository tests. A
+fresh-clone simulation therefore returns17 PASS/2 SKIP instead of failing at collection,while local owner data
+returns19/19. The alternative—committing XLSX to make tests convenient—crosses the rights boundary; skipping all
+workbook tests loses contract coverage. Synthetic fixtures preserve schema/count/tamper behavior,while the
+committed aggregate manifest checks batch identity,source checksums and the1,763-row output claim. Production path validation is unchanged and
+still refuses any source outside the four direct`HW data/`files.
+
+Keep blank color as SQL`NULL`. Variant notes such as`2nd Color`,`3rd Color`or`Zamac`,URLs and general knowledge
+cannot supply the physical color of a particular source row. Inferring them would increase apparent completeness
+while corrupting provenance. Deferring color leaves1,763 unknowns but permits later evidence-backed enrichment
+without retracting fabricated facts.
+
+Use one PostgreSQL transaction for the batch and all records,table locking plus unique identities for races,
+and exact readback verification before commit. An identical batch returns`unchanged`; an existing deterministic
+batch ID with another checksum is a collision and fails,as do invalid/duplicate records,with full rollback. The
+alternative upsert-by-row could hide changed evidence and leave a partially imported batch. Two isolated tables
+cost an eventual promotion step,but make the authority boundary visible in schema and permit safe deletion or
+reprocessing without touching resolver truth.
+
+Disposable QA applied/downgraded/reapplied migration`0003`,proved real uniqueness rollback,then imported and
+read back1,763 rows;that database/container was removed. The separate retained local project volume subsequently
+returned`inserted`then`unchanged`and contains1 batch/1,763 rows/1,763 unique source IDs/1,763 unique toy numbers/
+678 castings/1,763 null colors/0 canonical links,with years445/441/440/437. These results prove ingestion
+mechanics,not source correctness,rights,variant review or resolver accuracy. Architect/security/performance
+reviews remain deferred under Lite mode;3,000-row latency,backup/restore,promotion rules and color enrichment
+require later evidence. Evidence:`docs/evidence/local-release-staging-ingestion.md`.
