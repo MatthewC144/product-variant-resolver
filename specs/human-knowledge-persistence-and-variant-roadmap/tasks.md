@@ -77,10 +77,16 @@ historical draft commit/hashes and explicit narrow execution exception; no separ
   SHA`686942b6…a480`,and Audi SHA`5aa8a19c…9d6e`valid. Aggregate:67 field decisions(13 confirmed,
   54 unknown),10 different-release pairs,0 canonical changes;all source rows remain unpromoted.
 
+- [x] VAR-PLAN2-DRAFT: research current public rules and freeze a fail-closed source-access/scale plan.
+  Evidence:`reports/real-catalog-source-expansion-v1/`,`specs/real-catalog-source-expansion/`,and
+  `docs/evidence/var-plan2-source-expansion-draft.md`;11focused/610full tests PASS. Current Fandom
+  collection remains disabled because express written permission/community license/endpoints are absent.
+
 - [ ] VAR-PLAN2: obtain source-specific access/rights and page/revision/budget approval before
   collecting any extra text or staging500/1,500/about3,000unique real source rows. _(→R11–R12)_
   Acceptance:current permissions/endpoint evidence, no bypass/images, serial cached bounded reads,
   batch parser/checksum/dedup/held/variant/canonical counters; quota never substitutes for review.
+  Blocked:owner must obtain express written Fandom permission,then separately approve a3-request canary.
 
 - [ ] VAR-PLAN3: obtain explicit reviewed field/lineage decisions for bounded release batches,
   then propose a new identity/public contract and output-blind variant evaluation protocol. _(→R8–R10,R13)_
@@ -97,8 +103,8 @@ variant accuracy. One bounded task per approved handoff. T49.3 protocol/profile 
 scoped T49.3 requirements/design/tasks-budgets confirmations now recorded and HSP-1 inputfreeze PASS.
 HSP-1 through HSP-4 and the bounded T49.4 file-runtime package are now complete. The PostgreSQL
 profile remains isolated evidence rather than an installed service, and no default rollout occurred.
-VAR-PLAN1 now provides the full100-row evidence envelope;VAR-REVIEW1-PREP freezes the four-family/
-11-row packet and empty decision contract. No field decisions have occurred. The next action is owner
-review of that exact packet;
-VAR-PLAN2 remains blocked on current source-specific access/rights and request-budget approval.
+VAR-PLAN1 provides the full100-row evidence envelope and VAR-REVIEW1 completed all four selected families/
+11 rows without promotion. VAR-PLAN2-DRAFT now freezes a planning-only source gate,current Fandom terms
+research,conditional canary and scale counters. VAR-PLAN2 remains blocked on express written permission,
+Hot Wheels Wiki-specific license/robots/endpoint verification and a separate canary budget approval.
 This does not retroactively fabricate broader historical T49 approvals.

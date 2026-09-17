@@ -473,6 +473,10 @@ Current project checklist (engineering completion is not retrieval-quality appro
 - [x] VAR-REVIEW1: owner reviewed all four batch01 families against the exact frozen packet.
   Complete4/4:67 field decisions(13 confirmed,54 unknown),10 different-release pairs,0 canonical changes;
   all source rows remain unpromoted and VAR-PLAN2 still requires separate approval.
+- [x] VAR-PLAN2-DRAFT: current Fandom terms/licensing and MediaWiki guidance recorded in a deterministic
+  source gate;collection/endpoints/current request budgets remain disabled/empty/zero.
+- [ ] VAR-PLAN2-CANARY: obtain express written Fandom permission,verify the Hot Wheels Wiki-specific
+  license/robots/endpoints,and separately approve at most3 read-only requests before any collection.
 - [ ] Later: isolated persistence and source/field-reviewed real variant expansion; separate rollout gates.
 - [ ] End-to-end demonstration and beginner code review after project delivery.
 
@@ -643,6 +647,14 @@ confirmed,the remaining9 unsupported physical slots across HYW72/JBC35 stay unkn
 different releases. This closes batch01 at4/4 with13 confirmed/54 unknown fields and10 different-release
 pairs,but no row is promoted and no canonical UUID is created. See
 [decision04/closure evidence](docs/evidence/var-review1-decision-04-87-audi-quattro.md).
+
+**VAR-PLAN2 draft is complete,but Fandom collection is blocked.** Fandom's current Terms of Use prohibit
+automated access without express prior written permission. Its general CC BY-SA text-license language does
+not itself grant bot/API access,and the Hot Wheels Wiki-specific license/endpoints were not directly verified.
+The [machine plan](reports/real-catalog-source-expansion-v1/plan.json)therefore fixes zero executed/current
+requests,no approved endpoints and no image/OCR access. Read the
+[permission guide](docs/FANDOM-SOURCE-PERMISSION-GUIDE.md). Even written permission would only unlock a new
+owner decision for a maximum3-request canary,not the500/1,500/3,000-row stages or canonical promotion.
 
 ```sh
 .venv/bin/python scripts/freeze_human_storage_development.py --check

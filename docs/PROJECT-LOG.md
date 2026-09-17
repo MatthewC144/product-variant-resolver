@@ -6110,3 +6110,72 @@ VAR-REVIEW1已完成，但這不是整個專案完成。11筆來源列仍未prom
 VAR-PLAN2：先定義要向哪些來源取得哪些欄位、確認存取權利與page/revision記錄、設定串行請求和快取
 預算，再規劃500／1,500／約3,000筆的分階段蒐集。這會是新的外部資料工作範圍，應先向owner說明
 草案並取得明確批准，不能把本次「繼續下一步」延伸成網路抓取授權。
+
+## 2026-09-16 — VAR-PLAN2-DRAFT：凍結來源存取門與3,000筆分階段計畫
+
+### 背景、問題與可觀察結果
+
+VAR-REVIEW1完成後，owner明確同意開始「VAR-PLAN2的來源存取與資料擴充草案」。此授權是規劃，
+不是大量爬取。既有目標希望資料庫逐步增加到約3,000筆真實來源release，但過去只知道Fandom文字
+可能採CC BY-SA，沒有本次有效的自動存取許可、Hot Wheels Wiki特定license、API endpoint或robots
+證據。公開規則查驗顯示Fandom Terms of Use目前禁止未取得事先明確書面許可的自動化存取；所以
+本輪的可觀察成果不是新增資料，而是`blocked`source gate：collection false、0 remote requests、
+0 approved endpoints、0 current milestone budgets，並列出取得許可後仍需獨立批准的3-request canary。
+
+### 程式修改與原因
+
+新增`specs/real-catalog-source-expansion/`三件套與review，將access、license、transport、milestones、
+counters、stop conditions與out-of-scope寫成可驗收契約。`reports/real-catalog-source-expansion-v1/plan.json`
+保存三份公開研究證據：Fandom Terms、Fandom general licensing、MediaWiki API etiquette；每份都記錄
+publisher、URL、查驗時間、觀察規則、authority effect與direct-open HTTP402等限制。
+
+新增read-only`validate_real_catalog_source_expansion_plan.py`，拒絕把collection打開、杜撰permission、
+填入approved endpoint、增加任何目前request budget、移除stop condition或啟用media。11項新測試
+覆蓋正常plan、license/access分離、canary/milestone zero budget、scale counters及6種tamper case，並
+掃描validator不得含network/SQL/write imports。另新增新手permission guide與可直接修改後自行寄出的
+信件草稿；專案沒有代替owner寄信或保存私人聯絡資料。
+
+### 技術選型、替代方案與代價
+
+最重要的選型是把「內容著作權授權」與「平台存取許可」做成兩個獨立欄位。CC BY-SA說明取得文字後
+如何署名、share-alike與再利用；Terms則規範能否用robot/scraper/API取得。若只保留一個`license`
+布林值，很容易看到CC BY-SA就錯誤啟動crawler，因此plan要求permission artifact為null時endpoint必須
+空白且所有budget為0。
+
+沒有直接廢棄Fandom，而是設計conditional canary：若未來拿到書面同意，還要先確認permission範圍、
+Hot Wheels Wiki自己的license/robots與精確endpoint/page/revision manifest，再由owner獨立批准最多3個
+GET。transport floor採concurrency1、至少5秒間隔、contact-bearing User-Agent、cache、JSON/GZip與
+`maxlag=1`；這些是保守技術提案，不是Fandom已批准的數字。代價是3,000筆進度暫停，但避免用portfolio
+專案展示違反來源條款的資料工程。
+
+### 決策改變與觸發證據
+
+舊design只記錄2026-09-14透過瀏覽服務取得Fandom頁面時HTTP402，因此將rights/API/robots列為未驗證。
+本輪透過公開搜尋metadata補到目前Terms最後修訂日期2025-12-19及明確automatic-access限制，也取得
+general licensing的CC BY-SA3.0/individual-wiki/media例外說明。觸發的決策改變是：Fandom不再只是
+「尚未檢查」，而是`blocked_pending_express_written_permission`；MediaWiki etiquette只能在未來獲准後
+當transport guidance，不能當permission。
+
+500／1,500／3,000里程碑也由模糊目標改成unique real source-release rows，必須分別報requests、pages/
+revisions、raw observations、dedup releases、castings、held/conflicted/unresolved、reviewed variants、
+canonical products、errors與cache hits。重複revision、duplicate release或synthetic row不能補數字。
+
+### 驗證證據
+
+Plan SHA為`f24c35b057a25969f82fa97a147c636bf3c0c96d531c94ae27e53466f504fd7c`。
+Focused11與完整610項測試PASS；Ruff F/I、strict MyPy、compileall、source-plan CLI與既有四份owner
+decision validators均PASS。唯一完整套件warning仍是既有Starlette／AnyIO deprecation。
+
+第一次安全掃描曾FAIL，原因不是validator有網路功能，而是測試搜尋裸字串`requests`，誤中合法計數欄
+`requests_attempted`。修正為檢查真正的`import requests`、`from requests`、`import httpx/urllib/socket`
+等匯入後PASS；權限boundary沒有放寬。Tamper cases確認collection enabled、假permission、endpoint、
+executed/current budget與移除CAPTCHA stop都會fail closed。
+
+### 未完成、風險與下一步
+
+VAR-PLAN2-DRAFT完成，但VAR-PLAN2 collection仍blocked。現在沒有新增第101筆來源資料、沒有Fandom
+書面許可、沒有Hot Wheels Wiki特定license/robots/endpoint/page revision，也沒有parser、SQL staging、
+圖片/OCR或canonical UUID。下一步需要owner依`docs/FANDOM-SOURCE-PERMISSION-GUIDE.md`自行向Fandom
+取得明確書面許可，或選擇另一個有清楚bulk/API授權的來源。若收到回覆，要先保存私人原件、只提交
+redacted hash/evidence，再檢查實際範圍；不清楚、拒絕、無回覆或過期都維持blocked。即使獲准，也要
+再次請owner批准3-request canary，不能自動進入500筆批次。

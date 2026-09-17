@@ -1,0 +1,141 @@
+{
+  "authority": {
+    "canonical_changes_authorized": 0,
+    "collection_enabled": false,
+    "database_writes_authorized": false,
+    "executed_remote_requests": 0,
+    "images_allowed": false,
+    "ocr_allowed": false,
+    "planning_only": true
+  },
+  "conditional_canary": {
+    "request_budget": {
+      "executed_requests": 0,
+      "maximum_if_later_approved": 3
+    },
+    "requires": [
+      "express_written_fandom_permission_artifact",
+      "verified_hot_wheels_wiki_text_license",
+      "current_terms_and_robots_evidence",
+      "exact_endpoint_page_revision_manifest",
+      "separate_project_owner_canary_approval"
+    ],
+    "status": "proposal_not_approved",
+    "transport_floor_if_later_approved": {
+      "cache_required": true,
+      "concurrency": 1,
+      "descriptive_contact_user_agent_required": true,
+      "format": "json",
+      "gzip_required": true,
+      "maxlag_seconds": 1,
+      "minimum_delay_seconds": 5
+    }
+  },
+  "current_gate": {
+    "blocking_reason": "Fandom Terms of Use prohibit automated access without express prior written permission;the project has no permission artifact and has not verified a Hot Wheels Wiki-specific license or endpoint.",
+    "next_action": "Project owner obtains written permission;no project process contacts Fandom automatically.",
+    "status": "blocked_pending_fandom_written_permission_and_owner_canary_approval"
+  },
+  "expansion_milestones": [
+    {
+      "current_request_budget": 0,
+      "status": "existing_offline_baseline_only",
+      "target_unique_real_source_rows": 100
+    },
+    {
+      "current_request_budget": 0,
+      "status": "blocked_pending_prior_gate",
+      "target_unique_real_source_rows": 500
+    },
+    {
+      "current_request_budget": 0,
+      "status": "blocked_pending_prior_gate",
+      "target_unique_real_source_rows": 1500
+    },
+    {
+      "current_request_budget": 0,
+      "status": "blocked_pending_prior_gate",
+      "target_unique_real_source_rows": 3000
+    }
+  ],
+  "generated_at_utc": "2026-09-17T00:29:52Z",
+  "required_counters": [
+    "requests_attempted",
+    "requests_succeeded",
+    "cache_hits",
+    "pages",
+    "revisions",
+    "raw_observations",
+    "deduplicated_source_releases",
+    "castings",
+    "held_releases",
+    "conflicted_releases",
+    "unresolved_releases",
+    "owner_reviewed_variants",
+    "canonical_products",
+    "errors"
+  ],
+  "research_evidence": [
+    {
+      "authority_effect": "blocks_automated_collection_without_written_permission",
+      "checked_at_utc": "2026-09-17T00:20:00Z",
+      "evidence_id": "fandom-terms-2025-12-19",
+      "observed_last_revision": "2025-12-19",
+      "observed_rule": "Fandom prohibits robots,scrapers and other automated means from accessing its services without express prior written permission,and prohibits bypass of access restrictions.",
+      "publisher": "Fandom,Inc.",
+      "retrieval_limitation": "Search-index metadata was readable;direct official-page open returned HTTP402.No community/API/robots probe was attempted.",
+      "scope": "fandom_platform_terms",
+      "url": "https://www.fandom.com/terms-of-use"
+    },
+    {
+      "authority_effect": "general_text_reuse_context_only_not_access_permission",
+      "checked_at_utc": "2026-09-17T00:22:00Z",
+      "evidence_id": "fandom-general-licensing",
+      "observed_last_revision": null,
+      "observed_rule": "Fandom states that wiki text is generally CC BY-SA3.0 with attribution/share-alike,but individual wiki licensing must be checked and non-text files are separate.",
+      "publisher": "Fandom,Inc.",
+      "retrieval_limitation": "Search-index metadata was readable;direct official-page open returned HTTP402.The Hot Wheels Wiki-specific footer/edit-page license was not verified.",
+      "scope": "general_fandom_text_license",
+      "url": "https://www.fandom.com/licensing"
+    },
+    {
+      "authority_effect": "conditional_transport_guidance_only_not_fandom_permission",
+      "checked_at_utc": "2026-09-17T00:23:00Z",
+      "evidence_id": "mediawiki-api-etiquette-8373208",
+      "observed_last_revision": "8373208",
+      "observed_rule": "MediaWiki recommends a descriptive contact-bearing User-Agent,serial requests,caching,JSON,GZip and maxlag for noninteractive reads.",
+      "publisher": "MediaWiki",
+      "retrieval_limitation": "General MediaWiki documentation;it does not grant permission to use any Fandom endpoint.",
+      "scope": "general_api_etiquette",
+      "url": "https://www.mediawiki.org/wiki/API:Etiquette"
+    }
+  ],
+  "schema_version": "pvr-real-catalog-source-expansion-plan-v1",
+  "source_candidates": [
+    {
+      "approved_endpoints": [],
+      "automated_access_status": "blocked_pending_express_written_permission",
+      "base_url": "https://hotwheels.fandom.com/wiki/Hot_Wheels",
+      "community_specific_license_status": "unverified",
+      "content_scope": "text_release_tables_only",
+      "general_text_license_context": "Fandom states wiki text is generally CC BY-SA3.0;the Hot Wheels Wiki-specific license is not yet verified.",
+      "media_allowed": false,
+      "permission_evidence": null,
+      "source_id": "hot-wheels-fandom-text"
+    }
+  ],
+  "status": "blocked",
+  "stop_conditions": [
+    "missing_or_expired_written_permission",
+    "permission_scope_mismatch",
+    "terms_or_robots_drift",
+    "http_401",
+    "http_403",
+    "http_429_or_rate_limit",
+    "captcha_or_access_challenge",
+    "unexpected_redirect_or_schema",
+    "revision_or_checksum_mismatch",
+    "community_license_unverified",
+    "owner_budget_not_approved"
+  ]
+}

@@ -94,3 +94,20 @@ HYW72與JBC35是不同release。HYW72的五個physical fields，以及JBC35除ed
 tampo與packaging仍未知。至此batch01完成4/4：共67個欄位決定（13 confirmed、54 unknown）與10個
 different-release pairs，canonical changes為0。這只是完成審查，不等於已把11列promotion為正式商品；
 下一階段VAR-PLAN2仍須先確認來源存取權利、revision與請求預算，才能收集更多真實資料。
+
+## VAR-PLAN2草案已完成：目前Fandom自動收集被阻擋
+
+2026-09-16的公開規則查驗發現兩件不能混為一談的事。Fandom一般授權頁表示wiki文字通常採
+CC BY-SA3.0，可在遵守署名與相同授權條件下重用；但目前Terms of Use（公開結果標示最後修訂
+2025-12-19）同時禁止沒有事先明確書面許可的自動化存取／scraping。文字授權回答「取得內容後
+如何重用」，平台條款回答「可不可以用程式取得」，前者不能代替後者。
+
+因此[機器可驗證的source gate](../reports/real-catalog-source-expansion-v1/plan.json)目前設定為blocked：
+collection false、permission null、approved endpoints空白、已執行與各milestone request budget均為0，
+圖片/OCR也禁止。100筆只代表既有離線baseline；500、1,500與約3,000筆都還沒開始。
+
+下一個外部動作不是啟動crawler，而是由owner依
+[許可指南](FANDOM-SOURCE-PERMISSION-GUIDE.md)向Fandom取得針對本專案、endpoint、用途、規模、
+保存與再發布條件的書面同意。若取得，再透過獲准方式確認Hot Wheels Wiki當下license、robots與
+endpoint，凍結頁面/revision清單，然後再次請owner批准最多3個GET的canary。沒有回覆、拒絕或範圍
+不清楚時都必須維持blocked；不能改用proxy、browser impersonation、CAPTCHA繞過或搜尋快取補資料。

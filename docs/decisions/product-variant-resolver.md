@@ -1412,3 +1412,25 @@ clean handoff to VAR-PLAN2,where source rights,page revisions and request budget
 new collection. Most likely failure is reporting4/4 as11 fully verified variants. Grounding/authority/
 integrity/safety/auditability PASS;extendability bounded. Evidence:
 `docs/evidence/var-review1-decision-04-87-audi-quattro.md`;20focused/599full tests PASS.
+
+# D61 — Treat content licensing and automated source access as separate gates
+
+Status:ACCEPTED for VAR-PLAN2-DRAFT,2026-09-16. Fandom's general licensing page says wiki text is
+usually CC BY-SA3.0 with attribution/share-alike,but its Terms of Use,last revised2025-12-19 in public
+search metadata,prohibit automated access/scraping without express prior written permission. The project
+has no permission artifact and could not directly verify the Hot Wheels Wiki-specific license,API endpoint
+or robots state. Therefore collection remains disabled;CC BY-SA context is not bot permission.
+
+Freeze a planning-only JSON gate with zero executed/current requests,no approved endpoints,no images/OCR,
+no SQL/canonical changes and100/500/1,500/3,000 honest counters. A later permission artifact does not start
+collection:it must be checked for scope/expiry/endpoints,followed by authorized community license/robots
+verification and a new owner approval for at most three serial,cached,contact-identified GET requests.
+MediaWiki etiquette is a conditional transport floor,not Fandom authority.
+
+Alternatives were immediate scraping,assuming public pages imply permission,or abandoning the source goal.
+The first two conflict with current terms;the last discards a potentially viable path before requesting
+permission. The chosen plan is slower but prevents an interview project from demonstrating noncompliant data
+acquisition. At10×,source rights remain the throughput bottleneck,not PostgreSQL. Most likely failure is
+reporting general license text as automated-access consent. Six-axis grounding/authority/integrity/safety/
+auditability PASS;extendability bounded. Evidence:`docs/evidence/var-plan2-source-expansion-draft.md`;
+11focused/610full tests PASS.
