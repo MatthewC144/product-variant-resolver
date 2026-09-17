@@ -728,6 +728,28 @@ are zero canonical links. The first import returned `inserted`; an identical sec
 `unchanged`. These are staged observations—not verified products, evaluation truth or Dual RAG inputs.
 See the [QA evidence](docs/evidence/local-release-staging-ingestion.md).
 
+## Local casting review queue
+
+`pvr-review-release-castings` now groups the 1,763 local staging observations into deterministic,
+review-only brand/casting clusters and compares exact normalized keys with both existing catalog
+sources. The result has 678 raw labels but 676 normalized review clusters because two clusters retain
+multiple punctuation/accent spellings for explicit human review. Exact candidates exist in both
+sources for 1 cluster, in the synthetic canonical fixture only for 2, and in the non-canonical human
+draft only for 40; 633 clusters have no exact candidate.
+
+These numbers are routing evidence, not verified coverage. All 676 clusters remain held, approved
+links and canonical promotions remain zero, and colors are still unreviewed. The complete queue and
+source-row references are local/gitignored. Version control retains only the aggregate
+[manifest and report](reports/local-release-casting-review-v1/) and their hashes.
+
+```bash
+pvr-review-release-castings --check
+```
+
+The next gate is a bounded human decision batch. Exact text does not authorize automatic family or
+variant promotion, especially because `data/catalog.json` is a synthetic fixture and the second
+catalog is explicitly a review draft.
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with

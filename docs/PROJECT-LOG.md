@@ -6272,3 +6272,55 @@ LRS-T1–T4已完成，但這不是variant resolution完成。1,763筆仍是`nee
 證據。Lite mode下architect、security與performance review維持deferred。下一步應先為staging設計可
 稽核的人工review／promotion批次；顏色只在取得可歸屬到特定toy number的可靠證據後補入。新的網站
 蒐集仍由VAR-PLAN2 permission gate控制，不能因本機資料已匯入就自動啟動crawler。
+
+## 2026-09-17 — LCR-T1–T3：建立1,763筆資料的casting人工審核佇列
+
+### 新執行了什麼、解決什麼問題
+
+上一階段已把1,763筆release observations安全放進獨立staging，但仍缺少能讓人逐步審核的工作單位；若
+直接逐列查看，不但重複casting很多，也容易把同一名稱下的不同release誤當成已確認variant。本輪因此
+新增離線casting review queue，把來源列依brand與casting正規化key分群，同時保留每筆source record ID、
+toy number、年份與原始casting label供本機稽核。結果是678個raw labels形成676個review clusters；兩組因
+重音或標點差異收斂到相同key，系統明確標示collision而沒有自動宣告alias關係。
+
+Queue也以exact normalized key比較兩個既有知識來源。1個cluster同時命中synthetic canonical fixture與
+human-backed draft，2個只命中fixture，40個只命中human draft，633個沒有exact candidate；對應來源列為
+1、8、126與1,628筆。這解決的是「接下來人工該先看哪些群組」而不是「哪些車已經完成canonical link」。
+目前676個clusters仍全部待審，approved links、canonical promotions與reviewed colors都是0。
+
+### 代碼修改了哪個部分、原因與邊界
+
+新增`release_casting_review.py`與`pvr-review-release-castings`CLI，負責驗證staging authority、建立兩個
+catalog exact-key indexes、產生穩定review cluster ID、排序priority、輸出private queue以及privacy-bounded
+public manifest/report。若任何來源列已有canonical UUID、usage不是staging-only、review status被改動或
+color非NULL，流程會直接失敗。這些檢查防止queue builder被誤用成promotion或color enrichment工具。
+
+完整queue寫到`data/external/hot-wheels-wiki/local-release-casting-review-v1/`並加入gitignore，因為裡面
+包含從owner檔案衍生的完整label與來源列references。公開repo只保存aggregate counts、三個input hashes
+與private queue SHA-256；這讓他人可驗證使用哪一版輸入和本機artifact是否漂移，但不會取得未確認可再
+發布的資料。沒有修改PostgreSQL schema/table、canonical catalog、human catalog、API、calibration、
+evaluation或Dual RAG runtime。
+
+### 技術棧與方法選型，為何這樣決定
+
+本步選擇Unicode NFKD、ASCII folding、casefold與alphanumeric tokenization的deterministic exact matching，
+而不是embedding或fuzzy similarity。Exact matching較保守、可重現，也能清楚解釋為何進入某個review
+bucket；代價是633個clusters沒有候選，需要後續人工或可靠來源補證。Fuzzy matching雖可能提高表面
+coverage，卻可能把相似車名錯連，並且使候選分數被誤當ground truth，因此不適合promotion前第一道門。
+
+即使exact命中，也沒有自動連結。`data/catalog.json`的120筆是synthetic fixture，不是真實Hot Wheels
+主目錄；human-backed catalog則明確是non-canonical review draft。把43個有exact candidate的clusters
+直接promote會混淆「文字相同」與「來源證據確認同一casting／release」，所以所有候選仍統一標記
+`hold_for_human_review`。顏色繼續維持未知，沒有從名稱、variant note、URL或候選catalog推論。
+
+### 驗證結果、限制與下一步
+
+11項focused tests覆蓋四種candidate class、多個synthetic variants屬於同一family candidate、raw-label
+collision保留、輸入重排determinism、四種authority tamper rejection、public output隱私與真實aggregate。
+完整repository suite為640/640 PASS；changed-file Ruff F/I與format、strict MyPy、compileall、CLI
+`--check`及`git diff --check`全部PASS。唯一訊息仍是既有Starlette／AnyIO deprecation warning。
+
+這次輸出不能證明任何cluster是正確的真實casting，也不能證明兩個正規化後相同的label一定是alias。
+下一步應從private queue建立一個小型、可閱讀的owner review batch，優先處理cross-source candidate與兩個
+normalization collisions，並以append-only decision events保存確認結果；不能直接修改queue或一次promote
+全部43個exact candidates。

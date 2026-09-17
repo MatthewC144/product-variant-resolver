@@ -1486,3 +1486,26 @@ returned`inserted`then`unchanged`and contains1 batch/1,763 rows/1,763 unique sou
 mechanics,not source correctness,rights,variant review or resolver accuracy. Architect/security/performance
 reviews remain deferred under Lite mode;3,000-row latency,backup/restore,promotion rules and color enrichment
 require later evidence. Evidence:`docs/evidence/local-release-staging-ingestion.md`.
+
+# D63 — Treat normalized casting matches as private review routing, not identity approval
+
+Status:ACCEPTED for LCR-T1–T3,2026-09-17. After isolated staging, group the1,763 observations by
+NFKD/ASCII/casefold/alphanumeric brand-and-casting keys to make human review tractable. Preserve all raw
+labels and row references in a private queue, call the result a review cluster, and flag any normalized
+key that contains multiple source spellings. The current data therefore has678 raw labels but676 clusters,
+including2 explicit normalization collisions;normalization is not silently promoted to alias truth.
+
+Compare only exact normalized keys against the synthetic canonical fixture and non-canonical human draft.
+This yields1 both-source,2 fixture-only,40 human-only and633 no-exact clusters,covering1/8/126/1,628
+observations. Keep all676 unresolved with0 approved links,0 canonical promotions and0 reviewed colors.
+Fuzzy nearest-neighbour matching was rejected for this gate because it can make a review queue look complete
+by manufacturing false identities;automatic exact linking was also rejected because the fixture is synthetic,
+the human catalog is a draft,and neither proves a release-level variant.
+
+The complete queue is gitignored because it reproduces owner-supplied labels and row references without a
+republication-rights artifact. Commit only aggregate counts,input hashes and the private queue checksum. This
+retains auditability without publishing1,763 derived rows. At10×,manual review throughput—not candidate
+generation—is the bottleneck;the next design should use small append-only owner decision batches. Most likely
+failure is reporting43 exact candidates as43 verified families. Grounding/authority/integrity/safety/privacy/
+auditability PASS for review support;runtime and promotion eligibility remain blocked. Evidence:
+`docs/evidence/local-release-casting-review.md`;11 focused/640 full tests PASS.

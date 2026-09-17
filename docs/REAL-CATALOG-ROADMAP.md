@@ -133,3 +133,19 @@ canonical商品、搜尋／embedding或`hk_*`表。本機project PostgreSQL volu
 這次擴充解決的是「把owner已提供的大批release觀測資料安全保存並可追溯」，不是「已能辨識每台車的
 顏色與具體版本」。下一步仍是建立人工／來源證據充分的promotion流程；顏色可在取得可靠row-level
 證據後再補，不能從`2nd Color`、網址或常識推測。新的網路蒐集仍受上方VAR-PLAN2 source gate阻擋。
+
+## 本機casting review queue已完成：676個群組全部維持待審
+
+下一個離線步驟已把1,763筆staging observations依正規化brand/casting建立676個review clusters。來源中有
+678個raw casting labels；其中兩組因重音或標點折疊到相同key，系統保留所有原字串並標成
+normalization collision，而不是靜默宣告同一identity。
+
+與現有兩個catalog來源做exact-key比較後，1個cluster同時有synthetic fixture與human draft候選，2個只有
+synthetic fixture候選，40個只有human draft候選，633個沒有exact候選；對應observations為1／8／126／
+1,628。這些都是review routing，不是canonical truth。676個clusters仍全部unresolved，approved links、
+canonical promotions、reviewed colors、SQL writes、network requests與Dual RAG changes都為0。
+
+完整queue包含來源IDs、toy numbers、raw labels與candidate IDs，因此只存在gitignored local data；公開repo
+只保存`reports/local-release-casting-review-v1/`的aggregate counts與input/private-queue hashes。下一步應從
+queue建立小型owner decision batch，逐項記錄可歸屬證據與決定。不能把43個exact candidate clusters一次
+全部promote，也不能在這個階段補顏色。

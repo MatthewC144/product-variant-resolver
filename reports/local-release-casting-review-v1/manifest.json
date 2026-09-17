@@ -1,0 +1,35 @@
+{
+  "canonical_catalog_sha256": "0d3ea55eab414e3845bf3bf72635707210f2d5c20d96b3d6b5940eb0ffc7d261",
+  "human_catalog_sha256": "d29b69cde8099cb229136a73b893ca99b6313d9652ead5ff4aea48c20242e74f",
+  "private_queue_sha256": "7961d4e6b59623277c3172e24066686e3a6ee01585fac4205a4e4f7254e0b883",
+  "public_scope": "aggregate_counts_and_hashes_only_no_source_rows_or_casting_labels",
+  "review_version": "local-release-casting-review-v1",
+  "schema_version": "pvr-local-release-casting-review-public-summary-v1",
+  "source_batch_id": "local-release-staging-v1-85dae23a1a302845f59b63450b9d90623b4c9893ddcde672bffc8eb5b53849af",
+  "source_content_sha256": "85dae23a1a302845f59b63450b9d90623b4c9893ddcde672bffc8eb5b53849af",
+  "source_rights_state": "access_permission_and_republication_rights_not_provided",
+  "status": "human_review_required",
+  "summary": {
+    "approved_casting_links": 0,
+    "candidate_cluster_counts": {
+      "exact_both_sources": 1,
+      "exact_canonical_fixture_only": 2,
+      "exact_human_draft_only": 40,
+      "no_exact_candidate": 633
+    },
+    "candidate_observation_counts": {
+      "exact_both_sources": 1,
+      "exact_canonical_fixture_only": 8,
+      "exact_human_draft_only": 126,
+      "no_exact_candidate": 1628
+    },
+    "canonical_promotions": 0,
+    "network_requests": 0,
+    "normalization_collision_clusters": 2,
+    "normalized_review_clusters": 676,
+    "raw_casting_labels": 678,
+    "reviewed_colors": 0,
+    "staged_observations": 1763,
+    "unresolved_review_clusters": 676
+  }
+}

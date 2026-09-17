@@ -27,6 +27,7 @@ pvr-evaluate = "product_variant_resolver.evaluation:main"
 pvr-ingest = "product_variant_resolver.postgres_ingestion:main"
 pvr-stage-releases = "product_variant_resolver.release_staging:main"
 pvr-import-release-staging = "product_variant_resolver.postgres_release_staging:main"
+pvr-review-release-castings = "product_variant_resolver.release_casting_review:main"
 pvr-materialize-embeddings = "product_variant_resolver.postgres_embeddings:main"
 pvr-report = "product_variant_resolver.reporting:main"
 
