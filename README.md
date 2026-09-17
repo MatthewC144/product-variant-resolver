@@ -747,45 +747,6 @@ pgvector cosine distance supplies dense candidates. Startup validates catalog an
 versions, checksums, identities, and row counts. Human-knowledge retrieval remains a separate
 non-canonical source.
 
-## Selenium collector for a permitted Fandom-like site
-
-`crawl_fandom_like_catalog.py` reads one explicitly permitted page whose HTML tables use Fandom-like
-classes and headers. It does **not** target Fandom: every `fandom.com` and `wikia.org` host is blocked
-without an override. The command also requires the exact target host and an operator confirmation
-that automated access is permitted. It does not follow links,log in,solve challenges or download images.
-
-Install the optional browser and workbook dependencies:
-
-```bash
-uv pip install --python .venv/bin/python -e '.[crawler]'
-```
-
-Run a one-page 2025 collection after replacing both example values with the other site's real URL and
-exact hostname:
-
-```bash
-PYTHONPATH=src .venv/bin/python scripts/crawl_fandom_like_catalog.py \
-  --start-url 'https://catalog.example.test/wiki/List_of_2025' \
-  --allowed-host 'catalog.example.test' \
-  --confirm-permission \
-  --year 2025 \
-  --output outputs/selenium-fandom-like-crawler-v1/catalog.xlsx
-```
-
-The workbook contains a `Summary` tab and a filterable `Releases` tab. Rows retain toy/collector
-identifiers,model/casting,series,color when explicitly present,source URL/table/row,collection time,raw
-fields and parse errors. It is review-only staging output;it is not loaded into PostgreSQL,canonical
-catalogs,Dual RAG evaluation or the API. The checked-in `sample_catalog.xlsx` was generated from three
-synthetic rows,not from a remote website.
-
-The normal test suite uses pure snapshots. An opt-in smoke test launches local Chrome and reads only the
-JavaScript-rendered fixture under `tests/fixtures/`:
-
-```bash
-PVR_RUN_BROWSER_TESTS=1 .venv/bin/pytest -q \
-  tests/unit/test_selenium_catalog.py tests/integration/test_selenium_catalog_browser.py
-```
-
 ## Limitations
 
 - `fixture-v1` is synthetic/curated. The numbers do not establish production accuracy, broad Hot
