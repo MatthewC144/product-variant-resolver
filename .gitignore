@@ -12,4 +12,4 @@ artifacts/*.json
 reports/generated/
 model-cache/
 postgres-data/
-
+node_modules
