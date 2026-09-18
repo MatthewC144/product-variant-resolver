@@ -1,0 +1,24 @@
+{
+  "ledger_sha256": "89228cfa76982864d7cb983fd6a0652b117d7261fd83b47404bb8e98ee64db31",
+  "ledger_version": "local-release-casting-owner-decisions-v1",
+  "packet_batch_id": "local-release-casting-review-batch-01-189a3a69d6a580c6781876f79b52792617e996760cd65da379c861b1655bbb52",
+  "packet_sha256": "189a3a69d6a580c6781876f79b52792617e996760cd65da379c861b1655bbb52",
+  "public_scope": "aggregate_progress_and_hashes_only_no_questions_labels_or_verbatim_answers",
+  "schema_version": "pvr-local-release-casting-owner-decisions-public-summary-v1",
+  "status": "in_progress_awaiting_owner",
+  "summary": {
+    "canonical_promotions": 0,
+    "decision_counts": {
+      "keep_separate": 0,
+      "same_review_family": 1,
+      "unknown": 0
+    },
+    "network_requests": 0,
+    "pending_owner_decisions": 4,
+    "postgresql_writes": 0,
+    "recorded_owner_decisions": 1,
+    "review_family_relationships_confirmed": 1,
+    "reviewed_colors": 0,
+    "total_questions": 5
+  }
+}

@@ -6372,3 +6372,45 @@ AnyIO deprecation warning。
 Batch準備已完成，但決策工作尚未完成。真正下一步是owner逐題選擇三個允許值之一；收到答案後才可建立
 append-only decision events與新的validator。即使選`same_review_family`，仍不能在同一步promote variant、
 補color或寫canonical UUID。
+
+## 2026-09-17 — LCD decision01：記錄第一個casting family人工決定
+
+### 新執行了什麼、解決什麼問題
+
+Owner對凍結問題包的第1題明確回答了`same_review_family`。本輪沒有把這句話直接寫進catalog，而是先建立
+通用的append-only decision ledger，再把owner的verbatim response、標準化decision、UTC時間、packet
+SHA、question ordinal與review cluster reference綁成第1個event。這解決了短回答日後可能失去上下文，
+或在累積5題時被新檔案覆蓋而無法證明原始授權範圍的問題。
+
+目前進度是1/5 recorded、4/5 pending、1個review-family relationship confirmed。Canonical promotions、
+reviewed colors、PostgreSQL writes、network requests與Dual RAG changes仍全部為0。第1題的回答不會自動
+套用到第2至第5題。
+
+### 代碼修改位置與設計原因
+
+新增`release_casting_review_decisions.py`與`pvr-record-release-casting-decision`CLI。Recorder先完整驗證
+private batch packet，再要求下一題ordinal必須等於既有events數量加1；owner response去除外層空白／
+反引號後必須與允許的decision完全相同。每個event有自己的SHA，ledger再對events、summary與status計算
+累積SHA。重複題、跳題、stale packet、response不一致、event tamper或summary tamper都會被拒絕。
+
+沒有採用「直接把packet內的decision:null改成答案」，因為可變template在第5題完成時無法證明第1題沒有
+被修改。Append-only event較冗長，但每個回答都有獨立checksum和序號，後續可以逐題audit。Private ledger
+保存verbatim answer與question identity；public report只有packet／ledger hashes和1/5 aggregate progress，
+避免把owner-derived labels、toy numbers或回答內容再次公開。
+
+### 回答的精確範圍與為何不做更多
+
+`same_review_family`只確認review層級的casting family關係。Event明列七個excluded effects：不批准release
+variant、不推測physical color、不選synthetic fixture product、不建立canonical UUID、不寫PostgreSQL、
+不建立evaluation label，也不改Dual RAG runtime。這些限制不是保守到不做事，而是把「名稱／family關係」
+與「某年某色某版本商品」拆成不同證據門，避免一個簡短回答被擴張成完整商品真值。
+
+### 驗證結果與下一步
+
+9項focused tests覆蓋packet binding、verbatim normalization、順序與跳題、duplicate rejection、舊event
+byte preservation、tamper rejection、public privacy及實際private/public artifacts。完整suite為658/658 PASS；
+Ruff F/I、format、strict MyPy、compileall、ledger CLI`--check`與`git diff --check`均PASS，只有既有
+Starlette／AnyIO deprecation warning。
+
+真正下一步是請owner回答第2題。未收到明確值前，ledger不得新增event，也不能根據第一題趨勢推測後續
+答案。

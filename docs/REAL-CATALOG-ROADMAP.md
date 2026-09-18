@@ -161,3 +161,8 @@ decision都是`null`／`pending_owner`，color decision、approved links與canon
 family，不代表同一release variant、不選定synthetic fixture中的任何product，也不確認color。完整問題與
 labels留在gitignored local packet；公開repo只有selection counts與packet/upstream hashes。下一步必須等待
 owner逐題回答，再另外建立append-only decision events；不能從本次測試PASS推導答案。
+
+第一題已由owner明確回答`same_review_family`，並以packet-bound append-only event保存在private ledger。
+它只確認一個review-level family relationship；沒有選定release variant、synthetic product、color或canonical
+UUID。公開進度為1/5 recorded、4/5 pending與1個same-review-family decision，完整問題與verbatim response
+仍留在gitignored local artifact。下一個gate是第二題，不能把第一題的回答套用到其他群組。

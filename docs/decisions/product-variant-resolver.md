@@ -1529,3 +1529,21 @@ Dual RAG state. At10×,fixed small batches need an append-only decision-event re
 batch01 intentionally stops before that mutation. Most likely failure is interpreting packet QA PASS as owner
 approval. Grounding/integrity/safety/privacy/auditability PASS;authority remains pending owner answers. Evidence:
 `docs/evidence/local-release-casting-review-batch-01.md`;9 focused/649 full tests PASS.
+
+# D65 — Record each owner answer as an ordered packet-bound event
+
+Status:ACCEPTED for local casting decision01,2026-09-17. The owner answered the first frozen question with
+the exact backtick-delimited value`same_review_family`. Preserve that response privately,normalize it only
+after verifying the allowed value,and bind the event to packet SHA,packet batch,question ordinal and review
+cluster. Its only authorized effect is one review-level family relationship.
+
+Do not update the original packet or overwrite a cumulative answer object. Use a contiguous append-only event
+ledger so later answers retain the checksum and bytes of every earlier event;reject duplicates,gaps,stale packet
+references,response/decision disagreement and checksum/summary tampering. The alternative mutable template is
+simpler,but cannot prove that question1 remained unchanged after question5.
+
+Keep the verbatim answer and question identity private;publish only hashes and aggregate1/5 progress. Exclude
+release-variant approval,color inference,synthetic-product selection,canonical UUID,SQL,evaluation and Dual RAG
+effects. Most likely failure is treating`same_review_family`as same release or applying it to questions2–5.
+Grounding/authority/scope/integrity/privacy/non-generalization PASS. Evidence:
+`docs/evidence/local-release-casting-decision-01.md`;9 focused/658 full tests PASS.
