@@ -6460,3 +6460,47 @@ owner XLSX衍生資料或完整人工回答擴大發布。
 
 下一步是請owner回答第3題。前兩題的相同答案不能被當作趨勢自動套用；在第3題取得明確選擇前，ledger
 必須維持3題pending，且仍不得執行family materialization、variant promotion或color enrichment。
+
+## 2026-09-17 — LCD decision03：記錄第三個casting family人工決定
+
+### 新執行了什麼、解決什麼問題
+
+Owner對第3題回答`same_review_family`。本輪把原句保存為private ledger的第3個event，將進度更新為
+3/5 recorded、2/5 pending與3個review-family relationships confirmed。因為前兩題已經是有效且連續的
+events，recorder只允許下一個question ordinal為3；這解決了回答沒有寫`3.`時仍要精確綁定題目、又不能
+靠內容猜測問題identity的需求。
+
+這次沒有新增另一套特殊輸入規則。第2題需要的numeric-prefix檢查繼續存在，但第3題走原本就支援的
+unprefixed contract：呼叫端明確提供question 3，ledger再驗證它等於既有events數量加1。兩個機制可以
+並存，且都會在寫檔前拒絕duplicate或skipped question。
+
+### 代碼與資料修改了哪個部分、為何這樣決定
+
+產品程式不需要再改動，因為`append_event`的ordered invariant已完整涵蓋本次輸入。為了讓repository的
+驗收反映真實狀態，更新artifact tests為exactly 3 events，並逐項檢查第3個event的ordinal、normalized
+decision與未加前綴的verbatim response；公開manifest測試同步要求3 recorded／2 pending。這是在重用
+已驗證抽象，而不是為每個答案複製一段錄入程式。
+
+方法上選擇「明確傳入ordinal＋ledger連續性驗證」，而不是從private問題名稱或前兩題答案推測當前題目。
+前者是deterministic、可重算的狀態機；後者會把對話順序或相同答案誤當成資料授權。Event自身和累積
+ledger各有SHA-256，因此任何歷史回答、順序或summary被修改都會在`--check`失敗。
+
+### 這個決定解決的範圍，以及沒有被批准的內容
+
+第3題的判定表示該normalization-collision group可在人工review層視為同一casting family。該題的來源
+觀測仍是分開的release records；字元正規化與owner決定都沒有回答實體顏色、輪圈、tampo、
+edition或包裝是否相同。系統也沒有選定synthetic fixture product、建立canonical UUID或寫入PostgreSQL。
+
+這一層與Dual RAG的關係仍只有未來可能使用的人工review證據；目前兩個retrieval corpora、融合政策、
+API與evaluation labels都沒有修改。完整問題與回答留在gitignored private ledger，GitHub只保存aggregate
+3/5進度、hashes、spec與不含owner-derived row identity的驗證文件。
+
+### 驗證結果、已知限制與下一步
+
+11項focused tests與完整660/660 tests PASS；Ruff F/I、format、strict MyPy、compileall、ledger CLI
+`--check`與`git diff --check`皆PASS。唯一警告仍是既有Starlette／AnyIO deprecation。第3個event SHA-256
+為`256bd8d3ca1768ba20de8e12193463d0e871f6ca78aa14cdc1799d11d36c3d36`，累積ledger SHA-256為
+`92be88b06461e5bac0e8086edae8795e8a151829402f0cdd5f0cdbad8eedf419`。
+
+下一步是第4題。前三題碰巧都選`same_review_family`不構成第四題的答案；在owner明確選擇前，剩餘兩題
+必須維持pending，也不能啟動review-family materialization或release/color promotion。

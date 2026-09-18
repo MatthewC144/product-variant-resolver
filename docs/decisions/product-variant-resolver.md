@@ -1568,3 +1568,22 @@ Publish only cumulative hashes and aggregate2/5 progress. Canonical UUID,SQL,eva
 effects remain zero. Most likely failure is treating the family decision as one physical variant;
 grounding/authority/scope/integrity/privacy/non-generalization PASS. Evidence:
 `docs/evidence/local-release-casting-decision-02.md`;11 focused/660 full tests PASS.
+
+# D67 — Bind an unprefixed owner answer through contiguous ledger order
+
+Status:ACCEPTED for local casting decision03,2026-09-17. The owner's third response is the exact
+allowed value`same_review_family`without a numeric prefix. Accept it only through the existing
+append contract:two valid prior events make question3 the sole writable ordinal. Bind it to the
+frozen packet and private cluster,append event3,and retain events1–2 unchanged.
+
+Requiring the user to repeat a numeric prefix was rejected because the ledger already has a stronger
+machine-checked sequence invariant;inferring question3 from the content alone was also rejected.
+The identity comes from the recorder's explicit ordinal plus contiguous event count,while the exact
+response proves the chosen decision. Duplicate or skipped ordinals continue to fail closed.
+
+Confirm only the review-family relationship for the source observations. Do not merge the releases,
+infer color,select a synthetic product,create a canonical UUID,write SQL,or alter
+evaluation and Dual RAG. Publish only hashes and aggregate3/5 progress. Most likely failure is
+generalizing three consecutive equal answers to questions4–5;grounding/authority/scope/integrity/
+privacy/non-generalization PASS. Evidence:`docs/evidence/local-release-casting-decision-03.md`;
+11 focused/660 full tests PASS.

@@ -165,5 +165,7 @@ owner逐題回答，再另外建立append-only decision events；不能從本次
 第一題已由owner明確回答`same_review_family`，並以packet-bound append-only event保存在private ledger。
 它只確認一個review-level family relationship；沒有選定release variant、synthetic product、color或canonical
 UUID。第二題也由owner以題號前綴明確回答`same_review_family`；系統先驗證`2.`與目前題號一致，再保留
-完整verbatim response。公開進度為2/5 recorded、3/5 pending與2個same-review-family decisions，完整問題與
-verbatim responses仍留在gitignored local artifact。下一個gate是第三題，不能把前兩題的回答套用到其他群組。
+完整verbatim response。第三題的normalization-collision group也獲owner確認為同一review family，並由
+既有append-only順序綁定到question 3。公開進度為3/5 recorded、2/5 pending與3個same-review-family decisions，
+完整問題與verbatim responses仍留在gitignored local artifact。下一個gate是第四題，不能把前三題答案
+套用到其他群組。
