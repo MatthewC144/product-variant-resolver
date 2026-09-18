@@ -1547,3 +1547,24 @@ release-variant approval,color inference,synthetic-product selection,canonical U
 effects. Most likely failure is treating`same_review_family`as same release or applying it to questions2–5.
 Grounding/authority/scope/integrity/privacy/non-generalization PASS. Evidence:
 `docs/evidence/local-release-casting-decision-01.md`;9 focused/658 full tests PASS.
+
+# D66 — Treat an owner-supplied numeric prefix as a checked question reference
+
+Status:ACCEPTED for local casting decision02,2026-09-17. The owner's second answer includes both an
+ordinal and an allowed decision. Preserve the complete response in the private event,but remove the
+optional `<number>.` prefix only after proving that it equals the event's question ordinal. A wrong
+prefix fails before any file is replaced. This makes the owner's `2.` useful evidence instead of
+silently discarding it as formatting.
+
+Blindly stripping every numeric prefix was rejected because an answer intended for question3 could
+then be recorded as question2. Rejecting every prefixed answer was also rejected because the user
+explicitly supplied a clear,matching ordinal and preserving it strengthens auditability. Responses
+without a prefix remain valid for compatibility with event1; both forms must normalize exactly to
+one frozen allowed decision.
+
+Record question2 as another `same_review_family` review relationship and retain event1 unchanged.
+Do not merge the six release observations or infer color from `2nd Color`,year,series,URLs,or names.
+Publish only cumulative hashes and aggregate2/5 progress. Canonical UUID,SQL,evaluation and Dual RAG
+effects remain zero. Most likely failure is treating the family decision as one physical variant;
+grounding/authority/scope/integrity/privacy/non-generalization PASS. Evidence:
+`docs/evidence/local-release-casting-decision-02.md`;11 focused/660 full tests PASS.

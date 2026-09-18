@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from collections import Counter
 from datetime import datetime
 from pathlib import Path
@@ -27,8 +28,14 @@ EXCLUDED_EFFECTS = (
 )
 
 
-def _normalized_response(value: str) -> str:
-    return value.strip().strip("`").strip()
+def _normalized_response(value: str, expected_ordinal: int) -> str:
+    response = value.strip()
+    numbered_response = re.fullmatch(r"(\d+)\.\s*(.+)", response, flags=re.DOTALL)
+    if numbered_response is not None:
+        if int(numbered_response.group(1)) != expected_ordinal:
+            raise ValueError("owner response question prefix differs from recorded question")
+        response = numbered_response.group(2)
+    return response.strip().strip("`").strip()
 
 
 def _validate_timestamp(value: str) -> None:
@@ -84,7 +91,7 @@ def build_event(
         raise ValueError("question ordinal is outside the frozen packet")
     if decision not in ALLOWED_DECISIONS:
         raise ValueError("decision is not allowed by the frozen packet")
-    if _normalized_response(owner_response_verbatim) != decision:
+    if _normalized_response(owner_response_verbatim, question_ordinal) != decision:
         raise ValueError("normalized owner response differs from the recorded decision")
     _validate_timestamp(decided_at)
     question = questions[question_ordinal - 1]

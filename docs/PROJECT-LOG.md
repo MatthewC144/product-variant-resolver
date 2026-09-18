@@ -6414,3 +6414,49 @@ Starlette／AnyIO deprecation warning。
 
 真正下一步是請owner回答第2題。未收到明確值前，ledger不得新增event，也不能根據第一題趨勢推測後續
 答案。
+
+## 2026-09-17 — LCD decision02：記錄第二個casting family人工決定
+
+### 新執行了什麼、解決什麼問題
+
+Owner對第2題回答了帶題號的`same_review_family`。本輪把它寫成decision ledger的第2個event，讓累積進度
+成為2/5 recorded、3/5 pending與2個review-family relationships confirmed。第一個event的內容和checksum
+維持不變，新的ledger checksum則同時覆蓋兩個有順序的回答。這解決了第二題授權必須被保存、但又不能
+覆寫第一題或把答案誤套到其他題目的問題。
+
+回答中的`2.`不是casting資料，而是owner明確指出題號。若只把它當一般空白直接丟掉，使用者日後誤寫
+`3.`時仍可能被登記在第2題；若完全拒絕帶題號回答，又會失去這個有用的上下文。因此本次同時修正
+recorder，讓它在寫入前核對回答前綴和目前question ordinal。
+
+### 代碼修改了哪個部分、原因與方法選型
+
+`release_casting_review_decisions.py`的response normalization現在先用一個受限正規表示式辨識開頭
+`<number>.`。找到前綴時，數字必須與`question_ordinal`相同，才會繼續去除外層反引號並比對允許的
+decision；不相同就fail closed。完整原句仍寫入`owner_response_verbatim`，所以normalization只影響驗證，
+不會破壞證據。沒有題號的第一題格式繼續支援，避免為了新輸入型態重寫歷史event。
+
+選擇小型、明確的regex parser，而不是自然語言分類器或模糊比對，原因是這裡只有固定的三種答案與一個
+可選題號。Deterministic parsing較容易測試與稽核，也不會把「大概像某個答案」誤當成owner授權。新增
+兩個regression tests分別證明正確的`2.`會被接受並逐字保存，以及錯誤的`3.`會在落盤前遭拒絕；既有測試
+繼續覆蓋append order、duplicate/gap、tamper和public privacy。
+
+### 決定的精確意義與刻意沒有做的事
+
+第2題的`same_review_family`只表示該題列出的名稱可在人工review層被視為同一casting family。六筆跨
+2023–2025年的來源觀測仍是六個獨立release records，沒有被合併，也沒有選定synthetic product或建立
+canonical UUID。像`2nd Color`這類來源文字只描述版本線索，不足以證明實際車色，所以color仍為NULL；
+PostgreSQL、API、evaluation labels與Dual RAG兩個retrieval corpora也完全沒有修改。
+
+Private ledger繼續留在gitignore目錄，保存完整回答與問題identity。Git只提交新的公開aggregate 2/5、
+ledger hash、程式契約和不含labels/toy numbers的證據文件。這項取捨讓repo可展示可驗證進度，同時不把
+owner XLSX衍生資料或完整人工回答擴大發布。
+
+### 驗證結果、限制與下一步
+
+11項focused tests與完整660/660 tests PASS；Ruff F/I、format、strict MyPy、compileall、ledger CLI
+`--check`與`git diff --check`皆PASS。完整套件唯一訊息仍是既有Starlette／AnyIO deprecation warning。
+累積private ledger SHA-256為
+`d58108f30c6ab38485312fe70eda6b2a7d03cb796ceb7f33faf27a46635c21d8`，公開輸出只包含hashes與aggregate。
+
+下一步是請owner回答第3題。前兩題的相同答案不能被當作趨勢自動套用；在第3題取得明確選擇前，ledger
+必須維持3題pending，且仍不得執行family materialization、variant promotion或color enrichment。
