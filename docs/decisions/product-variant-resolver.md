@@ -1509,3 +1509,23 @@ generation—is the bottleneck;the next design should use small append-only owne
 failure is reporting43 exact candidates as43 verified families. Grounding/authority/integrity/safety/privacy/
 auditability PASS for review support;runtime and promotion eligibility remain blocked. Evidence:
 `docs/evidence/local-release-casting-review.md`;11 focused/640 full tests PASS.
+
+# D64 — Freeze a five-question owner packet before recording any casting decision
+
+Status:ACCEPTED for LCB-T1–T3,2026-09-17. Select exactly five high-priority review clusters from the
+verified private queue:one cross-source exact candidate,two normalization collisions,and two synthetic-
+fixture-name candidates. This bounded batch covers18 observations and is large enough to exercise the three
+decision shapes without asking the owner to review676 clusters at once.
+
+Freeze the evidence before answers. Each item carries attributable source fields and exact candidate summaries,
+but its decision remains null and pending. Allowed responses are`same_review_family`,`keep_separate`,or`unknown`;
+the first records only a review-level relationship and cannot approve a release variant,color,synthetic fixture
+product or canonical UUID. The alternative—prefilling the obvious-looking exact/collision cases—would turn a
+question-generation step into unrecorded identity authority.
+
+Keep the complete packet local/gitignored because it contains owner-derived labels,toy numbers and row evidence.
+Commit only hashes and aggregate selection counts. Packet preparation changes no SQL,catalog,API,evaluation or
+Dual RAG state. At10×,fixed small batches need an append-only decision-event registry and progress counters,but
+batch01 intentionally stops before that mutation. Most likely failure is interpreting packet QA PASS as owner
+approval. Grounding/integrity/safety/privacy/auditability PASS;authority remains pending owner answers. Evidence:
+`docs/evidence/local-release-casting-review-batch-01.md`;9 focused/649 full tests PASS.

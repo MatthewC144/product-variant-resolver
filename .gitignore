@@ -15,3 +15,5 @@ postgres-data/
 /HW data/
 /data/external/hot-wheels-wiki/local-export-2023-2026/
 /data/external/hot-wheels-wiki/local-release-casting-review-v1/
+/data/external/hot-wheels-wiki/local-release-casting-review-batch-01/
+.DS_Store

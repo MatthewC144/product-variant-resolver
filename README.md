@@ -750,6 +750,23 @@ The next gate is a bounded human decision batch. Exact text does not authorize a
 variant promotion, especially because `data/catalog.json` is a synthetic fixture and the second
 catalog is explicitly a review draft.
 
+### Owner review batch 01
+
+`pvr-build-release-casting-review-batch` prepares the first fixed five-question packet: one
+cross-source candidate, two normalization collisions, and two synthetic-fixture-name candidates,
+covering 18 source observations. Every answer is `null` and pending. The private questions remain
+local; the committed [public summary](reports/local-release-casting-review-batch-01/) contains only
+counts and hashes.
+
+```bash
+pvr-build-release-casting-review-batch --check
+```
+
+The owner may answer each item only as `same_review_family`, `keep_separate`, or `unknown`.
+`same_review_family` records a review-level casting relationship; it does not approve any source row
+as a release variant, choose one of the synthetic fixture products, infer color, or create a
+canonical UUID. Packet preparation is complete, while the decision gate remains open.
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with

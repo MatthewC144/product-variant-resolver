@@ -1,0 +1,26 @@
+{
+  "batch_id": "local-release-casting-review-batch-01-189a3a69d6a580c6781876f79b52792617e996760cd65da379c861b1655bbb52",
+  "packet_sha256": "189a3a69d6a580c6781876f79b52792617e996760cd65da379c861b1655bbb52",
+  "packet_version": "local-release-casting-review-batch-01-v1",
+  "public_scope": "aggregate_counts_and_hashes_only_no_labels_toy_numbers_or_source_rows",
+  "schema_version": "pvr-local-release-casting-review-batch-public-summary-v1",
+  "source_batch_id": "local-release-staging-v1-85dae23a1a302845f59b63450b9d90623b4c9893ddcde672bffc8eb5b53849af",
+  "source_queue_sha256": "7961d4e6b59623277c3172e24066686e3a6ee01585fac4205a4e4f7254e0b883",
+  "status": "prepared_awaiting_owner",
+  "summary": {
+    "approved_casting_links": 0,
+    "canonical_promotions": 0,
+    "network_requests": 0,
+    "pending_owner_decisions": 5,
+    "postgresql_writes": 0,
+    "recorded_owner_decisions": 0,
+    "reviewed_colors": 0,
+    "selected_review_clusters": 5,
+    "selected_source_observations": 18,
+    "selection_kind_counts": {
+      "cross_source_exact_candidate": 1,
+      "normalization_collision": 2,
+      "synthetic_fixture_name_candidate": 2
+    }
+  }
+}

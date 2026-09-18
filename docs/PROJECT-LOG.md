@@ -6324,3 +6324,51 @@ collision保留、輸入重排determinism、四種authority tamper rejection、p
 下一步應從private queue建立一個小型、可閱讀的owner review batch，優先處理cross-source candidate與兩個
 normalization collisions，並以append-only decision events保存確認結果；不能直接修改queue或一次promote
 全部43個exact candidates。
+
+## 2026-09-17 — LCB-T1–T3：凍結第一批5題casting owner review packet
+
+### 新執行了什麼、解決什麼問題
+
+上一階段雖然已把1,763筆資料整理成676個review clusters，但把整個queue直接交給owner仍然太大，也會
+混合「字串正規化問題」、「既有review knowledge關係」和「synthetic fixture名稱相同」三種不同判斷。
+本輪因此從已驗證queue固定選出第一個5題batch，共涵蓋18筆來源觀測：1個cross-source exact candidate、
+2個normalization collisions及2個synthetic-fixture-name candidates。這解決了如何把大量待審資料切成
+可閱讀、可回答且不改變production truth的小單位。
+
+所有問題都維持`pending_owner`與`decision=null`。目前recorded decisions、approved casting links、canonical
+promotions、reviewed colors、PostgreSQL writes與network requests全部為0。測試PASS只證明問題包按照規則
+建立，沒有替owner做任何casting判斷。
+
+### 修改了哪些代碼、原因是什麼
+
+新增`release_casting_review_batch.py`與`pvr-build-release-casting-review-batch`CLI。Builder先重建並核對
+staging bundle與private review queue，再以固定cluster ID allowlist選取5題；若cluster不存在、重複、已
+promotion eligible、已有canonical UUID、沒有來源列，或任一來源color非NULL，就fail closed。每題保存
+source ID、year、toy number、collector number、source model label、casting、literal variant note、series與
+series position，讓後續決定可以回查到具體來源而不是只看簡化車名。
+
+決策欄位只允許`same_review_family`、`keep_separate`和`unknown`。其中`same_review_family`被明確定義為
+review-level關係，不是同一release variant、不選定12個synthetic fixture products中的任何一筆，也不確認
+physical color。這個限制寫入packet、private readable report、tests與spec，避免日後把短回答擴張成超出
+owner問題範圍的canonical授權。
+
+### 技術／方法選型與隱私取捨
+
+選固定allowlist而不是每次「取目前priority前5」，是為了讓owner看到的問題在回答前不會因queue排序或
+新資料而漂移；packet SHA-256把exact question set與evidence凍結。動態top-k較容易擴充，但若上游加入新
+cluster，尚未回答的第1題可能悄悄換人，無法證明owner回答綁定哪一版問題。
+
+完整packet含casting labels、toy numbers和source evidence，所以與前兩階段一致保留在gitignored local
+data。公開repo只放5題／18 observations、三種selection counts、upstream queue hash與packet hash，不含
+問題文字或candidate IDs。這不是隱藏驗證結果，而是將可稽核性和未確認的再發布權分開處理。
+
+### 驗證、限制與真正下一步
+
+9項focused tests覆蓋decision schema、白話語意、determinism、hold boundary、color rejection、缺失來源、
+public privacy、本機實際18筆aggregate與committed manifest。完整suite為649/649 PASS；changed-file Ruff
+F/I與format、strict MyPy、compileall、CLI`--check`與`git diff --check`均PASS，僅保留既有Starlette／
+AnyIO deprecation warning。
+
+Batch準備已完成，但決策工作尚未完成。真正下一步是owner逐題選擇三個允許值之一；收到答案後才可建立
+append-only decision events與新的validator。即使選`same_review_family`，仍不能在同一步promote variant、
+補color或寫canonical UUID。

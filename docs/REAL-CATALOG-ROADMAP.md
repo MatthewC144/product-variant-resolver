@@ -149,3 +149,15 @@ canonical promotions、reviewed colors、SQL writes、network requests與Dual RA
 只保存`reports/local-release-casting-review-v1/`的aggregate counts與input/private-queue hashes。下一步應從
 queue建立小型owner decision batch，逐項記錄可歸屬證據與決定。不能把43個exact candidate clusters一次
 全部promote，也不能在這個階段補顏色。
+
+## Casting owner review batch 01已凍結：5題等待owner回答
+
+第一個owner review packet從private queue固定選出5個高優先群組，共涵蓋18筆source observations。組成為
+1個cross-source exact candidate、2個normalization collisions與2個synthetic-fixture-name candidates。
+Packet只整理來源年份、toy number、collector number、source label、series與literal variant note；所有
+decision都是`null`／`pending_owner`，color decision、approved links與canonical promotions都是0。
+
+每題只接受`same_review_family`、`keep_separate`或`unknown`。第一個值只表示review層級可視為同一casting
+family，不代表同一release variant、不選定synthetic fixture中的任何product，也不確認color。完整問題與
+labels留在gitignored local packet；公開repo只有selection counts與packet/upstream hashes。下一步必須等待
+owner逐題回答，再另外建立append-only decision events；不能從本次測試PASS推導答案。
