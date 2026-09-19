@@ -169,4 +169,6 @@ UUID。第二題也由owner以題號前綴明確回答`same_review_family`；系
 既有append-only順序綁定到question 3。公開進度為3/5 recorded、2/5 pending與3個same-review-family decisions，
 完整問題與verbatim responses仍留在gitignored local artifact。第四題的fixture-name candidate也獲owner
 確認為同一review family，且由append-only順序綁定到question 4。公開進度為4/5 recorded、1/5 pending與
-4個same-review-family decisions。下一個gate是第五題，不能把前四題答案套用到最後一個群組。
+4個same-review-family decisions。第五題的fixture-name candidate也獲owner確認為同一review family，讓
+batch 01達到5/5 recorded、0 pending與5個same-review-family decisions。這只關閉owner-answer gate；下一個
+階段必須另外設計可稽核的family materialization，不能直接建立canonical UUID、補color或改寫release rows。

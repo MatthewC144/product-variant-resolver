@@ -1,6 +1,6 @@
 # Local release casting owner decisions — MVP brief
 
-Date: 2026-09-18. Mode: Lite / Lean Industrial. Status: **decisions 1–4 recorded; 1 pending**.
+Date: 2026-09-18. Mode: Lite / Lean Industrial. Status: **complete; decisions 1–5 recorded**.
 
 The owner answered question 1 with the verbatim response `` `same_review_family` ``. This authorizes
 one review-level relationship decision for the frozen first question only. It does not answer
@@ -20,6 +20,10 @@ unanswered.
 The owner answered question 4 with the verbatim response `same_review_family`. The same contiguous
 append contract binds it only to ordinal 4 after three valid events. This authorizes one additional
 review-level relationship and leaves question 5 unanswered.
+
+The owner answered question 5 with the verbatim response `same_review_family`. The contiguous append
+contract binds it only to ordinal 5 after four valid events. All frozen questions are now answered,
+so the ledger status becomes `complete`; this status does not authorize downstream materialization.
 
 ## Requirements
 
@@ -58,6 +62,12 @@ review-level relationship and leaves question 5 unanswered.
 - **LCD-R14 — Fourth-decision progress.** After decision 4, THE SYSTEM SHALL report 4/5 recorded, 1/5
   pending, four `same_review_family` decisions, and zero canonical promotions, reviewed colors,
   SQL writes, requests, or runtime changes.
+- **LCD-R15 — Complete ordered ledger.** WHEN question 5 is appended after four valid events, THE
+  SYSTEM SHALL preserve events 1–4, bind the response only to question 5, and set ledger status to
+  `complete` with no pending questions.
+- **LCD-R16 — Completion boundary.** WHEN the ledger becomes complete, THE SYSTEM SHALL report five
+  `same_review_family` decisions while canonical promotions, reviewed colors, SQL writes, requests,
+  evaluation labels, and runtime changes remain zero.
 
 ## Tasks
 
@@ -70,10 +80,13 @@ review-level relationship and leaves question 5 unanswered.
 - [x] **LCD-T7** Refresh aggregate evidence, QA, decision/log documentation, and stop for question 4. _(→LCD-R1–R12)_
 - [x] **LCD-T8** Record question 4 through the existing contiguous append contract. _(→LCD-R1–R7,R13)_
 - [x] **LCD-T9** Refresh aggregate evidence, QA, decision/log documentation, and stop for question 5. _(→LCD-R1–R14)_
+- [x] **LCD-T10** Record question 5 and close the ordered owner-decision ledger. _(→LCD-R1–R7,R15)_
+- [x] **LCD-T11** Publish privacy-bounded closure evidence and document the separate materialization gate. _(→LCD-R1–R16)_
 
 ## Acceptance
 
-The private ledger contains exactly four ordered, checksum-bound events for questions 1–4, all with
-normalized decision `same_review_family`. The second response retains its matching `2.` prefix,
-the others retain their original forms, and events 1–3 remain byte-for-byte unchanged. Question 5
-remains absent/pending. No project truth or runtime state changes.
+The private ledger contains exactly five ordered, checksum-bound events for questions 1–5, all with
+normalized decision `same_review_family`. The second response retains its matching `2.` prefix, the
+others retain their original forms, and events 1–4 remain byte-for-byte unchanged. Ledger status is
+`complete`, pending count is zero, and no canonical, release, color, SQL, evaluation, or runtime state
+changes.

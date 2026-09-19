@@ -1606,3 +1606,22 @@ create a canonical UUID,write SQL,or alter evaluation and Dual RAG. Publish only
 4/5 progress. Most likely failure is assuming the fourth identical answer also settles question5;
 grounding/authority/scope/integrity/privacy/non-generalization PASS. Evidence:
 `docs/evidence/local-release-casting-decision-04.md`;11 focused/660 full tests PASS.
+
+# D69 — Close the owner packet without materializing its family decisions
+
+Status:ACCEPTED for local casting decision05,2026-09-18. Append the fifth exact owner response through
+the same contiguous,packet-bound ledger. Four valid prior events make question5 the only writable
+ordinal;after it is validated,the ledger status deterministically changes from
+`in_progress_awaiting_owner`to`complete`and pending count becomes zero.
+
+Define completion narrowly. It proves that every frozen question has one attributable answer;it
+does not mean those review-family relationships exist in the canonical catalog,PostgreSQL resolver
+tables,evaluation labels,or either Dual RAG corpus. Automatic materialization was rejected because
+the five decisions do not choose canonical UUIDs,release variants,physical colors,or a rollback and
+conflict policy.
+
+Keep the complete ledger private and publish only hashes plus aggregate5/5 closure. The next feature
+must specify an auditable materialization artifact and preserve the distinction between family
+relationship and release variant. Most likely failure is presenting`complete`as full product-data
+resolution;grounding/authority/scope/integrity/privacy/non-generalization PASS. Evidence:
+`docs/evidence/local-release-casting-decision-05-closure.md`;11 focused/660 full tests PASS.

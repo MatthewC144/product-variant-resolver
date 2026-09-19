@@ -6549,3 +6549,52 @@ owner XLSX衍生明細或人工回答內容擴大發布。
 
 下一步是第5題，也是本批最後一題。前四題相同的答案不能作為第五題授權；完成第五題後，也只代表owner
 review packet完成，不能直接等同canonical promotion或variant/color驗證完成。
+
+## 2026-09-18 — LCD decision05：完成5題owner review batch，但不自動materialize
+
+### 新執行了什麼、解決什麼問題
+
+Owner對第5題回答`same_review_family`。本輪將回答加入private ledger的第5個event，讓凍結的batch 01從
+`in_progress_awaiting_owner`轉為`complete`：5/5 recorded、0 pending、5個review-family relationships
+confirmed。這解決了第一批人工問題全部取得可追溯答案的工作，並形成一個可以被checksum重算的完整
+decision history。
+
+「complete」在這裡只描述問題包，不描述整個資料專案。為避免履歷文件或後續程式把狀態讀得太寬，本輪
+特別把batch closure與family materialization分開：前者已完成，後者尚未設計或授權。Canonical promotions、
+reviewed colors、PostgreSQL writes、evaluation labels、network requests與Dual RAG changes仍全部是0。
+
+### 代碼與資料修改、設計決定及原因
+
+產品 recorder沒有新增第5題專用分支；同一個generic append contract先重新驗證packet與events 1–4，再
+只允許ordinal 5。`build_ledger`根據event數量等於question數量自動導出`complete`，而不是由呼叫端任意
+傳入狀態。Derived status避免「只有4題卻手動寫complete」或「5題齊全仍忘記關閉」這類雙重真值。
+
+Artifact tests更新為exactly 5 events，逐項驗證第5題ordinal、decision和verbatim response，並要求private
+ledger與public manifest皆為`complete`、5 recorded／0 pending。前四個events的hash仍要通過完整重算；
+這確保closure不是用覆寫檔案的方式偽造，而是合法的最後一次append。
+
+沒有直接產生family-link database rows。雖然五題都得到相同答案，但現有回答只定義review family，沒有
+指定canonical UUID、release-to-family mapping的持久格式、conflict handling、idempotency、rollback或
+provenance readback。先設計materialization contract再寫資料，比「看到5/5就直接更新catalog」更容易稽核
+與復原，也不會把synthetic fixture誤當真實authority。
+
+### 技術／方法選型與隱私界線
+
+繼續採用append-only JSON ledger與SHA-256，而不是直接修改原始packet的五個`decision:null`欄位。完整
+ledger可以證明每個回答的順序、時間、問題綁定和歷史event未變；代價是private artifact較冗長，但只有
+五個events，且audit價值高於少量儲存成本。
+
+完整ledger仍在gitignored local directory。公開manifest/report只顯示complete、5/5 aggregate與packet／
+ledger hashes，不包含private問題名稱、toy numbers、cluster IDs或verbatim responses。這讓GitHub能展示
+流程確實結案，又不擴大發布owner XLSX衍生明細。
+
+### 驗證結果、剩餘限制與真正下一步
+
+11項focused tests與完整660/660 tests PASS；Ruff F/I、format、strict MyPy、compileall、ledger CLI
+`--check`與`git diff --check`皆PASS。唯一警告仍是既有Starlette／AnyIO deprecation。第5個event SHA-256
+為`5d4949550c43733dff2994408d73795e1dce960a8b80dca0ef9f5b7e00ee6872`，complete ledger SHA-256為
+`9da688295717588d553922f448e43b6a27255922bdd8513f3245247e39eaad4a`。
+
+下一步不再是回答第6題，因為batch 01只有5題。真正下一步是先規劃一個小型、可回滾、可重跑且不碰
+release/color的review-family materialization功能，決定如何把這五個owner-confirmed relationships轉成
+獨立review-layer artifact；在新spec通過前不能寫canonical catalog或PostgreSQL resolver truth。
