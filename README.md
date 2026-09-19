@@ -777,6 +777,17 @@ colors, SQL writes, and runtime changes remain zero and require a separate mater
 pvr-record-release-casting-decision --check
 ```
 
+The completed batch is now transformed by
+`pvr-materialize-release-casting-review-families` into a private review-layer registry: five
+relationships reference 18 distinct releases, and every release remains held for variant review.
+The committed [public materialization summary](reports/local-release-casting-review-family-materialization-v1/)
+contains only hashes and aggregate counts. Candidate evidence is context-only; canonical products,
+colors, PostgreSQL rows, evaluation labels, and Dual RAG indexing remain unchanged.
+
+```bash
+pvr-materialize-release-casting-review-families --check
+```
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with

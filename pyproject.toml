@@ -30,6 +30,7 @@ pvr-import-release-staging = "product_variant_resolver.postgres_release_staging:
 pvr-review-release-castings = "product_variant_resolver.release_casting_review:main"
 pvr-build-release-casting-review-batch = "product_variant_resolver.release_casting_review_batch:main"
 pvr-record-release-casting-decision = "product_variant_resolver.release_casting_review_decisions:main"
+pvr-materialize-release-casting-review-families = "product_variant_resolver.release_casting_review_materialization:main"
 pvr-materialize-embeddings = "product_variant_resolver.postgres_embeddings:main"
 pvr-report = "product_variant_resolver.reporting:main"
 

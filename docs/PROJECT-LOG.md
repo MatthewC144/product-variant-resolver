@@ -6598,3 +6598,58 @@ ledger hashes，不包含private問題名稱、toy numbers、cluster IDs或verba
 下一步不再是回答第6題，因為batch 01只有5題。真正下一步是先規劃一個小型、可回滾、可重跑且不碰
 release/color的review-family materialization功能，決定如何把這五個owner-confirmed relationships轉成
 獨立review-layer artifact；在新spec通過前不能寫canonical catalog或PostgreSQL resolver truth。
+
+## 2026-09-18 — LRFM-T1–T4：將5個owner decisions物化為獨立review-layer registry
+
+### 新執行了什麼、解決什麼問題
+
+上一階段完成5/5 owner questions，但答案只存在append-only ledger，後續程式若要使用仍需重新理解packet
+與event語意。本輪新增local release casting review-family materialization，把五個肯定決定轉成5個機器可讀
+的review relationships，並附帶18筆獨立source references。這解決了「決策已完成但沒有穩定下游交接
+artifact」的問題，同時保持所有release為`held_for_variant_review`。
+
+這不是把資料升級為canonical。Materialization在此代表把已授權的review-layer關係整理成有schema、版本、
+hash與validator的registry，不代表建立真實商品ID。公開summary因此同時顯示5 relationships、18 held
+references、0 exclusions，以及canonical promotions、reviewed colors、PostgreSQL writes、evaluation labels、
+runtime indexing和network requests全部為0。
+
+### 代碼修改位置、資料模型與技術選型原因
+
+新增`release_casting_review_materialization.py`與CLI
+`pvr-materialize-release-casting-review-families`。Builder先呼叫既有`check_batch`與`check_decisions`，只有
+完整且checksum一致的ledger能進入。每個肯定event綁定packet、question ordinal、private review cluster、
+event hash、observed labels、normalized key與source references，並產生SHA-256-derived relationship ID和
+item checksum。
+
+沒有使用UUIDv5或canonical UUID。這個ID只在本次review registry中定位關係，使用SHA prefix可以明確避免
+被API或資料庫誤認為canonical product identity。另一個既有`data/review_family_registry.json`屬於不同的
+2025 Wiki adjudication來源，因此也沒有把兩個registry合併；共用名稱不代表共用lineage或decision contract。
+
+Candidate evidence只保存checksum與`context_only_not_selected`。原因是前三階段的owner回答確認family關係，
+沒有精確選擇synthetic fixture或human draft target。若把candidate ID直接寫成target，就會把問題上下文
+誤當成owner授權。Generic builder仍支援未來的`keep_separate`與`unknown`，兩者會進入non-materialized
+exclusions而不是被丟棄。
+
+### 重跑、衝突、回滾與隱私為何這樣設計
+
+第一次執行同時建立private `registry.json`與public manifest/report；完全相同的第二次執行回傳`unchanged`。
+若只有一邊存在、檔案集合不同或任何byte衝突，流程fail closed且不覆寫。若首次建立private成功但public
+寫入失敗，只刪除本次建立的private directory，留下原有外部資料不動。這提供小型但明確的transaction
+boundary，不需要為一個JSON registry引入資料庫交易。
+
+完整registry含labels、source IDs與toy numbers，因此加入gitignore。公開manifest只含packet／ledger／
+registry hashes和aggregate counts。這個private/public split讓GitHub可驗證產物版本與結果範圍，但不發布
+owner XLSX衍生的row-level內容。
+
+### 驗證結果、目前能力與下一個限制
+
+13項focused tests覆蓋肯定／否定／未知決定、determinism、held release boundary、incomplete/tampered
+ledger、duplicate source/cluster、public privacy、created/unchanged、conflict、partial state與simulated
+second-write rollback。完整repository suite為673/673 PASS；Ruff F/I與format、strict MyPy、compileall、
+installed CLI三種狀態、artifact `--check`與`git diff --check`全部PASS，唯一訊息是既有Starlette／AnyIO
+deprecation warning。Private registry SHA-256為
+`1b8c18618390c4f224634da7a0fe3ee403c2c49f7e1614b941e4332196fc1a83`。
+
+目前registry仍不是Dual RAG knowledge。下一步應先規劃privacy-bounded knowledge projection與離線retrieval
+evaluation，決定只公開／索引哪些family-level文字，以及如何避免與既有2025 review-family corpus產生ID或
+語意碰撞；在新gate完成前，不應寫PostgreSQL或改production retrieval。

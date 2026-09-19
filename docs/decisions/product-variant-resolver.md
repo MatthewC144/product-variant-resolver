@@ -1625,3 +1625,24 @@ must specify an auditable materialization artifact and preserve the distinction 
 relationship and release variant. Most likely failure is presenting`complete`as full product-data
 resolution;grounding/authority/scope/integrity/privacy/non-generalization PASS. Evidence:
 `docs/evidence/local-release-casting-decision-05-closure.md`;11 focused/660 full tests PASS.
+
+# D70 — Materialize local owner decisions as a separate review-layer registry
+
+Status:ACCEPTED for LRFM-T1–T4,2026-09-18. Transform the complete five-event local decision ledger
+into a dataset-specific private registry with five deterministic review relationship IDs and18 held
+source references. Do not reuse the earlier 2025 Wiki registry:its lineage,decision semantics and
+source authority differ from the owner-supplied 2023–2026 release staging chain.
+
+Use SHA-derived relationship IDs rather than canonical UUIDs. Preserve private labels and source
+references for audit,but represent candidate evidence only by checksum and
+`context_only_not_selected`;an affirmative review-family answer does not select a synthetic fixture
+or human-draft target. Non-affirmative decisions are supported as explicit exclusions rather than
+being silently dropped.
+
+Publish as an immutable pair:the first build creates private/public directories,an exact rerun is
+unchanged,and partial or conflicting outputs fail without overwrite. Roll back directories created
+by a failed first attempt. Keep the registry gitignored and commit only aggregate hashes/counts.
+At10×,batch partitioning and registry composition will need explicit collision rules;the most likely
+failure is treating a review relationship as canonical or release-level identity. Grounding/
+authority/scope/integrity/privacy/non-generalization PASS. Evidence:
+`docs/evidence/local-release-casting-review-family-materialization.md`;13 focused/673 full tests PASS.

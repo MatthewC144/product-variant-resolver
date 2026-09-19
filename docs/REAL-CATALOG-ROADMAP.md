@@ -172,3 +172,10 @@ UUID。第二題也由owner以題號前綴明確回答`same_review_family`；系
 4個same-review-family decisions。第五題的fixture-name candidate也獲owner確認為同一review family，讓
 batch 01達到5/5 recorded、0 pending與5個same-review-family decisions。這只關閉owner-answer gate；下一個
 階段必須另外設計可稽核的family materialization，不能直接建立canonical UUID、補color或改寫release rows。
+
+Review-family materialization現已完成。新的獨立registry把5個owner-confirmed decisions轉為5個
+review-layer relationships，引用18筆互不合併且仍為`held_for_variant_review`的source releases。Registry
+本體留在gitignored local data，公開repo只保存input／registry hashes與5 relationships／18 references／
+0 exclusions aggregate。Candidate evidence維持`context_only_not_selected`；canonical、color、PostgreSQL、
+evaluation與Dual RAG indexing全部仍為0。下一個gate應評估這個registry是否要投影成非canonical的human
+knowledge source，不能直接跳到release promotion。
