@@ -767,8 +767,8 @@ The owner may answer each item only as `same_review_family`, `keep_separate`, or
 as a release variant, choose one of the synthetic fixture products, infer color, or create a
 canonical UUID. Packet preparation is complete, while the decision gate remains open.
 
-Decision progress is now 3/5. The first three verbatim owner answers are stored in a private append-only,
-packet-bound ledger and all normalize to `same_review_family`; two questions remain pending. The
+Decision progress is now 4/5. The first four verbatim owner answers are stored in a private append-only,
+packet-bound ledger and all normalize to `same_review_family`; one question remains pending. The
 [decision progress](reports/local-release-casting-review-decisions-v1/) contains only aggregate
 counts and hashes. Canonical promotions, reviewed colors, SQL writes, and runtime changes remain zero.
 

@@ -1587,3 +1587,22 @@ evaluation and Dual RAG. Publish only hashes and aggregate3/5 progress. Most lik
 generalizing three consecutive equal answers to questions4–5;grounding/authority/scope/integrity/
 privacy/non-generalization PASS. Evidence:`docs/evidence/local-release-casting-decision-03.md`;
 11 focused/660 full tests PASS.
+
+# D68 — Reuse the ordered decision contract for the fourth owner answer
+
+Status:ACCEPTED for local casting decision04,2026-09-18. The owner's fourth response is the exact
+allowed value`same_review_family`without a numeric prefix. Record it through the same packet-bound,
+contiguous ledger used by decision03:three valid prior events make question4 the sole writable
+ordinal,and all earlier event bytes/checksums must remain unchanged.
+
+Do not add question-specific product code merely because another owner answer arrived. The generic
+recorder already distinguishes the explicit ordinal,verbatim response,normalized decision and narrow
+authorized effect. Reusing it keeps the workflow deterministic and avoids five nearly identical
+recording paths that could drift in validation or privacy behavior.
+
+The decision confirms only one review-family relationship for the private fixture-name candidate.
+It does not merge release observations,infer color,select the similarly named synthetic fixture,
+create a canonical UUID,write SQL,or alter evaluation and Dual RAG. Publish only hashes and aggregate
+4/5 progress. Most likely failure is assuming the fourth identical answer also settles question5;
+grounding/authority/scope/integrity/privacy/non-generalization PASS. Evidence:
+`docs/evidence/local-release-casting-decision-04.md`;11 focused/660 full tests PASS.

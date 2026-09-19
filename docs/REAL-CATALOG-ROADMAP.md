@@ -167,5 +167,6 @@ owner逐題回答，再另外建立append-only decision events；不能從本次
 UUID。第二題也由owner以題號前綴明確回答`same_review_family`；系統先驗證`2.`與目前題號一致，再保留
 完整verbatim response。第三題的normalization-collision group也獲owner確認為同一review family，並由
 既有append-only順序綁定到question 3。公開進度為3/5 recorded、2/5 pending與3個same-review-family decisions，
-完整問題與verbatim responses仍留在gitignored local artifact。下一個gate是第四題，不能把前三題答案
-套用到其他群組。
+完整問題與verbatim responses仍留在gitignored local artifact。第四題的fixture-name candidate也獲owner
+確認為同一review family，且由append-only順序綁定到question 4。公開進度為4/5 recorded、1/5 pending與
+4個same-review-family decisions。下一個gate是第五題，不能把前四題答案套用到最後一個群組。

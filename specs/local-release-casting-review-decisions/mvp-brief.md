@@ -1,6 +1,6 @@
 # Local release casting owner decisions — MVP brief
 
-Date: 2026-09-17. Mode: Lite / Lean Industrial. Status: **decisions 1–3 recorded; 2 pending**.
+Date: 2026-09-18. Mode: Lite / Lean Industrial. Status: **decisions 1–4 recorded; 1 pending**.
 
 The owner answered question 1 with the verbatim response `` `same_review_family` ``. This authorizes
 one review-level relationship decision for the frozen first question only. It does not answer
@@ -16,6 +16,10 @@ The owner answered question 3 with the verbatim response `same_review_family`. B
 explicit prefix, the append-only sequence supplies the question binding: only ordinal 3 is accepted
 after two valid events. This authorizes one more review-level relationship and leaves questions 4–5
 unanswered.
+
+The owner answered question 4 with the verbatim response `same_review_family`. The same contiguous
+append contract binds it only to ordinal 4 after three valid events. This authorizes one additional
+review-level relationship and leaves question 5 unanswered.
 
 ## Requirements
 
@@ -49,6 +53,11 @@ unanswered.
 - **LCD-R12 — Third-decision progress.** After decision 3, THE SYSTEM SHALL report 3/5 recorded, 2/5
   pending, three `same_review_family` decisions, and zero canonical promotions, reviewed colors,
   SQL writes, requests, or runtime changes.
+- **LCD-R13 — Fourth ordered event.** WHEN an unprefixed response is appended after three valid
+  events, THE SYSTEM SHALL bind it only to question 4 and preserve events 1–3 exactly.
+- **LCD-R14 — Fourth-decision progress.** After decision 4, THE SYSTEM SHALL report 4/5 recorded, 1/5
+  pending, four `same_review_family` decisions, and zero canonical promotions, reviewed colors,
+  SQL writes, requests, or runtime changes.
 
 ## Tasks
 
@@ -59,10 +68,12 @@ unanswered.
 - [x] **LCD-T5** Refresh aggregate evidence, QA, decision/log documentation, and stop for question 3. _(→LCD-R1–R10)_
 - [x] **LCD-T6** Record the unprefixed question 3 response through the existing ordered contract. _(→LCD-R1–R7,R11)_
 - [x] **LCD-T7** Refresh aggregate evidence, QA, decision/log documentation, and stop for question 4. _(→LCD-R1–R12)_
+- [x] **LCD-T8** Record question 4 through the existing contiguous append contract. _(→LCD-R1–R7,R13)_
+- [x] **LCD-T9** Refresh aggregate evidence, QA, decision/log documentation, and stop for question 5. _(→LCD-R1–R14)_
 
 ## Acceptance
 
-The private ledger contains exactly three ordered, checksum-bound events for questions 1–3, all with
-normalized decision `same_review_family`. The second response retains its matching `2.` prefix, the
-third remains unprefixed, and events 1–2 remain byte-for-byte unchanged. Questions 4–5 remain
-absent/pending. No project truth or runtime state changes.
+The private ledger contains exactly four ordered, checksum-bound events for questions 1–4, all with
+normalized decision `same_review_family`. The second response retains its matching `2.` prefix,
+the others retain their original forms, and events 1–3 remain byte-for-byte unchanged. Question 5
+remains absent/pending. No project truth or runtime state changes.

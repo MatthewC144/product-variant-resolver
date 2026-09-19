@@ -6504,3 +6504,48 @@ API與evaluation labels都沒有修改。完整問題與回答留在gitignored p
 
 下一步是第4題。前三題碰巧都選`same_review_family`不構成第四題的答案；在owner明確選擇前，剩餘兩題
 必須維持pending，也不能啟動review-family materialization或release/color promotion。
+
+## 2026-09-18 — LCD decision04：記錄第四個casting family人工決定
+
+### 新執行了什麼、解決什麼問題
+
+Owner對第4題回答`same_review_family`。本輪將原句保存為private ledger第4個event，累積進度因此成為
+4/5 recorded、1/5 pending與4個review-family relationships confirmed。Recorder在落盤前先驗證前三個
+events及其checksums，再限定唯一可新增的ordinal為4；因此第四題的授權不會覆寫歷史，也不會提前回答
+最後一題。
+
+這一步解決的是「把新的人工作答安全累積到既有決策歷史」。它沒有解決family relationship如何轉成
+canonical catalog，因為那是另一個需要spec與驗證證據的promotion gate。把兩件事拆開，可避免一個簡短
+回答同時改動review、release、database和runtime等多層真值。
+
+### 代碼與測試修改、以及為何沿用既有方法
+
+產品程式碼沒有新增question-specific分支。既有generic recorder已將packet binding、allowed decision、
+verbatim evidence、contiguous ordinal、event hash與cumulative ledger hash分開驗證，第四題只需使用相同
+contract。若為每一題新增專用function，會產生五份近似程式，日後容易出現其中一題少做privacy或tamper
+check的漂移，因此選擇重用已測試的狀態機。
+
+Artifact tests更新為exactly 4 events，新增第4個event的ordinal、decision與verbatim assertions，公開
+manifest則必須呈現4 recorded／1 pending。這些測試不只檢查數字，也會透過完整ledger validator重算前
+三個event，確保本次append沒有改寫歷史。
+
+### 決定的範圍、技術邊界與資料選型
+
+第4題屬於private fixture-name candidate；`same_review_family`只確認來源觀測在人工review層的casting
+family關係。即使名稱與synthetic catalog fixture相同，也不能據此選定fixture product，因為fixture是測試
+資料而非真實Hot Wheels canonical authority。各release observations繼續獨立，顏色、輪圈、tampo、edition
+與包裝保持未知。
+
+沒有修改PostgreSQL、API、evaluation label或Dual RAG兩個corpora。Private ledger保存問題identity與完整
+回答；公開repo只保存ledger/packet hashes、4/5 aggregate、規格與方法證據。這延續先前的權利邊界，不將
+owner XLSX衍生明細或人工回答內容擴大發布。
+
+### 驗證結果、限制與下一步
+
+11項focused tests與完整660/660 tests PASS；Ruff F/I、format、strict MyPy、compileall、ledger CLI
+`--check`與`git diff --check`皆PASS。唯一警告仍是既有Starlette／AnyIO deprecation。第4個event SHA-256
+為`dec834a797ed7d18f630f99195f1ae775f83e97b2684221f93d24d39ac1e6c36`，累積ledger SHA-256為
+`68065d88366150f8efe2027daee98f50f69ad7047907f0746e73ccb1244f280d`。
+
+下一步是第5題，也是本批最後一題。前四題相同的答案不能作為第五題授權；完成第五題後，也只代表owner
+review packet完成，不能直接等同canonical promotion或variant/color驗證完成。

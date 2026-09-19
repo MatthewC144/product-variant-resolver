@@ -165,7 +165,7 @@ def test_public_manifest_contains_progress_but_not_answer_or_question_identity()
     assert "cluster-1" not in text
 
 
-def test_current_private_ledger_records_questions_one_through_three_when_present() -> None:
+def test_current_private_ledger_records_questions_one_through_four_when_present() -> None:
     path = (
         ROOT / "data/external/hot-wheels-wiki/local-release-casting-review-decisions-v1/ledger.json"
     )
@@ -174,7 +174,7 @@ def test_current_private_ledger_records_questions_one_through_three_when_present
             "private decision ledger is local and created after the owner answer is recorded"
         )
     ledger = json.loads(path.read_text(encoding="utf-8"))
-    assert len(ledger["events"]) == 3
+    assert len(ledger["events"]) == 4
     assert ledger["events"][0]["question_ordinal"] == 1
     assert ledger["events"][0]["decision"] == "same_review_family"
     assert ledger["events"][1]["question_ordinal"] == 2
@@ -183,7 +183,10 @@ def test_current_private_ledger_records_questions_one_through_three_when_present
     assert ledger["events"][2]["question_ordinal"] == 3
     assert ledger["events"][2]["decision"] == "same_review_family"
     assert ledger["events"][2]["owner_response_verbatim"] == "same_review_family"
-    assert ledger["summary"]["pending_owner_decisions"] == 2
+    assert ledger["events"][3]["question_ordinal"] == 4
+    assert ledger["events"][3]["decision"] == "same_review_family"
+    assert ledger["events"][3]["owner_response_verbatim"] == "same_review_family"
+    assert ledger["summary"]["pending_owner_decisions"] == 1
     assert ledger["summary"]["canonical_promotions"] == 0
 
 
@@ -192,7 +195,7 @@ def test_committed_public_progress_is_privacy_bounded() -> None:
     if not path.is_file():
         pytest.skip("public aggregate is created after owner decisions are recorded")
     manifest = json.loads(path.read_text(encoding="utf-8"))
-    assert manifest["summary"]["recorded_owner_decisions"] == 3
-    assert manifest["summary"]["pending_owner_decisions"] == 2
+    assert manifest["summary"]["recorded_owner_decisions"] == 4
+    assert manifest["summary"]["pending_owner_decisions"] == 1
     assert manifest["summary"]["canonical_promotions"] == 0
     assert "events" not in manifest

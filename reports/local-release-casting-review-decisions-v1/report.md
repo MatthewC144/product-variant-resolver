@@ -3,12 +3,12 @@
 Owner decisions are stored in a private checksum-bound ledger.
 This report contains aggregate progress only.
 
-- Recorded owner decisions: 3 / 5
-- Pending owner decisions: 2
-- `same_review_family`: 3
+- Recorded owner decisions: 4 / 5
+- Pending owner decisions: 1
+- `same_review_family`: 4
 - `keep_separate`: 0
 - `unknown`: 0
-- Review-family relationships confirmed: 3
+- Review-family relationships confirmed: 4
 - Canonical promotions: 0
 - Reviewed colors: 0
 - PostgreSQL writes: 0
