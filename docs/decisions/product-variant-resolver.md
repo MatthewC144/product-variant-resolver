@@ -1745,3 +1745,23 @@ query-candidate admission/abstention decision while protecting the three old pos
 at rank1. Most likely failure is solving false positives by silently returning only the first result.
 Integrity/scope/auditability/non-leakage PASS;mitigation effectiveness FAIL. Evidence:
 `docs/evidence/human-knowledge-reranker-development-v2.md`;13 focused/739 full tests PASS.
+
+# D76 — Select a rank-1 anchor plus 0.75 secondary compatibility gate for private validation
+
+Status:ACCEPTED for HKAA-T1–T4,2026-09-20. Bind admission v3 to the immutable public v2 raw report
+and execute zero new retrieval calls. Always retain source rank1;for ranks2–5,admit only candidates
+whose frozen identity-token coverage meets the configured threshold. Preserve source order and never
+promote candidates beyond the original Top5.
+
+Across eight precommitted thresholds,0.75 is the lowest eligible setting with zero forbidden cases.
+It preserves168/168 existing positives,24/24 new required targets,4/4 merges and zero governance
+violations/errors while reducing forbidden hits from18/24 to0/24. Threshold1.0 also reaches zero but
+loses one old positive and is rejected. The selected policy admits212/329 source candidates and
+abstains from117 secondaries.
+
+Authorize only a new versioned private shadow evaluation. Do not overwrite or tune against the old
+20-case FAIL and do not activate API/runtime. The most likely failure is an unseen wrong rank1,
+because the anchor is intentionally exempt from secondary filtering;the new private gate must report
+that behavior explicitly. Grounding/scope/integrity/auditability/non-leakage PASS;generalization is
+unproven. Evidence:`docs/evidence/human-knowledge-anchor-admission-development-v3.md`;12 focused/
+751 full tests PASS.

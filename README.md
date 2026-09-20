@@ -845,6 +845,17 @@ the private evaluation remain unchanged. See the
 pvr-select-human-knowledge-reranker --check
 ```
 
+Admission v3 adds the missing abstention decision. It always preserves the source rank-1 anchor and
+requires secondary candidates to meet a frozen identity-coverage threshold. On the same public
+199+24 development cases, `secondary-075` preserves 168/168 old positives and 24/24 new required
+targets while reducing forbidden neighbors from 18/24 to 0/24. The result qualifies only for a new
+versioned private shadow evaluation; it is not active in runtime. See the
+[anchored-admission report](reports/human-knowledge-anchor-admission-development-v3/selection.md).
+
+```bash
+pvr-select-human-knowledge-anchor-admission --check
+```
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with

@@ -1,5 +1,51 @@
 # Project Log
 
+## 2026-09-20 — HKAA-T1–T4：anchored admission在公開development取得合格策略
+
+### 新執行了什麼、解決什麼問題
+
+v2已證明只調整candidate順序無法解決Top5誤召回，因為大部分pool本來只有2–4筆。本輪改為真正的
+admission／abstention：原始rank1作為anchor保留，rank2–5則必須有足夠identity-token coverage才輸出。
+這解決「錯誤candidate即使降到第4名仍在Top5」的結構性問題，同時避免v1全域hard filter刪除低coverage
+但排名第一的正確typo candidate。
+
+正式v3 scoring沒有重新檢索，而是先把既有v2 selection JSON、protocol、source hashes、八個thresholds與
+winner ordering凍結，再離線重用223個public development raw pools。這讓v3只測量admission差異，不混入
+retrieval變動，也完全沒有讀取private五-family projection或20題final evaluation。
+
+### 代碼修改位置、方法選型與原因
+
+新增`human_knowledge_anchor_admission_development.py`與CLI
+`pvr-select-human-knowledge-anchor-admission`。Policy固定保留source rank1；rank2–5只在coverage大於等於
+threshold時保留；輸出順序仍是原始source order，rank5以後不能被提升。選擇anchor exception，是因為v1
+已證明全域coverage會誤刪正確答案；公開dev同時顯示24個新required全在rank1，而三個舊target在rank2時
+coverage為1、1與0.75，因此secondary gate仍可被完整驗收。
+
+Grid固定比較0、1/3、0.4、0.5、0.6、2/3、0.75與1.0。Eligibility繼續要求168舊positive、4 merge、24新
+required全部保留，既有hold/merge violation、unrelated result與error全部為0。合格者才依forbidden最少、
+threshold最低選擇，避免事後挑過度嚴格但沒有額外收益的設定。
+
+### 實際結果、技術決定與限制
+
+Threshold由0提高時，forbidden cases依序為18、16、8、7、2、2、0、0。到0.75仍保留168/168舊positive、
+165/168 rank1、24/24新required、4/4 merge與所有治理gate；它從329個source Top5 candidates保留212個、
+abstain 117個。Threshold1.0雖同樣零forbidden，卻把舊positive降成167/168，因此不合格。
+
+Frozen rule選出`secondary-075`，status是`qualified_for_new_private_shadow_evaluation_only`。這不是最終PASS：
+rank1永遠保留，所以若未見query把錯誤family排第一，policy仍會放行。公開development結果只授權建立一份
+新的versioned private shadow evaluation；不能覆寫舊20題FAIL、依舊結果調整0.75或直接改runtime。
+
+### 驗證、邊界與下一步
+
+新增12項focused tests，覆蓋rank1 anchor、secondary threshold、source order、rank5 boundary、非法threshold、
+upstream-bound protocol、private-path隔離、winner ordering、create-once protocol、真實winner與check不重跑。
+完整751/751 tests PASS；targeted Ruff/format、MyPy、compileall、protocol/report/installed CLI check全部通過，
+唯一訊息仍是既有Starlette/AnyIO deprecation warning。
+
+`HumanKnowledgeIdentityRetriever`、API、PostgreSQL、canonical catalog與Dual RAG runtime全部未改。下一步是
+先凍結一個新的private shadow-evaluation version，再套用`secondary-075`評估positive recall、family coverage、
+forbidden hits與wrong-rank1風險；若FAIL回到development設計，只有PASS才能規劃opt-in runtime integration。
+
 ## 2026-09-20 — HKRR-T1–T4：relative reranker完成，但候選池太小而無法改善Top-5安全性
 
 ### 新執行了什麼、解決什麼問題

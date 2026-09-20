@@ -1,0 +1,89 @@
+{
+  "admission": {
+    "candidates_beyond_source_rank_5": "not_output_eligible",
+    "hard_delete_rank_1": false,
+    "rank_1": "always_admit_anchor",
+    "ranks_2_through_5": "identity_token_coverage_gte_threshold",
+    "source_order_preserved": true
+  },
+  "configurations": [
+    {
+      "configuration_id": "baseline",
+      "secondary_minimum_identity_token_coverage": 0.0
+    },
+    {
+      "configuration_id": "secondary-033",
+      "secondary_minimum_identity_token_coverage": 0.3333333333333333
+    },
+    {
+      "configuration_id": "secondary-040",
+      "secondary_minimum_identity_token_coverage": 0.4
+    },
+    {
+      "configuration_id": "secondary-050",
+      "secondary_minimum_identity_token_coverage": 0.5
+    },
+    {
+      "configuration_id": "secondary-060",
+      "secondary_minimum_identity_token_coverage": 0.6
+    },
+    {
+      "configuration_id": "secondary-067",
+      "secondary_minimum_identity_token_coverage": 0.6666666666666666
+    },
+    {
+      "configuration_id": "secondary-075",
+      "secondary_minimum_identity_token_coverage": 0.75
+    },
+    {
+      "configuration_id": "secondary-100",
+      "secondary_minimum_identity_token_coverage": 1.0
+    }
+  ],
+  "eligible_for": [
+    "new_versioned_private_shadow_evaluation_only"
+  ],
+  "excluded_from": [
+    "runtime_activation",
+    "final_accuracy",
+    "canonical_truth",
+    "release_variant_truth",
+    "color_truth",
+    "postgresql_query_behavior"
+  ],
+  "gates": {
+    "existing_forbidden_candidates": 0,
+    "existing_positive_hits_at_5": 168,
+    "merge_hits_at_5": 4,
+    "new_required_hits_at_5": 24,
+    "retrieval_errors": 0,
+    "unrelated_nonempty": 0
+  },
+  "private_local_artifacts_read": false,
+  "retrieval_executed": false,
+  "schema_version": "pvr-human-knowledge-anchor-admission-protocol-v3",
+  "source_output_limit": 5,
+  "sources": {
+    "data/evaluation/human-knowledge-reranker-development-v2/protocol-manifest.json": "1f3d9d64b7d030f4be0c7799e91ac89d777e638ab0c1a54670147882936c259a",
+    "data/evaluation/human-knowledge-reranker-development-v2/protocol.json": "fe57cd3b17795142f7b1f74445a95d3c39c7e9598093308d919ffd1285fe01e7",
+    "reports/human-knowledge-reranker-development-v2/selection.json": "15ef98ddf75df7e4d8fe0e1c7dcacd3c5a37e590943df507d7eb3c6eebbf6334",
+    "reports/human-knowledge-reranker-development-v2/selection.md": "c3a685b48ec0bf36df498fa67aeb4c7f23e037fc2b2428d47a3c2c5128c5aa40",
+    "src/product_variant_resolver/human_knowledge_anchor_admission_development.py": "ae375733165869073f253e6a11d106c5fbd41e9e339e8daace5ab8839bb908d5",
+    "src/product_variant_resolver/human_knowledge_reranker_development.py": "8a70a89443b5122a7ee29b43c3f138b25ab25280129cb72cae15173ebbb62b9e"
+  },
+  "status": "frozen_before_v3_scoring",
+  "upstream": {
+    "existing_development": 199,
+    "false_positive_development": 24,
+    "query_count": 223,
+    "retrieval_reused": true,
+    "selection_sha256": "15ef98ddf75df7e4d8fe0e1c7dcacd3c5a37e590943df507d7eb3c6eebbf6334",
+    "version": "human-knowledge-reranker-development-v2"
+  },
+  "version": "human-knowledge-anchor-admission-development-v3",
+  "winner_order": [
+    "eligible_only",
+    "minimum_new_forbidden_hit_cases",
+    "minimum_secondary_identity_token_coverage"
+  ]
+}
