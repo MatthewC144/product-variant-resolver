@@ -1,0 +1,96 @@
+{
+  "corpus": {
+    "base_documents": 142,
+    "local_documents": 5,
+    "review_family_documents": 47,
+    "total_documents": 147
+  },
+  "counts": {
+    "covered_local_families": 5,
+    "hard_negative_cases": 5,
+    "hard_negative_forbidden_hits": 3,
+    "positive_cases": 15,
+    "positive_hits_at_1": 13,
+    "positive_hits_at_5": 15,
+    "retrieval_errors": 0
+  },
+  "downstream_effects": {
+    "api_changes": 0,
+    "canonical_promotions": 0,
+    "network_requests": 0,
+    "postgresql_writes": 0,
+    "reviewed_colors": 0,
+    "runtime_documents_added": 0
+  },
+  "evaluation_version": "local-release-review-family-retrieval-evaluation-v1",
+  "gates": [
+    {
+      "actual": 1.0,
+      "name": "positive_recall_at_5",
+      "operator": ">=",
+      "passed": true,
+      "threshold": 1.0
+    },
+    {
+      "actual": 0.8666666666666667,
+      "name": "positive_recall_at_1",
+      "operator": ">=",
+      "passed": true,
+      "threshold": 0.8
+    },
+    {
+      "actual": 1.0,
+      "name": "family_coverage_at_5",
+      "operator": ">=",
+      "passed": true,
+      "threshold": 1.0
+    },
+    {
+      "actual": 3,
+      "name": "hard_negative_forbidden_hits",
+      "operator": "=",
+      "passed": false,
+      "threshold": 0
+    },
+    {
+      "actual": 0,
+      "name": "retrieval_errors",
+      "operator": "=",
+      "passed": true,
+      "threshold": 0
+    }
+  ],
+  "hashes": {
+    "benchmark_sha256": "9ee7c7de89562a8f1cf39dfba9e66ae803358f3830e37beefffbf5997209d1c2",
+    "private_result_sha256": "0a46c3a5eae493fc465c018c7f11149e11f3e9b1b63d65c260729d1eb2ca9b4e",
+    "projection_sha256": "32644f9c5b91039fde7b7a9586f8a6bf9479ea7c6878661d329ea53bed4207d8",
+    "query_pack_sha256": "c4e30fc74f54f914033172bb7b079297cb93ca93399f39b8a16a118e395e44d7",
+    "raw_results_sha256": "a82e3da5fb006d0caee3a6c7ae639a5aa8ce41d96c85667e9c27b692eaa07ee1"
+  },
+  "limitations": [
+    "twenty_owner_project_cases_not_population_accuracy",
+    "five_local_families_only",
+    "casting_family_truth_not_release_variant_or_color_truth",
+    "hashing_v1_not_neural",
+    "in_process_offline_retrieval_only",
+    "pass_does_not_authorize_runtime_integration"
+  ],
+  "metrics": {
+    "family_coverage_at_5": 1.0,
+    "hard_negative_forbidden_hits": 3,
+    "positive_recall_at_1": 0.8666666666666667,
+    "positive_recall_at_5": 1.0,
+    "retrieval_errors": 0
+  },
+  "public_scope": "aggregate_counts_metrics_gates_hashes_and_configuration_only",
+  "retriever": {
+    "character_rrf_weight": 1.0,
+    "character_score_floor": 0.5,
+    "dense_dimensions": 192,
+    "dense_embedding": "hashing-v1",
+    "version": "human-knowledge-hybrid-v4"
+  },
+  "schema_version": "pvr-local-release-review-family-evaluation-public-v1",
+  "status": "offline_shadow_evaluation_complete_not_runtime",
+  "verdict": "FAIL"
+}

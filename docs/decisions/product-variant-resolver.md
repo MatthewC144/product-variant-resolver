@@ -1666,3 +1666,24 @@ At10×,collision policy and independent noisy-query evaluation become the bottle
 failure is treating exact-name wiring as retrieval quality or silently indexing the private corpus.
 Grounding/authority/scope/integrity/privacy/non-generalization PASS. Evidence:
 `docs/evidence/local-release-review-family-knowledge.md`;13 focused/686 full tests PASS.
+
+# D72 — Preserve local shadow-retrieval FAIL and block runtime integration
+
+Status:ACCEPTED for LRFE-T1–T4,2026-09-19. Freeze15 non-exact positive questions and5
+near-confusable hard negatives against the five private local-family documents before retrieval.
+Run them as shadow candidates beside the current142-document Human Knowledge corpus with the
+already selected v4 configuration. Publish raw candidates before opening the separate expected-label
+file;never retry or rewrite a case after output is visible.
+
+Precommit gates of positive Recall@5=1.0,Recall@1>=0.8,family coverage@5=1.0,zero forbidden-family
+hard-negative hits and zero retrieval errors. The first three quality metrics pass at15/15,13/15 and
+5/5,and errors are zero,but forbidden hits equal3. Preserve overall FAIL rather than lowering the
+threshold,removing difficult negatives or tuning on this20-case test set.
+
+Keep queries,labels,candidates,ranks and case results private;commit only hashes,configuration,
+aggregate metrics,gates and zero downstream effects. The five documents remain offline-evaluation
+candidates only. Most likely failure is broad admission from shared manufacturer,numeric model or
+generic body-style terms. A future mitigation needs separate development data and a new spec;this
+immutable test result cannot become its tuning set. Grounding/authority/scope/integrity/privacy/
+non-generalization PASS for evidence handling but retrieval-quality gate FAIL. Evidence:
+`docs/evidence/local-release-review-family-retrieval-evaluation.md`;13 focused/699 full tests PASS.

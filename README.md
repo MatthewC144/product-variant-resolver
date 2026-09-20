@@ -799,6 +799,18 @@ contains only hashes, field allowlists, and aggregate counts.
 pvr-project-local-release-review-family-knowledge --check
 ```
 
+The five local documents have now been tested once as shadow candidates beside the existing 142
+Human Knowledge documents. All 15 private positive queries found their target in Top 5, but three
+of five near-confusable hard negatives still returned the forbidden local family. The precommitted
+verdict is therefore **FAIL**, and the local documents remain excluded from the API and Dual RAG
+runtime. The committed [public evaluation summary](reports/local-release-review-family-retrieval-evaluation-v1/)
+contains only aggregate metrics and hashes; private queries, labels, candidates, and ranks remain
+gitignored.
+
+```bash
+pvr-evaluate-local-release-review-families --check
+```
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with

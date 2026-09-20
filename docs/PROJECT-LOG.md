@@ -1,5 +1,54 @@
 # Project Log
 
+## 2026-09-19 — LRFE-T1–T4：一次性shadow retrieval揭露3個hard-negative誤召回
+
+### 新執行了什麼、解決什麼問題
+
+上一階段只證明五份private `review_family` documents能以固定schema建立，尚未證明實際搜尋時能在雜訊中
+找到正確family，也未驗證相似但不同的名稱會不會被錯誤吸入。本輪建立local release review-family retrieval
+evaluation，先凍結15個非逐字positive questions與5個near-confusable hard negatives，再把5個local candidates
+以shadow方式加入現有142-document Human Knowledge corpus，形成147-document離線競爭環境。
+
+正式收集每題只執行一次。Collector只讀不含答案的query pack，保存20筆raw candidate outputs後，才載入
+另一份private benchmark計分。這解決了「先看答案或結果再改題」的洩漏風險；一旦raw results存在，CLI
+只允許`--check`或驗證既有結果，不能再次檢索。
+
+### 代碼修改哪一部分、原因與技術選型
+
+新增`release_casting_review_evaluation.py`與CLI
+`pvr-evaluate-local-release-review-families`。Shadow catalog不是另寫一套相似度演算法，而是直接重用目前
+Human Knowledge RAG v4：character identity postings、exact token evidence、192-dimensional `hashing-v1`
+dense retrieval與RRF fusion，固定character floor 0.5和weight 1.0。選擇重用正式候選器，是為了測量若未來
+接入時實際會遇到的ranking competition；若另寫簡化lexical matcher，結果無法回答runtime風險。
+
+Corpus包含100個provisional variants、既有42個review families與新5個local families，共147 documents；
+不是只讓5個新文件互相比賽。Query contract要求每個local family三個positive和一個hard negative，positive
+正規化後不能等於casting或alias。Hard-negative只禁止指定local family，允許existing corpus回傳其他合理
+候選；這避免把沒有完整標註的142 documents誤當成「全部都應空結果」。
+
+五個gate在執行前固定：Recall@5必須1.0、Recall@1至少0.8、family coverage@5必須1.0、forbidden hits和
+retrieval errors都必須0。沒有以平均分數或事後threshold取代hard-negative gate，因為本功能的主要風險正是
+新增family擴大誤召回。Private query/label/raw/result全部加入gitignore；public manifest/report只含hash、
+configuration、aggregate metrics、limitations與zero downstream effects。
+
+### 實際結果、為何保留FAIL，以及下一步
+
+一次性結果為positive Recall@5 `1.0`（15/15）、Recall@1 `0.8667`（13/15）、family coverage@5 `1.0`
+（5/5），retrieval errors為0；這四個gate通過。但5個hard negatives出現3次forbidden local-family hits，
+要求為0，因此整體結論是**FAIL**。這顯示新文件容易被找到，卻也會因共享manufacturer、數字型號或
+generic body-style文字而過度匹配。失敗後沒有刪題、降低gate、調整0.5 threshold或重跑。
+
+新增13項focused tests，覆蓋20題/3+1 per-family contract、exact-query拒絕、固定gate、collector不能讀
+labels、每題一次、exception不retry、scoring denominator、negative/error failure、public privacy、既有raw
+不重跑、partial output拒絕與candidate-rank tamper。`PYTHONPATH=src .venv/bin/pytest -q`完整699/699通過；
+focused Ruff check/format、targeted strict MyPy、compileall、CLI `--check`、privacy scan與`git diff --check`
+通過。完整repo Ruff/format仍有大量本次以前的baseline違規，因此不宣稱全repo lint綠燈；既有唯一測試
+訊息仍是Starlette/AnyIO deprecation warning。
+
+Runtime documents、canonical promotions、reviewed colors、PostgreSQL writes、API changes與network requests
+都是0。下一步不能把5個documents接入Dual RAG；應另建development-only false-positive mitigation資料與
+spec，評估更嚴格的identity admission或reranking，再以本次不可變20題作最終回歸，而不能拿它直接調參。
+
 ## 2026-09-12 — T48.3 turns owner confirmation into a frozen but unscored benchmark
 
 ### What was executed and what problem it solves

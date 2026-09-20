@@ -186,3 +186,10 @@ toy number、year、series、variant note與candidate evidence都不進search te
 檢查ID、UUID及normalized brand/name/alias，三種collision目前都是0。Projection狀態明確是
 `offline_evaluation_candidate_not_runtime`，因此下一步必須建立獨立holdout，而不是直接把47個family docs
 接入API或用exact indexed names宣稱retrieval accuracy。
+
+這個獨立holdout現已一次性執行。Shadow corpus包含現有142 documents與5個local candidates；15個非逐字
+positive questions全部在Top 5命中、13個Top 1命中，5個families也全部覆蓋。但5個near-confusable hard
+negatives中有3次回傳了明確禁止的local family，因此預先固定的zero-false-positive gate失敗，總結論為FAIL。
+原始結果先保存後才讀expected labels；失敗後沒有改題、調參或重跑。這5個documents繼續保持
+`offline_evaluation_candidate_not_runtime`，下一步只能用另一份development資料設計false-positive mitigation，
+不能用本次20題test evidence直接調整threshold，更不能接入API、PostgreSQL或canonical回答。
