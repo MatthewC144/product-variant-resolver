@@ -811,6 +811,17 @@ gitignored.
 pvr-evaluate-local-release-review-families --check
 ```
 
+To investigate that false-positive pattern without tuning on the private 20-case evaluation, the
+repository now includes a separate 24-case development pack built only from the existing public
+142-document corpus. The current v4 baseline retrieves all 24 required targets at rank 1, but also
+admits the specified wrong neighbor in 18/24 Top-5 lists; safety accuracy is therefore 0.25. This is
+a diagnostic baseline, not a selected fix or runtime change. See the
+[development report](reports/human-knowledge-false-positive-development-v1/).
+
+```bash
+pvr-develop-human-knowledge-admission --check
+```
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with

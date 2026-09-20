@@ -1,0 +1,14 @@
+{
+  "case_count": 24,
+  "pack_sha256": "dfeacb5092ee2e8af0a1aee5a53c63427421014b5077b59694d0371b0680ff65",
+  "private_local_artifacts_read": false,
+  "retrieval_executed": false,
+  "schema_version": "pvr-human-knowledge-false-positive-development-manifest-v1",
+  "source_sha256": {
+    "data/human_backed_catalog.json": "d29b69cde8099cb229136a73b893ca99b6313d9652ead5ff4aea48c20242e74f",
+    "data/review_family_knowledge.json": "8615cbb99b453673599e1f9baf54f6900314d7ba64e53a31ea7891c71810b9d7",
+    "data/review_family_knowledge_manifest.json": "0239e272d27276d9a25df2c36edbbe6a7251facce7728ef947b86dcaa417c2ef",
+    "src/product_variant_resolver/human_knowledge_false_positive_development.py": "8a067bfb872f60e195bbfaa6f6fac8509f07ff19afa3b56ae20181410dfcc7dc"
+  },
+  "version": "human-knowledge-false-positive-development-v1"
+}

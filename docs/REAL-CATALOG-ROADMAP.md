@@ -193,3 +193,9 @@ negatives中有3次回傳了明確禁止的local family，因此預先固定的z
 原始結果先保存後才讀expected labels；失敗後沒有改題、調參或重跑。這5個documents繼續保持
 `offline_evaluation_candidate_not_runtime`，下一步只能用另一份development資料設計false-positive mitigation，
 不能用本次20題test evidence直接調整threshold，更不能接入API、PostgreSQL或canonical回答。
+
+為了建立可合法調試的資料，本輪另用既有公開142-document corpus凍結24個development pairs。每題同時
+指定一個應出現文件與一個共享manufacturer／model token、但不應進Top 5的不同文件。現行v4在24題都把
+required target排第1，證明recall不是瓶頸；但18/24也放入forbidden neighbor，safety accuracy只有0.25。
+這份baseline沒有讀取private五-family projection或20題final結果，也沒有選新threshold。下一步才是在這份
+development data與既有199題positive dev pack上比較admission policies；選型完成前runtime繼續不變。

@@ -1687,3 +1687,23 @@ generic body-style terms. A future mitigation needs separate development data an
 immutable test result cannot become its tuning set. Grounding/authority/scope/integrity/privacy/
 non-generalization PASS for evidence handling but retrieval-quality gate FAIL. Evidence:
 `docs/evidence/local-release-review-family-retrieval-evaluation.md`;13 focused/699 full tests PASS.
+
+# D73 — Build a separate false-positive development set before mitigation
+
+Status:ACCEPTED for HKFP-T1–T4,2026-09-20. Do not tune against the failed private20-case local
+evaluation. Instead,manually freeze24 required-plus-forbidden pairs using only the committed
+142-document Human Knowledge corpus. Require each pair to share an identity-core token,remain
+different typed knowledge documents,and use a contextual query unequal to either identity.
+
+Record the unchanged v4 floor0.5/weight1.0/hashing192 Top-5 baseline without adding an admission
+rule or declaring PASS. Required targets rank first in24/24,but forbidden neighbors also appear in
+18/24,safety accuracy0.25. This confirms a broad-admission problem on a larger development surface
+while preserving required retrieval.
+
+Commit the public pack,source hashes,raw ranks and aggregate report because all inputs already belong
+to the repository;do not read private local artifacts. A future grid may tune on this dev pack and
+the existing199 positive dev cases,but final/private evidence remains excluded until a policy is
+frozen. Most likely failure is improving safety by deleting valid typo/abbreviation candidates;
+selection must gate both recall and forbidden admission. Grounding/scope/integrity/auditability/
+non-leakage PASS;retrieval safety remains diagnostic only. Evidence:
+`docs/evidence/human-knowledge-false-positive-development-v1.md`;12 focused/711 full tests PASS.

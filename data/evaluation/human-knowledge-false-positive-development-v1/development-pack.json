@@ -1,0 +1,543 @@
+{
+  "authorship": {
+    "eligible_for_development": true,
+    "eligible_for_final_accuracy": false,
+    "method": "manual_related_identity_pairs_before_pack_baseline",
+    "private_local_evaluation_loaded": false,
+    "retriever_output_viewed_for_this_pack": false
+  },
+  "candidate_limit": 5,
+  "case_count": 24,
+  "cases": [
+    {
+      "case_id": "fpdev-01-lamborghini",
+      "case_type": "required_plus_forbidden",
+      "expected": {
+        "forbidden": {
+          "knowledge_id": "fandom-family-174efb9bce3a441e",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "63d66a4a-c106-5a18-b478-8b5ef572db39"
+        },
+        "required": {
+          "knowledge_id": "human-hot-wheels-lamborghini-sesto-elemento-mainline-hw-exotics",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "1448af9f-78d7-55fe-adf8-5e21df6ade73"
+        }
+      },
+      "query_text": "collector listing Lamborghini Sesto Elemento loose miniature",
+      "shared_identity_core_tokens": [
+        "lamborghini"
+      ],
+      "split": "dev"
+    },
+    {
+      "case_id": "fpdev-02-mercedes-sprinter",
+      "case_type": "required_plus_forbidden",
+      "expected": {
+        "forbidden": {
+          "knowledge_id": "fandom-family-1b2a4227b4e5decd",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "e81a61b9-2dbf-5254-a8dd-c083430928fd"
+        },
+        "required": {
+          "knowledge_id": "human-hot-wheels-mercedes-benz-sprinter-car-culture-premium-deutschland-design",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "3c179714-b537-59e6-a954-82720906012d"
+        }
+      },
+      "query_text": "preowned Mercedes Benz Sprinter delivery van miniature",
+      "shared_identity_core_tokens": [
+        "benz",
+        "mercedes"
+      ],
+      "split": "dev"
+    },
+    {
+      "case_id": "fpdev-03-mercedes-dtm",
+      "case_type": "required_plus_forbidden",
+      "expected": {
+        "forbidden": {
+          "knowledge_id": "fandom-family-1b2a4227b4e5decd",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "e81a61b9-2dbf-5254-a8dd-c083430928fd"
+        },
+        "required": {
+          "knowledge_id": "human-hot-wheels-1994-amg-mercedes-c-class-dtm-car-culture-premium-deutschland-design",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "0d1b71f2-4909-5688-921a-e05e7bba2043"
+        }
+      },
+      "query_text": "boxed 1994 AMG Mercedes C Class DTM collector car",
+      "shared_identity_core_tokens": [
+        "mercedes"
+      ],
+      "split": "dev"
+    },
+    {
+      "case_id": "fpdev-04-mazda-rx7",
+      "case_type": "required_plus_forbidden",
+      "expected": {
+        "forbidden": {
+          "knowledge_id": "fandom-family-aec11693bfe04245",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "1a0cf712-68d0-5c29-b677-78d15b0dd604"
+        },
+        "required": {
+          "knowledge_id": "human-hot-wheels-mazda-rx7-mainline-blue",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "bfe91ce3-044b-5141-812a-0274f48560ce"
+        }
+      },
+      "query_text": "loose Mazda RX7 street model from collection",
+      "shared_identity_core_tokens": [
+        "mazda"
+      ],
+      "split": "dev"
+    },
+    {
+      "case_id": "fpdev-05-mazda-autozam",
+      "case_type": "required_plus_forbidden",
+      "expected": {
+        "forbidden": {
+          "knowledge_id": "fandom-family-aec11693bfe04245",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "1a0cf712-68d0-5c29-b677-78d15b0dd604"
+        },
+        "required": {
+          "knowledge_id": "fandom-family-e7d4d8cf1dd8c6e1",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "39731a3b-9b07-558a-a29b-76781343d5ba"
+        }
+      },
+      "query_text": "carded Mazda Autozam kei vehicle listing",
+      "shared_identity_core_tokens": [
+        "mazda"
+      ],
+      "split": "dev"
+    },
+    {
+      "case_id": "fpdev-06-ford-escort",
+      "case_type": "required_plus_forbidden",
+      "expected": {
+        "forbidden": {
+          "knowledge_id": "fandom-family-b31d285560d8a242",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "a676a5e0-57ce-5768-ae7e-6e2929c7643c"
+        },
+        "required": {
+          "knowledge_id": "human-hot-wheels-ford-escort-rs2000-mainline-red-edition",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "dfd32e67-c62b-5202-bad1-e05dc46fb83f"
+        }
+      },
+      "query_text": "used Ford Escort RS2000 red edition model",
+      "shared_identity_core_tokens": [
+        "ford"
+      ],
+      "split": "dev"
+    },
+    {
+      "case_id": "fpdev-07-ford-mustang-boss",
+      "case_type": "required_plus_forbidden",
+      "expected": {
+        "forbidden": {
+          "knowledge_id": "fandom-family-b31d285560d8a242",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "a676a5e0-57ce-5768-ae7e-6e2929c7643c"
+        },
+        "required": {
+          "knowledge_id": "human-hot-wheels-1969-ford-mustang-boss-302-premium-premium-fast-and-furious",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "c2f45a71-030d-5e7a-8311-21ad7e3bde10"
+        }
+      },
+      "query_text": "loose 1969 Ford Mustang Boss 302 collector piece",
+      "shared_identity_core_tokens": [
+        "ford",
+        "mustang"
+      ],
+      "split": "dev"
+    },
+    {
+      "case_id": "fpdev-08-ford-focus",
+      "case_type": "required_plus_forbidden",
+      "expected": {
+        "forbidden": {
+          "knowledge_id": "human-hot-wheels-ford-escort-rs2000-mainline-red-edition",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "dfd32e67-c62b-5202-bad1-e05dc46fb83f"
+        },
+        "required": {
+          "knowledge_id": "human-hot-wheels-08-ford-focus-street-racers-street-racers",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "2de2463a-a888-5120-98d9-84385b31c1ae"
+        }
+      },
+      "query_text": "street racers 2008 Ford Focus miniature listing",
+      "shared_identity_core_tokens": [
+        "ford"
+      ],
+      "split": "dev"
+    },
+    {
+      "case_id": "fpdev-09-honda-civic-eg",
+      "case_type": "required_plus_forbidden",
+      "expected": {
+        "forbidden": {
+          "knowledge_id": "fandom-family-d114c33db6fa215b",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "78e6048e-1b7f-5553-8315-deb354a6b8e4"
+        },
+        "required": {
+          "knowledge_id": "human-hot-wheels-honda-civic-eg-premium-fast-furious",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "a89d4de3-69d2-5f8a-9256-4832b786a8fe"
+        }
+      },
+      "query_text": "premium Honda Civic EG loose vehicle",
+      "shared_identity_core_tokens": [
+        "civic",
+        "honda"
+      ],
+      "split": "dev"
+    },
+    {
+      "case_id": "fpdev-10-honda-crx",
+      "case_type": "required_plus_forbidden",
+      "expected": {
+        "forbidden": {
+          "knowledge_id": "fandom-family-d114c33db6fa215b",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "78e6048e-1b7f-5553-8315-deb354a6b8e4"
+        },
+        "required": {
+          "knowledge_id": "human-hot-wheels-honda-cr-x-silver-series-peanuts",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "76228439-893c-5f89-9040-ac1d72cd05e1"
+        }
+      },
+      "query_text": "silver series Honda CR X collector car",
+      "shared_identity_core_tokens": [
+        "honda"
+      ],
+      "split": "dev"
+    },
+    {
+      "case_id": "fpdev-11-honda-city",
+      "case_type": "required_plus_forbidden",
+      "expected": {
+        "forbidden": {
+          "knowledge_id": "fandom-family-d114c33db6fa215b",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "78e6048e-1b7f-5553-8315-deb354a6b8e4"
+        },
+        "required": {
+          "knowledge_id": "human-hot-wheels-honda-city-turbo-ll-mainline-compact-king",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "e933c950-6e23-52d9-990e-156c921aead1"
+        }
+      },
+      "query_text": "compact king Honda City Turbo loose model",
+      "shared_identity_core_tokens": [
+        "honda"
+      ],
+      "split": "dev"
+    },
+    {
+      "case_id": "fpdev-12-bugatti",
+      "case_type": "required_plus_forbidden",
+      "expected": {
+        "forbidden": {
+          "knowledge_id": "human-hot-wheels-16-bugatti-chiron-mainline-hw-exotics",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "c899ab91-3dcc-5f18-a830-560dd7a4b2de"
+        },
+        "required": {
+          "knowledge_id": "human-hot-wheels-bugatti-veyron-1-4-mile-finals-1-4-mile-finals",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "4b7020dd-da61-560e-8aa5-9ffaa233cb4a"
+        }
+      },
+      "query_text": "quarter mile Bugatti Veyron display vehicle",
+      "shared_identity_core_tokens": [
+        "bugatti"
+      ],
+      "split": "dev"
+    },
+    {
+      "case_id": "fpdev-13-bmw-m1",
+      "case_type": "required_plus_forbidden",
+      "expected": {
+        "forbidden": {
+          "knowledge_id": "human-hot-wheels-bmw-m3-gt2-neon-speeders-neon-speeders",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "4721e966-c0ef-5009-8444-9d772a12f7ae"
+        },
+        "required": {
+          "knowledge_id": "human-hot-wheels-bmw-m1-walmart-exclusive-walmart-exclusive-red",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "4cb5ae0b-5f99-5fd1-8b95-9cef42158ff9"
+        }
+      },
+      "query_text": "red BMW M1 collector listing without package",
+      "shared_identity_core_tokens": [
+        "bmw"
+      ],
+      "split": "dev"
+    },
+    {
+      "case_id": "fpdev-14-bmw-m2",
+      "case_type": "required_plus_forbidden",
+      "expected": {
+        "forbidden": {
+          "knowledge_id": "human-hot-wheels-bmw-m3-gt2-neon-speeders-neon-speeders",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "4721e966-c0ef-5009-8444-9d772a12f7ae"
+        },
+        "required": {
+          "knowledge_id": "human-matchbox-2023-bmw-m2-match-box-mainline-red",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "ad31f643-ca49-5653-8426-27d3bd8ec174"
+        }
+      },
+      "query_text": "matchbox 2023 BMW M2 loose miniature",
+      "shared_identity_core_tokens": [
+        "bmw"
+      ],
+      "split": "dev"
+    },
+    {
+      "case_id": "fpdev-15-subaru",
+      "case_type": "required_plus_forbidden",
+      "expected": {
+        "forbidden": {
+          "knowledge_id": "human-hot-wheels-subaru-brz-walmart-exclusive-zamac-walmart-exclusive",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "3accc048-4d73-541f-8863-90170fef463f"
+        },
+        "required": {
+          "knowledge_id": "human-hot-wheels-subaru-brat-hw-off-road-pearl-yellow-kmart-exclusive",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "c89257e3-9e9e-5340-b105-81a58987d4d6"
+        }
+      },
+      "query_text": "off road Subaru Brat pearl yellow model",
+      "shared_identity_core_tokens": [
+        "subaru"
+      ],
+      "split": "dev"
+    },
+    {
+      "case_id": "fpdev-16-tesla",
+      "case_type": "required_plus_forbidden",
+      "expected": {
+        "forbidden": {
+          "knowledge_id": "human-hot-wheels-tesla-model-s-plaid-mainline-red",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "a9246e30-e08c-5d32-a3b4-045742e8aabc"
+        },
+        "required": {
+          "knowledge_id": "human-hot-wheels-08-tesla-roadster-hot-wheels-tesla-greetings-from-space",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "e414ef07-58a4-5257-a574-97b0170819b8"
+        }
+      },
+      "query_text": "greetings from space Tesla Roadster loose car",
+      "shared_identity_core_tokens": [
+        "tesla"
+      ],
+      "split": "dev"
+    },
+    {
+      "case_id": "fpdev-17-pontiac",
+      "case_type": "required_plus_forbidden",
+      "expected": {
+        "forbidden": {
+          "knowledge_id": "human-hot-wheels-1969-pontiac-gto-hot-wheels-classics-hot-wheels-classics",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "cdc6fc59-7574-5a33-a59e-85e61004c3e6"
+        },
+        "required": {
+          "knowledge_id": "human-hot-wheels-1970-pontiac-firebird-mainline-kroger-exclusive",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "fb2882d7-a711-5f11-9ce2-b73b29f021eb"
+        }
+      },
+      "query_text": "1970 Pontiac Firebird kroger edition listing",
+      "shared_identity_core_tokens": [
+        "pontiac"
+      ],
+      "split": "dev"
+    },
+    {
+      "case_id": "fpdev-18-shelby",
+      "case_type": "required_plus_forbidden",
+      "expected": {
+        "forbidden": {
+          "knowledge_id": "human-hot-wheels-shelby-cobra-427-s-c-mainline-yellow",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "d6bcef30-5752-5c98-ae5f-c2feff7dcfff"
+        },
+        "required": {
+          "knowledge_id": "human-hot-wheels-shelby-cobra-daytona-coupe-mainline-hw-race-day-gulf",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "92d31881-4d32-5fe9-803e-148c9bf474bc"
+        }
+      },
+      "query_text": "Gulf Shelby Cobra Daytona Coupe race day model",
+      "shared_identity_core_tokens": [
+        "cobra",
+        "shelby"
+      ],
+      "split": "dev"
+    },
+    {
+      "case_id": "fpdev-19-nissan-fairlady",
+      "case_type": "required_plus_forbidden",
+      "expected": {
+        "forbidden": {
+          "knowledge_id": "human-hot-wheels-nissan-300zx-twin-turbo-90s-silver-series-street-scene",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "4cc36bf7-1203-579c-a74a-2fddff23cbf3"
+        },
+        "required": {
+          "knowledge_id": "human-hot-wheels-nissan-fairlady-z-silver-series-pantone-blue",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "7b7360f6-ffac-5b62-9f8d-c420d8c741c5"
+        }
+      },
+      "query_text": "blue Nissan Fairlady Z silver series vehicle",
+      "shared_identity_core_tokens": [
+        "nissan"
+      ],
+      "split": "dev"
+    },
+    {
+      "case_id": "fpdev-20-nissan-leaf",
+      "case_type": "required_plus_forbidden",
+      "expected": {
+        "forbidden": {
+          "knowledge_id": "human-hot-wheels-nissan-skyline-rs-the-hot-ones-the-hot-ones",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "47fbe5d3-ac95-5c39-aea9-0b569c7acd4d"
+        },
+        "required": {
+          "knowledge_id": "human-hot-wheels-nissan-leaf-nismo-rc-mainline-treasure-hunt",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "d284fa7d-d89d-5223-92ba-41cae44afa4c"
+        }
+      },
+      "query_text": "treasure hunt Nissan Leaf Nismo RC miniature",
+      "shared_identity_core_tokens": [
+        "nissan"
+      ],
+      "split": "dev"
+    },
+    {
+      "case_id": "fpdev-21-cadillac",
+      "case_type": "required_plus_forbidden",
+      "expected": {
+        "forbidden": {
+          "knowledge_id": "fandom-family-45af5b93f3f6650f",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "bd871995-1ec2-5b3d-a50d-acbcb0d09693"
+        },
+        "required": {
+          "knowledge_id": "human-hot-wheels-1935-cadillac-mainline-gold",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "83cf0482-3798-52b1-8048-425a2eefe663"
+        }
+      },
+      "query_text": "gold 1935 Cadillac loose collector model",
+      "shared_identity_core_tokens": [
+        "cadillac"
+      ],
+      "split": "dev"
+    },
+    {
+      "case_id": "fpdev-22-chevrolet",
+      "case_type": "required_plus_forbidden",
+      "expected": {
+        "forbidden": {
+          "knowledge_id": "human-hot-wheels-1970-chevrolet-chevelle-ss-premium-premium-fast-and-furious",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "73a59942-603f-5210-a67b-6eb6b9606b6b"
+        },
+        "required": {
+          "knowledge_id": "human-hot-wheels-67-chevrolet-camaro-premium-premium-fast-and-furious",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "408c8d89-f0ee-5172-8735-7fe334e48c4e"
+        }
+      },
+      "query_text": "premium 1967 Chevrolet Camaro display car",
+      "shared_identity_core_tokens": [
+        "chevrolet"
+      ],
+      "split": "dev"
+    },
+    {
+      "case_id": "fpdev-23-twin-mill",
+      "case_type": "required_plus_forbidden",
+      "expected": {
+        "forbidden": {
+          "knowledge_id": "fandom-family-d5c83bb87be8cab0",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "ca29331e-5db5-5396-aa2b-02fadd13acec"
+        },
+        "required": {
+          "knowledge_id": "fandom-family-39b248ce2f3723cd",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "8b784ccf-938c-593f-9926-df0b038dcfdd"
+        }
+      },
+      "query_text": "electric Twin Mill Gen E loose fantasy casting",
+      "shared_identity_core_tokens": [
+        "mill",
+        "twin"
+      ],
+      "split": "dev"
+    },
+    {
+      "case_id": "fpdev-24-ford-truck",
+      "case_type": "required_plus_forbidden",
+      "expected": {
+        "forbidden": {
+          "knowledge_id": "human-m2-1956-ford-f-100-truck-m2-target-exclusive",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "ba7ed284-9c38-589b-9960-43d74aaee1d3"
+        },
+        "required": {
+          "knowledge_id": "human-auto-world-2020-ford-f-150-lariat-auto-world-red",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "48f5b742-14d0-5d55-9139-f203372c5a52"
+        }
+      },
+      "query_text": "red 2020 Ford F 150 Lariat diecast truck",
+      "shared_identity_core_tokens": [
+        "f",
+        "ford"
+      ],
+      "split": "dev"
+    }
+  ],
+  "configuration": {
+    "character_rrf_weight": 1.0,
+    "character_score_floor": 0.5,
+    "dense_dimensions": 192,
+    "dense_embedding": "hashing-v1",
+    "retriever_version": "human-knowledge-hybrid-v4"
+  },
+  "corpus_document_count": 142,
+  "excluded_from": [
+    "final_accuracy",
+    "runtime_activation",
+    "canonical_truth",
+    "release_variant_truth",
+    "color_truth",
+    "private_local_evaluation_tuning"
+  ],
+  "schema_version": "pvr-human-knowledge-false-positive-development-pack-v1",
+  "split": "dev",
+  "status": "development_only_frozen_before_baseline",
+  "version": "human-knowledge-false-positive-development-v1"
+}

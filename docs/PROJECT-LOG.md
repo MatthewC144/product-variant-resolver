@@ -1,5 +1,50 @@
 # Project Log
 
+## 2026-09-20 — HKFP-T1–T4：建立獨立false-positive development baseline
+
+### 新執行了什麼、解決什麼問題
+
+前一步的private 20題evaluation已經揭露3個hard-negative誤召回，但它是不可拿來反覆調參的test evidence。
+若直接根據那三題修改threshold再重跑，得到的改善只代表記住測試題，不代表模型真的比較安全。本輪因此
+建立另一份development-only pack，只使用repo原有142份公開Human Knowledge documents，讓後續可以合法
+比較false-positive mitigation，而不污染private final evidence。
+
+Pack包含24題，每題同時指定required target與forbidden neighbor。兩個文件必須是不同ID／UUID，但至少共享
+一個identity-core token，例如相同manufacturer或model lineage；query加入marketplace／collection context，
+不能逐字等於任一indexed identity。Builder在retrieval前先凍結pack、input hashes、case order與固定v4設定，
+manifest明確記錄`retrieval_executed=false`和`private_local_artifacts_read=false`。
+
+### 代碼修改、方法選型與原因
+
+新增`human_knowledge_false_positive_development.py`與CLI
+`pvr-develop-human-knowledge-admission`。`--freeze-pack`只載入既有human catalog與42-family projection，解析
+24組typed IDs、檢查shared core tokens、non-exact query和source hashes，不建立retriever。Pack固定後，default
+模式才用既有Human Knowledge RAG v4（floor 0.5、character RRF weight 1.0、hashing-v1/192）執行Top 5 baseline。
+
+每題同時保留「應找得到」與「不應混入」兩個方向，是為了避免下一步使用最簡單但錯誤的方法：把所有
+ambiguous candidates全部過濾掉。只看forbidden下降會鼓勵過度abstain；只看required recall則重複目前
+高召回、低排除的問題。後續policy grid必須同時守住既有199題positive development與這24題的safety。
+
+沒有直接修改`HumanKnowledgeIdentityRetriever`，也沒有新增runtime env flag。Baseline階段的目的只是建立
+可重現的before measurement；此時選threshold、reranker或token coverage rule都會把診斷與解法混在同一個
+commit，失去比較基準，因此明確延後到下一個versioned experiment。
+
+### Baseline結果、測試與下一步
+
+24/24 required targets全部排名第1，required Recall@5為1.0，retrieval errors為0；同時18/24 cases把指定
+forbidden neighbor放入Top 5，forbidden-case rate為0.75，safety accuracy只有0.25。這把原先3/5的現象擴展
+為更一般的same-make／related-model admission問題，也證明目前主要瓶頸不是「找不到」，而是「排除不夠」。
+
+新增12項focused tests，覆蓋pack counts、typed pair/non-exact/shared-core contract、source hashes、private-path
+隔離、exactly-once collection、exception不retry、required/forbidden獨立denominator、create-once pack、partial
+state拒絕、real artifact與check不重跑。完整711/711 tests PASS；targeted Ruff/format、MyPy、compileall、
+artifact `--check`與`git diff --check`通過，只有既有Starlette/AnyIO deprecation warning。
+
+本輪沒有讀取或重跑private 20題，沒有新增mitigation、winner或PASS claim，也沒有改API、PostgreSQL、
+canonical catalog或Dual RAG runtime。下一步是針對這24題與舊199題建立admission policy grid，例如比較
+identity-token coverage或unmatched-distinctive-token penalty；選型時必須同時維持positive recall和降低
+forbidden admissions，選完後才可規劃新的versioned final evaluation。
+
 ## 2026-09-19 — LRFE-T1–T4：一次性shadow retrieval揭露3個hard-negative誤召回
 
 ### 新執行了什麼、解決什麼問題
