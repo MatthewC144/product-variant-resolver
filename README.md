@@ -822,6 +822,17 @@ a diagnostic baseline, not a selected fix or runtime change. See the
 pvr-develop-human-knowledge-admission --check
 ```
 
+A frozen five-setting coverage-filter grid has now tested one simple mitigation idea across the
+existing 199 development cases plus those 24 safety cases. Stricter filters reduce forbidden cases
+from 18 to 7, 2, and finally 0, but every nonzero setting drops at least one required positive. The
+only eligible setting is therefore the unchanged baseline, which means **no mitigation was
+selected** and runtime remains untouched. See the
+[admission selection report](reports/human-knowledge-admission-development-v1/selection.md).
+
+```bash
+pvr-select-human-knowledge-admission --check
+```
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with

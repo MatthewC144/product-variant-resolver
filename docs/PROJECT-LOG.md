@@ -1,5 +1,53 @@
 # Project Log
 
+## 2026-09-20 — HKAD-T1–T4：coverage grid完成，但沒有合格的誤召回修正方案
+
+### 新執行了什麼、解決什麼問題
+
+上一階段已用24個development pairs量到18個forbidden admissions。本輪沒有直接改runtime threshold，而是
+先凍結五組identity-token coverage策略：0、0.5、2/3、0.75與1.0。Grid同時納入舊199題positive／merge／
+hold／unrelated development cases與新24題required／forbidden cases，解決「只降低誤召回，卻不知道正常
+拼字錯誤會損失多少」的盲點。
+
+Collector只建立一個現有v4 retriever，對223題各呼叫一次Top 5；五個coverage settings全部重用相同raw
+candidates。這避免某個設定因重跑順序或不同候選樣本獲得不公平優勢，也把比較範圍限制為post-retrieval
+admission，不混入新的embedding、index或neural dependency。
+
+### 代碼修改位置、策略設計與選型原因
+
+新增`human_knowledge_admission_development.py`與CLI
+`pvr-select-human-knowledge-admission`。Coverage只讀candidate的casting與approved aliases，先沿用
+identity-core noise policy，再以exact、compact containment、至少2字元prefix abbreviation、numeric suffix或
+SequenceMatcher>=0.8對齊每個identity token。這些模式是在protocol凍結前定義，目的是同時容忍`stel`類拼字、
+`st`類縮寫、compact文字與年份數字變形。
+
+Eligibility不是看單一平均分數，而是要求舊168 positives、4 merge controls、新24 required全部保留，既有
+hold／merge forbidden violations與unrelated nonempty都維持0，retrieval errors也為0。合格設定才依new
+forbidden cases最少、coverage threshold最低排序。這個選擇規則避免事後為了某一個漂亮安全數字接受未揭露
+的recall損失。
+
+### 實際結果、失敗原因與技術決定
+
+Baseline保留168/168舊positive、24/24新required，但仍有18/24 forbidden cases。Coverage 0.5降到7個
+forbidden，卻漏1個舊positive；2/3降到2個，卻漏3個。Coverage 0.75與1.0都把forbidden降到0，但分別只
+保留159／152個舊positive，而且新required也降到23／22。所有nonzero mitigation都違反預先固定gate。
+
+Frozen selector因此回傳baseline，因為它是唯一eligible configuration；這只代表fallback，不代表修正成功。
+本輪拒絕把baseline稱為新policy，也拒絕在看到結果後把168 gate降成167。Global hard coverage filter的問題是
+把「candidate缺少重要model token」與「query用了縮寫／拼錯」視為同一種缺口，因此安全提升必然伴隨
+false negatives。下一版應研究candidate-relative penalty或reranking，而非直接刪除candidate。
+
+### 驗證、邊界與下一步
+
+新增15項focused tests，覆蓋五種token matching、coverage、protocol grid、private-path隔離、223次exactly-once
+collection、winner ordering、create-once protocol、real result tradeoff與check不重跑。完整726/726 tests PASS；
+targeted Ruff/format、MyPy、compileall、protocol/report `--check`與`git diff --check`通過，唯一訊息仍是既有
+Starlette/AnyIO deprecation warning。
+
+Private 20題沒有被讀取或重跑，`HumanKnowledgeIdentityRetriever`、API、PostgreSQL、canonical catalog與
+Dual RAG runtime全部未改。下一步是另開admission v2 spec，以relative penalty/reranking方式保留weak-but-valid
+typo candidates，同時將wrong neighbor往Top 5之外推；v1必須作為失敗alternative保留，不能覆寫。
+
 ## 2026-09-20 — HKFP-T1–T4：建立獨立false-positive development baseline
 
 ### 新執行了什麼、解決什麼問題

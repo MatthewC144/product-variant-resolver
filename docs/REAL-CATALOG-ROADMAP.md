@@ -199,3 +199,19 @@ negatives中有3次回傳了明確禁止的local family，因此預先固定的z
 required target排第1，證明recall不是瓶頸；但18/24也放入forbidden neighbor，safety accuracy只有0.25。
 這份baseline沒有讀取private五-family projection或20題final結果，也沒有選新threshold。下一步才是在這份
 development data與既有199題positive dev pack上比較admission policies；選型完成前runtime繼續不變。
+
+第一版admission grid現已完成，但沒有合格mitigation。Coverage 0.5／2/3可把forbidden cases從18降到7／2，
+代價是舊positive從168降到167／165；coverage 0.75／1.0雖把forbidden降到0，卻只保留159／152個舊positive，
+並開始漏掉新required targets。依凍結gate只有baseline合格，所以baseline只是fallback，不是修正方案。
+
+## 尚未完成的主要工作
+
+- [ ] 設計admission v2：改用candidate-relative unmatched-token penalty或reranking，不能再用全域hard filter。
+- [ ] 在199+24 development cases凍結並選出同時維持recall、降低forbidden hits的策略。
+- [ ] 若有合格策略，建立新的versioned private shadow evaluation；現有20題結果不可覆寫或拿來調參。
+- [ ] Shadow evaluation通過後，才規劃opt-in Dual RAG runtime integration與API regression QA。
+- [ ] 1,763筆release staging仍須逐批完成variant-level review；目前只有5個family relationships。
+- [ ] Color、wheel、tampo、edition與packaging大多仍未知，尚不能可靠辨識具體版本。
+- [ ] 約3,000筆真實來源資料擴充尚未完成；新增來源仍須先通過permission/provenance gate。
+- [ ] PostgreSQL目前是review/storage能力，不是canonical resolver truth；正式查詢整合仍未完成。
+- [ ] 全部功能完成後，依owner要求進行從基礎概念開始的完整code review與操作教學。

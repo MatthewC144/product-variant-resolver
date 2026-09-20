@@ -1707,3 +1707,22 @@ frozen. Most likely failure is improving safety by deleting valid typo/abbreviat
 selection must gate both recall and forbidden admission. Grounding/scope/integrity/auditability/
 non-leakage PASS;retrieval safety remains diagnostic only. Evidence:
 `docs/evidence/human-knowledge-false-positive-development-v1.md`;12 focused/711 full tests PASS.
+
+# D74 — Reject global hard coverage filtering as the mitigation
+
+Status:ACCEPTED for HKAD-T1–T4,2026-09-20. Freeze five identity-token coverage thresholds and score
+them from one223-query retrieval collection across the199 existing and24 safety development cases.
+Require exact preservation of168 positives,4 merges,0 governance violations,0 unrelated results,
+24 new required hits and0 errors before considering false-positive reduction.
+
+Nonzero filters reduce forbidden cases from18 to7/2/0/0,but respectively retain only167/165/159/152
+old positives;the two strictest also retain23/22 new required targets. Therefore every attempted
+mitigation fails at least one frozen recall gate. The deterministic ordering returns baseline as the
+only eligible configuration,but baseline is a fallback—not evidence that the problem is solved.
+
+Do not lower the recall gates after seeing output,activate the baseline as a new policy,or consult the
+private20-case test. Preserve v1 as a failed design alternative and move to a v2 candidate-relative
+penalty/reranker that can distinguish unmatched model tokens from legitimate typo/abbreviation forms.
+Most likely failure remains trading false positives for silent false negatives. Integrity/scope/
+auditability/non-leakage PASS;mitigation effectiveness FAIL. Evidence:
+`docs/evidence/human-knowledge-admission-development-v1.md`;15 focused/726 full tests PASS.
