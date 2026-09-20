@@ -1,5 +1,52 @@
 # Project Log
 
+## 2026-09-20 — HKRR-T1–T4：relative reranker完成，但候選池太小而無法改善Top-5安全性
+
+### 新執行了什麼、解決什麼問題
+
+前一版global coverage filter能移除錯誤candidate，卻同時刪掉正確的縮寫與拼字差異。本輪改測不刪除
+candidate的相對懲罰reranker：先把每題raw pool從Top5擴為最多Top25，再依candidate自己的identity-token
+coverage調整原始RRF分數，最後重新取Top5。目標是回答「能否只把unsupported neighbor往後排，同時完整
+保留既有recall」，而不是再試另一個固定hard threshold。
+
+Protocol在正式collection前固定七個weights（0、0.05、0.1、0.25、0.5、1、2）、公式、223題denominator、
+Top25 pool、Top5 output與winner ordering。正式執行只建立一個v4 retriever，對199個既有development cases
+與24個safety cases各呼叫一次；七個configurations全部重用相同raw candidates，private 20題沒有被開啟。
+
+### 代碼修改位置、方法選型與原因
+
+新增`human_knowledge_reranker_development.py`與CLI `pvr-select-human-knowledge-reranker`。每個candidate保留
+sparse、dense、character與RRF rank/score、matched tokens和identity coverage；新分數為
+`rrf_score / (1 + weight * (1 - coverage))`。Fully supported candidate不受懲罰，unsupported部分越多，分數
+下降越多。選用乘法penalty而不是coverage加分，是為了保留retriever原有evidence比例，也避免coverage值
+直接壓過RRF的小數尺度。
+
+Winner必須先通過168個舊positive、4個merge、24個新required、零治理違規、零unrelated nonempty與零error。
+合格者才依forbidden最少、舊／新rank1最多、weight最低排序。這防止把「只回傳第一名」誤當安全改善，因為
+現有舊資料仍有3個正確target不在rank1。
+
+### 實際結果、錯誤原因與技術決定
+
+七個weights全部保留168/168舊positive、165/168舊rank1、24/24新required和所有治理gate；但七組也全部
+留下18/24 forbidden cases，安全率維持0.25。Frozen selector因此回傳baseline，而且
+`improves_over_baseline=false`，明確表示沒有合格mitigation。
+
+失敗原因不是weight不夠大，而是candidate-pool boundary。223題中只有5題得到超過5個raw candidates；
+24個safety pools的median只有3，9題只有2個candidate、8題只有3個，只有2題超過5。Reranker可以把錯誤
+candidate從第2名降到第3或第4名，但當整個pool只有2–4筆時，它仍會出現在Top5。看到結果後再放大weight
+沒有意義，也會違反frozen protocol；下一版必須明確判斷candidate是否應被admit／abstain，而不只是排序。
+
+### 驗證、邊界與下一步
+
+新增13項focused tests，覆蓋baseline不變、relative penalty、非法weight、frozen protocol、private-path隔離、
+223次exactly-once Top25 collection、winner ordering、create-once protocol、真實失敗結果、sparse-pool證據與
+check不重跑。完整739/739 tests PASS；targeted Ruff/format、MyPy、compileall、protocol/report check都通過，
+唯一訊息仍是既有Starlette/AnyIO deprecation warning。
+
+本輪沒有更動`HumanKnowledgeIdentityRetriever`、API、PostgreSQL、canonical catalog或Dual RAG runtime，也
+沒有重跑private evaluation。下一步應另開admission v3，設計query-candidate compatibility與明確abstention，
+同時保護三個舊target不在rank1的案例；在public development取得合格winner以前仍不得進private gate。
+
 ## 2026-09-20 — HKAD-T1–T4：coverage grid完成，但沒有合格的誤召回修正方案
 
 ### 新執行了什麼、解決什麼問題

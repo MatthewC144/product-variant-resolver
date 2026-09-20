@@ -206,8 +206,9 @@ development data與既有199題positive dev pack上比較admission policies；�
 
 ## 尚未完成的主要工作
 
-- [ ] 設計admission v2：改用candidate-relative unmatched-token penalty或reranking，不能再用全域hard filter。
-- [ ] 在199+24 development cases凍結並選出同時維持recall、降低forbidden hits的策略。
+- [x] Admission v2 candidate-relative reranking已凍結並完成；七種權重都維持recall，但forbidden仍是18/24。
+- [ ] 設計admission v3：加入明確的query-candidate compatibility／abstention決策，而非只改候選順序。
+- [ ] 在199+24 development cases選出同時維持recall、降低forbidden hits的合格策略。
 - [ ] 若有合格策略，建立新的versioned private shadow evaluation；現有20題結果不可覆寫或拿來調參。
 - [ ] Shadow evaluation通過後，才規劃opt-in Dual RAG runtime integration與API regression QA。
 - [ ] 1,763筆release staging仍須逐批完成variant-level review；目前只有5個family relationships。

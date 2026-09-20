@@ -1726,3 +1726,22 @@ penalty/reranker that can distinguish unmatched model tokens from legitimate typ
 Most likely failure remains trading false positives for silent false negatives. Integrity/scope/
 auditability/non-leakage PASS;mitigation effectiveness FAIL. Evidence:
 `docs/evidence/human-knowledge-admission-development-v1.md`;15 focused/726 full tests PASS.
+
+# D75 — Reject candidate-relative reranking without an admission decision
+
+Status:ACCEPTED for HKRR-T1–T4,2026-09-20. Freeze a wider Top-25 collection and seven weights before
+measurement,then score every candidate as original RRF divided by a candidate-relative unmatched
+identity-token penalty. Reuse the same223 public-development pools across all settings and preserve
+the existing recall/governance gates;do not read the private20-case evaluation.
+
+All seven settings preserve168/168 old positives,24/24 new required targets,4/4 merge controls and
+zero existing governance violations,but all leave18/24 forbidden cases in Top5. Only5 of223 pools
+contain more than five candidates;the safety subset median is3 and only2/24 exceed5. Reordering can
+change rank but cannot remove a wrong candidate when the entire available pool fits inside Top5.
+
+Treat baseline as a deterministic fallback,not a selected mitigation. Do not enlarge weights after
+observing this result or activate v2. The next design must combine ranking with an explicit
+query-candidate admission/abstention decision while protecting the three old positives not currently
+at rank1. Most likely failure is solving false positives by silently returning only the first result.
+Integrity/scope/auditability/non-leakage PASS;mitigation effectiveness FAIL. Evidence:
+`docs/evidence/human-knowledge-reranker-development-v2.md`;13 focused/739 full tests PASS.

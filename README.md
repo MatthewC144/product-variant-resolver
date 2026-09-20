@@ -833,6 +833,18 @@ selected** and runtime remains untouched. See the
 pvr-select-human-knowledge-admission --check
 ```
 
+The follow-up candidate-relative reranker has also been measured. It retrieves up to 25 candidates
+once, then compares seven unmatched-token penalty weights without hard-deleting candidates. All
+weights preserve the recall gates, but all also retain the same 18/24 forbidden neighbors. Only five
+of 223 pools contain more than five candidates, so reordering alone usually cannot move an unsafe
+candidate outside Top 5. The frozen baseline is therefore a fallback, not a mitigation; runtime and
+the private evaluation remain unchanged. See the
+[reranker selection report](reports/human-knowledge-reranker-development-v2/selection.md).
+
+```bash
+pvr-select-human-knowledge-reranker --check
+```
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with
