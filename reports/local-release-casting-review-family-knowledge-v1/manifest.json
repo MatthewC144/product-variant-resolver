@@ -1,0 +1,61 @@
+{
+  "document_fields": [
+    "knowledge_type",
+    "review_family_id",
+    "review_family_uuid",
+    "identity_level",
+    "identity_status",
+    "brand",
+    "casting",
+    "aliases",
+    "source_record_ids"
+  ],
+  "eligible_for": [
+    "offline_retrieval_evaluation"
+  ],
+  "excluded_from": [
+    "runtime_retrieval",
+    "canonical_variant_response",
+    "canonical_candidate_ranking",
+    "canonical_confidence",
+    "canonical_resolution_accuracy",
+    "calibration_training",
+    "threshold_selection",
+    "evaluation_ground_truth",
+    "variant_identity",
+    "postgresql_ingestion"
+  ],
+  "knowledge_version": "local-release-review-family-knowledge-v1",
+  "private_projection_sha256": "32644f9c5b91039fde7b7a9586f8a6bf9479ea7c6878661d329ea53bed4207d8",
+  "public_scope": "aggregate_counts_hashes_and_allowlists_only_no_documents_labels_ids_or_rows",
+  "schema_version": "pvr-local-release-review-family-knowledge-public-summary-v1",
+  "searchable_fields": [
+    "brand",
+    "casting",
+    "aliases"
+  ],
+  "source_hashes": {
+    "existing_manifest_sha256": "0239e272d27276d9a25df2c36edbbe6a7251facce7728ef947b86dcaa417c2ef",
+    "existing_projection_sha256": "8615cbb99b453673599e1f9baf54f6900314d7ba64e53a31ea7891c71810b9d7",
+    "local_registry_sha256": "1b8c18618390c4f224634da7a0fe3ee403c2c49f7e1614b941e4332196fc1a83",
+    "source_decision_ledger_sha256": "9da688295717588d553922f448e43b6a27255922bdd8513f3245247e39eaad4a"
+  },
+  "status": "offline_evaluation_candidate_not_runtime",
+  "summary": {
+    "canonical_promotions": 0,
+    "document_count": 5,
+    "evaluation_labels": 0,
+    "existing_corpus_document_count": 42,
+    "id_collisions": 0,
+    "knowledge_type_counts": {
+      "review_family": 5
+    },
+    "network_requests": 0,
+    "normalized_identity_collisions": 0,
+    "postgresql_writes": 0,
+    "reviewed_colors": 0,
+    "runtime_indexed_documents": 0,
+    "source_record_reference_count": 18,
+    "uuid_collisions": 0
+  }
+}

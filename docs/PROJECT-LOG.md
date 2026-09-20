@@ -6653,3 +6653,62 @@ deprecation warning。Private registry SHA-256為
 目前registry仍不是Dual RAG knowledge。下一步應先規劃privacy-bounded knowledge projection與離線retrieval
 evaluation，決定只公開／索引哪些family-level文字，以及如何避免與既有2025 review-family corpus產生ID或
 語意碰撞；在新gate完成前，不應寫PostgreSQL或改production retrieval。
+
+## 2026-09-19 — LRFK-T1–T4：建立5-document private human-knowledge evaluation projection
+
+### 新執行了什麼、解決什麼問題
+
+上一階段已把五個owner decisions物化成review relationships，但registry仍是audit artifact，不適合直接當
+retrieval documents。本輪新增獨立knowledge projection，把每個relationship轉成typed `review_family`
+document，總計5 documents與18筆private source references。這解決了下一階段離線retrieval evaluation需要
+一致文件格式、穩定knowledge key和明確search fields的問題。
+
+Projection狀態是`offline_evaluation_candidate_not_runtime`。這表示資料已準備好接受評估，但API、現有
+Human Knowledge RAG、canonical resolver與Dual RAG runtime完全沒有載入它。把資料準備和runtime integration
+拆成不同gate，可避免「能建立文件」被誤寫成「已證明搜尋品質」。
+
+### 代碼修改了哪一部分、文件模型如何選擇
+
+新增`release_casting_review_knowledge.py`與CLI
+`pvr-project-local-release-review-family-knowledge`。Builder先重跑完整materialization validator，再將每個
+relationship轉為只含`knowledge_type`、review family ID／UUID、identity level/status、brand、casting、
+aliases與source record IDs的document。`review_family_uuid`使用local namespace UUIDv5，提供日後retriever
+需要的穩定typed key，但不會填入canonical UUID欄位。
+
+Searchable allowlist固定為brand、casting與aliases。Owner確認過的observed labels才可成為aliases；source IDs
+只作provenance，不參與搜尋。Toy number、年份、series、variant note、candidate evidence、顏色與release
+attributes都不複製到search surface。這樣可以讓未來benchmark測試名稱辨識，又不讓release-level線索被
+錯當family ground truth。
+
+### 為何需要與既有42-document corpus做collision guard
+
+Repo原本已有一個來自不同2025 Wiki adjudication的42-family projection。如果直接把新5 documents串接進
+runtime，即使UUID不同，也可能因品牌與casting／alias正規化後相同而建立兩份語意重複identity。本輪因此
+同時比較review ID、UUID和normalized brand-plus-name/alias；任一碰撞都fail closed。真實資料的三種結果
+皆為0，所以新projection可以成為未來47-document evaluation candidate，但尚未被授權合併或上線。
+
+這個決定也避免重寫既有`data/review_family_knowledge.json`。舊42 documents和新5 documents各自保留版本、
+hash與authority lineage，之後的evaluation spec必須明確決定如何組合，不能靠檔案append隱性改變document
+frequency和ranking。
+
+### 重跑、隱私、錯誤處理與測試理由
+
+第一次執行建立gitignored private projection與public aggregate；完全相同的第二次回傳`unchanged`，
+`--check`則重建並逐byte比較。Partial pair、existing checksum mismatch、registry/projection tamper、ID／UUID／
+normalized identity collision、duplicate source、conflicting bytes都會拒絕。模擬public write失敗時，本次剛
+建立的private directory會被回滾。
+
+Public manifest只公布source/projection hashes、document/search field names、5/18/42 counts與zero-effect
+boundaries，不含document值、labels、aliases、IDs或source rows。完整projection繼續留在owner-data的
+gitignored路徑，符合先前未取得再發布權的邊界。
+
+### 驗證結果與下一步
+
+13項focused tests與完整686/686 tests PASS；Ruff F/I與format、strict MyPy、compileall、installed CLI
+`--check`、artifact validation、privacy scan與`git diff --check`全部PASS。唯一警告仍是既有Starlette／
+AnyIO deprecation。Private projection SHA-256為
+`32644f9c5b91039fde7b7a9586f8a6bf9479ea7c6878661d329ea53bed4207d8`。
+
+下一步是建立獨立的offline retrieval benchmark。它必須包含非逐字query、alias變體與hard negatives，且
+expected family labels要與retrieval執行分離；不能用這5個文件中的exact casting文字當唯一queries，也不能
+在沒有評估證據前修改Dual RAG runtime。

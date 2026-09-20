@@ -788,6 +788,17 @@ colors, PostgreSQL rows, evaluation labels, and Dual RAG indexing remain unchang
 pvr-materialize-release-casting-review-families --check
 ```
 
+Those five relationships also have a separate private knowledge projection for the next offline
+evaluation gate. Each document is typed `review_family`; only brand, casting, and owner-confirmed
+aliases are future search candidates. The projection checks for ID, UUID, and normalized-name
+collisions against the existing 42-family corpus and currently reports zero. It is not loaded by the
+API or Dual RAG runtime. The committed [public projection summary](reports/local-release-casting-review-family-knowledge-v1/)
+contains only hashes, field allowlists, and aggregate counts.
+
+```bash
+pvr-project-local-release-review-family-knowledge --check
+```
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with

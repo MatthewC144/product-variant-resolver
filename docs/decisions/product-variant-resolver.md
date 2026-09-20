@@ -1646,3 +1646,23 @@ At10×,batch partitioning and registry composition will need explicit collision 
 failure is treating a review relationship as canonical or release-level identity. Grounding/
 authority/scope/integrity/privacy/non-generalization PASS. Evidence:
 `docs/evidence/local-release-casting-review-family-materialization.md`;13 focused/673 full tests PASS.
+
+# D71 — Prepare a private local family corpus before changing Dual RAG runtime
+
+Status:ACCEPTED for LRFK-T1–T4,2026-09-19. Derive five typed`review_family`documents from the private
+local registry,but mark them eligible only for offline retrieval evaluation. Preserve their distinct
+lineage instead of appending them directly to the existing42-document 2025 Wiki projection or
+changing the API/runtime loader in the same feature.
+
+Allow only brand,casting and owner-confirmed observed aliases as future searchable text. Keep source
+IDs as private provenance and omit toy numbers,years,series,variant notes,candidate evidence,color
+and release attributes from the search surface. Generate namespace UUIDv5 keys for typed retrieval;
+they are review knowledge keys,not canonical product UUIDs.
+
+Before publication,compare IDs,UUIDs and normalized brand-plus-casting/alias identities against the
+existing42-family corpus and fail on any collision. Real inputs produce5 documents/18 references/
+0 collisions. Keep full documents gitignored;commit only hashes,allowlists and aggregate counts.
+At10×,collision policy and independent noisy-query evaluation become the bottleneck. Most likely
+failure is treating exact-name wiring as retrieval quality or silently indexing the private corpus.
+Grounding/authority/scope/integrity/privacy/non-generalization PASS. Evidence:
+`docs/evidence/local-release-review-family-knowledge.md`;13 focused/686 full tests PASS.

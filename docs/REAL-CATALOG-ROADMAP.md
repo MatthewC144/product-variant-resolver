@@ -179,3 +179,10 @@ review-layer relationships，引用18筆互不合併且仍為`held_for_variant_r
 0 exclusions aggregate。Candidate evidence維持`context_only_not_selected`；canonical、color、PostgreSQL、
 evaluation與Dual RAG indexing全部仍為0。下一個gate應評估這個registry是否要投影成非canonical的human
 knowledge source，不能直接跳到release promotion。
+
+五個local review families現已另行投影為5個private knowledge documents，涵蓋18筆source references。
+Search candidate allowlist只有brand、casting與owner-confirmed aliases；source IDs僅作private provenance，
+toy number、year、series、variant note與candidate evidence都不進search text。Builder也對既有42-family corpus
+檢查ID、UUID及normalized brand/name/alias，三種collision目前都是0。Projection狀態明確是
+`offline_evaluation_candidate_not_runtime`，因此下一步必須建立獨立holdout，而不是直接把47個family docs
+接入API或用exact indexed names宣稱retrieval accuracy。
