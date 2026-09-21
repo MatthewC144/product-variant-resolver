@@ -38,6 +38,7 @@ pvr-select-human-knowledge-admission = "product_variant_resolver.human_knowledge
 pvr-select-human-knowledge-reranker = "product_variant_resolver.human_knowledge_reranker_development:main"
 pvr-select-human-knowledge-anchor-admission = "product_variant_resolver.human_knowledge_anchor_admission_development:main"
 pvr-evaluate-local-release-review-family-anchor-admission = "product_variant_resolver.release_casting_review_anchor_evaluation:main"
+pvr-develop-human-knowledge-anchor-confidence = "product_variant_resolver.human_knowledge_anchor_confidence_development:main"
 pvr-materialize-embeddings = "product_variant_resolver.postgres_embeddings:main"
 pvr-report = "product_variant_resolver.reporting:main"
 

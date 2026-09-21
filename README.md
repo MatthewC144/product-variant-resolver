@@ -868,6 +868,18 @@ coverage, and ranks stay ignored. See the
 pvr-evaluate-local-release-review-family-anchor-admission --check
 ```
 
+The next public-only experiment tested whether rank 1 could be admitted by a scalar confidence equal
+to the greater of identity-token coverage and character similarity. Its pack froze ten valid noisy
+anchors and twelve corpus-absent casting queries before making 22 retrieval calls. No tested
+threshold passed both recall and abstention gates: 0.61 keeps all known positives but returns output
+for 10/12 absent identities, while 0.625 already loses a positive; even 0.75 leaves 4/12 negatives
+nonempty. The selector therefore returns no winner, and no new private evaluation or runtime change
+is authorized. See the [v4 report](reports/human-knowledge-anchor-confidence-development-v4/selection.md).
+
+```bash
+pvr-develop-human-knowledge-anchor-confidence --check
+```
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with

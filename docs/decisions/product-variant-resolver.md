@@ -1784,3 +1784,24 @@ labels. Runtime/API/PostgreSQL/canonical/release/color integration stays blocked
 is overcorrecting by rejecting valid rank1 typo matches. Integrity/privacy/auditability PASS;
 generalization and safety FAIL. Evidence:`docs/evidence/local-release-review-family-anchor-admission-evaluation-v2.md`;
 10 focused/761 full tests PASS.
+
+# D78 — Reject scalar rank-1 anchor confidence and keep runtime blocked
+
+Status:ACCEPTED for HKAC-T1–T4,2026-09-21. Build a public-only development pack before retrieval:
+ten valid low-coverage rank1 anchors plus twelve casting identities absent from the committed
+142-document corpus. Freeze the formula`max(identity_token_coverage,bounded_character_score)`,the
+0.75 secondary gate,ten rank1 thresholds,source hashes and exact recall/safety gates. Retrieve the
+22 new queries once and reuse those raw rows for every configuration while re-scoring the existing
+223 public rows. Do not read private evaluation artifacts.
+
+No configuration is eligible. Threshold0.61 preserves168/168 existing positives and10/10 anchor
+positives but leaves10/12 missing identities nonempty. Threshold0.625 still leaves10/12 nonempty and
+already falls to167/168 plus9/10. Threshold0.75 leaves4/12 nonempty while retaining only167/168 and
+9/10. The two public signals therefore overlap across valid typo anchors and plausible wrong-family
+neighbors; another scalar cutoff cannot meet both frozen gates.
+
+Preserve the null winner and do not start another private evaluation,activate API/runtime,or invent
+case-specific exceptions. The next development design must add new public candidate-specific
+contradiction or identity-span evidence and freeze it before retrieval. Integrity,privacy,
+auditability and regression behavior PASS;promotion safety FAIL. Evidence:
+`docs/evidence/human-knowledge-anchor-confidence-development-v4.md`;9 focused/770 full tests PASS.

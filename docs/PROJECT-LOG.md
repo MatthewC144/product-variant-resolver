@@ -1,5 +1,55 @@
 # Project Log
 
+## 2026-09-21 — HKAC-T1–T4：公開rank-1 confidence實驗完成，但沒有策略通過安全門檻
+
+### 新執行了什麼、解決什麼問題
+
+前一版private shadow evaluation證明`secondary-075`雖能清掉錯誤的secondary candidates，卻會無條件
+保留錯誤rank 1。本輪沒有把那兩筆private failure拿來調參，而是回到公開資料建立獨立v4 development：
+先從既有公開案例選出10個「rank 1正確、但identity coverage低於0.75」的有效noise anchors，再人工定義
+12個確定不在142-document corpus中的casting identities，要求系統對它們完全abstain。這同時測試兩種
+相反風險：不能因拼字、黏字或縮寫錯殺正確第一名，也不能因manufacturer或相似model名稱而接受錯誤車款。
+
+22題pack與十個門檻的protocol先後凍結，兩個artifact都記錄`retrieval_executed: false`；之後才一次性
+執行22次Top-5 retrieval，得到42個raw candidates。所有門檻重用同一批bytes，並同步重算既有223筆公開
+development rows，因此沒有因重跑搜尋或只看新題而得到偏差結果。整個程式沒有private evaluation路徑，
+也沒有讀取private query、label、candidate或rank。
+
+### 代碼修改了哪裡、原因與技術選型
+
+新增`human_knowledge_anchor_confidence_development.py`與CLI
+`pvr-develop-human-knowledge-anchor-confidence`。Rank 1 confidence固定為identity-token coverage與bounded
+character similarity兩者較大值，因為公開正例顯示coverage最低可到0.333，但字元相似仍能保留拼字／空格
+證據；若直接沿用0.75 coverage會重演已知false negatives。Rank 2–5繼續使用v3已選出的0.75 coverage，
+保持來源順序，不改retriever排序，也不讓Top 5外候選被提升。
+
+固定grid為0、0.5、0.55、0.575、0.6、0.61、0.625、0.65、0.7與0.75。0.61是公開正例最低
+confidence附近的保守上界；後續較高門檻用來確認是否存在能清除hard negatives的分界。選用可解釋的
+deterministic signals而不是新增neural dependency，是因為這階段要先驗證現有證據是否足以作admission，
+而不是讓不透明模型掩蓋資料與標籤不足。Pack、protocol、raw result、source hashes與deterministic
+rescore都可由`--check`驗證；重跑run則回傳`unchanged`，不覆寫一次性結果。
+
+### 實際結果、問題在哪裡與做出的決定
+
+程式、資料完整性與可重現性都通過，但產品策略沒有winner。門檻0.61仍保留168/168既有positives、
+24/24 prior required與10/10新anchor positives，卻有10/12個不存在的casting query仍輸出候選。提高到
+0.625時，missing-identity錯誤仍是10/12，正確召回卻先降為167/168與9/10；即使0.75仍有4/12錯誤
+非空。這表示token coverage與character similarity在「有效拼字變形」和「同品牌相似車名」間高度重疊，
+取兩者最大值再套單一threshold無法分離兩群。
+
+因此本輪保留`winner: null`，不啟動另一輪private evaluation，也不修改API、Dual RAG runtime、
+PostgreSQL、canonical、release或color行為。下一版不能只微調同一數字，應在全新的公開資料上研究
+candidate-specific contradiction或identity span：例如query明確出現候選未能解釋的model token時，
+把它當拒絕證據，而不是只計算「有多少token碰巧相同」。新資料與規則仍須先凍結，private failures
+繼續只作最終測試，不得轉成development labels。
+
+### 驗證結果
+
+9項focused tests覆蓋confidence邊界、rank1／secondary分流、22次exactly-once retrieval、pack／protocol
+byte-idempotence、private-path isolation、frozen artifact重算與null-winner證據。Ruff、format、MyPy、
+compile與installed CLI檢查通過；完整suite為770/770 PASS。唯一訊息是既有Starlette／AnyIO
+deprecation warning，與本次功能無關。
+
 ## 2026-09-21 — LRAE-T1–T4：新版private gate保留正確召回，但rank1誤召回使結果FAIL
 
 ### 新執行了什麼、解決什麼問題
