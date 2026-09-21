@@ -1805,3 +1805,41 @@ case-specific exceptions. The next development design must add new public candid
 contradiction or identity-span evidence and freeze it before retrieval. Integrity,privacy,
 auditability and regression behavior PASS;promotion safety FAIL. Evidence:
 `docs/evidence/human-knowledge-anchor-confidence-development-v4.md`;9 focused/770 full tests PASS.
+
+# D79 — Develop bilateral identity contradiction before another private evaluation
+
+Status:ACCEPTED for HIC planning,2026-09-21. Replace scalar rank1 confidence development with an
+auditable candidate-specific question:after selecting the best query identity span and aligning it
+to casting/approved aliases,do both sides retain incompatible model evidence?Use ordered one-to-one
+alignment,public-corpus IDF residual weights and an explicit same-frame numeric conflict. Preserve
+the existing0.75 secondary gate and source order.
+
+Build a new public24-case pack before retrieval:12 correct rank1 preservation cases not used by v4
+and12 new corpus-absent contradiction cases. Freeze seven policies and exact old/v4/new gates,then
+retrieve each new query once into a label-blind raw artifact before scoring. Do not use private
+failures,series,color,release metadata,IDs or case exceptions.
+
+This choice has a 10x auditability advantage over a neural cross-encoder:every decision identifies
+the aligned span,residual atoms,numeric state and reason code,and the full experiment remains local
+and deterministic. The trade-off is less semantic flexibility. The most likely failure is rejecting
+a legitimate shorthand with bilateral residuals,or accepting a nonnumeric model substitution hidden
+by compact similarity. Exact positive and negative gates test both. Requirements,design and tasks
+were confirmed sequentially;implementation begins with an unfrozen pack constructor only.
+
+# D80 — Reject identity-contradiction v1 for promotion and preserve the null winner
+
+Status:ACCEPTED,2026-09-21. The v1 experiment is valid but no policy is eligible. Baseline preserves
+168/168 existing,10/10 v4 and12/12 new positives,but leaves11/12 v4 and10/12 new absent identities
+nonempty. The strict `contradiction-050` reduces both negative sets to1/12,but recall falls to164/168,
+9/10 and11/12. Thresholds1.00–1.50 preserve the two new positive sets but lose one existing positive
+and still leave five to seven negative cases nonempty.
+
+Keep `winner:null`;do not authorize private evaluation,API/Dual RAG runtime,PostgreSQL,canonical or
+variant behavior. Implementation quality,privacy,integrity,auditability and reproducibility PASS;
+positive-preservation and absent-identity safety cannot pass simultaneously,so promotion FAILS.
+The 10x value retained from D79 is diagnostic transparency:the failure is traceable to specific
+aligned/residual evidence rather than a hidden model score. Its limitation is now measured—a scalar
+bilateral-residual threshold is still insufficient. Preserve v1 source/raw/results immutably;any
+next attempt must use a new public design,version and pre-retrieval freeze rather than retuning v1.
+Evidence:`docs/evidence/human-knowledge-identity-contradiction-development-v1.md`;18 focused/788 full
+tests PASS.

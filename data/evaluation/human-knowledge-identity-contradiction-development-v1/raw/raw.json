@@ -1,0 +1,1239 @@
+{
+  "base_retriever": {
+    "character_rrf_weight": 1.0,
+    "character_score_floor": 0.5,
+    "dense_dimensions": 192,
+    "dense_embedding": "hashing-v1",
+    "version": "human-knowledge-hybrid-v4"
+  },
+  "candidate_limit": 5,
+  "private_local_artifacts_read": false,
+  "protocol_sha256": "eeb30a56e0207dad41e7fa5a6889cef9a8377c05250f31508431e836946a6818",
+  "retrieval_calls": 24,
+  "rows": [
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.7853228344453602,
+          "dense_rank": 1,
+          "dense_score": 0.40657855630736306,
+          "identity_token_coverage": 1.0,
+          "knowledge_id": "fandom-family-0573861db69878eb",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "e6a31104-98fb-5230-8163-2a585b99bfc4",
+          "matched_tokens": [
+            "max"
+          ],
+          "source_rank": 1,
+          "source_rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "hic-pos-01",
+      "case_type": "positive_preservation",
+      "challenge_type": "abbreviation_numeric",
+      "error": null,
+      "query_text": "max st diecast vehicle",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 169,
+        "query_forms": 6,
+        "scored_forms": 81
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.9435253913214288,
+          "dense_rank": 1,
+          "dense_score": 0.5771624213664691,
+          "identity_token_coverage": 1.0,
+          "knowledge_id": "fandom-family-08cb7fadb9fed12d",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "80496fc1-fbe8-59ea-b310-6cd63d806e64",
+          "matched_tokens": [
+            "jeep",
+            "wagoneer"
+          ],
+          "source_rank": 1,
+          "source_rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "hic-pos-02",
+      "case_type": "positive_preservation",
+      "challenge_type": "abbreviation_numeric",
+      "error": null,
+      "query_text": "88 jeep wagoneer diecast vehicle",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 767,
+        "query_forms": 12,
+        "scored_forms": 160
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.9007444144272564,
+          "dense_rank": 1,
+          "dense_score": 0.5561865103932622,
+          "identity_token_coverage": 1.0,
+          "knowledge_id": "fandom-family-1555c05ceeb491cb",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "b702a2cf-94be-5dd6-9382-a9daaace93e1",
+          "matched_tokens": [
+            "audi",
+            "avant",
+            "rs2"
+          ],
+          "source_rank": 1,
+          "source_rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "hic-pos-03",
+      "case_type": "positive_preservation",
+      "challenge_type": "abbreviation_numeric",
+      "error": null,
+      "query_text": "94x audi avant rs2 diecast vehicle",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 1230,
+        "query_forms": 20,
+        "scored_forms": 129
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0,
+          "dense_rank": 1,
+          "dense_score": 0.5698028822981898,
+          "identity_token_coverage": 1.0,
+          "knowledge_id": "fandom-family-174efb9bce3a441e",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "63d66a4a-c106-5a18-b478-8b5ef572db39",
+          "matched_tokens": [
+            "huracán",
+            "lamborghini",
+            "sterrato"
+          ],
+          "source_rank": 1,
+          "source_rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 15.403627240991721
+        },
+        {
+          "casting_id": "human-hot-wheels-lamborghini-sesto-elemento",
+          "character_rank": 2,
+          "character_score": 0.6287545063591652,
+          "dense_rank": 2,
+          "dense_score": 0.104225370463744,
+          "identity_token_coverage": 0.3333333333333333,
+          "knowledge_id": "human-hot-wheels-lamborghini-sesto-elemento-mainline-hw-exotics",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "1448af9f-78d7-55fe-adf8-5e21df6ade73",
+          "matched_tokens": [
+            "lamborghini"
+          ],
+          "source_rank": 2,
+          "source_rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "hic-pos-04",
+      "case_type": "positive_preservation",
+      "challenge_type": "contextual_noise",
+      "error": null,
+      "query_text": "warehouse find Lamborghini Huracán Sterrato unboxed collector sale",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 2,
+        "dense_union": 2,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 10663,
+        "query_forms": 42,
+        "scored_forms": 267
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0,
+          "dense_rank": 1,
+          "dense_score": 0.45122244504817605,
+          "identity_token_coverage": 1.0,
+          "knowledge_id": "fandom-family-18e55e067083dbd1",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "76daff81-50f6-535a-afae-272d523347db",
+          "matched_tokens": [
+            "87",
+            "audi",
+            "quattro"
+          ],
+          "source_rank": 1,
+          "source_rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 15.403627240991721
+        }
+      ],
+      "case_id": "hic-pos-05",
+      "case_type": "positive_preservation",
+      "challenge_type": "contextual_noise",
+      "error": null,
+      "query_text": "warehouse find '87 Audi quattro unboxed collector sale",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 4102,
+        "query_forms": 42,
+        "scored_forms": 221
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.9999999999999999,
+          "dense_rank": 1,
+          "dense_score": 0.6180165405913054,
+          "identity_token_coverage": 1.0,
+          "knowledge_id": "fandom-family-1b2a4227b4e5decd",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "e81a61b9-2dbf-5254-a8dd-c083430928fd",
+          "matched_tokens": [
+            "500",
+            "benz",
+            "e",
+            "mercedes"
+          ],
+          "source_rank": 1,
+          "source_rrf_score": 0.04918032786885246,
+          "sparse_rank": 1,
+          "sparse_score": 19.16924729391541
+        },
+        {
+          "casting_id": "human-hot-wheels-mercedes-benz-sprinter",
+          "character_rank": 2,
+          "character_score": 0.753941222057298,
+          "dense_rank": 2,
+          "dense_score": 0.027681826617913324,
+          "identity_token_coverage": 0.6666666666666666,
+          "knowledge_id": "human-hot-wheels-mercedes-benz-sprinter-car-culture-premium-deutschland-design",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "3c179714-b537-59e6-a954-82720906012d",
+          "matched_tokens": [
+            "benz",
+            "mercedes"
+          ],
+          "source_rank": 2,
+          "source_rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": null,
+          "character_rank": 3,
+          "character_score": 0.5909126511662932,
+          "dense_rank": 3,
+          "dense_score": 0.0,
+          "identity_token_coverage": 0.5,
+          "knowledge_id": "fandom-family-85226ac5ac0d3f77",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "eeb124d9-93e6-5c63-9578-24e3f843df96",
+          "matched_tokens": [],
+          "source_rank": 3,
+          "source_rrf_score": 0.031746031746031744,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "hic-pos-06",
+      "case_type": "positive_preservation",
+      "challenge_type": "contextual_noise",
+      "error": null,
+      "query_text": "warehouse find Mercedes-Benz 500 E unboxed collector sale",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 3,
+        "dense_union": 3,
+        "exact_candidates": 1,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 7813,
+        "query_forms": 56,
+        "scored_forms": 239
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.762475935762317,
+          "dense_rank": 1,
+          "dense_score": 0.46695730833073895,
+          "identity_token_coverage": 1.0,
+          "knowledge_id": "fandom-family-356e4ef63275a661",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "9a6d9a47-4b73-57ff-984e-99e504ee587d",
+          "matched_tokens": [
+            "d",
+            "fish"
+          ],
+          "source_rank": 1,
+          "source_rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "hic-pos-07",
+      "case_type": "positive_preservation",
+      "challenge_type": "single_edit",
+      "error": null,
+      "query_text": "fish d chp d loose collector piece",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 880,
+        "query_forms": 18,
+        "scored_forms": 119
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.917800972459172,
+          "dense_rank": 1,
+          "dense_score": 0.4894906940904388,
+          "identity_token_coverage": 1.0,
+          "knowledge_id": "fandom-family-39b248ce2f3723cd",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "8b784ccf-938c-593f-9926-df0b038dcfdd",
+          "matched_tokens": [
+            "e",
+            "gen",
+            "twin"
+          ],
+          "source_rank": 1,
+          "source_rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": null,
+          "character_rank": 2,
+          "character_score": 0.7299690792973899,
+          "dense_rank": 2,
+          "dense_score": 0.24880667576405963,
+          "identity_token_coverage": 0.6666666666666666,
+          "knowledge_id": "fandom-family-d5c83bb87be8cab0",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "ca29331e-5db5-5396-aa2b-02fadd13acec",
+          "matched_tokens": [
+            "twin"
+          ],
+          "source_rank": 2,
+          "source_rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "hic-pos-08",
+      "case_type": "positive_preservation",
+      "challenge_type": "single_edit",
+      "error": null,
+      "query_text": "twin mil gen e loose collector piece",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 2,
+        "dense_union": 2,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 1092,
+        "query_forms": 20,
+        "scored_forms": 109
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.7883903693169425,
+          "dense_rank": 1,
+          "dense_score": 0.2866649112918436,
+          "identity_token_coverage": 1.0,
+          "knowledge_id": "fandom-family-3c9f928f085efaae",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "6dac43c2-e013-53d7-a22d-60829a90edb4",
+          "matched_tokens": [
+            "kick"
+          ],
+          "source_rank": 1,
+          "source_rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "hic-pos-09",
+      "case_type": "positive_preservation",
+      "challenge_type": "single_edit",
+      "error": null,
+      "query_text": "kick kat loose collector piece",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 163,
+        "query_forms": 6,
+        "scored_forms": 58
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0,
+          "dense_rank": 1,
+          "dense_score": 0.45825756949558394,
+          "identity_token_coverage": 1.0,
+          "knowledge_id": "fandom-family-440103f8ef3c6b70",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "6ba4fb4a-beb8-5315-a1a9-a81ae1b2869e",
+          "matched_tokens": [],
+          "source_rank": 1,
+          "source_rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "hic-pos-10",
+      "case_type": "positive_preservation",
+      "challenge_type": "spacing_punctuation",
+      "error": null,
+      "query_text": "carded haule rback miniature",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 389,
+        "query_forms": 6,
+        "scored_forms": 150
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.9999999999999999,
+          "dense_rank": 1,
+          "dense_score": 0.5090150896146575,
+          "identity_token_coverage": 1.0,
+          "knowledge_id": "fandom-family-45af5b93f3f6650f",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "bd871995-1ec2-5b3d-a50d-acbcb0d09693",
+          "matched_tokens": [],
+          "source_rank": 1,
+          "source_rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "hic-pos-11",
+      "case_type": "positive_preservation",
+      "challenge_type": "spacing_punctuation",
+      "error": null,
+      "query_text": "carded customcadillacfleetwood miniature",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 498,
+        "query_forms": 2,
+        "scored_forms": 180
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 1.0000000000000002,
+          "dense_rank": 1,
+          "dense_score": 0.3698977214370539,
+          "identity_token_coverage": 1.0,
+          "knowledge_id": "fandom-family-4bf5341a133d433b",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "8f8ccc44-46e2-5425-b019-3d4bf4362b4e",
+          "matched_tokens": [],
+          "source_rank": 1,
+          "source_rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "hic-pos-12",
+      "case_type": "positive_preservation",
+      "challenge_type": "spacing_punctuation",
+      "error": null,
+      "query_text": "carded hirohatamerc miniature",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 316,
+        "query_forms": 2,
+        "scored_forms": 179
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": "human-hot-wheels-honda-civic-ef",
+          "character_rank": 4,
+          "character_score": 0.5146862941692809,
+          "dense_rank": 1,
+          "dense_score": 0.2039985080380251,
+          "identity_token_coverage": 0.3333333333333333,
+          "knowledge_id": "human-hot-wheels-honda-civic-ef-mainline-green-jdm",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "26be28dd-9f6f-5cbf-b974-3f6b13bb299e",
+          "matched_tokens": [
+            "honda"
+          ],
+          "source_rank": 1,
+          "source_rrf_score": 0.032018442622950824,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-honda-cr-x",
+          "character_rank": 1,
+          "character_score": 0.6561321528153669,
+          "dense_rank": 4,
+          "dense_score": 0.09649311587672486,
+          "identity_token_coverage": 0.3333333333333333,
+          "knowledge_id": "human-hot-wheels-honda-cr-x-silver-series-peanuts",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "76228439-893c-5f89-9040-ac1d72cd05e1",
+          "matched_tokens": [
+            "honda"
+          ],
+          "source_rank": 2,
+          "source_rrf_score": 0.032018442622950824,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-88-honda-cr-x",
+          "character_rank": 2,
+          "character_score": 0.5301767159072693,
+          "dense_rank": 3,
+          "dense_score": 0.1351194338753252,
+          "identity_token_coverage": 0.25,
+          "knowledge_id": "human-hot-wheels-88-honda-cr-x-street-racers-street-racers",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "9aa31d37-132e-5ff0-8bee-849f9f7ebbe2",
+          "matched_tokens": [
+            "honda"
+          ],
+          "source_rank": 3,
+          "source_rrf_score": 0.03200204813108039,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-honda-civic-eg",
+          "character_rank": 3,
+          "character_score": 0.5165321151830401,
+          "dense_rank": 2,
+          "dense_score": 0.18154614229592214,
+          "identity_token_coverage": 0.3333333333333333,
+          "knowledge_id": "human-hot-wheels-honda-civic-eg-premium-fast-furious",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "a89d4de3-69d2-5f8a-9256-4832b786a8fe",
+          "matched_tokens": [
+            "honda"
+          ],
+          "source_rank": 4,
+          "source_rrf_score": 0.03200204813108039,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "hic-neg-01-honda-prelude",
+      "case_type": "absent_identity_contradiction",
+      "challenge_type": "same_maker_model_substitution",
+      "error": null,
+      "query_text": "loose Honda Prelude coupe collector model",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 4,
+        "dense_union": 4,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 1486,
+        "query_forms": 12,
+        "scored_forms": 186
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 2,
+          "character_score": 0.6507856793620262,
+          "dense_rank": 1,
+          "dense_score": 0.21128856368212917,
+          "identity_token_coverage": 0.5,
+          "knowledge_id": "fandom-family-aec11693bfe04245",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "1a0cf712-68d0-5c29-b677-78d15b0dd604",
+          "matched_tokens": [
+            "mazda"
+          ],
+          "source_rank": 1,
+          "source_rrf_score": 0.03252247488101534,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-mazda-rx7",
+          "character_rank": 1,
+          "character_score": 0.6921078525055782,
+          "dense_rank": 3,
+          "dense_score": -0.005884389414473133,
+          "identity_token_coverage": 0.5,
+          "knowledge_id": "human-hot-wheels-mazda-rx7-mainline-blue",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "bfe91ce3-044b-5141-812a-0274f48560ce",
+          "matched_tokens": [
+            "mazda"
+          ],
+          "source_rank": 2,
+          "source_rrf_score": 0.032266458495966696,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": null,
+          "character_rank": 3,
+          "character_score": 0.5300864115302897,
+          "dense_rank": 2,
+          "dense_score": 0.12866255886641637,
+          "identity_token_coverage": 0.5,
+          "knowledge_id": "fandom-family-e7d4d8cf1dd8c6e1",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "39731a3b-9b07-558a-a29b-76781343d5ba",
+          "matched_tokens": [
+            "mazda"
+          ],
+          "source_rank": 3,
+          "source_rrf_score": 0.03200204813108039,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "hic-neg-02-mazda-mx30",
+      "case_type": "absent_identity_contradiction",
+      "challenge_type": "same_maker_model_substitution",
+      "error": null,
+      "query_text": "Mazda MX-30 electric crossover miniature",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 3,
+        "dense_union": 3,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 3691,
+        "query_forms": 30,
+        "scored_forms": 237
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": "human-hot-wheels-bugatti-veyron",
+          "character_rank": 1,
+          "character_score": 0.6780313897365295,
+          "dense_rank": 2,
+          "dense_score": 0.09840627249521833,
+          "identity_token_coverage": 0.5,
+          "knowledge_id": "human-hot-wheels-bugatti-veyron-1-4-mile-finals-1-4-mile-finals",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "4b7020dd-da61-560e-8aa5-9ffaa233cb4a",
+          "matched_tokens": [
+            "bugatti"
+          ],
+          "source_rank": 1,
+          "source_rrf_score": 0.03252247488101534,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-16-bugatti-chiron",
+          "character_rank": 2,
+          "character_score": 0.6425957201607316,
+          "dense_rank": 1,
+          "dense_score": 0.15559397856603546,
+          "identity_token_coverage": 0.3333333333333333,
+          "knowledge_id": "human-hot-wheels-16-bugatti-chiron-mainline-hw-exotics",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "c899ab91-3dcc-5f18-a830-560dd7a4b2de",
+          "matched_tokens": [
+            "bugatti"
+          ],
+          "source_rank": 2,
+          "source_rrf_score": 0.03252247488101534,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "hic-neg-03-bugatti-bolide",
+      "case_type": "absent_identity_contradiction",
+      "challenge_type": "same_maker_model_substitution",
+      "error": null,
+      "query_text": "Bugatti Bolide hypercar display model",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 2,
+        "dense_union": 2,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 1348,
+        "query_forms": 12,
+        "scored_forms": 199
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": "human-hot-wheels-nissan-skyline-gtr-r34",
+          "character_rank": 2,
+          "character_score": 0.9053958604528906,
+          "dense_rank": 2,
+          "dense_score": 0.34763068252863805,
+          "identity_token_coverage": 0.75,
+          "knowledge_id": "human-hot-wheels-nissan-skyline-gtr-r34-premium-fast-furious-superstars",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "1e1be4a7-030e-5d53-9bc8-df4cd55ffde1",
+          "matched_tokens": [
+            "nissan",
+            "skyline"
+          ],
+          "source_rank": 1,
+          "source_rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-nissan-skyline-rs",
+          "character_rank": 1,
+          "character_score": 0.928269141287037,
+          "dense_rank": 4,
+          "dense_score": 0.2569239871417492,
+          "identity_token_coverage": 0.6666666666666666,
+          "knowledge_id": "human-hot-wheels-nissan-skyline-rs-the-hot-ones-the-hot-ones",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "47fbe5d3-ac95-5c39-aea9-0b569c7acd4d",
+          "matched_tokens": [
+            "nissan",
+            "skyline"
+          ],
+          "source_rank": 2,
+          "source_rrf_score": 0.032018442622950824,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-nissan-skyline-rs-kdr30",
+          "character_rank": 4,
+          "character_score": 0.7530106414302927,
+          "dense_rank": 1,
+          "dense_score": 0.3642236083058298,
+          "identity_token_coverage": 0.5,
+          "knowledge_id": "human-hot-wheels-nissan-skyline-rs-kdr30-mainline-j-imports-purple",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "ede0706b-cfc7-5cca-a18a-973897cddd87",
+          "matched_tokens": [
+            "nissan",
+            "skyline"
+          ],
+          "source_rank": 3,
+          "source_rrf_score": 0.032018442622950824,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-nissan-skyline-gtr-bnr34",
+          "character_rank": 3,
+          "character_score": 0.8073200725620081,
+          "dense_rank": 3,
+          "dense_score": 0.2721529679604413,
+          "identity_token_coverage": 0.75,
+          "knowledge_id": "human-hot-wheels-nissan-skyline-gtr-bnr34-mainline-blue-2026-k-case",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "ff06387d-a01d-5e4b-baae-180b8f3bab1c",
+          "matched_tokens": [
+            "nissan",
+            "skyline"
+          ],
+          "source_rank": 4,
+          "source_rrf_score": 0.031746031746031744,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-nissan-leaf-nismo-rc",
+          "character_rank": 5,
+          "character_score": 0.5399574132075639,
+          "dense_rank": 5,
+          "dense_score": 0.13463194812535487,
+          "identity_token_coverage": 0.25,
+          "knowledge_id": "human-hot-wheels-nissan-leaf-nismo-rc-mainline-treasure-hunt",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "d284fa7d-d89d-5223-92ba-41cae44afa4c",
+          "matched_tokens": [
+            "nissan"
+          ],
+          "source_rank": 5,
+          "source_rrf_score": 0.03076923076923077,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "hic-neg-04-nissan-r33",
+      "case_type": "absent_identity_contradiction",
+      "challenge_type": "same_stem_numeric_conflict",
+      "error": null,
+      "query_text": "Nissan Skyline GT-R R33 carded model",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 5,
+        "dense_union": 5,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 3435,
+        "query_forms": 30,
+        "scored_forms": 168
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": "human-matchbox-2023-bmw-m2",
+          "character_rank": 2,
+          "character_score": 0.681643210151089,
+          "dense_rank": 1,
+          "dense_score": 0.2045102274429838,
+          "identity_token_coverage": 0.6666666666666666,
+          "knowledge_id": "human-matchbox-2023-bmw-m2-match-box-mainline-red",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "ad31f643-ca49-5653-8426-27d3bd8ec174",
+          "matched_tokens": [
+            "bmw",
+            "m2"
+          ],
+          "source_rank": 1,
+          "source_rrf_score": 0.03252247488101534,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-bmw-m1",
+          "character_rank": 1,
+          "character_score": 0.6999634617715306,
+          "dense_rank": 3,
+          "dense_score": -0.019359674195772936,
+          "identity_token_coverage": 0.5,
+          "knowledge_id": "human-hot-wheels-bmw-m1-walmart-exclusive-walmart-exclusive-red",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "4cb5ae0b-5f99-5fd1-8b95-9cef42158ff9",
+          "matched_tokens": [
+            "bmw"
+          ],
+          "source_rank": 2,
+          "source_rrf_score": 0.032266458495966696,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-bmw-m3-gt2",
+          "character_rank": 3,
+          "character_score": 0.5109558693337176,
+          "dense_rank": 2,
+          "dense_score": 0.07352146220938077,
+          "identity_token_coverage": 0.3333333333333333,
+          "knowledge_id": "human-hot-wheels-bmw-m3-gt2-neon-speeders-neon-speeders",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "4721e966-c0ef-5009-8444-9d772a12f7ae",
+          "matched_tokens": [
+            "bmw"
+          ],
+          "source_rank": 3,
+          "source_rrf_score": 0.03200204813108039,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "hic-neg-05-bmw-m2",
+      "case_type": "absent_identity_contradiction",
+      "challenge_type": "same_stem_numeric_conflict",
+      "error": null,
+      "query_text": "premium BMW M2 competition coupe",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 3,
+        "dense_union": 3,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 2767,
+        "query_forms": 30,
+        "scored_forms": 188
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.7339283195572905,
+          "dense_rank": 1,
+          "dense_score": 0.4257997168527446,
+          "identity_token_coverage": 0.25,
+          "knowledge_id": "fandom-family-a1b198f7d235f778",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "f7fa5052-cef7-59e4-b861-86367745300c",
+          "matched_tokens": [
+            "performance"
+          ],
+          "source_rank": 1,
+          "source_rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-tesla-model-s-plaid",
+          "character_rank": 2,
+          "character_score": 0.5917506748848816,
+          "dense_rank": 2,
+          "dense_score": 0.23452893149823123,
+          "identity_token_coverage": 0.3333333333333333,
+          "knowledge_id": "human-hot-wheels-tesla-model-s-plaid-mainline-red",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "a9246e30-e08c-5d32-a3b4-045742e8aabc",
+          "matched_tokens": [
+            "tesla"
+          ],
+          "source_rank": 2,
+          "source_rrf_score": 0.03225806451612903,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-08-tesla-roadster",
+          "character_rank": 3,
+          "character_score": 0.5241785627910919,
+          "dense_rank": 3,
+          "dense_score": 0.052936029804900614,
+          "identity_token_coverage": 0.3333333333333333,
+          "knowledge_id": "human-hot-wheels-08-tesla-roadster-hot-wheels-tesla-greetings-from-space",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "e414ef07-58a4-5257-a574-97b0170819b8",
+          "matched_tokens": [
+            "tesla"
+          ],
+          "source_rank": 3,
+          "source_rrf_score": 0.031746031746031744,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "hic-neg-06-tesla-model-y",
+      "case_type": "absent_identity_contradiction",
+      "challenge_type": "same_stem_numeric_conflict",
+      "error": null,
+      "query_text": "Tesla Model Y performance diecast",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 3,
+        "dense_union": 3,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 1533,
+        "query_forms": 12,
+        "scored_forms": 216
+      }
+    },
+    {
+      "candidates": [],
+      "case_id": "hic-neg-07-mercedes-c63s",
+      "case_type": "absent_identity_contradiction",
+      "challenge_type": "compact_or_punctuated_conflict",
+      "error": null,
+      "query_text": "MercedesAMGC63S boxed miniature",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 0,
+        "dense_union": 0,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 287,
+        "query_forms": 2,
+        "scored_forms": 148
+      }
+    },
+    {
+      "candidates": [],
+      "case_id": "hic-neg-08-toyota-gr86",
+      "case_type": "absent_identity_contradiction",
+      "challenge_type": "compact_or_punctuated_conflict",
+      "error": null,
+      "query_text": "ToyotaGR86 loose collector car",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 0,
+        "dense_union": 0,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 179,
+        "query_forms": 2,
+        "scored_forms": 64
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": "human-hot-wheels-70-chevelle-ss-wagon",
+          "character_rank": 1,
+          "character_score": 0.5080671220618862,
+          "dense_rank": 1,
+          "dense_score": 0.10739464446329758,
+          "identity_token_coverage": 0.25,
+          "knowledge_id": "human-hot-wheels-70-chevelle-ss-wagon-mainline-blue",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "32782cde-954a-5509-9fb1-11120045c986",
+          "matched_tokens": [
+            "wagon"
+          ],
+          "source_rank": 1,
+          "source_rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "hic-neg-09-audi-rs6",
+      "case_type": "absent_identity_contradiction",
+      "challenge_type": "compact_or_punctuated_conflict",
+      "error": null,
+      "query_text": "AudiRS6Avant premium wagon",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 1021,
+        "query_forms": 12,
+        "scored_forms": 183
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.7342371784168311,
+          "dense_rank": 1,
+          "dense_score": 0.42251554066607155,
+          "identity_token_coverage": 0.25,
+          "knowledge_id": "fandom-family-a1b198f7d235f778",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "f7fa5052-cef7-59e4-b861-86367745300c",
+          "matched_tokens": [
+            "performance"
+          ],
+          "source_rank": 1,
+          "source_rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "hic-neg-10-hyundai-ioniq5n",
+      "case_type": "absent_identity_contradiction",
+      "challenge_type": "cross_maker_descriptor_overlap",
+      "error": null,
+      "query_text": "Hyundai Ioniq 5 N performance miniature",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 3235,
+        "query_forms": 30,
+        "scored_forms": 224
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.7339283195572905,
+          "dense_rank": 1,
+          "dense_score": 0.39015706176968773,
+          "identity_token_coverage": 0.25,
+          "knowledge_id": "fandom-family-a1b198f7d235f778",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "f7fa5052-cef7-59e4-b861-86367745300c",
+          "matched_tokens": [
+            "performance"
+          ],
+          "source_rank": 1,
+          "source_rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-dodge-van",
+          "character_rank": 2,
+          "character_score": 0.7114589867161099,
+          "dense_rank": 3,
+          "dense_score": 0.018839442097022485,
+          "identity_token_coverage": 0.5,
+          "knowledge_id": "human-hot-wheels-dodge-van-mainline-hw-metro-best-buy-exclusive",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "f69893d6-6738-5e04-b616-daf022aa9eea",
+          "matched_tokens": [
+            "dodge"
+          ],
+          "source_rank": 2,
+          "source_rrf_score": 0.03200204813108039,
+          "sparse_rank": null,
+          "sparse_score": null
+        },
+        {
+          "casting_id": "human-hot-wheels-dodge-challenger",
+          "character_rank": 3,
+          "character_score": 0.556259056678905,
+          "dense_rank": 2,
+          "dense_score": 0.0643848442047141,
+          "identity_token_coverage": 0.5,
+          "knowledge_id": "human-hot-wheels-dodge-challenger-mainline-hw-speed-graphics",
+          "knowledge_type": "provisional_variant",
+          "knowledge_uuid": "fe2ecfa4-20dc-5f5c-8819-1f9c04b04d89",
+          "matched_tokens": [
+            "dodge"
+          ],
+          "source_rank": 3,
+          "source_rrf_score": 0.03200204813108039,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "hic-neg-11-dodge-viper",
+      "case_type": "absent_identity_contradiction",
+      "challenge_type": "cross_maker_descriptor_overlap",
+      "error": null,
+      "query_text": "Dodge Viper GTS performance coupe model",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 3,
+        "dense_union": 3,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 5599,
+        "query_forms": 30,
+        "scored_forms": 232
+      }
+    },
+    {
+      "candidates": [
+        {
+          "casting_id": null,
+          "character_rank": 1,
+          "character_score": 0.7339283195572905,
+          "dense_rank": 1,
+          "dense_score": 0.3742988463794622,
+          "identity_token_coverage": 0.25,
+          "knowledge_id": "fandom-family-a1b198f7d235f778",
+          "knowledge_type": "review_family",
+          "knowledge_uuid": "f7fa5052-cef7-59e4-b861-86367745300c",
+          "matched_tokens": [
+            "performance"
+          ],
+          "source_rank": 1,
+          "source_rrf_score": 0.03278688524590164,
+          "sparse_rank": null,
+          "sparse_score": null
+        }
+      ],
+      "case_id": "hic-neg-12-kia-ev6",
+      "case_type": "absent_identity_contradiction",
+      "challenge_type": "cross_maker_descriptor_overlap",
+      "error": null,
+      "query_text": "Kia EV6 GT performance diecast vehicle",
+      "work": {
+        "abstention_reason": null,
+        "character_candidates": 1,
+        "dense_union": 1,
+        "exact_candidates": 0,
+        "policy_version": "identity-core-policy-v1",
+        "posting_entries_visited": 2082,
+        "query_forms": 20,
+        "scored_forms": 222
+      }
+    }
+  ],
+  "schema_version": "pvr-human-knowledge-identity-contradiction-raw-v1",
+  "status": "label_blind_raw_retrieval_complete",
+  "version": "human-knowledge-identity-contradiction-development-v1"
+}

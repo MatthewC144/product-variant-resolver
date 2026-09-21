@@ -1,5 +1,195 @@
 # Project Log
 
+## 2026-09-21 — HIC規劃啟動：把下一個問題改成candidate-specific identity contradiction
+
+### 新執行了什麼、解決什麼問題
+
+Anchor-confidence v4已證明單一threshold無法把正確拼字變形與相似錯誤車款分開。本步先進入Lite規格
+階段，建立`human-knowledge-identity-contradiction-development/requirements.md`，把下一個問題改寫成：
+「query是否包含與某一candidate互相矛盾的casting identity證據」。例如`R32`對`R34`應被視為數字
+model conflict，而不是因為大部分字元相似就通過。
+
+公開資料可行性盤點顯示，排除v4已使用的10筆低coverage positives後，仍有156筆既有公開正確rank-1
+案例可供新正例選擇。因此需求要求新pack使用12筆未被v4用過的正例、至少10個不同documents，並搭配
+12筆全新的corpus-absent identities；不需要讀取private資料，也不需要把private failures改造成測試題。
+
+### 為何先寫需求、尚未直接改程式
+
+本輪會新增one-to-one alignment、unmatched identity-bearing tokens、numeric conflict與reason codes，技術
+決定會直接影響哪些合法拼字應保留。若先寫code再定義gate，很容易看到結果後降低標準。因此依Lite
+`spec-dev-loop`先固定11項可驗收requirements，包括24題先凍結、每題只retrieve一次、只允許casting／
+approved aliases、禁止case-specific exceptions、完整舊／新recall與zero-negative gates，以及無winner時
+fail closed。Requirements已由owner以「繼續下一步」確認；確認前沒有把design、tasks或實作視為已批准。
+
+確認後已新增`design.md`。設計不再用候選整體similarity直接決定，而是先從query選出與casting／alias
+最吻合的連續identity span，再做ordered one-to-one atom alignment。雙方無法對齊的identity atoms依公開
+142-document corpus IDF加權，只有query與candidate兩側都留下證據時才形成bilateral contradiction；這可
+避免單純seller文字或candidate可省略前綴造成誤殺。
+
+數字型號另設優先規則：相同alphabetic model frame但digit run不同，例如`R32`／`R34`或`M4`／`M1`，
+不能被高character similarity掩蓋；`o`／`0`與`i`、`l`／`1`只有在替換後完全一致時才記為OCR substitution。
+固定grid包含baseline、numeric-only與五個bilateral residual門檻，rank2–5仍沿用coverage 0.75。Raw retrieval
+會先獨立保存且不含expected labels，之後才score；如此可稽核「先觀察模型輸出、後讀答案」的順序。
+Design已由owner以「請繼續執行」確認，尚未凍結pack／protocol或執行任何新retrieval。規格階段接著
+新增`tasks.md`，把工作拆成六個依序gate：先建立未凍結pack constructor，再完成alignment／collection／
+scoring與integrity engine；只有靜態與focused QA通過後才能凍結pack和protocol，接著才能一次性collect，
+最後才score、做完整QA與文件／GitHub交付。
+
+這個順序特別把「程式碼可修改」邊界放在freeze之前。Task 3綁定source hash後，後續不得再修改development
+module；如果此時發現產品碼錯誤，必須保留v1證據並開新version，不能覆寫raw或偷偷重跑。Tasks目前等待
+owner以「請幫我繼續執行」確認，G1*因此完成並記錄D79；HIC-T1開始，但仍不凍結artifact或執行retrieval。
+
+HIC-T1正例採四種既有public challenge styles各3筆，總計12筆且分屬12個knowledge documents；這些
+source case ID都未被v4的10筆anchor-positive使用。負例也固定四類各3筆：同manufacturer換model、同stem
+數字衝突、compact／punctuation衝突、跨manufacturer descriptor overlap。初步exact normalized identity
+盤點確認12個新名稱都不在142-document corpus；builder仍會在每次執行時重新驗證，而不信任這次口頭盤點。
+
+HIC-T1現已實作完成。新增的development module目前只負責讀取committed public corpus、既有public pack、
+公開v2 raw report與v4 pack，重新驗證正例確實是correct source-rank-1，再建立expected target；負例則逐筆
+驗證完整normalized identity不存在於任何casting／approved alias，且identity與query都沒有重複v4。選擇
+explicit source IDs而不是執行時任選前12筆，是為了讓案例順序、document分布與challenge balance可稽核；
+builder仍會以upstream bytes驗證這些選擇，來源漂移時fail closed。
+
+本步新增4項focused tests，覆蓋12+12分母與唯一ID、12個distinct positive documents、四種正／負challenge
+各3筆、corpus absence、v4 exclusion、deterministic output、private-path isolation與零retrieval implementation。
+Ruff、format、MyPy、compile與4/4 focused tests通過。沒有建立pack directory、沒有凍結source hash，也沒有
+執行retrieval；下一步HIC-T2才會在freeze之前完成alignment、collection、scoring、CLI與integrity engine。
+
+HIC-T2的第一輪focused alignment tests在freeze前發現原design tie-breaker會偏好residual較少的過短span：
+`Honda Prelude`對`Honda Civic EG`可能只選`Honda`，使query residual錯誤歸零；`Tesla Roadster`也可能由
+`08 Tesla Roadster`的compact similarity吞掉缺少的`08`。這是設計錯誤，不是資料結果，因此在任何pack／
+protocol／raw artifact建立前回到design修正。新規則先最大化candidate identity被解釋的IDF比例，再比較
+matched weight與query／candidate atom數差；compact fuzzy若digit runs不同也不得match，合法`o`／`0` OCR
+完全替換仍保留。修正已同步到design，沒有使用任何private evidence。
+
+HIC-T2現已完成完整但尚未凍結的engine。`atomize`先使用既有identity-core normalization，再把`R32`、
+`MX-5`等拆成保留source token與offset的alphabetic／numeric atoms；ordered dynamic programming只允許
+不交叉、不重用的exact、prefix、atomic fuzzy、compact與OCR alignment。IDF只由142份public documents
+計算，unknown query atom使用最大權重；最終bilateral residual取query與candidate residual較小值，確保
+單側多出的seller wording或可省略candidate prefix本身不會造成拒絕。
+
+新增七組固定policies、rank2–5 coverage 0.75、label-blind raw schema、pack／protocol／raw／selection
+manifests、byte-idempotent freeze helpers、exactly-once collection、existing 223＋v4 22＋new 24 rescore、
+deterministic winner/null selector與五階段CLI。`--collect`只寫raw，`--score`只能讀既有raw；`--check`
+只驗證並重算，不含retrieval。Scoring exception會形成明確failed gate，不會被當成abstention success。
+
+本功能17項focused tests覆蓋pack、atom offsets、ordered one-to-one alignment、R32／R34 numeric conflict、
+Fiat`5o0e` OCR保留、alias span、bilateral residual、secondary gate、七組protocol、24次collection且raw無
+expected label、byte-idempotence、source order、reason codes、nonfinite tamper、CLI contract與12/12＋0/12
+新gate。連同三個既有相關evaluation modules共51/51 tests通過；Ruff、format、MyPy、compile皆通過。
+離線對既有223與v4 22 raw rows建立evidence時contradiction errors皆為0。仍未建立任何v1 data directory，
+下一步HIC-T3會先做pre-freeze QA，再依序凍結pack與protocol；freeze之後development source不得再修改。
+
+### HIC-T3：通過pre-freeze gate並凍結pack與protocol
+
+本步先重跑所有會在凍結前影響設計判斷的驗證：Ruff format/check、MyPy、compile、17項
+HIC focused tests、51項HIC與既有anchor/admission/reranker regression tests，以及完整787項
+repository tests全數通過。唯一警告來自第三方Starlette TestClient使用已棄用的AnyIO alias，
+與本次identity contradiction邏輯無關，也沒有失敗測試。
+
+驗證通過後才依序執行`--freeze-pack`與`--freeze-protocol`。Pack固定12筆positive
+preservation與12筆absent-identity contradiction，四種正例與四種負例challenge都是各3筆；
+protocol固定7個policies，並綁定既有公開223題、v4 22題與新24題的分母。這個順序解決
+「先看retrieval結果再改題目或門檻」的污染風險；兩個artifacts皆明確記錄
+`status: frozen_before_retrieval`、`retrieval_executed: false`與`private_local_artifacts_read: false`。
+
+為了證明凍結不是「每次重生一個差不多的檔案」，兩個freeze commands都立即重跑，回傳
+`unchanged`且四個JSON/manifest的bytes與SHA-256完全不變。Pack與manifest hashes分別為
+`e86bb87f5c37b951482a782af09742617bc1820fe4bca3faacf122beb0f8e08c`與
+`fe4cab04f3e45142f3d5160e5405d94fe5cbddfd2c75b34493b6a5e507f6ae9f`；protocol與manifest為
+`eeb30a56e0207dad41e7fa5a6889cef9a8377c05250f31508431e836946a6818`與
+`e6c5c262525868b4917e8bf6efd0c0b37c797fa4c9d3e3ebfe23f88a0f45ad0e`。Development source hash在凍結
+前後均為`167c03a5e19fae47eb867b8101c26f1c5bf49ca2c80fb2eb9a4e8bfa0660825f`，從現在到HIC-T6
+都不得再修改這支source；若之後發現產品碼錯誤，必須保留v1並開新version。
+
+本步沒有執行`--collect`，因此raw與report directories仍不存在，retrieval調用數仍為0。
+下一步HIC-T4才是第一個不可逆的資料收集gate：對已凍結的24個queries各執行一次Top-5
+retrieval，先儲存不含expected labels的raw bytes，之後才能在HIC-T5評分。
+
+### HIC-T4：一次性收集24題label-blind raw retrieval
+
+本步先重新檢查source、pack、protocol與兩個manifests的SHA-256，並重跑兩個freeze commands確認
+仍為`unchanged`。在raw與report directories均不存在的前提下，才執行唯一一次
+`--collect`；系統對凍結的24個queries各執行一次Top-5 retrieval，回報`created`與
+`retrieval_calls: 24`。這解決了不同policy若各自重跑檢索，可能因輸入漂移而無法公平比較的問題；
+HIC-T5的七個policies將共用這一份raw bytes。
+
+Raw artifact共有24 rows與42 candidates：12筆positive-preservation與12筆absent-identity-contradiction
+都完整，retrieval error為0。個別query可能只有0至5個candidates，這是Top-5的上限而不是強制
+補齊；保留空結果比用低品質候選補滿更能真實反映retriever的行為。內建validator逐筆檢查
+candidate的public corpus UUID、source rank、dense/sparse/character分數與query work；24筆全部通過。
+
+Raw schema只含query、candidate、rank、retrieval work與error。遞迴欄位掃描找不到任何`expected`或
+`label`，manifest也明確記錄`expected_labels_present: false`與`private_local_artifacts_read: false`。
+這樣設計是為了證明「先固定模型看到的檢索結果，之後才用答案評分」，不讓expected target
+進入collection階段影響結果。
+
+第二次執行`--collect`時，collector因raw directory已存在而只執行validation，立即回傳
+`unchanged`；沒有新的retrieval call。Raw與manifest SHA-256分別固定為
+`3ea4a12f36e671b2acfd5d0b7e2ad1cc9ac4705a8b6ad796f7e18dd3a3301995`與
+`2c895516c071f14cca778ec7e5ee87249925f606977203e35a28c60ca1c5bc01`。Development source仍是
+`167c03a5e19fae47eb867b8101c26f1c5bf49ca2c80fb2eb9a4e8bfa0660825f`，沒有在freeze後修改。
+
+17項focused tests、Ruff format/check、MyPy與compile再次通過。本步仍未執行`--score`，所以目前不知道
+哪個policy通過gates，也沒有winner。下一步HIC-T5將只讀取這份已凍結raw資料，評分七個
+policies並依預先凍結的規則選擇winner或誠實記錄null winner。
+
+### HIC-T5：七個identity-contradiction policies全部未通過，產品結論為null winner
+
+本步在評分前再次用內建validators確認24-case pack、7-policy protocol與24-row raw，並核對
+source、pack、protocol、raw與manifest hashes。確認selection report原本不存在後，執行唯一一次
+`--score`。Scorer沒有呼叫retriever；它只把七個已凍結policies套用到同一份raw bytes，並重算
+既有公開223題、anchor-confidence v4 22題與新24題的所有gates。
+
+評分成功建立`selection.json`與人類可讀的`selection.md`，但結果是`winner: null`。Baseline
+可保留既有positive 168/168、v4 positive 10/10與新positive 12/12，卻仍讓v4的11/12與新的
+10/12 absent identities輸出候選。這證明未加contradiction的原行為不安全。Numeric-only仍留下
+10/12與10/12負例，同時既有recall已掉到167/168，因此數字衝突不足以解決一般車名替換。
+
+最嚴格的`contradiction-050`將v4與新absent-identity nonempty都降到1/12，但代價是既有
+positive只剩164/168、v4 positive 9/10、新positive 11/12。`contradiction-075`也同時誤殺三組
+positives。較寬的1.00、1.25與1.50保住v4 10/10與新positive 12/12，但既有recall仍只有
+167/168，而且v4仍有6至7個、新負例仍有5個非空。因此沒有任何threshold能同時滿足「不誤殺
+合法拼字變形」與「不接受相似但錯誤車型」兩個要求。七個policies的contradiction errors均為0，
+表示這是證據能力不足的產品結果，不是scoring exception或資料格式錯誤。
+
+這個結果保留fail-closed：不啟用API、Dual RAG runtime、PostgreSQL或private evaluation，也不從失敗案例
+發明case-specific exception。第二次`--score`回傳`unchanged`；`--check`從凍結inputs獨立重算後回傳
+`valid`且winner仍為`null`。Selection JSON與Markdown SHA-256分別為
+`3f72ab6e3e33d92b1f8fdef2b7872fec0ac7a6835da6609e39f34715ecb51589`與
+`9322b6ffbe4b8a62ffaea3ebb277a8cdb539c112814f7caddf1b116fbde9f637`。Raw與development source hashes也維持不變。
+
+測試檔新增一項real-artifact regression test，鎖定七個policies的實測counts、全部
+`eligible: false`與deterministic `winner: null`，並在每次測試時呼叫`module.check()`重算，而不是只讀
+報告文字。18項focused tests與52項相關regression tests全部通過。下一步HIC-T6會進行完整Lite
+QA、requirements-to-evidence review、AI eval、decision/roadmap/README與project log收尾，安裝後測試CLI，
+最後只把`Product Variant Resolver`資料夾內的變更commit並push到GitHub。
+
+### HIC-T6：Lite QA與交付收尾
+
+本步把「程式會跑」與「產品可上線」分開驗收。新增`review.md`把HIC-R1至R11逐項對應到
+pack、protocol、raw、selection、tests與邊界證據，結論是implementation PASS、policy selection FAIL。
+Evidence文件保留所有關鍵SHA-256與七策略量測表；AI eval則用dataset disclosure、leakage、
+retrieval integrity、auditability、recall、safety、selection與release boundary作rubric，避免用測試全綠
+掩蓋產品gate失敗。
+
+Decision D80因此正式拒絕v1 promotion，保留`winner: null`。README補上新手可讀的實驗摘要與
+`--check`命令；roadmap則將candidate-specific contradiction從「規劃中」更新為「已完成但無合格
+policy」。這些文件不會把失敗實驗包裝成runtime能力：API、Dual RAG、PostgreSQL、canonical與
+release/color邏輯全部不變。
+
+安裝驗證時先發現這個`uv`精簡虛擬環境沒有`pip`，editable install所產生的`.pth`也未被該
+Python runtime載入，造成entry point存在但package import失敗。這是安裝環境問題，不是identity
+source錯誤；因此沒有修改凍結source，而是改用正常non-editable wheel安裝作最終使用者路徑驗證。
+安裝後CLI正確顯示五個phases，連續兩次`--check`都回傳`valid`與`winner: null`。
+
+最終QA為18/18 focused、52/52相關regression與788/788全專案tests PASS；Ruff format/check、MyPy、
+compileall、installed CLI、重複integrity checks與`git diff --check`全部通過。唯一警告仍是既有
+Starlette/AnyIO deprecation，與本功能無關。Development source SHA-256仍為
+`167c03a5e19fae47eb867b8101c26f1c5bf49ca2c80fb2eb9a4e8bfa0660825f`，證明freeze後未被修改。
+交付只包含`Product Variant Resolver`專案的source、tests、specs、docs與public evaluation artifacts，不包含上層
+workspace的`AGENTS.md`、`.codex`或其他agent設定。
+
 ## 2026-09-21 — HKAC-T1–T4：公開rank-1 confidence實驗完成，但沒有策略通過安全門檻
 
 ### 新執行了什麼、解決什麼問題

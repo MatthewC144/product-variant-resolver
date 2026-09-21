@@ -211,7 +211,7 @@ development data與既有199題positive dev pack上比較admission policies；�
 - [x] `secondary-075`在199+24 development cases維持全部Recall@5並把forbidden降至0/24。
 - [x] `secondary-075`新版private shadow evaluation已完成且FAIL：15/15 positives保留，但2個forbidden位於rank1。
 - [x] Public-only anchor-confidence v4已完成；實驗可重現，但10個固定門檻全不合格，沒有winner。
-- [ ] 以新的public evidence研究candidate-specific contradiction／identity-span admission；不得使用private failures調參。
+- [x] Candidate-specific contradiction／identity-span v1已完成；實驗可重現但七個policies均不合格，`winner: null`，runtime仍阻擋。
 - [ ] Shadow evaluation通過後，才規劃opt-in Dual RAG runtime integration與API regression QA。
 - [ ] 1,763筆release staging仍須逐批完成variant-level review；目前只有5個family relationships。
 - [ ] Color、wheel、tampo、edition與packaging大多仍未知，尚不能可靠辨識具體版本。

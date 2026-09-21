@@ -880,6 +880,22 @@ is authorized. See the [v4 report](reports/human-knowledge-anchor-confidence-dev
 pvr-develop-human-knowledge-anchor-confidence --check
 ```
 
+The follow-up public experiment replaces scalar confidence with candidate-specific identity
+contradiction. It freezes twelve new correct rank-1 preservation cases and twelve new absent
+identities, then records ordered query/candidate alignment, unmatched IDF-weighted model atoms, and
+same-frame numeric conflicts. All seven policies reuse one label-blind 24-query retrieval artifact.
+
+The experiment is reproducible but still has no winner. Baseline preserves every positive but leaves
+10/12 new absent identities nonempty. The strictest useful threshold reduces that to 1/12, but also
+falls to 164/168 existing positives, 9/10 v4 positives, and 11/12 new positives. The selector
+therefore returns `null`; no private evaluation or runtime integration is authorized. See the
+[identity-contradiction report](reports/human-knowledge-identity-contradiction-development-v1/selection.md)
+and [evidence](docs/evidence/human-knowledge-identity-contradiction-development-v1.md).
+
+```bash
+pvr-develop-human-knowledge-identity-contradiction --check
+```
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with

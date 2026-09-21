@@ -1,0 +1,9 @@
+{
+  "expected_labels_present": false,
+  "private_local_artifacts_read": false,
+  "protocol_sha256": "eeb30a56e0207dad41e7fa5a6889cef9a8377c05250f31508431e836946a6818",
+  "raw_sha256": "3ea4a12f36e671b2acfd5d0b7e2ad1cc9ac4705a8b6ad796f7e18dd3a3301995",
+  "retrieval_calls": 24,
+  "schema_version": "pvr-human-knowledge-identity-contradiction-raw-manifest-v1",
+  "version": "human-knowledge-identity-contradiction-development-v1"
+}

@@ -1,0 +1,22 @@
+{
+  "private_local_artifacts_read": false,
+  "protocol_sha256": "eeb30a56e0207dad41e7fa5a6889cef9a8377c05250f31508431e836946a6818",
+  "retrieval_executed": false,
+  "schema_version": "pvr-human-knowledge-identity-contradiction-protocol-manifest-v1",
+  "source_sha256": {
+    "data/evaluation/family-retrieval-development-v1/development-pack-manifest.json": "3b62969a33e92c6d0d869d8271649417fa177c77b99f1568d1018ca31397f920",
+    "data/evaluation/family-retrieval-development-v1/development-pack.json": "23589b23567220dbba0de959ec5223cf60365b1222320f3a372f1b156244dbe9",
+    "data/evaluation/human-knowledge-anchor-confidence-development-v4/pack/development-pack-manifest.json": "a21ecdedbd833ea1d614edaffc8e78d1992439f29d8baeb609a35e812c5a1f15",
+    "data/evaluation/human-knowledge-anchor-confidence-development-v4/pack/development-pack.json": "a21d57394fab99f49513c44dfefa9deb171b69441a3ffb2cef087f6e775adf0c",
+    "data/evaluation/human-knowledge-identity-contradiction-development-v1/pack/development-pack-manifest.json": "fe4cab04f3e45142f3d5160e5405d94fe5cbddfd2c75b34493b6a5e507f6ae9f",
+    "data/evaluation/human-knowledge-identity-contradiction-development-v1/pack/development-pack.json": "e86bb87f5c37b951482a782af09742617bc1820fe4bca3faacf122beb0f8e08c",
+    "data/human_backed_catalog.json": "d29b69cde8099cb229136a73b893ca99b6313d9652ead5ff4aea48c20242e74f",
+    "data/review_family_knowledge.json": "8615cbb99b453673599e1f9baf54f6900314d7ba64e53a31ea7891c71810b9d7",
+    "data/review_family_knowledge_manifest.json": "0239e272d27276d9a25df2c36edbbe6a7251facce7728ef947b86dcaa417c2ef",
+    "reports/human-knowledge-reranker-development-v2/selection.json": "15ef98ddf75df7e4d8fe0e1c7dcacd3c5a37e590943df507d7eb3c6eebbf6334",
+    "src/product_variant_resolver/human_knowledge_anchor_confidence_development.py": "7db20b4bba522b751c62e149cbc620d564c794f61f1563b7a66ce03dd2838f2c",
+    "src/product_variant_resolver/human_knowledge_identity_contradiction_development.py": "167c03a5e19fae47eb867b8101c26f1c5bf49ca2c80fb2eb9a4e8bfa0660825f",
+    "src/product_variant_resolver/human_knowledge_reranker_development.py": "8a70a89443b5122a7ee29b43c3f138b25ab25280129cb72cae15173ebbb62b9e"
+  },
+  "version": "human-knowledge-identity-contradiction-development-v1"
+}
