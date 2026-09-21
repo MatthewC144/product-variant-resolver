@@ -856,6 +856,18 @@ versioned private shadow evaluation; it is not active in runtime. See the
 pvr-select-human-knowledge-anchor-admission --check
 ```
 
+The selected policy has now been applied once to a new versioned private shadow evaluation without
+rerunning retrieval. It keeps all 15 positive hits and all five local-family coverage, and reduces
+hard-negative forbidden hits from three to two. Both remaining errors are source rank 1, so the
+rank-1 anchor necessarily preserves them and the precommitted verdict is **FAIL**. Runtime integration
+remains blocked. The public summary contains aggregates only; private queries, labels, candidates,
+coverage, and ranks stay ignored. See the
+[private shadow policy report](reports/local-release-review-family-anchor-admission-evaluation-v2/report.md).
+
+```bash
+pvr-evaluate-local-release-review-family-anchor-admission --check
+```
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with

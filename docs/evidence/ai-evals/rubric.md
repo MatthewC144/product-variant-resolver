@@ -34,3 +34,6 @@ wiring/safety assessment remains
 independent family-retrieval quality is now measured by
 [`family-retrieval-holdout-v1.md`](family-retrieval-holdout-v1.md), whose precommitted verdict is
 FAIL because lexical-variation Recall@5 missed its gate.
+The owner-private anchored-admission follow-up is recorded in
+[`local-release-review-family-anchor-admission-v2.md`](local-release-review-family-anchor-admission-v2.md);
+it also remains FAIL because two forbidden local families are source rank 1.

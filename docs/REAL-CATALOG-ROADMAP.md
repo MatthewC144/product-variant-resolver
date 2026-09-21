@@ -209,7 +209,8 @@ development data與既有199題positive dev pack上比較admission policies；�
 - [x] Admission v2 candidate-relative reranking已凍結並完成；七種權重都維持recall，但forbidden仍是18/24。
 - [x] Admission v3已加入rank-1 anchor與secondary compatibility abstention，不再只改候選順序。
 - [x] `secondary-075`在199+24 development cases維持全部Recall@5並把forbidden降至0/24。
-- [ ] 為`secondary-075`建立新的versioned private shadow evaluation；現有20題FAIL不可覆寫或拿來調參。
+- [x] `secondary-075`新版private shadow evaluation已完成且FAIL：15/15 positives保留，但2個forbidden位於rank1。
+- [ ] 回到public development設計anchor-confidence v4；private rank1 failures不可轉成調參案例或特例。
 - [ ] Shadow evaluation通過後，才規劃opt-in Dual RAG runtime integration與API regression QA。
 - [ ] 1,763筆release staging仍須逐批完成variant-level review；目前只有5個family relationships。
 - [ ] Color、wheel、tampo、edition與packaging大多仍未知，尚不能可靠辨識具體版本。

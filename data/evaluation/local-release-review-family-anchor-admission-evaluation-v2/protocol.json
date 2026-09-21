@@ -1,0 +1,59 @@
+{
+  "eligible_for": [
+    "opt_in_runtime_planning_only_if_pass"
+  ],
+  "excluded_from": [
+    "automatic_runtime_activation",
+    "canonical_truth",
+    "release_variant_truth",
+    "color_truth",
+    "postgresql_writes"
+  ],
+  "gates": {
+    "admission_errors": 0,
+    "family_coverage_at_5": 1.0,
+    "hard_negative_forbidden_hits": 0,
+    "hard_negative_forbidden_rank1_hits": 0,
+    "positive_recall_at_1": 0.8,
+    "positive_recall_at_5": 1.0,
+    "retrieval_errors": 0
+  },
+  "new_retrieval_calls": 0,
+  "policy": {
+    "development_configuration_id": "secondary-075",
+    "development_protocol_sha256": "0168cce9bbaa8206eb9f1c4a2a9dbde3d6025cc7bc5cf83a00742c0a1356857c",
+    "development_selection_sha256": "664ec742353fbb1793a28494a0aec7046511b29b98bf594192c37f468fd4c93d",
+    "rank_1": "always_admit_anchor",
+    "ranks_2_through_5": "identity_token_coverage_gte_threshold",
+    "secondary_minimum_identity_token_coverage": 0.75,
+    "source_order_preserved": true
+  },
+  "private_result_directory": "data/external/hot-wheels-wiki/local-release-review-family-anchor-admission-evaluation-v2",
+  "public_result_directory": "reports/local-release-review-family-anchor-admission-evaluation-v2",
+  "schema_version": "pvr-local-release-review-family-anchor-admission-protocol-v2",
+  "source_sha256": {
+    "data/evaluation/human-knowledge-anchor-admission-development-v3/protocol-manifest.json": "3c28472c8e6be7d1fccd3a4ff9660db657206435a4d2f6f1588818569aa25a1d",
+    "data/evaluation/human-knowledge-anchor-admission-development-v3/protocol.json": "0168cce9bbaa8206eb9f1c4a2a9dbde3d6025cc7bc5cf83a00742c0a1356857c",
+    "data/external/hot-wheels-wiki/local-release-review-family-retrieval-evaluation-v1/benchmark.json": "9ee7c7de89562a8f1cf39dfba9e66ae803358f3830e37beefffbf5997209d1c2",
+    "data/external/hot-wheels-wiki/local-release-review-family-retrieval-evaluation-v1/query-pack.json": "c4e30fc74f54f914033172bb7b079297cb93ca93399f39b8a16a118e395e44d7",
+    "data/external/hot-wheels-wiki/local-release-review-family-retrieval-evaluation-v1/raw-results.json": "a82e3da5fb006d0caee3a6c7ae639a5aa8ce41d96c85667e9c27b692eaa07ee1",
+    "data/external/hot-wheels-wiki/local-release-review-family-retrieval-evaluation-v1/result.json": "0a46c3a5eae493fc465c018c7f11149e11f3e9b1b63d65c260729d1eb2ca9b4e",
+    "reports/human-knowledge-anchor-admission-development-v3/selection.json": "664ec742353fbb1793a28494a0aec7046511b29b98bf594192c37f468fd4c93d",
+    "reports/human-knowledge-anchor-admission-development-v3/selection.md": "b212996eea164514ba84b2c390720a0c26a7d6f1ee83687da78aef5154abaf78",
+    "reports/local-release-review-family-retrieval-evaluation-v1/manifest.json": "fb32d3b21a35dec0a93b3db7b50bceaa31b48ee29f9b3db7736d50469893ffb5",
+    "reports/local-release-review-family-retrieval-evaluation-v1/report.md": "8b407d92d718261bed60b3a74a21e3e3c2c8393c2138d0ca1ce18c2b88f3d0c6",
+    "src/product_variant_resolver/human_knowledge_anchor_admission_development.py": "ae375733165869073f253e6a11d106c5fbd41e9e339e8daace5ab8839bb908d5",
+    "src/product_variant_resolver/release_casting_review_anchor_evaluation.py": "52786b808a519aef2015e2c3f8785e30f6ea841f3b3fb58d3eb16bdea46dd0a5",
+    "src/product_variant_resolver/release_casting_review_evaluation.py": "d7888c8e1f52e3bb3fc9b24e8514bca9d5bead06c323fa090b6f83e8756cc002"
+  },
+  "status": "frozen_before_private_policy_scoring",
+  "upstream": {
+    "evaluation_version": "local-release-review-family-retrieval-evaluation-v1",
+    "hard_negative_cases": 5,
+    "positive_cases": 15,
+    "projection_sha256": "32644f9c5b91039fde7b7a9586f8a6bf9479ea7c6878661d329ea53bed4207d8",
+    "raw_results_sha256": "a82e3da5fb006d0caee3a6c7ae639a5aa8ce41d96c85667e9c27b692eaa07ee1",
+    "verdict": "FAIL"
+  },
+  "version": "local-release-review-family-anchor-admission-evaluation-v2"
+}

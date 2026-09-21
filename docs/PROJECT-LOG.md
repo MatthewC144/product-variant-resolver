@@ -1,5 +1,53 @@
 # Project Log
 
+## 2026-09-21 — LRAE-T1–T4：新版private gate保留正確召回，但rank1誤召回使結果FAIL
+
+### 新執行了什麼、解決什麼問題
+
+公開development已選出`secondary-075`，但那只能證明在199+24題上有效。本輪建立新的versioned private
+shadow evaluation，回答「這個已凍結policy能否在未參與選型的五個local review families上同時保留正確
+召回並移除hard negatives」。舊v1的20題query、benchmark、raw result與FAIL result全部保持原位，不覆寫、
+不重跑，也不把private內容複製到公開repo。
+
+新protocol先綁定v3 winner、threshold 0.75、v3 protocol/selection hashes，以及舊v1 private/public evidence、
+projection和source hashes。正式scoring只讀一次既有raw Top5 rows，使用147-document shadow catalog重算
+candidate identity coverage並套用policy；new retrieval calls固定為0，因此沒有因重試得到不同candidate的風險。
+
+### 代碼修改位置、方法選型與原因
+
+新增`release_casting_review_anchor_evaluation.py`與CLI
+`pvr-evaluate-local-release-review-family-anchor-admission`。程式把rank1直接admit，rank2–5需coverage>=0.75，
+source order不變；每個private case保存admitted/abstained source ranks與coverage供本機稽核。新的private
+`result.json`使用獨立gitignored v2目錄，公開manifest/report只含hash、aggregate counts、metrics、gates、
+policy、limitations和downstream zero counts。
+
+除原有Recall@5、Recall@1、family coverage、forbidden hits與retrieval errors外，本輪預先增加
+`hard_negative_forbidden_rank1_hits=0`和`admission_errors=0`兩個gate。原因是v3最大未知風險就是anchor可能
+保留錯誤第一名；若只看總forbidden而不特別記錄rank1，就無法判斷失敗是secondary threshold還是anchor
+設計造成。
+
+### 實際結果、失敗原因與技術決定
+
+Positive Recall@5維持15/15，Recall@1為13/15，五個local families全部覆蓋；retrieval與admission errors都是0。
+44個source candidates中保留26個、abstain 18個。Hard-negative forbidden hits從舊v1的3個降到2個，表示0.75
+secondary gate確實移除一個錯誤secondary candidate。
+
+然而剩餘2個forbidden都在source rank1，因此被anchor規則保留，兩個hard-negative gates同時FAIL。這不是
+把0.75提高到1.0能解決的問題，因為rank1不讀secondary threshold。Frozen verdict保留FAIL；本輪拒絕看著
+private case新增例外、修改anchor或重跑retrieval。Runtime integration和API change繼續被阻擋。
+
+### 驗證、邊界與下一步
+
+新增10項focused tests，覆蓋rank1 anchor、secondary gate、unknown candidate fail-closed、完整PASS fixture、
+rank1 forbidden雙gate、public privacy、create-once protocol、真實aggregate FAIL與check不重跑。完整761/761
+tests PASS；targeted Ruff/format、MyPy、compileall、protocol/report/check全部通過，唯一訊息仍是既有
+Starlette/AnyIO deprecation warning。
+
+Private query、label、candidate identity、coverage、rank與case result都沒有進Git；API、Dual RAG runtime、
+PostgreSQL、canonical catalog、release/color truth全部未改。下一步必須回到public development資料建立
+anchor-confidence v4，另外蒐集合法的wrong-rank1與valid-low-coverage-rank1 development evidence；這次
+private兩個失敗只能當test evidence，不能拿來調參。
+
 ## 2026-09-20 — HKAA-T1–T4：anchored admission在公開development取得合格策略
 
 ### 新執行了什麼、解決什麼問題

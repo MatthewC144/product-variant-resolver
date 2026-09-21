@@ -1765,3 +1765,22 @@ because the anchor is intentionally exempt from secondary filtering;the new priv
 that behavior explicitly. Grounding/scope/integrity/auditability/non-leakage PASS;generalization is
 unproven. Evidence:`docs/evidence/human-knowledge-anchor-admission-development-v3.md`;12 focused/
 751 full tests PASS.
+
+# D77 — Preserve private anchor-evaluation FAIL and block runtime integration
+
+Status:ACCEPTED for LRAE-T1–T4,2026-09-21. Bind the exact public`secondary-075`winner to all immutable
+v1 private evidence hashes before scoring. Reuse the original20 raw Top-5 rows,compute identity
+coverage offline,and execute zero retrieval calls. Write a separate ignored v2 private result and
+publish only aggregate hashes,metrics,gates,policy and zero downstream effects.
+
+The policy preserves15/15 positive hits,13/15 rank1 positives,5/5 family coverage and zero errors.
+It reduces forbidden hits from3 to2 by removing one secondary false positive,but both survivors are
+source rank1. Therefore the zero-forbidden and zero-forbidden-rank1 gates fail. Preserve FAIL;do not
+raise0.75,rewrite the anchor,rerun retrieval or create case-specific exceptions after seeing output.
+
+Return to public development to design rank1 compatibility/confidence evidence that also protects
+valid low-coverage typo anchors. The private failures remain test evidence and cannot become tuning
+labels. Runtime/API/PostgreSQL/canonical/release/color integration stays blocked. Most likely failure
+is overcorrecting by rejecting valid rank1 typo matches. Integrity/privacy/auditability PASS;
+generalization and safety FAIL. Evidence:`docs/evidence/local-release-review-family-anchor-admission-evaluation-v2.md`;
+10 focused/761 full tests PASS.
