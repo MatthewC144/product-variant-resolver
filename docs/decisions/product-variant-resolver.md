@@ -1843,3 +1843,81 @@ bilateral-residual threshold is still insufficient. Preserve v1 source/raw/resul
 next attempt must use a new public design,version and pre-retrieval freeze rather than retuning v1.
 Evidence:`docs/evidence/human-knowledge-identity-contradiction-development-v1.md`;18 focused/788 full
 tests PASS.
+
+# D81 — Build one query-global envelope before evaluating any candidate
+
+Status:ACCEPTED for HIE planning and HIE-T1,2026-09-21. The owner confirmed requirements,design and
+the ordered task list before implementation. Build the public anchor index only from committed
+casting and approved-alias text,then create one immutable envelope and checksum per query. Every
+candidate must receive those same bytes;candidate-specific span choice is no longer decision input.
+
+Conserve digit runs and alphanumeric model frames as categorical evidence. Permit only the general
+same-anchor leading-year rule where a two-digit token equals the suffix of a four-digit`19xx`or
+`20xx`token. Do not use release metadata,private evidence,case exceptions or another scalar
+bilateral-residual threshold. Preserve HIC-v1 source and artifacts unchanged.
+
+This has a 10x auditability advantage over an opaque cross-encoder because every envelope boundary,
+token offset,model frame,numeric relation and shorthand decision is deterministic and inspectable.
+The trade-off is that a corpus-wide lexical anchor may still choose the wrong identity boundary for
+reordered or context-heavy queries. HIE-T2 must therefore evaluate predeclared structural policies
+against historical public evidence before any new holdout is visible. HIE-T1 verification:11 new
+focused tests and63 related tests PASS;zero artifacts,retrieval calls or runtime changes.
+
+# D82 — Complete the phased v2 engine but let historical calibration stop the experiment
+
+Status:ACCEPTED for HIE-T2,2026-09-21. Implement five predeclared categorical rank-1 policies,
+preserve the0.75 secondary gate and source order,and rescore the immutable223/v4-22/HIC-v1-24
+public rows without retrieval. Add deterministic protocol,pack,raw,selection and check interfaces,
+but require at least one non-reference historical survivor before protocol bytes can be written.
+
+Treat `query_only`and`candidate_only`numeric evidence as explicit states,not automatic compact-digit
+failure. The guard fails on incompatible conserved digit runs;stricter policies may still reject
+one-sided evidence through residual/form rules. This corrects the implementation to the confirmed
+structural contract without adding a threshold,casting exception or private label.
+
+The measured calibration currently has zero survivors. Numeric admission leaves7/12 v4 and7/12
+HIC negatives nonempty while losing8 existing,1 v4 and1 HIC positive. Bilateral admission reduces
+both negative sets to1/12 but preserves only146/168 existing,9/10 v4 and10/12 HIC positives.
+Safe-form and decision-list lose still more recall. HIE-T3 must preserve this FAIL and create no
+protocol or new holdout. The 10x auditability value remains:every loss and false admission has a
+deterministic envelope,state and reason code. The decisive failure is generalization across valid
+positive forms,not implementation integrity. Verification:23 focused/75 related tests PASS;zero
+new retrieval calls,artifacts or runtime changes.
+
+# D83 — Preserve the HIE-v2 historical FAIL before spending new retrieval
+
+Status:ACCEPTED,2026-09-21. Run pre-freeze QA,then execute the historical calibration gate against
+exactly223 existing,22 anchor-v4 and24 HIC-v1 public rows. Pre-freeze75 and final77 related tests
+plus static checks pass,
+and all policies produce zero envelope errors,but no non-reference policy satisfies every frozen
+recall and absent-identity gate.
+
+Do not freeze a protocol. Preserve deterministic calibration JSON,Markdown and manifest instead;
+bind the exact HIE source and upstream evidence hashes. Repeated`--freeze-protocol`must return
+`calibration_failed_unchanged`,and`--check`must recompute the same FAIL with winner null. Create no
+negative declarations,holdout pack,raw rows or selection report,and execute zero new retrieval.
+
+The closest structural policy,bilateral,reduces v4 and HIC absent-identity nonempty cases to1/12
+each but preserves only146/168 existing,9/10 v4 and10/12 HIC positives. This is a measured product
+failure,not an implementation failure. Integrity,auditability,privacy and reproducibility PASS;
+historical positive preservation and safety FAIL. Block HIE-T4–T7 and every private/runtime step.
+Any new attempt requires a new version and specification rather than modifying this frozen evidence.
+
+# D84 — Publish the stopped HIE-v2 experiment as a null-result repository closure
+
+Status:ACCEPTED,2026-09-22. HIE-T3 blocks the conditional holdout branch,but the failure evidence is
+valuable and must remain reviewable. Add a requirements-to-evidence QA review,a public evidence
+summary,an AI-eval rubric and a concise README section. Keep HIE-T7's successful-holdout checkbox
+open;record repository delivery as a separate closure so a Git commit cannot be mistaken for policy
+eligibility.
+
+Preserve the frozen source and calibration hashes. Do not create protocol,pack,raw,selection,private
+evaluation or runtime artifacts. Full repository tests pass813/813;targeted static checks pass.
+Repo-wide Ruff/MyPy remain known debt(83 formatting candidates and51 type issues),so closure must
+report them rather than mass-format unrelated history or mutate the frozen experiment after seeing
+its result.
+
+The 10x value of this delivery is auditability of a negative result:the repository shows exactly why
+the method stopped before32 additional retrieval calls and which gate failed. Product eligibility
+remains FAIL;implementation integrity,reproducibility,privacy and release safety PASS. A future
+algorithm requires a new v3 namespace;static cleanup requires a separate behavior-neutral task.

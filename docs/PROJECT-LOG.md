@@ -1,5 +1,244 @@
 # Project Log
 
+## 2026-09-22 — HIE-v2 repository closure：發布失敗證據，不假裝完成holdout
+
+### 新執行了什麼、解決什麼問題
+
+HIE-T3已因historical calibration沒有任何survivor而停止，HIE-T4–T7的successful-holdout branch不能再執行。
+本步改走獨立repository closure：新增QA review、技術evidence、AI-eval rubric與README摘要，讓GitHub上的
+讀者能分辨「實作可以重現」與「policy不能promotion」。這解決失敗結果只存在10MB JSON與Project Log、
+難以被面試官或下一位開發者快速審查的問題。
+
+Review逐項映射HIE-R1–R14，將結果拆成implementation PASS、historical eligibility FAIL、new holdout NOT RUN
+與runtime blocked。Evidence固定source與三個calibration artifact hashes，列出五個policy的223／22／24
+精確結果；AI-eval則把data disclosure、leakage、retrieval integrity、auditability、positive preservation、
+absent-identity safety與release safety分開評分。README只呈現必要摘要，沒有把null result包裝成新功能。
+
+### 代碼／文件修改位置與選型原因
+
+Product code與已凍結HIE source完全沒有改動。本步只新增`review.md`、`docs/evidence/`與`ai-evals/`文件，
+更新README、spec checkpoint、decision與roadmap。採用「publish negative result」而不是刪除失敗實驗，
+因為pre-holdout gate成功節省32次沒有價值的新retrieval，本身就是可展示的ML／RAG治理能力。
+
+HIE-T7仍沒有被勾成successful branch completion，因為它的原始前提是protocol PASS後完成pack、raw與
+selection；目前這些artifact依法不存在。Tasks另加一個明確的repository closure項目，避免Git commit被
+誤讀成HIE product gate通過。
+
+### 完整QA結果與誠實保留的技術債
+
+完整repository suite為813/813 PASS，只有既有Starlette／AnyIO deprecation warning；HIE focused 25項、
+related 77項也全綠。Targeted HIE Ruff format/check、targeted MyPy、compileall、兩次CLI `--check`、artifact
+hashes與`git diff --check`通過。
+
+Repo-wide static checks沒有被誤報為全綠。全repo Ruff指出83個歷史檔案會被重新格式化；全repo MyPy指出
+51個既有／跨模組問題，其中包含HIE source在完整dependency graph下的1個`payload["text"]`型別推論。
+因source hash已由FAIL manifest綁定，本closure不在看到結果後修改source或重寫calibration。該型別債與
+全repo formatting應另開behavior-neutral maintenance task，不能混入本次實驗證據。
+
+### 交付邊界與下一步
+
+本步準備把目前所有Product Variant Resolver變更commit並push到既有GitHub `main`。Staging會使用明確
+repo-relative paths，不包含父資料夾的`AGENTS.md`、`.codex`或其他workspace設定。推送後GitHub保存的是
+一個可重現的null experiment：winner仍為null、0個新retrieval、0個runtime／database／canonical／color
+changes。若繼續演算法研究，下一步必須是新的v3 requirements；若先處理工程品質，則應另開static-debt
+maintenance，兩者都不能修改這份v2 failure evidence。
+
+## 2026-09-21 — HIE v2需求啟動：從candidate-specific span改為query-global identity envelope
+
+### 新執行了什麼、解決什麼問題
+
+HIC v1已完成且合法得到`winner: null`，因此本步沒有把失敗結果直接改成runtime規則，而是開始
+一個新的Lite規格階段。先對公開selection evidence做唯讀分析，確認單一bilateral-residual
+threshold之所以無法通過，不只是門檻沒選好，而是candidate-specific span可以對不同候選選擇
+不同的query子片段，並把關鍵數字排除在比較之外。
+
+具體而言，正確的`88 Jeep Wagoneer`對`1988 Jeep Wagoneer`會把`88`與`1988`當成雙側殘差，
+在0.50門檻下被錯殺；反過來，`Nissan Skyline GT-R R33`對`BNR34`候選又可以透過compact
+alignment選到沒包含`33`的span，讓candidate的`34`只留在單邊，不形成bilateral contradiction。
+這兩個失敗方向同時說明下一版必須修正證據結構，不能只微調0.50、0.75或1.00。
+
+### 新requirements改了哪個方向、為何這樣選
+
+新建`human-knowledge-identity-envelope-development/requirements.md`，核心是每個query先建立一個所有
+candidates共用的identity envelope，而不是讓每個candidate自己選最有利的span。與model frame相鄰的
+digit run必須被保留，compact/fuzzy matching不得吞掉或繞過它；同frame數字不同要形成明確衝突。
+
+同時需求允許一個可稽核的兩位／四位前置年份簡寫規則，但只能使用identity文字內的token結構，
+不能讀release year欄位，也不能寫`Jeep`專用exception。政策選擇也改為預先宣告的結構狀態組合，
+不允許又用另一個單一scalar threshold當主角。這保留v1的可解釋性，但直接處理已量到的結構缺口。
+
+### 新資料如何避免重用與過擬合
+
+唯讀可行性盤點顯示，排除v4與HIC-v1已用source cases後，仍有144筆公開正確rank-1案例。
+如果連過去pack出現過的document families都排除，仍有93筆、24個全新documents；四種challenge styles
+各有22至24筆。因此新需求固定32題family-disjoint holdout：16筆positives來自16個未曾使用的
+documents，另加16筆全新corpus-absent identities。
+
+實驗仍要在新retrieval前凍結envelope rules、policy grid、selection rules、hashes、gates與winner order；
+32題各只retrieve一次，raw先label-blind儲存。新policy必須同時重算既有223、v4 22、HIC-v1 24
+與新32題，任一正例掉落或任一負例非空都不合格。目前只完成requirements draft；在owner確認前不會
+寫design/tasks、建新pack、執行retrieval或修改runtime。
+
+Owner以「繼續下一步」確認14項requirements後，已新增`design.md`。設計最重要的流程變更是先在
+既有公開223／v4 22／HIC-v1 24資料上做historical calibration；至少一個非reference policy必須先
+通過所有歷史gates，否則直接停止，不浪費32次新retrieval。若calibration通過，先凍結source、
+protocol與holdout-selection rules，之後才物化32題pack。這與v1的pack-first不同，是為了讓新案例變得可見
+之後，程式碼與policy已經不能改。
+
+Envelope建構只執行一次。系統從142-document casting／alias建立public anchor index，以全corpus forms
+而不是某個Top-5 candidate選定query anchor。Envelope從anchor開始，但會保留緊貼在前的兩位或四位
+數字；邊界內的unknown model atoms也不能因候選不支援就被刪掉。每個candidate都得到同一個
+envelope checksum，從資料結構上阻止「各自挑最有利span」。
+
+數字不再只是殎dual分數，而是`none/equal/year_suffix_equivalent/conflict/query_only/candidate_only`
+六種狀態。只有同anchor前的兩位與`19xx`／`20xx`四位數字、尾兩位一致時才是年份簡寫；
+`R33`／`R34`、`M2`／`M4`不得使用這個規則。Compact/fuzzy alignment只能對齊alphabetic部分，
+不能吞掉不同digit run。
+
+固定policy family為一個reference加四個結構策略：`envelope-numeric`、`envelope-bilateral`、
+`envelope-safe-form`與`envelope-decision-list`。它們使用anchor relation、numeric relation、form completion、
+alignment strength、model residual與compact digit guard等離散狀態，而不是另外找一個最好看的殘差threshold。
+Rank2至5繼續沿用coverage 0.75，所有source order不變。
+
+設計仍可能失敗：某些車型的第一個identity atom不是穩定maker/model anchor，導致global envelope包進
+context或漏掉重排identity。因此multiple-anchor、unanchored、leading context、trailing noise與數字縮寫都列為
+強制adversarial tests。目前design等待owner確認；尚未寫tasks、code，也沒有新建protocol/pack或執行retrieval。
+
+Owner再次指示「繼續下一步」後，design已確認，並新增七項依序tasks。HIE-T1先只實作public anchor
+index、query-global envelope、numeric-frame conservation與year shorthand；HIE-T2才完成policies、historical calibration、
+pack/collection/scoring validators與五階段CLI。這兩步都不建新holdout artifact，是最後可修改source的區間。
+
+HIE-T3是分支gate，不是「測試有跑完就一定前進」。新policies必須先在既有公開223／v4 22／
+HIC-v1 24上至少有一個完全通過；若全失敗，必須保存calibration failure、維持0新retrieval，並將
+T4至T7標成blocked。只有PASS分支才能凍結source/protocol，並從那一刻開始禁止修改development module。
+
+HIE-T4故意把16筆negative declarations放在protocol freeze之後的獨立JSON，而不是先寫進source。
+Protocol只先凍結schema、路徑、challenge數量與validators；T4才建立實際declarations，pack manifest綁定其精確
+hash。如此看到新負例後不能再改policy code。其後T5只收集一次32-query raw，T6才加labels評分，
+T7進行完整QA、文件與GitHub交付。
+
+Owner接著以「幫我繼續完成」確認task list並授權依序實作。HIE-T1已完成，但仍刻意沒有建立
+negative declarations、protocol、pack、raw或selection report，也沒有執行任何HIE retrieval。
+
+### HIE-T1新執行了什麼、解決什麼問題
+
+新增`human_knowledge_identity_envelope_development.py`，先完成所有後續policy共用的最小證據層。
+`IdentityEnvelopeIndex`只從已提交142-document public corpus的casting與approved aliases建立anchor forms；
+每個query只選一次corpus-wide anchor並產生immutable `QueryEnvelope`。這解決HIC v1讓不同candidate各自
+選query span、因而可能避開關鍵model digits的結構問題。Envelope保存normalized core、原子邊界、
+字元offset、anchor位置與SHA-256 checksum；後續候選比較只接收同一物件，無法反向改變query範圍。
+
+### 代碼修改了哪裡、為何採用這個方法
+
+本步重用HIC v1已測試過的`atomize`、`IdentityEvidenceIndex`與ordered alignment，而沒有修改HIC source。
+這個選擇保留既有token規則和public IDF權重，避免新版本在沒有證據時偷偷發明第二套normalization。
+Envelope從最佳anchor開始，只有當anchor緊鄰一個純兩位或四位數字時才向前包含該數字；anchor後方的
+unknown model atoms則全部保留，不能因某個candidate沒有該字而刪除。
+
+新增的`numeric_evidence`把結果分類為`none`、`equal`、`year_suffix_equivalent`、`query_only`、
+`candidate_only`或`conflict`，並抽出每個alphanumeric model frame的alphabetic skeleton與digit runs。
+唯一允許的簡寫是同anchor、純leading number、`19`／`20`世紀前綴且末兩位一致，例如`88`對`1988`；
+`R33`／`R34`、`R33`／`BNR34`及`M2`／`M4`都會保留原token並成為conflict。這是一般結構規則，
+沒有讀release year、series、color、case ID或private labels，也沒有vehicle-specific exception。
+
+### 驗證結果、邊界與下一步
+
+新增focused tests覆蓋public-only anchor index、leading context移除、leading year保留、candidate-independent
+envelope、multiple anchors、unanchored query、unknown model atom、年份簡寫及三組model-number conflicts。
+Ruff format/check、MyPy與compile全部通過；11項新focused tests加上52項既有HIC／anchor相關回歸測試，
+合計63項全數通過。HIC v1 source SHA-256仍為
+`167c03a5e19fae47eb867b8101c26f1c5bf49ca2c80fb2eb9a4e8bfa0660825f`，證明本步沒有改寫凍結實驗。
+
+HIE-T1的作用只是建立證據primitive，不表示新policy已有效。下一步HIE-T2才會實作五個categorical
+policies、重算既有223／v4 22／HIC-v1 24 rows的historical calibration、phase-gated CLI與完整validators。
+在HIE-T3真正跑完calibration以前，仍是0個新holdout artifacts、0次新retrieval、0個runtime changes。
+
+### HIE-T2新執行了什麼、解決什麼問題
+
+HIE-T2把T1的query envelope primitive接成一套完整但尚未凍結的development engine。新增五個固定
+rank-1 policies、candidate-level categorical evidence、既有269 rows的historical rescoring、protocol／
+pack／raw／selection artifact builders、phase-order與hash validators，以及
+`pvr-develop-human-knowledge-identity-envelope`五階段CLI。這解決的是「規則可以被單元測試」到
+「整個實驗可以按照freeze → pack → collect → score → check順序重現」之間的工程缺口。
+
+所有rank 2–5仍只使用既有identity coverage `>= 0.75`並維持source order。Rank 1才依序比較
+numeric conflict、compact digit guard、anchor relation、form completion、alignment strength與雙側model
+residual。每個candidate evaluation保存完全相同的query envelope checksum、candidate identity、ordered
+alignment、未配對atoms、numeric frames、reason codes與admit／abstain，讓後續結果可以逐候選重算。
+
+### 代碼修改、技術選型與一次語義修正
+
+主要程式仍集中在`human_knowledge_identity_envelope_development.py`，沒有讓runtime module import它。
+Historical calibration直接讀取並驗證既有reranker selection、anchor-confidence v4與HIC-v1 frozen raw，
+再用新policy離線重算；沒有重新建立retriever或執行network／model call。Protocol builder只有在至少一個
+non-reference policy通過時才允許寫檔；pack builder則強制protocol先存在，並要求16個positive來自16個
+過去未使用documents，以及16個post-freeze declarations符合四類各四題與corpus-absence規則。
+
+第一次唯讀calibration暴露一個實作語義錯誤：`compact_digit_guard`被寫成任何`query_only`或
+`candidate_only`數字都fail，這會把「query沒寫candidate casting中的前置年份」錯當成compact吞數字。
+設計真正要求的是不同的conserved digit runs不能被compact/fuzzy隱藏，因此修正為只有明確`conflict`
+才fail；`query_only`／`candidate_only`仍保留為可稽核state，由較嚴格policy的其他規則判斷。這不是新增
+threshold或vehicle exception，而是讓程式回到已確認的categorical contract。
+
+### Historical calibration量測、代表的問題與下一個gate
+
+修正後完整唯讀calibration精確重算223＋22＋24 rows、執行0次retrieval且0個envelope errors。結果仍是
+`historical_calibration_fail`：reference保留168/168 existing、10/10 v4與12/12 HIC positives，但v4與
+HIC negatives仍分別有11與10題nonempty。`envelope-numeric`降到7／7 negatives，但existing positives只剩
+160/168、v4 9/10、HIC 11/12；`envelope-bilateral`把兩組negative各降到1，卻只保留146/168、9/10、
+10/12 positives。更嚴格的safe-form與decision-list同樣各留1個negative，正例損失更大。因此目前0個
+non-reference survivor，沒有任何policy可凍結。
+
+HIE-T2本身仍完成，因為engine、validators與fail-closed protocol gate都按規格運作；但這不授權修改
+policy再試。下一步HIE-T3要把這個歷史FAIL保存成public calibration evidence，確認protocol／pack／raw
+都不存在，並正式把HIE-T4–T7標成blocked。只有新版本與新規格才能再改方法。
+
+### 驗證結果與環境限制
+
+23項HIE focused tests與52項既有HIC／anchor相關回歸測試合計75項全綠；Ruff format/check、MyPy、
+compile與`git diff --check`通過，HIC-v1 source hash維持
+`167c03a5e19fae47eb867b8101c26f1c5bf49ca2c80fb2eb9a4e8bfa0660825f`。正式console entry已寫入
+`pyproject.toml`，本機命令的`--help`也驗證五個互斥phase。因既有`.venv`沒有pip/setuptools且sandbox
+無網路，無法重新做editable build；使用同格式的gitignored local entry並以`PYTHONPATH=src`驗證。
+這個環境限制不影響可提交的packaging definition，T7仍須在最終交付環境再次驗證安裝。
+
+### HIE-T3正式執行：historical calibration FAIL並停止新holdout
+
+HIE-T3先重跑pre-freeze QA，75項HIE／HIC／anchor相關測試、Ruff format/check、MyPy與compile全部通過，
+確認失敗不是語法、型別或舊功能回歸造成。隨後執行installed CLI的`--freeze-protocol`。系統重算既有
+223＋22＋24筆public rows，得到與T2唯讀驗證完全相同的0 survivors結果，因此沒有建立protocol，而是
+回傳`calibration_failed_created`與`protocol_created: false`。
+
+這個分支新增三個public evidence artifacts：完整machine-readable calibration JSON、面試／人工審查可讀的
+Markdown摘要，以及綁定source／upstream hashes、denominators與zero-downstream-effects的manifest。第二次
+執行同一命令回傳`calibration_failed_unchanged`；`--check`離線重算後回傳`valid`、
+`historical_calibration_fail`與`winner: null`。這證明失敗證據是deterministic，而不是一次性console輸出。
+
+### 錯誤在哪裡、為何不能繼續HIE-T4
+
+本次不是crawler、資料庫、FastAPI或retriever故障，也不是出現計算error；所有五個policies的
+`envelope_errors`都是0。真正失敗是安全與召回無法同時成立。最寬鬆reference完整保留positives，卻讓
+v4 11/12與HIC 10/12 absent identities仍有結果。最接近安全的bilateral policy把兩組negative各降到1/12，
+但existing、v4、HIC positives分別只剩146/168、9/10、10/12，違反「不能犧牲任何必要正例」的固定gate。
+
+因此protocol freeze被拒絕。沒有protocol就不能在事後新增16個negative declarations或選16個positive
+families，也不能執行32次Top-5 retrieval。這個順序正是為了避免看到新holdout後繼續修改policy。HIE-T4、
+T5、T6與實驗內T7現已標記blocked；API、Dual RAG、PostgreSQL、canonical、release與color仍完全不變。
+
+### Artifact完整性與後續技術決定
+
+Calibration JSON、manifest與Markdown SHA-256分別為
+`fbdc5171f3b1bfbe3f07b207acb56bd9608e2a3136bdff1acb9175e99f1557ce`、
+`03eee815b2cb4110e158f2ff02bf51d8b582282c1f050358c3be117ee238eeb5`與
+`7e0fbd7e1f92cf0d043949e0c0fdee69bd4d53f0a9f40fe1a41d466f6b5039be`。被綁定的HIE source hash是
+`c91d8e253f1cd19cf59b626e794673defe2e28aea6c993cbce350d1698e83a5e`；HIC-v1 source仍維持原hash。
+新增的2項artifact regression tests把HIE focused總數提高到25，與52項既有相關測試合計77項全綠；
+CLI `--check`、三個artifact hashes與source hash也在最終驗證中保持不變。
+
+下一個動作不能是調整本版policy或放寬gate。若要繼續技術研究，必須建立新的versioned requirements，
+重新定義能保留合法縮寫／拼字變形又能處理最後兩個false positives的證據結構。若只是把目前失敗成果
+推送GitHub，則應走獨立的repository closure/delivery步驟，不得假裝HIE-T7的conditional PASS branch已完成。
+
 ## 2026-09-21 — HIC規劃啟動：把下一個問題改成candidate-specific identity contradiction
 
 ### 新執行了什麼、解決什麼問題

@@ -212,6 +212,9 @@ development data與既有199題positive dev pack上比較admission policies；�
 - [x] `secondary-075`新版private shadow evaluation已完成且FAIL：15/15 positives保留，但2個forbidden位於rank1。
 - [x] Public-only anchor-confidence v4已完成；實驗可重現，但10個固定門檻全不合格，沒有winner。
 - [x] Candidate-specific contradiction／identity-span v1已完成；實驗可重現但七個policies均不合格，`winner: null`，runtime仍阻擋。
+- [x] Query-global identity-envelope v2已在HIE-T3正式FAIL：0個non-reference policy通過historical gate，已保存可重現calibration證據；protocol／pack／raw／32題retrieval均未建立，HIE-T4–T7停止。
+- [x] HIE-v2 repository closure已補齊QA review、evidence、AI-eval與README，完整813項測試通過；GitHub只發布null result，不宣稱runtime能力。
+- [ ] 若要繼續改善rank-1 admission，需建立全新的v3規格與artifact namespace，不得調整HIE-v2 frozen evidence。
 - [ ] Shadow evaluation通過後，才規劃opt-in Dual RAG runtime integration與API regression QA。
 - [ ] 1,763筆release staging仍須逐批完成variant-level review；目前只有5個family relationships。
 - [ ] Color、wheel、tampo、edition與packaging大多仍未知，尚不能可靠辨識具體版本。

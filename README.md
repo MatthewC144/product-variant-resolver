@@ -896,6 +896,26 @@ and [evidence](docs/evidence/human-knowledge-identity-contradiction-development-
 pvr-develop-human-knowledge-identity-contradiction --check
 ```
 
+The next public-only version replaces candidate-specific spans with one query-global identity
+envelope shared by every candidate. It preserves numeric and alphanumeric model frames and permits
+only one general leading-year shorthand, so `88 Jeep Wagoneer` can match `1988 Jeep Wagoneer` while
+`R33`/`R34`, `R33`/`BNR34`, and `M2`/`M4` remain explicit conflicts. Five structural policies were
+implemented without adding a new scalar threshold.
+
+V2 stops at its historical calibration gate. On the existing 223 rows, v4's 22 rows, and HIC-v1's
+24 rows, no non-reference policy preserves every required positive while producing zero
+absent-identity output. The closest bilateral policy reduces both negative sets to 1/12 but keeps
+only 146/168 existing, 9/10 v4, and 10/12 HIC positives. The result is therefore
+`historical_calibration_fail` with `winner: null`. No protocol, 32-case holdout, new retrieval,
+private evaluation, or runtime change was created. See the
+[identity-envelope calibration](reports/human-knowledge-identity-envelope-development-v2/historical-calibration.md),
+[QA review](specs/human-knowledge-identity-envelope-development/review.md), and
+[evidence](docs/evidence/human-knowledge-identity-envelope-development-v2.md).
+
+```bash
+PYTHONPATH=src pvr-develop-human-knowledge-identity-envelope --check
+```
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with
