@@ -916,6 +916,25 @@ private evaluation, or runtime change was created. See the
 PYTHONPATH=src pvr-develop-human-knowledge-identity-envelope --check
 ```
 
+V3 then replaces the linear envelope with one candidate-independent identity-claim graph. It keeps
+identity, public seller context, unresolved words, and local year/model-number frames separate, and
+runs numeric hard-conflict checks before rank-specific admission. This makes each decision
+auditable without using color, series, release metadata, private labels, or case-specific mappings.
+
+The implementation is reproducible, but the product experiment again stops at the historical gate.
+The looser policies preserve most positives yet still return results for 11/12 v4 and 10/12 HIC
+absent identities; the stricter policies reject every measured negative but retain only
+129–134/168 existing positives. Consequently, no policy passes all 223/22/24 gates and the result is
+`historical_calibration_fail` with `winner: null`. No 16+16 holdout, new retrieval, private
+evaluation, API/Dual RAG/PostgreSQL change, or runtime activation was authorized. See the
+[identity-claim graph calibration](reports/human-knowledge-identity-claim-graph-development-v3/historical-calibration.md),
+[QA review](specs/human-knowledge-identity-claim-graph-development/review.md), and
+[evidence](docs/evidence/human-knowledge-identity-claim-graph-development-v3.md).
+
+```bash
+PYTHONPATH=src pvr-develop-human-knowledge-identity-claim-graph --check
+```
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with

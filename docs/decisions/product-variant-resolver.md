@@ -1921,3 +1921,139 @@ The 10x value of this delivery is auditability of a negative result:the reposito
 the method stopped before32 additional retrieval calls and which gate failed. Product eligibility
 remains FAIL;implementation integrity,reproducibility,privacy and release safety PASS. A future
 algorithm requires a new v3 namespace;static cleanup requires a separate behavior-neutral task.
+
+# D85 — Build a candidate-independent local-frame claim graph before policy evaluation
+
+Status:ACCEPTED for HICG planning and HICG-T1,2026-09-22. The owner confirmed requirements,design
+and the ordered eight-task list before implementation. Replace HIE-v2's one linear envelope with one
+immutable query graph built from the complete committed public identity corpus before any Top-5
+candidate is inspected. Give identity,context,unresolved claims and each local numeric/model frame
+separate roles,edges and deterministic checksum.
+
+Use a frozen public context vocabulary with identity precedence;candidate-independent compact
+segmentation;unique prefix abbreviation;alphabetic Damerau-Levenshtein edit1;and four bounded
+numeric rules(year suffix,`o/0`,repeated-digit restoration and leading-year uncertainty`x`). Preserve
+all source forms and reason codes. Do not read private evidence,expected labels,series,color,release
+metadata or case-specific mappings.
+
+This has roughly a10x auditability advantage over a learned cross-encoder:each normalization,
+segment,role,frame owner,equivalence and checksum is directly inspectable. The trade-off is a larger
+evidence schema and less semantic flexibility. The most likely failure is a corpus-wide hypothesis
+that assigns an ambiguous word or digit to the wrong local slot;HICG-T2/T4 must expose that through
+candidate evidence and exact historical gates rather than hiding it with a score.
+
+T1 verification:the actual142-document corpus yields240 normalized forms and475 identity atoms;
+20 focused and165 related identity/anchor/HIC/HIE tests PASS. Targeted Ruff,Mypy and compile PASS;
+zero artifacts,retrieval calls or runtime/database/canonical changes. Candidate decisions and policy
+eligibility remain unimplemented until HICG-T2.
+
+# D86 — Run primary-casting hard-conflict preflight before every rank policy
+
+Status:ACCEPTED for HICG-T2,2026-09-22. Compare the immutable query graph with both the candidate's
+primary casting and approved aliases,but let aliases improve only positive alignment. A conflicting
+numeric/alphanumeric frame in the primary casting remains a hard conflict even if a shorter alias
+omits that frame. Apply this preflight at ranks1–5 before rank-specific coverage or admission logic.
+
+Freeze one reference policy and four non-reference policies in declared order:conflict veto,
+bilateral residual control,query conservation,and decision list. This categorical family was chosen
+instead of tuning another scalar threshold because each stricter policy represents an inspectable
+claim about what information may remain unexplained. The existing `>=0.75` secondary coverage check
+therefore remains a downstream gate rather than an override for structural contradictions.
+
+The main safety problem solved is the old branch order:secondary `R32`/`R33` queries could admit a
+`BNR34` candidate from coverage alone,while alias selection could potentially conceal the numbered
+primary form. T2 now abstains from those cases at both rank1 and rank4 with explicit frame and reason
+evidence,while bounded year,OCR,repeated-digit,uncertainty,abbreviation,and compact-form positives
+remain admissible under their declared structural relations. Candidate outputs preserve source order.
+
+The 10x value is decision auditability:reviewers can inspect the immutable graph,selected form,
+primary comparison,residuals,hard-conflict state,rank rule,and reason codes without reconstructing a
+hidden score. The trade-off is conservative abstention when the local-frame owner or corpus grammar
+cannot resolve a legitimate form. Historical calibration in HICG-T3/T4 must measure that recall cost;
+T2 does not claim policy eligibility.
+
+Verification:34 focused and179 related identity/anchor/HIC/HIE tests PASS. Targeted Ruff,Mypy and
+compile PASS;only the existing Starlette/AnyIO deprecation warning remains. No protocol,pack,raw,
+calibration,selection,retrieval,runtime,database,canonical,or color behavior was created or changed.
+
+# D87 — Separate experiment machinery from the formal historical branch gate
+
+Status:ACCEPTED for HICG-T3,2026-09-22. Implement every historical loader,gate calculator,phase
+command,builder and validator before executing the formal223/22/24 calibration. T3 tests the
+machinery with synthetic or temporary evidence and inspects only public input hashes and holdout
+availability;HICG-T4 is the first step allowed to persist or act on the actual policy results.
+
+Bind the five frozen HIC/HIE hashes before graph construction,then bind every corpus/evidence input
+and the current V3 source hash into calibration and downstream manifests. Expose exactly five
+mutually exclusive actions:`--freeze-protocol`,`--freeze-pack`,`--collect`,`--score`,and`--check`.
+Each action validates every prior phase;existing bytes return `unchanged`,while stale hashes,
+partial directories,phase skips,denominator drift,forbidden raw labels,or overwrite attempts fail.
+
+The branch rule is asymmetric by design. A historical FAIL may create only deterministic calibration
+JSON/manifest/Markdown with `winner:null`;a protocol requires a non-reference survivor. Pack creation
+then proves16+16 balance,16 distinct positive documents/families,four positive and four negative
+challenge groups,corpus-absent negatives,and zero retrieval. Collection alone may make exactly32
+Top-5 calls;raw bytes exclude labels,decisions,gates and winners. Scoring must reuse those bytes.
+
+This has a10x governance advantage over one command that both experiments and collects:the project
+can stop before spending retrieval or exposing holdout outcomes,and each persisted byte states which
+frozen inputs authorized it. The trade-off is a larger lifecycle implementation and stricter recovery
+from partial artifacts. The most likely failure is contract drift between old public row schemas and
+the V3 scorer;49 focused contract tests plus194 related regressions cover the current boundary,but
+T4 remains responsible for the real denominator/gate run.
+
+Verification:the installed CLI help exposes only the five phases;targeted Ruff,Mypy and compile PASS;
+49 focused and194 related tests PASS. The real historical calibration was deliberately not executed,
+and no V3 calibration,protocol,pack,raw,selection,retrieval,runtime,database,canonical,or color
+artifact/change exists.
+
+# D88 — Stop HICG-v3 at the historical gate with a null winner
+
+Status:ACCEPTED,2026-09-22. After pre-freeze QA passed,execute the formal223/22/24 public historical
+calibration exactly as specified. No non-reference policy passes all14 exact gates,so persist only
+the deterministic calibration JSON,manifest and Markdown with `winner:null`. Do not create a
+protocol,16+16 pack,label-blind raw rows,selection,private evaluation or runtime integration.
+
+The result exposes a real safety/recall boundary rather than one universal winner. The two looser
+policies preserve more positives but remain unsafe:`claim-conflict-veto` keeps166/168 existing,
+9/10 v4 and12/12 HIC positives,yet admits11/12 v4 and10/12 HIC negative cases and misses both known
+secondary BNR34 vetoes. The three structural policies reject both known conflicts and reach0/12 on
+both negative sets,but preserve only134/129/131 existing positives,4/3/4 v4 positives and8/12 HIC
+positives;they also keep only19/8/3 of24 prior required targets.
+
+This negative result prevents32 new retrieval calls and blocks a misleading release claim. Its10x
+value is evidence that the lifecycle gate can reject both an unsafe high-recall method and an overly
+restrictive safe method before holdout collection. The trade-off is no v3 policy promotion. The
+most important future research question is whether a new version can distinguish harmless residual
+context/alias structure from true identity substitution without reintroducing the all-rank numeric
+conflicts;V3 must not be retuned after observing this result.
+
+Reproducibility:pre-freeze source SHA-256 is
+`998f5af0983517d5ead54cf5fddaf46a57056245f92ac6d0c00c3279260ab173`;repeat freeze returned
+`calibration_failed_unchanged`,and `--check` returned `valid`. Calibration hashes are JSON
+`d2d94334d311c84e17c98b2f7d38876674ecf9def1c0dda6c889fbc822a7b1c2`,manifest
+`9666ff2b5c63677fbc6f74daf9f4490e191c9a209151c798e44e75cccb2cac5f`,and Markdown
+`16f5b425c6c3e4f7947f868112663a1e024c0270484ebea34fcfe7f583b460a5`. Denominators are exact,
+retrieval/graph/alignment/decision errors are all zero,and API/Dual RAG/PostgreSQL/canonical/release/
+color behavior remains unchanged. Two measured-artifact regressions lock the null branch and hashes;
+the final T4 counts are51 focused and196 related tests PASS.
+
+# D89 — Publish HICG-v3 as an implementation PASS and product-eligibility FAIL
+
+Status:ACCEPTED,2026-09-22. Close the historical-FAIL branch with a requirements review,immutable
+evidence summary,AI-eval rubric,README explanation and repository delivery. Keep four verdicts
+separate:implementation integrity PASS;historical eligibility FAIL;holdout NOT RUN;runtime NOT
+AUTHORIZED. A green test suite must not be presented as a qualified retrieval policy.
+
+Preserve the V3 source and three calibration artifact hashes. HICG-T5–T7 remain conditional tasks
+blocked by the null historical gate;do not manufacture protocol,pack,raw or selection artifacts to
+make the task list look complete. The five policy results show the reason:loose policies preserve
+recall but admit absent identities,while strict policies reach zero measured negatives at severe
+positive loss. Selecting a closest policy would violate the exact predeclared gates.
+
+This closure makes a failed experiment useful and reviewable:it proves the branch gate prevented32
+unnecessary retrieval calls and blocked unsafe promotion. Full QA passes51 focused,196 related and
+864 repository tests plus targeted Ruff,target-local strict MyPy,compile,installed CLI,integrity and
+diff checks. Repository-wide MyPy's51 known existing/cross-module errors remain disclosed debt. No
+API,Dual RAG,PostgreSQL,canonical,release or physical-feature behavior changes. A future algorithm
+must use a new versioned spec/source/evidence namespace rather than retuning this frozen result.

@@ -214,7 +214,15 @@ development data與既有199題positive dev pack上比較admission policies；�
 - [x] Candidate-specific contradiction／identity-span v1已完成；實驗可重現但七個policies均不合格，`winner: null`，runtime仍阻擋。
 - [x] Query-global identity-envelope v2已在HIE-T3正式FAIL：0個non-reference policy通過historical gate，已保存可重現calibration證據；protocol／pack／raw／32題retrieval均未建立，HIE-T4–T7停止。
 - [x] HIE-v2 repository closure已補齊QA review、evidence、AI-eval與README，完整813項測試通過；GitHub只發布null result，不宣稱runtime能力。
-- [ ] 若要繼續改善rank-1 admission，需建立全新的v3規格與artifact namespace，不得調整HIE-v2 frozen evidence。
+- [x] 全新的HICG-v3 requirements草案已建立；它以candidate-independent claim graph與all-rank hard-conflict veto處理HIE-v2證據缺口，且未修改任何frozen evidence。
+- [x] HICG-v3 requirements已由owner確認；新的graph、local frame與all-rank conflict邊界已固定在需求層。
+- [x] HICG-v3 design已由owner確認；public grammar、local frames、policy family與branch gate已有可實作契約。
+- [x] HICG-v3八項task list已由owner確認；HICG-T1 public grammar與immutable query graph已完成，20 focused／165 related tests通過，仍為0 retrieval與0 artifacts。
+- [x] HICG-T2 candidate evidence、primary-casting alias non-bypass、all-rank conflict preflight與四個structural policies已完成；34 focused／179 related tests通過，仍為0 retrieval與0 artifacts。
+- [x] HICG-T3唯讀historical loaders、exact gate scoring、五階段CLI、conditional builders與artifact lifecycle validators已完成；49 focused／194 related tests通過，正式calibration仍未執行且0 artifacts／0 retrieval。
+- [x] HICG-T4正式historical branch gate已完成且FAIL：五個policies都未通過全部223／22／24 exact gates，`winner: null`、0 retrieval，只保存三個calibration artifacts，沒有protocol／pack／raw／selection；加入量測artifact regressions後51 focused／196 related tests通過。
+- [x] HICG-T5–T7因historical FAIL依法blocked；沒有建立16+16 pack，也沒有執行32次holdout retrieval。
+- [x] HICG-T8 historical-FAIL closure已完成：QA review、evidence、AI-eval、README／決策／Project Log與完整864項測試均完成；GitHub只發布null result，不授權holdout或runtime。
 - [ ] Shadow evaluation通過後，才規劃opt-in Dual RAG runtime integration與API regression QA。
 - [ ] 1,763筆release staging仍須逐批完成variant-level review；目前只有5個family relationships。
 - [ ] Color、wheel、tampo、edition與packaging大多仍未知，尚不能可靠辨識具體版本。

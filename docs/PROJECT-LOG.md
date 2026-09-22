@@ -1,5 +1,208 @@
 # Project Log
 
+## 2026-09-22 — HICG-v3需求草案：把正例誤殺與secondary數字衝突拆開處理
+
+### 新執行了什麼、解決什麼問題
+
+HIE-v2已合法結束為`winner: null`，本步沒有修改失敗實驗，而是唯讀分析其公開historical calibration，
+並建立全新namespace的v3 requirements草案。分析要回答的不是「再把threshold調鬆一點」，而是為何最接近
+安全目標的`envelope-bilateral`仍同時漏掉正例、又留下兩個hard negatives。
+
+公開證據顯示該policy把既有正例從168降到146、v4正例從10降到9、HIC-v1正例從12降到10；常見誤殺來自
+前置年份與seller context、`5o0`／`500`類局部OCR、多組數字共存、縮寫／單字編輯，以及compact spelling。
+另一方面，剩下的兩個負例是`R32`或`R33`query對`BNR34`candidate；它們位於secondary rank，因舊流程直接用
+`identity-token coverage >= 0.75`放行，繞過rank-1才有的結構衝突判斷。這次分析因此把recall與safety視為
+兩個結構問題，而不是一個共用分數門檻。
+
+### 規格修改了哪個部分、為何做出這個決定
+
+新增`specs/human-knowledge-identity-claim-graph-development/requirements.md`，要求每個query先產生唯一且
+candidate-independent的identity-claim graph。Graph要明確保存identity anchors、context、未解的辨識詞，
+以及frame-local數字／英數結構；年份簡寫、OCR、縮寫和小幅編輯只能透過事前凍結且可稽核的一般規則處理。
+採用graph而不是再延伸單一envelope，是因為同一句query可能同時包含年份、型號數字、maker/model與seller
+語境，線性截取一段文字不足以表達它們各自的角色和關係。
+
+最重要的政策變更是universal hard-conflict veto：rank 1至5都必須先檢查保留下來的model-number衝突，之後
+secondary candidate才可使用既有coverage規則。這直接修正`R32/R33`被`BNR34`放行的控制流程缺口，且沒有
+新增Nissan專用例外。正例則以local frame、公開corpus aliases、candidate-independent context boundary處理，
+避免為了擋負例而再次大幅犧牲recall。
+
+### 閘門、技術邊界與下一步
+
+v3仍採public-only與historical-first。它必須先在既有223／v4 22／HIC-v1 24 rows同時達到168/168正例、
+4/4 merge、24/24 prior required、10/10 v4正例、0/12 v4負例、12/12 HIC正例、0/12 HIC負例、兩個已知
+secondary numeric conflicts都abstain且零錯誤。若沒有non-reference survivor，必須保存null result並維持
+0個新retrieval；只有歷史gate全過，才可凍結source/protocol rules並建立新的32題family-disjoint holdout。
+
+本步沒有寫產品碼、沒有建立design/tasks、沒有產生protocol/pack/raw/selection，也沒有修改API、Dual RAG、
+PostgreSQL、canonical、color或variant行為。Requirements先以draft等待owner確認。
+
+Owner以「進行下一步」確認HICG-R1–R16後，本輪新增`design.md`，但仍沒有寫產品碼或建立任何evaluation
+artifact。設計把query處理拆成public identity grammar、candidate-independent claim graph、candidate comparison
+與all-rank hard-conflict preflight四層。和HIE-v2最大的差異不是換一個threshold，而是數字不再形成global tuple：
+leading year、standalone model與alphanumeric model各自在相鄰identity anchors定義的local slot比較，所以
+`20`／`2020`可以在year frame等價，同一句中的`1500`仍獨立守恆，而`R33`／`BNR34`會在terminal model slot衝突。
+
+為保留正例，設計先對完整query分詞，不再先刪noise；公開context vocabulary只有在atom未參與winning
+corpus-wide identity hypothesis時才生效，避免把`Tesla Model S`的`model`誤刪。Compact segmentation、唯一prefix
+abbreviation、alphabetic Damerau-Levenshtein edit 1、leading-year suffix、`o/0` OCR、重複digit復原與year後綴`x`
+都有固定結構限制與reason code。這些規則掃描完整公開corpus，不讀Top-5 candidates或expected labels。
+
+Candidate的approved alias可改善正向alignment，但不能隱藏primary casting中的數字衝突；每個non-reference
+policy都先對rank 1–5執行相同hard-conflict veto，之後secondary才可進入coverage 0.75 gate。四個policy由寬到嚴
+比較conflict-only、bilateral residual、query conservation與完整decision list；reference只作比較，不能成為survivor。
+
+流程仍採historical-first：先離線重算223／22／24 rows，若無survivor，只能保存新的null calibration並維持
+0 retrieval；有survivor才凍結source/protocol、建立16+16 family-disjoint pack並exactly-once collect。目前
+design先等待owner確認；`tasks.md`、source、CLI、tests、protocol、pack、raw與selection當時全都尚未建立。
+
+Owner再以「繼續下一步」確認design後，本輪新增八項依序tasks。HICG-T1只建立public grammar與immutable
+query graph；T2加入candidate evidence、primary-casting不可被alias隱藏的all-rank conflict preflight及四個
+non-reference policies；T3才補historical calibration、五階段CLI與完整artifact validators。前三步是唯一可修改
+V3 source的區間，而且都禁止執行retrieval。
+
+HICG-T4是正式分支gate。它先通過targeted static checks與related regressions，再用既有223／22／24 rows執行
+0-retrieval calibration。若無survivor，T5–T7必須標為blocked，保存null calibration後直接進T8完成失敗證據、
+QA與GitHub交付；若通過，source/protocol從此凍結，T5才可建立16+16 pack、T6 exactly-once收集32 rows、T7從
+frozen bytes評分。這次把T8設為兩個分支都必走，避免技術實驗失敗時文件交付變成規格外工作。
+
+每項task都有變更檔案、需求回指、owner與可測量acceptance。T8也保留owner要求的Project Log內容標準與
+Product-Variant-Resolver-only GitHub邊界。Task list先等待owner確認，在確認前沒有開始HICG-T1或建立artifact。
+
+Owner以「繼續幫我下一步」確認task list後，HICG-T1已完成。新增獨立的
+`human_knowledge_identity_claim_graph_development.py`與focused test；新模組只接受公開
+`HumanKnowledgeDocument`，不讀evaluation pack、private projection或runtime資料。它先保留完整normalized/raw
+token provenance，再從公開casting與approved identity forms建立candidate-independent grammar；目前142 documents
+可穩定建立240 forms與475個identity atoms。
+
+舊HIE先用noise policy刪字，再取一段linear envelope，導致年份、context與多組數字容易混在同一比較。本次改成
+immutable graph：每個atom有identity anchor/model、numeric frame、context或unresolved角色；leading year、
+standalone model、alphanumeric與compact model各有local owner、digit runs、edges和canonical JSON checksum。
+`20 Ram 1500 Rebel`因此把`20`／`2020`當同一year frame，但仍把`1500`保存在獨立model slot；候選比較之後
+只能回答這張graph，不能重寫它。
+
+正例保護沒有使用vehicle exception。完整corpus先決定compact segmentation與唯一性：`smallbloc`可拆為context
+`small`加identity `bloc`；`de`／`deora`、`su`／`super`必須有另一個exact identity atom且corpus expansion唯一；
+alphabetic typo只允許Damerau-Levenshtein edit 1。年份suffix、`o/0`、重複digit復原與year uncertainty `x`也都
+保存rule name與原始form。若prefix在corpus中不唯一，它維持unresolved而不假裝等價。
+
+T1新增20項focused tests，全數通過；包含實際142-document public corpus整合、checksum重現、context precedence、
+compact digits、五組縮寫／typo、四組numeric equivalence、ambiguous prefix、unanchored query及`R33`守恆。
+加上既有identity／anchor／HIC／HIE回歸共165項全部通過，只有既有Starlette／AnyIO deprecation warning。
+Targeted Ruff format/check、Mypy `--follow-imports=skip`與compileall也通過。
+
+本步沒有實作candidate decision或policy，沒有建立CLI、calibration、protocol、pack、raw或selection，也沒有
+retrieval及API／Dual RAG／PostgreSQL／canonical／color變更。下一步HICG-T2才會比較primary casting與aliases、
+加入all-rank hard-conflict preflight與四個non-reference policies。
+
+Owner接著要求繼續下一步，HICG-T2現已完成。這一步把T1建立的query graph真正拿來逐一檢查候選：每個
+candidate都會保存primary casting、approved aliases、被選中的正向identity form、每個form與query claims的
+alignment、local numeric/alphanumeric frame比較、未配對claims、residual、completion、hard-conflict、source
+rank與最終reason codes。同一批候選會依原始rank順序輸出，policy只能判斷admit或abstain，不能重新排序。
+
+這次解決的核心問題是舊HIE decision branch先看rank。rank 2–5曾直接進入`coverage >= 0.75`，所以query明確
+寫`R32`或`R33`時，secondary `BNR34`仍可能被放行。本次把hard-conflict preflight移到所有rank policy之前，
+rank 1與rank 4都會先得到`hard_numeric_model_conflict`並abstain；coverage只有在結構規則通過後才有資格執行。
+這不是針對Nissan寫例外，而是比較相同local frame內守恆的數字／英數model claim，所以同一規則可套用到
+其他casting。
+
+代碼中特別分開「primary casting safety evidence」與「best approved form positive alignment」。Alias可用來
+證明縮寫、spacing或公開別名與query相容，但若primary casting本身帶有衝突數字，選到一個省略數字的alias
+也不能遮蔽衝突。做這個決定是因為alias本來是recall工具，不應變成繞過safety gate的方式。正向等價仍只
+允許exact、leading-year suffix、`o/0` OCR、repeated-digit restoration與leading-year uncertainty `x`；任意不等
+數字不會因字面相近而通過。Form tie使用結構品質優先、最後以identity lexical order固定結果，避免執行順序
+改變判斷。
+
+Policy選型不是再找一個scalar threshold，而是固定一個reference與四種由寬到嚴的categorical policies：
+`claim-conflict-veto`只守hard conflict，`claim-bilateral`再限制雙向residual，
+`claim-query-conservation`要求query claim不被遺漏，`claim-decision-list`只接受完整或明確bounded且無residual的
+form。`reference-anchor`保留舊rank/coverage行為作比較，但不能成為survivor。這種設計的理由是每個差異都能
+對應到可閱讀的結構條件，後續historical calibration若失敗，可以知道是recall、query conservation或residual
+哪一個gate造成，而不是只能看到一個分數不足。
+
+HICG-T2新增後focused suite為34/34 PASS，含primary alias non-bypass、rank1/rank4 `R33`對`BNR34`、年份/OCR/
+重複數字/uncertainty正例、abbreviation evidence、policy差異、secondary gate、source order及fail-closed evidence
+validation。包含API、anchor、HIC、HIE在內的related suite共179項全部通過；targeted Ruff format/check、Mypy
+`--follow-imports=skip`與compile也通過。唯一訊息是既有Starlette／AnyIO deprecation warning，與本次邏輯無關。
+
+本步仍未建立CLI、historical calibration、protocol、pack、raw或selection，retrieval calls維持0，也沒有改動
+API、Dual RAG、PostgreSQL、canonical identity、color或release behavior。下一步HICG-T3會實作唯讀historical
+loaders、exact calibration scoring、phase-gated CLI與artifact lifecycle validators；正式執行historical branch
+gate則仍留在HICG-T4。
+
+Owner要求繼續後，HICG-T3已完成，但刻意沒有執行正式historical calibration。本步新增的是實驗執行機制，
+不是調整T2 policy：程式現在能唯讀載入既有223筆public rows、22筆anchor-confidence v4 rows與24筆HIC-v1
+rows，對五個policy離線重算每個candidate的graph/evidence/decision，再逐項產生HICG-R11要求的14個exact gates。
+其中包含168/168既有正例、4/4 merge、24/24 prior required、10/10 v4正例、0/12 v4負例、12/12 HIC正例、
+0/12 HIC負例、兩個R32/R33 secondary BNR34 veto，以及retrieval/graph/alignment/decision error皆為0。
+
+這解決的問題是「演算法寫完後，如何確保實驗不會跳步、改資料或看到holdout結果後再調規則」。正式graph
+建立前，loader必須先驗證五個凍結HIC/HIE hashes，再計算所有corpus與public evidence inputs hashes；後續
+calibration、protocol、pack、raw與selection manifests都綁定這些bytes和目前V3 source。若舊證據被修改、筆數
+不再是223/22/24，或source在freeze後改動，validator會fail closed而不是自動覆寫。
+
+`pyproject.toml`新增已安裝的`pvr-develop-human-knowledge-identity-claim-graph`入口，且只提供五個互斥phase：
+`--freeze-protocol`、`--freeze-pack`、`--collect`、`--score`與`--check`。選擇分階段CLI而不是一鍵跑到底，是因為
+historical FAIL時依法只能保存deterministic null calibration；只有non-reference survivor存在，才能凍結source/
+protocol。Pack仍需等post-freeze negative declarations，collect只能在32題pack完整後exactly once執行，score
+只能讀已凍結raw bytes。這使每一階段都有明確的授權來源和停止點。
+
+Artifact lifecycle實作採「create once或byte-identical unchanged」。既有directory若缺檔、多檔、hash stale或
+內容不同，就報錯而不覆寫。FAIL branch只准留下historical calibration JSON、manifest與Markdown，不能出現
+protocol/pack/raw/selection。PASS branch的pack builder則先驗證16 positive + 16 negative、四類各4筆、positive
+使用16個不同documents與16個不同families、不得重用v4/HIC positive資料、negative identity必須不在corpus且
+不得重用舊negative query。真實公開資料的唯讀availability preflight確認目前有足夠候選可滿足四類各4筆，
+但沒有把它materialize成pack。
+
+Raw schema只允許query、原始ranked candidates、retrieval work與errors；`expected`、case label、policy decision、
+gates和winner在任何深度都會被拒絕。Collector若看到既有且驗證通過的raw，直接回`unchanged`且不呼叫retriever；
+error rows會原樣保存而不retry。Scorer只有在raw已凍結後才join pack labels，並依negative admitted較少、positive
+abstained較少、non-exact equivalence較少、最後least-restrictive policy的固定順序選winner。
+
+測試採synthetic/temporary evidence驗證正式流程，因此沒有提前看實際policy結果。Focused suite現為49/49 PASS，
+新增涵蓋五個immutable hashes、exact denominators與14 gates、離線policy application、FAIL/PASS protocol分支、
+phase order、四類16筆negative schema、四類positive graph proof、raw label-blind、repeat collection與winner ordering。
+包含API、anchor、HIC、HIE在內的related suite為194/194 PASS；targeted Ruff、Mypy與compile通過。CLI以本機package
+安裝後可直接顯示五階段help；現有Starlette／AnyIO deprecation warning仍是唯一警告。
+
+本步沒有建立V3 calibration、protocol、pack、raw或selection，retrieval calls維持0，也沒有改API、Dual RAG、
+PostgreSQL、canonical、release或color行為。下一步HICG-T4會先做pre-freeze QA，之後才第一次正式執行
+223/22/24 historical branch gate；結果若FAIL就保存`winner:null`並停止，若PASS才凍結source與protocol。
+
+Owner再次要求繼續後，HICG-T4先重新執行pre-freeze QA，而不是直接看calibration結果。49項focused tests與
+總計194項API/anchor/HIC/HIE相關回歸全部通過；targeted Ruff format/check、Mypy、compile與`git diff --check`
+也通過。五個固定HIC/HIE hashes仍完全一致，V3 source在正式gate前固定為
+`998f5af0983517d5ead54cf5fddaf46a57056245f92ac6d0c00c3279260ab173`，且V3 artifact directories當時不存在。
+
+隨後第一次正式執行`--freeze-protocol`。它只重算既有223/22/24 public rows，retrieval calls為0，結果是
+`historical_calibration_fail`、`winner: null`、0個non-reference survivors。因此分支依法只建立三個檔案：
+historical calibration JSON、manifest與Markdown；沒有建立protocol、16+16 pack、raw或selection。第二次執行
+同一命令回`calibration_failed_unchanged`，獨立`--check`回`valid`，證明結果byte-identical且可重算。
+
+量測結果顯示一個清楚的recall/safety分界。Reference保留168/168既有正例、10/10 v4正例、12/12 HIC正例，
+但v4負例仍有11/12 nonempty、HIC負例10/12 nonempty，兩個已知secondary BNR34 conflicts都未擋下。
+`claim-conflict-veto`稍微犧牲recall至166/168與9/10，卻仍留下相同11與10個負例，而且兩個secondary conflicts
+也沒有成功veto。這表示單靠目前的primary local-frame hard conflict仍不足以覆蓋公開row中的BNR34表示方式。
+
+三個較嚴格policy則達到安全面：`claim-bilateral`、`claim-query-conservation`與`claim-decision-list`全部把v4與
+HIC negative nonempty降至0/12，且兩個R32/R33 secondary conflicts都abstain；graph/alignment/decision errors
+也全部為0。但它們的正例保存分別只有既有134/168、129/168、131/168，v4為4/10、3/10、4/10，HIC為
+8/12、8/12、8/12；既有24個required targets也只剩19、8、3。它們雖安全，recall損失遠超exact gate，不能
+被選為survivor。
+
+這次沒有採取「挑最接近的policy」或看到結果後調threshold，因為requirements要求所有gate同時通過；放寬
+嚴格policy會重新引入negative risk，放行loose policy則明知仍不安全。選擇保存null result能在花費32次新
+holdout retrieval前停止，也讓履歷專案展示完整的實驗治理：技術實作本身可重現，不代表產品policy合格。
+
+三個artifacts的SHA-256分別為JSON
+`d2d94334d311c84e17c98b2f7d38876674ecf9def1c0dda6c889fbc822a7b1c2`、manifest
+`9666ff2b5c63677fbc6f74daf9f4490e191c9a209151c798e44e75cccb2cac5f`及Markdown
+`16f5b425c6c3e4f7947f868112663a1e024c0270484ebea34fcfe7f583b460a5`。HICG-T5–T7現在依法blocked；沒有
+private evaluation或API/Dual RAG/PostgreSQL/canonical/release/color變更。下一步直接進HICG-T8，補齊FAIL
+branch review、技術evidence、AI-eval、README與Product-Variant-Resolver-only GitHub交付。新增兩項量測artifact
+regressions鎖定null branch、各policy counts、source/artifact hashes與禁止downstream artifacts；最終focused為
+51/51、related為196/196 PASS。
+
 ## 2026-09-22 — HIE-v2 repository closure：發布失敗證據，不假裝完成holdout
 
 ### 新執行了什麼、解決什麼問題
@@ -34,6 +237,49 @@ Repo-wide static checks沒有被誤報為全綠。全repo Ruff指出83個歷史�
 51個既有／跨模組問題，其中包含HIE source在完整dependency graph下的1個`payload["text"]`型別推論。
 因source hash已由FAIL manifest綁定，本closure不在看到結果後修改source或重寫calibration。該型別債與
 全repo formatting應另開behavior-neutral maintenance task，不能混入本次實驗證據。
+
+## 2026-09-22 — HICG-T8：用可審查的失敗證據完成v3封版
+
+### 新執行了什麼、解決什麼問題
+
+HICG-T4已得到可重現但不合格的`historical_calibration_fail`。本步沒有繞過gate繼續做holdout，而是完成
+historical-FAIL專用的repository closure：新增HICG-R1–R16 QA review、immutable evidence摘要、AI/RAG
+evaluation rubric，並更新README、requirements/design/tasks checkpoint、roadmap與decision record。這解決
+原始10MB等級calibration JSON雖完整、但一般reviewer難以快速分辨「軟體正確」與「policy不安全」的問題。
+
+文件把結論拆成四層：implementation integrity PASS、historical eligibility FAIL、holdout NOT RUN、runtime
+NOT AUTHORIZED。這個拆分很重要，因為864項測試全綠只能證明程式依規格重算，不能證明任何policy達到產品
+品質。HICG-T5–T7仍保持未勾選和blocked，避免GitHub交付被誤解為32題holdout或上線已完成。
+
+### 修改了哪些部分、為何這樣決定
+
+產品判定程式與三個正式calibration artifacts完全沒有修改；V3 source SHA-256維持
+`998f5af0983517d5ead54cf5fddaf46a57056245f92ac6d0c00c3279260ab173`。新增的review逐項映射R1–R16，
+evidence固定source與artifact hashes並用一張表呈現五個policy，AI-eval則分別評估grounding、public/private
+separation、leakage、integrity、explainability、positive preservation、negative safety與release boundary。
+
+選擇發布null result，而不是挑「最接近」的policy，是因為量測呈現不可忽略的recall/safety trade-off。
+`reference-anchor`與`claim-conflict-veto`保留較多正例，但仍留下11/12 v4及10/12 HIC absent-identity輸出；
+三個嚴格policy把兩組負例降至0/12，也擋下2/2 BNR34 conflicts，卻只保留129–134/168既有正例、3–4/10
+v4正例與8/12 HIC正例。任何best-effort選擇都會違反事前固定的exact gates，且使履歷專案產生錯誤能力宣稱。
+
+方法上沿用版本化offline experiment與hash-bound evidence，而沒有導入cross-encoder或新dependency。這保留
+每個atom、frame、equivalence、conflict和decision可追溯的優勢，也誠實接受規則系統目前無法同時取得recall
+與safety。若要繼續研究，必須建立新的spec/source/evidence namespace；不能看到V3結果後直接改規則重跑。
+
+### QA、失敗邊界與下一個gate
+
+HICG focused 51/51、相關API/anchor/HIC/HIE regressions 196/196，以及完整repository 864/864 tests全部
+PASS；唯一warning是既有Starlette／AnyIO deprecation。Targeted Ruff format/check、target-local strict MyPy
+（跳過imports）、compileall、installed CLI、重複freeze/check、SHA-256與artifact shape、`git diff --check`
+均通過。完整dependency graph仍顯示6個既有模組的18項跨模組型別問題，而全repo MyPy是18個檔案51項
+既有技術債；本次沒有修改frozen source或順手重構無關模組。Exactly三個calibration files存在，
+protocol/pack/raw/selection不存在，retrieval維持0。
+
+因此本次HICG-v3研究已封版，但功能並未進入Dual RAG runtime。更大的產品roadmap下一個必要gate仍是：若
+提出新的identity algorithm，先建立新版public experiment並通過historical與family-disjoint holdout；只有再
+通過獨立private shadow evaluation後，才可另規劃opt-in API/runtime整合。Color、wheel、tampo、edition與
+packaging辨識也仍屬後續variant-level工作，不能由本次casting identity結果推論。
 
 ### 交付邊界與下一步
 
