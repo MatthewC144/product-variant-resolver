@@ -2057,3 +2057,45 @@ unnecessary retrieval calls and blocked unsafe promotion. Full QA passes51 focus
 diff checks. Repository-wide MyPy's51 known existing/cross-module errors remain disclosed debt. No
 API,Dual RAG,PostgreSQL,canonical,release or physical-feature behavior changes. A future algorithm
 must use a new versioned spec/source/evidence namespace rather than retuning this frozen result.
+
+# D90 — Propose corpus-wide minimal identity certificates for the v4 experiment
+
+Status:CLOSED HISTORICAL FAIL; HICS-T1–T5/T9 complete and HICS-T6–T8 blocked,2026-09-24. Do not retune HICG-v3. Its
+measured result shows that candidate residual symmetry is too strict for legitimate shorthand,while
+manufacturer/shared-token compatibility is too weak for corpus-absent identities. Define the next
+public-only attempt around corpus-wide minimal certificates:the smallest atom/frame combination that
+uniquely identifies one committed knowledge ID.
+
+Build the query support set against the full frozen certificate inventory before inspecting
+retrieved candidates. A candidate can be admitted only when the query satisfies a complete
+certificate for exactly one knowledge ID and the candidate maps to that ID without a primary-frame
+conflict. This permits a unique shorthand to omit the rest of a long casting name,but prevents
+`Honda Accord` from becoming Honda Civic merely because both share`Honda`.
+
+The approximately10x auditability advantage over a learned reranker remains:each certificate has a
+minimality proof,competing identities,source positions,equivalence uses and checksum. Feasibility
+review found that142 documents represent139 casting/family authorities:three extra provisional
+documents share the `83 Chevy Silverado` or`Toyota Supra` casting. Certificates therefore bind
+authority keys rather than variant document IDs;primary castings create claims and aliases can only
+bridge to them. This prevents forbidden series/color evidence from manufacturing variant identity.
+
+The main risk is certificate instability or over-specificity in the small public corpus;historical
+exact gates must run before any new retrieval. The owner bounded v4 as the last identity-admission
+attempt before returning to the original Pointwise-versus-Listwise milestone. Requirements and
+design and tasks are confirmed. The nine-task plan keeps T1–T4 in an isolated zero-retrieval build phase,
+makes T5 the mandatory historical branch gate,permits T6–T8 only after PASS,and uses T9 to close
+either branch before the reranker handoff. HICS-T1 now validates 142 documents as 139 authority
+keys with immutable upstream/corpus bindings. HICS-T2 derives460 primary-only claims,401 minimal
+certificates and101 alias bridges. Seven shorter primary names remain unresolved because their full
+claim sequence is contained by another authority;series/color evidence is not allowed to separate
+them. HICS-T3 now computes query support before candidates,with categorical exact/structural/bounded
+relations,residual and ambiguity fail-closed behavior,and one checksum reused by all candidate ranks.
+HICS-T1–T3 evidence remains in memory,and no holdout,private evidence or runtime change is approved
+by this decision alone. HICS-T4 implemented immutable public loaders,exact 223/22/24 offline scoring,
+the conditional null/PASS artifact lifecycle and the five-phase installed CLI. HICS-T5 then ran the
+formal gate once with zero retrieval. Exact,structural and bounded profiles preserved42,82 and137 of
+168 required existing positive hits;all three reached zero absent-identity output,2/2 secondary
+numeric vetoes and zero computation errors,but none passed every positive gate. The branch therefore
+freezes `winner:null` and only three calibration files. Protocol,inventory,holdout,raw,selection,
+private evaluation and runtime changes remain unauthorized;HICS-T6–T8 are blocked and HICS-T9 must
+close this final identity-admission attempt before the Pointwise/Listwise handoff.

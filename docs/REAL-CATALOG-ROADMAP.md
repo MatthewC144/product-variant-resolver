@@ -223,6 +223,16 @@ development data與既有199題positive dev pack上比較admission policies；�
 - [x] HICG-T4正式historical branch gate已完成且FAIL：五個policies都未通過全部223／22／24 exact gates，`winner: null`、0 retrieval，只保存三個calibration artifacts，沒有protocol／pack／raw／selection；加入量測artifact regressions後51 focused／196 related tests通過。
 - [x] HICG-T5–T7因historical FAIL依法blocked；沒有建立16+16 pack，也沒有執行32次holdout retrieval。
 - [x] HICG-T8 historical-FAIL closure已完成：QA review、evidence、AI-eval、README／決策／Project Log與完整864項測試均完成；GitHub只發布null result，不授權holdout或runtime。
+- [x] Identity-certificate set v4 requirements已由owner確認；v4被限定為最後一個identity-admission版本，完成branch-aware closure後回到Pointwise／Listwise主線，不自動建立v5。
+- [x] Identity-certificate set v4 design已由owner確認；它把142 documents正確映射為139個casting/family authority keys，certificate只來自primary casting、alias只能作bridge。
+- [x] Identity-certificate set v4九項task list已由owner確認；T1–T4建置與測試，T5執行0-retrieval historical branch gate，T6–T8只在PASS後執行，T9無論PASS／FAIL都封版並交回Pointwise／Listwise主線。
+- [x] HICS-T1 public authority inventory已完成；142 documents穩定映射至97 casting + 42 review-family authorities，9個upstream bindings與3個corpus inputs都有hash，14 focused／108 related tests通過，仍為0 certificate／0 retrieval／0 formal artifact。
+- [x] HICS-T2 minimal certificate inventory已完成；460個primary-only claims產生401張admissibly minimal certificates與101個alias bridges，7個contained primary authorities明確unresolved，27 focused／121 related tests通過，仍為0 query admission／0 retrieval／0 formal artifact。
+- [x] HICS-T3 candidate-independent query support與candidate membership已完成；exact／structural／bounded profiles、context precedence、compact/digit conservation、all-rank conflict veto與casting-only reason codes已有可重現證據，49 focused／143 related tests通過，仍為0 retrieval／0 formal artifact。
+- [x] HICS-T4 immutable historical loaders、223／22／24 exact-gate scoring、conditional protocol/inventory/pack/raw/selection lifecycle與五階段installed CLI已完成；58 focused／179 related tests通過，正式branch gate仍未執行，維持0 retrieval／0 formal v4 artifact。
+- [x] HICS-T5正式historical branch gate已完成且FAIL：exact／structural／bounded只保留42／82／137個existing positive hits（門檻168），雖然三者皆達成0 absent-identity output、2/2 secondary vetoes與0 computation/retrieval errors，仍無profile通過全部223／22／24 gates；`winner: null`，只保存三個calibration artifacts，HICS-T6–T8 blocked。
+- [x] HICS-T9 historical-FAIL closure已完成：QA review、public evidence、AI-eval、README／decision／Project Log與60 focused、181 related、924 full tests均已整理；v4不建立holdout或runtime integration，也不自動建立v5。
+- [ ] 下一個Lite spec比較同一凍結candidate pool上的No Reranker/RRF、Neural Pointwise與Listwise；在requirements／design／tasks逐份確認前不實作或跑新evaluation。
 - [ ] Shadow evaluation通過後，才規劃opt-in Dual RAG runtime integration與API regression QA。
 - [ ] 1,763筆release staging仍須逐批完成variant-level review；目前只有5個family relationships。
 - [ ] Color、wheel、tampo、edition與packaging大多仍未知，尚不能可靠辨識具體版本。

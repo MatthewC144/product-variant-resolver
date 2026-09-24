@@ -1,5 +1,379 @@
 # Project Log
 
+## 2026-09-24 — HICS-T9：封存v4 null result並交回Pointwise／Listwise主線
+
+### 新執行了什麼、解決什麼問題
+
+HICS-T5已證明三個certificate profiles沒有一個能通過全部historical gates，但只有calibration artifacts仍不足以
+讓面試官或後續維護者理解「程式成功、實驗失敗、runtime未授權」三者差異。本輪HICS-T9完成branch-aware
+closure，把requirements coverage、實測metrics、artifact hashes、AI output rubric、release boundary與下一個
+roadmap gate整理成可獨立閱讀的文件，並將v4明確標為最後一個identity-admission attempt。
+
+這解決了兩種履歷風險。第一，不會因924項測試全綠就宣稱模型可上線；測試證明determinism與integrity，實測
+gates仍判定FAIL。第二，不會把`winner:null`描述成「沒有成果」；它是可重現的negative result，證明pre-retrieval
+gate阻止了32次不必要retrieval、private evaluation與unsafe runtime promotion。
+
+### 文件修改、結構選擇與原因
+
+新增`specs/human-knowledge-identity-certificate-development/review.md`，逐項映射HICS-R1–R16，並固定四個獨立
+verdict：implementation PASS、historical eligibility FAIL、holdout NOT RUN、runtime NOT AUTHORIZED。拆成四層是
+為了避免常見的二元「project pass/fail」誤解；一個工程實作可以正確執行，同時產品假設不合格。
+
+新增`docs/evidence/human-knowledge-identity-certificate-development-v4.md`，公開source／inventory／三個artifact
+hashes、142→139 authority mapping、460 claims、401 certificates、101 bridges、七個unresolved authorities與四個
+profiles的完整量測表。另新增`docs/evidence/ai-evals/human-knowledge-identity-certificate-v4.md`，用grounding、
+public/private separation、leakage、certificate/candidate independence、retrieval/evidence integrity、explainability、
+positive preservation、negative safety、selection與release safety分開評分。Positive preservation唯一明確FAIL；
+negative safety與selection integrity仍PASS，避免把一個維度的失敗擴寫成所有維度都無效。
+
+README新增v4摘要與read-only`--check`方式；decision D90改為`CLOSED HISTORICAL FAIL`；roadmap標記HICS-T9
+完成並新增下一個未開始項目：在同一凍結candidate pool比較No Reranker/RRF、Neural Pointwise與Listwise。
+Requirements、design與tasks狀態也同步封版。V4 source在正式結果出現後沒有修改，HICS-T6–T8維持blocked，
+也沒有建立v5 spec或偷跑下一個evaluation。
+
+### QA、已知債與GitHub邊界
+
+Read-only installed CLI`--check`重新驗證frozen artifacts，回傳`valid`、`historical_calibration_fail`與
+`winner:null`。60/60 focused、181/181 related與924/924完整tests通過；Ruff format/check、target-local strict
+MyPy、compileall、artifact hash/absence與`git diff --check`通過。唯一suite warning仍是既有Starlette／AnyIO
+deprecation。Repository-wide strict MyPy仍有18個既有檔案共51個errors，主要是optional dependency stubs、舊
+development modules inference、redundant casts與既有API/service typing；本輪沒有用無關重構掩蓋這些技術債。
+
+Git交付只在`Product Variant Resolver`自己的repo root進行；parent workspace的`AGENTS.md`、`.codex`與其他
+folders不在此Git working tree內。本機為修復macOS hidden `.pth`而加入的`.venv/sitecustomize.py`受gitignore
+保護，不會推送。Commit包含v4 source/tests/specs、三個null calibration artifacts與closure docs，不包含private
+evidence、holdout、raw retrieval、database資料或runtime設定。
+
+### 真正下一步
+
+Identity-admission路線到此結束，不因bounded profile接近168門檻就調參或建立v5。下一步應先建立新的Lite spec，
+定義No Reranker/RRF、Neural Pointwise與Listwise共用的frozen candidate pool、train/dev/test leakage boundary、
+metrics、latency與selection gates；在requirements、design、tasks逐份確認前，不修改runtime或執行新比較。
+
+## 2026-09-24 — HICS-T5：正式historical gate為FAIL，安全停止holdout分支
+
+### 新執行了什麼、解決什麼問題
+
+HICS-T4只完成了可執行機制與synthetic lifecycle tests；本輪HICS-T5才第一次對真實公開證據執行正式branch
+gate。執行前先重算25個historical input bindings、v4 source SHA-256
+`cf2e207b97f395d2e4b334875ac17f2efa0500b1e675910e0242e562503b665a`、139 authorities、401 certificates與
+certificate inventory checksum
+`dafc709027af513e8bd6db20b80cc1c73e096461a05d13c69699b759f05edec7`。資料與source一致後，才執行一次：
+
+`pvr-develop-human-knowledge-identity-certificate --root . --freeze-protocol`
+
+命令回傳`calibration_failed_created`、`protocol_created:false`與`retrieval_executed:false`。這回答了v4最重要的
+問題：corpus-wide minimal certificates雖能消除已知false positives，但沒有任何non-reference profile同時保留
+全部既有positive gates。因此v4不能進入16+16 holdout，也不能被挑成「最接近」的winner。
+
+### 正式量測結果，以及錯誤究竟在哪裡
+
+Reference保留168/168 existing positives、24/24 required targets、10/10 anchor positives與12/12 HIC positives，
+但它本來就不是survivor，而且仍放行11個anchor absent identities與10個HIC absent identities，兩個secondary
+R32/R33對BNR34 veto也都是0/2。這再次證明只看原rank-1 anchor有recall，但沒有足夠的identity safety。
+
+三個certificate profiles則呈現相反情況：它們全部達成0 existing forbidden candidates、0 unrelated output、0
+anchor absent identities、0 HIC absent identities、2/2 secondary vetoes，以及0 retrieval、certificate
+construction、query support、alias alignment、frame comparison與decision errors。然而：
+
+- `certificate-exact`只保留42/168 existing positives、6/24 required targets、0/10 anchor positives與3/12 HIC positives；
+- `certificate-structural`保留82/168、7/24、4/10與7/12；
+- `certificate-bounded`雖提高到137/168 existing positives，required targets反而只有5/24，anchor與HIC positives也只有5/10與7/12。
+
+所以失敗不是程式exception、retrieval error或negative leakage，而是模型規則的recall邊界：完整minimal certificate
+要求仍對許多真實shorthand、alias與舊query過於嚴格。Bounded profile已是預先聲明的最寬版本，仍少31個existing
+positive hits，不能在看到結果後新增relation、放寬context或改gate。那會把historical set變成training data，破壞
+本次experiment的可驗證性。
+
+### Artifact分支、代碼與測試修改
+
+FAIL分支只建立：
+
+- `historical-calibration.json`，SHA-256為`d9ca782bd47252af0a1047776da3add97a5b40b2709b8a5d44bf4e6ecd78cf96`；
+- `historical-calibration-manifest.json`，SHA-256為`3bb89724f50f5a1229bf36023b84551fe7ee3cd27f5355f74d4fee1fd582ec95`；
+- `historical-calibration.md`，SHA-256為`621ba4e10981790f1acda13d79aab2374a2a40ba2383a1a499e3ea6c65c5b4fb`。
+
+Report保存exact 223／22／24 denominators、四個profiles全部16項gates、`winner:null`、空survivor list、0
+retrieval與所有source hashes。`data/evaluation/human-knowledge-identity-certificate-development-v4`完全不存在；
+protocol、inventory artifact、negative declarations、pack、raw、selection與private evaluation都沒有建立。
+
+正式結果可見後沒有修改v4 product source或profiles。只在evaluation test加入兩個measured regressions：第一個
+鎖定四個profiles的實測counts、selection metrics、zero-error gates與下游artifact absence；第二個鎖定report／
+manifest hashes、`protocol_authorized:false`及Markdown null-branch文字。這種「先量測、後寫artifact regression」
+避免把預期答案偷寫進正式演算法。
+
+### Pre-freeze QA、環境問題與下一步
+
+Targeted Ruff、format、target-local strict MyPy、compile、58 focused與179 related tests先通過。第一次完整suite
+有一項舊family-evaluation subprocess test失敗；根因不是產品碼，而是macOS把虛擬環境editable `.pth`標為hidden，
+使新開Python process找不到workspace `src/`。本機`.venv`加入gitignored `sitecustomize.py`恢復src-layout import後，
+原失敗test與完整pre-freeze suite全綠；這個環境修復不進repo，也未改evaluation內容。加入兩個measured tests後，
+60/60 focused、181/181 related與924/924完整suite全數通過，唯一訊息仍是既有Starlette／AnyIO deprecation；
+HICS-T9 closure會把這些結果整理成正式QA evidence。
+
+HICS-T6–T8現在依法blocked，不會author negatives、不會執行32次retrieval，也不會score holdout。下一步是HICS-T9：
+完成FAIL branch review、requirements coverage、public evidence、AI-eval、README與GitHub delivery，然後回到原始
+No Reranker/RRF、Neural Pointwise、Listwise比較主線。V4是已約定的最後一個identity-admission attempt，不建立v5。
+
+## 2026-09-23 — HICS-T4：完成零檢索historical scorer與不可變artifact生命週期
+
+### 新執行了什麼、解決什麼問題
+
+HICS-T3已能對單一query產生certificate support並判斷Top-5 candidate，但當時只有in-memory primitives，還不能
+安全執行正式experiment。HICS-T4補上從「讀取已公開證據」到「分階段凍結結果」的完整控制面：loader會綁定
+223筆existing、22筆anchor-confidence v4及24筆HIC-v1 raw evidence與所有既有source/artifact hashes；scorer只
+重算既有rows，不呼叫retriever。每個profile都輸出原有positive、merge、governance、unrelated、required-target、
+absent-identity與R32/R33對BNR34 gates，並新增certificate construction、query support、alias alignment、frame
+comparison、decision和retrieval的zero-error gates。
+
+`reference-anchor`仍保留作comparison baseline，但`eligible_as_survivor`固定為false。三個certificate profiles
+只有在全部16個historical gates都通過後才可留下；多個survivors的順序在看到結果前固定為：先比較negative
+admissions，再比較positive abstentions，再比較non-exact operations，最後才依exact、structural、bounded排序。
+這解決了「測量後再挑自己喜歡的門檻或policy」的selection bias，也不允許reference因數字較好而成為winner。
+
+### 代碼修改了哪一部分、原因與技術選型
+
+`human_knowledge_identity_certificate_development.py`新增`historical_calibration`與
+`apply_certificate_profile`。每個query只建立一次candidate-independent support，candidate rows再依原始source
+rank映射到authority membership和primary-frame preflight；輸出保留support checksum、candidate evidence、
+admit/abstain及錯誤分類。Existing／anchor／HIC的summary函式沿用已凍結版本，原因是v4要更換admission核心，
+不是重定義過去的成功指標。Reference則只重用v3 comparison policy，不能建立v4 certificate support。
+
+Artifact lifecycle使用canonical JSON、SHA-256、exclusive-create及byte-for-byte recomputation。Historical FAIL
+只能建立`historical-calibration.json`、manifest與Markdown，且`winner:null`；任何protocol、inventory、pack、raw、
+selection或額外report檔都會使validation失敗。Historical PASS才同時凍結protocol與完整certificate inventory；
+兩者只存在一邊會被視為partial state，而不是自動補寫。Protocol綁定source hashes、inventory checksum、profile
+definitions、historical gates、winner order與holdout schema，避免後續看到holdout結果後更換規則。
+
+Conditional pack builder要求16 positive加16 negative、四種challenge各4筆、32個唯一case IDs，以及positive／
+negative family keys互斥。Negative declarations是獨立、post-freeze檔案，必須保存corpus-absent identity、預期
+empty/ambiguous/conflict原因與family key。這個schema選擇讓HICS-T6日後能人工檢查hard negatives，而不是從
+retrieval結果反向挑題。
+
+Raw collection固定32次Top-5，任何error都原樣保存且不retry。Raw validator遞迴拒絕expected label、case class、
+authority/family label、profile decision、eligibility、gate或winner等欄位，只允許query、ranked candidates、work
+與error。第二次`--collect`先驗證既有bytes並直接回傳`unchanged`，所以errored row也不會被偷偷重抽。Scoring
+只能讀取已凍結raw，再從pack join labels並套用historical survivors；selection同樣只建立一次且不可覆寫。
+
+`pyproject.toml`新增installed command
+`pvr-develop-human-knowledge-identity-certificate`，只提供互斥的`--freeze-protocol`、`--freeze-pack`、`--collect`、
+`--score`與`--check`。本機package已重新安裝並以`--help`確認五個phase可用。沒有增加runtime dependency，
+CLI仍使用既有FastAPI專案環境、Python dataclasses、JSON與SHA-256；這比另加workflow framework更容易稽核，也
+避免開發experiment滲入API或Dual RAG runtime。
+
+### 測試方式、結果與本步刻意沒有做的事
+
+新增8項HICS-T4 tests，全部使用`tmp_path`、synthetic 223／22／24 rows及monkeypatched public loaders。測試會讓
+任何retriever call直接失敗，因此能證明historical contract是0 retrieval；也覆蓋reference不可存活、exact
+winner order、FAIL僅三檔且可重跑、PASS同時凍結protocol/inventory、raw深層label-blind檢查、error row不retry、
+16+16 family-disjoint pack、partial/tampered freeze rejection與五階段CLI。Focused suite目前58/58，六個相關identity suites共179/179；targeted
+Ruff、target-local strict MyPy、compileall及installed CLI help均通過。
+
+正式`data/evaluation/human-knowledge-identity-certificate-development-v4`與
+`reports/human-knowledge-identity-certificate-development-v4`仍不存在。本步沒有執行真實223／22／24 gate、沒有
+建立negative declarations、沒有32次holdout retrieval、沒有讀取private evidence，也沒有修改API、Dual RAG、
+PostgreSQL、canonical、release、color或physical-feature行為。下一步HICS-T5是先做pre-freeze QA，再且僅執行
+一次正式zero-retrieval historical branch gate；結果若FAIL就停止HICS-T6–T8，若PASS才允許凍結後續holdout。
+
+## 2026-09-23 — HICS-T3：先決定query authority，再讓Top-5只做membership與衝突檢查
+
+### 新執行了什麼、解決什麼問題
+
+HICS-T2已能證明哪些primary claim組合唯一，但還沒有把使用者query轉成可執行的decision。本輪HICS-T3新增
+candidate-independent query support：完整query先對全體460 claims／401 certificates解析一次，得到`empty`、
+`ambiguous`或`singleton` authority set及固定checksum；Top-5 candidates之後只能查自己是否屬於singleton，
+不能用rank、score、UUID或candidate文字改寫support set。
+
+三個non-reference profiles皆為categorical rules，沒有scalar threshold。`certificate-exact`只接受normalization
+後exact claims；`certificate-structural`再加入compact segmentation與2/4-digit leading-year suffix；
+`certificate-bounded`才允許global-unique prefix、alphabetic edit-1、same-frame`o/0`、repeated-digit restoration與
+leading-year uncertainty`x`。`reference-anchor`明確只供下一步historical comparison，不可建立certificate
+support，也永遠不能成為survivor。
+
+### Query parser、context與數字frame為何這樣設計
+
+Query atoms保存原始／normalized offsets、source token與compact segment位置。Context只來自凍結public lexicon；
+若`model`等字同時參與primary identity，identity precedence會使它不能被丟成noise。Certificate只需完整滿足，
+candidate完整車名中未出現在query的其他claims可保留為`omitted_primary_claim_ids`；這使`55 Chevy`能合法指向
+`55 CHEVY BEL AIR GASSER`，而不要求query複製完整candidate名稱。
+
+反向的額外query字則不能隱藏。`Honda Accord`、`BMW M4`與`Bugatti Divo`都得到`empty`，因為shared maker不構成
+完整certificate，而且`accord`／`m4`／`divo`保留為unresolved discriminative atoms。`unverified 55 Chevy
+listing`則得到singleton，只有`unverified`與`listing`以`frozen_context_wrapper`留下reason code。
+
+初版compact probe曾把未知`R33`或`kat`過度切成單字母／單數字。修正後segmenter要求原digit runs逐段完全
+守恆，禁止把`33`拆成`3 + 3`；普通純字母token也不能由一字母claims拼湊。合法的
+`2020fordf150lariat`仍可切為`2020`／`ford`／`f`／`150`／`lariat`，structural profile得到singleton；exact
+profile則保持empty。這個修正是一般結構規則，不是為Nissan寫例外。
+
+Local-frame檢查會保留owner slots。`Nissan Skyline GTR R33`不能成為BNR34：bounded evidence為empty，保存
+`r33`原子與對`r34`／`bnr34`的兩個primary numeric conflicts。另一方面`20 Ford F 150 Lariat`只在structural
+profile以`leading_year_suffix`通過，`Mercedes Benz 5o0 E`只在bounded profile以`ocr_o_zero`通過。Focused
+tests也逐一覆蓋unique prefix、edit-1、repeated digit與year uncertainty reason codes。
+
+### Candidate decision、variant邊界與驗證結果
+
+Candidate evidence綁定query support checksum、inventory checksum、profile、authority key、member knowledge ID、
+source rank、primary frame comparisons、membership、reason codes與final decision。Empty／ambiguous support在rank 1
+到5都直接abstain；singleton只可保留同authority文件。若同一casting authority有多筆provisional documents，
+它們依原rank保留，但每筆都輸出`casting_authority_only`與`variant_not_resolved`，不會選擇具體release。
+
+真實smoke evidence中，`unverified 55 Chevy listing` exact、`2020fordf150lariat` structural與
+`Mercedes Benz 5o0 E` bounded皆為singleton；`Honda Accord`及R33 probe為empty。每個candidate decision重用完全
+相同的query checksum，且source-order validator拒絕重排或重複rank。
+
+Focused suite由27增至49項，加入profile contract、shared-maker negatives、partial shorthand、compact/digit-run
+守恆、全部bounded relations、context precedence、ambiguity不tie-break、same-authority multi-document、rank 1/5
+fail-closed、checksum/span/candidate tamper與禁止candidate state進query evidence。49/49 focused、包含HIC／HIE／
+HICG的143/143 related tests，以及Ruff、strict MyPy、compile、artifact absence、`git diff --check`全數通過。
+
+本步仍沒有執行223／22／24 historical calibration、沒有retrieval或正式artifact，也沒有修改API、Dual RAG、
+PostgreSQL、canonical、release或physical-feature行為。下一步HICS-T4才會加入public evidence loaders、exact
+historical scoring、phase-gated CLI與artifact lifecycle validators；正式branch gate仍留在HICS-T5。
+
+## 2026-09-23 — HICS-T2：用完整corpus證明minimal certificates，不用variant欄位補唯一性
+
+### 新執行了什麼、解決什麼問題
+
+HICS-T1只回答「142 documents屬於哪139個authority」，還沒有證明query最少需要哪些identity evidence。本輪
+HICS-T2把每個primary casting拆成position-bound claims，對完整139-authority corpus列舉所有ordered subsets，
+只保留能唯一辨識一個authority且刪除任一claim後失去admissible uniqueness的組合。真實結果是460個claims、
+401張certificates；95張使用一個numeric/alphanumeric或真正one-word claim，306張使用兩個claims。
+
+這一步也讓T1的「normalized primary沒有完全同名碰撞」得到更嚴格修正。完整claim sequence若同時包含在較長
+authority中，較短identity仍不能獨立成立。7個authority因此明確成為`unresolved_collision`：
+`Chevy Bel Air Gasser`、`Dodge Challenger`、`HONDA CIVIC EF`、`Honda CR-X`、`Nissan Skyline RS`、
+`Silverado Trail Boss LT`與`Toyota Supra`。例如`Toyota Supra`的完整claims同時出現在
+`1997 Toyota Supra HKS`；系統沒有偷用series、color、source rank或release label拆開它們。
+
+### 代碼修改了哪一部分、選型原因
+
+同一個隔離v4 module新增`CertificateClaim`、`IdentityCertificate`、minimality/elimination proof、
+`AliasBridge`與`CertificateInventory`。Alphabetic token各自成claim；純數字或英數token形成不可拆分的local
+frame，保留frame kind、前後identity owners與原始digit runs。例如`2020 Ford F-150 Lariat`會保留leading-year
+`2020`（owner after=`ford`）以及standalone-model `150`（owners=`f`／`lariat`），所以相同數字不能移到另一
+個slot製造相等。
+
+Certificate不是threshold或embedding similarity。每一張都保存完整competitor set、逐claim加入後剩餘的
+authorities、最後唯一authority、每個one-claim deletion的結果與SHA-256。若primary casting有多個claims，
+單一alphabetic claim即使在小corpus中剛好唯一也不合格；這避免`Honda`或其他maker-like token單獨代表較長
+車名。Minimality因此定義成admissible uniqueness：刪除後必須成為non-unique、empty，或落入已禁止的
+single-alphabetic form，且reason都寫入proof，不是暗中例外。
+
+現有primary castings最多8 claims，低於設計上限12；超過會fail closed而不截斷。完整inventory checksum是
+`dafc709027af513e8bd6db20b80cc1c73e096461a05d13c69699b759f05edec7`，並綁定T1 authority checksum
+`148df20187e842434d335d0be3469fbd18db1404d989f8544d3d616d5644ccd8`。
+
+### Alias bridge為何不等於新identity evidence
+
+101個approved aliases全部建立bridge，沒有任何alias新增claim或跨authority引用claim。Bridge保存normalized
+source positions、target claim IDs、relation、未映射atoms與checksum。公開資料共358個exact mappings與1個
+leading-year-suffix mapping；所有101個bridges至少映射一個既有claim。Human label中的`premium`、series或
+seller文字可留在unmapped evidence，但不能變成certificate claim。Synthetic tests另外覆蓋
+`MercedesBenz`→`mercedes`+`benz` compact bridge及`5o0`→`500` OCR relation，證明來源與目標形式都保留，
+target digit runs不會被改寫。
+
+### 測試結果、限制與下一步
+
+Focused suite由14增至27項，新增真實460／401／101 counts、local frames、one-word與multiword single-claim
+規則、contained-primary unresolved、numeric owner proof、compact/OCR alias、12-claim ceiling、determinism、
+independent uniqueness/minimality validation、certificate/bridge tamper與forbidden metadata tests。27/27 focused、
+包含HIC／HIE／HICG的121/121 related tests，以及targeted Ruff、strict MyPy、compile、artifact absence與
+`git diff --check`全數通過。
+
+目前所有certificate資料仍只在memory建立；沒有寫正式inventory、protocol或report，retrieval仍為0，API、
+Dual RAG、PostgreSQL、canonical、release與physical-feature行為不變。下一步HICS-T3才會用這份inventory將
+query先轉成candidate-independent support set，之後才檢查candidate authority membership與all-rank numeric
+conflict；本步沒有提前實作或量測admission結果。
+
+## 2026-09-23 — HICS-T1：把142筆文件整理成可驗證的139個identity authorities
+
+### 新執行了什麼、解決什麼問題
+
+Owner確認九項task list後，本輪開始v4實作，但範圍只到HICS-T1。新增的public authority inventory先驗證
+HIC-v1、HIE-v2與HICG-v3共9個frozen source／evidence hashes，再讀取3個既有corpus inputs。真實執行確認
+142 documents可穩定映射為139 authorities：100個provisional documents形成97個casting authorities，42個
+review-family documents形成42個review-family authorities，document excess正好是3。
+
+這一步解決了「文件數是否等於可辨識identity數量」的邊界問題。`83 Chevy Silverado`的3筆provisional
+documents與`Toyota Supra`的2筆documents各自保留原始knowledge ID／UUID，但共享casting authority；系統不會
+把不同release錯當成不同casting，也不會因為分組就宣稱它們是同一個variant。目前139個normalized primary
+castings之間沒有碰撞，因此全數標成`certifiable`；若未來兩個authority的primary casting正規化後相同，兩邊
+都會明確變成`unresolved_collision`，而不是靠來源順序選一個。
+
+### 修改了哪一部分、為何這樣設計
+
+新增`human_knowledge_identity_certificate_development.py`，但沒有改動既有HIC／HIE／HICG frozen modules。
+核心資料結構是`IdentityAuthority`與`AuthorityInventory`。Authority key只允許`casting:<casting_id>`或
+`review_family:<review_family_id>`；member IDs/UUIDs依knowledge ID排序，inventory及所有input bindings使用
+canonical JSON與SHA-256產生可重現checksum。本次實際inventory checksum是
+`148df20187e842434d335d0be3469fbd18db1404d989f8544d3d616d5644ccd8`。
+
+Alias allowlist只讀provisional的`human_label_names`與review-family的`aliases`，正規化後去重，並排除與primary
+casting相同的重複surface；目前共保留101個future bridge surfaces。資料模型刻意不包含series、variant label、
+pricing keyword、initial model text、source IDs、color、wheel、tampo、edition或packaging。原因是HICS-T1只應
+建立casting/family authority lineage，若把release欄位帶進inventory，下一步certificate可能錯誤地利用它們
+製造variant-level唯一性。
+
+將inventory保留在memory而沒有寫入正式artifact也是刻意決定。HICS-T2尚未產生或證明minimal certificates；
+只有T5 historical PASS才有權凍結正式inventory/protocol。現在先提供deterministic serialization與checksum，
+可以測試重現性，但不會讓未完成結構被誤認為已凍結的evaluation evidence。
+
+### 測試結果、修正與下一步
+
+新增14項focused tests，覆蓋9個upstream hashes、142→139真實整合、兩個multi-member casting、固定排序／
+checksum、forbidden fields、alias去重、review-family namespace、primary collision、group lineage conflict、
+duplicate membership、count drift與checksum tamper。第一輪測試曾揭露兩個測試假設問題：暫存tamper case沒有
+隔離其他upstream paths，以及規格把真實`83 Chevy Silverado`多寫了一個apostrophe；兩者均修正為與真實
+資料一致，沒有放寬production validator。
+
+最終14/14 focused與包含HIC／HIE／HICG的108/108 related tests通過；targeted Ruff、strict MyPy、compile、
+v4 artifact absence及`git diff --check`也通過。正式certificate、CLI、calibration、protocol、pack、raw、
+selection與retrieval仍為0，API、Dual RAG、PostgreSQL、canonical、release及physical-feature行為均未改動。
+下一步HICS-T2才會從primary casting建立claims、完整列舉minimal certificates，並把101個aliases限制成只能
+bridge到既有claim的證據。
+
+## 2026-09-23 — V4 task草案：把最後一次identity admission變成有停損的九步執行鏈
+
+### 新執行了什麼、解決什麼問題
+
+Owner以「繼續下一步」確認v4 design後，本輪把已確認的certificate架構轉成九個原子化tasks。這一步解決的
+不是identity演算法本身，而是「如何在Lite模式下實作、量測、失敗即停，而且一定回到Pointwise／Listwise」的
+執行治理問題。若沒有明確分支，團隊很容易把建置、正式calibration、holdout與runtime誤當成同一個連續工作，
+或在historical FAIL後仍為了完成清單而花費32次新retrieval。
+
+任務因此固定為三段：HICS-T1–T4只建置authority inventory、minimal certificates、candidate-independent
+support/admission，以及historical／CLI lifecycle；HICS-T5才第一次正式執行223／22／24 public rows的
+zero-retrieval branch gate；HICS-T6–T8只有PASS時才能建立16+16 pack、exactly-once收集32筆Top-5 raw及評分。
+HICS-T9是兩個分支都必走的closure，確保FAIL也會留下QA、evidence、AI-eval、README／decision／log與GitHub
+交付，而不是只留下難以解讀的JSON。
+
+### 修改了哪些文件、為何這樣拆分
+
+新增`specs/human-knowledge-identity-certificate-development/tasks.md`，每一項都回指HICS-R1–R16、列出owner、
+變更檔案和可測量acceptance。Requirements與design狀態同步標成已確認；roadmap與D90改為「task list等待
+owner確認」。本步沒有新增source、tests、CLI或artifact，也沒有執行retrieval，因為Lite spec gate要求先確認
+任務邊界，才能開始HICS-T1。
+
+把authority inventory、certificate derivation和query/candidate decision拆成三項，是因為三者有不同的失敗
+語意：T1要證明142 documents確實只有139個可辨識authority；T2要證明每張certificate在完整corpus中唯一且
+最小；T3才回答query support set與candidate membership。若把它們寫成一個大型task，測試失敗時無法判斷是
+資料分組、最小性證明還是decision logic出錯，也不利於履歷面試時逐層說明架構。
+
+T4只用synthetic／temporary inputs驗證CLI和artifact lifecycle，正式223／22／24 gate留到T5。這個選型避免
+在程式仍可修改時意外先看到正式結果。T5 PASS後source、inventory、profiles、protocol與input hashes一起
+凍結；FAIL則只能保存三個null calibration artifacts並直接進T9，禁止用已看到的結果調整v4。這延續前幾版
+成功阻擋unsafe promotion的證據治理，而不是為了產生winner降低門檻。
+
+### 固定停損與後續主線
+
+V4不論PASS或FAIL都不自動產生v5。T9完成後，下一個Lite spec固定比較同一frozen candidate pool上的
+No Reranker／RRF、Neural Pointwise Cross-Encoder與Listwise Reranker。這保留owner原始要求的神經
+Pointwise／Listwise展示，也讓v4只負責可解釋的identity admission，不把兩種不同技術問題繼續混在一起。
+
+目前task list仍等待owner確認，因此HICS-T1尚未開始；API、Dual RAG、PostgreSQL、canonical identity、
+release、color、wheel、tampo、edition與packaging行為全部不變。
+
 ## 2026-09-22 — HICG-v3需求草案：把正例誤殺與secondary數字衝突拆開處理
 
 ### 新執行了什麼、解決什麼問題
@@ -280,6 +654,80 @@ protocol/pack/raw/selection不存在，retrieval維持0。
 提出新的identity algorithm，先建立新版public experiment並通過historical與family-disjoint holdout；只有再
 通過獨立private shadow evaluation後，才可另規劃opt-in API/runtime整合。Color、wheel、tampo、edition與
 packaging辨識也仍屬後續variant-level工作，不能由本次casting identity結果推論。
+
+## 2026-09-22 — V4 requirements草案：用最小identity certificate處理v3的recall／safety斷層
+
+### 新執行了什麼、解決什麼問題
+
+HICG-v3封版後，下一步沒有合格winner可直接進shadow evaluation或Dual RAG runtime。為避免看到FAIL就原地
+調threshold，本輪先唯讀分析已凍結的public calibration，再建立全新v4 requirements草案。分析確認兩類相反
+問題：寬鬆policy只憑`Honda`、`BMW`、`Bugatti`等共通字就誤收不存在於corpus的車型；嚴格policy則因候選
+完整名稱比query多字，或query含未分類wrapper，而誤拒`55 Chevy`、`fishdchipd`、`kick kat`等有效簡寫／雜訊。
+
+新草案把問題改寫成「query是否完整滿足某一個knowledge identity的最小唯一證據」，而不是「query與candidate
+整串文字是否雙向完整」。每個identity certificate由完整public corpus預先計算，必須是能排除其他knowledge
+IDs的最小atom／local-frame組合；query先獨立產生support set，只有set恰好包含一個ID，而且retrieved candidate
+確實屬於該ID、primary frame也無衝突，才可能admit。
+
+### 修改位置、選型原因與沒有執行的內容
+
+新增`specs/human-knowledge-identity-certificate-development/requirements.md`，定義16項EARS-style requirements，
+涵蓋public-only boundary、prior evidence immutability、certificate minimality/provenance、candidate-independent
+support set、bounded equivalence、ambiguity fail-closed、exact historical gates、conditional holdout、完整解釋欄位
+與release boundary。Roadmap新增等待確認項目，decision D90維持PROPOSED。
+
+選擇certificate set而不是另一個scalar threshold，是因為v3失敗不是單一分數切點，而是「共通token不代表
+同一identity」和「合法partial name不必等於完整candidate name」兩個結構問題。最小唯一證據可以直接列出
+哪些claim排除了哪些競爭identity，比opaque reranker更容易審查；代價是142-document corpus可能產生過度特化
+或不穩定certificate，所以新版本仍必須先用既有223／22／24 rows做zero-retrieval exact gate。
+
+本步只有需求草案。沒有v4 design、tasks、source、artifact或retrieval，也沒有讀private five-family evidence、
+修改HICG-v3、調整API／Dual RAG／PostgreSQL／canonical或color行為。下一個gate是owner先確認requirements；
+確認後才撰寫design，不能把本次「繼續」擴張成整個新演算法已獲准實作。
+
+## 2026-09-23 — V4 design草案：確認最後一次admission嘗試並修正document／identity邊界
+
+### 新執行了什麼、解決什麼問題
+
+Owner確認先完成v4，再回到原始Pointwise Cross-Encoder／Listwise Reranker主線；同時要求最終成果必須可作
+履歷展示。本輪因此把v4 requirements標記為confirmed，並建立完整design草案，但仍依Lite gate等待design
+確認後才寫tasks或程式。V4也被明確設為最後一個identity-admission版本：不論得到winner或null，都先完成
+branch-aware closure，再切回reranking，不自動建立v5。
+
+設計前唯讀檢查發現原requirements的「每個knowledge ID一張唯一certificate」在資料上不可行。現有142個
+documents中，100個provisional variants只對應97個casting IDs，42個review families對應42個family IDs，
+所以實際是139個可由casting文字辨識的authority keys。`83 Chevy Silverado`有三個documents，`Toyota Supra`
+有兩個；若強迫certificate拆開這些文件，就只能偷用series、color或variant label，違反identity-field boundary。
+
+### 修改了哪些部分、為何採certificate authority
+
+Requirements已修正為`casting:<casting_id>`與`review_family:<review_family_id>`兩種authority keys。Certificate
+只從primary casting建立；human label與review-family aliases只能作為query到既有casting claims的bounded
+bridge，不能創造新的唯一證據。Singleton support set可以保留同casting的多個source documents，但必須輸出
+`casting_authority_only`與`variant_not_resolved`，不能假裝知道具體release。
+
+新增design定義四層資料模型：IdentityAuthority、CertificateClaim、IdentityCertificate與AliasBridge。每個
+primary casting目前最多8個normalized tokens；設計以12 claims為fail-closed上限，依subset size完整列舉並
+證明每張certificate的最小性。這比score threshold成本高，但能直接展示每個claim排除了哪些競爭identity，
+也避免`Honda`一個共通字成為`Honda Civic EG`的certificate；單一alphabetic claim只有在完整casting本來就
+只有一個claim時才可成立。
+
+Query先對完整frozen inventory建立authority support set，再看Top-5 candidates。未匹配的context可保留，
+任何其他alphabetic/numeric residual都會移除該authority；這讓`Honda Accord`不能因`Honda`誤接Civic，卻
+允許完整滿足certificate的`55 Chevy`不必補齊candidate完整尾詞。空集合與多authority集合一律abstain；
+singleton仍須通過primary numeric conflict preflight，而且不再用secondary coverage shortcut。
+
+### 方法選型、驗證順序與下一個gate
+
+V4凍結`certificate-exact`、`certificate-structural`與`certificate-bounded`三個categorical profiles，而不是
+再調scalar threshold。它先以既有223／22／24 public rows做0 retrieval historical gate；FAIL只保存null
+calibration並封版，PASS才凍結protocol並建立family-disjoint 16+16 holdout。Holdout若執行，32個Top-5 rows
+仍是exactly once、label-blind raw first。即使public winner通過，也只取得另立private shadow spec的資格，
+不能直接改runtime。
+
+本步沒有新增source、tests、CLI、artifact或retrieval，也沒有讀private evidence或修改API／Dual RAG／
+PostgreSQL／canonical／color行為。下一個gate是owner確認design；確認後才建立原子化tasks。V4 closure完成後，
+roadmap下一個固定里程碑是No Reranker／RRF、Neural Pointwise與Listwise的同candidate-pool比較。
 
 ### 交付邊界與下一步
 

@@ -935,6 +935,33 @@ evaluation, API/Dual RAG/PostgreSQL change, or runtime activation was authorized
 PYTHONPATH=src pvr-develop-human-knowledge-identity-claim-graph --check
 ```
 
+V4 is the final identity-admission experiment in this roadmap. It groups the 142 committed public
+documents into 139 casting/family authorities, derives 460 primary-casting claims and 401 minimal
+identity certificates, and treats 101 approved aliases only as bridges to those claims. Query
+support is computed against the complete certificate inventory before any candidate is inspected;
+ranked candidates can only prove membership in the one supported authority and must still pass
+all-rank primary-frame conflicts. Seven contained identities remain unresolved instead of using
+series, color, or release metadata to manufacture uniqueness.
+
+The implementation passes its deterministic QA, but the formal 223/22/24 historical experiment
+returns `historical_calibration_fail`. Exact, structural, and bounded profiles eliminate all
+measured absent-identity output and preserve both secondary BNR34 vetoes, yet retain only 42, 82,
+and 137 of the required 168 existing positive hits. No profile passes every predeclared gate, so
+the result is `winner: null`. Only three calibration artifacts were created; no protocol, 16+16
+holdout, new retrieval, private evaluation, API/Dual RAG/PostgreSQL change, or runtime activation is
+authorized. See the
+[identity-certificate calibration](reports/human-knowledge-identity-certificate-development-v4/historical-calibration.md),
+[QA review](specs/human-knowledge-identity-certificate-development/review.md), and
+[evidence](docs/evidence/human-knowledge-identity-certificate-development-v4.md).
+
+```bash
+PYTHONPATH=src pvr-develop-human-knowledge-identity-certificate --check
+```
+
+This closes the certificate branch as reproducible negative evidence. The next ranking milestone is
+a separately specified comparison of No Reranker/RRF, Neural Pointwise, and Listwise on one frozen
+candidate pool; v4 is not retuned and no automatic v5 is created.
+
 ## Docker and PostgreSQL status
 
 The default offline Compose service is runtime-verified on Docker Desktop 29.5.3/aarch64 with
