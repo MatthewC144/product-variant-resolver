@@ -1,0 +1,294 @@
+{
+  "alignment_summary": {
+    "exact_canonical": 0,
+    "family_only": 2,
+    "unmapped": 99
+  },
+  "baseline_date": "2026-09-26",
+  "entries": [
+    {
+      "access_permission_status": "not_applicable",
+      "acquisition_method": "deterministic repository fixture generation",
+      "authority_boundary": "Not eligible for the non-synthetic representative-pilot quota.",
+      "benchmark_uses": [
+        "negative_control"
+      ],
+      "content_license_status": "approved",
+      "current_publication_state": "row_level_public",
+      "current_repository_state": "tracked_public_repository",
+      "evidence_refs": [
+        "data/manifest.json",
+        "data/benchmark.json"
+      ],
+      "known_rights_evidence": {
+        "evidence": [
+          "specs/representative-hard-benchmark-v1/design.md#gate-a--inventoryprovenance-readiness"
+        ],
+        "limitations": [
+          "synthetic_fixture_only"
+        ],
+        "status": "approved"
+      },
+      "local_sha256": "e46c5b4a405a5b3e9fbac35c9613d8e5945e2d4494ad8df9f3d8be1e352fc323",
+      "origin_reference": "data/benchmark.json",
+      "owner_decision": "pending",
+      "owner_decision_metadata": {
+        "current_use": "regression_and_tooling_only",
+        "privacy_risk": "none_synthetic",
+        "representative_pilot_use": "requires_RHB_T3_owner_decision",
+        "unresolved_conditions": [
+          "owner_selection_for_representative_pilot"
+        ]
+      },
+      "privacy_review_status": "approved",
+      "prospective_benchmark_use_status": "pending_RHB_T3_owner_selection",
+      "prospective_redistribution_status": "pending_RHB_T3_owner_selection",
+      "record_count": 100,
+      "record_count_kind": "synthetic_benchmark_cases",
+      "redistribution_scope": "public_rows",
+      "retention_scope": "public",
+      "source_id": "fixture-v1-benchmark",
+      "source_kind": "synthetic_fixture"
+    },
+    {
+      "access_permission_status": "not_applicable",
+      "acquisition_method": "deterministic repository fixture generation",
+      "authority_boundary": "Synthetic canonical IDs do not establish real release truth.",
+      "benchmark_uses": [
+        "negative_control"
+      ],
+      "content_license_status": "approved",
+      "current_publication_state": "row_level_public",
+      "current_repository_state": "tracked_public_repository",
+      "evidence_refs": [
+        "data/manifest.json",
+        "data/catalog.json"
+      ],
+      "known_rights_evidence": {
+        "evidence": [
+          "specs/representative-hard-benchmark-v1/design.md#gate-a--inventoryprovenance-readiness"
+        ],
+        "limitations": [
+          "synthetic_fixture_only"
+        ],
+        "status": "approved"
+      },
+      "local_sha256": "0d3ea55eab414e3845bf3bf72635707210f2d5c20d96b3d6b5940eb0ffc7d261",
+      "origin_reference": "data/catalog.json",
+      "owner_decision": "pending",
+      "owner_decision_metadata": {
+        "current_use": "synthetic_catalog_regression_only",
+        "privacy_risk": "none_synthetic",
+        "representative_pilot_use": "requires_RHB_T3_owner_decision",
+        "unresolved_conditions": [
+          "owner_selection_for_representative_pilot"
+        ]
+      },
+      "privacy_review_status": "approved",
+      "prospective_benchmark_use_status": "pending_RHB_T3_owner_selection",
+      "prospective_redistribution_status": "pending_RHB_T3_owner_selection",
+      "record_count": 120,
+      "record_count_kind": "synthetic_catalog_products",
+      "redistribution_scope": "public_rows",
+      "retention_scope": "public",
+      "source_id": "fixture-v1-catalog",
+      "source_kind": "synthetic_fixture"
+    },
+    {
+      "access_permission_status": "approved",
+      "acquisition_method": "owner-supplied human-reviewed scan export",
+      "authority_boundary": "No row is exact canonical variant authority.",
+      "benchmark_uses": [
+        "none"
+      ],
+      "content_license_status": "unknown",
+      "current_publication_state": "row_level_public",
+      "current_repository_state": "tracked_public_repository",
+      "evidence_refs": [
+        "data/human_labeled_names_manifest.json",
+        "docs/decisions/product-variant-resolver.md#d8--keep-reviewed-real-names-separate-until-catalog-alignment"
+      ],
+      "known_rights_evidence": {
+        "evidence": [
+          "docs/decisions/product-variant-resolver.md#d8--keep-reviewed-real-names-separate-until-catalog-alignment"
+        ],
+        "limitations": [
+          "existing_publication_does_not_authorize_future_benchmark_reuse",
+          "privacy_review_pending"
+        ],
+        "status": "unknown_for_benchmark_reuse_and_republication"
+      },
+      "local_sha256": "68b5dfdb8d0fa4972328d172cc5a56d78ac8bf00bc740083b2bfc07eb2a91188",
+      "origin_reference": "data/human_labeled_names.json",
+      "owner_decision": "pending",
+      "owner_decision_metadata": {
+        "benchmark_use": "blocked_until_RHB_T3_owner_rights_and_privacy_decision",
+        "current_use": "auxiliary_name_pair_audit",
+        "privacy_risk": "pending_review_of_listing_derived_text",
+        "unresolved_conditions": [
+          "content_reuse_rights",
+          "public_redistribution",
+          "allowed_fields",
+          "privacy_review"
+        ]
+      },
+      "privacy_review_status": "pending",
+      "prospective_benchmark_use_status": "blocked_pending_RHB_T3_rights_and_privacy_decision",
+      "prospective_redistribution_status": "blocked_pending_RHB_T3_rights_and_privacy_decision",
+      "record_count": 101,
+      "record_count_kind": "human_labeled_scans",
+      "redistribution_scope": "public_rows",
+      "retention_scope": "public",
+      "source_id": "human-labeled-real-noisy-v1",
+      "source_kind": "owner_scan"
+    },
+    {
+      "access_permission_status": "not_applicable",
+      "acquisition_method": "offline exact normalized family alignment",
+      "authority_boundary": "0 exact canonical mappings; family-only rows cannot create UUID labels.",
+      "benchmark_uses": [
+        "family_context"
+      ],
+      "content_license_status": "unknown",
+      "current_publication_state": "row_level_public",
+      "current_repository_state": "tracked_public_repository",
+      "evidence_refs": [
+        "data/human_labeled_catalog_alignment_manifest.json",
+        "docs/decisions/product-variant-resolver.md#d9--prefer-explicit-non-matches-over-fuzzy-catalog-assignments"
+      ],
+      "known_rights_evidence": {
+        "evidence": [
+          "data/human_labeled_catalog_alignment_manifest.json"
+        ],
+        "limitations": [
+          "derived_artifact_inherits_parent_source_rights",
+          "existing_publication_does_not_authorize_future_benchmark_reuse"
+        ],
+        "status": "inherits_unknown_human_scan_rights"
+      },
+      "local_sha256": "d1a6d3798dec7a5e1258a74b95294bd2f50e81d7c78db2eb29a151917e7499b6",
+      "origin_reference": "data/human_labeled_catalog_alignment.json",
+      "owner_decision": "pending",
+      "owner_decision_metadata": {
+        "benchmark_use": "requires_RHB_T3_owner_decision",
+        "current_use": "coverage_audit_only",
+        "privacy_risk": "inherits_human_scan_review",
+        "unresolved_conditions": [
+          "parent_source_rights",
+          "public_redistribution",
+          "benchmark_use"
+        ]
+      },
+      "privacy_review_status": "pending",
+      "prospective_benchmark_use_status": "blocked_pending_RHB_T3_parent_rights_decision",
+      "prospective_redistribution_status": "blocked_pending_RHB_T3_parent_rights_decision",
+      "record_count": 101,
+      "record_count_kind": "alignment_rows",
+      "redistribution_scope": "public_rows",
+      "retention_scope": "public",
+      "source_id": "human-labeled-to-fixture-alignment-v1",
+      "source_kind": "other"
+    },
+    {
+      "access_permission_status": "approved",
+      "acquisition_method": "owner-supplied XLSX files normalized offline with openpyxl",
+      "authority_boundary": "Review-only observations; zero canonical links or promotions.",
+      "benchmark_uses": [
+        "family_context"
+      ],
+      "content_license_status": "unknown",
+      "current_publication_state": "aggregate_only_public_private_rows_unpublished",
+      "current_repository_state": "private_rows_untracked_with_tracked_public_aggregate",
+      "evidence_refs": [
+        "reports/local-release-staging-v1/manifest.json",
+        "docs/evidence/local-release-staging-ingestion.md"
+      ],
+      "known_rights_evidence": {
+        "evidence": [
+          "reports/local-release-staging-v1/manifest.json",
+          "docs/evidence/local-release-staging-ingestion.md"
+        ],
+        "limitations": [
+          "raw_workbooks_and_normalized_rows_unpublished",
+          "republication_rights_not_provided"
+        ],
+        "status": "owner_access_approved_republication_unknown"
+      },
+      "local_sha256": "85dae23a1a302845f59b63450b9d90623b4c9893ddcde672bffc8eb5b53849af",
+      "origin_reference": "owner-local HW data workbooks; raw rows intentionally not referenced publicly",
+      "owner_decision": "pending",
+      "owner_decision_metadata": {
+        "benchmark_use": "requires_RHB_T3_owner_rights_and_fields_decision",
+        "current_use": "review_only_local_staging",
+        "privacy_risk": "pending_owner_export_field_review",
+        "unresolved_conditions": [
+          "content_reuse_rights",
+          "allowed_fields",
+          "public_redistribution",
+          "privacy_review"
+        ]
+      },
+      "privacy_review_status": "pending",
+      "prospective_benchmark_use_status": "blocked_pending_RHB_T3_rights_fields_and_privacy_decision",
+      "prospective_redistribution_status": "blocked_pending_RHB_T3_republication_decision",
+      "record_count": 1763,
+      "record_count_kind": "staged_release_observations",
+      "redistribution_scope": "aggregate_only",
+      "retention_scope": "local_only",
+      "source_id": "owner-local-release-snapshot-2023-2026-v1",
+      "source_kind": "owner_export"
+    },
+    {
+      "access_permission_status": "unknown",
+      "acquisition_method": "checked-in revision-bound text derivative; no new collection in RHB-v1",
+      "authority_boundary": "CC-BY-SA text derivative; not canonical truth or evaluation labels.",
+      "benchmark_uses": [
+        "family_context"
+      ],
+      "content_license_status": "approved",
+      "current_publication_state": "row_level_public_with_attribution",
+      "current_repository_state": "tracked_public_repository",
+      "evidence_refs": [
+        "data/external/hot-wheels-wiki/pilot-2025/manifest.json",
+        "data/external/hot-wheels-wiki/README.md"
+      ],
+      "known_rights_evidence": {
+        "evidence": [
+          "data/external/hot-wheels-wiki/pilot-2025/manifest.json"
+        ],
+        "limitations": [
+          "not_canonical_or_evaluation_truth",
+          "no_new_collection_without_source_specific_permission"
+        ],
+        "status": "CC_BY_SA_text_derivative_recorded_access_permission_unknown"
+      },
+      "local_sha256": "e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6",
+      "origin_reference": "data/external/hot-wheels-wiki/pilot-2025",
+      "owner_decision": "pending",
+      "owner_decision_metadata": {
+        "benchmark_use": "requires_RHB_T3_owner_decision",
+        "current_use": "family_and_release_review_questions_only",
+        "new_collection": "blocked_without_source_specific_permission",
+        "privacy_risk": "none_known_in_checked_in_text_rows",
+        "unresolved_conditions": [
+          "owner_selection_for_benchmark_use",
+          "source_specific_permission_for_any_new_collection"
+        ]
+      },
+      "privacy_review_status": "approved",
+      "prospective_benchmark_use_status": "pending_RHB_T3_existing_derivative_only",
+      "prospective_redistribution_status": "pending_RHB_T3_attribution_and_use_decision",
+      "record_count": 100,
+      "record_count_kind": "staged_release_rows",
+      "redistribution_scope": "public_rows",
+      "retention_scope": "public",
+      "source_id": "fandom-hot-wheels-2025-pilot-r790665-v1",
+      "source_kind": "licensed_text_derivative"
+    }
+  ],
+  "inventory_version": "representative-hard-benchmark-source-baseline-v1",
+  "network_collection_performed": false,
+  "owner_source_gate": "pending_RHB_T3",
+  "private_source_rows_copied": false,
+  "schema_version": "pvr-representative-hard-benchmark-source-inventory-v1"
+}

@@ -1,0 +1,115 @@
+{
+  "alignment_summary": {
+    "exact_canonical": 0,
+    "family_only": 2,
+    "unmapped": 99
+  },
+  "baseline_date": "2026-09-26",
+  "external_content_digests": {
+    "owner_local_release_snapshot_content_sha256": "85dae23a1a302845f59b63450b9d90623b4c9893ddcde672bffc8eb5b53849af"
+  },
+  "generator": "scripts/build_representative_hard_benchmark_source_inventory.py",
+  "input_artifacts": [
+    {
+      "path": "scripts/build_representative_hard_benchmark_source_inventory.py",
+      "sha256": "83b8856a806abd20e50458a831baedeb6028ade575d510f834e881eb3339a5b2"
+    },
+    {
+      "path": "data/manifest.json",
+      "sha256": "d9480603280fb7db49d1ecb6046d7c3e61946658c1cdfe40a72ed50f63518360"
+    },
+    {
+      "path": "data/benchmark.json",
+      "sha256": "e46c5b4a405a5b3e9fbac35c9613d8e5945e2d4494ad8df9f3d8be1e352fc323"
+    },
+    {
+      "path": "data/catalog.json",
+      "sha256": "0d3ea55eab414e3845bf3bf72635707210f2d5c20d96b3d6b5940eb0ffc7d261"
+    },
+    {
+      "path": "data/human_labeled_names.json",
+      "sha256": "68b5dfdb8d0fa4972328d172cc5a56d78ac8bf00bc740083b2bfc07eb2a91188"
+    },
+    {
+      "path": "data/human_labeled_names_manifest.json",
+      "sha256": "f56cba710a720959d4c535c3353730f012911ab18e5a6054ebef2e5750ada84c"
+    },
+    {
+      "path": "data/human_labeled_catalog_alignment.json",
+      "sha256": "d1a6d3798dec7a5e1258a74b95294bd2f50e81d7c78db2eb29a151917e7499b6"
+    },
+    {
+      "path": "data/human_labeled_catalog_alignment_manifest.json",
+      "sha256": "5d595e06f4455658bd9552062c74e0fb0e9ae613b46088bc43d1330a6537dac0"
+    },
+    {
+      "path": "reports/local-release-staging-v1/manifest.json",
+      "sha256": "9499c4cf7df6de4fe33553d4d5d30977edb0c1fc9cb7b1ae2bed86ca008e8906"
+    },
+    {
+      "path": "data/external/hot-wheels-wiki/pilot-2025/manifest.json",
+      "sha256": "960c639765759d3ab7b610718c026fa784e1995844f4acc9587718d94218f111"
+    },
+    {
+      "path": "data/external/hot-wheels-wiki/pilot-2025/normalized.json",
+      "sha256": "e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6"
+    },
+    {
+      "path": "data/external/hot-wheels-wiki/pilot-2025/raw.json",
+      "sha256": "67521e8544de2dd15527e6d2234598c7c70a1e6d9e6597fde06c88bf95854510"
+    }
+  ],
+  "inventory_file": "source-inventory.json",
+  "inventory_sha256": "c56a6e657b61682f66a6ebdd7fc1794380feb21d8e1906beae072f06df92c816",
+  "inventory_version": "representative-hard-benchmark-source-baseline-v1",
+  "network_requests": 0,
+  "private_source_rows_copied": false,
+  "record_counts": {
+    "fixture_benchmark_cases": 100,
+    "fixture_catalog_products": 120,
+    "human_labeled_scans": 101,
+    "human_scan_alignments": 101,
+    "owner_local_release_observations": 1763,
+    "wiki_pilot_rows": 100
+  },
+  "repository_tracking_contract": {
+    "artifacts": [
+      {
+        "path": "data/benchmark.json",
+        "sha256": "e46c5b4a405a5b3e9fbac35c9613d8e5945e2d4494ad8df9f3d8be1e352fc323"
+      },
+      {
+        "path": "data/catalog.json",
+        "sha256": "0d3ea55eab414e3845bf3bf72635707210f2d5c20d96b3d6b5940eb0ffc7d261"
+      },
+      {
+        "path": "data/human_labeled_names.json",
+        "sha256": "68b5dfdb8d0fa4972328d172cc5a56d78ac8bf00bc740083b2bfc07eb2a91188"
+      },
+      {
+        "path": "data/human_labeled_catalog_alignment.json",
+        "sha256": "d1a6d3798dec7a5e1258a74b95294bd2f50e81d7c78db2eb29a151917e7499b6"
+      },
+      {
+        "path": "reports/local-release-staging-v1/manifest.json",
+        "sha256": "9499c4cf7df6de4fe33553d4d5d30977edb0c1fc9cb7b1ae2bed86ca008e8906"
+      },
+      {
+        "path": "data/external/hot-wheels-wiki/pilot-2025/manifest.json",
+        "sha256": "960c639765759d3ab7b610718c026fa784e1995844f4acc9587718d94218f111"
+      },
+      {
+        "path": "data/external/hot-wheels-wiki/pilot-2025/normalized.json",
+        "sha256": "e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6"
+      },
+      {
+        "path": "data/external/hot-wheels-wiki/pilot-2025/raw.json",
+        "sha256": "67521e8544de2dd15527e6d2234598c7c70a1e6d9e6597fde06c88bf95854510"
+      }
+    ],
+    "owner_private_rows": "untracked_and_not_copied",
+    "state": "tracked_public_repository"
+  },
+  "schema_version": "pvr-representative-hard-benchmark-source-inventory-manifest-v1",
+  "source_entry_count": 6
+}

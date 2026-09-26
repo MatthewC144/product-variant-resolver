@@ -1,5 +1,58 @@
 # Project Log
 
+## 2026-09-26 — RHB-T1：凍結代表性困難基準的現況證據底線
+
+### 1. 新執行了什麼、解決什麼 evidence 問題
+
+本輪只完成[Representative Hard Benchmark v1 的 RHB-T1](../specs/representative-hard-benchmark-v1/tasks.md)，建立
+offline、machine-checkable 的來源清單與checksum底線，先回答「目前到底有哪些資料、哪些已公開、哪些只有彙總、
+哪些能證明canonical identity」；尚未開始RHB-T2，也沒有建立60-case pilot或宣稱代表性benchmark已完成。凍結結果為
+100筆fixture cases、120個fixture products、101筆human-labeled scans，其中catalog alignment維持
+`0 exact / 2 family-only / 99 unmapped`；owner release snapshot只有1,763筆observations的aggregate evidence，
+checked-in Wiki pilot為100筆rows。所有上述來源目前合計仍提供`0`個可用的exact canonical authority。
+
+這一步解決的核心問題是：先前不同資料集雖然存在，但「檔案存在」、「現在已在public Git發布」、「未來可否用於
+RHB-v1／再發布」與「是否具備exact-variant ground truth」尚未被同一份可重算契約分開描述。如果不先封住這個邊界，
+後續可能把family-only人工名稱、staging rows或有來源但無canonical UUID的Wiki rows誤當正式答案。
+
+### 2. 修改哪些程式、資料契約與文件，原因是什麼
+
+新增offline deterministic builder `scripts/build_representative_hard_benchmark_source_inventory.py`與7項專用測試，
+由repository-local public inputs重算count、parent checksum、authority與publication boundary；新增
+`data/evaluation/representative-hard-benchmark-v1/source-inventory.json`及manifest，作為後續contract的固定上游；
+新增[公開證據說明](evidence/representative-hard-benchmark-source-baseline.md)，並由
+[Lean QA review](../specs/representative-hard-benchmark-v1/review.md)對照RHB-R1、RHB-R7、RHB-R19驗收。這些修改只處理
+evidence inventory與資料契約，沒有修改FastAPI、resolver、ranking、model、PostgreSQL schema或任何runtime default。
+
+### 3. 技術與方法選型理由
+
+Builder採offline deterministic設計：只讀repo-local artifacts、固定排序並以canonical JSON和SHA-256綁定來源與輸出，
+重跑只能得到byte-identical結果或`unchanged`，發生drift則fail closed。這讓基準來源可以在乾淨checkout重現，也避免
+網路頁面更新後無法說明當時驗收的是哪份資料。本輪network requests為`0`，且不讀或複製private owner rows；
+1,763筆owner observations只從Git-tracked public manifest取得aggregate count與不可逆checksum，public inventory複製的
+private rows為`0`。
+
+Publication模型刻意把`current repository/publication reality`與`prospective benchmark use / redistribution permission`
+分成不同欄位。原因是「某資料現在已被Git追蹤」只是現況，不能自動推導它獲得新的benchmark用途或再發布授權；反過來，
+private owner rows也不能因為有checksum就被視為公開。所有未來用途仍等待RHB-T3的owner decision，而family-only、staging
+與Wiki資料即使可見也維持`0 canonical authority`。本輪不讀private rows、不做network collection，正是為了在尚未通過
+來源授權與canonical truth Gates前，不擴張資料使用範圍。
+
+### 4. QA失敗、修正與最終驗證
+
+RHB-T1前兩次QA都保留為有價值的契約修正證據。第一次FAIL的根因是把已公開、已Git追蹤的human rows現況，與未來
+benchmark使用／再發布仍未授權混在一起；修正方式是每個source entry分開記錄current publication、known rights、
+prospective use與prospective redistribution。第二次FAIL的根因是builder把gitignored local review summary當成必要的
+tracked input，使fresh clone無法重現；修正後owner aggregate只讀
+`reports/local-release-staging-v1/manifest.json`，ignored summary不再出現在required inputs或repository tracking contract。
+第三次QA最終判定[PASS](../specs/representative-hard-benchmark-v1/review.md)。
+
+驗證結果為RHB-T1 dedicated tests `7 passed`、related tests `37 passed`；Ruff check、Ruff format、strict MyPy、compileall與
+`git diff --check`全部PASS。兩次連續`--check`皆回傳`unchanged`，fresh-clone-shaped public-input build也通過；實際讀取
+network `0`次、複製private rows `0`筆，且沒有把任何來源提升為canonical truth。完整counts、checksums與限制保存在
+[RHB-T1 evidence](evidence/representative-hard-benchmark-source-baseline.md)。下一步僅進入RHB-T2：建立strict benchmark
+schemas與fail-closed validators；RHB-T3來源授權與RHB-T4 canonical authority Gates通過前，不得開始case authoring。
+
 ## 2026-09-26 — PP-T1–PP-T5：完成履歷定位與README portfolio landing page
 
 ### 1. 新執行了什麼、解決什麼問題
