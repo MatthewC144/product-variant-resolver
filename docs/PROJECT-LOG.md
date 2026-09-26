@@ -1,5 +1,653 @@
 # Project Log
 
+## 2026-09-25 — NRC-T10：完成Pointwise／Listwise正式比較、誠實發布null result並封閉專案里程碑
+
+### 新執行了什麼、解決什麼問題
+
+本輪依Lite／Lean Industrial完成最後的NRC-T10。先重新驗證NRC-T9的label-blind raw、Pointwise/Listwise manifests、
+checkpoint、implementation與config hashes，再執行唯一一次正式`--score`。這一步第一次把12筆matched Test labels
+接到已封存的三arms ranks，計算Top-1、MRR@10、Recall@10/25、hard-negative accuracy、failure categories、paired
+transitions、warmed latency與六個predeclared gates。計算完成後一次發布canonical JSON、Markdown與兩張SVG，第二次
+score只允許回傳`unchanged`。
+
+這解決專案最初留下的核心問題：不是只在文件上說明Pointwise與Listwise，而是用同一批候選、真實local MiniLM、
+project-trained candidate-set attention head與隔離Test生命週期完成可重現architecture comparison。同時也驗證
+系統能接受「更複雜模型沒有帶來價值」的結果，而不是為履歷效果硬選一個neural winner。
+
+### 正式結果、gate判斷與為何是winner null
+
+RRF、Neural Pointwise與Neural Listwise在12個matched Test targets上完全同分：Top-1都是12/12、MRR@10都是
+12/12、Recall@10與Recall@25都是12/12；4個matched hard-negative cases也都是4/4。`identifier_noise`與
+`marketplace_noise`各有6個matched cases，三arms在兩類都為6/6。Pointwise與Listwise各自12個paired transitions
+全部是target rank 1→1，沒有improved、也沒有regressed。Listwise看見candidate-set context，但在這個Test沒有改進
+任何正解排名。
+
+延遲與錯誤並不是淘汰原因。RRF resolver p50/p95是1.009／1.398 ms；Pointwise為79.003／89.164 ms；Listwise為
+79.399／89.583 ms。兩個neural arms都遠低於1,500 ms CPU budget，hard-negative、MRR、Recall@25與0-error gates
+也全部通過。唯一失敗的是最重要的incremental-value gate：相對RRF的Top-1 absolute gain是0.00，未達0.05。
+
+因為RRF baseline本來就是12/12，neural沒有空間展示提升。若此時用「Pointwise比較快」或「Listwise架構較進階」
+選出winner，就會違反事前規則，還會在沒有品質收益時增加約88 ms p95。Deterministic selector因此輸出
+`winner: null`，RRF維持default runtime。這不是實作FAIL，而是產品promotion FAIL與完整的negative experiment。
+
+### 產物、測試與文件如何封閉
+
+正式`comparison.json` SHA-256是`f0493fc5d7b30b5e57ee382cf14e06e4fddbcebc62228b9f4b5a0dcec45b3dd2`；Markdown、
+reranker SVG與accuracy/latency SVG hashes分別是
+`0a90e7803db1497584ef2ee2e6b78cd47e95f750db3b9697b447a7016a7ae0fb`、
+`028f88117af4962d4d1d25a6c765e23b9143d84cf280641f6b6f78d4d54d87c6`、
+`3a3156f3ba9f866c68afd435a1054ead2b29543c76cc452439df182a5f0dfe7c`。Report manifest再綁定原始
+label-blind raw SHA-256，確保報告不能換掉Test輸出。
+
+新增4項measured-artifact regression tests，鎖定report/raw hashes、12/12與4/4 exact denominators、兩個neural
+arms只失敗Top-1 gain gate、24個paired transitions、candidate parity、raw label blindness與README一致性。相關
+suite為62 passed，完整repository為975 passed、0 skipped，只有既有Starlette／AnyIO deprecation warning。
+Ruff format/check、strict MyPy、compileall、CLI `--check`、artifact hashes與`git diff --check`全部通過。
+
+新增`review.md`對照NRC-R1–R17逐項驗收，public evidence保存架構、生命週期、exact metrics、hashes與限制，
+AI-eval從grounding、leakage、candidate parity、Pointwise independence、Listwise authenticity、selection integrity與
+release safety評估模型輸出。README加入三arms結果表，而且明確說明100-case synthetic/curated fixture、12 matched
+denominator、`winner: null`與「不能宣稱production accuracy」。
+
+### 最終限制與履歷展示方式
+
+這次結果不能解讀為神經reranker永遠沒有用。Test只有12個matched cases，而且RRF已到ceiling；一個case就會讓
+Top-1改變0.0833，樣本不足以做statistical generality或real marketplace coverage宣稱。較好的履歷敘事是：
+完成RRF／frozen neural pointwise／project-trained listwise attention的公平比較，建立model supply-chain、
+family-disjoint lifecycle、one-time Test與immutable evidence；在baseline滿分時遵守value gate，保留RRF並發布
+可重現null result。
+
+本輪沒有修改FastAPI、`PVR_RERANKER_ENABLED`、confidence calibration、thresholds、Dual RAG、PostgreSQL、
+canonical catalog、Human Knowledge、review families或release promotion。若未來要再次驗證neural upside，必須
+先建立包含non-ceiling matched cases的新benchmark並另開v2 protocol；禁止用本次Test labels回頭調整v1。
+
+## 2026-09-25 — NRC-T9：完成唯一一次formal label-blind Test collection並鎖定v1
+
+### 新執行了什麼、解決什麼問題
+
+本輪依Lite／Lean Industrial順序執行NRC-T9，也是v1第一次真正讓已選定的RRF、Pointwise與Listwise處理Test
+queries。執行前先用完整`--check`重新驗證config、benchmark、catalog、兩份implementation sources、MiniLM
+snapshot、protocol、Train／Dev pool、Pointwise manifest、Listwise manifest與checkpoint hashes，並確認Test `raw/`
+與report directory都不存在；只有這些preconditions全部通過才執行正式`--collect-test`。
+
+21個Test queries各呼叫一次既有canonical sparse＋dense＋structured→RRF retrieval，總計正好21 calls，沒有retry。
+每題取得25 candidates，因此raw保存525個candidate observations；21 rows全部成功，retrieval/model error都是0。
+每列只建立一份shared candidate list，RRF arm保持原始candidate順序，Pointwise與Listwise arms都包含完全相同的
+25個canonical UUID，只能改變score與rank，不能增加、刪除、替換候選或補入正解。
+
+### Artifact內容、隔離答案的方法與技術決策
+
+`test-raw.json`只保存query、parsed signals、shared candidates、三arms的UUID／raw score／rank、signal/retrieval/
+pointwise/listwise timings及error欄位。它不保存expected status、expected UUID、target、human label、accuracy、
+metrics、eligibility或winner；遞迴key檢查結果為空。這個隔離很重要：目前即使打開raw也只能看到三種排序，無法
+知道哪個排序比較接近人工答案，因此無法用Test結果回頭選模型或調hyperparameters。
+
+Manifest明確記錄`label_blind=true`、`test_collection_executed=true`、`retrieval_call_count=21`、
+`retrieval_error_count=0`，並綁定protocol、pool、Pointwise、Listwise、checkpoint和benchmark Test-query source
+hashes。Raw SHA-256為`948582264e67ad6d686a4409a41100149118d12b6e4548bbdc1265d778756884`，manifest SHA-256為
+`d52000451be8b844067f2ac20d4a170231c93a2fd64253c73488552c4e779105`。第二次執行collection直接回傳
+`unchanged`，沒有再次retrieval或覆寫；完整`--check`回傳`valid`。
+
+收集前後重新計算所有frozen hashes，config、benchmark、catalog、implementation sources、MiniLM、protocol、
+pool、兩份model manifests與Listwise checkpoint逐一相同。這代表Test raw不是在看到輸出後由另一版程式或模型
+產生。從此刻起，v1的source、config、model與hyperparameters全部鎖定；若未來想嘗試另一種feature或架構，必須
+建立v2，而不能覆寫這組結果。
+
+### 測試結果、目前不能下的結論與下一步
+
+Related tests為58 passed，完整repository為971 passed、0 skipped，只有既有Starlette／AnyIO deprecation warning。
+Ruff format/check、strict MyPy、compileall與`git diff --check`通過。正式reports仍不存在，也沒有執行label join、
+Top-1、MRR、Recall、hard-negative、latency gates或winner selection。因此目前不能根據raw score大小宣稱RRF、
+Pointwise或Listwise誰較準；不同模型的raw scores也不是可互相比較的calibrated probabilities。
+
+下一步NRC-T10會對這份不可變raw做唯一一次Test label join，依預先凍結的metrics與六個gates計算結果。若沒有
+neural arm同時通過Top-1提升、hard-negative／MRR／Recall不下降、p95 latency與0-error條件，就必須誠實發布
+`winner: null`。之後才新增measured-artifact regression tests、`review.md`、public evidence、AI-eval、README
+結果表、Decision／Project Log closure並整理GitHub交付狀態。
+
+## 2026-09-25 — NRC-T8：完成正式Train／Dev scoring、Listwise fitting與不可變模型選擇
+
+### 新執行了什麼、解決什麼問題
+
+本輪依Lite／Lean Industrial順序在NRC-T7凍結的79筆Train／Dev共同候選池上執行唯一一次正式`--fit`。Frozen
+MiniLM對每個query／candidate pair獨立打分，共涵蓋58 Train＋21 Dev cases、1,973個既有候選；之後只有matched且
+正解已存在pool的Train cases能更新Listwise權重，Dev完全不參與gradient或normalizer fitting，只用來選擇epoch。
+這解決「模型已下載、候選池已固定，但還沒有正式Pointwise outputs與project-specific Listwise checkpoint」的缺口。
+
+36個matched Train cases全部eligible，另外22個ambiguous／no-match cases排除；12個matched Dev cases全部eligible，
+另外9個ambiguous／no-match cases排除。兩個split的retrieval miss都是0，所以本輪不需要也不允許補入候選。
+Pointwise manifest明確標記weights frozen、`test_labels_loaded=false`、`test_scored=false`；Test仍未被模型選擇流程
+使用，也沒有建立Test raw或final report。
+
+### 代碼執行了哪一部分、模型為何這樣選擇
+
+本輪沒有修改ranking演算法，而是執行已在NRC-T5完成並由NRC-T6 CLI封裝的正式生命週期。Pointwise沿用
+Apache-2.0 MiniLM固定revision與88 MB local snapshot，在CPU float32及strict offline模式下對每個pair產生logit；
+同一個candidate無論batch順序都必須在`1e-6`內得到相同分數。Pointwise只看query和該候選文字，沒有讀取其他
+candidates，因此它仍是純Pointwise對照組。
+
+Listwise輸入是相同Pointwise logit，加上RRF、source rank、year、collector number、series position、color與series
+match/conflict等固定21維features。只有Pointwise logit與RRF score用Train統計做normalization，另外19個具有固定
+語意的binary／reciprocal-rank features不重新縮放。Head仍是21→32 candidate encoder、一層4-head self-attention、
+64維feedforward與scalar score，沒有positional embedding；這樣模型可以比較候選間相對證據，但不能把輸入array
+位置當成答案。
+
+訓練history共11 epochs。Dev MRR@10從epoch 1開始就是1.0，直到epoch 11都沒有更高；雖然Train loss從
+3.0723下降到0.0190，預先凍結的選擇規則只接受「strictly higher Dev MRR」，並在連續10次沒有改善後停止，因此
+保留earliest epoch 1。這個決定很重要：如果因為看到較低Train loss而改選epoch 11，就是在沒有held-out改善時
+偏好更貼合Train的模型，構成事後調參。Epoch 1是Dev證據支持下最早、也最保守的checkpoint。
+
+三份正式檔案分開保存：Pointwise manifest記錄79 cases／1,973 logits與rank；Listwise manifest記錄eligibility、
+Train-only normalizer、完整history、architecture、AdamW hyperparameters、seed `20260924`、Dev selection與所有
+upstream hashes；`listwise-model.safetensors`只保存tensor，不包含pickle或optimizer state。Pointwise manifest
+SHA-256是`af9f58c02ecb6c9a44b6438eb5b3493b41447e570830f74fbf61f9dfd973cd79`，Listwise manifest是
+`647e82c1bcc2087de01688ff76481fb7e67bb56b9552d551ac00e08061fceab0`，checkpoint是
+`9386c0593ec07ad2b9eb0f6daa613b66f7b117e0e6c5a33be2e8705dbe18aead`。
+
+### 測試結果、限制與下一步
+
+除了manifest validator，本輪也用真正的frozen MiniLM與selected Listwise checkpoint執行preflight。Pointwise
+batch反轉後映射回相同identity仍在`1e-6`內；Listwise candidates反轉後分數能正確映射；同一組real candidates
+加入masked padding後，非padding logits也在`1e-6`內不變。第二次`--fit`回傳`unchanged`，證明不重新score、
+train或覆寫；完整`--check`回傳`valid`。
+
+Related tests為58 passed，完整repository為971 passed、0 skipped，只有既有Starlette／AnyIO deprecation warning。
+Ruff format/check、strict MyPy、compileall與`git diff --check`通過。正式`models/`已建立但只有276 KB；Test `raw/`
+與`reports/neural-reranker-comparison-v1`仍不存在，沒有Test label、Test neural score、winner、API、Dual RAG、
+PostgreSQL、canonical catalog或runtime變更。
+
+下一步NRC-T9是風險最高的不可逆研究步驟：對21筆Test query各做一次label-blind canonical retrieval，讓RRF、
+Pointwise、Listwise使用同一候選，保存scores／ranks／timings／errors但不接答案。成功後v1不得再改source、config、
+model或hyperparameters；NRC-T10才會第一次加入Test labels並發布winner或誠實的`winner: null`。
+
+## 2026-09-25 — NRC-T7：取得固定MiniLM並凍結正式protocol與Train／Dev共同候選池
+
+### 新執行了什麼、解決什麼問題
+
+本輪依Lite／Lean Industrial順序執行第一個會使用外部模型的正式階段。先把神經套件安裝在`Product Variant
+Resolver/.venv`，沒有改動系統Python或讓Torch變成FastAPI預設依賴；接著取得唯一核准的Apache-2.0
+`cross-encoder/ms-marco-MiniLM-L6-v2`固定revision，最後才建立正式protocol與label-free Train／Dev pool。
+這解決先前NRC-T1–T6只有程式與temporary synthetic evidence、尚未證明真實Mac CPU環境能載入模型與重現
+候選池的缺口。
+
+正式freeze仍沒有讀取或收集Test輸出。Protocol只確認完整100題benchmark契約與family isolation，再把58筆Train
+和21筆Dev query交給既有canonical sparse＋dense＋structured→RRF pipeline各執行一次。結果是79個rows、
+1,973個候選，沒有empty candidate row，也沒有任何候選缺少source ranks；pool仍只含query、signals、retrieval
+timings與候選證據，不含expected status／UUID、Pointwise或Listwise分數、metrics與winner。
+
+### 代碼、依賴與artifact做了哪些調整，為何這樣決定
+
+本輪沒有另寫一套retriever或改FastAPI產品碼，而是執行已在NRC-T1–T6完成的受控CLI。安裝版本維持規格選定的
+Sentence Transformers 3.4.1、Torch 2.7.1與safetensors 0.5.3；原因是這三版已針對Python 3.12、macOS ARM64、
+CrossEncoder離線介面與listwise attention primitive完成設計與合成測試，臨時升級到其他major version會把
+「比較Pointwise與Listwise」變成同時比較依賴版本，破壞實驗歸因。
+
+實際安裝後，`constraints/reranking-python312.txt`由原本3個direct pins擴充為33個direct／transitive exact pins，
+包含Transformers、tokenizers、NumPy、SciPy、scikit-learn、Hugging Face Hub與HTTP／tensor依賴。這項調整不是
+重新挑選模型，而是把reference Mac真正解析出的環境轉成可重建證據；若只保留三個頂層版本，未來相同指令仍
+可能取得不同tokenizer或Transformers行為。`uv pip check`確認專案環境共74個packages彼此相容，33個constraints
+也逐一比對實際metadata，沒有version mismatch。
+
+Model acquisition只接受config中六個allowlisted檔案，拒絕pickle、remote code與額外檔案。發布後目錄約88 MB，
+manifest SHA-256是`32f889bb415ef5a56760a299da0635e8e1704d46fe0b11ded06c563de896feb8`，其中
+`model.safetensors` SHA-256是`821d1aa69520101d6e0737f78a042ae25b19e5cb9160701909d10434f4aeb0ae`。
+以`HF_HUB_OFFLINE=1`和`TRANSFORMERS_OFFLINE=1`重新載入後，模型能完成兩組實際pair scoring；第二次acquire
+直接回傳`unchanged`，證明日後驗證不需要網路，也不會以新下載內容覆寫固定snapshot。
+
+正式protocol與pool分別以canonical JSON、manifest與SHA-256發布。Protocol記錄100／58／21／21 denominator、
+14個family、120筆`fixture-v1` catalog checksum、source/code/config hashes、canonical retriever版本與實際核心
+dependency versions；狀態為`frozen_pre_test`，明確標示`training_executed=false`、
+`test_collection_executed=false`。第二次freeze回傳`unchanged`，完整`--check`回傳`valid`，因此不是只確認檔案
+存在，而是重新驗證所有hash、schema、候選來源與label-blind contract。
+
+### 測試結果、限制與下一步
+
+安裝optional stack後，先前刻意skip的真實Torch permutation／padding／loss／repeatability tests全部轉為pass。
+Neural focused tests為47 passed；加入catalog service的related tests為58 passed；完整repository為971 passed、
+0 skipped，只有既有Starlette／AnyIO deprecation warning。Ruff format/check、strict MyPy、compileall與
+`git diff --check`也通過。正式`models/`、Test `raw/`與`reports/neural-reranker-comparison-v1`仍不存在；沒有
+Pointwise Train/Dev scoring、Listwise fitting、Test collection、winner selection，也沒有修改API、Dual RAG、
+PostgreSQL、canonical catalog或runtime。
+
+下一步NRC-T8會在目前不可變的79筆Train／Dev pool上執行正式Pointwise scoring，只讓matched且target已在pool的
+Train lists擬合小型Listwise head，Dev只負責選earliest best epoch。完成後會保存Pointwise manifest、Listwise
+selection manifest與safetensors checkpoint；仍不讀Test labels，也不建立Test raw或final report。
+
+## 2026-09-25 — NRC-T6：完成一次性Test生命週期、決策閘門、可稽核報告與六階段CLI
+
+### 新執行了什麼、解決什麼問題
+
+本輪依Lite／Lean Industrial順序完成NRC-T6，但沒有碰正式benchmark結果。上一階段已能用Train擬合Listwise、
+用Dev選epoch，仍缺少最後且最敏感的邊界：如何保證Test只檢索一次、三個架構看到完全相同候選、錯誤不被重跑
+洗掉，以及只有在raw evidence凍結後才接上答案。現在`collect-test`只處理label-blind query與fitted models，
+`score`才讀Test labels；兩者是不同的不可覆寫phase，而`check`會從來源、模型、raw、report一路重新驗證hash與內容。
+
+收集前先以Train／Dev pool做Pointwise batch-order與Listwise candidate-permutation invariance preflight，再做warmed
+timing，避免為了測試模型穩定性或初始化成本而偷看Test、也避免把第一次lazy load誤算成單題推論延遲。21筆Test
+各自只呼叫一次既有canonical retriever，輸出一份shared candidates，三個arms只能沿用同一批UUID與候選順序；
+Pointwise與Listwise只能新增分數和重排，不能自行檢索、補正解或移除困難候選。單題若失敗會保存error並留下空
+rank，不會自動重試；因此denominator仍是完整12個matched Test案例，錯誤臂也一定被gate淘汰。
+
+### 代碼修改了哪一部分、原因與技術選型
+
+`neural_reranker_comparison.py`新增Test label投影、scorer protocols、preflight／warm-up、一次性raw collector、
+raw/report manifests與validators、metrics/category slices/paired transitions、NRC-R12 gates、NRC-R13 deterministic
+winner selection，以及JSON、Markdown和兩張SVG renderer。Raw schema遞迴禁止expected labels、metrics和winner；
+scoring前後重新比對models與raw目錄的每個byte，使報告產生器不能改寫模型輸出，也不能在看過答案後修正raw。
+
+門檻選擇維持已確認的保守策略：神經臂相對RRF的Top-1至少增加0.05，hard-negative accuracy、MRR與Recall@25
+皆不可下降，resolver p95不可超過1500 ms，而且errors必須為0。這些條件反映履歷展示的重點不是強迫神經模型
+獲勝，而是證明能做可信的architecture comparison；若沒有任何arm全數通過，正式結論就必須是`winner: null`。
+多個arm都通過時才依hard-negative accuracy、Top-1、MRR、較低p95排序，完全同分則偏好較簡單的Pointwise，
+避免以不穩定的dict順序或UUID決定研究結論。
+
+報告額外保存每題shared candidates、三arms raw scores/ranks、各階段timing、evidence scope與模型版本，並明示
+ranking score不是校準後match probability。SVG不是獨立手寫摘要，而是由同一canonical report資料生成並納入
+manifest checksum；這讓圖表、Markdown與JSON無法各說各話。`pyproject.toml`註冊
+`pvr-compare-neural-rerankers`，提供`--acquire-model`、`--freeze-protocol`、`--fit`、`--collect-test`、`--score`
+與`--check`六個互斥phase，讓之後正式操作沿用同一條受驗證路徑。
+
+### 測試結果、限制與下一步
+
+新增11項synthetic E2E／failure tests，使comparison lifecycle suite共23項。測試證明21筆Test各一次retrieval、
+raw完全無label/metric/winner、errored row不重試、scoring不改model/raw bytes、六種gate各自失敗都得到null、
+tie-break穩定且偏好簡單arm、partial state與chart tamper被拒絕、合法repeat不覆寫，以及安裝後CLI help確實列出
+六個phase。Focused為23 passed；related為56 passed／2 skipped；完整repository為969 passed／2 skipped（共971項）。
+Ruff format/check、
+strict MyPy、compileall、`git diff --check`與CLI help皆通過；兩個skip仍是依計畫留到NRC-T7 optional環境執行的
+真實Torch tensor tests。唯一warning是既有Starlette／AnyIO deprecation，與本次功能無關。
+
+所有生命週期測試都只寫入pytest temporary directories。Repository內正式`data/evaluation/neural-reranker-
+comparison-v1`、`reports/neural-reranker-comparison-v1`與`model-cache/neural-reranker-comparison-v1`仍不存在；
+沒有network、dependency/model download、正式Test collection/scoring，也沒有修改FastAPI、Dual RAG、
+PostgreSQL、canonical catalog或runtime。下一步NRC-T7才會安裝optional dependencies、取得固定revision的本機
+模型並凍結正式protocol與Train/Dev pool；由於會使用網路並下載約90 MB模型與Torch等套件，執行前仍需owner
+另外明確授權。
+
+## 2026-09-25 — NRC-T5：完成Train/Dev fitting與immutable model-selection生命週期
+
+### 新執行了什麼、解決什麼問題
+
+本輪依Lite／Lean Industrial順序只完成NRC-T5，把上一階段凍結的58筆Train與21筆Dev候選池接到可驗證的
+Pointwise scoring與Listwise fitting流程。每個case的Pointwise模型只收到該query與各候選的allowlisted text，
+輸出依原候選順序保存，再用固定score→RRF rank→UUID tie-break建立rank。這解決「候選池已公平，但兩個神經
+架構尚無一致模型選擇流程」的缺口。
+
+Train/Dev labels只在orchestration層加入：ambiguous與no-match不進入訓練；matched target若不在凍結pool，只增加
+retrieval miss計數，不能把正解候選補回。只有matched且target已存在的Train list能更新Listwise權重；Dev list
+只交給trainer計算MRR@10並選earliest best epoch。Test rows會在讀取label fields前跳過，而且fitting phase不再
+呼叫會檢查Test labels的完整benchmark validator；它改以已凍結contract與benchmark bytes SHA-256驗證來源。
+
+### 代碼修改了哪一部分、為何採用這些方法
+
+`neural_reranker_comparison.py`新增Train/Dev label projection、Pointwise scorer／Listwise trainer／checkpoint
+backend protocols、eligibility accounting、model manifests、三檔models目錄validator，以及
+`fit_train_dev_models`／`check_fitted_train_dev_models`。Protocols讓本輪可用純合成adapter驗證生命週期，不必為了
+測試提前安裝Torch或下載90MB左右的MiniLM；正式NRC-T8仍會使用既有`train_listwise_model`和safetensors backend，
+所以測試替身沒有形成第二套產品演算法。
+
+Pointwise manifest保存79個case的候選UUID、logit與deterministic rank，但不含expected UUID/status/family。模型
+manifest hash在scoring前後及Listwise fitting後都重新探測，確保「frozen pointwise」不是只有文件宣稱。
+Listwise examples由相同logit加既有20項RRF/source/structured fields形成固定21維feature；生成後重新用所有
+eligible Train candidate rows計算expected normalizer，trainer若混入Dev統計就無法通過比較。
+
+Listwise manifest記錄feature schema、21→32架構、AdamW learning rate／weight decay、batch size、epoch/patience、
+seed、CPU float32環境、dependency versions、protocol/pool/pointwise hashes、Train/Dev eligibility、training-label
+checksum、normalizer、每個epoch的Train loss與Dev MRR、selected epoch，以及nested safetensors manifest和checkpoint
+SHA-256。選擇把logits與model-selection metadata分成Pointwise／Listwise兩份，是因為Pointwise權重完全不fit，
+而Listwise才有project-specific訓練；混成單一manifest會模糊哪個模型從哪些資料學習。
+
+整個`models/`先在同一filesystem的temporary directory完成三檔驗證，再一次rename發布。已存在且完整的models
+只允許回傳`unchanged`，不再score或train；只有一部分檔案、任何upstream hash漂移、pointwise bytes變動、
+checkpoint tamper或非canonical manifest都fail closed且不覆寫。這延續NRC-T4的phase transaction boundary，
+避免研究結果因重跑而悄悄改變。
+
+### 測試結果、限制與下一步
+
+新增4項synthetic fitting integration tests，使comparison lifecycle tests共12項。測試刻意讓Train與Dev各有
+一個matched target不在pool，驗證36個matched Train只形成35個training examples、12個matched Dev只形成11個
+selection examples，miss不被注入；同時驗證79次Pointwise calls、Train-only normalizer、Dev early stopping、
+Test validator絕不被呼叫、Pointwise weights不變、repeat為0額外scoring/training，以及partial/config/pool/model/
+dependency/checkpoint drift拒絕且不覆寫。
+
+相關測試為45 passed／2 skipped；完整repository共960項，結果958 passed／2 skipped。兩個skip仍是依計畫延至
+NRC-T7 optional環境的真實Torch tensor tests。Ruff format/check、strict MyPy、compile與`git diff --check`通過，
+唯一warning仍是既有Starlette／AnyIO deprecation。正式data、reports與model-cache仍不存在；沒有network、套件
+安裝、正式fit、Test collection/scoring、API、Dual RAG、PostgreSQL或runtime改動。
+
+下一步NRC-T6會完成one-time label-blind Test collection、三arms scoring/gates、JSON/Markdown/SVG reports與完整
+CLI，但仍只以temporary synthetic E2E驗證，不建立正式artifact或揭露正式Test結果。直到NRC-T1–T6全部綠燈，
+才會在NRC-T7重新說明並請求owner授權下載optional dependencies與pinned model。
+
+## 2026-09-25 — NRC-T4：完成source-bound protocol與label-blind Train/Dev候選池生命週期
+
+### 新執行了什麼、解決什麼問題
+
+本輪依Lite／Lean Industrial順序只完成NRC-T4。新增一個隔離的experiment orchestration模組，將既有100題
+benchmark中的58筆Train與21筆Dev查詢投影成可凍結的候選池；21筆Test完全跳過。每個納入的case只呼叫一次
+現有canonical sparse＋dense＋structured→RRF retrieval，並保存同一份排序候選、來源rank／score、structured
+match／conflict、RRF rank／score、解析signals與四段timing。這解決後續Pointwise與Listwise若各自重新檢索，
+可能因候選集合不同而無法公平比較的問題。
+
+這一步沒有執行真正的正式freeze。測試只在pytest temporary directory中建立合成生命週期檔案；repository內
+的正式data、reports與model-cache路徑仍不存在，也沒有下載MiniLM、安裝Torch、執行training或讀取Test結果。
+
+### 代碼修改了哪一部分、原因與技術選型
+
+新增`neural_reranker_comparison.py`，把protocol建立、來源hash、候選凍結、schema validation、manifest與
+exclusive-create publication集中在experiment層，而不修改`service.py`或FastAPI runtime。Canonical retriever
+仍由既有`SparseRetriever`、`DenseRetriever(HashingEmbedding(192))`、`StructuredRetriever`與RRF組成；另寫一套
+retrieval會讓實驗結果無法代表目前系統，所以此處只提供離線builder重用同一組元件。
+
+Protocol不只記model名稱，也綁定config、benchmark、catalog、兩個implementation files、dependency versions、
+catalog semantic checksum與未來本機pointwise manifest SHA-256。Pool再綁定protocol hash。選擇canonical JSON
+加SHA-256，是因為本專案需要能判斷「內容完全相同」與「來源或bytes已漂移」，而不是只看檔名存在。整個
+experiment directory先在同一parent的temporary staging建立，再以rename一次發布；既有完整狀態只允許驗證後
+回傳`unchanged`，partial或衝突狀態一律拒絕，避免逐檔寫入留下半套artifact或默默覆蓋研究證據。
+
+候選validator要求source ranks與scores同源且非空、rank為1–25整數、score有限、RRF分數能由固定`k=60`的
+source ranks重算，候選RRF ranks連續，timings必須恰有sparse／dense／structured／fusion。Pool也會逐筆比對
+benchmark原始Train/Dev的case ID、split、query與順序；因此即使JSON仍合法，查詢被改寫也會fail closed。
+Recursive label-blind檢查同時禁止expected label、target、accuracy／winner及Pointwise／Listwise score欄位，
+讓NRC-T4只保存模型尚未看過答案的共同輸入。
+
+### 測試、風險邊界與下一步
+
+新增8項lifecycle tests，覆蓋79次且每題一次retrieval、58/21 exact denominator、byte-stable ordered candidates、
+完整來源證據、label/neural-output prohibition、合法重跑0額外retrieval、partial state、pool tamper、source drift、
+family跨split leakage、缺少timing及錯誤rank型別。Related suite為41 passed／2 skipped；完整repository共956項，
+結果954 passed／2 skipped。兩個skip仍是按計畫延至NRC-T7安裝optional環境後執行的真實Torch tests。Targeted
+Ruff format/check、strict MyPy與compile通過；唯一warning仍是既有Starlette／AnyIO deprecation。
+
+本輪未修改API、Dual RAG、PostgreSQL、canonical catalog、Human Knowledge或runtime設定。下一步NRC-T5只會
+實作Train/Dev label join、frozen pointwise score、Train-only normalization、listwise fitting、Dev early stopping
+與immutable model-selection artifacts，仍只用temporary synthetic fixtures；不下載模型、不執行正式fit、
+不讀Test labels，也不建立正式repository artifacts。
+
+## 2026-09-25 — NRC-T3：完成permutation-equivariant Listwise網路、trainer與checkpoint契約
+
+### 新執行了什麼、解決什麼問題
+
+本輪依Lite／Lean Industrial順序只完成NRC-T3，將原先文件中的Listwise概念轉成可執行、但仍保持lazy optional的
+PyTorch implementation。這一步解決Pointwise只能各自看query/candidate pair、無法比較「同一候選集合內相對
+關係」的限制：Listwise head會同時看最多25個候選的21維features，以self-attention讓每個candidate score能依賴
+其他候選；同時不加入positional embedding，避免模型把原始RRF array位置誤當成答案。
+
+實作前核對PyTorch 2.7官方API，確認`TransformerEncoderLayer`的`batch_first=True`形狀是
+`[batch,candidate,feature]`，且`src_key_padding_mask`是正式padding介面；也核對AdamW 2.7參數與safetensors的
+`save_file`／`load_file` CPU契約。沒有因測試需要而提前安裝Torch：確認project `.venv`、system Python及Codex
+bundled runtime都沒有Torch／safetensors後，仍遵守NRC-T7才允許owner-approved install的既定供應鏈順序。
+
+### 代碼修改了哪一部分、原因與方法選型
+
+`neural_reranking.py`新增`FeatureNormalizer`、`ListwiseExample`、`TrainingEpoch`、early-stopping selection及完整
+training result contracts。Normalizer API只接收Train rows，且只計算`pointwise_logit`與`rrf_score`的population
+mean／standard deviation；constant欄位以1.0作安全尺度。其他19個presence、rank、match/conflict features完全
+不標準化，因為它們本身已有固定0–1語意，若再次依小樣本縮放反而會讓跨split解釋不穩定。
+
+`build_candidate_set_reranker`在真正呼叫時才import Torch。架構固定為
+`Linear(21→32)+GELU+LayerNorm`、一層`TransformerEncoderLayer(32,4 heads,FFN 64,dropout 0)`及
+`Linear(32→1)`；沒有position channel。Padding同時傳入attention mask，最終logit再以`-inf`遮蔽，確保padding
+既不能被真候選attend，也不會進入softmax loss。Trainer固定CPU float32、seed `20260924`、deterministic
+algorithms、AdamW learning rate `1e-3`／weight decay `1e-4`、batch 8、最多100 epochs；只有strictly higher Dev
+MRR@10才替換best checkpoint，因此tie保留較早epoch，連續10 epochs無改善便停止。Train負責fit weights與
+normalizer，Dev只選epoch，函式沒有Test輸入。
+
+Checkpoint不用`torch.save`，只允許`.safetensors` model state；optimizer state刻意不保存，避免pickle與無用的
+resume狀態變成release artifact。伴隨manifest綁定exact feature schema/hash、architecture、seed、selected epoch、
+Train normalizer、每個tensor name/shape與checkpoint SHA-256。任何schema、architecture、shape或bytes漂移均
+fail closed。寫入adapter同樣lazy load，因此缺少optional packages時會在建立artifact directory前給出明確安裝
+提示。
+
+### QA結果、限制與下一步
+
+Focused suite目前24項：22項核心測試通過，2項真正Torch tensor測試因optional environment尚未安裝而明確
+skipped。已通過的測試涵蓋Train-only statistics、僅兩欄normalization、exact layer wiring、無position、固定
+seed/config、earliest-tie／patience、lazy dependency error、safetensors manifest及schema/hash drift。兩項已收集
+但延後到NRC-T7執行的測試會用實際tensor驗證candidate permutation在`1e-6`內映射相同、padding不影響real
+candidates、一步AdamW降低controlled loss，以及相同seed重現selected epoch與scores；目前不把skip誤報成pass。
+
+相關測試為54 passed／2 skipped；完整repository 948項為946 passed／2 skipped。Targeted Ruff format/check、
+strict MyPy、compileall與`git diff --check`通過，仍只有既有Starlette／AnyIO deprecation warning。正式data、
+reports與model-cache目錄保持不存在，也沒有network、dependency install、retrieval、實際training、Test labels、
+API、Dual RAG、PostgreSQL或runtime改動。
+
+下一步NRC-T4只建立protocol、source binding、label-blind Train/Dev candidate-pool lifecycle及synthetic temporary
+tests，包括exclusive-create、hash binding、one retrieval call與idempotent `unchanged`。真正Torch tests仍是NRC-T7
+取得optional environment後、任何正式pool/model state建立前的hard precondition。
+
+## 2026-09-24 — NRC-T2：完成MiniLM本機模型供應鏈與離線pointwise scoring邊界
+
+### 新執行了什麼、解決什麼問題
+
+本輪依Lite／Lean Industrial順序只執行NRC-T2，沒有提前進入listwise training或正式experiment。新增獨立的
+`reranking` optional extra、Python 3.12 direct constraints與`config/neural-reranker-comparison-v1.json`，把
+`cross-encoder/ms-marco-MiniLM-L6-v2`固定在immutable revision
+`233902d25c440f23af6f7d6e94d2946bac0bee0a`及Apache-2.0授權。這解決「同一個model name日後可能指向不同
+weights」、「預設安裝被Torch放大」，以及模型載入時可能偷偷連網或接受remote code的三個供應鏈風險。
+
+實作前另外核對官方Sentence Transformers v3.4.1 source，而不是照目前最新版API猜測。確認該版CrossEncoder
+使用`automodel_args`，並支援`local_files_only`與`trust_remote_code`；也核對指定revision的Hugging Face file
+tree，確認所需六檔確實是`config.json`、`model.safetensors`、三個tokenizer JSON與`vocab.txt`，同時明確排除
+repo內存在的`pytorch_model.bin` pickle weights。這讓設定和將來真正acquisition的來源一致。
+
+### 代碼修改了哪一部分、原因與方法選型
+
+`neural_reranking.py`新增typed config／manifest contracts、lazy dependency adapters、唯一network-capable的
+`acquire_pointwise_model`、完整local model validator及`LocalPointwiseScorer`。Acquisition先要求owner明確確認
+license，再把model ID、revision與exact allowlist交給downloader；任何`.bin`、`.pkl`、`.pt`、`.py`、額外檔案、
+缺檔或不規則輸入都fail closed。Hugging Face cache可能以symlink指向immutable blob，所以只在下載邊界允許讀取
+source symlink，發布到`model-cache`前一定複製成regular file；正式目錄本身完全拒絕symlink，避免日後hash所指
+bytes被外部target替換。
+
+每個發布檔案記錄path、size與SHA-256；manifest另外綁定model ID、revision、license與config SHA-256。有效的
+既有目錄回傳`unchanged`且不重新下載，任何partial或tampered state不覆寫。Missing optional dependencies會在
+建立project artifact directory之前提供明確的`product-variant-resolver[reranking]`安裝提示。選用獨立extra而不
+合併既有`ml`，是因為NRC-T7尚未在reference Mac CPU驗證完整transitive resolution；本輪constraints只誠實固定
+三個direct packages，不假裝已經擁有完整lock。
+
+Offline scorer每次先重新驗證manifest與檔案hash，才lazy import Sentence Transformers／Torch；constructor固定
+CPU、float32、one label、128 tokens、`use_safetensors=True`、`local_files_only=True`與
+`trust_remote_code=False`。`score_pairs`把同一query的Top-25 pairs一次交給`predict`，檢查score數量與finite
+values。Fake model的順序重排測試會以candidate identity對回分數，證明batch順序不改變identity-to-score map。
+
+### QA結果、未做事項與下一步
+
+新增後focused suite由9增至16項，涵蓋revision/license/trust設定漂移、explicit license、exact allowlist、pickle
+拒絕、manifest missing hash、tampered bytes、missing dependency-before-write、secure loader kwargs、one-batch
+scoring、順序不變性、錯誤count與NaN。16/16 focused、48/48 related與940/940完整repository tests通過；本次
+修改檔案的Ruff format/check、target strict MyPy、compileall及`git diff --check`也通過。完整suite仍只有既有
+Starlette／AnyIO deprecation warning；全repo Ruff仍會列出大量本task以前就存在的historical script格式問題，
+因此沒有越界改寫那些檔案。
+
+本輪沒有執行pip install、network、model download、retrieval、training或Test label access；
+`model-cache/neural-reranker-comparison-v1`、formal data與reports目錄均不存在。下一步NRC-T3才會加入21→32的
+permutation-equivariant candidate-set network、padding mask、listwise loss、train-only normalization與synthetic
+trainer tests；同樣不會取得真實模型或執行正式benchmark。
+
+## 2026-09-24 — NRC-T1：完成不依賴神經套件的比較契約與排序計量核心
+
+### 新執行了什麼、解決什麼問題
+
+Owner確認十項task plan後，Lite G1*正式關閉，本輪只執行NRC-T1。新增
+`src/product_variant_resolver/neural_reranking.py`與9項focused tests，把後續Pointwise／Listwise都必須遵守的
+資料形狀、模型輸入邊界、feature順序、排名規則與metrics先固定成dependency-free contract。這解決「等Torch
+與模型都進來後才發現三個arms使用不同資料或分母」的風險，也讓核心API在沒有任何ML optional package的環境
+仍可import與測試。
+
+### 代碼修改了哪一部分、原因與方法選型
+
+新增frozen `CandidateTextFields`、`FrozenCandidate`、`FrozenSignals`、`CandidatePoolRow`、`RankedCandidate`與
+`ScoredCase` dataclasses。Candidate contract驗證UUID、Top-25連續RRF rank、finite scores、三個合法sources、五種
+structured fields、unique identities與nonnegative timings；使用tuple而非可變list保存正式順序，避免後續模型
+adapter無意改寫shared pool。
+
+`render_candidate_text`只接受brand、casting、year、series、color、collector number、series position、edition、
+sorted aliases與identifiers，根本不接受case ID、UUID、provenance、split或labels。這種function-signature allowlist
+比先傳入整個catalog dict再刪除禁用欄位更安全，因為未來新增catalog欄位不會自動滲入模型。Missing value固定為
+`<missing>`，大小寫與空白正規化，輸出field order不可變。
+
+`candidate_feature_vector`把design中的schema固定為exact 21 fields：pointwise logit、RRF score/rank、三個source
+presence/rank、五個match、五個conflict與兩個counts；任何NaN/Infinity都拒絕。`rank_scores`只依model score、
+原RRF rank，再以UUID作最後deterministic tie-break，UUID從未成為feature。Metrics同時保存numerator、denominator
+與value，並提供Top-1、MRR@10、hard-negative accuracy、Recall@10/25、failure-category與逐case paired rank
+transition；target不在pool時保留`None`，不能由reranker補入。
+
+Artifact validators會遞迴走訪任意深度JSON。Pool同時拒絕expected labels、winner/gates/metrics與任何pointwise/
+listwise score；raw Test允許神經scores但仍拒絕labels與winner。Canonical JSON使用UTF-8、sorted keys、compact
+separators、newline與`allow_nan=False`，SHA-256 helpers則讓後續每個phase能綁定相同bytes。
+
+### 測試揭露的資料事實與修正決定
+
+第一次focused run發現原先規格盤點中的「hard negative 12/4/4」只計算matched ranking cases；實際benchmark
+還把全部ambiguous與no-match safety cases標為`hard_negative=true`，所以全體分布是Train/Dev/Test
+`34/13/13`，其中真正參與ranking hard-negative accuracy的matched子集才是`12/4/4`。沒有修改資料或混合
+denominator；validator現在同時凍結兩組counts，`ScoredCase` ranking metrics只接收matched targets。這個拆分
+保留安全資料語意，也避免未來把non-match案例錯算成Top-1失敗。
+
+### QA結果、未做事項與下一步
+
+9/9 focused tests、27/27既有ranking/report/service related tests與933/933完整suite通過。Ruff format/check、
+target-local strict MyPy、compileall、`git diff --check`與optional-import absence通過；唯一warning仍是既有
+Starlette／AnyIO alias deprecation。`data/evaluation/neural-reranker-comparison-v1`、正式reports與model-cache
+目錄全部不存在；沒有network、dependency install、retrieval、training、Test exposure、API、Dual RAG、
+PostgreSQL、calibration或runtime修改。
+
+下一步只執行NRC-T2：新增optional `reranking` dependency／constraints、pinned model config，以及explicit-license、
+safetensors-only、offline local-only的model supply-chain adapter與fake/local tests。T2仍只寫機制，不連網、
+不安裝套件、也不下載真實MiniLM。
+
+## 2026-09-24 — Neural reranker comparison v1：確認design並拆成十個不可跨越的tasks
+
+### 新執行了什麼、解決什麼問題
+
+Owner以「繼續下一步」確認CPU neural reranker design，本輪因此把`design.md`狀態改為CONFIRMED並建立十項
+`tasks.md`草案。任務不是把文件中的六個CLI commands直接排成六步，而是依「是否可能改變模型」與「是否
+可能暴露正式Test」重新劃分責任：T1–T6完整建置所有contracts、模型adapters、artifact lifecycle與synthetic
+E2E；T7才允許外部dependency/model acquisition及正式Train/Dev pool；T8只fit與freeze；T9只collect一次
+label-blind Test；T10只join labels、score、記錄與closure。
+
+這解決最容易破壞履歷實驗可信度的時序問題。如果一邊開發scorer一邊看21筆Test，任何bug fix、feature調整或
+hyperparameter修改都可能暗中變成test tuning。現在T9之前必須完成所有產品source與synthetic tests；T9之後
+product/model/config全部凍結，T10唯一允許新增的是measured-artifact regression tests與文件。Formal raw row若
+出錯也不retry，避免只重跑不利case。
+
+### 代碼與artifact工作如何拆分，以及原因
+
+T1先做不依賴ML library的data contracts、candidate renderer、21 features、metrics與label-blind validators，讓
+最重要的leakage規則可在任何環境測試。T2再做optional dependency與MiniLM supply-chain boundary，但只寫
+acquisition／safetensors／offline validation機制，不連網。T3獨立處理Set-Transformer head、mask、listwise loss、
+train-only normalization與permutation tests，避免神經網路bug與artifact orchestration混在一起。
+
+T4–T6才建立protocol/pool、fit、collect/score/check和reports的完整phase controller，全部先在temporary synthetic
+58/21/21資料驗證。這個順序讓G2能在`model-cache`與formal evaluation directories仍不存在時，證明整套機制
+具備exclusive-create、hash binding、idempotent unchanged、partial-state rejection與null winner gates。
+
+T7清楚列出約90 MB pointwise snapshot加Torch／optional packages，並要求執行時重新說明、取得network permission，
+不因owner確認tasks就視為預先授權下載。T8 formal fit若permutation或Dev contract失敗，直接block T9，不改架構。
+T9固定21次Test retrieval上限與三臂candidate equality。T10則把12 matched denominator、paired transitions、
+winner/null gates、QA、AI-eval、README與GitHub交付綁在同一closure。
+
+### 本步沒有做的事與下一步
+
+本輪沒有建立任何product source、沒有修改pyproject dependencies、沒有安裝Torch、沒有下載模型、沒有retrieval、
+沒有training，也沒有執行Test。Requirements與design已確認，但tasks仍是DRAFT，所以Lean G1*尚未關閉。
+下一步由owner確認十項tasks；確認後只開始NRC-T1，不會一次跳到下載模型或正式experiment。
+
+## 2026-09-24 — Neural reranker comparison v1：確認requirements並完成CPU模型design草案
+
+### 新執行了什麼、解決什麼問題
+
+Owner以「繼續下一步」確認17項Neural Reranker Comparison requirements，因此本輪把狀態從DRAFT更新為
+CONFIRMED，並建立`design.md`。設計第一次回答了實作前最關鍵的問題：什麼才算真正的neural pointwise、
+什麼才算真正使用候選集合上下文的listwise，以及如何在只有36個matched train queries與12個matched test
+queries的限制下，避免把模型搜尋或test overfitting包裝成架構成果。
+
+Pointwise選定Apache-2.0的`cross-encoder/ms-marco-MiniLM-L6-v2`，以immutable revision、safetensors、CPU
+float32、`local_files_only`和`trust_remote_code=False`執行。V1不使用36題去微調2,270萬參數，而是凍結預訓練
+Cross-Encoder，讓它作為真正的query-candidate pair neural scorer。這解決既有`heuristic-v1`只是token overlap、
+卻可能在履歷敘述中被誤稱為neural reranker的問題；代價是MS MARCO與Hot Wheels domain mismatch可能產生
+null result，但這比用小樣本過擬合後宣稱改善更可信。
+
+### Listwise修改哪一層、方法選型與原因
+
+Listwise不再選另一個逐candidate模型，而是在每個候選的frozen pointwise logit、RRF score/rank、三個source
+presence/rank以及五種structured match/conflict上建立固定21維vector。模型是`21→32`投影、一層4-head
+self-attention與逐candidate scalar head，沒有positional embedding；loss在整個candidate list上做masked softmax
+cross-entropy。Self-attention讓每個candidate score依賴其他候選，移除position則讓輸入shuffle後的分數只跟著
+identity一起shuffle。這個permutation-equivariance property會在test collection前成為hard gate，防止把array
+順序當成學到的ranking訊號。
+
+Listwise head只在target已出現在RRF pool的matched train lists上學習，用dev MRR@10 early stopping；continuous
+normalization也只能fit train。固定seed、CPU float32、AdamW、100 epochs上限與10-epoch patience都在看到結果前
+寫死。模型刻意保持很小，因為它要回答「candidate-relative context是否有額外價值」，不是展示參數量。
+
+### Artifact生命週期、依賴與安全決策
+
+設計把流程拆成`--acquire-model`、`--freeze-protocol`、`--fit`、`--collect-test`、`--score`與`--check`。只有
+acquisition可連網且需明確license確認；之後全部local/offline。Train/dev pool與test raw都拒絕expected labels，
+fit phase不能載入test label loader，test則在兩個models與protocol凍結後一次性collect，score才join labels。
+任何partial state、hash drift、non-finite score、candidate差異或permutation failure都fail closed而不覆寫。
+
+Neural packages維持optional，計畫新增獨立`reranking` extra，使用repo既有major range內的
+`sentence-transformers==3.4.1`、`torch==2.7.1`與safetensors。第三方MiniLM權重只留在gitignored
+`model-cache/`；repo保存model ID、revision、Apache-2.0、file hashes與一個很小的project-trained listwise
+safetensors checkpoint。拒絕pickle與remote code的原因，是模型artifact也是不可信供應鏈輸入，不能只因來自
+公開model hub就直接執行。
+
+### 本步沒有做的事與下一步
+
+本輪只完成design草案；沒有安裝Torch／Sentence Transformers、沒有下載約90 MB權重、沒有產生candidate pool、
+沒有training、沒有讀test labels，也沒有修改`rerank.py`、`service.py`、API、calibration、Dual RAG、PostgreSQL
+或canonical data。下一步由owner確認design後，再把六個phase、模型adapter、artifact validators、tests、正式
+experiment與closure拆成原子化`tasks.md`；tasks確認前不開始build。
+
+## 2026-09-24 — Neural reranker comparison v1：先固定三臂公平比較的requirements
+
+### 新執行了什麼、解決什麼問題
+
+HICS-v4已用可重現的historical FAIL結束identity-admission支線，本輪正式回到原始專案最重要但尚未完成的
+Pointwise／Listwise主線。先重新核對最初的`Product Variant Resolver.md`、MVP brief、現行RRF／heuristic reranker、
+fixture benchmark與roadmap，建立`specs/neural-reranker-comparison/requirements.md`。新規格把研究問題限定為：在
+byte-identical的canonical RRF Top-25 candidate pool上，比較No Reranker/RRF、Neural Pointwise Cross-Encoder與
+Neural Listwise，而不是同時更換retrieval、資料或confidence policy。
+
+這解決現有README容易造成的技術落差。專案目前雖有名為`PointwiseReranker`的`heuristic-v1`，實際模型只是
+token-set overlap加上source support、match bonus與conflict penalty，先前對RRF的Top-1增益也是0.0；它不能被
+包裝成原始需求中的neural cross-encoder，也沒有任何listwise architecture evidence。新requirements明確要求三個
+arm各自具名，並禁止把既有heuristic結果冒充神經模型比較。
+
+### 資料與評估邊界，以及為何這樣決定
+
+本輪確認`fixture-v1`共有100 cases，按casting family隔離為58 train、21 dev與21 test；全體包含60 matched、
+20 ambiguous與20 no-match，但test真正可計算排序Top-1的matched只有12題，其中4題標為hard negative。因為樣本
+很小，一個case就會讓Top-1改變約0.0833，規格不只要求Top-1、MRR@10、hard-negative accuracy與p95 latency，
+也要求公開raw numerator／denominator、逐case rank transition與failure-category結果。這是為了避免把一兩題的
+變化寫成廣泛市場準確率。
+
+Candidate pool要求在任何neural scoring前由現行sparse+dense+structured+RRF路徑一次產生並凍結，而且不含
+expected labels；三個arms只能重排，不能重新retrieve、補入target或刪除難例。Pointwise必須逐query-candidate
+獨立評分，Listwise則必須真正使用整個候選集合並通過permutation-equivariance測試，不能只是把pointwise函式
+改名。Train只fit train families、dev只選每個architecture的一組config、test則在兩個model都凍結後一次性比較。
+
+### Gate、技術選型延後與本步刻意沒有做的事
+
+R11既有產品承諾被具體化為預先聲明的value gate：神經arm必須相對RRF提高至少0.05 absolute Top-1、不降低
+hard-negative accuracy與MRR@10、維持同一Recall@25，且warmed resolver p95不超過1.5秒。多個arm通過時先看
+hard-negative、Top-1、MRR、latency再看部署複雜度；沒有任何arm通過時必須保存`winner:null`並保留RRF，不能
+看完test後調參重跑。
+
+本步只完成requirements草案與roadmap狀態，尚未決定實際cross-encoder／listwise library、沒有安裝ML dependency、
+沒有取得外部model、沒有生成candidate pool、沒有training或evaluation，也沒有改API、Dual RAG runtime、
+PostgreSQL、calibration或canonical data。具體CPU model與artifact設計刻意留給owner確認requirements後的
+`design.md`，避免先選工具再倒推需求。
+
+### 下一步
+
+Owner先確認這份requirements。確認後才撰寫design，內容會回答：使用哪一個可在本機CPU重現且license可交付的
+Pointwise Cross-Encoder、Listwise如何真正建模候選相對關係、如何把100-case pool與model artifacts分階段凍結、
+以及如何在不讓test labels進入fit／selection code的前提下完成一次性比較。
+
 ## 2026-09-24 — HICS-T9：封存v4 null result並交回Pointwise／Listwise主線
 
 ### 新執行了什麼、解決什麼問題

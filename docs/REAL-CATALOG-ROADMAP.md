@@ -232,7 +232,7 @@ development data與既有199題positive dev pack上比較admission policies；�
 - [x] HICS-T4 immutable historical loaders、223／22／24 exact-gate scoring、conditional protocol/inventory/pack/raw/selection lifecycle與五階段installed CLI已完成；58 focused／179 related tests通過，正式branch gate仍未執行，維持0 retrieval／0 formal v4 artifact。
 - [x] HICS-T5正式historical branch gate已完成且FAIL：exact／structural／bounded只保留42／82／137個existing positive hits（門檻168），雖然三者皆達成0 absent-identity output、2/2 secondary vetoes與0 computation/retrieval errors，仍無profile通過全部223／22／24 gates；`winner: null`，只保存三個calibration artifacts，HICS-T6–T8 blocked。
 - [x] HICS-T9 historical-FAIL closure已完成：QA review、public evidence、AI-eval、README／decision／Project Log與60 focused、181 related、924 full tests均已整理；v4不建立holdout或runtime integration，也不自動建立v5。
-- [ ] 下一個Lite spec比較同一凍結candidate pool上的No Reranker/RRF、Neural Pointwise與Listwise；在requirements／design／tasks逐份確認前不實作或跑新evaluation。
+- [x] Neural reranker comparison v1已完成NRC-T1–T10與GitHub交付。100-case synthetic/curated fixture benchmark的12個matched Test targets在RRF、Neural Pointwise、Neural Listwise皆為Top-1／MRR／Recall 12/12，4個matched hard negatives皆4/4；兩個neural arms的resolver p95為89.164／89.583 ms且0 error，但相對已滿分RRF的Top-1 gain皆為0.00，未達0.05 gate。正式結果為`winner: null`，RRF維持runtime default，沒有API／calibration／Dual RAG／PostgreSQL／canonical／Human Knowledge／release變更。Report/raw hashes、4項measured regressions、QA review、public evidence、AI-eval、README、Decision與Project Log一致；62 related與975 full tests全數通過。
 - [ ] Shadow evaluation通過後，才規劃opt-in Dual RAG runtime integration與API regression QA。
 - [ ] 1,763筆release staging仍須逐批完成variant-level review；目前只有5個family relationships。
 - [ ] Color、wheel、tampo、edition與packaging大多仍未知，尚不能可靠辨識具體版本。

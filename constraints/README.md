@@ -36,3 +36,13 @@ python3.12 -m pip install -c constraints/python312.txt -e '.[dev]'
 
 The legacy `httpx` package is intentionally absent. Current Starlette TestClient prefers `httpx2`,
 which is already a runtime dependency because the installed `pvr-report` command uses TestClient.
+
+## Optional neural reranking constraints
+
+`reranking-python312.txt` separately freezes the isolated neural reranker environment and is not
+applied to the default API installation. NRC-T2 initially pinned only the three approved direct
+packages without installing them. NRC-T7 performed the owner-approved install on the reference
+macOS ARM64 / Python 3.12.13 environment, passed the real Torch and offline-model checks, and then
+recorded every resolved neural transitive version. Keeping this complete constraints file separate
+avoids turning Torch into a requirement for the FastAPI service or ordinary repository tests while
+making the formal comparison environment reproducible.

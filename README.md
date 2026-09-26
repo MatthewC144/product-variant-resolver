@@ -67,7 +67,9 @@ Product knowledge—aliases, colors, series, identifiers, and variant attributes
 catalog. Conflicting structured signals remain soft ranking evidence instead of removing a
 candidate. RRF stays on the default runtime path because the local heuristic reranker added `0.0`
 absolute Top-1 accuracy on the frozen test; enable it only for an explicit experiment with
-`PVR_RERANKER_ENABLED=true`. No external cross-encoder was evaluated.
+`PVR_RERANKER_ENABLED=true`. A later isolated neural comparison evaluated a pinned MiniLM
+cross-encoder and a candidate-set attention head, but both tied the already-perfect fixture RRF
+ranking and failed the predeclared improvement gate. Neither neural model is active at runtime.
 
 The runtime now uses two retrieval corpora. The canonical fixture catalog is the only source allowed
 to produce a final UUID. Human Knowledge RAG v2 independently ranks 100 human-backed provisional
@@ -136,6 +138,41 @@ this scale. The host→Docker value is the separately scoped loopback artifact d
 [versioned report](reports/fixture-v1/evaluation-fixture-v1-test.md),
 [QA review](specs/product-variant-resolver/review.md), and
 [MVP evidence](docs/evidence/product-variant-resolver-mvp.md).
+
+## Neural pointwise versus listwise shadow comparison
+
+The completed v1 shadow experiment compares the unchanged RRF order, a frozen Apache-2.0
+`cross-encoder/ms-marco-MiniLM-L6-v2` pointwise scorer, and a small 21-feature candidate-set
+self-attention head. All three arms consume the same frozen Top-25 candidates. Train, Dev, the
+one-time label-blind Test collection, and the final label join are separate checksum-bound phases.
+
+The dataset is the **100-case synthetic/curated fixture benchmark**, not a production marketplace
+sample. Test has 21 cases, including exactly 12 matched ranking targets and 4 matched hard-negative
+targets. On the reference macOS ARM64 CPU:
+
+| Arm | Top-1 | MRR@10 | Hard-negative | Recall@25 | Resolver p95 | Gate result |
+|---|---:|---:|---:|---:|---:|---|
+| RRF | `12/12` | `12/12` | `4/4` | `12/12` | `1.398 ms` | Runtime baseline |
+| Neural pointwise | `12/12` | `12/12` | `4/4` | `12/12` | `89.164 ms` | FAIL: Top-1 gain `0.00 < 0.05` |
+| Neural listwise | `12/12` | `12/12` | `4/4` | `12/12` | `89.583 ms` | FAIL: Top-1 gain `0.00 < 0.05` |
+
+The formal result is **`winner: null`** and RRF remains the default. Listwise context did not improve
+any of the 12 matched cases: every target was already rank 1 under RRF, and both neural arms kept all
+12 at rank 1. This is a completed negative experiment, not evidence that neural reranking never helps;
+one matched case changes Top-1 by `0.0833`, and this small fixture does not establish production
+accuracy or statistical generality. See the
+[comparison report](reports/neural-reranker-comparison-v1/comparison.md),
+[QA review](specs/neural-reranker-comparison/review.md), and
+[public evidence](docs/evidence/neural-reranker-comparison-v1.md).
+
+The local model cache is intentionally not committed. In the already prepared reference environment,
+the complete checksum and schema validation is:
+
+```bash
+HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 \
+  pvr-compare-neural-rerankers --root . --check
+pytest -q tests/evaluation/test_neural_reranker_measured_artifacts.py
+```
 
 ## Review-only Hot Wheels Wiki pilot
 

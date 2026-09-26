@@ -19,6 +19,11 @@ dependencies = [
 [project.optional-dependencies]
 postgres = ["sqlalchemy>=2.0,<3", "alembic>=1.14,<2", "psycopg[binary]>=3.2,<4", "pgvector>=0.3,<1"]
 ml = ["numpy>=2,<3", "scikit-learn>=1.6,<2", "sentence-transformers>=3.4,<4"]
+reranking = [
+  "sentence-transformers==3.4.1",
+  "torch==2.7.1",
+  "safetensors>=0.5,<1",
+]
 observability = ["opentelemetry-api>=1.29,<2", "opentelemetry-sdk>=1.29,<2"]
 dev = ["pytest>=8,<9", "ruff>=0.9,<1", "mypy>=1.14,<2"]
 
@@ -45,6 +50,7 @@ pvr-develop-human-knowledge-identity-claim-graph = "product_variant_resolver.hum
 pvr-develop-human-knowledge-identity-certificate = "product_variant_resolver.human_knowledge_identity_certificate_development:main"
 pvr-materialize-embeddings = "product_variant_resolver.postgres_embeddings:main"
 pvr-report = "product_variant_resolver.reporting:main"
+pvr-compare-neural-rerankers = "product_variant_resolver.neural_reranker_comparison:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

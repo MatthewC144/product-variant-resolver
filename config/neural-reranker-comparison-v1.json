@@ -1,0 +1,31 @@
+{
+  "experiment_id": "neural-reranker-comparison-v1",
+  "pointwise": {
+    "allowed_files": [
+      "config.json",
+      "model.safetensors",
+      "special_tokens_map.json",
+      "tokenizer.json",
+      "tokenizer_config.json",
+      "vocab.txt"
+    ],
+    "device": "cpu",
+    "dtype": "float32",
+    "license": "Apache-2.0",
+    "local_files_only": true,
+    "max_length": 128,
+    "model_id": "cross-encoder/ms-marco-MiniLM-L6-v2",
+    "num_labels": 1,
+    "required_files": [
+      "config.json",
+      "model.safetensors",
+      "special_tokens_map.json",
+      "tokenizer.json",
+      "tokenizer_config.json",
+      "vocab.txt"
+    ],
+    "revision": "233902d25c440f23af6f7d6e94d2946bac0bee0a",
+    "trust_remote_code": false
+  },
+  "schema_version": 1
+}

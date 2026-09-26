@@ -2099,3 +2099,193 @@ numeric vetoes and zero computation errors,but none passed every positive gate. 
 freezes `winner:null` and only three calibration files. Protocol,inventory,holdout,raw,selection,
 private evaluation and runtime changes remain unauthorized;HICS-T6–T8 are blocked and HICS-T9 must
 close this final identity-admission attempt before the Pointwise/Listwise handoff.
+
+# D91 — Use one frozen MiniLM Cross-Encoder and one small candidate-set attention head
+
+Status:CLOSED NULL RESULT; NRC-T1–T10 complete,2026-09-25. Compare the unchanged canonical
+RRF order with exactly one neural pointwise model and one neural listwise model on byte-identical
+candidate pools. Pointwise uses revision-pinned Apache-2.0
+`cross-encoder/ms-marco-MiniLM-L6-v2` locally in CPU float32 with frozen weights. Listwise consumes
+the same pointwise logit plus a fixed21-feature RRF/source/structured vector through a32-dimensional,
+one-layer,self-attention head without positional embeddings and trains with a masked listwise
+softmax objective on matched Train lists only.
+
+The decision deliberately rejects two attractive but misleading alternatives. It does not call the
+existing lexical `heuristic-v1` a neural baseline,and it does not fine-tune22.7M transformer
+parameters on only36 matched Train queries. It also avoids a model-zoo search that could select a
+checkpoint around12 matched Test cases. The bounded hypothesis is whether a credible pretrained
+pair scorer and explicit candidate-relative context improve near-duplicate ranking;no improvement
+must remain publishable as `winner:null`.
+
+The10x value is architectural clarity per unit of data:one shared neural text score allows the
+experiment to isolate what list context adds,while the small head keeps every non-text feature and
+relative interaction inspectable. Value is a resume-visible Pointwise/Listwise comparison;
+correctness comes from family splits,one-time Test and paired metrics;maintainability comes from two
+isolated experiment modules and optional imports;security comes from safetensors,immutable revision,
+no remote code and offline inference;performance is bounded by batched Top-25 CPU scoring;
+reproducibility comes from fixed schema,seed,hashes and exclusive phase artifacts.
+
+The main trade-offs are domain mismatch and small-sample variance. A frozen MS MARCO reranker may
+not understand year/color/collector distinctions,and a listwise head trained on36 lists may not
+generalize. The most likely engineering failure is accidental candidate-position or padding leakage;
+batch-order,padding-mask and permutation-equivariance tests therefore block formal Test collection.
+Even a passing result is shadow-only:runtime,calibration,API,Dual RAG,PostgreSQL and canonical data
+stay unchanged until a separate integration spec.
+
+NRC-T2 now makes the pointwise model boundary executable without acquiring the model. The optional
+extra remains outside the default install; one immutable config binds model ID,revision,Apache-2.0,
+CPU float32 and the exact six-file safetensors/tokenizer allowlist. Acquisition is the only
+network-capable function and requires explicit license confirmation. It converts any download-cache
+symlinks into validated regular local files,records every SHA-256,and refuses unexpected,pickle/code,
+missing or tampered bytes. The scorer validates that manifest before lazy imports and passes
+`local_files_only=True`,`trust_remote_code=False` and `use_safetensors=True` through the verified
+Sentence Transformers3.4.1 interface. No package/model was installed or downloaded;formal state
+remained absent before the NRC-T3 implementation described below.
+
+NRC-T3 now implements the second architecture behind the same lazy optional boundary. Only the
+pointwise logit and RRF score receive Train-fitted population normalization;the other19 binary and
+reciprocal-rank features remain byte-for-value unchanged. The candidate encoder is exactly
+Linear(21,32)／GELU／LayerNorm followed by one four-head,64-feedforward,zero-dropout Transformer
+encoder and a scalar head. No positional parameter exists,and padding is passed as
+`src_key_padding_mask` then forced to negative infinity before listwise cross-entropy. Training fixes
+CPU float32,seed20260924,AdamW1e-3／1e-4,batch8,100 epochs and10-epoch patience;strict Dev MRR
+improvement means ties retain the earlier checkpoint.
+
+The checkpoint contains model tensors only in safetensors;optimizer state is excluded. Its JSON
+manifest binds the exact21-feature order and hash,architecture,seed,selected epoch,Train normalizer,
+tensor names/shapes and checkpoint hash. The default environment intentionally still lacks Torch:
+two real-tensor permutation/padding/loss/repeatability tests are collected and skipped until the
+owner-approved NRC-T7 optional install,while dependency-free wiring and lifecycle tests pass now.
+This preserves the agreed supply-chain sequence rather than silently installing a large package.
+NRC-T4 now implements that protocol/pool boundary without creating formal state. The protocol binds
+the exact benchmark, catalog, model config, dependency versions, implementation sources and future
+pointwise manifest hash. Pool construction reads only the ordered58 Train and21 Dev query fields,
+calls the unchanged sparse/dense/structured RRF service exactly once per case,then freezes Top-25
+identity/text/source-rank/source-score/structured-evidence/RRF/timing data. Recursive validation bans
+labels, metrics and neural outputs; exact query projection, family split validation, canonical JSON,
+SHA-256 manifests and exclusive whole-directory publication make partial,drifted or tampered state
+fail closed. Repeating a valid freeze returns `unchanged` without retrieval or overwrite.
+
+All lifecycle proof used temporary fixtures. Eight focused tests and the954-pass/2-skip full suite
+pass;the two skips remain the intentionally deferred real-Torch tests. Formal data,reports and model
+cache remain absent,with no network,dependency install,training,Test collection,API,Dual RAG,
+PostgreSQL or runtime change. NRC-T5 may add only synthetic Train/Dev fitting and immutable model
+selection lifecycle code;the external model and formal freeze remain gated until NRC-T7.
+
+NRC-T5 now makes that selection boundary executable without running the formal experiment. It
+scores every frozen Train/Dev candidate as an independent query/text pair,records deterministic
+pointwise ranks,and verifies the pretrained manifest hash before and after both scoring and listwise
+fitting. Labels join only at the orchestration layer:ambiguous/no-match rows are excluded,matched
+targets absent from the pool become retrieval misses,and only matched Train targets already present
+become listwise examples. Dev examples never fit weights or normalization;they only determine the
+earliest best epoch under the fixed patience rule.
+
+The three-file `models/` phase is exclusive-create and immutable. Pointwise metadata binds the local
+model,protocol,pool,input schema,dependencies and all label-free Train/Dev logits/ranks. Listwise
+metadata binds the21-feature order,fixed architecture/AdamW hyperparameters,seed,Train-only
+normalizer,training-label checksum,eligibility counts,full Train-loss/Dev-MRR history,selected epoch
+and safetensors checkpoint bytes. A valid repeat returns `unchanged` before scoring or training;
+partial state or config,pool,dependency,pointwise-model or checkpoint drift fails without overwrite.
+
+All proof remains synthetic and temporary. Four new integration tests bring lifecycle coverage to12;
+related QA is45 passed/2 skipped and the full suite is958 passed/2 skipped across960 tests. No model
+download,optional install,formal fit,Test collection,API,Dual RAG,PostgreSQL or runtime change
+occurred. NRC-T6 may implement only synthetic one-time Test/report/CLI machinery;external acquisition
+and every formal phase remain gated until NRC-T7.
+
+NRC-T6 now makes the complete one-time Test boundary executable without consuming the formal Test.
+Before collection it checks pointwise batch-order and listwise permutation invariance,then warms both
+scorers on Train/Dev-only rows. Each of the21 Test queries is retrieved once into one shared ordered
+candidate list;RRF,pointwise and listwise records clone those identities and may only change rank and
+score. Errors are frozen in place and never retried,so a later success cannot selectively replace a
+bad observation. Recursive validation keeps labels,metrics and recommendation fields out of raw data.
+
+The separate scoring phase is the only path that loads Test labels. It hashes model/raw state before
+and after scoring,retains raw ranking scores as explicitly non-calibrated evidence,and computes exact
+overall/category metrics plus paired rank transitions. A neural arm can win only if it gains at least
+0.05 Top-1,does not reduce hard-negative accuracy,MRR or Recall@25,keeps resolver p95 at or below
+1500 ms,and has zero errors. Eligible ties resolve by hard-negative accuracy,Top-1,MRR,lower p95 and
+then the simpler pointwise arm;otherwise the honest result is `winner:null`.
+
+Canonical JSON,Markdown and two deterministic SVG charts expose denominators,disclaimers,shared
+candidates,all arm scores/timings,model versions and evidence scope. Manifests make partial or
+tampered raw/report state fail closed and prevent overwrite. Eleven new synthetic tests bring the
+lifecycle suite to23;related QA is56 passed/2 skipped and full QA is969 passed/2 skipped across971
+tests. No
+formal artifact/model cache,network,download,real Test collection or runtime change occurred. NRC-T7
+is now the next task and still requires explicit owner approval for optional dependencies and the
+pinned model acquisition.
+
+NRC-T7 consumed that one-time approval and established the first formal external state without
+touching Test. The project-local virtual environment now contains Sentence Transformers3.4.1,
+Torch2.7.1 and safetensors0.5.3;the actual reference Mac/Python3.12.13 resolution is recorded as33
+direct/transitive pins rather than pretending the original three direct constraints were a complete
+lock. All74 installed packages pass compatibility checking,and the formerly skipped real tensor
+tests now pass.
+
+The only acquired pretrained artifact is Apache-2.0
+`cross-encoder/ms-marco-MiniLM-L6-v2` revision
+`233902d25c440f23af6f7d6e94d2946bac0bee0a`. Exactly six config/tokenizer/safetensors files were
+copied as regular local files;the88 MB snapshot manifest hash is
+`32f889bb415ef5a56760a299da0635e8e1704d46fe0b11ded06c563de896feb8` and offline-only loading plus
+real pair scoring succeeds. A second acquisition returns `unchanged`,so network state cannot rewrite
+the frozen model.
+
+The formal protocol remains `frozen_pre_test`:it binds the100-case family-disjoint benchmark,
+120-product `fixture-v1` catalog,source/code/config hashes,canonical retriever and resolved core
+dependencies. The label-free pool contains58 Train and21 Dev rows with1,973 candidates,zero empty
+candidate rows and zero candidates without source evidence. A second freeze returns `unchanged` and
+full check returns `valid`;models,Test raw and reports are absent. Related QA is58/58 and full QA is
+971/971. NRC-T8 may now fit only Train/Dev artifacts under these frozen inputs;formal Test remains
+gated behind the later one-time collection task.
+
+NRC-T8 froze the formal model-selection state under offline-only execution. The unchanged MiniLM
+base scored all79 Train/Dev rows and1,973 frozen candidates;its manifest confirms frozen weights,
+the approved revision/model hash,finite deterministic logits and no Test access. All36 matched Train
+and12 matched Dev targets were already present in their pools,so retrieval misses are zero;the22
+Train and9 Dev ambiguous/no-match cases remain excluded rather than being converted into positives.
+
+Only Train fit the normalizer and candidate-set head. Dev MRR@10 equaled1.0 at every observed epoch
+from1 through11. The fixed rule requires strict improvement and stops after10 stale epochs,therefore
+epoch1 is selected. Choosing epoch11 because its Train loss is lower would be post-hoc overfitting:
+Dev showed no ranking benefit,while the earlier checkpoint is the simplest model supported by held-out
+selection evidence. The selected safetensors checkpoint hash is
+`9386c0593ec07ad2b9eb0f6daa613b66f7b117e0e6c5a33be2e8705dbe18aead`.
+
+Real checkpoint preflights prove pointwise batch-order invariance,listwise candidate-permutation
+equivariance and padding isolation. Repeat fit returns `unchanged`,full check returns `valid`,related
+QA is58/58 and full QA is971/971. No Test label/score/raw/report exists. NRC-T9 is therefore the next
+and only label-blind Test collection;after that collection v1 source,config,model and hyperparameters
+cannot change.
+
+NRC-T9 executed the one permitted formal Test collection only after every frozen source/config/model
+hash revalidated and raw/report state was absent. Exactly21 unique Test queries produced exactly21
+canonical retrieval calls,zero errors and25 candidates per row. The resulting525 candidate
+observations are shared by all three arms:RRF preserves source order,and both neural arms contain the
+same UUID set while changing only scores/ranks. No candidate was added,dropped or substituted.
+
+The raw manifest is explicitly label-blind and binds protocol,pool,pointwise manifest,listwise
+manifest/checkpoint and Test-query source. Recursive inspection found no expected,target,label,
+accuracy,metric,winner or eligibility key. Raw SHA-256 is
+`948582264e67ad6d686a4409a41100149118d12b6e4548bbdc1265d778756884`;a second collection returns
+`unchanged` and full check returns `valid`. Related QA remains58/58 and full QA971/971. From this
+point v1 source,config,model and hyperparameters are immutable;NRC-T10 may only join labels once,
+publish the predeclared metrics/gates and add measured-artifact regression plus closure documents.
+
+NRC-T10 joined labels once and closed the hypothesis without changing the frozen experiment. RRF,
+neural pointwise and neural listwise each achieve Top-112/12,MRR@10 12/12,Recall@10/25 12/12 and
+matched hard-negative accuracy4/4. Both neural paired-transition sets are twelve rank1→1 unchanged
+cases. Listwise candidate context therefore provides no measured ranking improvement on this Test.
+
+The neural arms are operationally valid:pointwise/listwise resolver p95 is89.164/89.583 ms,both far
+below the1500 ms budget,and collection errors are zero. They still fail the most important gate:
+Top-1 absolute gain over RRF is0.00 rather than at least0.05. The decision is `winner:null`;choosing
+the faster pointwise arm or more sophisticated listwise arm despite zero value would violate the
+predeclared selector and add roughly88 ms p95 to an already-correct fixture ranking.
+
+The null result is bounded to a12-matched-case synthetic/curated fixture Test with a ceiling baseline.
+It does not prove that neural reranking is generally ineffective. It does prove that the project can
+separate Pointwise and genuine Listwise architectures,use one-time label-blind evaluation,preserve
+local-model provenance,and publish a negative result without inflated resume claims. RRF remains the
+runtime default;any future attempt needs a non-ceiling benchmark and a separately frozen v2 rather
+than modifying v1.
