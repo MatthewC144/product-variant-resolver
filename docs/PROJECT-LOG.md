@@ -1,5 +1,54 @@
 # Project Log
 
+## 2026-09-26 — PP-T1–PP-T5：完成履歷定位與README portfolio landing page
+
+### 1. 新執行了什麼、解決什麼問題
+
+本輪完成[portfolio positioning v1規格](../specs/portfolio-positioning-v1/requirements.md)的PP-T1–PP-T5。
+README由1,079行重整為192行的portfolio landing page，讓招募者可先看到問題、架構、決策、量測結果、限制與
+啟動方式；新增[Portfolio Guide](PORTFOLIO-GUIDE.md)，提供恰好三條current-evidence履歷bullet、單一60–90秒
+英文面試介紹、claim guardrails與future-only metric template；並以[QA review](../specs/portfolio-positioning-v1/review.md)
+逐項封閉PP-R1–PP-R16。這解決原有README把技術證據、開發歷程與履歷敘事混在一起的溝通問題：讀者現在可在
+主要閱讀路徑理解「解決什麼問題、如何決策、哪些結果已量測、哪些仍有限制」，再按需深入完整稽核證據。
+
+### 2. 修改了哪些文件、原因是什麼
+
+本里程碑修改`README.md`的hero、問題、架構、工程決策、量測結果、neural comparison、限制、最小啟動與
+deep-evidence index；新增`docs/PORTFOLIO-GUIDE.md`；更新`docs/PROJECT-LOG.md`；並在
+`specs/portfolio-positioning-v1/`保存requirements、design、[tasks](../specs/portfolio-positioning-v1/tasks.md)與
+[review](../specs/portfolio-positioning-v1/review.md)。README縮短的是重複的稽核敘事，不是證據本身；Guide中的
+現況數字直接連到fixture或neural comparison report。整個diff僅限文件與spec，沒有修改產品碼、API、資料、
+模型、依賴、ranking、calibration或runtime設定。
+
+### 3. 定位與技術選型理由
+
+主定位改為`confidence-aware product entity resolution`，因為系統的可觀測成果是將noisy listing對應到
+canonical variant，並在證據不足時輸出`ambiguous`或`no_match`；它不是由LLM生成答案。Dual RAG仍保留為
+內部架構描述，用來說明canonical catalog與Human Knowledge之間的authority boundary，而不是專案headline。
+同時將`hashing-v1`明確寫成deterministic、hashing-based、non-neural similarity representation，避免把預設
+runtime誤述為learned neural embedding。MiniLM Pointwise與project-trained Listwise只屬shadow comparison；
+三arms在12個matched fixture targets同為12/12、neural沒有增益，故依事前gate保留`winner: null`與RRF default，
+而不是為了增加AI名詞而宣稱模型已上線。
+
+### 4. 為何連結證據，而不是刪除證據
+
+履歷首頁與面試稿需要精簡，但批次紀錄、checksums、PostgreSQL驗證、QA review與immutable reports仍是技術
+主張能被追問與重現的依據。因此這次採用「短敘事＋直接證據連結」：Guide不複製或改寫原始report，也不刪除
+任何`docs/evidence/`、`reports/`或`specs/`內容。這保留了完整audit trail，也避免濃縮文件與source of truth日後
+產生兩套不一致數字。現有100-case synthetic/curated benchmark、120-product fixture catalog、21-case Test、
+12 matched ranking targets與`winner: null`均保留scope限制；代表性real-marketplace metrics只提供future-only
+空白模板，不能當成目前成果。
+
+### 驗證方式、留下的限制與下一步
+
+QA對照PP-R1–PP-R16全部判定PASS；54個README links加12個Portfolio Guide links，共66個本機Markdown連結
+全部可解析，metric／denominator／latency與checked-in reports一致。`git diff --check`與
+`.venv/bin/python -m compileall -q src`均PASS。因本里程碑是documentation-only，沒有重跑先前已通過的975項
+產品測試，也不把compileall誤寫成runtime重新驗收。現有量測仍受synthetic／curated fixture、12個matched Test
+targets、飽和baseline及非production concurrency範圍限制。下一步應另開一份代表性hard benchmark spec，定義
+real-marketplace provenance、人工標註、family-safe split、hard negatives與新的evaluation gates，再決定是否
+需要調整retrieval或neural reranking；不應在本文件里程碑直接擴張產品範圍。
+
 ## 2026-09-25 — NRC-T10：完成Pointwise／Listwise正式比較、誠實發布null result並封閉專案里程碑
 
 ### 新執行了什麼、解決什麼問題
