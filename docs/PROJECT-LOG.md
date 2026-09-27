@@ -1,5 +1,68 @@
 # Project Log
 
+## 2026-09-27 — RHB-T4：完成 canonical authority audit，工程通過但資料 Gate 正確阻擋
+
+### 新執行了什麼，以及解決了什麼問題
+
+本輪完成 [Representative Hard Benchmark v1 的 RHB-T4](../specs/representative-hard-benchmark-v1/tasks.md)：不先假設現有
+catalog 就是真實 ground truth，而是離線稽核 repository 內每個可能提供 exact variant authority 的來源。這一步解決的
+問題是，先前雖已有 synthetic catalog、Human-backed catalog、人工名稱、owner workbook staging 與 Wiki derivative，
+但「有候選資料」不等於「有足以把真實 release 綁到 canonical UUID 的獨立證據」。稽核完成後，工程結果是 PASS；資料
+Gate 則明確為 `blocked_insufficient_exact_authority`。這代表阻擋機制按設計運作，不代表 benchmark 已可繼續，也不是
+resolver accuracy 結果。
+
+### 修改了哪些程式、契約與產物，為何這樣設計
+
+新增 `scripts/build_representative_hard_benchmark_canonical_authority.py`，由 frozen repository parents 建立
+`canonical-authority.json` 與 `canonical-authority-manifest.json`；`src/product_variant_resolver/representative_benchmark.py`
+加入 strict audit manifest contracts 與 cross-artifact validator；
+`tests/evaluation/test_representative_benchmark_canonical_authority_audit.py` 用正反案例鎖定來源排除、threshold arithmetic、
+parent checksum、record checksum、欄位 coverage、review metadata 與 downstream prohibition。task status 與 QA review 也
+同步記錄為 **RHB-T4 COMPLETE — GATE BLOCKED**，並新增
+[authority audit evidence](evidence/representative-hard-benchmark-authority-audit.md) 讓面試或交接時可以從結論追到
+machine-readable artifacts。
+
+選擇 deterministic offline builder，而不是人工複製統計，是為了讓相同 checkout 得到 byte-stable 結果，並讓任何上游
+資料變更都必須重新驗證。Manifest 將排序後的 parent paths 與 SHA-256、authority artifact checksum/version/record order、
+catalog counts、來源逐項排除理由、門檻與 shortfall 凍結在同一契約中；因此 stale parent、partial write、漏掉來源或竄改
+decision 都不能沿用舊 Gate。若未找到合格 authority，系統刻意輸出 `records=[]`，而不是拿最近候選、family match 或
+staged row 推測 UUID。
+
+### 為何 provisional、family、Wiki 與 workbook 不能升格為 truth
+
+`fixture-v1` 的 120 個 products 全部只有 synthetic provenance，所以 120/120 只能用於 regression；Human-backed catalog
+雖涵蓋 97 個 castings 與 100 個 provisional variants，但 exact count 是 0，且所有 variants 仍需 canonical review。
+RHB-T3 的 11 個 owner-confirmed sources 對 `exact_variant_authority` 也是 11/11 rejected，沒有任何來源取得 typed
+canonical-authority permission。Human labels 與 family alignment 只描述 family 或 review knowledge；Wiki derivative 只
+提供已保存 revision 的 context；owner workbook 是 release staging，不具 canonical links。這些資料可以在既定權限內幫助
+檢索或審核，但都不能獨立證明哪一個真實 release 對應哪一個 canonical UUID。Owner 的使用許可也不能取代 release-level
+truth evidence。
+
+因此 audit 得到 eligible exact variants `0`、pilot-usable exact variants `0`、eligible same-casting multi-release families
+`0`。相對於預先設定的最低門檻 20 variants／4 families，shortfall 是 `20 / 4`；authority artifact 保持空陣列，沒有為了
+推進任務而製造 matched answer。
+
+### QA、驗證證據與留下的資料債
+
+QA 判定 [PASS (engineering) / DATA GATE BLOCKED](../specs/representative-hard-benchmark-v1/review.md)。除了驗證正常重建，
+也確認 14 類 mutation 會被拒絕：stale authority SHA、stale parent SHA、partial status、unknown field、source count/order
+mismatch、decision elevation、偽造 fixture authority、stale catalog-record checksum、缺少已填 variant-field coverage、
+錯誤 reviewer role、timezone-naive review time、空 independent evidence，以及宣稱 consult resolver output。這些負向測試
+說明 Gate 不是只對目前 JSON 寫死，而會拒絕常見的資料漂移與權限繞過。
+
+最終 focused T1–T4 tests 為 `76 passed`，完整 repository 為 `1051 passed`（另有既有 Starlette deprecation warning）。
+Ruff check、Ruff format、strict MyPy、compileall、JSON parsing、secret scan 與 `git diff --check` 全部通過；T1 builder check
+回傳 `unchanged`，T4 builder 連續兩次 check 也回傳 `unchanged`。這些結果來自已完成的獨立 QA，本輪 doc curation 沒有
+重新執行測試。仍留下的資料債不是程式缺陷，而是缺少合法、獨立審核的 exact release authority。
+
+### 下一步邊界
+
+下一步只可取得新的、合法且 independently reviewed 的 exact-variant authority，先重新通過 source/use/publication 決策，
+再以 catalog version、canonical UUID、product checksum、所有已填 variant fields、獨立 evidence references、reviewer 與
+aware timestamp 重跑 audit。RHB-T5、network collection、query/label authoring、matched pilot construction 與 canonical
+promotion 均未授權、不得開始；在至少 20 個 pilot-usable exact variants 與 4 個 eligible same-casting/multi-release
+families 通過 Gate 前，本 benchmark 必須停在 RHB-T4。
+
 ## 2026-09-26–27 — RHB-T3：完成 owner source decision Gate，將保守授權落成 fail-closed 契約
 
 ### 新執行了什麼，以及解決了什麼問題

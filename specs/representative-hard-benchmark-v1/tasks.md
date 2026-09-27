@@ -1,6 +1,7 @@
 # Representative Hard Benchmark v1 — Tasks
 
-Date: 2026-09-26. Mode: Lite / Lean Industrial. Status: **RHB-T1–T3 COMPLETE; RHB-T4+ NOT STARTED**.
+Date: 2026-09-26. Mode: Lite / Lean Industrial. Status:
+**RHB-T1–T4 COMPLETE; RHB-T4 GATE BLOCKED; RHB-T5+ NOT STARTED**.
 
 Each task is intended to be one independently reviewable commit. Tasks that require an owner decision
 are explicit Gates, not implementation steps that an agent may infer or bypass.
@@ -63,8 +64,9 @@ Acceptance:
 
 ### RHB-T4 — Audit catalog-ground-truth eligibility **GATE** `[qa/doc_curator]`
 
-- [ ] Validate which existing canonical records, if any, have source-independent exact-variant
-  authority suitable for a non-synthetic matched benchmark. _(→RHB-R5–R7,RHB-R9)_
+- [x] **COMPLETE — GATE BLOCKED.** Validate which existing canonical records, if any, have
+  source-independent exact-variant authority suitable for a non-synthetic matched benchmark.
+  _(→RHB-R5–R7,RHB-R9)_
 
 Files:
 
@@ -78,6 +80,9 @@ Acceptance:
   reviewer and timestamp.
 - If fewer than 20 pilot-usable exact variants or fewer than four same-casting multi-release families
   are eligible, record the shortfall and stop matched pilot construction; do not infer UUIDs.
+- Audit result: `0` pilot-usable exact variants and `0` eligible multi-release families; shortfall is
+  `20` variants and `4` families. T5 remains prohibited until new authorized exact-variant evidence
+  passes a new source decision and authority audit.
 
 ## Phase B — Owner-reviewed pilot tranche
 

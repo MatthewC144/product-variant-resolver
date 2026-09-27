@@ -562,6 +562,127 @@ class CanonicalAuthorityArtifact(StrictContract):
         return self
 
 
+class AuthorityAuditInput(StrictContract):
+    path: NonBlank
+    sha256: Sha256
+
+
+class AuthorityAuditCatalogSummary(StrictContract):
+    catalog_path: Literal["data/catalog.json"]
+    catalog_version: NonBlank
+    catalog_sha256: Sha256
+    product_count: int = Field(ge=0)
+    synthetic_regression_only_excluded_count: int = Field(ge=0)
+    independently_supported_exact_count: int = Field(ge=0)
+
+
+class AuthorityAuditSupportingCatalogSummary(StrictContract):
+    catalog_path: Literal["data/human_backed_catalog.json"]
+    catalog_version: NonBlank
+    catalog_sha256: Sha256
+    casting_count: int = Field(ge=0)
+    provisional_variant_count: int = Field(ge=0)
+    exact_variant_count: int = Field(ge=0)
+    exclusion_reasons: list[NonBlank] = Field(min_length=1)
+
+
+class AuthorityAuditSourceSummary(StrictContract):
+    source_id: NonBlank
+    authority_eligibility: AuthorityEligibility
+    exact_authority_decision: Literal["rejected"]
+    eligible_exact_variant_count: Literal[0]
+    exclusion_reasons: list[NonBlank] = Field(min_length=1)
+
+
+class AuthorityAuditThresholds(StrictContract):
+    minimum_pilot_usable_exact_variants: Literal[20]
+    observed_pilot_usable_exact_variants: int = Field(ge=0)
+    exact_variant_shortfall: int = Field(ge=0)
+    minimum_same_casting_multi_release_families: Literal[4]
+    observed_same_casting_multi_release_families: int = Field(ge=0)
+    family_shortfall: int = Field(ge=0)
+
+
+class CanonicalAuthorityManifest(StrictContract):
+    """Frozen RHB-T4 audit summary; it contains no row-level private evidence."""
+
+    schema_version: Literal["pvr-representative-hard-benchmark-canonical-authority-manifest-v1"]
+    manifest_version: Literal["representative-hard-benchmark-canonical-authority-audit-v1"]
+    status: Literal["complete"]
+    generated_by: Literal["scripts/build_representative_hard_benchmark_canonical_authority.py"]
+    generated_at: AwareDatetime
+    network_requests: Literal[0]
+    resolver_output_consulted: Literal[False]
+    benchmark_labels_consulted: Literal[False]
+    authority_file: Literal["canonical-authority.json"]
+    authority_sha256: Sha256
+    authority_version: NonBlank
+    authority_record_order: list[NonBlank]
+    input_artifacts: list[AuthorityAuditInput] = Field(min_length=1)
+    canonical_catalog: AuthorityAuditCatalogSummary
+    supporting_human_catalog: AuthorityAuditSupportingCatalogSummary
+    source_audit: list[AuthorityAuditSourceSummary] = Field(min_length=1)
+    current_source_count: int = Field(ge=1)
+    current_source_exact_authority_rejected_count: int = Field(ge=0)
+    eligible_exact_variant_count: int = Field(ge=0)
+    pilot_usable_exact_variant_count: int = Field(ge=0)
+    same_casting_multi_release_family_count: int = Field(ge=0)
+    thresholds: AuthorityAuditThresholds
+    gate_result: Literal["blocked_insufficient_exact_authority"]
+    next_allowed_step: Literal["obtain_new_authorized_exact_variant_evidence"]
+    prohibited_next_steps: list[NonBlank] = Field(min_length=1)
+    exclusion_summary: list[NonBlank] = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def audit_counts_and_gate_are_coherent(self) -> CanonicalAuthorityManifest:
+        if self.authority_record_order != sorted(self.authority_record_order):
+            raise ValueError("authority record order must be sorted")
+        if len(self.authority_record_order) != len(set(self.authority_record_order)):
+            raise ValueError("authority record order must be unique")
+        if self.current_source_count != len(self.source_audit):
+            raise ValueError("current source count must equal the source audit")
+        rejected = sum(
+            source.exact_authority_decision == "rejected" for source in self.source_audit
+        )
+        if self.current_source_exact_authority_rejected_count != rejected:
+            raise ValueError("source rejection count must equal the source audit")
+        if self.eligible_exact_variant_count != self.pilot_usable_exact_variant_count:
+            raise ValueError("all eligible exact variants must be pilot-usable in this audit")
+        thresholds = self.thresholds
+        if thresholds.observed_pilot_usable_exact_variants != self.pilot_usable_exact_variant_count:
+            raise ValueError("exact-variant threshold observation does not match the audit")
+        if (
+            thresholds.observed_same_casting_multi_release_families
+            != self.same_casting_multi_release_family_count
+        ):
+            raise ValueError("family threshold observation does not match the audit")
+        if thresholds.exact_variant_shortfall != max(
+            0,
+            thresholds.minimum_pilot_usable_exact_variants
+            - thresholds.observed_pilot_usable_exact_variants,
+        ):
+            raise ValueError("exact-variant threshold shortfall is inconsistent")
+        if thresholds.family_shortfall != max(
+            0,
+            thresholds.minimum_same_casting_multi_release_families
+            - thresholds.observed_same_casting_multi_release_families,
+        ):
+            raise ValueError("family threshold shortfall is inconsistent")
+        if not thresholds.exact_variant_shortfall and not thresholds.family_shortfall:
+            raise ValueError("a blocked authority Gate requires a threshold shortfall")
+        required_prohibitions = {
+            "RHB_T5",
+            "matched_pilot_construction",
+            "query_pack_authoring",
+            "label_authoring",
+            "canonical_uuid_inference",
+            "network_collection",
+        }
+        if set(self.prohibited_next_steps) != required_prohibitions:
+            raise ValueError("blocked authority Gate must retain every downstream prohibition")
+        return self
+
+
 class SplitName(str, Enum):
     development = "development"
     test = "test"
@@ -1515,6 +1636,104 @@ def validate_canonical_authority(
     return artifact
 
 
+def validate_canonical_authority_manifest(
+    payload: Mapping[str, Any],
+    *,
+    authority_payload: Mapping[str, Any],
+    catalog_payload: Mapping[str, Any],
+    human_catalog_payload: Mapping[str, Any],
+    inventory: SourceInventory,
+    source_decisions: SourceDecisionArtifact,
+    input_sha256: Mapping[str, str],
+) -> CanonicalAuthorityManifest:
+    """Validate the frozen T4 audit and fail closed on stale or incomplete parents."""
+
+    manifest = CanonicalAuthorityManifest.model_validate(payload)
+    authority = validate_canonical_authority(
+        authority_payload,
+        inventory=inventory,
+        catalog_payload=catalog_payload,
+        source_decisions=source_decisions,
+    )
+    if manifest.authority_sha256 != content_sha256(authority_payload):
+        _raise("canonical authority checksum does not match its manifest")
+    if manifest.authority_version != authority.authority_version:
+        _raise("canonical authority version does not match its manifest")
+    if manifest.authority_record_order != [record.authority_id for record in authority.records]:
+        _raise("canonical authority record order does not match its manifest")
+    if manifest.eligible_exact_variant_count != len(
+        [record for record in authority.records if record.status == AuthorityStatus.approved_exact]
+    ):
+        _raise("eligible exact-variant count does not match approved authority records")
+
+    catalog_version, catalog = _catalog_index(catalog_payload)
+    catalog_summary = manifest.canonical_catalog
+    if catalog_summary.catalog_version != catalog_version:
+        _raise("canonical catalog version does not match the authority audit")
+    if catalog_summary.catalog_sha256 != content_sha256(catalog_payload):
+        _raise("canonical catalog checksum does not match the authority audit")
+    if catalog_summary.product_count != len(catalog):
+        _raise("canonical catalog count does not match the authority audit")
+    if (
+        catalog_summary.synthetic_regression_only_excluded_count
+        + catalog_summary.independently_supported_exact_count
+        != catalog_summary.product_count
+    ):
+        _raise("canonical catalog eligibility counts do not cover every product")
+    if catalog_summary.independently_supported_exact_count != manifest.eligible_exact_variant_count:
+        _raise("catalog exact count does not match the authority audit")
+
+    human_summary = manifest.supporting_human_catalog
+    if human_summary.catalog_sha256 != content_sha256(human_catalog_payload):
+        _raise("supporting human catalog checksum does not match the authority audit")
+    if human_summary.catalog_version != human_catalog_payload.get("catalog_version"):
+        _raise("supporting human catalog version does not match the authority audit")
+    castings = human_catalog_payload.get("castings")
+    if not isinstance(castings, list):
+        _raise("supporting human catalog must declare castings[]")
+    provisional_variants = sum(
+        len(casting.get("provisional_variants", []))
+        for casting in castings
+        if isinstance(casting, Mapping)
+    )
+    if human_summary.casting_count != len(castings):
+        _raise("supporting human catalog casting count does not match the audit")
+    if human_summary.provisional_variant_count != provisional_variants:
+        _raise("supporting human catalog provisional count does not match the audit")
+    if human_summary.exact_variant_count != 0:
+        _raise("supporting human catalog cannot supply exact canonical variants")
+
+    decision_sources = {source.source_id: source for source in source_decisions.sources}
+    inventory_sources = _source_map(inventory)
+    if {source.source_id for source in manifest.source_audit} != set(decision_sources):
+        _raise("source audit must cover every owner-confirmed source exactly once")
+    if [source.source_id for source in manifest.source_audit] != sorted(decision_sources):
+        _raise("source audit must use stable source-id ordering")
+    for source_summary in manifest.source_audit:
+        decision = decision_sources[source_summary.source_id]
+        exact_cell = _decision_map(decision)[SourceDecisionUse.exact_variant_authority]
+        if exact_cell.status != SourceDecisionStatus.rejected:
+            _raise(f"source {source_summary.source_id!r} exact authority is not rejected")
+        if SourceDownstreamPermission.canonical_authority in decision.downstream_permissions:
+            _raise(f"source {source_summary.source_id!r} unexpectedly grants exact authority")
+        if source_summary.authority_eligibility != decision.authority_eligibility:
+            _raise(f"source {source_summary.source_id!r} eligibility changed in the audit")
+        inventory_source = inventory_sources.get(source_summary.source_id)
+        if inventory_source is not None and (
+            inventory_source.authority_eligibility != source_summary.authority_eligibility
+        ):
+            _raise(f"source {source_summary.source_id!r} disagrees with the source inventory")
+
+    inputs = {item.path: item.sha256 for item in manifest.input_artifacts}
+    if len(inputs) != len(manifest.input_artifacts):
+        _raise("authority audit input paths must be unique")
+    if list(inputs) != sorted(inputs):
+        _raise("authority audit inputs must use stable path ordering")
+    if inputs != dict(input_sha256):
+        _raise("authority audit input set or checksum is stale")
+    return manifest
+
+
 def validate_query_pack(
     payload: Mapping[str, Any],
     *,
@@ -1804,6 +2023,7 @@ __all__ = [
     "BenchmarkLabel",
     "BenchmarkQuery",
     "CanonicalAuthorityArtifact",
+    "CanonicalAuthorityManifest",
     "CanonicalAuthorityRecord",
     "ContractError",
     "FrozenArtifactManifest",
@@ -1821,6 +2041,7 @@ __all__ = [
     "content_sha256",
     "stable_json_bytes",
     "validate_canonical_authority",
+    "validate_canonical_authority_manifest",
     "validate_frozen_manifest",
     "validate_label_blind_raw",
     "validate_labels",

@@ -1,0 +1,208 @@
+{
+  "authority_file": "canonical-authority.json",
+  "authority_record_order": [],
+  "authority_sha256": "f0a9fe00f8f48cd81eb603170847f6485db6940c8c6e421bbb601789446ce1af",
+  "authority_version": "representative-hard-benchmark-canonical-authority-v1",
+  "benchmark_labels_consulted": false,
+  "canonical_catalog": {
+    "catalog_path": "data/catalog.json",
+    "catalog_sha256": "0d3ea55eab414e3845bf3bf72635707210f2d5c20d96b3d6b5940eb0ffc7d261",
+    "catalog_version": "fixture-v1",
+    "independently_supported_exact_count": 0,
+    "product_count": 120,
+    "synthetic_regression_only_excluded_count": 120
+  },
+  "current_source_count": 11,
+  "current_source_exact_authority_rejected_count": 11,
+  "eligible_exact_variant_count": 0,
+  "exclusion_summary": [
+    "120 fixture-v1 products are synthetic regression data, not real release truth",
+    "100 human-backed variants are provisional and need canonical review",
+    "all 11 owner-confirmed sources reject exact_variant_authority",
+    "family, staging, Wiki, candidate, and resolver outputs cannot infer UUIDs"
+  ],
+  "gate_result": "blocked_insufficient_exact_authority",
+  "generated_at": "2026-09-27T02:30:00Z",
+  "generated_by": "scripts/build_representative_hard_benchmark_canonical_authority.py",
+  "input_artifacts": [
+    {
+      "path": "data/catalog.json",
+      "sha256": "0d3ea55eab414e3845bf3bf72635707210f2d5c20d96b3d6b5940eb0ffc7d261"
+    },
+    {
+      "path": "data/evaluation/representative-hard-benchmark-v1/source-decisions.json",
+      "sha256": "d957bb03f6258d70a177c743e7eeca6e2930710af45fa52719c385d5082740a8"
+    },
+    {
+      "path": "data/evaluation/representative-hard-benchmark-v1/source-inventory-manifest.json",
+      "sha256": "970477650e61d0768b7595ae2237c36a2cdb98b2f26657ac8dc56f4354d17965"
+    },
+    {
+      "path": "data/evaluation/representative-hard-benchmark-v1/source-inventory.json",
+      "sha256": "cdb44f23db2f003c67c5dbe16a176bbeffd465988038af7070d1bfb813e8b0f2"
+    },
+    {
+      "path": "data/human_backed_catalog.json",
+      "sha256": "d29b69cde8099cb229136a73b893ca99b6313d9652ead5ff4aea48c20242e74f"
+    },
+    {
+      "path": "data/human_backed_catalog_manifest.json",
+      "sha256": "c79a3bc699d2bfcccae992a672fda79cbb905f1f2252dbfda8fa219ed55e43c7"
+    },
+    {
+      "path": "scripts/build_representative_hard_benchmark_canonical_authority.py",
+      "sha256": "bca9a74b1efd411ee3ab5ab06e6a845efbaf44c8825a88fb1efe6caff0a909e5"
+    }
+  ],
+  "manifest_version": "representative-hard-benchmark-canonical-authority-audit-v1",
+  "network_requests": 0,
+  "next_allowed_step": "obtain_new_authorized_exact_variant_evidence",
+  "pilot_usable_exact_variant_count": 0,
+  "prohibited_next_steps": [
+    "RHB_T5",
+    "canonical_uuid_inference",
+    "label_authoring",
+    "matched_pilot_construction",
+    "network_collection",
+    "query_pack_authoring"
+  ],
+  "resolver_output_consulted": false,
+  "same_casting_multi_release_family_count": 0,
+  "schema_version": "pvr-representative-hard-benchmark-canonical-authority-manifest-v1",
+  "source_audit": [
+    {
+      "authority_eligibility": "prohibited",
+      "eligible_exact_variant_count": 0,
+      "exact_authority_decision": "rejected",
+      "exclusion_reasons": [
+        "authority_eligibility_prohibited",
+        "licensed_text_derivative_is_staging_context_not_exact_authority"
+      ],
+      "source_id": "fandom-hot-wheels-2025-pilot-r790665-v1"
+    },
+    {
+      "authority_eligibility": "synthetic_regression_only",
+      "eligible_exact_variant_count": 0,
+      "exact_authority_decision": "rejected",
+      "exclusion_reasons": [
+        "synthetic_fixture_cannot_establish_real_release_truth",
+        "synthetic_regression_only"
+      ],
+      "source_id": "fixture-v1-benchmark"
+    },
+    {
+      "authority_eligibility": "synthetic_regression_only",
+      "eligible_exact_variant_count": 0,
+      "exact_authority_decision": "rejected",
+      "exclusion_reasons": [
+        "synthetic_canonical_ids_do_not_establish_real_release_truth",
+        "synthetic_regression_only"
+      ],
+      "source_id": "fixture-v1-catalog"
+    },
+    {
+      "authority_eligibility": "prohibited",
+      "eligible_exact_variant_count": 0,
+      "exact_authority_decision": "rejected",
+      "exclusion_reasons": [
+        "authority_eligibility_prohibited",
+        "human_label_and_family_review_cannot_create_canonical_uuid"
+      ],
+      "source_id": "human-labeled-real-noisy-v1"
+    },
+    {
+      "authority_eligibility": "prohibited",
+      "eligible_exact_variant_count": 0,
+      "exact_authority_decision": "rejected",
+      "exclusion_reasons": [
+        "authority_eligibility_prohibited",
+        "family_only_rows_cannot_create_uuid_labels",
+        "zero_exact_mappings"
+      ],
+      "source_id": "human-labeled-to-fixture-alignment-v1"
+    },
+    {
+      "authority_eligibility": "prohibited",
+      "eligible_exact_variant_count": 0,
+      "exact_authority_decision": "rejected",
+      "exclusion_reasons": [
+        "authority_eligibility_prohibited",
+        "marketplace_listing_cannot_create_exact_authority"
+      ],
+      "source_id": "live-ebay"
+    },
+    {
+      "authority_eligibility": "prohibited",
+      "eligible_exact_variant_count": 0,
+      "exact_authority_decision": "rejected",
+      "exclusion_reasons": [
+        "authority_eligibility_prohibited",
+        "marketplace_listing_cannot_create_exact_authority"
+      ],
+      "source_id": "live-facebook-marketplace"
+    },
+    {
+      "authority_eligibility": "prohibited",
+      "eligible_exact_variant_count": 0,
+      "exact_authority_decision": "rejected",
+      "exclusion_reasons": [
+        "authority_eligibility_prohibited",
+        "live_wiki_content_cannot_create_exact_authority"
+      ],
+      "source_id": "live-fandom"
+    },
+    {
+      "authority_eligibility": "prohibited",
+      "eligible_exact_variant_count": 0,
+      "exact_authority_decision": "rejected",
+      "exclusion_reasons": [
+        "authority_eligibility_prohibited",
+        "marketplace_listing_cannot_create_exact_authority"
+      ],
+      "source_id": "live-mercari"
+    },
+    {
+      "authority_eligibility": "prohibited",
+      "eligible_exact_variant_count": 0,
+      "exact_authority_decision": "rejected",
+      "exclusion_reasons": [
+        "authority_eligibility_prohibited",
+        "unreviewed_network_content_cannot_create_exact_authority"
+      ],
+      "source_id": "live-other-network-source"
+    },
+    {
+      "authority_eligibility": "prohibited",
+      "eligible_exact_variant_count": 0,
+      "exact_authority_decision": "rejected",
+      "exclusion_reasons": [
+        "authority_eligibility_prohibited",
+        "owner_decision_cannot_override_authority_contract",
+        "staging_rows_have_zero_canonical_links"
+      ],
+      "source_id": "owner-local-release-snapshot-2023-2026-v1"
+    }
+  ],
+  "status": "complete",
+  "supporting_human_catalog": {
+    "casting_count": 97,
+    "catalog_path": "data/human_backed_catalog.json",
+    "catalog_sha256": "d29b69cde8099cb229136a73b893ca99b6313d9652ead5ff4aea48c20242e74f",
+    "catalog_version": "human-backed-catalog-v1",
+    "exact_variant_count": 0,
+    "exclusion_reasons": [
+      "identity_level_is_casting_with_provisional_variants",
+      "all_variants_need_canonical_review",
+      "canonical_variant_response_is_explicitly_excluded"
+    ],
+    "provisional_variant_count": 100
+  },
+  "thresholds": {
+    "exact_variant_shortfall": 20,
+    "family_shortfall": 4,
+    "minimum_pilot_usable_exact_variants": 20,
+    "minimum_same_casting_multi_release_families": 4,
+    "observed_pilot_usable_exact_variants": 0,
+    "observed_same_casting_multi_release_families": 0
+  }
+}

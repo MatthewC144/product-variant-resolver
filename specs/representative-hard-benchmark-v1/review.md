@@ -1,12 +1,15 @@
 # Representative Hard Benchmark v1 — Lean QA Review
 
-Date: 2026-09-26. Mode: Lite / Lean Industrial. Scope: **RHB-T1/T2 history + RHB-T3 final QA**.
+Date: 2026-09-26. Mode: Lite / Lean Industrial. Scope:
+**RHB-T1/T2 history + RHB-T3/T4 final QA**.
 
-## Current milestone verdict: PASS (RHB-T3)
+## Current milestone verdict: PASS (RHB-T4 engineering) / DATA GATE BLOCKED
 
-RHB-T1 and RHB-T2 remain PASS. RHB-T3 passed final recheck 3 after closing the artifact, downstream,
-and composition fail-closed defects. The initial QA FAIL plus final recheck 1 and 2 FAIL evidence are
-retained below as engineering history; the final PASS at the end of this review supersedes them.
+RHB-T1 through RHB-T3 remain PASS. RHB-T4's deterministic authority-audit implementation passes
+Lean QA, but its data Gate correctly returns `blocked_insufficient_exact_authority`: the repository
+contains zero independently supported, pilot-usable exact variants and zero eligible
+same-casting/multi-release families. This is an honest successful engineering result, not permission
+to start RHB-T5. Earlier T1/T2/T3 QA history remains below.
 
 ## RHB-T1 historical verdict: PASS
 
@@ -995,3 +998,158 @@ task, **RHB-T4 catalog-ground-truth eligibility audit**. It does not authorize n
 new Wiki rows, query-pack or label authoring, T5, or canonical promotion. If RHB-T4 finds fewer than
 20 independently supported exact variants or fewer than four same-casting multi-release families,
 the matched pilot must stop at that documented shortfall.
+
+---
+
+## RHB-T4 final QA
+
+### Verdict: PASS (engineering) / DATA GATE BLOCKED
+
+The RHB-T4 implementation is deterministic, fail-closed and independently reproducible. It audits
+the frozen catalog, Human-backed catalog, T1 source inventory and T3 owner decisions without using
+network access, resolver output or benchmark labels. The empty `authority_records` result is derived
+from every current source and both catalog surfaces; it is not an omitted scan or a silently empty
+builder result.
+
+The data Gate deliberately does **not** pass. The audit finds `0` eligible exact variants, `0`
+pilot-usable exact variants and `0` eligible same-casting/multi-release families. Against the
+predeclared minimums, the shortfall is `20` variants and `4` families, so the machine-readable result
+is `blocked_insufficient_exact_authority`. RHB-T5 and every query/label/matched-pilot or UUID-inference
+step remain prohibited until a newly authorized exact-variant source passes both a new T3-style
+source decision and this authority audit.
+
+### Checked items
+
+- Frozen `fixture-v1` catalog: exactly 120 products; every provenance item is
+  `synthetic_fixture` with a `synthetic://fixture-v1/` reference; all 120 are excluded as
+  regression-only and none counts as real exact authority.
+- Human-backed catalog: exactly 97 castings and 100 provisional variants; every provisional variant
+  remains `needs_canonical_review`, no provisional row contains a canonical UUID, exact count is
+  zero, and `canonical_variant_response` remains explicitly excluded.
+- T1/T3 parents: inventory and manifest revalidate; all 11 owner-confirmed source/use cells for
+  `exact_variant_authority` are rejected; no source has typed `canonical_authority` downstream
+  permission.
+- Empty canonical authority: `records=[]`, record order is empty and stable, artifact SHA/version
+  bind to the manifest, and the eligible/usable/family counts all equal zero.
+- Threshold/Gate arithmetic: minimums `20` and `4`, observed values `0` and `0`, shortfalls `20` and
+  `4`, Gate result `blocked_insufficient_exact_authority`, and the only permitted next step is to
+  obtain newly authorized exact-variant evidence.
+- Manifest stability: schema/version/status, sorted parent paths and SHA-256 values, catalog and
+  product counts/checksums, Human catalog counts/checksum, source ordering/counts and generated
+  metadata all validate. T1 and T4 builders return `unchanged`; the T4 check succeeds twice.
+- Negative mutations: stale authority SHA, stale parent SHA, partial status, unknown field, source
+  count mismatch, source-order mismatch, exact-authority decision elevation, a fabricated non-empty
+  fixture authority record, stale catalog-record checksum, missing populated variant-field coverage,
+  wrong reviewer role, timezone-naive review time, empty independent evidence, and
+  `resolver_output_consulted=true` are all rejected.
+- Scope boundary: no network/browser/resolver/model/runtime/API/catalog/database behavior is added;
+  no benchmark query pack, label, held-label, split, raw Test or scored-evaluation artifact exists.
+- T4 is recorded as `COMPLETE — GATE BLOCKED`; RHB-T5 and all later task checkboxes remain open.
+- Focused T1–T4, API/catalog regression, full pytest, Ruff, format, strict MyPy, compileall, T1/T4
+  deterministic checks, JSON parsing, secret scan and `git diff --check`.
+
+### Requirement coverage
+
+| Requirement | Evidence | Result |
+|---|---|---|
+| RHB-R5 | Authority records are checked against canonical catalog version, UUID, product-record checksum, independently authorized source, populated variant fields, reviewer and aware timestamp. Current records are empty because no existing source satisfies those preconditions. | PASS |
+| RHB-R6 | No expected UUID or matched label is authored. Exact truth absence produces a blocked Gate and explicit downstream prohibitions instead of an inferred nearest UUID. | PASS |
+| RHB-R7 | Synthetic fixture, Human Knowledge, family alignment, owner staging and Wiki data are all rejected as exact authority; mutation cannot elevate the T3 decision. | PASS |
+| RHB-R9 | No outcome label is created in T4. The existing contract still requires independently approved exact authority before any future `matched` label. | PASS |
+| RHB-R19 | Artifact/parent hashes, counts, stable ordering, versions and generation metadata are frozen; stale, partial, reordered, count-inconsistent and unknown-field mutations fail closed; repeated checks return `unchanged`. | PASS |
+| RHB-R21 | Public T4 artifacts contain schemas, role-safe summaries, aggregate counts and non-sensitive checksums only; no local row evidence or personal contact data is copied. | PASS |
+
+### Findings
+
+#### Blocker
+
+- None in the RHB-T4 implementation.
+
+#### Important
+
+- `docs/evidence/representative-hard-benchmark-authority-audit.md`, listed in the T4 task, is not yet
+  present. The doc curator must add the narrative evidence before this task is committed as a fully
+  documented Lean milestone. This does not change the independently verified engineering PASS or
+  the blocked data Gate.
+
+#### Later
+
+- The existing Starlette `BlockingPortal` deprecation warning remains dependency debt; it does not
+  affect the offline authority audit.
+- `0` eligible exact variants is not resolver-quality evidence and must not be reframed as an
+  accuracy result. It means the project lacks lawful, independently reviewed release-level truth.
+- RHB-T5 must remain unstarted. New evidence requires an explicit source-decision update and a fresh
+  authority audit; family labels, staged variants, Wiki rows, synthetic UUIDs and resolver candidates
+  cannot fill the shortfall.
+
+### Reproduction and evidence
+
+```text
+.venv/bin/python scripts/build_representative_hard_benchmark_source_inventory.py --check
+unchanged
+
+.venv/bin/python scripts/build_representative_hard_benchmark_canonical_authority.py --check
+unchanged
+
+.venv/bin/python scripts/build_representative_hard_benchmark_canonical_authority.py --check
+unchanged
+
+.venv/bin/pytest --override-ini addopts='' -q \
+  tests/evaluation/test_representative_hard_benchmark_source_inventory.py \
+  tests/evaluation/test_representative_benchmark_contract.py \
+  tests/evaluation/test_representative_benchmark_source_decisions.py \
+  tests/evaluation/test_representative_benchmark_canonical_authority_audit.py
+76 passed in 0.61s
+
+.venv/bin/pytest --override-ini addopts='' -q \
+  tests/api/test_api.py tests/integration/test_catalog_service.py \
+  tests/test_fandom_catalog_review.py tests/test_human_backed_catalog.py \
+  tests/test_human_catalog_alignment.py tests/test_real_catalog_source_expansion_plan.py
+57 passed, 1 warning in 0.92s
+
+.venv/bin/pytest --override-ini addopts='' -q
+1051 passed, 1 warning in 95.60s
+
+.venv/bin/ruff check \
+  src/product_variant_resolver/representative_benchmark.py \
+  scripts/build_representative_hard_benchmark_canonical_authority.py \
+  tests/evaluation/test_representative_benchmark_canonical_authority_audit.py
+All checks passed!
+
+.venv/bin/ruff format --check <same three touched Python files>
+3 files already formatted
+
+.venv/bin/mypy --strict <same three touched Python files>
+Success: no issues found in 3 source files
+
+.venv/bin/python -m compileall -q <same three touched Python files>
+PASS
+
+jq -e . canonical-authority.json canonical-authority-manifest.json
+PASS
+
+git diff --check
+PASS
+```
+
+Independent frozen-data inspection:
+
+```text
+fixture-v1: 120 products; all synthetic regression-only
+human-backed-catalog-v1: 97 castings; 100 provisional; 0 exact
+T3 decisions: 11 exact-authority cells; 11 rejected; 0 canonical permissions
+canonical authority records: 0
+eligible / pilot-usable / same-casting-multi-release families: 0 / 0 / 0
+shortfall: 20 variants / 4 families
+gate: blocked_insufficient_exact_authority
+network / resolver output / benchmark labels consulted: 0 / false / false
+```
+
+### Recommended next task
+
+Send the verified T4 result to `doc_curator` to create
+`docs/evidence/representative-hard-benchmark-authority-audit.md` and append the narrative Project Log
+entry. Do not start RHB-T5. After documentation, commit the isolated RHB-T4 checkpoint and request
+explicit approval before pushing it to GitHub. The next product decision is how to obtain a lawful,
+independently reviewed exact-variant authority source; without that new evidence, the benchmark must
+remain stopped at this Gate.
