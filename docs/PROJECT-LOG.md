@@ -1,5 +1,82 @@
 # Project Log
 
+## 2026-09-26–27 — RHB-T3：完成 owner source decision Gate，將保守授權落成 fail-closed 契約
+
+### 新執行了什麼，以及解決了什麼問題
+
+本輪完成 [Representative Hard Benchmark v1 的 RHB-T3](../specs/representative-hard-benchmark-v1/tasks.md)，把 owner 明確
+同意的來源使用邊界，從文字提案轉成 checksum-bound、machine-enforced 的 source decision Gate。這一步解決的不是
+「哪些資料看起來可用」，而是「每個來源可否支援 query、evidence retention、reviewer identity、local benchmark、
+public Git 與 exact authority」必須逐格決定、不可留白，也不能靠修改 inventory flag 或自由文字條件繞過。最終
+`11 sources × 6 uses` 共 66 格，為 `23 approved / 43 rejected / 0 held`；對應 publication scopes 是
+`10 local_only / 3 aggregate_only / 10 public_rows / 43 prohibited`。因此 Gate 的 PASS 只涵蓋這 23 個狹窄用途，
+不是整份來源的概括授權，也不代表 benchmark cases 或 canonical answers 已建立。
+
+### 修改了哪些 contracts、data 與 tests，為什麼這樣選
+
+`src/product_variant_resolver/representative_benchmark.py` 新增 strict source-decision artifact 與 typed downstream
+permissions，並把 decision overlay 綁定 T1 inventory 的 version、SHA-256、source IDs 與 authority eligibility；
+`data/evaluation/representative-hard-benchmark-v1/source-decisions.json` 保存 owner-confirmed 的完整 66-cell matrix，
+[source approval](../specs/representative-hard-benchmark-v1/source-approval.md)則保留人可讀的理由與限制。資料目錄 README、
+task status 與 QA review 同步更新，避免 T3 已完成而操作說明仍寫成 pending。測試面新增
+`tests/evaluation/test_representative_benchmark_source_decisions.py`，並擴充既有 benchmark contract tests，鎖住 unknown
+fields、inventory drift、scope escalation、role identity、來源別 downstream capability、Wiki revision membership 與
+preconstructed／nested-model composition bypass。
+
+方法上沒有把 owner decision 回寫、覆蓋 T1 inventory 歷史，而是採獨立、不可省略的 overlay：inventory 回答「來源當時
+是什麼」，decision artifact 回答「owner 准許它做什麼」。下游的 canonical authority、query pack 與 label validators
+都必須同時驗證兩者，讓授權變更需要新的明示 artifact，而不能由呼叫端臨時放寬。自由文字 conditions 只保留給人閱讀；
+真正的執行邊界由 typed permissions、allowed fields、publication scope 與 checksum／revision membership 決定。
+
+### Owner 同意的保守方案與公開邊界
+
+101 筆 human-labeled names 只允許 local-only query；其 owner-reviewed labels 也只可在本機形成 `ambiguous` 或
+`no_match`，不得建立 `matched` 或 exact UUID。1,763 筆 workbook rows 只可用 `product_name`、`year`、`series`、
+`color`、`collector_number`、`series_position` 六欄提供本機 `family_context`；raw rows 維持 local-only/untracked，
+Git 只保存 schema、non-reversible hash、count、aggregate 與非敏感摘要，seller、contact、account 等身份資料排除。
+既有 checksum-bound、保留 attribution 的 100 筆 Wiki derivative 只可支援 query／family context，不能擴張成新抓取、
+scored label 或 canonical truth。需要人工身分的 artifact 一律只公開穩定角色 `project_owner`，不公開真名、email、電話或
+帳號。
+
+所有 live eBay、Mercari、Facebook Marketplace、Fandom 與其他網路來源仍禁止使用，
+`network_collection_authorized=false`，因此本輪沒有授權 Selenium、crawler、API harvesting、圖片下載或 OCR。
+現有來源的 exact authority 也全數 rejected：fixtures 只供 regression，human／alignment 最多支援 local query、有限
+labels 或 family context，workbook 與 Wiki 仍只是 context／review evidence。Owner 同意來源用途，不能替代獨立的
+exact-variant ground truth。
+
+### 三輪 QA FAIL 如何修正 Gate 的技術邊界
+
+第一次 QA FAIL 顯示，正確的 JSON 快照本身不等於可執行契約：decision file 當時只是 unvalidated `dict`，未知欄位、
+PII allowlist 擴張與 rejected exact-authority 翻成 public/raw 都可被現有測試接受，也沒有 checksum 將決策綁到精確的
+inventory revision。修正後新增 strict Pydantic contract、完整矩陣與 cross-field rules、inventory version／SHA／IDs／
+eligibility binding，並讓 aggregate、raw rows、身份與 exact use 的不合法組合 fail closed。
+
+第二次 QA FAIL 進一步發現 artifact 自身嚴格仍不夠：三個 downstream validators 的 overlay 是 optional，呼叫端可省略
+owner decisions，再用被放寬的 inventory 建立 public human query／label 或 exact authority；同時 workbook
+`family_context_only` 與 Wiki `existing checked-in revision only` 仍只是 free-text permissions，任意 unbound Wiki ref、
+Wiki label 或 workbook label 仍可能通過。修正方式是把 decision overlay 與 inventory 改成下游必填依賴，加入 typed
+source capabilities；Wiki query 必須對上既有 100-row revision 的真實 ID，Wiki／workbook 不得建立 labels，human 則
+維持 local query 與 local `ambiguous`／`no_match` 的窄範圍。
+
+第三次 QA FAIL 揭露的是 composition boundary：`validate_labels` 雖會檢查 label 自身，卻信任呼叫端已建好的
+`QueryPack`，因此 shape-valid 但 permission-invalid 的 public human query、private ref 與非 `project_owner` author
+仍能被包進合法 label flow；同類風險也會在未來 matched flow 信任預建 authority 時出現。最終修正是在 label join 前，
+用同一份 checksum-bound inventory 與 owner decisions 將傳入的 query pack 和 canonical authority 序列化後重新走各自
+high-level validator。這使先建低階 model、事後修改 nested author／reviewer 或注入未驗證 dependency 都會被拒絕。
+
+### 最終驗證、限制與下一步
+
+最終 QA 在第三次 recheck 判定 [PASS](../specs/representative-hard-benchmark-v1/review.md)。T1–T3 focused tests 為
+`69 passed`，API／catalog regression 為 `66 passed`，完整 repository 為 `1044 passed`（另有既有 Starlette
+deprecation warning）。touched Python files 的 Ruff check、Ruff format 與 strict MyPy 全部通過；compileall、inventory
+`--check` 的 `unchanged`、JSON parse 與 `git diff --check` 也全部通過。這些 lint／typing 結果只涵蓋 RHB-T1–T3 touched
+surface，不擴張宣稱 whole-repository Ruff／MyPy baseline。
+
+下一步只獲准進入 **RHB-T4 catalog-ground-truth eligibility audit**，用獨立證據確認是否存在可用的 exact variants；
+本輪沒有開始 T4，也沒有授權或開始 T5、network collection、query-pack／label authoring 或 canonical promotion。若 T4
+找不到足夠 authority，matched pilot 必須記錄 shortfall 並停止，不能用 resolver output、family match、staging row 或
+本次 owner approval 推導 UUID。
+
 ## 2026-09-26 — RHB-T2：建立 fail-closed 的代表性困難基準資料契約
 
 ### 新執行了什麼，以及解決了什麼問題

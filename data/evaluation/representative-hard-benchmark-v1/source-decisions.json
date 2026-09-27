@@ -1,0 +1,233 @@
+{
+  "schema_version": "pvr-representative-hard-benchmark-source-decisions-v1",
+  "decision_version": "representative-hard-benchmark-source-decisions-owner-confirmed-v1",
+  "decision_stage": "owner_confirmed",
+  "owner_review_status": "approved_for_declared_scopes",
+  "owner_confirmed_by": "project_owner",
+  "owner_confirmed_at": "2026-09-27T01:44:16Z",
+  "inventory_version": "representative-hard-benchmark-source-baseline-v1",
+  "inventory_sha256": "cdb44f23db2f003c67c5dbe16a176bbeffd465988038af7070d1bfb813e8b0f2",
+  "network_collection_authorized": false,
+  "decision_policy": {
+    "status_enum": [
+      "approved",
+      "rejected",
+      "held"
+    ],
+    "publication_scope_enum": [
+      "prohibited",
+      "local_only",
+      "aggregate_only",
+      "public_rows"
+    ],
+    "uses": [
+      "query_text",
+      "evidence_retention",
+      "reviewer_identity",
+      "local_only_benchmark_use",
+      "public_git_artifacts",
+      "exact_variant_authority"
+    ],
+    "owner_confirmation_rule": "The project owner approved this exact conservative package. Existing checked-in artifacts remain distinct from permission to create new public benchmark rows.",
+    "network_rule": "No live network collection, browser automation, API harvesting, authentication, proxy, CAPTCHA bypass, image collection, or OCR is authorized."
+  },
+  "reviewer_identity_policy": {
+    "public_identity_mode": "role_only",
+    "reviewer_role": "project_owner",
+    "personal_name_allowed": false,
+    "contact_or_account_data_allowed": false
+  },
+  "sources": [
+    {
+      "source_id": "fixture-v1-benchmark",
+      "source_origin": "inventory",
+      "authority_eligibility": "synthetic_regression_only",
+      "collection_status": "existing_repository_fixture_only",
+      "downstream_permissions": ["regression_only"],
+      "allowed_label_statuses": [],
+      "decisions": [
+        {"use": "query_text", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["synthetic_rows_do_not_count_toward_representative_pilot"]},
+        {"use": "evidence_retention", "status": "approved", "effective_publication_scope": "public_rows", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": ["existing_fixture_rows"], "conditions": ["existing_repository_regression_artifact_only"]},
+        {"use": "reviewer_identity", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["no_human_source_reviewer_identity"]},
+        {"use": "local_only_benchmark_use", "status": "approved", "effective_publication_scope": "local_only", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": ["synthetic_query", "synthetic_expected_status"], "conditions": ["regression_and_tooling_only", "excluded_from_non_synthetic_quota"]},
+        {"use": "public_git_artifacts", "status": "approved", "effective_publication_scope": "public_rows", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": ["existing_fixture_rows", "fixture_manifests", "regression_results"], "conditions": ["regression_and_tooling_only"]},
+        {"use": "exact_variant_authority", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["synthetic_fixture_cannot_establish_real_release_truth"]}
+      ]
+    },
+    {
+      "source_id": "fixture-v1-catalog",
+      "source_origin": "inventory",
+      "authority_eligibility": "synthetic_regression_only",
+      "collection_status": "existing_repository_fixture_only",
+      "downstream_permissions": ["regression_only"],
+      "allowed_label_statuses": [],
+      "decisions": [
+        {"use": "query_text", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["catalog_rows_are_not_real_query_evidence"]},
+        {"use": "evidence_retention", "status": "approved", "effective_publication_scope": "public_rows", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": ["existing_fixture_catalog_rows"], "conditions": ["existing_repository_regression_artifact_only"]},
+        {"use": "reviewer_identity", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["no_human_source_reviewer_identity"]},
+        {"use": "local_only_benchmark_use", "status": "approved", "effective_publication_scope": "local_only", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": ["synthetic_catalog_record"], "conditions": ["regression_and_tooling_only", "excluded_from_real_authority"]},
+        {"use": "public_git_artifacts", "status": "approved", "effective_publication_scope": "public_rows", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": ["existing_fixture_catalog_rows", "fixture_manifests", "regression_results"], "conditions": ["regression_and_tooling_only"]},
+        {"use": "exact_variant_authority", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["synthetic_canonical_ids_do_not_establish_real_release_truth"]}
+      ]
+    },
+    {
+      "source_id": "human-labeled-real-noisy-v1",
+      "source_origin": "inventory",
+      "authority_eligibility": "prohibited",
+      "collection_status": "existing_rows_only_no_new_collection",
+      "downstream_permissions": ["query_pack", "scored_labels"],
+      "allowed_label_statuses": ["ambiguous", "no_match"],
+      "decisions": [
+        {"use": "query_text", "status": "approved", "effective_publication_scope": "local_only", "owner_confirmation_required": true, "owner_confirmed": true, "allowed_fields": ["query_text"], "conditions": ["existing_101_rows_only", "no_new_row_level_public_copy", "privacy_review_required_before_use"]},
+        {"use": "evidence_retention", "status": "approved", "effective_publication_scope": "local_only", "owner_confirmation_required": true, "owner_confirmed": true, "allowed_fields": ["raw_query_evidence"], "conditions": ["raw_rows_remain_local_only", "Git_may_store_checksum_count_and_non_sensitive_aggregate_only"]},
+        {"use": "reviewer_identity", "status": "approved", "effective_publication_scope": "public_rows", "owner_confirmation_required": true, "owner_confirmed": true, "allowed_fields": ["reviewer_role"], "conditions": ["role_only_project_owner", "no_name_contact_or_account_data"]},
+        {"use": "local_only_benchmark_use", "status": "approved", "effective_publication_scope": "local_only", "owner_confirmation_required": true, "owner_confirmed": true, "allowed_fields": ["query_text", "human_label", "family_label"], "conditions": ["query_text_and_labels_remain_local_only", "not_exact_variant_authority"]},
+        {"use": "public_git_artifacts", "status": "approved", "effective_publication_scope": "aggregate_only", "owner_confirmation_required": true, "owner_confirmed": true, "allowed_fields": ["schema", "sha256", "record_count", "non_sensitive_aggregate", "non_sensitive_summary", "reviewer_role"], "conditions": ["no_new_row_level_public_copy", "existing_publication_is_not_permission_for_new_public_benchmark_rows"]},
+        {"use": "exact_variant_authority", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["human_label_and_family_review_cannot_create_canonical_uuid"]}
+      ]
+    },
+    {
+      "source_id": "human-labeled-to-fixture-alignment-v1",
+      "source_origin": "inventory",
+      "authority_eligibility": "prohibited",
+      "collection_status": "derived_existing_rows_only",
+      "downstream_permissions": ["family_context"],
+      "allowed_label_statuses": [],
+      "decisions": [
+        {"use": "query_text", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["alignment_is_not_primary_query_evidence"]},
+        {"use": "evidence_retention", "status": "approved", "effective_publication_scope": "local_only", "owner_confirmation_required": true, "owner_confirmed": true, "allowed_fields": ["alignment_status", "review_family_id", "source_record_digest"], "conditions": ["inherits_local_only_human_scan_boundary", "existing_public_copy_does_not_authorize_new_row_level_copy"]},
+        {"use": "reviewer_identity", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["derived_alignment_has_no_independent_reviewer_identity"]},
+        {"use": "local_only_benchmark_use", "status": "approved", "effective_publication_scope": "local_only", "owner_confirmation_required": true, "owner_confirmed": true, "allowed_fields": ["alignment_status", "review_family_id", "source_record_digest"], "conditions": ["family_context_only", "inherits_local_only_parent_boundary"]},
+        {"use": "public_git_artifacts", "status": "approved", "effective_publication_scope": "aggregate_only", "owner_confirmation_required": true, "owner_confirmed": true, "allowed_fields": ["schema", "sha256", "record_count", "non_sensitive_aggregate", "non_sensitive_summary"], "conditions": ["no_new_row_level_public_copy", "existing_publication_is_not_permission_for_new_public_benchmark_rows"]},
+        {"use": "exact_variant_authority", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["zero_exact_mappings", "family_only_rows_cannot_create_uuid_labels"]}
+      ]
+    },
+    {
+      "source_id": "owner-local-release-snapshot-2023-2026-v1",
+      "source_origin": "inventory",
+      "authority_eligibility": "prohibited",
+      "collection_status": "owner_local_rows_untracked",
+      "downstream_permissions": ["family_context"],
+      "allowed_label_statuses": [],
+      "decisions": [
+        {"use": "query_text", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": true, "owner_confirmed": true, "allowed_fields": [], "conditions": ["workbook_is_family_context_only", "not_query_pack_or_scored_labels"]},
+        {"use": "evidence_retention", "status": "approved", "effective_publication_scope": "local_only", "owner_confirmation_required": true, "owner_confirmed": true, "allowed_fields": ["product_name", "year", "series", "color", "collector_number", "series_position"], "conditions": ["raw_rows_remain_local_only", "Git_may_store_schema_hash_count_aggregate_and_non_sensitive_summary_only", "seller_contact_and_account_fields_excluded"]},
+        {"use": "reviewer_identity", "status": "approved", "effective_publication_scope": "public_rows", "owner_confirmation_required": true, "owner_confirmed": true, "allowed_fields": ["reviewer_role"], "conditions": ["role_only_project_owner", "no_name_contact_or_account_data"]},
+        {"use": "local_only_benchmark_use", "status": "approved", "effective_publication_scope": "local_only", "owner_confirmation_required": true, "owner_confirmed": true, "allowed_fields": ["product_name", "year", "series", "color", "collector_number", "series_position"], "conditions": ["family_context_only", "query_text_and_labels_remain_local_only", "not_exact_variant_authority"]},
+        {"use": "public_git_artifacts", "status": "approved", "effective_publication_scope": "aggregate_only", "owner_confirmation_required": true, "owner_confirmed": true, "allowed_fields": ["schema", "sha256", "record_count", "non_sensitive_aggregate", "non_sensitive_summary", "reviewer_role"], "conditions": ["raw_rows_remain_untracked", "no_row_level_public_copy"]},
+        {"use": "exact_variant_authority", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["staging_rows_have_zero_canonical_links", "owner_decision_cannot_override_authority_contract"]}
+      ]
+    },
+    {
+      "source_id": "fandom-hot-wheels-2025-pilot-r790665-v1",
+      "source_origin": "inventory",
+      "authority_eligibility": "prohibited",
+      "collection_status": "existing_revision_bound_derivative_only",
+      "downstream_permissions": ["query_pack", "family_context"],
+      "allowed_label_statuses": [],
+      "record_ref_contract": {
+        "source_file": "data/external/hot-wheels-wiki/pilot-2025/normalized.json",
+        "source_file_sha256": "e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6",
+        "source_record_count": 100,
+        "source_record_id_field": "source_record_id",
+        "source_revision_id": 790665
+      },
+      "decisions": [
+        {"use": "query_text", "status": "approved", "effective_publication_scope": "public_rows", "owner_confirmation_required": true, "owner_confirmed": true, "allowed_fields": ["existing_revision_bound_text_derivative", "attribution"], "conditions": ["existing_checked_in_100_rows_only", "family_context_and_review_questions_only", "CC_BY_SA_attribution_preserved", "no_new_collection"]},
+        {"use": "evidence_retention", "status": "approved", "effective_publication_scope": "public_rows", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": ["existing_revision_bound_text_derivative", "attribution", "manifest"], "conditions": ["CC_BY_SA_attribution_preserved", "no_new_collection"]},
+        {"use": "reviewer_identity", "status": "approved", "effective_publication_scope": "public_rows", "owner_confirmation_required": true, "owner_confirmed": true, "allowed_fields": ["reviewer_role"], "conditions": ["role_only_project_owner", "no_name_contact_or_account_data"]},
+        {"use": "local_only_benchmark_use", "status": "approved", "effective_publication_scope": "local_only", "owner_confirmation_required": true, "owner_confirmed": true, "allowed_fields": ["existing_revision_bound_text_derivative", "attribution"], "conditions": ["family_context_and_review_questions_only", "no_canonical_or_label_truth", "no_new_collection"]},
+        {"use": "public_git_artifacts", "status": "approved", "effective_publication_scope": "public_rows", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": ["existing_revision_bound_text_derivative", "attribution", "manifest"], "conditions": ["existing_derivative_only", "not_a_new_public_query_pack_approval", "no_new_collection"]},
+        {"use": "exact_variant_authority", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["licensed_text_derivative_is_staging_context_not_exact_authority"]}
+      ]
+    },
+    {
+      "source_id": "live-ebay",
+      "source_origin": "blocked_external",
+      "authority_eligibility": "prohibited",
+      "collection_status": "no_source_specific_permission_no_collection",
+      "downstream_permissions": ["none"],
+      "allowed_label_statuses": [],
+      "decisions": [
+        {"use": "query_text", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["no_collection_authorized"]},
+        {"use": "evidence_retention", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["no_collection_authorized"]},
+        {"use": "reviewer_identity", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["seller_account_contact_data_out_of_scope"]},
+        {"use": "local_only_benchmark_use", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["local_storage_does_not_create_permission"]},
+        {"use": "public_git_artifacts", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["no_republication_permission"]},
+        {"use": "exact_variant_authority", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["marketplace_listing_cannot_create_exact_authority"]}
+      ]
+    },
+    {
+      "source_id": "live-mercari",
+      "source_origin": "blocked_external",
+      "authority_eligibility": "prohibited",
+      "collection_status": "no_source_specific_permission_no_collection",
+      "downstream_permissions": ["none"],
+      "allowed_label_statuses": [],
+      "decisions": [
+        {"use": "query_text", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["no_collection_authorized"]},
+        {"use": "evidence_retention", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["no_collection_authorized"]},
+        {"use": "reviewer_identity", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["seller_account_contact_data_out_of_scope"]},
+        {"use": "local_only_benchmark_use", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["local_storage_does_not_create_permission"]},
+        {"use": "public_git_artifacts", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["no_republication_permission"]},
+        {"use": "exact_variant_authority", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["marketplace_listing_cannot_create_exact_authority"]}
+      ]
+    },
+    {
+      "source_id": "live-facebook-marketplace",
+      "source_origin": "blocked_external",
+      "authority_eligibility": "prohibited",
+      "collection_status": "no_source_specific_permission_no_collection",
+      "downstream_permissions": ["none"],
+      "allowed_label_statuses": [],
+      "decisions": [
+        {"use": "query_text", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["no_collection_authorized"]},
+        {"use": "evidence_retention", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["no_collection_authorized"]},
+        {"use": "reviewer_identity", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["seller_account_contact_data_out_of_scope"]},
+        {"use": "local_only_benchmark_use", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["local_storage_does_not_create_permission"]},
+        {"use": "public_git_artifacts", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["no_republication_permission"]},
+        {"use": "exact_variant_authority", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["marketplace_listing_cannot_create_exact_authority"]}
+      ]
+    },
+    {
+      "source_id": "live-fandom",
+      "source_origin": "blocked_external",
+      "authority_eligibility": "prohibited",
+      "collection_status": "no_source_specific_permission_no_collection",
+      "downstream_permissions": ["none"],
+      "allowed_label_statuses": [],
+      "decisions": [
+        {"use": "query_text", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["existing_checked_in_derivative_does_not_authorize_new_collection"]},
+        {"use": "evidence_retention", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["no_new_collection_authorized"]},
+        {"use": "reviewer_identity", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["account_identity_out_of_scope"]},
+        {"use": "local_only_benchmark_use", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["local_storage_does_not_create_permission"]},
+        {"use": "public_git_artifacts", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["no_new_collection_or_republication_permission"]},
+        {"use": "exact_variant_authority", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["live_wiki_content_cannot_create_exact_authority"]}
+      ]
+    },
+    {
+      "source_id": "live-other-network-source",
+      "source_origin": "blocked_external",
+      "authority_eligibility": "prohibited",
+      "collection_status": "no_source_specific_permission_no_collection",
+      "downstream_permissions": ["none"],
+      "allowed_label_statuses": [],
+      "decisions": [
+        {"use": "query_text", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["source_specific_permission_and_new_inventory_entry_required"]},
+        {"use": "evidence_retention", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["source_specific_permission_and_new_inventory_entry_required"]},
+        {"use": "reviewer_identity", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["personal_information_out_of_scope"]},
+        {"use": "local_only_benchmark_use", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["local_storage_does_not_create_permission"]},
+        {"use": "public_git_artifacts", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["no_republication_permission"]},
+        {"use": "exact_variant_authority", "status": "rejected", "effective_publication_scope": "prohibited", "owner_confirmation_required": false, "owner_confirmed": false, "allowed_fields": [], "conditions": ["unreviewed_network_content_cannot_create_exact_authority"]}
+      ]
+    }
+  ],
+  "gate_result": "passed_for_approved_scopes",
+  "next_allowed_step": "RHB_T4_catalog_ground_truth_eligibility_audit",
+  "prohibited_next_steps": [
+    "network_collection",
+    "query_pack_authoring",
+    "label_authoring",
+    "RHB_T5"
+  ]
+}

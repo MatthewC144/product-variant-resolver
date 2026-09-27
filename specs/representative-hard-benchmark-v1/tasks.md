@@ -1,6 +1,6 @@
 # Representative Hard Benchmark v1 — Tasks
 
-Date: 2026-09-26. Mode: Lite / Lean Industrial. Status: **RHB-T1–T2 COMPLETE; RHB-T3+ NOT STARTED**.
+Date: 2026-09-26. Mode: Lite / Lean Industrial. Status: **RHB-T1–T3 COMPLETE; RHB-T4+ NOT STARTED**.
 
 Each task is intended to be one independently reviewable commit. Tasks that require an owner decision
 are explicit Gates, not implementation steps that an agent may infer or bypass.
@@ -46,7 +46,7 @@ Acceptance:
 
 ### RHB-T3 — Obtain the owner source decision **GATE** `[task_executor/doc_curator]`
 
-- [ ] Present the exact proposed source/use/publication matrix and record the owner's decisions for
+- [x] Present the exact proposed source/use/publication matrix and record the owner's decisions for
   query text, evidence retention, reviewer identity, local-only use, and public Git artifacts.
   _(→RHB-R2–R4,RHB-R21)_
 

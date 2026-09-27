@@ -1,17 +1,29 @@
 # Representative Hard Benchmark v1 data contract
 
 This directory is the versioned, provenance-controlled home of the representative benchmark. At
-RHB-T2 it contains **contracts and the read-only T1 source baseline only**. It is not yet an approved
-benchmark dataset: the owner source decision (T3), canonical authority audit (T4), query authoring,
-and labeling have not happened.
+RHB-T3 it contains strict contracts, the read-only T1 source baseline, and the checksum-bound,
+owner-confirmed source-decision overlay. It is not yet an approved benchmark dataset: the canonical
+authority audit (T4), query authoring, and labeling have not happened.
 
 ## Authority boundary
 
 The validator in `src/product_variant_resolver/representative_benchmark.py` treats every artifact as
 untrusted input and rejects unknown fields. In particular:
 
-- a source may enter a case only for an explicitly allowlisted use after an `approved` owner
-  decision, rights review, privacy review, and publication decision;
+- a source may enter a case only when the T3 overlay has an `approved` source/use cell with a
+  sufficient publication scope; downstream authority/query/label validators consult this overlay
+  instead of treating mutable inventory flags as permission, and the overlay argument is mandatory;
+- the source-decision artifact rejects unknown fields, binds the exact T1 inventory checksum and
+  IDs, requires every source × six uses exactly once, and prohibits a passed Gate from containing
+  `held` cells;
+- typed downstream permissions independently restrict each source to `query_pack`, `scored_labels`,
+  `family_context`, `canonical_authority`, `regression_only`, or `none`; free-text conditions cannot
+  grant access;
+- public Wiki queries must use a `source_record_ref` from the checksum-bound checked-in 100-row
+  revision; arbitrary references are rejected;
+- label validation revalidates serialized query-pack and canonical-authority dependencies against
+  the same inventory/owner decision overlay, so preconstructed or later-mutated models cannot bypass
+  their own source, scope, author, reviewer, or authority gates;
 - `matched` requires an existing frozen-catalog UUID and an `approved_exact` authority record whose
   catalog-record checksum is current and whose verified fields cover every non-empty
   variant-defining catalog field;
@@ -38,6 +50,7 @@ untrusted input and rejects unknown fields. In particular:
 |---|---|---|
 | Source inventory | `pvr-representative-hard-benchmark-source-inventory-v1` | `validate_source_inventory` |
 | T1 source manifest | `pvr-representative-hard-benchmark-source-inventory-manifest-v1` | `validate_source_inventory_manifest` |
+| T3 source decisions | `pvr-representative-hard-benchmark-source-decisions-v1` | `validate_source_decisions` |
 | Canonical authority | `pvr-representative-hard-benchmark-canonical-authority-v1` | `validate_canonical_authority` |
 | Output-blind query pack | `pvr-representative-hard-benchmark-query-pack-v1` | `validate_query_pack` |
 | Owner labels | `pvr-representative-hard-benchmark-labels-v1` | `validate_labels` |
@@ -69,16 +82,27 @@ artifact/version. It must never overwrite v1 while retaining an old checksum.
 
 - `source-inventory.json`: six T1 sources with current and prospective use boundaries.
 - `source-inventory-manifest.json`: checksums, aggregate counts, and repository tracking contract.
+- `source-decisions.json`: 66 owner-confirmed source/use cells bound to the exact inventory checksum;
+  23 are approved for narrow scopes, 43 are rejected, and none are held. The approved scopes are
+  10 `local_only`, 3 `aggregate_only`, and 10 `public_rows`; all 43 rejected cells are `prohibited`.
 
-These files show that the source Gate is still pending and that current real data has zero exact
-canonical mappings. No T3 approval is implied by this README or by successful schema validation.
+T3 passes only for the declared scopes. Human-name queries and `ambiguous`/`no_match` labels remain
+local-only; they can never produce a `matched` label. Workbook rows are local-only family context and
+cannot enter query packs or scored labels. Git receives only schema/hash/count/aggregate/non-sensitive
+summaries for those private sources. The checked-in 100-row Wiki derivative may provide public
+query/context only for its exact revision with attribution and no new collection, and cannot provide
+scored labels. Every live external source remains rejected, `network_collection_authorized=false`,
+and all current sources remain rejected for exact authority. T4 must therefore independently audit
+the zero-real-exact starting point before any matched pilot can proceed.
 
 ## Local verification
 
 ```bash
-.venv/bin/pytest tests/evaluation/test_representative_benchmark_contract.py -q
+.venv/bin/pytest tests/evaluation/test_representative_benchmark_contract.py \
+  tests/evaluation/test_representative_benchmark_source_decisions.py -q
 .venv/bin/ruff check src/product_variant_resolver/representative_benchmark.py \
-  tests/evaluation/test_representative_benchmark_contract.py --select F,I
+  tests/evaluation/test_representative_benchmark_contract.py \
+  tests/evaluation/test_representative_benchmark_source_decisions.py --select F,I
 .venv/bin/mypy --strict src/product_variant_resolver/representative_benchmark.py
 ```
 

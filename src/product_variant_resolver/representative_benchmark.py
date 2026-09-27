@@ -11,11 +11,12 @@ import hashlib
 import json
 import re
 from collections import defaultdict
+from collections.abc import Mapping, Sequence
 from enum import Enum
-from typing import Annotated, Any, Literal, Mapping, NoReturn, Sequence
+from typing import Annotated, Any, Literal, NoReturn
 from uuid import UUID
 
-from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, model_validator
+from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, PrivateAttr, model_validator
 
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 EMAIL_RE = re.compile(r"(?<![\w.+-])[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}(?![\w.-])")
@@ -179,9 +180,11 @@ class SourceInventoryEntry(StrictContract):
             raise ValueError("benchmark use 'none' cannot be combined with another use")
         if self.retention_scope == RetentionScope.prohibited and self.local_sha256 is not None:
             raise ValueError("a prohibited source cannot claim a retained local artifact")
-        if self.redistribution_scope == RedistributionScope.public_rows:
-            if self.retention_scope != RetentionScope.public:
-                raise ValueError("public rows require public retention scope")
+        if (
+            self.redistribution_scope == RedistributionScope.public_rows
+            and self.retention_scope != RetentionScope.public
+        ):
+            raise ValueError("public rows require public retention scope")
         if self.authority_eligibility == AuthorityEligibility.exact_variant_authority_candidate:
             if self.source_kind != SourceKind.authorized_export:
                 raise ValueError(
@@ -243,6 +246,242 @@ class SourceInventory(StrictContract):
         source_ids = [entry.source_id for entry in self.entries]
         if len(source_ids) != len(set(source_ids)):
             raise ValueError("source IDs must be unique")
+        return self
+
+
+class SourceDecisionStatus(str, Enum):
+    approved = "approved"
+    rejected = "rejected"
+    held = "held"
+
+
+class SourceDecisionScope(str, Enum):
+    prohibited = "prohibited"
+    local_only = "local_only"
+    aggregate_only = "aggregate_only"
+    public_rows = "public_rows"
+
+
+class SourceDecisionUse(str, Enum):
+    query_text = "query_text"
+    evidence_retention = "evidence_retention"
+    reviewer_identity = "reviewer_identity"
+    local_only_benchmark_use = "local_only_benchmark_use"
+    public_git_artifacts = "public_git_artifacts"
+    exact_variant_authority = "exact_variant_authority"
+
+
+class SourceDecisionOrigin(str, Enum):
+    inventory = "inventory"
+    blocked_external = "blocked_external"
+
+
+class SourceDownstreamPermission(str, Enum):
+    query_pack = "query_pack"
+    scored_labels = "scored_labels"
+    family_context = "family_context"
+    canonical_authority = "canonical_authority"
+    regression_only = "regression_only"
+    none = "none"
+
+
+class SourceAllowedLabelStatus(str, Enum):
+    matched = "matched"
+    ambiguous = "ambiguous"
+    no_match = "no_match"
+
+
+class SourceCollectionStatus(str, Enum):
+    existing_repository_fixture_only = "existing_repository_fixture_only"
+    existing_rows_only_no_new_collection = "existing_rows_only_no_new_collection"
+    derived_existing_rows_only = "derived_existing_rows_only"
+    owner_local_rows_untracked = "owner_local_rows_untracked"
+    existing_revision_bound_derivative_only = "existing_revision_bound_derivative_only"
+    no_source_specific_permission_no_collection = "no_source_specific_permission_no_collection"
+
+
+PUBLIC_AGGREGATE_FIELDS = frozenset(
+    {
+        "schema",
+        "sha256",
+        "record_count",
+        "non_sensitive_aggregate",
+        "non_sensitive_summary",
+        "reviewer_role",
+    }
+)
+SENSITIVE_FIELD_PARTS = (
+    "seller",
+    "contact",
+    "account",
+    "email",
+    "phone",
+    "personal_name",
+    "pii",
+)
+
+
+class SourceDecisionCell(StrictContract):
+    use: SourceDecisionUse
+    status: SourceDecisionStatus
+    effective_publication_scope: SourceDecisionScope
+    owner_confirmation_required: bool
+    owner_confirmed: bool
+    allowed_fields: list[NonBlank]
+    conditions: list[NonBlank] = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def decision_cell_is_fail_closed(self) -> SourceDecisionCell:
+        if self.status in {SourceDecisionStatus.rejected, SourceDecisionStatus.held}:
+            if self.effective_publication_scope != SourceDecisionScope.prohibited:
+                raise ValueError("rejected/held decisions must prohibit publication")
+            if self.allowed_fields:
+                raise ValueError("rejected/held decisions cannot retain allowed fields")
+        elif not self.allowed_fields:
+            raise ValueError("approved decisions require explicit allowed fields")
+        if self.owner_confirmation_required and not self.owner_confirmed:
+            raise ValueError("owner-confirmed decisions cannot retain an unanswered cell")
+        if self.owner_confirmed and not self.owner_confirmation_required:
+            raise ValueError("a cell cannot claim confirmation that was not required")
+        normalized_fields = {field.casefold() for field in self.allowed_fields}
+        if len(normalized_fields) != len(self.allowed_fields):
+            raise ValueError("allowed fields must be unique")
+        if self.effective_publication_scope == SourceDecisionScope.aggregate_only:
+            unknown = normalized_fields - PUBLIC_AGGREGATE_FIELDS
+            if unknown:
+                raise ValueError(
+                    "aggregate-only publication contains row-level or undeclared fields: "
+                    + ", ".join(sorted(unknown))
+                )
+        if self.effective_publication_scope in {
+            SourceDecisionScope.aggregate_only,
+            SourceDecisionScope.public_rows,
+        }:
+            _reject_obvious_pii(
+                [*self.allowed_fields, *self.conditions],
+                context=f"source-decision {self.use.value}",
+            )
+            sensitive = sorted(
+                field
+                for field in normalized_fields
+                if any(part in field for part in SENSITIVE_FIELD_PARTS)
+            )
+            if sensitive:
+                raise ValueError(
+                    "public/aggregate decisions cannot allow personal-information fields: "
+                    + ", ".join(sensitive)
+                )
+        return self
+
+
+class SourceRecordRefContract(StrictContract):
+    source_file: Literal["data/external/hot-wheels-wiki/pilot-2025/normalized.json"]
+    source_file_sha256: Sha256
+    source_record_count: Literal[100]
+    source_record_id_field: Literal["source_record_id"]
+    source_revision_id: Literal[790665]
+
+
+class SourceDecisionEntry(StrictContract):
+    source_id: NonBlank
+    source_origin: SourceDecisionOrigin
+    authority_eligibility: AuthorityEligibility
+    collection_status: SourceCollectionStatus
+    downstream_permissions: list[SourceDownstreamPermission] = Field(min_length=1)
+    allowed_label_statuses: list[SourceAllowedLabelStatus]
+    record_ref_contract: SourceRecordRefContract | None = None
+    decisions: list[SourceDecisionCell]
+
+    @model_validator(mode="after")
+    def uses_are_complete_and_unique(self) -> SourceDecisionEntry:
+        uses = [decision.use for decision in self.decisions]
+        expected = set(SourceDecisionUse)
+        if len(uses) != len(expected) or set(uses) != expected:
+            raise ValueError("each source must declare every source-decision use exactly once")
+        permissions = set(self.downstream_permissions)
+        if len(permissions) != len(self.downstream_permissions):
+            raise ValueError("downstream permissions must be unique")
+        if SourceDownstreamPermission.none in permissions and len(permissions) != 1:
+            raise ValueError("downstream permission 'none' cannot be combined")
+        statuses = set(self.allowed_label_statuses)
+        if len(statuses) != len(self.allowed_label_statuses):
+            raise ValueError("allowed label statuses must be unique")
+        if statuses and SourceDownstreamPermission.scored_labels not in permissions:
+            raise ValueError("label statuses require scored_labels downstream permission")
+        if SourceDownstreamPermission.scored_labels in permissions and not statuses:
+            raise ValueError("scored_labels permission requires explicit allowed statuses")
+        return self
+
+
+class SourceDecisionPolicy(StrictContract):
+    status_enum: list[SourceDecisionStatus]
+    publication_scope_enum: list[SourceDecisionScope]
+    uses: list[SourceDecisionUse]
+    owner_confirmation_rule: NonBlank
+    network_rule: NonBlank
+
+    @model_validator(mode="after")
+    def declared_enums_match_the_contract(self) -> SourceDecisionPolicy:
+        if self.status_enum != list(SourceDecisionStatus):
+            raise ValueError("declared source-decision statuses are incomplete or reordered")
+        if self.publication_scope_enum != list(SourceDecisionScope):
+            raise ValueError("declared publication scopes are incomplete or reordered")
+        if self.uses != list(SourceDecisionUse):
+            raise ValueError("declared source-decision uses are incomplete or reordered")
+        return self
+
+
+class ReviewerIdentityPolicy(StrictContract):
+    public_identity_mode: Literal["role_only"]
+    reviewer_role: Literal["project_owner"]
+    personal_name_allowed: Literal[False]
+    contact_or_account_data_allowed: Literal[False]
+
+
+class SourceDecisionArtifact(StrictContract):
+    _wiki_source_record_refs: frozenset[str] = PrivateAttr(default_factory=frozenset)
+
+    schema_version: Literal["pvr-representative-hard-benchmark-source-decisions-v1"]
+    decision_version: Literal["representative-hard-benchmark-source-decisions-owner-confirmed-v1"]
+    decision_stage: Literal["owner_confirmed"]
+    owner_review_status: Literal["approved_for_declared_scopes"]
+    owner_confirmed_by: Literal["project_owner"]
+    owner_confirmed_at: AwareDatetime
+    inventory_version: NonBlank
+    inventory_sha256: Sha256
+    network_collection_authorized: Literal[False]
+    decision_policy: SourceDecisionPolicy
+    reviewer_identity_policy: ReviewerIdentityPolicy
+    sources: list[SourceDecisionEntry] = Field(min_length=1)
+    gate_result: Literal["passed_for_approved_scopes"]
+    next_allowed_step: Literal["RHB_T4_catalog_ground_truth_eligibility_audit"]
+    prohibited_next_steps: list[NonBlank]
+
+    @property
+    def wiki_source_record_refs(self) -> frozenset[str]:
+        """Exact record IDs derived from the checksum-validated Wiki revision."""
+
+        return self._wiki_source_record_refs
+
+    @model_validator(mode="after")
+    def gate_is_complete_and_source_ids_are_unique(self) -> SourceDecisionArtifact:
+        source_ids = [source.source_id for source in self.sources]
+        if len(source_ids) != len(set(source_ids)):
+            raise ValueError("source-decision source IDs must be unique")
+        if any(
+            decision.status == SourceDecisionStatus.held
+            for source in self.sources
+            for decision in source.decisions
+        ):
+            raise ValueError("a passed source Gate cannot contain held decisions")
+        required_prohibitions = {
+            "network_collection",
+            "query_pack_authoring",
+            "label_authoring",
+            "RHB_T5",
+        }
+        if set(self.prohibited_next_steps) != required_prohibitions:
+            raise ValueError("passed Gate must retain the exact downstream prohibitions")
         return self
 
 
@@ -679,36 +918,6 @@ def _source_map(inventory: SourceInventory) -> dict[str, SourceInventoryEntry]:
     return {entry.source_id: entry for entry in inventory.entries}
 
 
-def _approved_source_for_use(
-    source: SourceInventoryEntry,
-    use: BenchmarkUse,
-    *,
-    public_rows: bool,
-) -> None:
-    if source.owner_decision != OwnerDecision.approved:
-        _raise(f"source {source.source_id!r} has no approved owner decision")
-    if use not in source.benchmark_uses:
-        _raise(f"source {source.source_id!r} is not approved for {use.value}")
-    if source.prospective_benchmark_use_status != "approved":
-        _raise(f"source {source.source_id!r} prospective benchmark use is not approved")
-    if source.privacy_review_status != PrivacyStatus.approved:
-        _raise(f"source {source.source_id!r} has no approved privacy review")
-    if source.access_permission_status not in {
-        PermissionStatus.approved,
-        PermissionStatus.not_applicable,
-    }:
-        _raise(f"source {source.source_id!r} lacks access permission")
-    if source.content_license_status != LicenseStatus.approved:
-        _raise(f"source {source.source_id!r} lacks approved content rights")
-    if public_rows and (
-        source.retention_scope != RetentionScope.public
-        or source.redistribution_scope != RedistributionScope.public_rows
-    ):
-        _raise(f"source {source.source_id!r} is not approved for public row publication")
-    if public_rows and source.prospective_redistribution_status != "approved":
-        _raise(f"source {source.source_id!r} prospective redistribution is not approved")
-
-
 def validate_source_inventory(payload: Mapping[str, Any]) -> SourceInventory:
     """Parse a source inventory and reject undeclared fields or incoherent boundaries."""
 
@@ -731,6 +940,467 @@ def validate_source_inventory_manifest(
     if manifest.alignment_summary != inventory.alignment_summary:
         _raise("source inventory alignment summary does not match its manifest")
     return manifest
+
+
+BLOCKED_EXTERNAL_SOURCE_IDS = frozenset(
+    {
+        "live-ebay",
+        "live-mercari",
+        "live-facebook-marketplace",
+        "live-fandom",
+        "live-other-network-source",
+    }
+)
+WORKBOOK_ALLOWED_FIELDS = frozenset(
+    {
+        "product_name",
+        "year",
+        "series",
+        "color",
+        "collector_number",
+        "series_position",
+    }
+)
+HUMAN_SOURCE_ID = "human-labeled-real-noisy-v1"
+ALIGNMENT_SOURCE_ID = "human-labeled-to-fixture-alignment-v1"
+WORKBOOK_SOURCE_ID = "owner-local-release-snapshot-2023-2026-v1"
+WIKI_SOURCE_ID = "fandom-hot-wheels-2025-pilot-r790665-v1"
+
+
+def _decision_map(source: SourceDecisionEntry) -> dict[SourceDecisionUse, SourceDecisionCell]:
+    return {decision.use: decision for decision in source.decisions}
+
+
+def _expect_decision(
+    sources: Mapping[str, SourceDecisionEntry],
+    source_id: str,
+    use: SourceDecisionUse,
+    status: SourceDecisionStatus,
+    scope: SourceDecisionScope,
+    *,
+    allowed_fields: set[str] | frozenset[str] | None = None,
+) -> SourceDecisionCell:
+    cell = _decision_map(sources[source_id])[use]
+    if cell.status != status or cell.effective_publication_scope != scope:
+        _raise(f"source decision {source_id!r}/{use.value} changed the owner-approved status/scope")
+    if allowed_fields is not None and set(cell.allowed_fields) != set(allowed_fields):
+        _raise(f"source decision {source_id!r}/{use.value} changed its allowed fields")
+    return cell
+
+
+def validate_source_decisions(
+    payload: Mapping[str, Any],
+    *,
+    inventory_payload: Mapping[str, Any],
+    wiki_source_payload: Mapping[str, Any],
+) -> SourceDecisionArtifact:
+    """Validate the owner-confirmed T3 decision overlay against the exact T1 inventory."""
+
+    artifact = SourceDecisionArtifact.model_validate(payload)
+    inventory = validate_source_inventory(inventory_payload)
+    if artifact.inventory_version != inventory.inventory_version:
+        _raise("source decisions reference the wrong inventory version")
+    if artifact.inventory_sha256 != content_sha256(inventory_payload):
+        _raise("source decisions contain a stale source-inventory checksum")
+
+    _validate_decision_package(artifact, inventory)
+    wiki_source = next(source for source in artifact.sources if source.source_id == WIKI_SOURCE_ID)
+    assert wiki_source.record_ref_contract is not None
+    wiki_contract = wiki_source.record_ref_contract
+    if content_sha256(wiki_source_payload) != wiki_contract.source_file_sha256:
+        _raise("Wiki source-record reference file checksum is stale")
+    records = wiki_source_payload.get("records")
+    if not isinstance(records, list) or len(records) != wiki_contract.source_record_count:
+        _raise("Wiki source-record reference file has the wrong record count")
+    record_refs: list[str] = []
+    for index, record in enumerate(records):
+        if not isinstance(record, Mapping):
+            _raise(f"Wiki source record {index} must be an object")
+        raw_ref = record.get(wiki_contract.source_record_id_field)
+        source_metadata = record.get("source")
+        if not isinstance(raw_ref, str) or not raw_ref:
+            _raise(f"Wiki source record {index} has no source_record_id")
+        if not isinstance(source_metadata, Mapping) or (
+            source_metadata.get("revision_id") != wiki_contract.source_revision_id
+        ):
+            _raise(f"Wiki source record {raw_ref!r} has the wrong source revision")
+        record_refs.append(raw_ref)
+    if len(record_refs) != len(set(record_refs)):
+        _raise("Wiki source-record IDs must be unique")
+    artifact._wiki_source_record_refs = frozenset(record_refs)
+    return artifact
+
+
+def _validate_decision_package(
+    artifact: SourceDecisionArtifact, inventory: SourceInventory
+) -> None:
+    """Recheck the immutable owner package before every downstream use."""
+
+    inventory_sources = _source_map(inventory)
+    sources = {source.source_id: source for source in artifact.sources}
+    inventory_decision_ids = {
+        source.source_id
+        for source in artifact.sources
+        if source.source_origin == SourceDecisionOrigin.inventory
+    }
+    if inventory_decision_ids != set(inventory_sources):
+        _raise("source decisions must cover every inventory source exactly once")
+    blocked_ids = {
+        source.source_id
+        for source in artifact.sources
+        if source.source_origin == SourceDecisionOrigin.blocked_external
+    }
+    if blocked_ids != BLOCKED_EXTERNAL_SOURCE_IDS:
+        _raise("source decisions must enumerate every blocked live external source")
+
+    expected_permissions = {
+        "fixture-v1-benchmark": {SourceDownstreamPermission.regression_only},
+        "fixture-v1-catalog": {SourceDownstreamPermission.regression_only},
+        HUMAN_SOURCE_ID: {
+            SourceDownstreamPermission.query_pack,
+            SourceDownstreamPermission.scored_labels,
+        },
+        ALIGNMENT_SOURCE_ID: {SourceDownstreamPermission.family_context},
+        WORKBOOK_SOURCE_ID: {SourceDownstreamPermission.family_context},
+        WIKI_SOURCE_ID: {
+            SourceDownstreamPermission.query_pack,
+            SourceDownstreamPermission.family_context,
+        },
+    }
+    for source_id, permissions in expected_permissions.items():
+        if set(sources[source_id].downstream_permissions) != permissions:
+            _raise(f"source {source_id!r} changed its typed downstream permissions")
+    if set(sources[HUMAN_SOURCE_ID].allowed_label_statuses) != {
+        SourceAllowedLabelStatus.ambiguous,
+        SourceAllowedLabelStatus.no_match,
+    }:
+        _raise("human source labels must remain limited to ambiguous/no_match")
+    for source_id in set(expected_permissions) - {HUMAN_SOURCE_ID}:
+        if sources[source_id].allowed_label_statuses:
+            _raise(f"source {source_id!r} cannot produce scored labels")
+
+    fixture_cells = {
+        "fixture-v1-benchmark": {
+            SourceDecisionUse.evidence_retention: {
+                "existing_fixture_rows",
+            },
+            SourceDecisionUse.local_only_benchmark_use: {
+                "synthetic_query",
+                "synthetic_expected_status",
+            },
+            SourceDecisionUse.public_git_artifacts: {
+                "existing_fixture_rows",
+                "fixture_manifests",
+                "regression_results",
+            },
+        },
+        "fixture-v1-catalog": {
+            SourceDecisionUse.evidence_retention: {
+                "existing_fixture_catalog_rows",
+            },
+            SourceDecisionUse.local_only_benchmark_use: {
+                "synthetic_catalog_record",
+            },
+            SourceDecisionUse.public_git_artifacts: {
+                "existing_fixture_catalog_rows",
+                "fixture_manifests",
+                "regression_results",
+            },
+        },
+    }
+    for source_id, approved_cells in fixture_cells.items():
+        for use in {SourceDecisionUse.query_text, SourceDecisionUse.reviewer_identity}:
+            _expect_decision(
+                sources,
+                source_id,
+                use,
+                SourceDecisionStatus.rejected,
+                SourceDecisionScope.prohibited,
+                allowed_fields=set(),
+            )
+        for use, allowed_fields in approved_cells.items():
+            _expect_decision(
+                sources,
+                source_id,
+                use,
+                SourceDecisionStatus.approved,
+                (
+                    SourceDecisionScope.local_only
+                    if use == SourceDecisionUse.local_only_benchmark_use
+                    else SourceDecisionScope.public_rows
+                ),
+                allowed_fields=allowed_fields,
+            )
+
+    for source_id, inventory_source in inventory_sources.items():
+        decision_source = sources[source_id]
+        if decision_source.authority_eligibility != inventory_source.authority_eligibility:
+            _raise(f"source decision {source_id!r} changed inventory authority eligibility")
+        if source_id in expected_permissions:
+            exact = _decision_map(decision_source)[SourceDecisionUse.exact_variant_authority]
+            if (
+                exact.status != SourceDecisionStatus.rejected
+                or exact.effective_publication_scope != SourceDecisionScope.prohibited
+            ):
+                _raise(f"current source {source_id!r} cannot be exact variant authority")
+
+    for source_id in BLOCKED_EXTERNAL_SOURCE_IDS:
+        source = sources[source_id]
+        if source.authority_eligibility != AuthorityEligibility.prohibited:
+            _raise(f"blocked external source {source_id!r} changed authority eligibility")
+        if (
+            source.collection_status
+            != SourceCollectionStatus.no_source_specific_permission_no_collection
+        ):
+            _raise(f"blocked external source {source_id!r} changed collection status")
+        if any(
+            decision.status != SourceDecisionStatus.rejected
+            or decision.effective_publication_scope != SourceDecisionScope.prohibited
+            or decision.allowed_fields
+            for decision in source.decisions
+        ):
+            _raise(f"blocked external source {source_id!r} must remain fully rejected")
+        if source.downstream_permissions != [SourceDownstreamPermission.none]:
+            _raise(f"blocked external source {source_id!r} cannot have downstream permission")
+        if source.allowed_label_statuses or source.record_ref_contract is not None:
+            _raise(f"blocked external source {source_id!r} cannot expose rows or labels")
+
+    _expect_decision(
+        sources,
+        HUMAN_SOURCE_ID,
+        SourceDecisionUse.query_text,
+        SourceDecisionStatus.approved,
+        SourceDecisionScope.local_only,
+        allowed_fields={"query_text"},
+    )
+    _expect_decision(
+        sources,
+        HUMAN_SOURCE_ID,
+        SourceDecisionUse.evidence_retention,
+        SourceDecisionStatus.approved,
+        SourceDecisionScope.local_only,
+        allowed_fields={"raw_query_evidence"},
+    )
+    _expect_decision(
+        sources,
+        HUMAN_SOURCE_ID,
+        SourceDecisionUse.local_only_benchmark_use,
+        SourceDecisionStatus.approved,
+        SourceDecisionScope.local_only,
+        allowed_fields={"query_text", "human_label", "family_label"},
+    )
+    _expect_decision(
+        sources,
+        HUMAN_SOURCE_ID,
+        SourceDecisionUse.public_git_artifacts,
+        SourceDecisionStatus.approved,
+        SourceDecisionScope.aggregate_only,
+        allowed_fields={
+            "schema",
+            "sha256",
+            "record_count",
+            "non_sensitive_aggregate",
+            "non_sensitive_summary",
+            "reviewer_role",
+        },
+    )
+
+    _expect_decision(
+        sources,
+        ALIGNMENT_SOURCE_ID,
+        SourceDecisionUse.evidence_retention,
+        SourceDecisionStatus.approved,
+        SourceDecisionScope.local_only,
+        allowed_fields={"alignment_status", "review_family_id", "source_record_digest"},
+    )
+    _expect_decision(
+        sources,
+        ALIGNMENT_SOURCE_ID,
+        SourceDecisionUse.local_only_benchmark_use,
+        SourceDecisionStatus.approved,
+        SourceDecisionScope.local_only,
+        allowed_fields={"alignment_status", "review_family_id", "source_record_digest"},
+    )
+    _expect_decision(
+        sources,
+        ALIGNMENT_SOURCE_ID,
+        SourceDecisionUse.public_git_artifacts,
+        SourceDecisionStatus.approved,
+        SourceDecisionScope.aggregate_only,
+        allowed_fields={
+            "schema",
+            "sha256",
+            "record_count",
+            "non_sensitive_aggregate",
+            "non_sensitive_summary",
+        },
+    )
+    for use in {SourceDecisionUse.query_text, SourceDecisionUse.reviewer_identity}:
+        _expect_decision(
+            sources,
+            ALIGNMENT_SOURCE_ID,
+            use,
+            SourceDecisionStatus.rejected,
+            SourceDecisionScope.prohibited,
+            allowed_fields=set(),
+        )
+
+    _expect_decision(
+        sources,
+        WORKBOOK_SOURCE_ID,
+        SourceDecisionUse.query_text,
+        SourceDecisionStatus.rejected,
+        SourceDecisionScope.prohibited,
+        allowed_fields=set(),
+    )
+    for use in {
+        SourceDecisionUse.evidence_retention,
+        SourceDecisionUse.local_only_benchmark_use,
+    }:
+        _expect_decision(
+            sources,
+            WORKBOOK_SOURCE_ID,
+            use,
+            SourceDecisionStatus.approved,
+            SourceDecisionScope.local_only,
+            allowed_fields=WORKBOOK_ALLOWED_FIELDS,
+        )
+    _expect_decision(
+        sources,
+        WORKBOOK_SOURCE_ID,
+        SourceDecisionUse.public_git_artifacts,
+        SourceDecisionStatus.approved,
+        SourceDecisionScope.aggregate_only,
+        allowed_fields={
+            "schema",
+            "sha256",
+            "record_count",
+            "non_sensitive_aggregate",
+            "non_sensitive_summary",
+            "reviewer_role",
+        },
+    )
+
+    wiki_query = _expect_decision(
+        sources,
+        WIKI_SOURCE_ID,
+        SourceDecisionUse.query_text,
+        SourceDecisionStatus.approved,
+        SourceDecisionScope.public_rows,
+        allowed_fields={"existing_revision_bound_text_derivative", "attribution"},
+    )
+    if not {"no_new_collection", "existing_checked_in_100_rows_only"}.issubset(
+        wiki_query.conditions
+    ):
+        _raise("Wiki query approval must remain revision-bound with no new collection")
+    _expect_decision(
+        sources,
+        WIKI_SOURCE_ID,
+        SourceDecisionUse.local_only_benchmark_use,
+        SourceDecisionStatus.approved,
+        SourceDecisionScope.local_only,
+        allowed_fields={"existing_revision_bound_text_derivative", "attribution"},
+    )
+    wiki_ref_contract = sources[WIKI_SOURCE_ID].record_ref_contract
+    if wiki_ref_contract is None:
+        _raise("Wiki query permission requires a typed source-record reference contract")
+    wiki_inventory = inventory_sources[WIKI_SOURCE_ID]
+    if (
+        wiki_inventory.local_sha256 != wiki_ref_contract.source_file_sha256
+        or wiki_inventory.record_count != wiki_ref_contract.source_record_count
+    ):
+        _raise("Wiki record-reference contract disagrees with the inventory digest/count")
+    for source_id, source in sources.items():
+        if source_id != WIKI_SOURCE_ID and source.record_ref_contract is not None:
+            _raise(f"source {source_id!r} cannot declare a Wiki record-reference contract")
+    for use in {
+        SourceDecisionUse.evidence_retention,
+        SourceDecisionUse.public_git_artifacts,
+    }:
+        wiki_cell = _decision_map(sources[WIKI_SOURCE_ID])[use]
+        if (
+            wiki_cell.status != SourceDecisionStatus.approved
+            or wiki_cell.effective_publication_scope != SourceDecisionScope.public_rows
+            or "attribution" not in wiki_cell.allowed_fields
+            or "no_new_collection" not in wiki_cell.conditions
+        ):
+            _raise("Wiki public approval requires attribution and no-new-collection boundaries")
+
+    for source_id in {HUMAN_SOURCE_ID, WORKBOOK_SOURCE_ID, WIKI_SOURCE_ID}:
+        _expect_decision(
+            sources,
+            source_id,
+            SourceDecisionUse.reviewer_identity,
+            SourceDecisionStatus.approved,
+            SourceDecisionScope.public_rows,
+            allowed_fields={"reviewer_role"},
+        )
+        if (
+            "role_only_project_owner"
+            not in _decision_map(sources[source_id])[SourceDecisionUse.reviewer_identity].conditions
+        ):
+            _raise(f"source {source_id!r} reviewer identity must remain role-only")
+
+
+def _assert_decisions_match_inventory(
+    decisions: SourceDecisionArtifact, inventory: SourceInventory
+) -> None:
+    _validate_decision_package(decisions, inventory)
+    normalized_inventory = inventory.model_dump(mode="json", exclude_none=True)
+    if decisions.inventory_sha256 != content_sha256(normalized_inventory):
+        _raise("source-decision overlay checksum does not match the supplied inventory")
+    if decisions.inventory_version != inventory.inventory_version:
+        _raise("source-decision overlay does not match the supplied inventory version")
+    inventory_sources = _source_map(inventory)
+    decision_sources = {
+        source.source_id: source
+        for source in decisions.sources
+        if source.source_origin == SourceDecisionOrigin.inventory
+    }
+    if set(decision_sources) != set(inventory_sources):
+        _raise("source-decision overlay does not match the supplied inventory IDs")
+    for source_id, inventory_source in inventory_sources.items():
+        if (
+            decision_sources[source_id].authority_eligibility
+            != inventory_source.authority_eligibility
+        ):
+            _raise("source-decision overlay changed inventory authority eligibility")
+
+
+def _require_downstream_permission(
+    decisions: SourceDecisionArtifact,
+    source_id: str,
+    permission: SourceDownstreamPermission,
+) -> SourceDecisionEntry:
+    source = next(
+        (source for source in decisions.sources if source.source_id == source_id),
+        None,
+    )
+    if source is None or permission not in source.downstream_permissions:
+        _raise(f"source {source_id!r} lacks typed {permission.value} permission")
+    return source
+
+
+def _approved_decision_for_use(
+    decisions: SourceDecisionArtifact,
+    source_id: str,
+    use: SourceDecisionUse,
+    *,
+    required_scope: SourceDecisionScope,
+) -> SourceDecisionCell:
+    sources = {source.source_id: source for source in decisions.sources}
+    source = sources.get(source_id)
+    if source is None:
+        _raise(f"source {source_id!r} has no owner-confirmed source decision")
+    cell = _decision_map(source)[use]
+    if cell.status != SourceDecisionStatus.approved:
+        _raise(f"source {source_id!r} is not owner-approved for {use.value}")
+    allowed_scopes = {required_scope}
+    if required_scope == SourceDecisionScope.local_only:
+        allowed_scopes.add(SourceDecisionScope.public_rows)
+    if cell.effective_publication_scope not in allowed_scopes:
+        _raise(f"source {source_id!r}/{use.value} cannot satisfy {required_scope.value} scope")
+    return cell
 
 
 def _catalog_index(
@@ -761,10 +1431,12 @@ def validate_canonical_authority(
     *,
     inventory: SourceInventory,
     catalog_payload: Mapping[str, Any],
+    source_decisions: SourceDecisionArtifact,
 ) -> CanonicalAuthorityArtifact:
     """Validate exact-variant authority against approved sources and the frozen catalog."""
 
     artifact = CanonicalAuthorityArtifact.model_validate(payload)
+    _assert_decisions_match_inventory(source_decisions, inventory)
     catalog_version, catalog = _catalog_index(catalog_payload)
     sources = _source_map(inventory)
     for record in artifact.records:
@@ -778,6 +1450,8 @@ def validate_canonical_authority(
                 ],
                 context=f"authority {record.authority_id!r}",
             )
+        if record.reviewed_by != source_decisions.reviewer_identity_policy.reviewer_role:
+            _raise("authority reviews must use role-only reviewer project_owner")
         if record.canonical_catalog_version != catalog_version:
             _raise(f"authority {record.authority_id!r} references the wrong catalog version")
         product = catalog.get(record.canonical_uuid)
@@ -790,6 +1464,21 @@ def validate_canonical_authority(
             if source is None:
                 _raise(f"authority {record.authority_id!r} references unknown source {source_id!r}")
             if record.status == AuthorityStatus.approved_exact:
+                _require_downstream_permission(
+                    source_decisions,
+                    source.source_id,
+                    SourceDownstreamPermission.canonical_authority,
+                )
+                _approved_decision_for_use(
+                    source_decisions,
+                    source.source_id,
+                    SourceDecisionUse.exact_variant_authority,
+                    required_scope=(
+                        SourceDecisionScope.public_rows
+                        if artifact.publication_scope == RowPublicationScope.public
+                        else SourceDecisionScope.local_only
+                    ),
+                )
                 if (
                     source.authority_eligibility
                     != AuthorityEligibility.exact_variant_authority_candidate
@@ -800,11 +1489,6 @@ def validate_canonical_authority(
                     _raise(
                         f"source {source.source_id!r} is permanently ineligible for exact authority"
                     )
-                _approved_source_for_use(
-                    source,
-                    BenchmarkUse.exact_variant_authority,
-                    public_rows=artifact.publication_scope == RowPublicationScope.public,
-                )
         if record.status == AuthorityStatus.approved_exact:
             catalog_field_map = {
                 VariantField.casting: "casting",
@@ -831,28 +1515,61 @@ def validate_canonical_authority(
     return artifact
 
 
-def validate_query_pack(payload: Mapping[str, Any], *, inventory: SourceInventory) -> QueryPack:
+def validate_query_pack(
+    payload: Mapping[str, Any],
+    *,
+    inventory: SourceInventory,
+    source_decisions: SourceDecisionArtifact,
+) -> QueryPack:
     """Validate output-blind cases and their exact source/publication permission."""
 
     artifact = QueryPack.model_validate(payload)
+    _assert_decisions_match_inventory(source_decisions, inventory)
     sources = _source_map(inventory)
     for case in artifact.cases:
         source = sources.get(case.source_id)
         if source is None:
             _raise(f"query {case.case_id!r} references unknown source {case.source_id!r}")
-        _approved_source_for_use(
-            source,
-            BenchmarkUse.query_provenance,
-            public_rows=artifact.publication_scope == RowPublicationScope.public
-            or case.public_safe,
+        decision_source = _require_downstream_permission(
+            source_decisions,
+            source.source_id,
+            SourceDownstreamPermission.query_pack,
         )
+        required_scope = (
+            SourceDecisionScope.public_rows
+            if artifact.publication_scope == RowPublicationScope.public
+            else SourceDecisionScope.local_only
+        )
+        _approved_decision_for_use(
+            source_decisions,
+            source.source_id,
+            SourceDecisionUse.query_text,
+            required_scope=required_scope,
+        )
+        if case.authored_by != source_decisions.reviewer_identity_policy.reviewer_role:
+            _raise("queries must use role-only author project_owner")
+        if artifact.publication_scope == RowPublicationScope.public:
+            _approved_decision_for_use(
+                source_decisions,
+                source.source_id,
+                SourceDecisionUse.public_git_artifacts,
+                required_scope=SourceDecisionScope.public_rows,
+            )
+        if source.source_id == WIKI_SOURCE_ID:
+            if decision_source.record_ref_contract is None:
+                _raise("Wiki query source has no record-reference contract")
+            if case.source_record_ref not in source_decisions.wiki_source_record_refs:
+                _raise("Wiki query source_record_ref is outside the approved 100-row revision")
         if artifact.representative_pilot and source.source_kind == SourceKind.synthetic_fixture:
             _raise("synthetic queries cannot count toward the representative pilot")
         if artifact.publication_scope == RowPublicationScope.public and not case.public_safe:
             _raise("a public query pack cannot contain a non-public-safe row")
-        if source.retention_scope == RetentionScope.local_only and case.source_record_ref:
-            if artifact.publication_scope == RowPublicationScope.public:
-                _raise("public query packs cannot expose local-only source references")
+        if (
+            source.retention_scope == RetentionScope.local_only
+            and case.source_record_ref
+            and artifact.publication_scope == RowPublicationScope.public
+        ):
+            _raise("public query packs cannot expose local-only source references")
     return artifact
 
 
@@ -862,12 +1579,26 @@ def validate_labels(
     query_pack: QueryPack,
     authority: CanonicalAuthorityArtifact,
     catalog_payload: Mapping[str, Any],
+    inventory: SourceInventory,
+    source_decisions: SourceDecisionArtifact,
 ) -> LabelArtifact:
     """Validate label semantics and prohibit non-canonical identities from becoming truth."""
 
     artifact = LabelArtifact.model_validate(payload)
-    queries = {case.case_id: case for case in query_pack.cases}
-    authorities = {record.authority_id: record for record in authority.records}
+    validated_query_pack = validate_query_pack(
+        query_pack.model_dump(mode="json"),
+        inventory=inventory,
+        source_decisions=source_decisions,
+    )
+    validated_authority = validate_canonical_authority(
+        authority.model_dump(mode="json"),
+        inventory=inventory,
+        catalog_payload=catalog_payload,
+        source_decisions=source_decisions,
+    )
+    _assert_decisions_match_inventory(source_decisions, inventory)
+    queries = {case.case_id: case for case in validated_query_pack.cases}
+    authorities = {record.authority_id: record for record in validated_authority.records}
     _, catalog = _catalog_index(catalog_payload)
     for label in artifact.records:
         if artifact.publication_scope == RowPublicationScope.public:
@@ -885,6 +1616,42 @@ def validate_labels(
             _raise(f"label {label.case_id!r} has no query")
         if label.source_id != query.source_id:
             _raise(f"label {label.case_id!r} changed the query source")
+        decision_source = _require_downstream_permission(
+            source_decisions,
+            label.source_id,
+            SourceDownstreamPermission.scored_labels,
+        )
+        if (
+            SourceAllowedLabelStatus(label.expected_status.value)
+            not in decision_source.allowed_label_statuses
+        ):
+            _raise(
+                f"source {label.source_id!r} cannot produce {label.expected_status.value} labels"
+            )
+        _approved_decision_for_use(
+            source_decisions,
+            label.source_id,
+            SourceDecisionUse.local_only_benchmark_use,
+            required_scope=SourceDecisionScope.local_only,
+        )
+        reviewer = _approved_decision_for_use(
+            source_decisions,
+            label.source_id,
+            SourceDecisionUse.reviewer_identity,
+            required_scope=SourceDecisionScope.public_rows,
+        )
+        if (
+            label.reviewed_by != source_decisions.reviewer_identity_policy.reviewer_role
+            or reviewer.allowed_fields != ["reviewer_role"]
+        ):
+            _raise("owner-confirmed labels must use role-only reviewer project_owner")
+        if artifact.publication_scope == RowPublicationScope.public:
+            _approved_decision_for_use(
+                source_decisions,
+                label.source_id,
+                SourceDecisionUse.public_git_artifacts,
+                required_scope=SourceDecisionScope.public_rows,
+            )
         if artifact.publication_scope == RowPublicationScope.public and (
             not label.public_safe or not query.public_safe
         ):
@@ -1044,6 +1811,9 @@ __all__ = [
     "LabelBlindRawArtifact",
     "QueryPack",
     "ScoredResultsArtifact",
+    "SourceDecisionArtifact",
+    "SourceDecisionCell",
+    "SourceDecisionEntry",
     "SourceInventory",
     "SourceInventoryEntry",
     "SplitArtifact",
@@ -1056,6 +1826,7 @@ __all__ = [
     "validate_labels",
     "validate_query_pack",
     "validate_scored_results",
+    "validate_source_decisions",
     "validate_source_inventory",
     "validate_source_inventory_manifest",
     "validate_split",

@@ -1,12 +1,12 @@
 # Representative Hard Benchmark v1 — Lean QA Review
 
-Date: 2026-09-26. Mode: Lite / Lean Industrial. Scope: **RHB-T1 recheck 2 + RHB-T2 initial QA**.
+Date: 2026-09-26. Mode: Lite / Lean Industrial. Scope: **RHB-T1/T2 history + RHB-T3 final QA**.
 
-## Current milestone verdict: PASS
+## Current milestone verdict: PASS (RHB-T3)
 
-RHB-T1 remains PASS. RHB-T2 passed its final recheck after the Phase 2 repair documented at the end
-of this review. The initial RHB-T2 FAIL and its reproduction evidence are retained below as QA
-history; the final recheck supersedes that earlier verdict. RHB-T3 has not started.
+RHB-T1 and RHB-T2 remain PASS. RHB-T3 passed final recheck 3 after closing the artifact, downstream,
+and composition fail-closed defects. The initial QA FAIL plus final recheck 1 and 2 FAIL evidence are
+retained below as engineering history; the final PASS at the end of this review supersedes them.
 
 ## RHB-T1 historical verdict: PASS
 
@@ -434,3 +434,564 @@ RHB-T2 is complete. RHB-T3 is still an unstarted owner-decision Gate: its checkb
 both `source-approval.md` and `source-decisions.json` are absent. The next task may therefore prepare
 the exact source/use/publication decision matrix for owner review, but it must not infer an approval,
 collect external data, author benchmark cases, or claim that exact real-variant authority exists.
+
+---
+
+## RHB-T3 initial QA
+
+### Verdict: FAIL
+
+The recorded matrix matches the conservative package that the owner approved: 11 sources × 6 uses
+produce 66 explicit cells, with 24 `approved`, 42 `rejected`, and 0 `held`. The current artifact
+keeps the 101 human rows and 1,763 workbook rows local-only, restricts workbook fields to the six
+approved product fields, preserves only the existing attributed 100-row Wiki derivative, exposes
+reviewer identity as `project_owner` role only, rejects every exact-authority use, and sets
+`network_collection_authorized=false`. RHB-T4/T5 work has not started.
+
+That correct snapshot is not enough to pass Gate B, however. The artifact is parsed as an
+unvalidated `dict`; no strict source-decision contract binds it to the inventoried source revision or
+enforces the cross-field publication/privacy rules. The focused tests assert selected values in the
+current file, but three deliberately invalid in-memory mutations all remained accepted by every
+RHB-T3 test. The Gate is therefore not fail-closed as required by RHB-R2, RHB-R4, and RHB-R21.
+
+### Checked items
+
+- Owner confirmation is recorded as role-only `project_owner` at
+  `2026-09-27T01:44:16Z`, after the proposal and before this QA run.
+- All six inventory source IDs are present exactly once; five explicitly blocked live-source rows
+  cover eBay, Mercari, Facebook Marketplace, Fandom, and every other network source.
+- Every source has exactly the six declared use cells and every current cell has an explicit
+  `approved` or `rejected` status; there are no blank or implied approvals.
+- Human-label, alignment, workbook, Wiki, reviewer-identity, exact-authority, raw-evidence,
+  public/private, and no-new-network-collection boundaries were compared with the owner's approved
+  proposal and the Gate B design.
+- T1/T2/T3 focused tests, API/catalog regression, full test suite, JSON parsing, Ruff lint, Ruff
+  format, strict MyPy, compileall, diff whitespace, hardcoded-secret scan, and network-client import
+  scope were checked.
+
+### Findings
+
+#### Blocker
+
+1. **The source-decision Gate is not fail-closed.** There is no strict schema or validator for
+   `source-decisions.json`, and no checksum binds it to `source-inventory.json`. The production
+   benchmark validators still consume the T1 inventory whose owner/prospective-use fields remain
+   pending; they do not consume this confirmed decision overlay. Current tests accepted all three
+   of these invalid mutations: an unknown top-level field, `seller_email` added to the human public
+   artifact allowlist, and a rejected exact-authority cell changed to `public_rows` with raw evidence
+   allowed. A future edit can therefore widen publication/privacy boundaries while the RHB-T3 tests
+   remain green.
+
+#### Important
+
+1. `ruff format --check` fails on
+   `tests/evaluation/test_representative_benchmark_source_decisions.py`. The test is typed and lint
+   clean, but the task cannot be called repository-clean while its own focused file is unformatted.
+2. `data/evaluation/representative-hard-benchmark-v1/README.md` still says only T1/T2 exist, T3 has
+   not happened, and the source Gate is pending. That is now stale and contradicts the confirmed
+   decision package.
+
+#### Later
+
+- None. RHB-T4 is the next planned task only after this RHB-T3 repair passes QA; its lack of exact
+  authority is an expected Gate-C question, not a reason to weaken the T3 source boundaries.
+
+### Reproduction and evidence
+
+```text
+jq empty data/evaluation/representative-hard-benchmark-v1/source-decisions.json
+PASS
+
+PYTHONPATH=src .venv/bin/pytest -o addopts='' -q \
+  tests/evaluation/test_representative_hard_benchmark_source_inventory.py \
+  tests/evaluation/test_representative_benchmark_contract.py \
+  tests/evaluation/test_representative_benchmark_source_decisions.py
+44 passed in 0.28s
+
+PYTHONPATH=src .venv/bin/pytest -o addopts='' -q \
+  tests/api tests/integration/test_catalog_service.py tests/test_fixture_data.py \
+  tests/unit/test_retrieval_policy.py
+66 passed, 1 warning in 4.62s
+
+PYTHONPATH=src .venv/bin/pytest -o addopts='' -q
+1019 passed, 1 warning in 95.25s
+
+.venv/bin/ruff check --select F,I <RHB-T1/T2/T3 focused files>
+All checks passed!
+
+.venv/bin/ruff format --check <RHB-T1/T2/T3 focused files>
+FAIL: tests/evaluation/test_representative_benchmark_source_decisions.py would be reformatted
+
+.venv/bin/mypy --strict <RHB-T1/T2/T3 focused files>
+Success: no issues found in 5 source files
+
+.venv/bin/python -m compileall -q src <RHB-T1/T2/T3 focused files>
+PASS
+
+git diff --check
+PASS
+
+QA mutation probe against all three current RHB-T3 tests:
+ACCEPTED_BY_CURRENT_TESTS: unknown top-level field
+ACCEPTED_BY_CURRENT_TESTS: PII field added to public aggregate contract
+ACCEPTED_BY_CURRENT_TESTS: rejected exact-authority cell made row-public
+```
+
+No external collection occurred, no runtime/API/catalog/database code changed, and no obvious
+hardcoded secret or real reviewer contact information was found. The timestamp-like values found by
+the broad contact scan are the expected UTC approval timestamps, not phone numbers.
+
+### Required Phase 2 repair and recommended next task
+
+Return RHB-T3 to `task_executor` before starting RHB-T4:
+
+1. add a strict, unknown-field-rejecting source-decision schema/validator with coherent status,
+   publication scope, allowed-field, confirmation, identity, exact-authority, and network rules;
+2. bind the decision artifact to the exact source-inventory checksum/version and make the approved
+   decision overlay usable by downstream benchmark validation without mutating T1 history;
+3. add negative tests for every restricted source class and publication/privacy boundary, including
+   the three QA mutations above;
+4. format the focused test and refresh the benchmark data README to distinguish completed T3 from
+   still-blocked T4/T5; and
+5. leave the T3 checkbox/Gate verdict unconfirmed until focused tests, full regression, format,
+   strict typing, deterministic checksum checks, and this QA recheck all pass.
+
+---
+
+## RHB-T3 final recheck 1
+
+### Verdict: FAIL
+
+The Phase 2 repair closes the initial artifact-level defects. `SourceDecisionArtifact` and its nested
+models now reject unknown fields, bind inventory version/SHA/IDs/authority eligibility, require a
+unique complete 11 × 6 matrix, prohibit held cells in a passed Gate, and enforce the current owner
+package's major status/scope/field boundaries. The benchmark data README is current, the focused
+test is formatted, and all requested static and regression commands pass.
+
+The Gate still fails because downstream enforcement is optional and incomplete. All three public
+validation functions accept `source_decisions=None`; a caller can therefore supply a separately
+valid but widened inventory and completely omit the owner-confirmed overlay. Independent QA probes
+used that path to publish a human query/label with non-role identities and to promote that same
+owner-rejected human source into exact canonical authority. Passing the overlay does not fully solve
+the problem: the Wiki approval's existing-revision/no-label-truth conditions and the workbook's
+family-context-only condition are stored as free-form strings but not enforced by query/label
+validation.
+
+### Rechecked blocker closure
+
+| Initial finding | Recheck result |
+|---|---|
+| Unknown top-level field accepted | CLOSED — strict Pydantic contract rejects it. |
+| `seller_email` accepted in public aggregate allowlist | CLOSED — field/scope privacy rules reject it. |
+| Rejected exact cell changed to public/raw | CLOSED — rejected/held cells must be prohibited and field-empty. |
+| Stale inventory relationship | PARTIAL — direct T3 validation rejects stale SHA/version/IDs/authority eligibility, but downstream functions can omit the overlay entirely. |
+| Missing/duplicate use and scope escalation | CLOSED — complete unique use-set and owner-package scope rules reject them. |
+| Focused test formatting | CLOSED — touched-surface Ruff format passes. |
+| Stale benchmark data README | CLOSED — it now identifies T3 as owner-confirmed and T4/T5 as unstarted. |
+| Downstream source boundary | OPEN — optional overlay and unenforced source conditions permit authority/query/label/publication bypasses. |
+
+### Checked items
+
+- Strict extra-forbid behavior and the seven required artifact mutations: unknown top-level field,
+  public `seller_email`, rejected exact→public/raw, stale checksum, missing use, duplicate use, and
+  human query scope escalation.
+- Inventory version, checksum, exact inventory ID set, authority-eligibility equality, five blocked
+  external IDs, 11 sources, six unique uses each, 66 total cells, 24 approved, 42 rejected, and zero
+  held cells.
+- Human/workbook local/public boundaries, Wiki revision/attribution/no-new-collection boundary,
+  role-only reviewer identity, exact-authority denial, and network/source rejection.
+- Downstream canonical-authority, query-pack, label, reviewer identity, row-publication, and
+  family-context behavior both with and without the decision overlay.
+- JSON parsing, deterministic inventory rebuild, focused T1–T3 tests, API/catalog regression, full
+  suite, touched-surface Ruff lint/format, strict MyPy, compileall, and diff whitespace.
+- T4/T5 artifacts remain absent and their task checkboxes remain open.
+
+### Findings
+
+#### Blocker
+
+1. **The confirmed source-decision overlay can be omitted downstream.**
+   `validate_canonical_authority`, `validate_query_pack`, and `validate_labels` all default
+   `source_decisions` to `None`, falling back to mutable inventory flags or no source-permission
+   check. A QA probe changed the human source inventory to a schema-valid approved/public source,
+   omitted the overlay, and successfully produced a public query and public ambiguous label with
+   `authored_by`/`reviewed_by = not-project-owner`. A second probe changed the same source into a
+   schema-valid exact candidate, omitted the overlay, and successfully created
+   `approved_exact` authority despite the T3 decision explicitly rejecting that use. This defeats
+   RHB-R2, RHB-R4, RHB-R7, and RHB-R21.
+2. **Owner-approved context restrictions are not executable downstream.** With the valid overlay
+   supplied, an arbitrary `source_record_ref = brand-new-unbound-row` under the Wiki source passed
+   as a public query and then as a public, score-eligible ambiguous label. This bypasses
+   `existing_checked_in_100_rows_only`, revision binding, and `no_canonical_or_label_truth`.
+   Separately, a workbook `family_context_only` row passed as a local, score-eligible `no_match`
+   label. The validators check broad use/scope cells but do not check whether the referenced row is
+   in the approved revision/manifest or whether a context-only source may establish an outcome
+   label.
+
+#### Important
+
+1. `tasks.md` marks RHB-T3 complete even though this final QA recheck is FAIL. The checkbox and
+   milestone status must remain open until both downstream blockers are repaired and rechecked.
+
+#### Later
+
+- None. T4/T5 correctly remain unstarted; do not begin either while T3 can be bypassed.
+
+### Independent mutation and bypass evidence
+
+```text
+Artifact mutation probe through validate_source_decisions:
+REJECTED: unknown_top ValidationError
+REJECTED: seller_email ValidationError
+REJECTED: exact_public_raw ValidationError
+REJECTED: stale_checksum ContractError
+REJECTED: missing_use ValidationError
+REJECTED: duplicate_use ValidationError
+REJECTED: scope_escalation ContractError
+
+Downstream QA probes not covered by the focused suite:
+ACCEPTED: omitted optional overlay -> public human query+label and non-role identities
+ACCEPTED: omitted optional overlay -> owner-rejected human source became exact authority
+ACCEPTED: new unbound Wiki row + public label truth
+ACCEPTED: workbook family_context_only became score-eligible no_match label
+```
+
+### Regression and static evidence
+
+```text
+jq empty data/evaluation/representative-hard-benchmark-v1/source-decisions.json
+PASS
+
+.venv/bin/python scripts/build_representative_hard_benchmark_source_inventory.py --check
+unchanged
+
+PYTHONPATH=src .venv/bin/pytest -o addopts='' -q \
+  tests/evaluation/test_representative_hard_benchmark_source_inventory.py \
+  tests/evaluation/test_representative_benchmark_contract.py \
+  tests/evaluation/test_representative_benchmark_source_decisions.py
+54 passed in 0.35s
+
+PYTHONPATH=src .venv/bin/pytest -o addopts='' -q \
+  tests/api tests/integration/test_catalog_service.py tests/test_fixture_data.py \
+  tests/unit/test_retrieval_policy.py
+66 passed, 1 warning in 4.61s
+
+PYTHONPATH=src .venv/bin/pytest -o addopts='' -q
+1029 passed, 1 warning in 94.86s
+
+.venv/bin/ruff check --select F,I <RHB-T1/T2/T3 touched Python files>
+All checks passed!
+
+.venv/bin/ruff format --check <RHB-T1/T2/T3 touched Python files>
+5 files already formatted
+
+.venv/bin/mypy --strict <RHB-T1/T2/T3 touched Python files>
+Success: no issues found in 5 source files
+
+.venv/bin/python -m compileall -q src <RHB-T1/T2/T3 touched Python files>
+PASS
+
+git diff --check
+PASS
+```
+
+No network/browser client was added and no T4 authority, query-pack, or label artifact exists. The
+only full-suite warning is the pre-existing Starlette `BlockingPortal` deprecation warning.
+
+### Required Phase 2 repair and recommended next task
+
+Return RHB-T3 to `task_executor` again:
+
+1. make the owner-confirmed decision overlay mandatory for every T3+ authority/query/label entry
+   point; if T2 compatibility is required, expose explicitly named legacy contract-only helpers
+   rather than a silent `None` fallback;
+2. bind Wiki query references to the exact approved existing 100-row revision/manifest and prohibit
+   Wiki-derived labels, while keeping the approved attribution/query/context use;
+3. prohibit workbook/context-only sources from establishing `matched`, `ambiguous`, or `no_match`
+   labels, and encode such capabilities as typed policy rather than free-form conditions;
+4. add negative tests reproducing all four accepted QA bypasses above; and
+5. reopen T3 until focused/full tests and a second final QA recheck pass.
+
+---
+
+## RHB-T3 final recheck 2
+
+### Verdict: FAIL
+
+The second Phase 2 repair closes both bypasses recorded in final recheck 1 at the direct high-level
+entry points. `source_decisions` is now a required argument for canonical, query, and label
+validation; labels also require the bound inventory; mutable inventory elevation fails the checksum
+and authority binding; and typed downstream permissions now distinguish human queries/limited
+labels, workbook/alignment family context, revision-bound Wiki queries/context, fixture regression,
+and blocked external sources. The owner matrix is internally consistent at 23 approved / 43
+rejected / 0 held, with scope counts 10 local-only / 3 aggregate-only / 10 public rows / 43
+prohibited.
+
+One composition bypass remains. `validate_labels` accepts a preconstructed `QueryPack` object but
+does not re-run `validate_query_pack` against the same inventory and source decisions. Because
+Pydantic model construction validates shape rather than owner permissions, QA constructed a public
+human query with a private row reference and `authored_by=not-project-owner`, then successfully used
+it as the query input for a local, score-eligible ambiguous label. The label reviewer itself was
+role-only, but the label entry point still accepted an upstream query that violates the human
+local-only and author-identity contract. Thus the combined label flow is not yet fail-closed.
+
+### Rechecked closure
+
+| Final recheck 1 blocker | Final recheck 2 result |
+|---|---|
+| Decision overlay optional on canonical/query/label validators | CLOSED — all three signatures require `source_decisions`; labels additionally require `inventory`. |
+| Mutable inventory can replace the owner overlay | CLOSED at direct entry points — exact inventory checksum/version/IDs/eligibility are rechecked downstream. |
+| Non-role query/label/authority identities | CLOSED at direct validators — `project_owner` is required for query author and label/authority reviewer. |
+| Arbitrary Wiki record reference | CLOSED at direct query validation — source file checksum, 100-row count, revision 790665, unique IDs, and exact membership are bound. |
+| Wiki/workbook context can create scored labels | CLOSED at direct label validation — neither source has `scored_labels`; workbook also lacks `query_pack`. |
+| Label validator trusts an unvalidated upstream QueryPack | **OPEN** — shape-valid but permission-invalid human QueryPack is accepted. |
+
+### Checked items
+
+- Re-ran all prior artifact mutations: unknown top-level field, public `seller_email`, rejected
+  exact→public/raw, stale inventory checksum, missing use, duplicate use, and scope escalation.
+- Confirmed the three high-level signatures make owner-confirmed decisions mandatory and label
+  validation also makes inventory mandatory.
+- Exercised mutable inventory elevation, role-only author/reviewer enforcement, human local
+  ambiguous/no-match versus matched/public restrictions, workbook family-context restrictions,
+  Wiki exact-membership and no-label boundary, fixture regression-only boundary, blocked external
+  sources, and current exact-authority rejection.
+- Verified the final 11 × 6 matrix: 66 unique cells, 23 approved, 43 rejected, 0 held; scopes are 10
+  local-only, 3 aggregate-only, 10 public rows, and 43 prohibited.
+- Checked README/source approval/tasks consistency. T4/T5 checkboxes remain open and their authority,
+  query-pack, and label artifacts are absent.
+- Ran JSON parsing, deterministic inventory check, focused T1–T3 tests, API/catalog regression, full
+  suite, touched-surface Ruff lint/format, strict MyPy, compileall, and diff whitespace.
+
+### Findings
+
+#### Blocker
+
+1. **`validate_labels` does not validate the supplied QueryPack's owner permissions.** The function
+   verifies label-source equality and label-source permissions, but it trusts any `QueryPack`
+   instance. Independent reproduction used `QueryPack.model_validate` to create:
+   `publication_scope=public`, `source_id=human-labeled-real-noisy-v1`,
+   `source_record_ref=private-row`, and `authored_by=not-project-owner`. Passing that object into
+   `validate_labels` with a valid bound inventory/decision overlay and a local ambiguous label
+   returned successfully. This bypasses the typed human `local query only` rule and role-only query
+   author rule through the high-level label flow, violating RHB-R2, RHB-R4, and RHB-R21.
+
+#### Important
+
+1. `tasks.md` still marks RHB-T3 complete. Because final recheck 2 is FAIL, the task status remains
+   premature until the composition bypass is repaired and rechecked.
+
+#### Later
+
+- None. T4/T5 correctly have no artifacts yet and must remain unstarted.
+
+### Mutation and bypass evidence
+
+```text
+Artifact mutation probe through validate_source_decisions:
+REJECTED: unknown_top ValidationError
+REJECTED: seller_email ValidationError
+REJECTED: exact_public_raw ValidationError
+REJECTED: stale_checksum ContractError
+REJECTED: missing_use ValidationError
+REJECTED: duplicate_use ValidationError
+REJECTED: scope_escalation ContractError
+
+Final composition probe:
+ACCEPTED: labels accepted unvalidated public human query authored by non-role identity
+```
+
+The direct negative tests for omitted decisions, mutable inventory, non-role identities, arbitrary
+Wiki references, Wiki labels, workbook labels, fixture query escalation, human public/matched labels,
+blocked external sources, and exact authority all pass. The remaining failure is specifically the
+composition boundary where a low-level-constructed QueryPack is supplied to label validation.
+
+### Regression and static evidence
+
+```text
+jq empty data/evaluation/representative-hard-benchmark-v1/source-decisions.json
+PASS
+
+.venv/bin/python scripts/build_representative_hard_benchmark_source_inventory.py --check
+unchanged
+
+PYTHONPATH=src .venv/bin/pytest -o addopts='' -q \
+  tests/evaluation/test_representative_hard_benchmark_source_inventory.py \
+  tests/evaluation/test_representative_benchmark_contract.py \
+  tests/evaluation/test_representative_benchmark_source_decisions.py
+66 passed in 0.37s
+
+PYTHONPATH=src .venv/bin/pytest -o addopts='' -q \
+  tests/api tests/integration/test_catalog_service.py tests/test_fixture_data.py \
+  tests/unit/test_retrieval_policy.py
+66 passed, 1 warning in 4.93s
+
+PYTHONPATH=src .venv/bin/pytest -o addopts='' -q
+1041 passed, 1 warning in 96.66s
+
+.venv/bin/ruff check --select F,I <RHB-T1/T2/T3 touched Python files>
+All checks passed!
+
+.venv/bin/ruff format --check <RHB-T1/T2/T3 touched Python files>
+5 files already formatted
+
+.venv/bin/mypy --strict <RHB-T1/T2/T3 touched Python files>
+Success: no issues found in 5 source files
+
+.venv/bin/python -m compileall -q src <RHB-T1/T2/T3 touched Python files>
+PASS
+
+git diff --check
+PASS
+```
+
+The touched-surface checks are clean. No claim is made about a separate whole-repository Ruff/MyPy
+baseline; the full behavior suite is green apart from the pre-existing Starlette
+`BlockingPortal` deprecation warning.
+
+### Required Phase 2 repair and recommended next task
+
+Return RHB-T3 to `task_executor` once more:
+
+1. at the start of `validate_labels`, revalidate the supplied query pack against the same bound
+   inventory and owner decisions—for example, by feeding a JSON-mode dump through
+   `validate_query_pack`—or require an unforgeable validated-query wrapper;
+2. add a negative test with a low-level-constructed public human QueryPack containing a private
+   source reference and non-role author, proving label validation rejects it;
+3. also revalidate any upstream authority artifact before a future decision version permits matched
+   labels, so the same composition weakness is not deferred into T4/T6; and
+4. reopen T3 until focused/full checks and final recheck 3 pass.
+
+---
+
+## RHB-T3 final recheck 3
+
+### Verdict: PASS
+
+The final composition blocker is closed. `validate_labels` now serializes and revalidates both the
+consumed `QueryPack` and `CanonicalAuthorityArtifact` through their high-level validators using the
+same checksum-bound inventory and owner-confirmed source decisions before any label join. A caller
+can no longer bypass T3 by constructing a shape-valid model directly or by mutating a nested author
+or reviewer after an earlier successful validation.
+
+The final decision package remains exactly the owner-approved conservative boundary: 11 sources ×
+6 uses = 66 unique cells, with 23 approved, 43 rejected, and 0 held; publication scopes are 10
+local-only, 3 aggregate-only, 10 public rows, and 43 prohibited. T4/T5 have not started.
+
+### Final blocker closure
+
+| Final recheck 2 blocker | Final result |
+|---|---|
+| Preconstructed public human QueryPack bypasses label flow | CLOSED — label validation re-runs query validation and rejects human `public_rows`. |
+| Nested query author changed after validation | CLOSED — JSON serialization plus revalidation rejects any author other than role-only `project_owner`. |
+| Nested authority reviewer changed after validation | CLOSED — consumed authority is revalidated and rejects any reviewer other than role-only `project_owner`. |
+| Future matched-label authority composition risk | CLOSED for the current contract — label validation revalidates the full consumed authority artifact before UUID/authority joins. |
+
+### Checked items
+
+- Reproduced the prior public-human/private-ref/non-project-owner preconstructed QueryPack attack;
+  it now fails at the human query publication scope.
+- Reproduced nested mutation of a previously validated query's `authored_by`; it now fails the
+  role-only author check.
+- Reproduced nested mutation of a previously validated authority record's `reviewed_by`; it now
+  fails the role-only authority-reviewer check.
+- Re-ran every earlier source-decision mutation: unknown field, public `seller_email`, rejected
+  exact→public/raw, stale inventory checksum, missing use, duplicate use, and scope escalation.
+- Reconfirmed mandatory decision/inventory arguments, mutable inventory rejection, human
+  local-query and ambiguous/no-match-only policy, workbook/alignment context-only policy, exact
+  checksum/revision membership for Wiki query references, no Wiki/workbook labels, fixture
+  regression-only behavior, blocked external sources, and rejection of exact authority for every
+  current source.
+- Confirmed README, source approval, decision JSON, and task status agree. T4/T5 task checkboxes are
+  open; canonical-authority, query-pack, and label artifacts are absent.
+- Ran focused T1–T3 tests, API/catalog regression, full suite, touched-surface Ruff lint/format,
+  strict MyPy, compileall, deterministic inventory check, JSON parse, and diff whitespace.
+
+### Findings
+
+#### Blocker
+
+- None.
+
+#### Important
+
+- None for RHB-T3.
+
+#### Later
+
+- The Starlette `BlockingPortal` deprecation warning remains an existing dependency warning; it does
+  not affect the benchmark source Gate.
+- Exact real-variant authority remains intentionally absent. This is the subject of RHB-T4 and must
+  not be inferred from the RHB-T3 PASS.
+
+### Independent attack evidence
+
+```text
+REJECTED: preconstructed public human query ContractError
+source 'human-labeled-real-noisy-v1'/query_text cannot satisfy public_rows scope
+
+REJECTED: nested author mutation ContractError
+queries must use role-only author project_owner
+
+REJECTED: nested authority reviewer mutation ContractError
+authority reviews must use role-only reviewer project_owner
+
+Artifact mutation probe through validate_source_decisions:
+REJECTED: unknown_top ValidationError
+REJECTED: seller_email ValidationError
+REJECTED: exact_public_raw ValidationError
+REJECTED: stale_checksum ContractError
+REJECTED: missing_use ValidationError
+REJECTED: duplicate_use ValidationError
+REJECTED: scope_escalation ContractError
+```
+
+### Final regression and static evidence
+
+```text
+jq empty data/evaluation/representative-hard-benchmark-v1/source-decisions.json
+PASS
+
+.venv/bin/python scripts/build_representative_hard_benchmark_source_inventory.py --check
+unchanged
+
+PYTHONPATH=src .venv/bin/pytest -o addopts='' -q \
+  tests/evaluation/test_representative_hard_benchmark_source_inventory.py \
+  tests/evaluation/test_representative_benchmark_contract.py \
+  tests/evaluation/test_representative_benchmark_source_decisions.py
+69 passed in 0.33s
+
+PYTHONPATH=src .venv/bin/pytest -o addopts='' -q \
+  tests/api tests/integration/test_catalog_service.py tests/test_fixture_data.py \
+  tests/unit/test_retrieval_policy.py
+66 passed, 1 warning in 4.55s
+
+PYTHONPATH=src .venv/bin/pytest -o addopts='' -q
+1044 passed, 1 warning in 94.92s
+
+.venv/bin/ruff check --select F,I <RHB-T1/T2/T3 touched Python files>
+All checks passed!
+
+.venv/bin/ruff format --check <RHB-T1/T2/T3 touched Python files>
+5 files already formatted
+
+.venv/bin/mypy --strict <RHB-T1/T2/T3 touched Python files>
+Success: no issues found in 5 source files
+
+.venv/bin/python -m compileall -q src <RHB-T1/T2/T3 touched Python files>
+PASS
+
+git diff --check
+PASS
+```
+
+These Ruff/MyPy results cover the files touched by RHB-T1–T3. They do not claim a separate clean
+whole-repository Ruff/MyPy baseline. The full behavior suite is green.
+
+### Gate and recommended next task
+
+RHB-T3 is complete for the explicitly approved scopes. This PASS authorizes only the next independent
+task, **RHB-T4 catalog-ground-truth eligibility audit**. It does not authorize network collection,
+new Wiki rows, query-pack or label authoring, T5, or canonical promotion. If RHB-T4 finds fewer than
+20 independently supported exact variants or fewer than four same-casting multi-release families,
+the matched pilot must stop at that documented shortfall.
