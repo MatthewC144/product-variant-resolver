@@ -15,13 +15,17 @@ canonical identity. The owner source Gate remains pending for RHB-T3.
 | `fixture-v1` catalog | 120 | row-level public | both pending T3 selection | synthetic only |
 | Human-labeled scans | 101 | **row-level public and Git-tracked** | both blocked pending T3 rights/privacy decision | none |
 | Human alignment | 101 | **row-level public and Git-tracked** | both blocked pending parent-rights decision | **0 exact**, 2 family-only, 99 unmapped |
-| Owner release snapshot | 1,763 | public aggregate only; private rows unpublished | use and redistribution blocked pending T3 | none |
-| Checked-in Wiki pilot | 100 | attributed row-level public | both pending T3; new collection blocked | none |
+| Owner release snapshot | 1,763 | public aggregate only; private rows unpublished | use and redistribution blocked pending T3 | staging only; exact authority prohibited |
+| Checked-in Wiki pilot | 100 | attributed row-level public | both pending T3; new collection blocked | staging only; exact authority prohibited |
 
 ## Why these boundaries exist
 
 - A human-confirmed casting name does not prove an exact release variant, year, color, series, or
   collector number. The alignment therefore preserves `0 exact / 2 family-only / 99 unmapped`.
+- Typed `authority_eligibility` and `authority_evidence_level` fields enforce this boundary. Every
+  current real source is `prohibited`; synthetic fixtures are `synthetic_regression_only`. Only a
+  future, separately inventoried `authorized_export` may be an
+  `exact_variant_authority_candidate`, and it still requires the T3/T4 Gates.
 - The human-label JSON and its derived alignment are already Git-tracked in the public repository.
   The inventory records that existing publication as fact while separately keeping future benchmark
   reuse and republication blocked until the T3 rights/privacy decision. Existing publication is not
@@ -46,7 +50,7 @@ count, parent checksum, alignment authority, staging boundary, or stored output 
 
 ## Frozen artifacts
 
-- Inventory SHA-256: `c56a6e657b61682f66a6ebdd7fc1794380feb21d8e1906beae072f06df92c816`
+- Inventory SHA-256: `cdb44f23db2f003c67c5dbe16a176bbeffd465988038af7070d1bfb813e8b0f2`
 - Fixture benchmark SHA-256: `e46c5b4a405a5b3e9fbac35c9613d8e5945e2d4494ad8df9f3d8be1e352fc323`
 - Fixture catalog SHA-256: `0d3ea55eab414e3845bf3bf72635707210f2d5c20d96b3d6b5940eb0ffc7d261`
 - Human scan dataset SHA-256: `68b5dfdb8d0fa4972328d172cc5a56d78ac8bf00bc740083b2bfc07eb2a91188`

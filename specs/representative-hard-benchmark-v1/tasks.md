@@ -1,6 +1,6 @@
 # Representative Hard Benchmark v1 — Tasks
 
-Date: 2026-09-26. Mode: Lite / Lean Industrial. Status: **RHB-T1 COMPLETE; RHB-T2+ NOT STARTED**.
+Date: 2026-09-26. Mode: Lite / Lean Industrial. Status: **RHB-T1–T2 COMPLETE; RHB-T3+ NOT STARTED**.
 
 Each task is intended to be one independently reviewable commit. Tasks that require an owner decision
 are explicit Gates, not implementation steps that an agent may infer or bypass.
@@ -29,7 +29,7 @@ Acceptance:
 
 ### RHB-T2 — Implement strict benchmark contracts `[backend]`
 
-- [ ] Add allowlisted schemas and fail-closed validators for source inventory, canonical authority,
+- [x] Add allowlisted schemas and fail-closed validators for source inventory, canonical authority,
   query pack, labels, split, manifest, label-blind raw, and scored results. _(→RHB-R2,RHB-R5–R9,RHB-R19,RHB-R21)_
 
 Files:

@@ -62,6 +62,10 @@ def test_baseline_reproduces_counts_and_authority_boundaries() -> None:
         "prospective_redistribution_status",
     }
     assert all(required_state_fields <= set(entry) for entry in by_id.values())
+    assert all(
+        {"authority_eligibility", "authority_evidence_level"} <= set(entry)
+        for entry in by_id.values()
+    )
     assert by_id["human-labeled-real-noisy-v1"]["benchmark_uses"] == ["none"]
     assert (
         by_id["owner-local-release-snapshot-2023-2026-v1"]["redistribution_scope"]
@@ -70,6 +74,19 @@ def test_baseline_reproduces_counts_and_authority_boundaries() -> None:
     assert "exact_variant_authority" not in {
         use for entry in by_id.values() for use in entry["benchmark_uses"]
     }
+    assert by_id["fixture-v1-catalog"]["authority_eligibility"] == ("synthetic_regression_only")
+    assert by_id["human-labeled-real-noisy-v1"]["authority_eligibility"] == "prohibited"
+    assert by_id["human-labeled-to-fixture-alignment-v1"]["authority_evidence_level"] == (
+        "family_only"
+    )
+    assert (
+        by_id["owner-local-release-snapshot-2023-2026-v1"]["authority_evidence_level"]
+        == "staging_only"
+    )
+    assert (
+        by_id["fandom-hot-wheels-2025-pilot-r790665-v1"]["authority_evidence_level"]
+        == "staging_only"
+    )
 
 
 def test_human_artifacts_separate_current_publication_from_future_permission() -> None:

@@ -6,8 +6,8 @@ Product Variant Resolver maps noisy Hot Wheels marketplace titles to canonical p
 using hybrid retrieval, structured evidence, calibrated abstention, and a provenance-aware
 human-review boundary.
 
-> **Scope disclosure:** current headline evidence is fixture validation: a 100-case
-> synthetic/curated benchmark backed by a 120-product fixture catalog. The Test split contains 21
+> **Scope disclosure:** current headline evidence is a **100-case synthetic/curated fixture benchmark**
+> backed by a 120-product fixture catalog. The Test split contains 21
 > cases and 12 matched ranking targets. These measurements do not establish production accuracy,
 > marketplace coverage, or statistical generality.
 
@@ -115,16 +115,16 @@ An isolated offline shadow experiment compared the unchanged RRF order with a pi
 pointwise cross-encoder and a candidate-set listwise attention model. All three arms consumed the
 same frozen Top-25 canonical candidate pools. Neither neural arm is active in the FastAPI runtime.
 
-| Arm | Top-1 | Resolver p95 | Runtime status |
-|---|---:|---:|---|
-| RRF | `12/12` | `1.398 ms` | default |
-| Neural pointwise | `12/12` | `89.164 ms` | shadow only |
-| Neural listwise | `12/12` | `89.583 ms` | shadow only |
+| Arm | Top-1 | MRR@10 | Hard-negative | Recall@25 | Resolver p95 | Gate result |
+|---|---:|---:|---:|---:|---:|---|
+| RRF | `12/12` | `12/12` | `4/4` | `12/12` | `1.398 ms` | Runtime baseline |
+| Neural pointwise | `12/12` | `12/12` | `4/4` | `12/12` | `89.164 ms` | FAIL: Top-1 gain `0.00 < 0.05` |
+| Neural listwise | `12/12` | `12/12` | `4/4` | `12/12` | `89.583 ms` | FAIL: Top-1 gain `0.00 < 0.05` |
 
-The declared result is **`winner: null`**: both neural arms added approximately 64× p95 latency and
-no Top-1 gain. This is a completed negative experiment on an already saturated 12-target fixture,
-not a claim that neural reranking is universally ineffective. RRF remains the default until a
-harder frozen benchmark demonstrates measurable incremental value. See the
+The formal result is **`winner: null`** and RRF remains the default. Both neural arms added
+approximately 64× p95 latency without improving any of the 12 matched cases. This is a completed
+negative experiment, not evidence that neural reranking never helps;
+this small fixture does not establish production accuracy or statistical generality. See the
 [immutable comparison report](reports/neural-reranker-comparison-v1/comparison.md),
 [public evidence](docs/evidence/neural-reranker-comparison-v1.md), and
 [comparison QA review](specs/neural-reranker-comparison/review.md).

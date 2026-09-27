@@ -114,12 +114,16 @@ def _entry(
     owner_decision_metadata: dict[str, Any],
     record_count: int,
     record_count_kind: str,
+    authority_eligibility: str,
+    authority_evidence_level: str,
     authority_boundary: str,
 ) -> dict[str, Any]:
     return {
         "access_permission_status": access_permission_status,
         "acquisition_method": acquisition_method,
         "authority_boundary": authority_boundary,
+        "authority_eligibility": authority_eligibility,
+        "authority_evidence_level": authority_evidence_level,
         "benchmark_uses": benchmark_uses,
         "content_license_status": content_license_status,
         "current_publication_state": current_publication_state,
@@ -317,6 +321,8 @@ def build_baseline(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any], s
             },
             record_count=100,
             record_count_kind="synthetic_benchmark_cases",
+            authority_eligibility="synthetic_regression_only",
+            authority_evidence_level="synthetic_only",
             authority_boundary="Not eligible for the non-synthetic representative-pilot quota.",
         ),
         _entry(
@@ -352,6 +358,8 @@ def build_baseline(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any], s
             },
             record_count=120,
             record_count_kind="synthetic_catalog_products",
+            authority_eligibility="synthetic_regression_only",
+            authority_evidence_level="synthetic_only",
             authority_boundary="Synthetic canonical IDs do not establish real release truth.",
         ),
         _entry(
@@ -398,6 +406,8 @@ def build_baseline(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any], s
             },
             record_count=101,
             record_count_kind="human_labeled_scans",
+            authority_eligibility="prohibited",
+            authority_evidence_level="none",
             authority_boundary="No row is exact canonical variant authority.",
         ),
         _entry(
@@ -441,6 +451,8 @@ def build_baseline(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any], s
             },
             record_count=101,
             record_count_kind="alignment_rows",
+            authority_eligibility="prohibited",
+            authority_evidence_level="family_only",
             authority_boundary="0 exact canonical mappings; family-only rows cannot create UUID labels.",
         ),
         _entry(
@@ -488,6 +500,8 @@ def build_baseline(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any], s
             },
             record_count=1763,
             record_count_kind="staged_release_observations",
+            authority_eligibility="prohibited",
+            authority_evidence_level="staging_only",
             authority_boundary="Review-only observations; zero canonical links or promotions.",
         ),
         _entry(
@@ -531,6 +545,8 @@ def build_baseline(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any], s
             },
             record_count=100,
             record_count_kind="staged_release_rows",
+            authority_eligibility="prohibited",
+            authority_evidence_level="staging_only",
             authority_boundary="CC-BY-SA text derivative; not canonical truth or evaluation labels.",
         ),
     ]
@@ -613,13 +629,17 @@ canonical identity. The owner source Gate remains pending for RHB-T3.
 | `fixture-v1` catalog | 120 | row-level public | both pending T3 selection | synthetic only |
 | Human-labeled scans | 101 | **row-level public and Git-tracked** | both blocked pending T3 rights/privacy decision | none |
 | Human alignment | 101 | **row-level public and Git-tracked** | both blocked pending parent-rights decision | **0 exact**, 2 family-only, 99 unmapped |
-| Owner release snapshot | 1,763 | public aggregate only; private rows unpublished | use and redistribution blocked pending T3 | none |
-| Checked-in Wiki pilot | 100 | attributed row-level public | both pending T3; new collection blocked | none |
+| Owner release snapshot | 1,763 | public aggregate only; private rows unpublished | use and redistribution blocked pending T3 | staging only; exact authority prohibited |
+| Checked-in Wiki pilot | 100 | attributed row-level public | both pending T3; new collection blocked | staging only; exact authority prohibited |
 
 ## Why these boundaries exist
 
 - A human-confirmed casting name does not prove an exact release variant, year, color, series, or
   collector number. The alignment therefore preserves `0 exact / 2 family-only / 99 unmapped`.
+- Typed `authority_eligibility` and `authority_evidence_level` fields enforce this boundary. Every
+  current real source is `prohibited`; synthetic fixtures are `synthetic_regression_only`. Only a
+  future, separately inventoried `authorized_export` may be an
+  `exact_variant_authority_candidate`, and it still requires the T3/T4 Gates.
 - The human-label JSON and its derived alignment are already Git-tracked in the public repository.
   The inventory records that existing publication as fact while separately keeping future benchmark
   reuse and republication blocked until the T3 rights/privacy decision. Existing publication is not

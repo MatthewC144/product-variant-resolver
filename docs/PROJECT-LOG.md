@@ -1,5 +1,68 @@
 # Project Log
 
+## 2026-09-26 — RHB-T2：建立 fail-closed 的代表性困難基準資料契約
+
+### 新執行了什麼，以及解決了什麼問題
+
+本輪完成 [Representative Hard Benchmark v1 的 RHB-T2](../specs/representative-hard-benchmark-v1/tasks.md)，把 RHB-T1
+盤點出的來源邊界落成可執行的 strict benchmark contracts。新增的契約涵蓋 source inventory、canonical authority、
+query pack、human labels、family-safe split、frozen manifest、label-blind raw results 與 scored results；目的不是開始製作
+60-case pilot，而是先讓錯誤資料在進入 benchmark 生命週期前就被拒絕。例如未授權來源、未知欄位、不一致的
+status／UUID、held 或 rejected rows 被計分、Test raw 洩漏答案、跨 split family leakage、過期 hash、缺少 parent artifact
+或 partial write，現在都會 fail closed。RHB-T3 的 source owner approval Gate 尚未開始，本輪也沒有推定任何來源已獲准、
+沒有蒐集外部資料，且仍不存在可供 representative pilot 使用的 real exact canonical authority。
+
+### 修改了哪些程式與契約，為什麼這樣選
+
+核心實作位於 `src/product_variant_resolver/representative_benchmark.py`，使用 Pydantic 的 strict、`extra=forbid` schemas
+與跨 artifact validators，讓資料格式、權限、生命週期狀態與 checksum 關係都可由程式重現，而不只依賴文字規範；
+`tests/evaluation/test_representative_benchmark_contract.py` 則以正反案例鎖住每一條邊界。RHB-T1 的 inventory builder、
+source inventory、manifest、focused tests 與 evidence 同步加入 typed authority classification，原因是 canonical truth 是否
+合格必須由不可任意解讀的欄位決定，不能只靠可被改寫的說明文字或 permission flags。資料目錄 README 另外說明 artifact
+順序與 publication boundary；專案 README 則只恢復既有、可量測的 100-case fixture 與 neural comparison 說法，沒有新增
+效能或準確率主張。
+
+exact authority 採「依 catalog record 中所有非空 variant-defining fields 動態要求證據」的方式，而不是固定只檢查
+casting 與 release year。現行欄位集合包含 casting、release_year、series、color、collector_number、series_position、
+edition 與 identifiers；這項選擇會讓未來 catalog 多出已填值的變體特徵時，同一筆 authority 必須一併覆蓋，避免同車型、
+同年份但顏色或編號不同的 release 被錯認為同一 variant。`AuthorityEligibility`、`AuthorityEvidenceLevel` 與明確的
+`authorized_export` 邊界則把「可以使用資料」和「足以證明 exact identity」分開：family／Human Knowledge、owner staging、
+Wiki staging、fixture regression 或 resolver/model 建議即使日後改成可使用，也不能因此升格為 canonical truth。
+
+Publication scope 也按 artifact 粒度拆分。真正包含 query、authority 或 label rows 的契約只接受 `public` 或
+`local_only`，不接受 `aggregate_only`；後者只適用於不含原始列的彙總／manifest。公開 row artifacts 的 reviewer、family、
+reason、source/evidence references 等 metadata 會檢查明顯 email／phone PII，但 local-only metadata 仍可保留必要的內部
+審核資訊。這個取捨同時保留可稽核性與資料最小化，不把「欄位名稱寫成 aggregate」誤當真正的隱私隔離。
+
+### 初次 QA FAIL、回退修正與學到的契約邊界
+
+初版雖通過 18 項 authored tests，Lean QA 仍判定 FAIL 並退回 Phase 2。第一個問題是 `approved_exact` 只要求 casting
+與 release year，會漏掉 catalog 已存在的 series、color、collector number、series position、identifiers 或 edition；
+修正後 required fields 由實際 bound catalog record 的所有非空變體欄位導出，並逐欄加入 omission negative tests。
+第二個問題是 staging source 只要竄改 approval／use flags，就可能偽裝成 exact authority；修正方式不是再加自由文字，
+而是加入 typed eligibility/evidence level，並以六個既有來源的 mutation tests 證明它們仍無法被提升。
+
+第三個問題是 PII 防線最初只覆蓋 query text，公開 authority／label metadata 仍可接受 email 或電話；修正後所有可公開
+metadata 都走同一類 fail-closed contact-PII validation。第四個問題是 row-level artifact 可標記 `aggregate_only` 後仍夾帶
+原始 rows；修正後由獨立的 `RowPublicationScope` 在型別層拒絕。第五個問題是新測試的 nested collection indexing 未通過
+strict MyPy，已調整測試型別而不降低 type-checking 強度。最後，完整測試發現先前 portfolio README 改寫遺失 measured-
+artifact regression 所要求的精確、受限描述；本輪只恢復既有的 `100-case synthetic/curated fixture benchmark` 與相同
+量測證據，沒有為了讓測試通過而改變數字或擴張 claim。QA 保留初次 FAIL 與最終 PASS，呈現 G3 失敗後實際回退 P2
+修約，再重新驗收的閉環，而不是隱藏問題。
+
+### 最終驗證、仍留下什麼限制與下一步
+
+最終獨立 QA 判定 [PASS](../specs/representative-hard-benchmark-v1/review.md)：RHB-T2 focused tests `34 passed`、RHB-T1
+regression `7 passed`、API／catalog regression `66 passed`，完整 repository 為 `1016 passed`。來源 inventory 的
+`--check` 連續兩次都回傳 `unchanged`；Ruff check、Ruff format、strict MyPy、compileall 與 `git diff --check` 全部通過。
+範圍檢查亦確認沒有修改 FastAPI、resolver service、runtime policy、canonical catalog 或 database code，contract module
+沒有 network／browser／API／service imports。
+
+這個 PASS 只代表 RHB-T2 的資料契約與防線完成，不代表來源已授權，也不代表 real-world benchmark 已有 exact answers。
+下一步是尚未開始的 RHB-T3 source owner approval Gate：需要逐一確認 source × use × publication 的決策矩陣；在 owner
+明確決定前，不得把 pending 當 approved、不得開始 case authoring 或外部 collection，也不得宣稱 representative hard
+benchmark 已完成。
+
 ## 2026-09-26 — RHB-T1：凍結代表性困難基準的現況證據底線
 
 ### 1. 新執行了什麼、解決什麼 evidence 問題

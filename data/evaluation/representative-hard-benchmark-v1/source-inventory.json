@@ -10,6 +10,8 @@
       "access_permission_status": "not_applicable",
       "acquisition_method": "deterministic repository fixture generation",
       "authority_boundary": "Not eligible for the non-synthetic representative-pilot quota.",
+      "authority_eligibility": "synthetic_regression_only",
+      "authority_evidence_level": "synthetic_only",
       "benchmark_uses": [
         "negative_control"
       ],
@@ -54,6 +56,8 @@
       "access_permission_status": "not_applicable",
       "acquisition_method": "deterministic repository fixture generation",
       "authority_boundary": "Synthetic canonical IDs do not establish real release truth.",
+      "authority_eligibility": "synthetic_regression_only",
+      "authority_evidence_level": "synthetic_only",
       "benchmark_uses": [
         "negative_control"
       ],
@@ -98,6 +102,8 @@
       "access_permission_status": "approved",
       "acquisition_method": "owner-supplied human-reviewed scan export",
       "authority_boundary": "No row is exact canonical variant authority.",
+      "authority_eligibility": "prohibited",
+      "authority_evidence_level": "none",
       "benchmark_uses": [
         "none"
       ],
@@ -146,6 +152,8 @@
       "access_permission_status": "not_applicable",
       "acquisition_method": "offline exact normalized family alignment",
       "authority_boundary": "0 exact canonical mappings; family-only rows cannot create UUID labels.",
+      "authority_eligibility": "prohibited",
+      "authority_evidence_level": "family_only",
       "benchmark_uses": [
         "family_context"
       ],
@@ -193,6 +201,8 @@
       "access_permission_status": "approved",
       "acquisition_method": "owner-supplied XLSX files normalized offline with openpyxl",
       "authority_boundary": "Review-only observations; zero canonical links or promotions.",
+      "authority_eligibility": "prohibited",
+      "authority_evidence_level": "staging_only",
       "benchmark_uses": [
         "family_context"
       ],
@@ -242,6 +252,8 @@
       "access_permission_status": "unknown",
       "acquisition_method": "checked-in revision-bound text derivative; no new collection in RHB-v1",
       "authority_boundary": "CC-BY-SA text derivative; not canonical truth or evaluation labels.",
+      "authority_eligibility": "prohibited",
+      "authority_evidence_level": "staging_only",
       "benchmark_uses": [
         "family_context"
       ],
