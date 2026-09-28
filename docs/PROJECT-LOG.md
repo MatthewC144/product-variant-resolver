@@ -1,5 +1,92 @@
 # Project Log
 
+## 2026-09-28 — CAR-T2：建立 canonical authority 的離線嚴格契約，四輪 QA 後放行
+
+### 新執行了什麼，以及解決了什麼問題
+
+本輪延續 Lite／Lean Industrial 模式，只完成
+[CAR-T2 strict contracts](../specs/canonical-authority-review-v1/tasks.md)，把 CAR-T1 已核准的固定來源邊界延伸成一套可離線驗證的
+candidate、逐欄 evidence、catalog proposal、owner packet、append-only review event、attestation 與 authority bundle 契約。CAR-T1
+只能回答「哪份既有快照可進入人工審查」；CAR-T2 要解決的是下一層風險：即使每個 JSON 各自看似合理，錯誤來源列、無關 catalog、
+截斷的 review history、重新排列後的 hash 或不完整 evidence 仍可能在跨產物組合時被誤認為 exact authority。
+
+成果是一個不依賴 FastAPI、resolver、瀏覽器、網路或資料庫的 validation layer。它現在能在任何真實候選被建立前，先證明後續資料必須
+同時符合來源 membership、catalog membership、欄位完整性、人工決策狀態與 deterministic manifest。這輪只交付 schema、validator、
+合成 contract tests 與 artifact boundary 說明，沒有建立真實 authority row，也沒有執行 CAR-T3 的候選挑選。
+
+### 代碼修改了哪一部分，以及為何這樣設計
+
+新增 `src/product_variant_resolver/canonical_authority_review.py`。其中以 strict Pydantic models 定義 `AuthorityCandidate`、
+`VariantFieldEvidence`、`FrozenCatalogParent`、`CatalogRecordProposal`、`OwnerReviewPacket`、`OwnerAttestation`、
+`AuthorityReviewEvent`、`AuthorityBundle` 與 `AuthorityBundleManifest`；所有未宣告欄位都 fail closed，aware timestamp、固定 reviewer role、
+SHA-256、UUID、publication scope 與 `resolver_output_consulted=false` 等限制由型別與跨 artifact validators 共同檢查。高階 validator 會把傳入的
+巢狀 Pydantic object 重新序列化、重新 parse，避免呼叫端用預先 construct 或事後修改的 model 跳過內層驗證。
+
+來源沒有另造一份平行規則，而是重用 CAR-T1 `canonical_authority_source_gate`，每次從固定 100-row snapshot 重新取得核准的
+`source_record_id` membership。每筆 evidence 不只要引用該集合中的 row，還必須綁到**該 candidate 自己**的 row 並重現該來源欄位；不能
+向同一份合法快照的另一列借值。Catalog 也改用包含 products membership 的 `FrozenCatalogParent`，由同一個 strict parent 導出 version 與
+hash；existing UUID 必須真正在 parent 中，missing UUID 則必須走獨立、owner-reviewed proposal，且 catalog approval 仍不等於 authority
+approval。這些選擇解決了「來源與 catalog 各自合法，但拼在一起其實不是同一個 release」的組合錯誤。
+
+Review workflow 採 append-only state machine：只允許 `staged→reviewed|held`、補救後的
+`held|conflicted|insufficient→reviewed`、`reviewed→approved_exact|conflicted|insufficient|held` 與
+`approved_exact→revoked`，`revoked` 為終點。完整表單不會自動 promotion；每個 event 都必須另有
+`project_owner` 的 output-blind `owner_attestation`，綁定 packet、catalog、record、時間、理由與 outcome。採用 event history 而不是直接
+覆寫最終 status，是為了讓 held、衝突、補救與撤銷仍能被稽核，並防止只提交最後一個 `approved_exact` event 來隱藏缺失的前置步驟。
+
+Bundle validator 會以 canonical JSON、固定 `VariantField` 順序、排序且唯一的 set-like lists、完整 parent digest set 與全域
+`(candidate_id, reviewed_at, event_id)` 順序重算 hashes、effective status、distinct variants、family composition 及 20／4 shortfalls。
+Revoked、held、conflicted、insufficient、duplicate 或 synthetic rows 都不能墊高 Gate。這個 deterministic 選型的目的不只是讓 checksum
+一致，而是讓相同語意只有一種 byte representation；否則只改 list 順序就可能得到另一個看似獨立的合法 digest。
+
+PII 與 publication 檢查採 fail-closed：公開 metadata、evidence values、理由、問題與 references 會拒絕 email、phone、seller／account
+identity、credential、address、絕對路徑與 `..` traversal。Owner packet 必須是 local-only、Git-ignored，明列每個缺失／衝突欄位並保留
+plain-language owner question；resolver candidate、predicted UUID、model score 與網路存取全部禁止。這比事後刪除敏感欄位保守，但可避免
+私有資料先進入可提交 artifact 才被發現。
+
+`tests/authority/test_canonical_authority_review_contract.py` 新增手工合成的正反案例，
+`data/authority-review/canonical-authority-review-v1/README.md` 說明 public／local artifact 邊界與下一個 Gate。Tasks 將 CAR-T2 勾選完成，
+因此綁定 tasks bytes 的 Source Gate manifest 也只更新對應 parent SHA；來源決策、100-row membership 與 authority 零值沒有改變。
+
+### 四輪 QA：為何既有全綠測試仍不夠，以及如何修正
+
+首輪實作的 focused tests 雖然全綠，獨立 QA 仍找到 **9 組跨 artifact 組合繞過**。問題不是單一 Pydantic 欄位缺少型別，而是各物件分開
+驗證時，仍可能把無關的 catalog proposal parent、另一個核准 source row 的 evidence、不同 family／release 的 product、截斷 event
+history、不完整 approved evidence、空 digest、錯誤 manifest parents 或空 owner packet 拼成表面自洽的結果。Phase 2 因此補上 candidate-
+source-row 一致性、product family／release identity、完整 input-set 與 event-history 重算。這也說明 unit tests 全綠只代表已列出的單物件
+路徑正常，不能取代 adversarial composition testing。
+
+第二輪 QA 進一步指出 catalog parent 只有版本字串仍不足以證明 UUID membership，owner packet 也可能使用 stale catalog 或漏列
+missing／conflicting fields。修正後 `FrozenCatalogParent` 必須帶有排序、唯一且 record-hash-bound 的 products；existing UUID、proposal 與
+packet 都從同一 parent 驗證。Packet 的 issue markers 必須精確等於實際缺漏與衝突集合，且預先建構的 nested models 也會遞迴檢查未知
+欄位。這輪同時補強「evidence value 必須等於綁定 source row」與 missing-UUID proposal 的完整路徑。
+
+第三輪 QA 專查 nested ordering 與 PII 邊界。它證明 proposal、packet、event 內的 evidence 如果只驗集合、不驗 canonical order，或
+selection refs、evidence refs、identifiers 可以任意排序，同一語意仍能產生不同 hash；也發現較短、無冒號的 `seller johndoe`、
+`api key abc` 或地址形式需要被攔截。修正後 hash-bearing sequences 全部使用固定排序，packet issues 必須 sorted／unique，PII regex 也在
+保留年份、toy number、分數等安全 catalog tokens 的前提下擴大 fail-closed 範圍。
+
+第四輪 QA 結論為 **PASS WITH RISKS**：31 組獨立 mutations 中 29 組完全符合預期；剩餘兩組不是 authority bypass，而是保守 PII
+規則可能把未來合法產品名稱 `Marvel Secret Wars` 與 `Secret Edition` 誤判為 credential／private-data 字串。QA 另掃描目前固定
+100-row 與 catalog 的 1,985 個相關字串，沒有觀察到現有資料被誤擋，因此不阻擋 CAR-T2，但這是後續若擴充名稱資料時必須重新檢視的
+precision 技術債。保留 `PASS WITH RISKS` 而不是改寫成無條件 PASS，可讓未來新增資料時知道應先改善 contextual PII detection。
+
+### 最終驗證證據、目前真實進度與下一步
+
+最終 contract focused suite 為 `58 passed`；CAR-T1／T2 合併為 `99 passed`；RHB／API／catalog regression 為 `162 passed`；完整
+repository suite 為 `1150 passed`。第四輪另執行 31 組 mutations，其中 29 組完全符合預期。Ruff、strict MyPy、compileall、CAR-T1
+Source Gate、artifact hashes、`git diff --check` 與 secret scan 全部通過。這些結果來自已完成的 task executor／QA 驗證；本次 Project
+Log 策展只做文件 diff 與必要文字檢查，沒有重新執行測試。
+
+工程契約已可放行下一個順序任務，但資料狀態刻意保持不變：真實 `approved_exact` variants 仍為 `0`、qualifying families 仍為 `0`，
+沒有真實 authority row、owner candidate queue、catalog mutation 或 benchmark query。CAR-T3 以後均未開始，RHB-T5 也未獲授權；
+`community_reference_snapshot_exact` 仍只表示相對 frozen Hot Wheels Wiki revision 的可審查上限，不能宣稱 Mattel 官方真值。
+
+下一步是 **CAR-T3 owner Gate**：先從既有 context 提出至少四個 multi-release families 與足夠達到 20 variants 的候選計畫，清楚標示
+surplus、duplicates、`candidate_selection_only` 與 `owner_attestation` 方法，再交由 owner 批准 queue。CAR-T3 本輪沒有執行；在 owner
+明確批准前，不產生 review events、不修改 catalog、不建立 exact authority，也不進入 RHB-T5。architect、security 與 performance review
+在 Lite／Lean 範圍內仍為 deferred。
+
 ## 2026-09-28 — CAR 規劃與 CAR-T1：把固定 Wiki 快照的可用邊界落成可驗證 Source Gate
 
 ### 新執行了什麼，以及解決了什麼問題

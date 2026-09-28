@@ -1,7 +1,7 @@
 # Canonical Authority Review v1 — Tasks
 
 Date: 2026-09-26. Owner approval recorded: 2026-09-28. Mode: Lite / Lean Industrial. Status:
-**OWNER-APPROVED FOR SEQUENTIAL IMPLEMENTATION**.
+**CAR-T1–T2 complete; T3+ not started**.
 
 After owner approval, execute sequentially. Each task is one reviewable commit. A failed owner/data
 Gate stops later work without being treated as an engineering failure.
@@ -43,7 +43,7 @@ Commit: source decisions and safe manifest only.
 
 ## CAR-T2 — Implement strict contracts `[backend]`
 
-- [ ] Add schemas/validators for source decisions, candidates, field evidence, catalog proposals,
+- [x] Add schemas/validators for source decisions, candidates, field evidence, catalog proposals,
   append-only review events and bundle manifests.
   _(→CAR-R2,CAR-R3,CAR-R4,CAR-R5,CAR-R6,CAR-R7,CAR-R8,CAR-R10)_
 
