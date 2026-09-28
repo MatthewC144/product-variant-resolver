@@ -1,0 +1,86 @@
+{
+  "artifact_bindings": [
+    {
+      "hash_encoding": "canonical_json_utf8_sorted_keys_indent_2_trailing_newline",
+      "path": "data/authority-review/canonical-authority-review-v1/source-decisions.json",
+      "sha256": "390c4ce9232c72e033aae669fc2b07d3c1f456a7e867cc750a37a7778a3311c9"
+    },
+    {
+      "hash_encoding": "canonical_json_utf8_sorted_keys_indent_2_trailing_newline",
+      "path": "data/external/hot-wheels-wiki/pilot-2025/manifest.json",
+      "sha256": "960c639765759d3ab7b610718c026fa784e1995844f4acc9587718d94218f111"
+    },
+    {
+      "hash_encoding": "canonical_json_utf8_sorted_keys_indent_2_trailing_newline",
+      "path": "data/external/hot-wheels-wiki/pilot-2025/normalized.json",
+      "sha256": "e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6"
+    },
+    {
+      "hash_encoding": "raw_file_bytes",
+      "path": "specs/canonical-authority-review-v1/design.md",
+      "sha256": "83c330ef2ca0fa83def1a70c1f23857362c4bd2935f1e265bd0dd40780d6b536"
+    },
+    {
+      "hash_encoding": "raw_file_bytes",
+      "path": "specs/canonical-authority-review-v1/requirements.md",
+      "sha256": "6c772c3b8a9530b0a978de78697c6f98c07f94910f7df9bdb016c2b9047f8c17"
+    },
+    {
+      "hash_encoding": "raw_file_bytes",
+      "path": "specs/canonical-authority-review-v1/source-approval.md",
+      "sha256": "db878f17d77b2b6274fc264f8dd3cd7715a9f4e7810d420ab3911f436d66e7a2"
+    },
+    {
+      "hash_encoding": "raw_file_bytes",
+      "path": "specs/canonical-authority-review-v1/tasks.md",
+      "sha256": "36ef1c55fe7645fa76de34ccf540f26a88fef465faa1362a503fa24ad12bf2de"
+    }
+  ],
+  "authority_state": {
+    "approved_exact_count": 0,
+    "authority_rows_created": 0,
+    "canonical_uuids_approved": 0,
+    "minimum_composition_passed": false
+  },
+  "candidate_feasibility": {
+    "interpretation": "candidate_feasibility_not_authority",
+    "missing_field_counts": {
+      "casting_name": 0,
+      "collector_number": 0,
+      "color": 100,
+      "edition": 100,
+      "release_year": 0,
+      "series": 0,
+      "series_position": 0,
+      "toy_number": 0,
+      "variant_note": 55
+    },
+    "multi_release_family_count": 38,
+    "record_count": 100,
+    "rows_in_multi_release_families": 85,
+    "target_claimed_passed": false
+  },
+  "collection_telemetry": {
+    "api_requests": 0,
+    "browser_sessions": 0,
+    "images_or_media_acquired": 0,
+    "network_requests": 0,
+    "new_pages_acquired": 0,
+    "raw_pages_acquired": 0
+  },
+  "decision_version": "canonical-authority-review-source-decisions-owner-approved-v1",
+  "gate_result": "passed_for_single_existing_snapshot_review",
+  "manifest_version": "canonical-authority-review-source-decisions-manifest-v1",
+  "schema_version": "pvr-canonical-authority-review-source-decisions-manifest-v1",
+  "source_binding": {
+    "claim_tier": "community_reference_snapshot_exact",
+    "normalized_snapshot_sha256": "e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6",
+    "revision_id": 790665,
+    "source_id": "fandom-hot-wheels-2025-pilot-r790665-v1",
+    "source_kind": "licensed_community_snapshot",
+    "source_record_id_count": 100,
+    "source_record_ids_canonicalization": "UTF-8 JSON array sorted lexicographically with sorted keys, two-space indentation and trailing newline",
+    "source_record_ids_sha256": "c2412a8e9fa8fe78a2e8f6c932636e5d2a965131f0561843d179d13cdd8adba7",
+    "unique_source_record_id_count": 100
+  }
+}

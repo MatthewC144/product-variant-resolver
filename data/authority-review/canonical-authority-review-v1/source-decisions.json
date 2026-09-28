@@ -1,0 +1,181 @@
+{
+  "authority_state": {
+    "approved_exact_count": 0,
+    "canonical_uuids_approved": false,
+    "exact_authority_rows_created": false,
+    "minimum_composition_passed": false,
+    "rhb_t5_authorized": false
+  },
+  "decision_version": "canonical-authority-review-source-decisions-owner-approved-v1",
+  "default_source_policy": {
+    "applies_to": "every_other_existing_or_future_source",
+    "authority_use": "held_pending_separate_owner_decision",
+    "collection_authorized": false,
+    "publication_authorized": false
+  },
+  "gate_result": "passed_for_single_existing_snapshot_review",
+  "network_and_collection_policy": {
+    "api_collection_authorized": false,
+    "browser_collection_authorized": false,
+    "historical_access_authorized_by_fandom_claimed": false,
+    "historical_automated_access_permission_established": false,
+    "image_collection_authorized": false,
+    "media_collection_authorized": false,
+    "network_collection_authorized": false,
+    "new_page_collection_authorized": false,
+    "ocr_authorized": false,
+    "raw_page_collection_authorized": false,
+    "selenium_or_crawler_authorized": false,
+    "terms_reference": "https://www.fandom.com/terms-of-use"
+  },
+  "next_allowed_task": "CAR-T2-strict-contracts",
+  "owner_decision": {
+    "approval_date": "2026-09-28",
+    "confirmation_method_for_later_row_review": "owner_attestation",
+    "decision_reason": "Allow a bounded, output-blind human review against one frozen community-reference text snapshot while preserving licensing, access and claim-tier limits.",
+    "reviewer_role": "project_owner",
+    "reviewer_role_only_publication": true
+  },
+  "prohibited_next_steps": [
+    "authority_row_creation_in_CAR-T1",
+    "automatic_canonical_uuid_inference",
+    "automatic_approved_exact_promotion",
+    "benchmark_query_or_label_authoring",
+    "new_network_or_browser_collection",
+    "RHB-T5"
+  ],
+  "schema_version": "pvr-canonical-authority-review-source-decisions-v1",
+  "sources": [
+    {
+      "access_limitation": {
+        "approved_artifact_only": "data/external/hot-wheels-wiki/pilot-2025/normalized.json",
+        "historical_automated_access_permission_established": false,
+        "new_collection_authorized": false,
+        "note": "Owner approval permits reuse of the existing checked-in normalized text derivative and does not claim Fandom authorized the historical access method.",
+        "raw_json_is_car_input": false
+      },
+      "acquisition_method": "reuse_existing_checked_in_normalized_text_snapshot_without_new_collection",
+      "allowed_field_mappings": [
+        {
+          "source_field": "casting_name",
+          "target_field": "casting"
+        },
+        {
+          "source_field": "collector_number",
+          "target_field": "collector_number"
+        },
+        {
+          "source_field": "release_year",
+          "target_field": "release_year"
+        },
+        {
+          "source_field": "series",
+          "target_field": "series"
+        },
+        {
+          "source_field": "series_position",
+          "target_field": "series_position"
+        },
+        {
+          "source_field": "toy_number",
+          "target_field": "identifiers"
+        },
+        {
+          "source_field": "variant_note",
+          "target_field": "review_context_only"
+        }
+      ],
+      "authority_use": "approved_for_human_exact_review_only",
+      "claim_boundary": {
+        "canonical_uuid_approved": false,
+        "exact_relative_to": "frozen_community_reference_revision_790665_after_later_owner_review",
+        "manufacturer_certified": false,
+        "mattel_certified": false,
+        "source_gate_establishes_approved_exact": false
+      },
+      "claim_tier": "community_reference_snapshot_exact",
+      "decision_status": "approved",
+      "eligible_record_set": {
+        "record_count": 100,
+        "source_record_ids_canonicalization": "UTF-8 JSON array sorted lexicographically with sorted keys, two-space indentation and trailing newline",
+        "source_record_ids_sha256": "c2412a8e9fa8fe78a2e8f6c932636e5d2a965131f0561843d179d13cdd8adba7",
+        "unique_source_record_id_count": 100
+      },
+      "field_inference_policy": {
+        "color": "must_remain_null_without_separately_approved_explicit_evidence",
+        "edition": "allowed_only_with_explicit_nonempty_evidence_from_an_approved_source; current snapshot supplies none",
+        "second_color_note": "cannot_infer_color_name",
+        "variant_note": "context_only_cannot_fill_another_field"
+      },
+      "license_and_attribution": {
+        "attribution_text": "Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.",
+        "license_name": "CC-BY-SA",
+        "license_url": "https://www.fandom.com/licensing",
+        "row_binding_required": [
+          "source_page_title",
+          "source_page_url",
+          "source_revision_id",
+          "source_revision_timestamp",
+          "source_record_id",
+          "normalized_snapshot_sha256",
+          "license_url"
+        ],
+        "share_alike_required": true
+      },
+      "normalized_artifact": {
+        "path": "data/external/hot-wheels-wiki/pilot-2025/normalized.json",
+        "record_count": 100,
+        "sha256": "e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6"
+      },
+      "privacy_policy": {
+        "contact_or_account_data_allowed": false,
+        "personal_identity_allowed": false,
+        "public_reviewer_identity": "project_owner",
+        "status": "approved_role_only"
+      },
+      "publication_and_retention": {
+        "detailed_owner_packets": "local_only_git_ignored",
+        "existing_normalized_text_snapshot": "public_existing_artifact_only",
+        "new_image_media_or_raw_page": "prohibited",
+        "public_safe_artifacts": [
+          "approved_non_sensitive_decision_metadata",
+          "attribution_and_license_metadata",
+          "counts_and_aggregates",
+          "irreversible_sha256_values",
+          "schemas_and_tests"
+        ]
+      },
+      "publication_scope": "public_existing_normalized_text_snapshot_and_safe_metadata_only",
+      "retention_scope": "public_existing_normalized_text_snapshot_only",
+      "review_policy": {
+        "confirmation_method": "owner_attestation",
+        "resolver_output_consulted": false,
+        "resolver_output_must_remain_hidden": true,
+        "reviewer_role": "project_owner"
+      },
+      "source_id": "fandom-hot-wheels-2025-pilot-r790665-v1",
+      "source_kind": "licensed_community_snapshot",
+      "source_owner_or_controller": "Hot Wheels Wiki community contributors; hosted by Fandom",
+      "source_page": {
+        "revision_id": 790665,
+        "revision_timestamp": "2026-07-17T05:50:26Z",
+        "title": "List of 2025 Hot Wheels",
+        "url": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665"
+      }
+    },
+    {
+      "allowed_uses": [
+        "family_context",
+        "candidate_selection_only"
+      ],
+      "authority_use": "rejected",
+      "claim_tier": "context_only",
+      "decision_reason": "The 1,763 rows are not individually bound to a Wiki revision, attribution record and checksum and therefore cannot establish exact fields or a canonical UUID.",
+      "decision_status": "rejected_for_exact_authority",
+      "exact_field_evidence_allowed": false,
+      "record_count": 1763,
+      "source_id": "owner-local-release-snapshot-2023-2026-v1",
+      "source_kind": "third_party_derived_workbook_context"
+    }
+  ]
+}

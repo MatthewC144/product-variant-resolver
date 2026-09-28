@@ -1,5 +1,90 @@
 # Project Log
 
+## 2026-09-28 — CAR 規劃與 CAR-T1：把固定 Wiki 快照的可用邊界落成可驗證 Source Gate
+
+### 新執行了什麼，以及解決了什麼問題
+
+本輪延續 Lite／Lean Industrial 模式，先完成
+[Canonical Authority Review v1 的規格](../specs/canonical-authority-review-v1/requirements.md)，再只執行
+[CAR-T1 Source Gate](../specs/canonical-authority-review-v1/tasks.md)，沒有直接製造 canonical authority。RHB-T4 已證明現有
+資料仍是 `0` 個合格 exact variants、`0` 個合格 multi-release families；因此這輪要解決的問題不是 resolver 找不到候選，
+而是「哪一份既有資料可以進入人工 exact review、最多能宣稱到哪一層、如何阻止來源授權被誤讀成 exact UUID 已成立」。
+
+CAR 規格把這條上游流程拆成七個順序任務：先凍結來源決策與權利邊界，再建立 strict contracts、讓 owner 批准候選 queue、
+產生 output-blind 本機 review packet、逐筆 attestation 與 freeze，最後重新執行 RHB-T4。這樣安排的原因是來源可重用、欄位有
+證據、catalog UUID 存在、人工同意與 benchmark Gate 通過，是五個不同決策；若在同一步自動串起來，資料看似完整就可能被
+錯誤升格成 ground truth。這輪只打開 CAR-T2 的工程入口，CAR-T3 以後與 RHB-T5 仍需各自通過 Gate。
+
+### 修改了哪些 spec、source decision、manifest、validator 與 tests，為何這樣設計
+
+`specs/canonical-authority-review-v1/` 新增 requirements、design、tasks、source approval 與 QA review，將可觀測需求、離線
+架構、owner Gates、claim tier、publication boundary 和停止條件寫成可追溯契約。資料面新增
+`data/authority-review/canonical-authority-review-v1/source-decisions.json` 與
+`source-decisions-manifest.json`：前者保存 owner 對來源、欄位、留存、發布、reviewer、attribution 與後續禁區的決策；後者
+不複製新的私有或網路資料，而是以 parent paths、SHA-256、來源 membership、collection telemetry 與可重算統計凍結本次
+Gate。將「決策內容」和「驗證 envelope」分開，是為了讓人可讀理由與機器可驗證完整性都存在，同時明確指出 checksum
+只能證明 bytes 是否相同，不能自行授予權利或證明資料語意正確。
+
+初版 tests 只從 artifact 外部檢查內容；QA 證明這不足後，Phase 2 新增專用離線模組
+`src/product_variant_resolver/canonical_authority_source_gate.py`，對 decision、manifest、既有 normalized snapshot 與 source
+manifest 逐層做 exact-key、固定常數、duplicate-key、parent SHA、row membership、欄位缺失統計與 spec binding 驗證。
+`tests/authority/test_canonical_authority_source_decision.py` 則把正常路徑及 rehash 後的語意竄改都納入負向案例。選擇 dedicated
+offline strict validator，而不是把規則藏進一般 JSON 讀取或 runtime resolver，是因為這是一個來源治理 Gate：它必須可以在
+沒有 FastAPI、資料庫、瀏覽器、網路或模型的情況下獨立重現，也不能改變目前 resolver 行為。
+
+### Owner 批准的來源範圍、技術取捨與不能擴張的宣稱
+
+Owner 批准的只有已檢入、固定於 Hot Wheels Wiki `List of 2025 Hot Wheels` revision `790665` 的 100-row normalized text
+derivative，source ID 為 `fandom-hot-wheels-2025-pilot-r790665-v1`。它只能作
+`community_reference_snapshot_exact` **candidate**：後續人工確認的欄位，最多只能說是相對這個 frozen community revision
+精確，不能宣稱是 Mattel／manufacturer-certified truth，也不能因 Source Gate PASS 就生成或批准 canonical UUID。這項定位
+保留社群專門資料的實用價值，同時避免把第三方 reference 的可信度寫成官方認證。
+
+既有文字衍生內容必須保留本次 decision 所記錄的 CC-BY-SA license URL、Hot Wheels Wiki contributors attribution、revision
+資訊、normalized-derivative 說明與 share-alike 義務；未來每個 review row 還必須綁定 page、revision、timestamp、
+`source_record_id` 和 snapshot checksum。本次批准只涵蓋已存在的 normalized artifact，沒有新增 scrape、Selenium、API、
+browser、raw page、圖片、媒體或 OCR。歷史自動存取是否取得 Fandom 許可目前**未建立**，owner 的 reuse decision 也不會反向
+宣稱曾獲 Fandom 授權。
+
+可進入後續 review 的欄位只限 `casting_name→casting`、`toy_number→identifiers`、release year、series、collector number、
+series position，以及僅作 context 的 variant note。100 rows 的 `color` 全為 `null`，`2nd Color` 只能表達有另一個色款，不能
+推導色名；snapshot 也沒有可用的 edition mapping，因此 edition 仍須為空。1,763-row workbook 雖可幫助 family context 與
+candidate selection，但未逐筆綁定 Wiki revision、attribution 和 checksum，所以仍是 context-only，不能證明 exact 欄位或
+canonical UUID。這個取捨也回答了為何不直接把較大的 workbook 當 truth：資料量不能代替逐筆 provenance。
+
+### Feasibility 結果，以及它為何還不是 authority
+
+離線重算確認 frozen snapshot 有 100 rows、100 個 unique source IDs、38 個至少兩筆 release 的 casting families，其中共 85
+rows；`toy_number`、casting、release year、series、collector number 與 series position 的缺失數都是 `0`。這表示資料結構
+足以讓後續 CAR-T3 提出候選 queue，但僅是 `candidate_feasibility_not_authority`。本輪結束時
+`approved_exact_count=0`、authority rows created=`0`、canonical UUID approvals=`0`、20 variants／4 families target=`false`、
+RHB-T5 authorization=`false`。這些零值刻意保留，避免把「有足夠候選可審」誤寫成「已經有 ground truth」。
+
+### 初次 QA 為何 FAIL，以及 Phase 2 如何修正
+
+第一次 Lean QA 雖確認 artifacts 目前的內容誠實，仍判定 FAIL：把 unknown field 加入 decision 或 manifest 後，只要重算外層
+hash，舊測試仍會接受；刪除實際 attribution text 後重新綁 hash 也能通過；此外 manifest 的 missing-field counts 雖然當下
+正確，測試並未從 100 rows 全部重算。錯誤不在原始數字，而在完整性模型把「self-consistent checksum」誤當成「語意仍符合
+已批准契約」，所以未知欄位、授權文字移除或未來統計漂移都有繞過空間。
+
+依閉環回退 Phase 2 後，專用 validator 改為先驗證內層語意，再驗證外層 hashes：所有物件都使用 exact key set；JSON
+duplicate keys、空白／缺失 attribution、manufacturer claim escalation、network flag 放寬、workbook promotion、color
+inference、authority／UUID／20-4／RHB-T5 escalation 都 fail closed；row IDs、page/revision/source bindings、100／38／85 與
+每個 missing count 皆由 frozen parents 重算。這個修正讓重新計算 checksum 不再等於重新取得 owner approval，也保留了
+初次 FAIL 作為設計演進證據，而不是只留下最後綠燈。
+
+### 最終驗證、仍留下的債與下一步
+
+最終獨立 QA 判定 [CAR-T1 PASS](../specs/canonical-authority-review-v1/review.md)：原 25 個 mutations 與新增 9 個對抗案例合計
+`34/34 rejected`；CAR-T1 focused tests 為 `41 passed`，CAR + RHB regression 為 `117 passed`，完整 repository 為
+`1092 passed`（另有既有 warning）。Ruff check、Ruff format、strict MyPy、compileall、JSON parsing 與
+`git diff --check` 全部通過。這些結果來自已完成的 QA，本輪 Project Log 策展沒有重新執行測試。
+
+目前留下的不是 CAR-T1 工程缺陷，而是尚未建立任何逐筆 authority、canonical UUID approval、owner review queue 或 20／4
+composition。下一步**只允許 CAR-T2**：實作 candidates、field evidence、catalog proposals、append-only review events 與
+bundle manifest 的 strict contracts，且仍不建立真實 authority rows。CAR-T3、catalog mutation、人工 attestation、RHB-T4
+reaudit 與 RHB-T5 都不能提前開始；architect、security 與 performance review 在 Lite／Lean 範圍內仍為 deferred。
+
 ## 2026-09-27 — RHB-T4：完成 canonical authority audit，工程通過但資料 Gate 正確阻擋
 
 ### 新執行了什麼，以及解決了什麼問題
