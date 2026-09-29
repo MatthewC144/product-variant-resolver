@@ -122,6 +122,7 @@ class CommittedProgressAnchor:
     """The current Git HEAD and the public progress bytes committed at that revision."""
 
     commit_sha: str
+    first_parent_sha: str | None
     progress_bytes: bytes | None
 
 
@@ -137,6 +138,7 @@ class ProgressCommitment:
 
 HeadAnchorProvider = Callable[[Path], CommittedProgressAnchor]
 ProgressAtCommitProvider = Callable[[Path, str], bytes | None]
+FirstParentAtCommitProvider = Callable[[Path, str], str | None]
 
 
 class CatalogDecisionEvent(DecisionContract):
@@ -386,6 +388,23 @@ def _git_progress_at(root: Path, commit_sha: str) -> bytes | None:
     raise AuthorityContractError("Git could not read the committed public progress anchor")
 
 
+def _git_first_parent_at(root: Path, commit_sha: str) -> str | None:
+    if not re.fullmatch(r"[0-9a-f]{40}", commit_sha):
+        raise AuthorityContractError("first-parent lookup requires a full Git commit SHA")
+    result = _run_git(root, ["rev-list", "--parents", "-n", "1", commit_sha])
+    if result.returncode != 0:
+        raise AuthorityContractError("Git could not resolve a commit's first parent")
+    tokens = result.stdout.decode("ascii", errors="strict").strip().split()
+    if not tokens or tokens[0] != commit_sha:
+        raise AuthorityContractError("Git first-parent metadata is malformed")
+    # Merge commits are handled explicitly through Git's first-parent ordering: tokens[1] is the
+    # first parent and later parent tokens are intentionally outside this append-only lineage.
+    first_parent_sha = tokens[1] if len(tokens) >= 2 else None
+    if first_parent_sha is not None and not re.fullmatch(r"[0-9a-f]{40}", first_parent_sha):
+        raise AuthorityContractError("Git first parent is not a full commit SHA")
+    return first_parent_sha
+
+
 def _git_head_anchor(root: Path) -> CommittedProgressAnchor:
     result = _run_git(root, ["rev-parse", "--verify", "HEAD"])
     if result.returncode != 0:
@@ -395,6 +414,7 @@ def _git_head_anchor(root: Path) -> CommittedProgressAnchor:
         raise AuthorityContractError("Git HEAD did not resolve to a full commit SHA")
     return CommittedProgressAnchor(
         commit_sha=commit_sha,
+        first_parent_sha=_git_first_parent_at(root, commit_sha),
         progress_bytes=_git_progress_at(root, commit_sha),
     )
 
@@ -717,6 +737,9 @@ def _render_public_method(progress: PublicCatalogDecisionProgress) -> str:
             "Git commits are the external immutable prefix anchor: a later event must extend the",
             "progress committed at HEAD by exactly one canonical event. Rehashing mutable JSON alone",
             "cannot prove append-only history and is rejected.",
+            "The verifier walks first-parent history through every commit carrying identical progress",
+            "bytes. The commit that introduced those bytes must name its own first parent as the",
+            "predecessor; later code-only commits cannot launder a rewritten history.",
             "",
             "## Current progress",
             "",
@@ -846,6 +869,7 @@ def _validate_git_commitment(
     allow_uncommitted_current: bool,
     head_anchor_provider: HeadAnchorProvider,
     progress_at_commit_provider: ProgressAtCommitProvider,
+    first_parent_at_commit_provider: FirstParentAtCommitProvider,
     expected_base_commit: str,
 ) -> tuple[Literal["committed", "uncommitted_extension"], CommittedProgressAnchor]:
     head = head_anchor_provider(root)
@@ -853,6 +877,37 @@ def _validate_git_commitment(
         raise AuthorityContractError("Git anchor provider returned an invalid commit SHA")
     working_raw = stable_json_bytes(progress.model_dump(mode="json"))
     if head.progress_bytes == working_raw:
+        current_commit = head.commit_sha
+        first_parent = head.first_parent_sha
+        visited = {current_commit}
+        depth = 0
+        while first_parent is not None:
+            depth += 1
+            if depth > 10_000:
+                raise AuthorityContractError(
+                    "Git first-parent progress history is excessively deep"
+                )
+            if first_parent in visited:
+                raise AuthorityContractError("Git first-parent progress history contains a cycle")
+            visited.add(first_parent)
+            parent_progress = progress_at_commit_provider(root, first_parent)
+            if parent_progress != working_raw:
+                break
+            current_commit = first_parent
+            first_parent = first_parent_at_commit_provider(root, current_commit)
+            if first_parent is not None and not re.fullmatch(r"[0-9a-f]{40}", first_parent):
+                raise AuthorityContractError(
+                    "Git first-parent provider returned an invalid commit SHA"
+                )
+        if first_parent is None:
+            raise AuthorityContractError(
+                "committed public progress cannot be introduced at a root commit"
+            )
+        if progress.anchor_commit_sha != first_parent:
+            raise AuthorityContractError(
+                "committed public progress must name the introduction commit's first parent as "
+                "its predecessor"
+            )
         _validate_progress_history(
             root,
             artifacts,
@@ -969,6 +1024,7 @@ def check_catalog_decisions(
     allow_uncommitted_current: bool = False,
     head_anchor_provider: HeadAnchorProvider = _git_head_anchor,
     progress_at_commit_provider: ProgressAtCommitProvider = _git_progress_at,
+    first_parent_at_commit_provider: FirstParentAtCommitProvider = _git_first_parent_at,
     expected_base_commit: str = BASE_CAR_T4_COMMIT,
 ) -> CatalogDecisionLedger:
     root = _lexical_root(root)
@@ -985,6 +1041,7 @@ def check_catalog_decisions(
         allow_uncommitted_current=allow_uncommitted_current,
         head_anchor_provider=head_anchor_provider,
         progress_at_commit_provider=progress_at_commit_provider,
+        first_parent_at_commit_provider=first_parent_at_commit_provider,
         expected_base_commit=expected_base_commit,
     )
     return ledger
@@ -1002,6 +1059,7 @@ def record_catalog_decision(
     reviewed_at: datetime | None = None,
     head_anchor_provider: HeadAnchorProvider = _git_head_anchor,
     progress_at_commit_provider: ProgressAtCommitProvider = _git_progress_at,
+    first_parent_at_commit_provider: FirstParentAtCommitProvider = _git_first_parent_at,
     expected_base_commit: str = BASE_CAR_T4_COMMIT,
 ) -> tuple[Literal["recorded", "unchanged"], CatalogDecisionLedger]:
     root = _lexical_root(root)
@@ -1079,6 +1137,7 @@ def record_catalog_decision(
             allow_uncommitted_current=True,
             head_anchor_provider=head_anchor_provider,
             progress_at_commit_provider=progress_at_commit_provider,
+            first_parent_at_commit_provider=first_parent_at_commit_provider,
             expected_base_commit=expected_base_commit,
         )
     for event in existing_events:
@@ -1145,6 +1204,7 @@ def record_catalog_decision(
         allow_uncommitted_current=True,
         head_anchor_provider=head_anchor_provider,
         progress_at_commit_provider=progress_at_commit_provider,
+        first_parent_at_commit_provider=first_parent_at_commit_provider,
         expected_base_commit=expected_base_commit,
     )
     if checked != result:

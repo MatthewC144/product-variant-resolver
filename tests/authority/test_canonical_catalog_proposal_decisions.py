@@ -78,7 +78,7 @@ def _record(root: Path) -> tuple[str, Any]:
 
 
 def _base_head(_root: Path) -> CommittedProgressAnchor:
-    return CommittedProgressAnchor(BASE_CAR_T4_COMMIT, None)
+    return CommittedProgressAnchor(BASE_CAR_T4_COMMIT, None, None)
 
 
 def _no_progress(_root: Path, _commit: str) -> bytes | None:
@@ -428,6 +428,16 @@ def test_git_head_anchor_rejects_rehashed_history_rewrite(isolated_root: Path) -
     git("commit", "-qm", "anchor event 1 progress")
     check_catalog_decisions(isolated_root, expected_base_commit=base_commit)
 
+    harmless = isolated_root / "harmless.txt"
+    harmless.write_text("code-only follow-up fixture\n", encoding="utf-8")
+    git("add", "harmless.txt")
+    git("commit", "-qm", "code-only follow-up")
+    check_catalog_decisions(isolated_root, expected_base_commit=base_commit)
+    harmless.write_text("second code-only follow-up fixture\n", encoding="utf-8")
+    git("add", "harmless.txt")
+    git("commit", "-qm", "second code-only follow-up")
+    check_catalog_decisions(isolated_root, expected_base_commit=base_commit)
+
     ledger_path = isolated_root / LEDGER_REFERENCE
     progress_path = isolated_root / PUBLIC_PROGRESS_REFERENCE
     method_path = isolated_root / PUBLIC_METHOD_REFERENCE
@@ -454,7 +464,21 @@ def test_git_head_anchor_rejects_rehashed_history_rewrite(isolated_root: Path) -
     method = method.replace(old_event_sha, event["event_sha256"])
     method_path.write_text(method, encoding="utf-8")
 
-    with pytest.raises(AuthorityContractError, match="Git-committed HEAD anchor"):
+    git("add", str(PUBLIC_PROGRESS_REFERENCE), str(PUBLIC_METHOD_REFERENCE))
+    git("commit", "-qm", "synchronized malicious rewrite")
+    with pytest.raises(AuthorityContractError, match="introduction commit's first parent"):
+        check_catalog_decisions(isolated_root, expected_base_commit=base_commit)
+
+    harmless.write_text("child after malicious rewrite\n", encoding="utf-8")
+    git("add", "harmless.txt")
+    git("commit", "-qm", "unchanged child after malicious rewrite")
+    with pytest.raises(AuthorityContractError, match="introduction commit's first parent"):
+        check_catalog_decisions(isolated_root, expected_base_commit=base_commit)
+
+    harmless.write_text("grandchild after malicious rewrite\n", encoding="utf-8")
+    git("add", "harmless.txt")
+    git("commit", "-qm", "unchanged grandchild after malicious rewrite")
+    with pytest.raises(AuthorityContractError, match="introduction commit's first parent"):
         check_catalog_decisions(isolated_root, expected_base_commit=base_commit)
 
 
@@ -466,6 +490,7 @@ def test_cli_records_from_repo_root_and_check_is_read_only(isolated_root: Path) 
         "#!/bin/sh\n"
         'case "$*" in\n'
         f'  *"rev-parse --verify HEAD"*) echo {BASE_CAR_T4_COMMIT}; exit 0;;\n'
+        f'  *"rev-list --parents -n 1 "*) echo {BASE_CAR_T4_COMMIT}; exit 0;;\n'
         '  *"show "*) echo "fatal: path does not exist in HEAD" >&2; exit 128;;\n'
         "esac\n"
         "exit 1\n",

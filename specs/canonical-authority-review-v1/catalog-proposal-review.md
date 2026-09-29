@@ -7,6 +7,9 @@ product-record and parent-catalog checksums.
 Git commits are the external immutable prefix anchor: a later event must extend the
 progress committed at HEAD by exactly one canonical event. Rehashing mutable JSON alone
 cannot prove append-only history and is rejected.
+The verifier walks first-parent history through every commit carrying identical progress
+bytes. The commit that introduced those bytes must name its own first parent as the
+predecessor; later code-only commits cannot launder a rewritten history.
 
 ## Current progress
 
