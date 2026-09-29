@@ -1,5 +1,68 @@
 # Project Log
 
+## 2026-09-29 — Catalog Proposal Decision 01：記錄第一筆 owner 核准並以 Git 歷史錨定 append-only 證據
+
+### 新執行了什麼，以及解決了什麼問題
+
+CAR-T4 已產生 20 筆 staged catalog proposals，但它們仍全部等待 owner 判斷。本輪收到 owner 對 canonical packet 第 1／20 筆的精確回覆
+`批准，color 與 edition 保持 null。`，並將這一筆記錄為 `approved_for_later_batch_gate`。這解決了第一筆 proposal 是否接受六個 frozen
+source-to-proposal mappings 的待決問題，同時把 owner 明確保留的兩個空值寫成強制限制，而不是把「批准」擴張成自動補色、補 edition、
+立即寫 catalog 或批准 exact authority。
+
+決策完成後，公開進度為 recorded 1／20、approved-for-later-batch-gate 1、held 0、rejected 0、pending 19。這裡的 approved 表示「可以在所有
+proposal review 完成後，進入另一個 catalog batch application Gate」，不是現在已建立 canonical truth。Proposal artifacts 仍保持 staged，
+`data/catalog.json` 沒有套用變更。
+
+### 修改了哪些契約部分，以及為何採 exact literal、private ledger 與 public aggregate
+
+新增 catalog decision recorder／validator，將每次 owner 回答綁定 packet、proposal、product record、raw catalog、projection、前一個 event
+與 UTC review metadata。Decision 01 採 **exact-literal authorization**：經 Unicode normalization 後，實際回覆必須完整等於
+`批准，color 與 edition 保持 null。`，並且 authorization contract、固定 approval reason、六個 accepted field mappings、
+`color_must_remain_null`、`edition_must_remain_null`、`catalog_application_deferred` 與 `authority_approval_not_granted` 都必須一起成立。選擇完整
+字面契約而不是關鍵字分類，是因為 `批准` 出現在否定句、引用句或較長 paraphrase 中，不能被當成同一份人類授權。
+
+完整 owner verbatim、candidate／proposal identity 與逐事件鏈保存在既有 Git-ignored local directory 的 private append-only ledger；Git 只提交
+不含名稱、IDs、問題或 verbatim 的 public progress aggregate 與不可逆 hashes。這個 private/public split 讓後續 validator 可以驗證 decision
+順序、packet binding 與 ledger 完整性，同時不把本機逐筆 review 內容擴大公開。公開 method 另明確寫出 1 approved、19 pending、0 applied、
+0 authority 與下一個 Gate，避免只看 hash 就誤以為 catalog 已完成。
+
+### 為何 hash 自洽仍不足以證明歷史，以及三輪 QA 如何修正
+
+第一輪 QA 發現 substring／negation 風險：若 validator 只搜尋 `批准` 或允許較寬鬆文字，包含核准字樣的否定句、中文改寫或英文版本也可能被
+誤認為 owner 原意。修正後 event 1 的 authorization literal 固定，owner response 必須精確一致；否定、paraphrase 與翻譯全部拒絕。這使
+「程式覺得語意相近」不能替代 owner 實際給出的 bounded statement。
+
+第二輪 QA 進一步證明，private ledger、public progress 與所有 inner／outer hashes 即使完全自洽，仍不能證明過去沒有被整份重寫：攻擊者
+可以修改已記錄 event，再把每層 digest 一起重算。修正因此引入 Git commit 作為 JSON 外部的 immutable history anchor；新 progress 必須指向
+已提交 predecessor，而不是只信任自己宣稱的 previous hash。這個設計使用 repository 原本就有的 commit DAG，不另建資料庫或簽章服務，
+代價是 decision validator 必須同時驗證 Git history。
+
+第三輪 QA 又找到 **code-only laundering**：若惡意 committed rewrite 在 commit M 當下會被拒絕，但 M 後再做一個沒有修改 progress 的普通
+code-only child，單看目前 HEAD 可能錯把 child 當成可信 predecessor，讓被改寫的 history 洗白。最終修正沿 Git **first-parent** 向後走過
+所有 progress bytes 完全相同的連續 commits，定位真正引入該 progress 的 introduction commit，再要求 progress 的
+`anchor_commit_sha` 必須等於該 introduction commit 的第一個 parent。First-parent 是明確的 merge lineage；後續 code-only commits 不會改變
+真正的 introduction point，也就不能消除 M 的錯誤 anchor。
+
+這三輪演進保留了一個重要工程判斷：SHA-256 可以證明「現在這批 bytes 彼此一致」，不能單獨證明「歷史上從未被替換」。只有 exact human
+authorization、append-only event chain、public/private hash binding 與外部 Git ancestry 同時成立，才能對 Decision 01 提供目前宣稱的歷史
+完整性；這仍不是 Mattel 官方真值證明。
+
+### 決策範圍、最終 QA 與目前狀態
+
+Decision 01 只接受 casting、release year、series、collector number、series position 與 identifiers 六個 frozen mappings，並強制
+`color=null`、`edition=null`。Catalog record 尚未套用，catalog mutations=`0`、exact authority=`0`、RHB-T5 authorization=`false`；剩餘
+19 筆 proposals 仍 pending。即使未來這筆 catalog record 通過 batch application，它也只建立 namespace record，不能自動成為
+`approved_exact` authority。
+
+最終獨立 QA 判定 **PASS**：focused tests 為 `147 passed`，完整 repository suite 為 `1198 passed`；Ruff、Ruff format、strict MyPy、
+compileall、CAR-T1 Source Gate 與兩個 CAR-T4 builders 全部通過。Git history attack matrix 也確認惡意 rewrite commit M、其 child 及
+grandchild 都持續被拒絕，不能以後續普通 commit 洗白；相對地，連續合法 code-only commits 都能通過，不會因文件或程式演進而誤擋有效
+Decision 01。這些結果來自已完成 QA；本次 Project Log 策展沒有重跑測試。
+
+Decision 01 的初始 recorder／anchor 變更已形成本機 commit `bb073f3`，first-parent history hardening 為本機 commit `1f617a5`；兩者目前
+**尚未 push**。本輪只追加 Project Log，也沒有提交或推送。下一步仍是依 canonical packet order取得第 2／20 筆 owner 決定，而不是套用
+catalog、建立 authority event 或啟動 RHB-T5。
+
 ## 2026-09-29 — CAR-T4：建立本機 output-blind catalog proposal packet，仍維持 0 authority
 
 ### 新執行了什麼，以及解決了什麼問題
