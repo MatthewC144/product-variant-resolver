@@ -1,5 +1,96 @@
 # Project Log
 
+## 2026-09-29 — CAR-T4：建立本機 output-blind catalog proposal packet，仍維持 0 authority
+
+### 新執行了什麼，以及解決了什麼問題
+
+本輪延續 Lite／Lean Industrial 模式，完成 [CAR-T4 packet／catalog proposal tooling](../specs/canonical-authority-review-v1/tasks.md)：
+從 CAR-T3 owner-approved primary 20 建立本機 output-blind catalog proposal review packet，產生 20 筆 deterministic staged proposals；
+surplus 9 筆明確排除，不會在未經新決定下補進 primary。現有 catalog 中可用於真實 review 的 eligible UUID 為 `0`，因此 20 筆全部走
+「缺少 canonical record、等待 owner 審查」路徑，而不是假裝找到 existing exact match。
+
+這一步解決的是候選已選定、但尚無可安全綁定真實 release 的 catalog records。Git 只保存 safe manifest 的 hashes、counts、telemetry 與
+下一個 Gate；20 筆逐列 proposals、review packet、空白 decision template 與 owner Markdown 全部寫入精確 Git-ignored 的
+`data/authority-review/canonical-authority-review-v1/local-catalog-review-v1/`。Public／local split 讓 repository 可驗證工作確實建立，又不把
+尚未決策的逐列 proposal 當成公開 authority artifact。
+
+### 為何沒有沿用既有 UUID，以及為何新增 raw-bound projection V2
+
+`data/catalog.json` 是本專案 canonical UUID namespace 的 parent，但離線重算確認其中 120／120 products 都有完整 synthetic-fixture
+provenance；raw catalog 自己也明示只用於架構與測試驗證。它可以提供 namespace、版本與 collision universe，卻不能證明真實 Hot Wheels
+release。另一份 `human_backed_catalog` 只有 casting-level／provisional draft context，包含尚待 canonical review 的名稱線索，同樣不能建立
+exact release UUID。資料存在或名稱相似都不足以跨過 authority Gate，因此 existing eligible exact match 保持 `0`。
+
+既有 CAR-T2 `FrozenCatalogParent` v1 要求非空 products，適合驗證已知 eligible canonical members；直接把它放寬成允許空集合，會默默改變
+已通過的舊契約。CAR-T4 因此另建版本化 `FrozenCatalogProjectionV2`：它允許 `eligible_products=[]`，但同時綁定 raw file bytes SHA、catalog
+version、120 product count、完整 raw UUID-set digest、synthetic exclusion count 與 projection hash。即使 120 筆都不 eligible，20 個
+deterministic proposal UUID 仍必須對**全部 raw UUID**做 collision check。這個選型保留 v1 的既有安全語意，也讓「合法空 eligible set」成為
+明確狀態，而不是把空集合誤當 catalog 尚未載入。
+
+Raw catalog bytes 維持 SHA-256
+`0d3ea55eab414e3845bf3bf72635707210f2d5c20d96b3d6b5940eb0ffc7d261`，本輪沒有修改 `data/catalog.json`，也沒有從 Mattel 或其他來源
+新增官方真值。
+
+### 修改了哪些程式部分，以及技術選型原因
+
+共用模組 `canonical_authority_packet.py` 集中 strict raw catalog parsing、V2 projection、proposal／packet contracts、deterministic derivation、
+cross-artifact validation、path policy 與 publication transaction；兩個 thin scripts 分別提供 catalog-proposal 與 review-packet 的 build／
+`--check` 入口，但實際呼叫同一個 `publish_workspace`。選擇共用核心加薄 CLI，而不是複製兩套 builder，是為了確保兩個操作看到相同 parent
+hashes、proposal bytes、partial-state policy 與 rollback 行為，不會日後其中一支少做 collision 或 output-blind 檢查。
+
+每筆 proposal 使用固定 namespace 與 source row 產生 deterministic UUID，並建立六個 source-to-proposal pending mappings：casting、release
+year、series、collector number、series position 與 `toy_number→identifiers`。這六筆 evidence 都逐列綁定 frozen source record，狀態是
+`pending_owner_review`，不能冒充 owner agreement。`color` 與 `edition` 一律為 `null`；13 筆存在的 variant notes 只顯示為
+`context_only_not_color_or_edition_evidence`，所以 `Zamac`、`2nd/3rd Color` 或 `Red Edition` 不會被轉成結構化真值。
+
+Publication 支援第一次 `created`、相同輸入重跑 `unchanged`，以及只驗不寫的 `--check`。本機四個檔案先在同 parent 暫存目錄完整寫入並
+`fsync`，public manifest 也先寫 staging file，再以 atomic replace 發布；若第二段失敗，會回滾本輪剛建立的 local directory。Public manifest
+只留下 raw／projection／packet hashes、20 staged、9 excluded、120 synthetic、0 approved／applied／exact 等安全 aggregate。Tasks 因
+CAR-T4 完成改成 `CAR-T1–T4 complete; catalog proposal owner review pending; T5+ not started`，綁定 tasks 的 Source Gate parent SHA 更新為
+`01a92b4e9c87578f2e7137f8314b3e97ba8b0321fc1437326c27f41cab313e83`，但 Source Gate scope 本身沒有擴張。
+
+### 首次 QA 為何 FAIL，以及如何修正
+
+初版功能的正常建立、重跑與 artifacts tests 雖然全綠，獨立 QA 仍判定 FAIL。首先，自訂 local output 接受 absolute path，且只檢查 leaf
+symlink，攻擊者可在中間 ancestor 放 symlink 把輸出導出 repository；其次，只有 public manifest、沒有 local packet 的 asymmetric partial
+state 會被 builder 自動「修好」，掩蓋可能的遺失或篡改。這證明 happy-path determinism 不等於 filesystem boundary 安全，也不能把自動修復
+partial state 當便利功能。
+
+修正後 local output 必須是 repository-relative、CAR directory 下符合命名規則的 direct child，且必須被 `.gitignore` **精確**列出；從 repo
+root 到 target 的每個 ancestor 都用 `lstat` 檢查 symlink，並同時驗證 lexical 與 resolved containment。Local／manifest 存在狀態採 XOR
+fail closed：任一單獨存在都拒絕，不自行重建另一半；既有 bytes 有 drift 也不覆寫。這樣能把「第一次雙邊建立」與「事後修補可疑狀態」清楚
+分開。
+
+QA 也發現 machine-readable packet 雖完整，初版 owner Markdown 沒有逐欄列出 evidence、issues 與全部 13 筆 variant-note context；若人類只看
+Markdown，就無法做與 JSON 等價的 informed review。修正後 20 個 entries 全部呈現六欄，共 120 條 evidence lines；每筆都有
+missing／conflicting issues 與 pending owner question，13 筆 notes 也逐項標為 context-only。最後，strict MyPy 找到 5 個 typing errors，透過
+正確 imports 與型別界線修正。這些失敗說明測試全綠仍可能只覆蓋「機器能生成檔案」，卻漏掉 hostile paths、跨檔 partial state、
+human-readable completeness 與 static type contract；因此 QA attack harness 和工具鏈是必要的獨立驗證層。
+
+### 最終 QA 證據、仍保留的邊界與風險
+
+修復後獨立 QA 判定 **PASS**：9／9 targeted attack／path cases 通過；focused CAR／RHB 為 `194 passed`，API／catalog regression 為
+`86 passed`，完整 repository suite 為 `1169 passed`。Ruff、Ruff format、strict MyPy、compileall、JSON parsing、CAR-T1 Source Gate、
+secret scan 與 `git diff --check` 全綠；兩個 thin scripts 的 `--check` 都回傳 `unchanged`。Raw catalog SHA 保持不變，完整測試唯一訊息仍是
+既有 Starlette `BlockingPortal` deprecation warning。這些結果來自已完成 QA；本次 Project Log 策展只執行 docs diff-check 與必要文字
+檢查，沒有重跑測試。
+
+仍有一項非阻擋風險：若有惡意本機程序精準地在 path 檢查與 atomic write 之間置換 filesystem objects，仍存在狹窄 TOCTOU window。現有
+ancestor checks、direct-child policy、exact ignore、exclusive staging、atomic replace、XOR detection 與 rollback 已處理一般 drift／symlink／
+partial failure，但沒有宣稱能抵抗同機 hostile process 的所有 race。對此履歷專案的本機、單使用者 workflow，QA 將它列為 deferred risk，
+不是已解決的安全保證。
+
+本輪結束時 20 筆 proposal 全部仍是 `staged`，`reviewed_by_role`、`reviewed_at`、`review_reason` 與 decisions 均為空；approved proposals=`0`、
+applied catalog records=`0`、catalog mutations=`0`、exact authority=`0`，RHB-T5 authorization=`false`。建立 deterministic UUID 與六欄 mapping
+只是提出 catalog record 草案，不是 catalog approval，更不是 exact authority 或 Mattel 官方認證。
+
+### 真正下一個 Gate
+
+下一步是 **owner catalog-proposal review Gate**，不是直接進入 CAR-T5 authority review，本輪也尚未執行。Owner 必須逐筆審查 20 個 proposals，
+或給出範圍明確、仍可逐筆驗證的 bounded approval；每個缺 UUID proposal 經核准後，還要以 separate commit 套用 catalog mutation。Catalog
+approval 只建立可引用的 namespace record，不會自動 promotion 成 exact authority。只有 proposal review／application 有合法結果後，才能另行
+評估 CAR-T5 的 output-blind authority events 與 bundle freeze；目前不得建立 T5 review events 或啟動 RHB-T5。
+
 ## 2026-09-29 — CAR-T3：由固定 100-row 建立並核准 output-blind review queue
 
 ### 新執行了什麼，以及解決了什麼問題
