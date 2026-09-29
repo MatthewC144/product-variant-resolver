@@ -1,8 +1,8 @@
 # Canonical Authority Review v1 — Tasks
 
 Date: 2026-09-26. Source-plan owner approval recorded: 2026-09-28. CAR-T3 owner approval recorded:
-2026-09-29. Mode: Lite / Lean Industrial. Status: **CAR-T1–T4 complete; catalog proposal owner
-review pending; T5+ not started**.
+2026-09-29. Mode: Lite / Lean Industrial. Status: **CAR-T1–T4 complete; catalog proposal review
+1/20 recorded; T5+ not started**.
 
 After owner approval, execute sequentially. Each task is one reviewable commit. A failed owner/data
 Gate stops later work without being treated as an engineering failure.

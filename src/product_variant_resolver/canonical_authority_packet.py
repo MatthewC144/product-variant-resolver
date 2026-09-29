@@ -1068,8 +1068,19 @@ def _validated_output_dir(root: Path, output_dir: Path | None) -> Path:
 def _matches_directory(path: Path, expected: Mapping[str, bytes]) -> bool:
     if path.is_symlink() or not path.is_dir():
         return False
-    if {item.name for item in path.iterdir()} != set(expected):
+    actual_names = {item.name for item in path.iterdir()}
+    expected_names = set(expected)
+    # CAR-T4's base workspace remains immutable after review begins.  Its one recognized private
+    # append-only ledger is validated by canonical_catalog_decisions; allowing that exact regular
+    # file here keeps the original packet builder's --check useful without accepting arbitrary
+    # local drift.
+    allowed_names = expected_names | {"catalog-decision-ledger.json"}
+    if actual_names not in (expected_names, allowed_names):
         return False
+    if "catalog-decision-ledger.json" in actual_names:
+        ledger = path / "catalog-decision-ledger.json"
+        if ledger.is_symlink() or not ledger.is_file():
+            return False
     return all(
         not (path / name).is_symlink()
         and (path / name).is_file()
