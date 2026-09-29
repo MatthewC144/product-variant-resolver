@@ -1,5 +1,47 @@
 # Project Log
 
+## 2026-09-29 — Catalog Proposal Decision 03
+
+### 新執行了什麼，以及解決了什麼問題
+
+本輪收到 owner 對 canonical packet 第 3／20 筆的精確回覆：`批准第 3 筆，color 與 edition 保持 null。`。這筆 ordinal `3` proposal
+對應 Subaru BRZ／`JBB55`，owner 接受的六個 frozen source-to-proposal mappings 是 casting=`Subaru BRZ`、release year=`2025`、
+series=`HW J-Imports`、collector number=`048`、series position=`3/5` 與 identifiers=`JBB55`；proposal 的 deterministic UUID 為
+`76188645-6430-559e-96a2-73a844524763`。Decision 03 因而可進入稍後 catalog batch Gate，但目前仍只是已審 proposal，不是已套用的
+catalog record。
+
+來源列中的 `3rd Color` 只表示來源如何標記第三個顏色順序版本，沒有提供實際色名，也不能證明 edition。因此它繼續以 context-only sequence
+text 保存，不進入六個 accepted mappings；`color=null`、`edition=null` 仍是 owner 授權中的明確限制。這避免把「第三色」錯誤翻譯成某個
+具體顏色，或把 release note 自動升格為 exact product field。
+
+### 為何本輪不需要新增程式碼
+
+Decision 03 沒有新增 decision-specific validator 或硬編碼第三句回覆。它直接重用 Decision 02 建立的 generic
+`ExpectedOwnerAuthorization`：precommit 驗證由 ledger 外部明確提供 ordinal、candidate ID、proposal ID、decision、exact owner response 與
+bounded reason，再逐欄比對唯一新增事件；提交後則沿用 Git first-parent introduction anchor，防止後續 rehash 或 code-only commits 洗白被
+改寫的歷史。
+
+這次不改程式碼本身就是設計證據。若每一筆 owner 回覆都要新增常數或專用分支，20 筆 review 會形成 20 套近似控制，容易讓其中一筆少驗
+identity、reason 或 ancestry。現在相同 contract 能安全接受 ordinal 3 的新 exact literal，同時仍拒絕 ledger 自我授權，表示 Decision 02 的
+修復已成為可重用機制，而不是只讓第二筆測試通過的特例。
+
+### 決策範圍、QA 與目前進度
+
+公開進度現在是 owner-approved proposals `3`、pending `17`，held／rejected 均為 `0`。20 筆 proposal artifacts 仍全部是 `staged`；catalog
+applied=`0`、exact authority=`0`、RHB-T5 authorization=`false`。Event 01／02 保持不變，event 03 的 `previous_event_sha256` 正確指向
+event 02；catalog、packet 與 proposal parent hashes 也未改變。即使這筆未來通過 batch application，也只會建立 catalog namespace record，
+不會自動成為 `approved_exact` authority 或 Mattel 官方認證。
+
+最終獨立 QA 判定 **PASS**。11／11 attacks 全部拒絕，涵蓋把 `color` 從 null 改成推測值、同步改寫 paraphrase 後完整 rehash、刪除 event
+03、重排 events，以及錯誤 expected candidate／proposal IDs 等情境；合法事件則確認 Subaru BRZ／JBB55 identity、六欄 values、UUID、
+context-only `3rd Color` 與兩個 null constraints。Decision tests 為 `31 passed`，其他 CAR focused tests 為 `149 passed`，完整 repository
+suite 為 `1200 passed`；Ruff、Ruff format、strict MyPy、compileall、CAR-T1 Source Gate 與兩個 CAR-T4 builders 全部通過。唯一訊息仍是
+既有 deprecation warning，與 Decision 03 無關。這些結果來自已完成 QA；本次 Project Log 策展沒有重跑測試。
+
+Decision 03 的本機 anchor commit 為 `e0a0139`。目前本機 `main` 連同先前 Decision 01／02 與文件 commits 全部仍未 push；本輪只更新
+Project Log，不提交或推送。下一步仍須按 canonical order取得第 4／20 筆 owner 決定，不能提前套用 catalog、建立 exact authority 或啟動
+RHB-T5。
+
 ## 2026-09-29 — Catalog Proposal Decision 02：以外部 expected authorization 阻止未提交事件自我授權
 
 ### 新執行了什麼，以及解決了什麼問題
