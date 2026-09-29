@@ -7,17 +7,20 @@ product-record and parent-catalog checksums.
 Git commits are the external immutable prefix anchor: a later event must extend the
 progress committed at HEAD by exactly one canonical event. Rehashing mutable JSON alone
 cannot prove append-only history and is rejected.
+Before a new event is committed, precommit verification also requires the caller's
+external expected ordinal, row identities, decision, exact owner response and bounded
+reason; the mutable ledger cannot authorize its own wording.
 The verifier walks first-parent history through every commit carrying identical progress
 bytes. The commit that introduced those bytes must name its own first parent as the
 predecessor; later code-only commits cannot launder a rewritten history.
 
 ## Current progress
 
-- Recorded decisions: **1 / 20**
-- Approved for a later catalog batch gate: **1**
+- Recorded decisions: **2 / 20**
+- Approved for a later catalog batch gate: **2**
 - Held: **0**
 - Rejected: **0**
-- Pending: **19**
+- Pending: **18**
 - Proposal artifacts remain `staged`: **20**
 - Catalog records applied: **0**
 - Exact-authority records approved: **0**
@@ -30,6 +33,6 @@ An owner approval here records only a catalog-proposal decision. It does not edi
 authorize RHB-T5. Catalog application waits for a separate batch application Gate after
 all 20 proposals have been reviewed.
 
-Private ledger SHA-256: `3d6ec2d3b5f333b5e414093701b447d569c1cc27fe3eae84f2a8af77ea4735a8`.
-Event head SHA-256: `04c2bf28f43d386ad52915119762b9f8b0a396ddad4da33540f49d37d68cdac7`.
-Git predecessor commit: `c3e37eeb5bdeaa7367912424036e8cad008af193`.
+Private ledger SHA-256: `3e3a3c2210ff44182beeea045f8d3639dcdbfdfb7d257d09ce0a83c4b31f0ce8`.
+Event head SHA-256: `112ef53d9978d89bf7579540b806068abe0fc09eaa1908cbfd85e5e568f06c81`.
+Git predecessor commit: `272afc3d591885853eab10a385335fa6f2fc02b5`.

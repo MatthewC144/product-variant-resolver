@@ -24,6 +24,7 @@ from product_variant_resolver.canonical_catalog_decisions import (
     PUBLIC_PROGRESS_REFERENCE,
     CatalogDecision,
     CommittedProgressAnchor,
+    ExpectedOwnerAuthorization,
     PublicCatalogDecisionProgress,
     check_catalog_decisions,
     record_catalog_decision,
@@ -33,6 +34,9 @@ ROOT = Path(__file__).resolve().parents[2]
 CANDIDATE_ID = "car-t3-fandom-row-0b280377b913e854"
 PROPOSAL_ID = "car-t4-proposal-0b280377b913e854"
 OWNER_RESPONSE = "批准，color 與 edition 保持 null。"
+SECOND_CANDIDATE_ID = "car-t3-fandom-row-20f16ad2c5417006"
+SECOND_PROPOSAL_ID = "car-t4-proposal-20f16ad2c5417006"
+SECOND_OWNER_RESPONSE = "批准第 2 筆，color 與 edition 保持 null。"
 REVIEWED_AT = datetime(2026, 9, 29, 15, 30, tzinfo=UTC)
 
 COPY_PATHS = (
@@ -91,6 +95,14 @@ def _check(root: Path) -> Any:
         allow_uncommitted_current=True,
         head_anchor_provider=_base_head,
         progress_at_commit_provider=_no_progress,
+        expected_uncommitted_authorization=ExpectedOwnerAuthorization(
+            ordinal=1,
+            candidate_id=CANDIDATE_ID,
+            proposal_id=PROPOSAL_ID,
+            decision=CatalogDecision.approve_catalog_record,
+            exact_owner_response=OWNER_RESPONSE,
+            review_reason=APPROVAL_REASON,
+        ),
     )
 
 
@@ -170,6 +182,17 @@ def test_identical_retry_is_unchanged_but_conflicting_retry_fails(isolated_root:
             owner_response_verbatim="暫緩",
             review_reason="Evidence needs another owner review.",
             reviewed_at=REVIEWED_AT,
+            head_anchor_provider=_base_head,
+            progress_at_commit_provider=_no_progress,
+        )
+
+
+def test_precommit_check_requires_external_expected_authorization(isolated_root: Path) -> None:
+    _record(isolated_root)
+    with pytest.raises(AuthorityContractError, match="external expected owner authorization"):
+        check_catalog_decisions(
+            isolated_root,
+            allow_uncommitted_current=True,
             head_anchor_provider=_base_head,
             progress_at_commit_provider=_no_progress,
         )
@@ -482,6 +505,160 @@ def test_git_head_anchor_rejects_rehashed_history_rewrite(isolated_root: Path) -
         check_catalog_decisions(isolated_root, expected_base_commit=base_commit)
 
 
+def test_event_two_precommit_requires_external_exact_authorization(
+    isolated_root: Path,
+) -> None:
+    def git(*arguments: str) -> str:
+        result = subprocess.run(
+            ["git", "-C", str(isolated_root), *arguments],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        return result.stdout.strip()
+
+    git("init", "-q")
+    git("config", "user.name", "CAR Test")
+    git("config", "user.email", "car-test@example.invalid")
+    git("add", ".")
+    git("commit", "-qm", "base CAR-T4 fixture")
+    base_commit = git("rev-parse", "HEAD")
+    record_catalog_decision(
+        isolated_root,
+        candidate_id=CANDIDATE_ID,
+        proposal_id=PROPOSAL_ID,
+        decision=CatalogDecision.approve_catalog_record,
+        owner_response_verbatim=OWNER_RESPONSE,
+        reviewed_at=REVIEWED_AT,
+        expected_base_commit=base_commit,
+    )
+    git("add", str(PUBLIC_PROGRESS_REFERENCE), str(PUBLIC_METHOD_REFERENCE))
+    git("commit", "-qm", "anchor event 1 progress")
+
+    record_catalog_decision(
+        isolated_root,
+        candidate_id=SECOND_CANDIDATE_ID,
+        proposal_id=SECOND_PROPOSAL_ID,
+        decision=CatalogDecision.approve_catalog_record,
+        owner_response_verbatim=SECOND_OWNER_RESPONSE,
+        authorized_exact_owner_response=SECOND_OWNER_RESPONSE,
+        reviewed_at=REVIEWED_AT.replace(minute=31),
+        expected_base_commit=base_commit,
+    )
+    expected = ExpectedOwnerAuthorization(
+        ordinal=2,
+        candidate_id=SECOND_CANDIDATE_ID,
+        proposal_id=SECOND_PROPOSAL_ID,
+        decision=CatalogDecision.approve_catalog_record,
+        exact_owner_response=SECOND_OWNER_RESPONSE,
+        review_reason=APPROVAL_REASON,
+    )
+    check_catalog_decisions(
+        isolated_root,
+        allow_uncommitted_current=True,
+        expected_base_commit=base_commit,
+        expected_uncommitted_authorization=expected,
+    )
+    with pytest.raises(AuthorityContractError, match="external expected owner authorization"):
+        check_catalog_decisions(
+            isolated_root,
+            allow_uncommitted_current=True,
+            expected_base_commit=base_commit,
+        )
+
+    wrong_expectations = [
+        expected.model_copy(update={"candidate_id": CANDIDATE_ID}),
+        expected.model_copy(update={"proposal_id": PROPOSAL_ID}),
+        expected.model_copy(update={"decision": CatalogDecision.hold}),
+        expected.model_copy(update={"review_reason": "Wrong bounded reason."}),
+    ]
+    for wrong in wrong_expectations:
+        with pytest.raises(AuthorityContractError, match="external expected"):
+            check_catalog_decisions(
+                isolated_root,
+                allow_uncommitted_current=True,
+                expected_base_commit=base_commit,
+                expected_uncommitted_authorization=wrong,
+            )
+
+    ledger_path = isolated_root / LEDGER_REFERENCE
+    progress_path = isolated_root / PUBLIC_PROGRESS_REFERENCE
+    method_path = isolated_root / PUBLIC_METHOD_REFERENCE
+    originals = {
+        ledger_path: ledger_path.read_bytes(),
+        progress_path: progress_path.read_bytes(),
+        method_path: method_path.read_bytes(),
+    }
+    ledger = _load(ledger_path)
+    ledger["events"] = ledger["events"][:1]
+    _write(ledger_path, ledger)
+    with pytest.raises((AuthorityContractError, ValidationError, ValueError)):
+        check_catalog_decisions(
+            isolated_root,
+            allow_uncommitted_current=True,
+            expected_base_commit=base_commit,
+            expected_uncommitted_authorization=expected,
+        )
+    for path, raw in originals.items():
+        path.write_bytes(raw)
+
+    ledger = _load(ledger_path)
+    ledger["events"] = list(reversed(ledger["events"]))
+    _write(ledger_path, ledger)
+    with pytest.raises((AuthorityContractError, ValidationError, ValueError)):
+        check_catalog_decisions(
+            isolated_root,
+            allow_uncommitted_current=True,
+            expected_base_commit=base_commit,
+            expected_uncommitted_authorization=expected,
+        )
+    for path, raw in originals.items():
+        path.write_bytes(raw)
+
+    ledger = _load(ledger_path)
+    progress = _load(progress_path)
+    event = ledger["events"][1]
+    old_event_sha = event["event_sha256"]
+    old_ledger_sha = ledger["ledger_sha256"]
+    paraphrase = "批准第二筆，color 與 edition 保持 null。"
+    event["owner_response_verbatim"] = paraphrase
+    event["authorized_exact_owner_response"] = paraphrase
+    authorization_body = {
+        "authorization_contract_version": event["authorization_contract_version"],
+        "candidate_id": event["candidate_id"],
+        "proposal_id": event["proposal_id"],
+        "decision": event["decision"],
+        "authorized_exact_owner_response": paraphrase,
+        "review_reason": event["review_reason"],
+    }
+    event["authorization_contract_sha256"] = content_sha256(authorization_body)
+    event["event_sha256"] = content_sha256(
+        {key: value for key, value in event.items() if key != "event_sha256"}
+    )
+    ledger["cumulative_events_sha256"] = content_sha256(
+        [item["event_sha256"] for item in ledger["events"]]
+    )
+    ledger["ledger_sha256"] = content_sha256(
+        {key: value for key, value in ledger.items() if key != "ledger_sha256"}
+    )
+    progress["private_ledger_sha256"] = ledger["ledger_sha256"]
+    progress["cumulative_events_sha256"] = ledger["cumulative_events_sha256"]
+    progress["event_head_sha256"] = event["event_sha256"]
+    _write(ledger_path, ledger)
+    _write(progress_path, progress)
+    method = method_path.read_text(encoding="utf-8")
+    method = method.replace(old_ledger_sha, ledger["ledger_sha256"])
+    method = method.replace(old_event_sha, event["event_sha256"])
+    method_path.write_text(method, encoding="utf-8")
+    with pytest.raises(AuthorityContractError, match="external expected"):
+        check_catalog_decisions(
+            isolated_root,
+            allow_uncommitted_current=True,
+            expected_base_commit=base_commit,
+            expected_uncommitted_authorization=expected,
+        )
+
+
 def test_cli_records_from_repo_root_and_check_is_read_only(isolated_root: Path) -> None:
     fake_bin = isolated_root / "fake-bin"
     fake_bin.mkdir()
@@ -523,7 +700,23 @@ def test_cli_records_from_repo_root_and_check_is_read_only(isolated_root: Path) 
         for reference in (LEDGER_REFERENCE, PUBLIC_PROGRESS_REFERENCE, PUBLIC_METHOD_REFERENCE)
     }
     checked = subprocess.run(
-        [*command[:4], "--check", "--allow-uncommitted-current"],
+        [
+            *command[:4],
+            "--check",
+            "--allow-uncommitted-current",
+            "--expected-ordinal",
+            "1",
+            "--expected-candidate-id",
+            CANDIDATE_ID,
+            "--expected-proposal-id",
+            PROPOSAL_ID,
+            "--expected-decision",
+            "approve_catalog_record",
+            "--expected-owner-response",
+            OWNER_RESPONSE,
+            "--expected-review-reason",
+            APPROVAL_REASON,
+        ],
         check=True,
         capture_output=True,
         text=True,

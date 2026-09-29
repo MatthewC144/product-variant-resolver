@@ -33,7 +33,7 @@
     {
       "hash_encoding": "raw_file_bytes",
       "path": "specs/canonical-authority-review-v1/tasks.md",
-      "sha256": "39f577e9fc66c3b64f0424d992e00e0afbff90f6f18d215ff84759a696f7d3f2"
+      "sha256": "baa43d4d615b915b08b8553bc7a36fe104db6375a47f16f194590d6185300dbd"
     }
   ],
   "authority_state": {

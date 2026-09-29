@@ -117,6 +117,26 @@ class CatalogDecision(str, Enum):
     reject = "reject"
 
 
+class ExpectedOwnerAuthorization(DecisionContract):
+    """Trusted caller input for exactly one not-yet-committed append."""
+
+    ordinal: int = Field(ge=1, le=20)
+    candidate_id: OpaqueId
+    proposal_id: OpaqueId
+    decision: CatalogDecision
+    exact_owner_response: NonBlank
+    review_reason: NonBlank
+
+    @model_validator(mode="after")
+    def values_are_exact_and_safe(self) -> ExpectedOwnerAuthorization:
+        normalized = _normalize_owner_response(self.exact_owner_response)
+        if self.exact_owner_response != normalized:
+            raise ValueError("expected owner response must already be normalized")
+        _reject_sensitive_text(self.exact_owner_response, "expected owner response")
+        _reject_sensitive_text(self.review_reason, "expected review reason")
+        return self
+
+
 @dataclass(frozen=True)
 class CommittedProgressAnchor:
     """The current Git HEAD and the public progress bytes committed at that revision."""
@@ -737,6 +757,9 @@ def _render_public_method(progress: PublicCatalogDecisionProgress) -> str:
             "Git commits are the external immutable prefix anchor: a later event must extend the",
             "progress committed at HEAD by exactly one canonical event. Rehashing mutable JSON alone",
             "cannot prove append-only history and is rejected.",
+            "Before a new event is committed, precommit verification also requires the caller's",
+            "external expected ordinal, row identities, decision, exact owner response and bounded",
+            "reason; the mutable ledger cannot authorize its own wording.",
             "The verifier walks first-parent history through every commit carrying identical progress",
             "bytes. The commit that introduced those bytes must name its own first parent as the",
             "predecessor; later code-only commits cannot launder a rewritten history.",
@@ -871,6 +894,7 @@ def _validate_git_commitment(
     progress_at_commit_provider: ProgressAtCommitProvider,
     first_parent_at_commit_provider: FirstParentAtCommitProvider,
     expected_base_commit: str,
+    expected_uncommitted_authorization: ExpectedOwnerAuthorization | None,
 ) -> tuple[Literal["committed", "uncommitted_extension"], CommittedProgressAnchor]:
     head = head_anchor_provider(root)
     if not re.fullmatch(r"[0-9a-f]{40}", head.commit_sha):
@@ -962,6 +986,24 @@ def _validate_git_commitment(
         progress_at_commit_provider=progress_at_commit_provider,
         expected_base_commit=expected_base_commit,
     )
+    if expected_uncommitted_authorization is None:
+        raise AuthorityContractError(
+            "precommit verification requires an external expected owner authorization"
+        )
+    appended = ledger.events[-1]
+    expected = expected_uncommitted_authorization
+    if (
+        appended.ordinal != expected.ordinal
+        or appended.candidate_id != expected.candidate_id
+        or appended.proposal_id != expected.proposal_id
+        or appended.decision != expected.decision
+        or appended.owner_response_verbatim != expected.exact_owner_response
+        or appended.authorized_exact_owner_response != expected.exact_owner_response
+        or appended.review_reason != expected.review_reason
+    ):
+        raise AuthorityContractError(
+            "uncommitted event differs from the external expected owner authorization"
+        )
     return "uncommitted_extension", head
 
 
@@ -1026,6 +1068,7 @@ def check_catalog_decisions(
     progress_at_commit_provider: ProgressAtCommitProvider = _git_progress_at,
     first_parent_at_commit_provider: FirstParentAtCommitProvider = _git_first_parent_at,
     expected_base_commit: str = BASE_CAR_T4_COMMIT,
+    expected_uncommitted_authorization: ExpectedOwnerAuthorization | None = None,
 ) -> CatalogDecisionLedger:
     root = _lexical_root(root)
     artifacts, packet_sha = _validate_car_t4_inputs(root)
@@ -1043,6 +1086,7 @@ def check_catalog_decisions(
         progress_at_commit_provider=progress_at_commit_provider,
         first_parent_at_commit_provider=first_parent_at_commit_provider,
         expected_base_commit=expected_base_commit,
+        expected_uncommitted_authorization=expected_uncommitted_authorization,
     )
     return ledger
 
@@ -1117,6 +1161,14 @@ def record_catalog_decision(
             raise AuthorityContractError("held or rejected decisions require a review reason")
     _reject_sensitive_text(effective_authorized_response, "authorized exact owner response")
     _reject_sensitive_text(effective_reason, "review reason")
+    external_expectation = ExpectedOwnerAuthorization(
+        ordinal=ordinal,
+        candidate_id=candidate_id,
+        proposal_id=proposal_id,
+        decision=parsed_decision,
+        exact_owner_response=effective_authorized_response,
+        review_reason=effective_reason,
+    )
 
     head: CommittedProgressAnchor
     state: Literal["committed", "uncommitted_extension"]
@@ -1139,6 +1191,7 @@ def record_catalog_decision(
             progress_at_commit_provider=progress_at_commit_provider,
             first_parent_at_commit_provider=first_parent_at_commit_provider,
             expected_base_commit=expected_base_commit,
+            expected_uncommitted_authorization=external_expectation,
         )
     for event in existing_events:
         if event.candidate_id == candidate_id or event.proposal_id == proposal_id:
@@ -1206,6 +1259,7 @@ def record_catalog_decision(
         progress_at_commit_provider=progress_at_commit_provider,
         first_parent_at_commit_provider=first_parent_at_commit_provider,
         expected_base_commit=expected_base_commit,
+        expected_uncommitted_authorization=external_expectation,
     )
     if checked != result:
         raise AuthorityContractError("published catalog decision ledger failed verification")
@@ -1225,6 +1279,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--authorized-exact-owner-response")
     parser.add_argument("--review-reason")
     parser.add_argument("--allow-uncommitted-current", action="store_true")
+    parser.add_argument("--expected-ordinal", type=int)
+    parser.add_argument("--expected-candidate-id")
+    parser.add_argument("--expected-proposal-id")
+    parser.add_argument("--expected-decision", choices=[item.value for item in CatalogDecision])
+    parser.add_argument("--expected-owner-response")
+    parser.add_argument("--expected-review-reason")
     args = parser.parse_args(argv)
     try:
         if args.check:
@@ -1240,9 +1300,37 @@ def main(argv: list[str] | None = None) -> int:
                 )
             ):
                 raise AuthorityContractError("--check cannot be combined with recording arguments")
+            expected_values = (
+                args.expected_ordinal,
+                args.expected_candidate_id,
+                args.expected_proposal_id,
+                args.expected_decision,
+                args.expected_owner_response,
+                args.expected_review_reason,
+            )
+            if args.allow_uncommitted_current:
+                if None in expected_values:
+                    raise AuthorityContractError(
+                        "precommit --check requires every --expected-* authorization field"
+                    )
+                expected_authorization = ExpectedOwnerAuthorization(
+                    ordinal=args.expected_ordinal,
+                    candidate_id=args.expected_candidate_id,
+                    proposal_id=args.expected_proposal_id,
+                    decision=args.expected_decision,
+                    exact_owner_response=args.expected_owner_response,
+                    review_reason=args.expected_review_reason,
+                )
+            else:
+                if any(value is not None for value in expected_values):
+                    raise AuthorityContractError(
+                        "--expected-* fields require --allow-uncommitted-current"
+                    )
+                expected_authorization = None
             ledger = check_catalog_decisions(
                 args.root,
                 allow_uncommitted_current=args.allow_uncommitted_current,
+                expected_uncommitted_authorization=expected_authorization,
             )
             status = "valid"
         else:
@@ -1250,6 +1338,18 @@ def main(argv: list[str] | None = None) -> int:
                 raise AuthorityContractError(
                     "--allow-uncommitted-current is only valid with --check"
                 )
+            if any(
+                value is not None
+                for value in (
+                    args.expected_ordinal,
+                    args.expected_candidate_id,
+                    args.expected_proposal_id,
+                    args.expected_decision,
+                    args.expected_owner_response,
+                    args.expected_review_reason,
+                )
+            ):
+                raise AuthorityContractError("--expected-* fields are only valid with --check")
             if None in (
                 args.candidate_id,
                 args.proposal_id,
