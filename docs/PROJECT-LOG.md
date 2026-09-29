@@ -1,5 +1,71 @@
 # Project Log
 
+## 2026-09-29 — CAR-T3：由固定 100-row 建立並核准 output-blind review queue
+
+### 新執行了什麼，以及解決了什麼問題
+
+本輪延續 Lite／Lean Industrial 模式，完成 [CAR-T3 owner Gate](../specs/canonical-authority-review-v1/tasks.md)：只從 CAR-T1 已核准的
+固定 100-row Hot Wheels Wiki snapshot 中，建立一個可重現、可由 owner 審查的 candidate queue。Owner 核准的 primary queue 是
+**20 筆候選、7 個 source-label families**，另保留 **9 筆候選、3 個 families** 作 surplus fallback。這解決了 CAR-T2 雖已具備 strict
+contracts，卻仍不知道「接下來實際要先審哪些 rows」的問題；現在 CAR-T4 可以有明確輸入，但這 29 筆仍只是待審工作清單，不是正確
+variant 清單。
+
+這一步刻意把「候選數已達 20／families 已超過 4」和「authority 20／4 Gate 已通過」分開。前者只證明 queue 有足夠工作量，後者仍要求
+每筆通過 catalog membership、逐欄 evidence、output-blind 人工 review 與 explicit approval。若把 candidate count 直接當 authority count，
+就會重現 RHB-T4 已阻擋的問題：有資料列不等於有 independently grounded exact variants。
+
+### 修改內容、deterministic selection rule 與 primary／surplus 取捨
+
+`candidate-plan.md` 將選擇規則、queue composition、review warnings、owner Gate 與未授權事項寫成人可讀計畫；對應的
+`candidate-plan.json` 保存相同邊界的 strict machine-readable companion；candidate baseline 則從固定 snapshot 重算 100-row membership、
+family grouping、29 個唯一候選與 primary／surplus overlap。Tasks 狀態更新為 `CAR-T1–T3 complete; T4+ not started`，CAR-T3 checkbox 完成後，
+Source Gate manifest 中綁定 `tasks.md` 的 parent SHA 也更新為
+`ec98fe0607df23c139079e5fe232591e6aff63e3d3d8529968261ad756360d17`。這只是維持既有 parent binding；沒有改變來源授權或擴張
+authority scope。
+
+Selection rule 採 deterministic policy：先選出所有「三列、且三列都位於單一 source series」的 eligible families，依不分大小寫的
+family label 排序，family 內再依 `source_record_id` 排序。這得到六個 families、18 rows；接著取 frozen source order 中最早符合條件的
+兩列 single-series family，補到剛好 20 筆 primary。剩餘三個三列 families 因含 cross-series 或 special-release context，全部放進
+9-row surplus。相同 snapshot 依同一規則重跑，會得到相同 7／20 primary 與 3／9 surplus，而不需要 resolver score、模型輸出或人工臨時
+挑選。
+
+Primary 與 surplus 分離，是為了讓「最低審查目標」不被 fallback rows 重複灌水，也讓較複雜的跨 series、`Red Edition` 或其他
+special-release context 不必在第一批就承擔較高歧義。Surplus 不是次等 truth，也不能自動替換 primary；未來若要移入 primary，仍需新的
+owner decision。這項取捨讓第一批 review 優先處理結構較單純的 groups，同時保留 9 筆備援，以免少數 primary rows 在 catalog／evidence
+Gate 失敗後完全沒有替代候選。
+
+### Owner 核准的精確語意與不擴張邊界
+
+Owner 原訊息的語意明確批准 CAR-T3 candidate plan，並另外授權把完成內容 push 到 GitHub；核准時間記錄為
+`2026-09-29T13:26:17Z`。其中 GitHub push 是 repository 操作授權，不是 data-authority Gate，也不會因程式碼被推送就讓候選成為真值。
+本次 owner Gate 只涵蓋 20／7 primary、9／3 surplus，以及 `reviewer_role=project_owner`、
+`confirmation_method=owner_attestation`、`resolver_output_consulted=false` 的 output-blind review method。
+
+所有 casting labels 與 series 只作 `candidate_selection_only` grouping；`Zamac`、`2nd Color`、`3rd Color`、`Red Edition` 等字樣也只是後續
+review warnings／context，不能填入 color、edition 或 exact release identity。29 筆候選的 `canonical_uuid` 全為 `null`，catalog lookup
+都仍是 `pending_car_t4`；verified field values=`0`、exact variants=`0`、authority rows=`0`，color／edition authority 尚未建立，
+RHB-T5 authorization 仍為 `false`。因此這一步最多能宣稱 owner 已核准「要審什麼與怎麼審」，不能宣稱 Mattel 官方真值、catalog 已完成
+或 benchmark 已準備好。
+
+### QA 發現、最終驗證與留下的限制
+
+初版計畫曾用英文引號表達 owner approval，雖然語意正確，形式上卻可能被讀者誤認為 owner 的逐字英文引言。QA 指出後，文件改成可稽核的
+語意摘要：只記錄 owner 明確批准 CAR-T3，以及 push 授權屬於獨立操作權限，不再製造看似 verbatim 的句子。這項修正很小，但重要原因是
+approval artifact 不能把 agent 的英文改寫偽裝成人類原話；最終 QA 因此判定 **PASS**，無 Blocker 或 Important finding。
+
+最終重算確認 29／29 candidate `source_record_id` 都唯一且屬於固定 100-row membership，candidate IDs 重複為 0，primary／surplus overlap
+為 0。CAR-T1／T2 focused regression 為 `99 passed`，完整 repository regression 為 `1150 passed`；CAR-T1 Source Gate、candidate JSON
+canonical/hash、Ruff、Ruff format、strict MyPy、compileall、JSON、secret／PII scan 與 `git diff --check` 全部通過。完整測試唯一訊息仍是
+既有 Starlette `BlockingPortal` deprecation warning，與 CAR-T3 無關。這些是已完成 QA 的證據；本次 Project Log 策展只執行文件
+diff-check 與必要文字檢查，沒有重跑測試。
+
+### 下一步
+
+下一個順序任務是 **CAR-T4 packet／catalog proposals**，本輪尚未開始。CAR-T4 要把 owner-approved queue 轉成 local-only、output-blind
+review packet，並對缺少 canonical UUID 的候選準備 evidence-bound catalog proposal。每一個 missing UUID 都必須另行通過獨立 catalog
+approval；catalog proposal 即使獲准，也不能自動 promotion 成 exact authority。CAR-T4 完成前不建立 review events、不凍結 authority
+bundle，也不啟動 RHB-T5；architect、security 與 performance review 在 Lite／Lean 範圍內仍為 deferred。
+
 ## 2026-09-28 — CAR-T2：建立 canonical authority 的離線嚴格契約，四輪 QA 後放行
 
 ### 新執行了什麼，以及解決了什麼問題

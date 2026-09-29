@@ -1,7 +1,7 @@
 # Canonical Authority Review v1 — Tasks
 
-Date: 2026-09-26. Owner approval recorded: 2026-09-28. Mode: Lite / Lean Industrial. Status:
-**CAR-T1–T2 complete; T3+ not started**.
+Date: 2026-09-26. Source-plan owner approval recorded: 2026-09-28. CAR-T3 owner approval recorded:
+2026-09-29. Mode: Lite / Lean Industrial. Status: **CAR-T1–T3 complete; T4+ not started**.
 
 After owner approval, execute sequentially. Each task is one reviewable commit. A failed owner/data
 Gate stops later work without being treated as an engineering failure.
@@ -63,7 +63,7 @@ Commit: contracts and contract tests only; no real authority rows.
 
 ## CAR-T3 — Approve the candidate plan **OWNER GATE** `[qa/doc_curator]`
 
-- [ ] Propose at least four multi-release families and enough candidate releases to yield 20 valid
+- [x] Propose at least four multi-release families and enough candidate releases to yield 20 valid
   variants, then obtain owner approval of the queue and review method. _(→CAR-R2,CAR-R4,CAR-R8)_
 
 Files:

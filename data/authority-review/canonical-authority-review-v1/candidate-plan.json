@@ -1,0 +1,448 @@
+{
+  "approval_effect": "candidate_queue_and_output_blind_review_method_only_not_catalog_or_exact_authority",
+  "approval_status": "approved",
+  "guardrails": {
+    "canonical_uuids_included": false,
+    "catalog_lookup_status": "pending_car_t4",
+    "exact_authority_rows_created": 0,
+    "network_requests": 0,
+    "records_are_candidate_selection_only": true,
+    "rhb_t5_authorized": false,
+    "verified_field_values_included": false
+  },
+  "owner_gate": {
+    "approval_scope": [
+      "primary_queue_20_candidates_across_7_families",
+      "surplus_queue_9_candidates_across_3_families_fallback_only",
+      "output_blind_review_method"
+    ],
+    "approval_statement": "Owner approved the CAR-T3 candidate plan.",
+    "approved_at": "2026-09-29T13:26:17Z",
+    "confirmation_method": "owner_attestation",
+    "decision_status": "approved",
+    "excluded_from_approval": [
+      "canonical_uuid",
+      "catalog_values_or_mutations",
+      "color",
+      "edition",
+      "exact_authority",
+      "RHB-T5"
+    ],
+    "resolver_output_consulted": false,
+    "reviewer_role": "project_owner"
+  },
+  "plan_version": "canonical-authority-review-candidate-plan-draft-v1",
+  "primary_queue": {
+    "candidate_count": 20,
+    "families": [
+      {
+        "candidate_count": 3,
+        "candidates": [
+          {
+            "candidate_id": "car-t3-fandom-row-2a5c961e0bb57c99",
+            "candidate_selection_only": true,
+            "canonical_uuid": null,
+            "catalog_lookup_status": "pending_car_t4",
+            "queue_role": "primary",
+            "source_record_id": "fandom-row-2a5c961e0bb57c99"
+          },
+          {
+            "candidate_id": "car-t3-fandom-row-3a6c7c2b9a6429fa",
+            "candidate_selection_only": true,
+            "canonical_uuid": null,
+            "catalog_lookup_status": "pending_car_t4",
+            "queue_role": "primary",
+            "source_record_id": "fandom-row-3a6c7c2b9a6429fa"
+          },
+          {
+            "candidate_id": "car-t3-fandom-row-d9d82c60489c0456",
+            "candidate_selection_only": true,
+            "canonical_uuid": null,
+            "catalog_lookup_status": "pending_car_t4",
+            "queue_role": "primary",
+            "source_record_id": "fandom-row-d9d82c60489c0456"
+          }
+        ],
+        "family_plan_id": "car-t3-family-21-ford-bronco",
+        "queue_role": "primary",
+        "review_risks": [
+          "color_sequence_words_are_context_only"
+        ],
+        "selection_basis": "eligible_three_row_single_series_family",
+        "source_family_label": "'21 Ford Bronco",
+        "source_family_label_role": "candidate_selection_only"
+      },
+      {
+        "candidate_count": 3,
+        "candidates": [
+          {
+            "candidate_id": "car-t3-fandom-row-20f16ad2c5417006",
+            "candidate_selection_only": true,
+            "canonical_uuid": null,
+            "catalog_lookup_status": "pending_car_t4",
+            "queue_role": "primary",
+            "source_record_id": "fandom-row-20f16ad2c5417006"
+          },
+          {
+            "candidate_id": "car-t3-fandom-row-710c84b99e8c2e48",
+            "candidate_selection_only": true,
+            "canonical_uuid": null,
+            "catalog_lookup_status": "pending_car_t4",
+            "queue_role": "primary",
+            "source_record_id": "fandom-row-710c84b99e8c2e48"
+          },
+          {
+            "candidate_id": "car-t3-fandom-row-e5b00b0411a6187d",
+            "candidate_selection_only": true,
+            "canonical_uuid": null,
+            "catalog_lookup_status": "pending_car_t4",
+            "queue_role": "primary",
+            "source_record_id": "fandom-row-e5b00b0411a6187d"
+          }
+        ],
+        "family_plan_id": "car-t3-family-draftnator",
+        "queue_role": "primary",
+        "review_risks": [
+          "color_sequence_words_are_context_only"
+        ],
+        "selection_basis": "eligible_three_row_single_series_family",
+        "source_family_label": "Draftnator",
+        "source_family_label_role": "candidate_selection_only"
+      },
+      {
+        "candidate_count": 3,
+        "candidates": [
+          {
+            "candidate_id": "car-t3-fandom-row-0b280377b913e854",
+            "candidate_selection_only": true,
+            "canonical_uuid": null,
+            "catalog_lookup_status": "pending_car_t4",
+            "queue_role": "primary",
+            "source_record_id": "fandom-row-0b280377b913e854"
+          },
+          {
+            "candidate_id": "car-t3-fandom-row-592082e49745a19f",
+            "candidate_selection_only": true,
+            "canonical_uuid": null,
+            "catalog_lookup_status": "pending_car_t4",
+            "queue_role": "primary",
+            "source_record_id": "fandom-row-592082e49745a19f"
+          },
+          {
+            "candidate_id": "car-t3-fandom-row-a69d24d7e300d639",
+            "candidate_selection_only": true,
+            "canonical_uuid": null,
+            "catalog_lookup_status": "pending_car_t4",
+            "queue_role": "primary",
+            "source_record_id": "fandom-row-a69d24d7e300d639"
+          }
+        ],
+        "family_plan_id": "car-t3-family-mazda-autozam",
+        "queue_role": "primary",
+        "review_risks": [
+          "color_sequence_words_are_context_only",
+          "zamac_word_is_context_only_not_edition_or_color_evidence"
+        ],
+        "selection_basis": "eligible_three_row_single_series_family",
+        "source_family_label": "Mazda Autozam",
+        "source_family_label_role": "candidate_selection_only"
+      },
+      {
+        "candidate_count": 3,
+        "candidates": [
+          {
+            "candidate_id": "car-t3-fandom-row-38aa30ce0eed34ca",
+            "candidate_selection_only": true,
+            "canonical_uuid": null,
+            "catalog_lookup_status": "pending_car_t4",
+            "queue_role": "primary",
+            "source_record_id": "fandom-row-38aa30ce0eed34ca"
+          },
+          {
+            "candidate_id": "car-t3-fandom-row-75cd82288d943dce",
+            "candidate_selection_only": true,
+            "canonical_uuid": null,
+            "catalog_lookup_status": "pending_car_t4",
+            "queue_role": "primary",
+            "source_record_id": "fandom-row-75cd82288d943dce"
+          },
+          {
+            "candidate_id": "car-t3-fandom-row-eb74e3eebcc4dcf4",
+            "candidate_selection_only": true,
+            "canonical_uuid": null,
+            "catalog_lookup_status": "pending_car_t4",
+            "queue_role": "primary",
+            "source_record_id": "fandom-row-eb74e3eebcc4dcf4"
+          }
+        ],
+        "family_plan_id": "car-t3-family-morgan-super-3",
+        "queue_role": "primary",
+        "review_risks": [
+          "color_sequence_words_are_context_only"
+        ],
+        "selection_basis": "eligible_three_row_single_series_family",
+        "source_family_label": "Morgan Super 3",
+        "source_family_label_role": "candidate_selection_only"
+      },
+      {
+        "candidate_count": 3,
+        "candidates": [
+          {
+            "candidate_id": "car-t3-fandom-row-27fe2c9ab41942b8",
+            "candidate_selection_only": true,
+            "canonical_uuid": null,
+            "catalog_lookup_status": "pending_car_t4",
+            "queue_role": "primary",
+            "source_record_id": "fandom-row-27fe2c9ab41942b8"
+          },
+          {
+            "candidate_id": "car-t3-fandom-row-77ecedc5e3db3f77",
+            "candidate_selection_only": true,
+            "canonical_uuid": null,
+            "catalog_lookup_status": "pending_car_t4",
+            "queue_role": "primary",
+            "source_record_id": "fandom-row-77ecedc5e3db3f77"
+          },
+          {
+            "candidate_id": "car-t3-fandom-row-ebf5fc720ec1d06d",
+            "candidate_selection_only": true,
+            "canonical_uuid": null,
+            "catalog_lookup_status": "pending_car_t4",
+            "queue_role": "primary",
+            "source_record_id": "fandom-row-ebf5fc720ec1d06d"
+          }
+        ],
+        "family_plan_id": "car-t3-family-nissan-skyline-2000gt-r-lbwk",
+        "queue_role": "primary",
+        "review_risks": [
+          "color_sequence_words_are_context_only"
+        ],
+        "selection_basis": "eligible_three_row_single_series_family",
+        "source_family_label": "Nissan Skyline 2000GT-R LBWK",
+        "source_family_label_role": "candidate_selection_only"
+      },
+      {
+        "candidate_count": 3,
+        "candidates": [
+          {
+            "candidate_id": "car-t3-fandom-row-26b0ba519bca3a01",
+            "candidate_selection_only": true,
+            "canonical_uuid": null,
+            "catalog_lookup_status": "pending_car_t4",
+            "queue_role": "primary",
+            "source_record_id": "fandom-row-26b0ba519bca3a01"
+          },
+          {
+            "candidate_id": "car-t3-fandom-row-3aa2e8967b2f55bf",
+            "candidate_selection_only": true,
+            "canonical_uuid": null,
+            "catalog_lookup_status": "pending_car_t4",
+            "queue_role": "primary",
+            "source_record_id": "fandom-row-3aa2e8967b2f55bf"
+          },
+          {
+            "candidate_id": "car-t3-fandom-row-78748248e56441f5",
+            "candidate_selection_only": true,
+            "canonical_uuid": null,
+            "catalog_lookup_status": "pending_car_t4",
+            "queue_role": "primary",
+            "source_record_id": "fandom-row-78748248e56441f5"
+          }
+        ],
+        "family_plan_id": "car-t3-family-subaru-brz",
+        "queue_role": "primary",
+        "review_risks": [
+          "color_sequence_words_are_context_only",
+          "zamac_word_is_context_only_not_edition_or_color_evidence"
+        ],
+        "selection_basis": "eligible_three_row_single_series_family",
+        "source_family_label": "Subaru BRZ",
+        "source_family_label_role": "candidate_selection_only"
+      },
+      {
+        "candidate_count": 2,
+        "candidates": [
+          {
+            "candidate_id": "car-t3-fandom-row-53333b0feb531ebc",
+            "candidate_selection_only": true,
+            "canonical_uuid": null,
+            "catalog_lookup_status": "pending_car_t4",
+            "queue_role": "primary",
+            "source_record_id": "fandom-row-53333b0feb531ebc"
+          },
+          {
+            "candidate_id": "car-t3-fandom-row-7e1a3b3ad2244c80",
+            "candidate_selection_only": true,
+            "canonical_uuid": null,
+            "catalog_lookup_status": "pending_car_t4",
+            "queue_role": "primary",
+            "source_record_id": "fandom-row-7e1a3b3ad2244c80"
+          }
+        ],
+        "family_plan_id": "car-t3-family-mazda-mx-5-miata",
+        "queue_role": "primary",
+        "review_risks": [
+          "color_sequence_words_are_context_only"
+        ],
+        "selection_basis": "minimum_target_fill_earliest_eligible_two_row_family_in_frozen_source_order",
+        "source_family_label": "Mazda MX-5 Miata",
+        "source_family_label_role": "candidate_selection_only"
+      }
+    ],
+    "family_count": 7,
+    "minimum_candidate_target": 20,
+    "minimum_family_target": 4,
+    "queue_role": "primary",
+    "target_candidate_shortfall": 0,
+    "target_family_shortfall": 0
+  },
+  "schema_version": "pvr-canonical-authority-review-candidate-plan-v1",
+  "selection_policy": {
+    "candidate_order": "source_record_id_lexicographic_within_family",
+    "completeness_fields": [
+      "source_record_id",
+      "toy_number",
+      "casting_name",
+      "release_year",
+      "series",
+      "collector_number",
+      "series_position"
+    ],
+    "completeness_interpretation": "selection_quality_only_not_field_verification",
+    "family_order": "casefolded_source_family_label_then_exact_label",
+    "primary_rule": "all_eligible_three_row_single_series_families_then_earliest_source_order_eligible_two_row_single_series_family_to_reach_exactly_20",
+    "surplus_rule": "all_remaining_eligible_three_row_families_with_cross_series_or_special_release_context",
+    "workbook_1763_rows_used": false
+  },
+  "source_binding": {
+    "candidate_record_membership": "validated_against_fixed_100_row_snapshot",
+    "normalized_snapshot_sha256": "e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6",
+    "revision_id": 790665,
+    "source_id": "fandom-hot-wheels-2025-pilot-r790665-v1",
+    "source_page_title": "List of 2025 Hot Wheels",
+    "source_record_count": 100,
+    "source_record_ids_sha256": "c2412a8e9fa8fe78a2e8f6c932636e5d2a965131f0561843d179d13cdd8adba7"
+  },
+  "surplus_queue": {
+    "candidate_count": 9,
+    "families": [
+      {
+        "candidate_count": 3,
+        "candidates": [
+          {
+            "candidate_id": "car-t3-fandom-row-41d0a9ce8cd980ab",
+            "candidate_selection_only": true,
+            "canonical_uuid": null,
+            "catalog_lookup_status": "pending_car_t4",
+            "queue_role": "surplus",
+            "source_record_id": "fandom-row-41d0a9ce8cd980ab"
+          },
+          {
+            "candidate_id": "car-t3-fandom-row-49995a7ea6dd3a47",
+            "candidate_selection_only": true,
+            "canonical_uuid": null,
+            "catalog_lookup_status": "pending_car_t4",
+            "queue_role": "surplus",
+            "source_record_id": "fandom-row-49995a7ea6dd3a47"
+          },
+          {
+            "candidate_id": "car-t3-fandom-row-796bacefcce35e1a",
+            "candidate_selection_only": true,
+            "canonical_uuid": null,
+            "catalog_lookup_status": "pending_car_t4",
+            "queue_role": "surplus",
+            "source_record_id": "fandom-row-796bacefcce35e1a"
+          }
+        ],
+        "family_plan_id": "car-t3-family-90-honda-civic-ef",
+        "queue_role": "surplus",
+        "review_risks": [
+          "color_sequence_words_are_context_only",
+          "cross_series_or_red_edition_context_requires_owner_review"
+        ],
+        "selection_basis": "remaining_eligible_three_row_family_with_cross_series_context",
+        "source_family_label": "'90 Honda Civic EF",
+        "source_family_label_role": "candidate_selection_only"
+      },
+      {
+        "candidate_count": 3,
+        "candidates": [
+          {
+            "candidate_id": "car-t3-fandom-row-5334ae3b3e4446e6",
+            "candidate_selection_only": true,
+            "canonical_uuid": null,
+            "catalog_lookup_status": "pending_car_t4",
+            "queue_role": "surplus",
+            "source_record_id": "fandom-row-5334ae3b3e4446e6"
+          },
+          {
+            "candidate_id": "car-t3-fandom-row-ccf12c7503be5c7c",
+            "candidate_selection_only": true,
+            "canonical_uuid": null,
+            "catalog_lookup_status": "pending_car_t4",
+            "queue_role": "surplus",
+            "source_record_id": "fandom-row-ccf12c7503be5c7c"
+          },
+          {
+            "candidate_id": "car-t3-fandom-row-cd91a09d2fb2f780",
+            "candidate_selection_only": true,
+            "canonical_uuid": null,
+            "catalog_lookup_status": "pending_car_t4",
+            "queue_role": "surplus",
+            "source_record_id": "fandom-row-cd91a09d2fb2f780"
+          }
+        ],
+        "family_plan_id": "car-t3-family-lamborghini-huracan-sterrato",
+        "queue_role": "surplus",
+        "review_risks": [
+          "color_sequence_words_are_context_only",
+          "cross_series_or_red_edition_context_requires_owner_review"
+        ],
+        "selection_basis": "remaining_eligible_three_row_family_with_cross_series_context",
+        "source_family_label": "Lamborghini Huracán Sterrato",
+        "source_family_label_role": "candidate_selection_only"
+      },
+      {
+        "candidate_count": 3,
+        "candidates": [
+          {
+            "candidate_id": "car-t3-fandom-row-2675314e80d7829e",
+            "candidate_selection_only": true,
+            "canonical_uuid": null,
+            "catalog_lookup_status": "pending_car_t4",
+            "queue_role": "surplus",
+            "source_record_id": "fandom-row-2675314e80d7829e"
+          },
+          {
+            "candidate_id": "car-t3-fandom-row-831b6df53c1c6e1b",
+            "candidate_selection_only": true,
+            "canonical_uuid": null,
+            "catalog_lookup_status": "pending_car_t4",
+            "queue_role": "surplus",
+            "source_record_id": "fandom-row-831b6df53c1c6e1b"
+          },
+          {
+            "candidate_id": "car-t3-fandom-row-ffc85d1ddcdc7f53",
+            "candidate_selection_only": true,
+            "canonical_uuid": null,
+            "catalog_lookup_status": "pending_car_t4",
+            "queue_role": "surplus",
+            "source_record_id": "fandom-row-ffc85d1ddcdc7f53"
+          }
+        ],
+        "family_plan_id": "car-t3-family-small-bloc",
+        "queue_role": "surplus",
+        "review_risks": [
+          "color_sequence_words_are_context_only",
+          "cross_series_or_red_edition_context_requires_owner_review"
+        ],
+        "selection_basis": "remaining_eligible_three_row_family_with_cross_series_context",
+        "source_family_label": "Small Bloc",
+        "source_family_label_role": "candidate_selection_only"
+      }
+    ],
+    "family_count": 3,
+    "included_in_primary_target": false,
+    "queue_role": "surplus"
+  }
+}
