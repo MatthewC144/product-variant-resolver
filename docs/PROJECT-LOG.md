@@ -1,5 +1,54 @@
 # Project Log
 
+## 2026-09-29 — Catalog Proposal Decision 02：以外部 expected authorization 阻止未提交事件自我授權
+
+### 新執行了什麼，以及解決了什麼問題
+
+本輪收到 owner 對 canonical packet 第 2／20 筆的精確回覆：`批准第 2 筆，color 與 edition 保持 null。`。這筆 proposal 對應
+Draftnator／`HYW70`，以 ordinal `2` 追加到 private decision ledger；六個 frozen mappings 為 casting、release year、series、collector
+number、series position 與 identifiers，`color`、`edition` 仍強制為 `null`。Decision 02 因而記為可進入稍後 catalog batch Gate，但不會
+立即套用 catalog record。
+
+公開進度由 1／20 更新為 owner-approved proposals `2`、pending `18`，held／rejected 仍為 `0`。20 筆 proposal artifacts 繼續保持
+`staged`；catalog applied=`0`、exact authority=`0`、RHB-T5 authorization=`false`。這一步解決的是第二筆 proposal 的 owner 決定與事件鏈
+延伸，不是將 Draftnator／HYW70 宣告為 Mattel 官方真值或 benchmark authority。
+
+### 修改了哪個契約部分，以及為何需要外部 ExpectedOwnerAuthorization
+
+Decision 01 使用固定在程式中的 exact literal，因此 event 本身無法任意改寫 owner 文字；但 generic event 02 原設計同時從 mutable ledger 讀取
+`owner_response_verbatim` 與 `authorized_exact_owner_response`。只要攻擊者把兩者同步改成同一段 paraphrase，再重算 authorization、event、
+ledger 與 public progress 的所有 hashes，未提交狀態就可能自我宣稱「這正是被授權的原句」。QA 已實際重現這個 precommit acceptance，證明
+兩個互相相等的 mutable fields 不是外部 authorization source。
+
+修正後新增 strict `ExpectedOwnerAuthorization`，由 ledger 之外的呼叫端提供 ordinal、candidate ID、proposal ID、decision、完整 exact owner
+response 與 bounded review reason。Precommit validator 必須把唯一新增事件逐欄對照這份外部 expectation；缺任一 expected value、candidate／
+proposal 對錯、decision／reason 不符或 response 被改寫都 fail closed。這個方法保留 generic recorder 支援後續 ordinal 3–20，同時不必把每一句
+owner 回覆都硬編碼進產品程式。
+
+外部 expectation 解決的是**尚未提交**事件不能自我授權；event commit 完成後，前一輪建立的 Git first-parent 規則繼續負責**已提交**歷史。
+Validator 會定位 progress 的 introduction commit，要求其 anchor 指向 introduction commit 的第一個 parent，並拒絕後續 code-only commit
+洗白 rewrite。兩層分工很重要：expected authorization 證明「本次準備提交的文字確實是 owner 指定內容」，Git ancestry 則證明「提交後的事件
+前綴沒有被重寫」。SHA-256 只負責 bytes binding，仍不被當成人類授權本身。
+
+### QA 中途不穩定訊號、攻擊矩陣與最終結果
+
+修復期間的一次中間 QA 曾遇到 duplicate CLI argument 與 test expectation mismatch，使檢查結果不穩定；這是 CLI／測試介面尚未同步，不能被
+當作功能 PASS。最後將參數定義與測試 fixture 對齊後再完整重驗，避免用偶然通過或測試本身寫錯來放行。這也延續本專案的原則：測試數字只有
+在 harness 本身穩定且能重現攻擊時才是有效證據。
+
+最終 attack matrix 確認以下全部拒絕：刪除 event 02、將 event 01／02 重排、把 owner response 與 authorized response 同步改成 paraphrase 後
+完整 rehash、改成錯誤 candidate、改成錯誤 proposal，以及缺少或提供錯誤 external expected values。合法 Decision 02 則確認 ordinal、
+Draftnator／HYW70 identity、六個 mappings、`color=null`、`edition=null`、event 01 hash 不變，且 event 02 的
+`previous_event_sha256` 正確指向 event 01。
+
+最終獨立 QA 判定 **PASS**：catalog decision tests 為 `31 passed`，其他 CAR focused tests 為 `118 passed`，完整 repository suite 為
+`1200 passed`。Ruff、Ruff format、strict MyPy、compileall、CAR-T1 Source Gate 與兩個 CAR-T4 builders 全部通過；private ledger 仍在
+Git-ignored local directory，public artifact 仍只包含 aggregate 與 hashes。這些結果來自已完成 QA；本次 Project Log 策展沒有重跑測試。
+
+Decision 02 的本機 Git anchor commit 為 `dcd21e4`。先前三個本機 commits `bb073f3`、`1f617a5`、`272afc3` 以及本次 `dcd21e4` 均
+**尚未 push**；本輪只更新 Project Log，不提交或推送。下一步仍須按 canonical order取得第 3／20 筆 owner 決定，不能提前套用 catalog、
+建立 exact authority 或啟動 RHB-T5。
+
 ## 2026-09-29 — Catalog Proposal Decision 01：記錄第一筆 owner 核准並以 Git 歷史錨定 append-only 證據
 
 ### 新執行了什麼，以及解決了什麼問題
