@@ -1,5 +1,42 @@
 # Project Log
 
+## 2026-09-30 — Catalog Proposal Decision 04
+
+### 新執行了什麼，以及解決了什麼問題
+
+本輪收到 owner 對 canonical packet 第 4／20 筆的精確回覆：`批准第 4 筆，color 與 edition 保持 null。`。這筆 ordinal `4` proposal
+對應 Nissan Skyline 2000GT-R LBWK／`HYX54`；六個 frozen mappings 為 casting=`Nissan Skyline 2000GT-R LBWK`、release year=`2025`、
+series=`HW J-Imports`、collector number=`026`、series position=`1/5` 與 identifiers=`HYX54`，deterministic proposed UUID 為
+`d2ee5fd2-006e-5758-bdc3-9cfd7f29bcc9`。Owner 的回答只核准這份 catalog proposal 可進入後續 batch Gate，沒有立即修改 catalog。
+
+來源的 `3rd Color` 仍只是第三個顏色順序版本的 context text，不是實際色名證據，也不能建立 edition。因此它不進入六個 accepted mappings，
+`color=null`、`edition=null` 繼續作為明確約束。這避免把 release marker 自動推導成產品外觀或 edition truth。
+
+### 為何本輪不需要修改程式碼
+
+Decision 04 直接重用 Decision 02 已建立、Decision 03 已驗證可重複使用的 generic `ExpectedOwnerAuthorization`。Precommit 階段仍由 ledger
+外部提供 ordinal、candidate／proposal IDs、decision、exact owner response 與 bounded reason；commit 後仍由 Git first-parent introduction
+anchor 保護已提交 event prefix。沒有為 Nissan／HYX54 或第四句回答新增專用分支，也沒有把 literal 硬編碼到產品程式。
+
+同一套 control 能從 ordinal 2、3 延伸到 4，證明它是可重複使用的 owner-authorization contract，而不是只為單一測試案例設計。這降低後續
+16 筆審查的重複碼與規則漂移風險，同時保留每筆回答都必須由外部 exact expectation 個別授權的要求。
+
+### 決策範圍、最終 QA 與目前進度
+
+公開進度更新為 owner-approved proposals `4`、pending `16`，held／rejected 為 `0`；20 筆 proposal artifacts 仍全部保持 `staged`。
+Catalog applied=`0`、exact authority=`0`、RHB-T5 authorization=`false`。Events 1–3 與 catalog／packet／proposal hashes 維持不變，event 4
+正確延伸 event 3；這筆核准不是 catalog application、`approved_exact` authority 或 Mattel 官方認證。
+
+最終獨立 QA 判定 **PASS**：11／11 attacks 全部拒絕，涵蓋 identity、expected authorization、event chain、context／null boundary 與 rehash
+攻擊；合法事件則確認 Nissan／HYX54、六個 mapping values、UUID、`3rd Color` context-only 及 `color`／`edition` null。CAR focused tests 為
+`149 passed`，完整 repository suite 為 `1200 passed`；Ruff、Ruff format、strict MyPy、compileall、CAR-T1 Source Gate 與兩個 CAR-T4
+builders 全部通過。唯一訊息仍是既有 deprecation warning，與 Decision 04 無關。這些結果來自已完成 QA；本次 Project Log 策展沒有重跑
+測試。
+
+Decision 04 的本機 anchor commit 為 `1ddef09`。目前本機 `main` 的所有 Decision 01–04 與相關文件 commits 仍全部未 push；本輪只更新
+Project Log，不提交或推送。下一步仍須按 canonical order取得第 5／20 筆 owner 決定，不能提前套用 catalog、建立 exact authority 或啟動
+RHB-T5。
+
 ## 2026-09-29 — Catalog Proposal Decision 03
 
 ### 新執行了什麼，以及解決了什麼問題
