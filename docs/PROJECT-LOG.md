@@ -1,5 +1,43 @@
 # Project Log
 
+## 2026-09-30 — Remaining catalog review queue audit — prepare all records before approvals
+
+### 新執行了什麼，以及解決了什麼問題
+
+使用者要求先把本輪所有待審資料準備完整，再依 canonical order 逐筆確認；本輪因此只做剩餘 review queue 的唯讀稽核，沒有把「已準備」推定為
+「已批准」。CAR-T4 frozen packet 原本就已包含 20 筆完整 proposal，private append-only ledger 則仍是該 packet ordinal 1–4 的精確
+event prefix；兩者相減後，待審範圍明確是 ordinals 5–20，共 16 筆。這解決了後續審查前最重要的範圍問題：owner 可以逐筆檢視全部剩餘資料，
+但系統不會因為 queue 已經整理完成，就替 owner 產生任何新的 decision event。
+
+待審 view 不另存成第二份可漂移清單，而是唯讀推導為 `packet.entries[len(ledger.events):]`。稽核確認這 16 筆橫跨 7 個 casting families；每筆
+candidate ID、proposal ID、deterministic UUID 與 release key 都唯一，並具備 casting、release year、series、collector number、series
+position、identifiers 六個 evidence mappings。所有 records 都維持 `source=proposed`、`color=null`、`edition=null`；variant notes 只作
+context，分布為 `2nd Color` 5 筆、`2nd Color - Zamac` 2 筆、`3rd Color` 3 筆，另有 6 筆沒有 note。每筆仍是 staged／unapplied，沒有
+authority、reviewer metadata 或 owner decision，且 `resolver_output_consulted=false`。
+
+### 為何沒有修改 code、data 或 spec
+
+本輪沒有新增程式碼、重建 packet、改寫資料或調整規格。既有 packet、proposal set、公開 progress 與 source snapshot 已透過 deterministic
+ordering 和 hashes 綁定；OWNER-REVIEW 與 private ledger 又是 fail-closed 的 append-only provenance。若為了呈現剩餘清單而重寫
+OWNER-REVIEW、複製一份新的「pending truth」，或預先建立 16 個假 decision events，不只會產生兩份可能不一致的狀態，也會破壞已通過 QA 的
+provenance chain。直接由 frozen packet 扣除 exact ledger prefix，能保留單一 canonical source，且把「尚未 review」維持為真正沒有事件的
+狀態。
+
+這也是本輪技術選擇的核心：queue preparation 是查詢，不是 mutation。Hash 自洽只用來確認目前 artifacts 沒有漂移，不被解讀為 owner
+authorization；每一筆 approval 仍必須由 owner 提供明確、bounded 的回覆，再經既有 `ExpectedOwnerAuthorization` 與 Git first-parent
+機制個別記錄。
+
+### 驗證、留下的邊界與下一步
+
+獨立 QA 判定 **PASS**：decision check 顯示 valid，狀態精確為 4 筆已記錄／16 筆 pending；兩個 builders 均回報 `unchanged`，CAR-T1
+Source Gate valid，catalog／proposal／packet／progress hashes 全部符合，Git status 與 diff check 也保持 clean。因本輪沒有 code 或 data
+mutation，完整 repository suite 刻意沒有重跑；這避免把未產生新風險的唯讀稽核包裝成一次新的功能驗收，也不會把先前測試結果錯記成本輪
+執行。
+
+目前 catalog application=`0`、exact authority=`0`、RHB-T5 authorization=`false`；16 筆 pending records 也全部維持 reviewer metadata
+空白。下一個合法動作是由 owner 依序審查 ordinals 5–20，而不是先將 proposal 套用 catalog、升格 authority 或啟動 T5。只有新的明確 owner
+回答才能讓 ledger 往前增加一筆；本輪稽核本身不授予任何批准。
+
 ## 2026-09-30 — Catalog Proposal Decision 04
 
 ### 新執行了什麼，以及解決了什麼問題
