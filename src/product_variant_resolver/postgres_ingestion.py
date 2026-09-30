@@ -9,19 +9,16 @@ from typing import Any
 
 from .catalog import CatalogProduct, load_catalog
 from .identity import fingerprint, normalize_text
-from .ingestion import ingest_catalog
+from .ingestion import _has_toy_number, _normalized_release_key, ingest_catalog
 
-
-INGESTION_VERSION = "postgres-catalog-ingestion-v1"
+INGESTION_VERSION = "postgres-catalog-ingestion-v2"
 
 
 def _sqlalchemy() -> Any:
     try:
         import sqlalchemy as sa
     except ImportError as error:
-        raise RuntimeError(
-            "PostgreSQL ingestion requires the 'postgres' project extra"
-        ) from error
+        raise RuntimeError("PostgreSQL ingestion requires the 'postgres' project extra") from error
     return sa
 
 
@@ -29,8 +26,10 @@ def _timestamp(value: Any) -> datetime:
     if isinstance(value, datetime):
         return value
     if not isinstance(value, str):
-        raise ValueError("provenance retrieved_at must be an ISO-8601 timestamp")
-    return datetime.fromisoformat(value.replace("Z", "+00:00"))
+        raise ValueError(  # noqa: TRY004
+            "provenance retrieved_at must be an ISO-8601 timestamp"
+        )
+    return datetime.fromisoformat(value.replace("Z", "+00:00"))  # noqa: FURB162
 
 
 class PostgresCatalogRepository:
@@ -43,7 +42,7 @@ class PostgresCatalogRepository:
         self._seen_uuids: set[Any] = set()
 
     @classmethod
-    def from_url(cls, database_url: str) -> "PostgresCatalogRepository":
+    def from_url(cls, database_url: str) -> PostgresCatalogRepository:
         sa = _sqlalchemy()
         return cls(sa.create_engine(database_url, pool_pre_ping=True))
 
@@ -53,6 +52,14 @@ class PostgresCatalogRepository:
         self._connection = self.engine.connect()
         self._transaction = self._connection.begin()
         self._seen_uuids.clear()
+        try:
+            self._execute(
+                "SELECT pg_advisory_xact_lock("
+                "hashtextextended('pvr:canonical_catalog_ingestion', 0))"
+            )
+        except Exception:
+            self.rollback()
+            raise
 
     def _execute(self, statement: str, parameters: dict[str, Any] | None = None) -> Any:
         if self._connection is None:
@@ -63,32 +70,73 @@ class PostgresCatalogRepository:
         product_values = {
             "canonical_uuid": product.canonical_uuid,
             "canonical_id": product.canonical_id,
+            "release_key": product.release_key,
+            "normalized_release_key": _normalized_release_key(product),
             "natural_key_fingerprint": fingerprint(product.product.model_dump()),
             **product.product.model_dump(),
         }
-        conflict = self._execute(
-            "SELECT canonical_uuid, canonical_id, natural_key_fingerprint "
-            "FROM product_variant "
-            "WHERE canonical_uuid = :canonical_uuid "
-            "OR canonical_id = :canonical_id "
-            "OR natural_key_fingerprint = :natural_key_fingerprint "
-            "FOR UPDATE",
-            product_values,
-        ).mappings().all()
+        conflict = (
+            self._execute(
+                "SELECT canonical_uuid, canonical_id, release_key, normalized_release_key "
+                "FROM product_variant "
+                "WHERE canonical_uuid = :canonical_uuid "
+                "OR canonical_id = :canonical_id "
+                "OR (:normalized_release_key IS NOT NULL "
+                "AND normalized_release_key = :normalized_release_key) "
+                "FOR UPDATE",
+                product_values,
+            )
+            .mappings()
+            .all()
+        )
         for row in conflict:
             if row["canonical_uuid"] != product.canonical_uuid:
                 raise ValueError(
-                    "catalog identity collision for canonical_id or natural-key fingerprint"
+                    "catalog identity collision for canonical UUID, canonical ID, or release key"
                 )
             if row["canonical_id"] != product.canonical_id:
                 raise ValueError("immutable canonical_id changed")
+            if row["release_key"] != product.release_key:
+                raise ValueError("immutable release_key changed")
 
-        existing = self._execute(
-            "SELECT canonical_uuid, canonical_id, natural_key_fingerprint, brand, casting, "
-            "release_year, series, color, collector_number, series_position, rarity_tier, edition "
-            "FROM product_variant WHERE canonical_uuid = :canonical_uuid",
+        self._execute(
+            "SELECT pg_advisory_xact_lock(hashtextextended(:natural_key_fingerprint, 0))",
             product_values,
-        ).mappings().first()
+        )
+        natural_conflicts = (
+            self._execute(
+                "SELECT product.canonical_uuid, product.release_key, "
+                "EXISTS (SELECT 1 FROM identifier "
+                "WHERE identifier.canonical_uuid = product.canonical_uuid "
+                "AND identifier.identifier_type = 'toy_number') AS has_toy_number "
+                "FROM product_variant AS product "
+                "WHERE product.natural_key_fingerprint = :natural_key_fingerprint "
+                "AND product.canonical_uuid <> :canonical_uuid FOR UPDATE",
+                product_values,
+            )
+            .mappings()
+            .all()
+        )
+        if natural_conflicts and (
+            product.release_key is None
+            or not _has_toy_number(product)
+            or any(
+                row["release_key"] is None or not row["has_toy_number"] for row in natural_conflicts
+            )
+        ):
+            raise ValueError("natural key collision lacks release identity disambiguation")
+
+        existing = (
+            self._execute(
+                "SELECT canonical_uuid, canonical_id, release_key, normalized_release_key, "
+                "natural_key_fingerprint, brand, casting, release_year, series, color, "
+                "collector_number, series_position, rarity_tier, edition "
+                "FROM product_variant WHERE canonical_uuid = :canonical_uuid",
+                product_values,
+            )
+            .mappings()
+            .first()
+        )
         comparable_fields = tuple(product_values)
         changed = existing is None or any(
             existing[field] != product_values[field] for field in comparable_fields
@@ -96,19 +144,22 @@ class PostgresCatalogRepository:
         if existing is None:
             self._execute(
                 "INSERT INTO product_variant "
-                "(canonical_uuid, canonical_id, natural_key_fingerprint, brand, casting, "
+                "(canonical_uuid, canonical_id, release_key, normalized_release_key, "
+                "natural_key_fingerprint, brand, casting, "
                 "release_year, series, color, collector_number, series_position, rarity_tier, "
-                "edition) VALUES (:canonical_uuid, :canonical_id, :natural_key_fingerprint, "
-                ":brand, :casting, "
+                "edition) VALUES (:canonical_uuid, :canonical_id, :release_key, "
+                ":normalized_release_key, :natural_key_fingerprint, :brand, :casting, "
                 ":release_year, :series, :color, :collector_number, :series_position, "
                 ":rarity_tier, :edition)",
                 product_values,
             )
         elif changed:
             self._execute(
-                "UPDATE product_variant SET natural_key_fingerprint=:natural_key_fingerprint, "
-                "brand=:brand, casting=:casting, release_year=:release_year, series=:series, "
-                "color=:color, collector_number=:collector_number, "
+                "UPDATE product_variant SET release_key=:release_key, "
+                "normalized_release_key=:normalized_release_key, "
+                "natural_key_fingerprint=:natural_key_fingerprint, brand=:brand, "
+                "casting=:casting, release_year=:release_year, series=:series, color=:color, "
+                "collector_number=:collector_number, "
                 "series_position=:series_position, rarity_tier=:rarity_tier, edition=:edition, "
                 "updated_at=now() WHERE canonical_uuid=:canonical_uuid",
                 product_values,
@@ -162,8 +213,7 @@ class PostgresCatalogRepository:
                     values,
                 )
             elif any(
-                row[field] != values[field]
-                for field in ("alias_text", "alias_type", "source_id")
+                row[field] != values[field] for field in ("alias_text", "alias_type", "source_id")
             ):
                 self._execute(
                     "UPDATE product_alias SET alias_text=:alias_text, alias_type=:alias_type, "
@@ -185,15 +235,16 @@ class PostgresCatalogRepository:
         )
         desired: dict[tuple[str, str], dict[str, Any]] = {}
         for record in records:
+            normalized_type = normalize_text(record["identifier_type"])
             normalized = normalize_text(record["identifier_value"])
-            key = (record["identifier_type"], normalized)
-            if not normalized:
+            key = (normalized_type, normalized)
+            if not normalized_type or not normalized:
                 raise ValueError("catalog identifier normalizes to an empty string")
             if key in desired:
                 raise ValueError("duplicate normalized identifier within one product")
             desired[key] = {
                 "canonical_uuid": product.canonical_uuid,
-                "identifier_type": record["identifier_type"],
+                "identifier_type": normalized_type,
                 "identifier_value": record["identifier_value"],
                 "normalized_value": normalized,
                 "source_id": record["source_id"],
@@ -207,12 +258,16 @@ class PostgresCatalogRepository:
             ).mappings()
         }
         for key, values in desired.items():
-            owner = self._execute(
-                "SELECT id, canonical_uuid, identifier_value, source_id FROM identifier "
-                "WHERE identifier_type=:identifier_type AND normalized_value=:normalized_value "
-                "FOR UPDATE",
-                values,
-            ).mappings().first()
+            owner = (
+                self._execute(
+                    "SELECT id, canonical_uuid, identifier_value, source_id FROM identifier "
+                    "WHERE identifier_type=:identifier_type AND normalized_value=:normalized_value "
+                    "FOR UPDATE",
+                    values,
+                )
+                .mappings()
+                .first()
+            )
             if owner is not None and owner["canonical_uuid"] != product.canonical_uuid:
                 raise ValueError("identifier already belongs to a different canonical product")
             if owner is None:
@@ -237,8 +292,13 @@ class PostgresCatalogRepository:
 
     def _sync_provenance(self, product: CatalogProduct) -> None:
         fields = (
-            "field_name", "value_snapshot", "source_name", "source_reference",
-            "retrieved_at", "license_note", "confidence_note",
+            "field_name",
+            "value_snapshot",
+            "source_name",
+            "source_reference",
+            "retrieved_at",
+            "license_note",
+            "confidence_note",
         )
         desired = [
             {
@@ -253,12 +313,16 @@ class PostgresCatalogRepository:
             }
             for record in product.provenance
         ]
-        existing = self._execute(
-            "SELECT field_name, value_snapshot, source_name, source_reference, retrieved_at, "
-            "license_note, confidence_note FROM provenance_record "
-            "WHERE canonical_uuid=:canonical_uuid ORDER BY id FOR UPDATE",
-            {"canonical_uuid": product.canonical_uuid},
-        ).mappings().all()
+        existing = (
+            self._execute(
+                "SELECT field_name, value_snapshot, source_name, source_reference, retrieved_at, "
+                "license_note, confidence_note FROM provenance_record "
+                "WHERE canonical_uuid=:canonical_uuid ORDER BY id FOR UPDATE",
+                {"canonical_uuid": product.canonical_uuid},
+            )
+            .mappings()
+            .all()
+        )
         existing_values = [tuple(row[field] for field in fields) for row in existing]
         desired_values = [tuple(row[field] for field in fields) for row in desired]
         if existing_values == desired_values:
@@ -303,8 +367,7 @@ class PostgresCatalogRepository:
 
     def set_version(self, version: str, checksum: str) -> None:
         stored_uuids = {
-            row[0]
-            for row in self._execute("SELECT canonical_uuid FROM product_variant")
+            row[0] for row in self._execute("SELECT canonical_uuid FROM product_variant")
         }
         if stored_uuids != self._seen_uuids:
             raise ValueError(
@@ -317,11 +380,15 @@ class PostgresCatalogRepository:
             "artifact_version": INGESTION_VERSION,
             "checksum": checksum,
         }
-        existing = self._execute(
-            "SELECT catalog_version, artifact_version, checksum FROM index_metadata "
-            "WHERE index_name=:index_name FOR UPDATE",
-            values,
-        ).mappings().first()
+        existing = (
+            self._execute(
+                "SELECT catalog_version, artifact_version, checksum FROM index_metadata "
+                "WHERE index_name=:index_name FOR UPDATE",
+                values,
+            )
+            .mappings()
+            .first()
+        )
         metadata_fields = ("catalog_version", "artifact_version", "checksum")
         expected = tuple(values[field] for field in metadata_fields)
         if existing is None:

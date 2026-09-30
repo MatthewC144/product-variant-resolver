@@ -17,7 +17,6 @@ from alembic import command
 from alembic.config import Config
 from sqlalchemy.pool import NullPool
 
-
 APPLICATION_TABLES = {
     "identifier",
     "index_metadata",
@@ -29,6 +28,12 @@ APPLICATION_TABLES = {
 }
 EXPECTED_INDEXES = {
     ("product_variant", "ix_product_variant_casting", "btree", ("casting",)),
+    (
+        "product_variant",
+        "ix_product_variant_natural_key_fingerprint",
+        "btree",
+        ("natural_key_fingerprint",),
+    ),
     ("product_alias", "ix_product_alias_normalized", "btree", ("normalized_alias",)),
     ("identifier", "ix_identifier_product", "btree", ("canonical_uuid",)),
     ("provenance_record", "ix_provenance_product", "btree", ("canonical_uuid",)),
@@ -120,21 +125,22 @@ def _schema_snapshot(engine: sa.Engine) -> dict[str, Any]:
     }
 
     product_uniques = {
-        tuple(item["column_names"])
-        for item in inspector.get_unique_constraints("product_variant")
+        tuple(item["column_names"]) for item in inspector.get_unique_constraints("product_variant")
     }
     assert ("canonical_id",) in product_uniques
-    assert ("natural_key_fingerprint",) in product_uniques
+    assert ("normalized_release_key",) in product_uniques
+    assert ("natural_key_fingerprint",) not in product_uniques
+    product_columns = {item["name"]: item for item in inspector.get_columns("product_variant")}
+    assert product_columns["release_key"]["nullable"] is True
+    assert product_columns["normalized_release_key"]["nullable"] is True
 
     alias_uniques = {
-        tuple(item["column_names"])
-        for item in inspector.get_unique_constraints("product_alias")
+        tuple(item["column_names"]) for item in inspector.get_unique_constraints("product_alias")
     }
     assert ("canonical_uuid", "normalized_alias") in alias_uniques
 
     identifier_uniques = {
-        tuple(item["column_names"])
-        for item in inspector.get_unique_constraints("identifier")
+        tuple(item["column_names"]) for item in inspector.get_unique_constraints("identifier")
     }
     assert ("identifier_type", "normalized_value") in identifier_uniques
 
@@ -158,6 +164,10 @@ def _schema_snapshot(engine: sa.Engine) -> dict[str, Any]:
     }
     assert "ck_release_year" in release_year_checks
     assert release_year_checks["ck_release_year"] in EXPECTED_RELEASE_YEAR_CHECKS
+    assert (
+        release_year_checks["ck_product_variant_release_key_pair"]
+        == "release_keyisnull=normalized_release_keyisnull"
+    )
 
     with engine.connect() as connection:
         revision = connection.scalar(sa.text("SELECT version_num FROM alembic_version"))
@@ -199,7 +209,7 @@ def _schema_snapshot(engine: sa.Engine) -> dict[str, Any]:
         )
         indexes = {(row[0], row[1], row[2], tuple(row[3])) for row in index_rows}
 
-    assert revision == "0001"
+    assert revision == "0004"
     assert extension == "vector"
     assert special_types[("product_search", "search_document")] == "tsvector"
     assert special_types[("product_embedding", "embedding")] == "vector(192)"
@@ -210,8 +220,7 @@ def _schema_snapshot(engine: sa.Engine) -> dict[str, Any]:
         "tables": sorted(APPLICATION_TABLES),
         "extension": extension,
         "special_types": {
-            f"{table}.{column}": value
-            for (table, column), value in sorted(special_types.items())
+            f"{table}.{column}": value for (table, column), value in sorted(special_types.items())
         },
         "release_year_check": release_year_checks["ck_release_year"],
         "verified_indexes": [

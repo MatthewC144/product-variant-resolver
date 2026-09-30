@@ -8,12 +8,12 @@ bytes (including UUIDs and checksums once written by the validator).
 
 from __future__ import annotations
 
-import json
 import hashlib
+import json
 import re
 import uuid
 from pathlib import Path
-
+from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
@@ -50,15 +50,17 @@ def slugify(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", value.casefold()).strip("-")
 
 
-def canonical_identity(casting: str, year: int, series: str, color: str, number: str) -> tuple[str, str]:
+def canonical_identity(
+    casting: str, year: int, series: str, color: str, number: str
+) -> tuple[str, str]:
     canonical_id = "-".join(
         ("hot-wheels", slugify(casting), str(year), slugify(series), slugify(color), number)
     )
     return str(uuid.uuid5(NAMESPACE, canonical_id)), canonical_id
 
 
-def build_catalog() -> dict[str, object]:
-    products: list[dict[str, object]] = []
+def build_catalog() -> dict[str, Any]:
+    products: list[dict[str, Any]] = []
     number = 101
     for family_index, (casting, short_alias) in enumerate(FAMILIES):
         for year_index, year in enumerate(YEARS):
@@ -127,10 +129,10 @@ def build_catalog() -> dict[str, object]:
     }
 
 
-def build_benchmark(catalog: dict[str, object]) -> dict[str, object]:
+def build_benchmark(catalog: dict[str, Any]) -> dict[str, Any]:
     products = catalog["products"]
     assert isinstance(products, list)
-    by_family: dict[str, list[dict[str, object]]] = {}
+    by_family: dict[str, list[dict[str, Any]]] = {}
     for product in products:
         assert isinstance(product, dict)
         by_family.setdefault(str(product["casting"]), []).append(product)
@@ -143,7 +145,7 @@ def build_benchmark(catalog: dict[str, object]) -> dict[str, object]:
         status: str,
         family: str,
         category: str,
-        product: dict[str, object] | None = None,
+        product: dict[str, Any] | None = None,
         hard_negative: bool = False,
     ) -> None:
         nonlocal case_number
@@ -246,8 +248,23 @@ def build_benchmark(catalog: dict[str, object]) -> dict[str, object]:
     }
 
 
-def write_json(path: Path, payload: dict[str, object]) -> None:
+def write_json(path: Path, payload: dict[str, Any]) -> None:
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def assert_safe_catalog_overwrite(catalog_path: Path, generated_catalog: dict[str, Any]) -> None:
+    """Refuse to erase an applied or otherwise non-fixture catalog."""
+    if not catalog_path.exists():
+        return
+    try:
+        existing = json.loads(catalog_path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, UnicodeDecodeError) as error:
+        raise RuntimeError("refusing to overwrite an unreadable catalog") from error
+    if existing != generated_catalog:
+        version = existing.get("catalog_version") if isinstance(existing, dict) else None
+        raise RuntimeError(
+            f"refusing to overwrite a non-fixture or modified catalog (catalog_version={version!r})"
+        )
 
 
 def main() -> None:
@@ -256,6 +273,7 @@ def main() -> None:
     benchmark = build_benchmark(catalog)
     catalog_path = DATA_DIR / "catalog.json"
     benchmark_path = DATA_DIR / "benchmark.json"
+    assert_safe_catalog_overwrite(catalog_path, catalog)
     write_json(catalog_path, catalog)
     write_json(benchmark_path, benchmark)
     split_counts: dict[str, int] = {}
@@ -274,7 +292,9 @@ def main() -> None:
             "generator": "scripts/generate_fixture_data.py",
         },
     )
-    print(f"wrote {len(catalog['products'])} products and {len(benchmark['cases'])} benchmark cases")
+    print(
+        f"wrote {len(catalog['products'])} products and {len(benchmark['cases'])} benchmark cases"
+    )
 
 
 if __name__ == "__main__":

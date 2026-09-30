@@ -19,7 +19,6 @@ from product_variant_resolver.catalog import Catalog, load_catalog
 from product_variant_resolver.ingestion import ingest_catalog
 from product_variant_resolver.postgres_ingestion import PostgresCatalogRepository
 
-
 TABLE_ORDER = {
     "product_variant": "canonical_uuid",
     "product_alias": "id",
@@ -80,9 +79,7 @@ def main() -> None:
         catalog.products[0],
         product=catalog.products[0].product.model_copy(update={"color": "Rollback Test"}),
     )
-    colliding_product = replace(
-        catalog.products[1], canonical_id=catalog.products[0].canonical_id
-    )
+    colliding_product = replace(catalog.products[1], canonical_id=catalog.products[0].canonical_id)
     invalid_catalog = Catalog(
         "transaction-rollback-test",
         [changed_product, colliding_product, *catalog.products[2:]],
@@ -107,12 +104,12 @@ def main() -> None:
 
     counts = {table: len(rows) for table, rows in first.items()}
     assert counts == {
-        "product_variant": 120,
-        "product_alias": 240,
-        "identifier": 120,
-        "provenance_record": 120,
+        "product_variant": len(catalog.products),
+        "product_alias": sum(len(product.aliases) for product in catalog.products),
+        "identifier": sum(len(product.identifiers) for product in catalog.products),
+        "provenance_record": sum(len(product.provenance) for product in catalog.products),
         "index_metadata": 1,
-        "product_search": 120,
+        "product_search": len(catalog.products),
         "product_embedding": 0,
     }, counts
     print(

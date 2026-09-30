@@ -116,6 +116,7 @@ BASE_LOCAL_FILES = {
     "catalog-proposal-review-packet.json",
     "catalog-proposals.json",
 }
+CATALOG_APPLICATION_EVENT_NAME = "catalog-application-event.json"
 
 
 class DecisionContract(BaseModel):
@@ -544,8 +545,9 @@ def _validate_car_t4_inputs(root: Path) -> tuple[Any, str]:
     if not local_dir.is_dir():
         raise AuthorityContractError("CAR-T4 local review directory is unavailable")
     names = {item.name for item in local_dir.iterdir()}
-    allowed = BASE_LOCAL_FILES | {LEDGER_REFERENCE.name}
-    if names not in (BASE_LOCAL_FILES, allowed):
+    reviewed = BASE_LOCAL_FILES | {LEDGER_REFERENCE.name}
+    applied = reviewed | {CATALOG_APPLICATION_EVENT_NAME}
+    if names not in (BASE_LOCAL_FILES, reviewed, applied):
         raise AuthorityContractError(
             "CAR-T4 local review directory contains drift or partial files"
         )

@@ -9,13 +9,118 @@ import sys
 import uuid
 from collections import Counter, defaultdict
 from pathlib import Path
-
+from typing import Any, cast
 
 ROOT = Path(__file__).resolve().parents[1]
+FIXTURE_VERSION = "fixture-v1"
+CATALOG_V2_VERSION = "catalog-v2"
+FIXTURE_PRODUCT_COUNT = 120
+CATALOG_LINEAGE_SCHEMA = "pvr-catalog-lineage-v1"
+CATALOG_APPLICATION_VERSION = "canonical-catalog-application-car-t4a-v1"
+FIXTURE_SOURCE_NOTE = (
+    "Deterministic synthetic records for architecture and test validation only; "
+    "not an authoritative Hot Wheels catalog."
+)
+CATALOG_V2_SOURCE_NOTE = (
+    "Catalog contains 120 synthetic regression rows plus 20 owner-approved "
+    "community-snapshot catalog rows; catalog inclusion is not exact authority."
+)
 
 
-def load(name: str) -> dict[str, object]:
-    return json.loads((ROOT / "data" / name).read_text(encoding="utf-8"))
+def load(name: str) -> dict[str, Any]:
+    value: Any = json.loads((ROOT / "data" / name).read_text(encoding="utf-8"))
+    if not isinstance(value, dict):
+        raise TypeError(f"fixture JSON root must be an object: {name}")
+    return cast(dict[str, Any], value)
+
+
+def content_sha256(value: object) -> str:
+    encoded = json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode(
+        "utf-8"
+    )
+    return hashlib.sha256(encoded).hexdigest()
+
+
+def fixture_parent(
+    catalog: dict[str, Any], manifest: dict[str, Any], errors: list[str]
+) -> tuple[list[Any], str]:
+    products = catalog.get("products", [])
+    if not isinstance(products, list):
+        errors.append("catalog products must be a list")
+        return [], ""
+    if catalog.get("catalog_version") == FIXTURE_VERSION:
+        return products, hashlib.sha256((ROOT / "data" / "catalog.json").read_bytes()).hexdigest()
+    if catalog.get("catalog_version") != CATALOG_V2_VERSION:
+        errors.append(f"unsupported catalog version: {catalog.get('catalog_version')}")
+        return products[:FIXTURE_PRODUCT_COUNT], ""
+
+    lineage = catalog.get("catalog_lineage")
+    if not isinstance(lineage, dict):
+        errors.append("catalog-v2 is missing catalog_lineage")
+        return products[:FIXTURE_PRODUCT_COUNT], ""
+    expected_keys = {
+        "schema_version",
+        "parent_catalog_version",
+        "parent_dataset_version",
+        "parent_raw_catalog_sha256",
+        "parent_product_count",
+        "parent_ordered_product_sha256",
+        "application_version",
+        "appended_product_count",
+    }
+    if set(lineage) != expected_keys:
+        errors.append("catalog-v2 lineage fields differ from the supported contract")
+    expected_values = {
+        "schema_version": CATALOG_LINEAGE_SCHEMA,
+        "parent_catalog_version": FIXTURE_VERSION,
+        "parent_dataset_version": FIXTURE_VERSION,
+        "application_version": CATALOG_APPLICATION_VERSION,
+        "parent_product_count": FIXTURE_PRODUCT_COUNT,
+    }
+    for field, expected in expected_values.items():
+        if lineage.get(field) != expected:
+            errors.append(f"catalog-v2 lineage {field} mismatch")
+    if catalog.get("dataset_version") != FIXTURE_VERSION:
+        errors.append("catalog-v2 must preserve the fixture-v1 dataset label")
+    if catalog.get("source_note") != CATALOG_V2_SOURCE_NOTE:
+        errors.append("catalog-v2 source note differs from the mixed catalog contract")
+    if len(products) < FIXTURE_PRODUCT_COUNT:
+        errors.append("catalog-v2 truncated the frozen fixture parent")
+    parent_products = products[:FIXTURE_PRODUCT_COUNT]
+    appended_count = len(products) - FIXTURE_PRODUCT_COUNT
+    if lineage.get("appended_product_count") != appended_count:
+        errors.append("catalog-v2 appended product count mismatch")
+    ordered_digest = content_sha256([content_sha256(product) for product in parent_products])
+    if lineage.get("parent_ordered_product_sha256") != ordered_digest:
+        errors.append("catalog-v2 ordered fixture parent checksum mismatch")
+    parent_payload = {
+        "catalog_version": FIXTURE_VERSION,
+        "dataset_version": FIXTURE_VERSION,
+        "products": parent_products,
+        "source_note": FIXTURE_SOURCE_NOTE,
+    }
+    parent_bytes = (json.dumps(parent_payload, indent=2, sort_keys=True) + "\n").encode("utf-8")
+    parent_digest = hashlib.sha256(parent_bytes).hexdigest()
+    if lineage.get("parent_raw_catalog_sha256") != parent_digest:
+        errors.append("catalog-v2 frozen fixture parent checksum mismatch")
+    if manifest.get("parent_catalog_sha256") != parent_digest:
+        errors.append("catalog-v2 does not descend from the frozen fixture manifest")
+    if manifest.get("parent_product_count") != len(parent_products):
+        errors.append("frozen fixture manifest product count mismatch")
+    if manifest.get("parent_catalog_version") != FIXTURE_VERSION:
+        errors.append("frozen fixture manifest parent version mismatch")
+    if manifest.get("catalog_application_version") != CATALOG_APPLICATION_VERSION:
+        errors.append("catalog-v2 manifest application version mismatch")
+    for product in parent_products:
+        provenance = product.get("provenance", []) if isinstance(product, dict) else []
+        if not provenance or any(
+            record.get("source_name") != "synthetic_fixture"
+            for record in provenance
+            if isinstance(record, dict)
+        ):
+            errors.append("catalog-v2 fixture parent lost its synthetic provenance label")
+            break
+    return parent_products, parent_digest
 
 
 def validate() -> list[str]:
@@ -33,6 +138,7 @@ def validate() -> list[str]:
     review_registry_manifest = load("review_family_registry_manifest.json")
     products = catalog.get("products", [])
     cases = benchmark.get("cases", [])
+    fixture_products, fixture_catalog_digest = fixture_parent(catalog, manifest, errors)
     if len(products) < 120:
         errors.append(f"catalog has {len(products)} products; expected >=120")
 
@@ -82,7 +188,10 @@ def validate() -> list[str]:
                 errors.append(f"unknown expected UUID: {case.get('case_id')}")
             if case.get("expected_canonical_id") not in ids:
                 errors.append(f"unknown expected ID: {case.get('case_id')}")
-        elif case.get("expected_canonical_uuid") is not None or case.get("expected_canonical_id") is not None:
+        elif (
+            case.get("expected_canonical_uuid") is not None
+            or case.get("expected_canonical_id") is not None
+        ):
             errors.append(f"abstention has asserted identity: {case.get('case_id')}")
     overlaps = {family: splits for family, splits in family_splits.items() if len(splits) != 1}
     if overlaps:
@@ -90,11 +199,23 @@ def validate() -> list[str]:
 
     catalog_digest = hashlib.sha256((ROOT / "data" / "catalog.json").read_bytes()).hexdigest()
     benchmark_digest = hashlib.sha256((ROOT / "data" / "benchmark.json").read_bytes()).hexdigest()
-    if manifest.get("catalog_sha256") != catalog_digest:
+    if (
+        catalog.get("catalog_version") == FIXTURE_VERSION
+        and manifest.get("catalog_sha256") != catalog_digest
+    ):
         errors.append("catalog checksum differs from frozen manifest")
+    if catalog.get("catalog_version") == CATALOG_V2_VERSION:
+        if manifest.get("catalog_sha256") != catalog_digest:
+            errors.append("catalog-v2 checksum differs from current manifest")
+        if manifest.get("catalog_version") != CATALOG_V2_VERSION:
+            errors.append("catalog-v2 current manifest version mismatch")
+        if manifest.get("product_count") != len(products):
+            errors.append("catalog-v2 current manifest product count mismatch")
     if manifest.get("benchmark_sha256") != benchmark_digest:
         errors.append("benchmark checksum differs from frozen manifest")
-    if manifest.get("product_count") != len(products):
+    if catalog.get("catalog_version") == FIXTURE_VERSION and manifest.get("product_count") != len(
+        products
+    ):
         errors.append("manifest product count mismatch")
     if manifest.get("benchmark_case_count") != len(cases):
         errors.append("manifest benchmark count mismatch")
@@ -129,7 +250,7 @@ def validate() -> list[str]:
         errors.append("human catalog alignment checksum differs from frozen manifest")
     if human_alignment_manifest.get("human_dataset_sha256") != human_digest:
         errors.append("human catalog alignment references a different human dataset")
-    if human_alignment_manifest.get("catalog_sha256") != catalog_digest:
+    if human_alignment_manifest.get("catalog_sha256") != fixture_catalog_digest:
         errors.append("human catalog alignment references a different catalog")
     if len(alignment_records) != len(human_records):
         errors.append("human catalog alignment count differs from human corpus")
@@ -137,7 +258,7 @@ def validate() -> list[str]:
     human_ids = {record.get("case_id") for record in human_records}
     if alignment_ids != human_ids:
         errors.append("human catalog alignment case IDs differ from human corpus")
-    catalog_by_uuid = {product.get("canonical_uuid"): product for product in products}
+    catalog_by_uuid = {product.get("canonical_uuid"): product for product in fixture_products}
     for alignment in alignment_records:
         status = alignment.get("status")
         canonical_uuid = alignment.get("canonical_uuid")
@@ -160,9 +281,7 @@ def validate() -> list[str]:
         errors.append("human-backed catalog references a different human dataset")
     human_castings = human_catalog.get("castings", [])
     human_variants = [
-        variant
-        for casting in human_castings
-        for variant in casting.get("provisional_variants", [])
+        variant for casting in human_castings for variant in casting.get("provisional_variants", [])
     ]
     if human_catalog_manifest.get("casting_count") != len(human_castings):
         errors.append("human-backed catalog casting count mismatch")

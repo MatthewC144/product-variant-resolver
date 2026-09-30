@@ -48,6 +48,10 @@ TASKS_REFERENCE = "specs/canonical-authority-review-v1/tasks.md"
 CANDIDATE_PLAN_RAW_SHA256 = "a7d908a427caa255af000c4f46532f4b9d8bdb2e69c24fb8cbc85a487e1f6eaf"
 EXPECTED_RAW_CATALOG_SHA256 = "0d3ea55eab414e3845bf3bf72635707210f2d5c20d96b3d6b5940eb0ffc7d261"
 SOURCE_ID = "fandom-hot-wheels-2025-pilot-r790665-v1"
+FROZEN_PARENT_SOURCE_NOTE = (
+    "Deterministic synthetic records for architecture and test validation only; not an "
+    "authoritative Hot Wheels catalog."
+)
 
 Sha256 = Annotated[str, Field(pattern=r"^[0-9a-f]{64}$")]
 OpaqueId = Annotated[str, Field(pattern=r"^[A-Za-z0-9][A-Za-z0-9._:#-]{0,199}$")]
@@ -122,6 +126,21 @@ class RawCatalog(PacketContract):
         if len(uuids) != len(set(uuids)) or len(ids) != len(set(ids)):
             raise ValueError("raw catalog identities must be unique")
         return self
+
+
+class AppliedCatalogParentLineage(PacketContract):
+    """Catalog-v2 binding back to the exact frozen 120-row CAR-T4 parent."""
+
+    schema_version: Literal["pvr-catalog-lineage-v1"]
+    parent_catalog_version: Literal["fixture-v1"]
+    parent_dataset_version: Literal["fixture-v1"]
+    parent_raw_catalog_sha256: Literal[
+        "0d3ea55eab414e3845bf3bf72635707210f2d5c20d96b3d6b5940eb0ffc7d261"
+    ]
+    parent_product_count: Literal[120]
+    parent_ordered_product_sha256: Sha256
+    application_version: Literal["canonical-catalog-application-car-t4a-v1"]
+    appended_product_count: Literal[20]
 
 
 class FrozenCatalogProjectionV2(PacketContract):
@@ -470,8 +489,48 @@ def build_catalog_projection(root: Path) -> tuple[FrozenCatalogProjectionV2, Raw
     """Rebuild the eligibility projection from strict, duplicate-key-safe raw catalog bytes."""
 
     raw_payload, raw = _read_strict_json(root / CATALOG_REFERENCE)
-    catalog = RawCatalog.model_validate(raw_payload)
     raw_sha = _raw_sha256(raw)
+    if not isinstance(raw_payload, Mapping):
+        raise AuthorityContractError("raw catalog root must be an object")
+    if raw_sha == EXPECTED_RAW_CATALOG_SHA256:
+        parent_payload = raw_payload
+        parent_raw = raw
+    else:
+        if set(raw_payload) != {
+            "catalog_lineage",
+            "catalog_version",
+            "dataset_version",
+            "products",
+            "source_note",
+        }:
+            raise AuthorityContractError("applied catalog root differs from catalog-v2 contract")
+        if raw_payload.get("catalog_version") != "catalog-v2":
+            raise AuthorityContractError(
+                "raw catalog checksum differs from the approved CAR-T4 parent"
+            )
+        lineage = AppliedCatalogParentLineage.model_validate(raw_payload.get("catalog_lineage"))
+        products = raw_payload.get("products")
+        if not isinstance(products, list) or len(products) != (
+            lineage.parent_product_count + lineage.appended_product_count
+        ):
+            raise AuthorityContractError("applied catalog product count differs from lineage")
+        parent_products = products[: lineage.parent_product_count]
+        ordered_sha = content_sha256([content_sha256(item) for item in parent_products])
+        if ordered_sha != lineage.parent_ordered_product_sha256:
+            raise AuthorityContractError("applied catalog parent product order or content changed")
+        parent_payload = {
+            "catalog_version": lineage.parent_catalog_version,
+            "dataset_version": lineage.parent_dataset_version,
+            "products": parent_products,
+            "source_note": FROZEN_PARENT_SOURCE_NOTE,
+        }
+        parent_raw = stable_json_bytes(parent_payload)
+        if _raw_sha256(parent_raw) != lineage.parent_raw_catalog_sha256:
+            raise AuthorityContractError(
+                "applied catalog cannot reconstruct the frozen CAR-T4 parent"
+            )
+    catalog = RawCatalog.model_validate(parent_payload)
+    raw_sha = _raw_sha256(parent_raw)
     if raw_sha != EXPECTED_RAW_CATALOG_SHA256:
         raise AuthorityContractError("raw catalog checksum differs from the approved CAR-T4 parent")
     if len(catalog.products) != 120:
