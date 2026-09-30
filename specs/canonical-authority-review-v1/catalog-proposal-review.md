@@ -16,11 +16,11 @@ predecessor; later code-only commits cannot launder a rewritten history.
 
 ## Current progress
 
-- Recorded decisions: **6 / 20**
-- Approved for a later catalog batch gate: **6**
+- Recorded decisions: **7 / 20**
+- Approved for a later catalog batch gate: **7**
 - Held: **0**
 - Rejected: **0**
-- Pending: **14**
+- Pending: **13**
 - Proposal artifacts remain `staged`: **20**
 - Catalog records applied: **0**
 - Exact-authority records approved: **0**
@@ -33,6 +33,6 @@ An owner approval here records only a catalog-proposal decision. It does not edi
 authorize RHB-T5. Catalog application waits for a separate batch application Gate after
 all 20 proposals have been reviewed.
 
-Private ledger SHA-256: `1ac84b8b6a3508c042e441e9ce748d29503fb14efb2a09d07e1fcc36615fe678`.
-Event head SHA-256: `d1ab5c7acd17758c287fa229abc7efb7af9d7f3951f6abfa2be206a66b85568d`.
-Git predecessor commit: `a186cfb8842291e18f908b9a7222127da37db921`.
+Private ledger SHA-256: `f4a51211af1805bcaa5b3086a01bda71e11ac3651693111ce965a3d0c665afdd`.
+Event head SHA-256: `9dec7b252f642ce4312d15951e48d1620e3e650b4f424efbc7df5bea77fa4b72`.
+Git predecessor commit: `121d4cdb05a2607a55469751a1735aa0195d1ebc`.
