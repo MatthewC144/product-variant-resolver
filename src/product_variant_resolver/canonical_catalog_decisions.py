@@ -61,6 +61,17 @@ Sha256 = Annotated[str, Field(pattern=r"^[0-9a-f]{64}$")]
 OpaqueId = Annotated[str, Field(pattern=r"^[A-Za-z0-9][A-Za-z0-9._:#-]{0,199}$")]
 NonBlank = Annotated[str, Field(min_length=1)]
 GitCommit = Annotated[str, Field(pattern=r"^[0-9a-f]{40}$")]
+CatalogDecisionNextGate = Literal[
+    "continue_sequential_owner_review_before_batch_application",
+    "separate_catalog_batch_application_owner_gate",
+]
+
+CONTINUE_OWNER_REVIEW_GATE: CatalogDecisionNextGate = (
+    "continue_sequential_owner_review_before_batch_application"
+)
+CATALOG_BATCH_APPLICATION_GATE: CatalogDecisionNextGate = (
+    "separate_catalog_batch_application_owner_gate"
+)
 
 EMAIL_RE = re.compile(r"(?<![\w.+-])[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}(?![\w.-])")
 PHONE_RE = re.compile(r"(?<!\d)(?:\+?\d[\d ().-]{7,}\d)(?!\d)")
@@ -315,7 +326,7 @@ class PublicCatalogDecisionProgress(DecisionContract):
     resolver_output_consulted: Literal[False]
     network_requests: Literal[0]
     rhb_t5_authorized: Literal[False]
-    next_gate: Literal["continue_sequential_owner_review_before_batch_application"]
+    next_gate: CatalogDecisionNextGate
 
     @model_validator(mode="after")
     def counts_cover_all_proposals(self) -> PublicCatalogDecisionProgress:
@@ -332,6 +343,14 @@ class PublicCatalogDecisionProgress(DecisionContract):
             != self.total_proposal_count - self.pending_owner_decision_count
         ):
             raise ValueError("recorded event count differs from decision counts")
+        complete = self.pending_owner_decision_count == 0
+        expected_status = (
+            "complete_awaiting_batch_application_gate" if complete else "in_progress_awaiting_owner"
+        )
+        if self.status != expected_status:
+            raise ValueError("public progress status differs from pending decision count")
+        if self.next_gate != _next_gate_for_pending(self.pending_owner_decision_count):
+            raise ValueError("public next Gate differs from pending decision count")
         has_predecessor = self.previous_committed_progress_sha256 is not None
         if has_predecessor != (self.previous_committed_ledger_sha256 is not None):
             raise ValueError("public predecessor progress and ledger commitments must be paired")
@@ -347,6 +366,12 @@ class PublicCatalogDecisionProgress(DecisionContract):
 
 def _normalize_owner_response(value: str) -> str:
     return unicodedata.normalize("NFC", value).strip()
+
+
+def _next_gate_for_pending(pending_count: int) -> CatalogDecisionNextGate:
+    if pending_count == 0:
+        return CATALOG_BATCH_APPLICATION_GATE
+    return CONTINUE_OWNER_REVIEW_GATE
 
 
 def _reject_sensitive_text(value: str, context: str) -> None:
@@ -741,11 +766,19 @@ def _build_public_progress(
         resolver_output_consulted=False,
         network_requests=0,
         rhb_t5_authorized=False,
-        next_gate="continue_sequential_owner_review_before_batch_application",
+        next_gate=_next_gate_for_pending(ledger.decision_counts.pending),
     )
 
 
 def _render_public_method(progress: PublicCatalogDecisionProgress) -> str:
+    completed_gate_lines = (
+        [
+            "All 20 owner decisions are recorded. The next permitted step is the separate catalog",
+            "batch application owner Gate; this progress artifact does not apply catalog records.",
+        ]
+        if progress.next_gate == CATALOG_BATCH_APPLICATION_GATE
+        else []
+    )
     return "\n".join(
         [
             "# CAR catalog proposal review — public method and progress",
@@ -763,6 +796,7 @@ def _render_public_method(progress: PublicCatalogDecisionProgress) -> str:
             "The verifier walks first-parent history through every commit carrying identical progress",
             "bytes. The commit that introduced those bytes must name its own first parent as the",
             "predecessor; later code-only commits cannot launder a rewritten history.",
+            *completed_gate_lines,
             "",
             "## Current progress",
             "",

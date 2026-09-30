@@ -19,13 +19,18 @@ from product_variant_resolver.canonical_authority_review import (
 from product_variant_resolver.canonical_catalog_decisions import (
     APPROVAL_REASON,
     BASE_CAR_T4_COMMIT,
+    CATALOG_BATCH_APPLICATION_GATE,
+    CONTINUE_OWNER_REVIEW_GATE,
     LEDGER_REFERENCE,
     PUBLIC_METHOD_REFERENCE,
     PUBLIC_PROGRESS_REFERENCE,
     CatalogDecision,
     CommittedProgressAnchor,
     ExpectedOwnerAuthorization,
+    ProgressCommitment,
     PublicCatalogDecisionProgress,
+    _build_public_progress,
+    _render_public_method,
     check_catalog_decisions,
     record_catalog_decision,
 )
@@ -386,6 +391,56 @@ def test_public_progress_has_only_safe_aggregates(isolated_root: Path) -> None:
     assert progress.proposal_artifact_review_status == "staged"
     assert progress.catalog_applied_count == 0
     assert progress.exact_authority_count == 0
+
+
+def test_next_gate_changes_only_after_all_twenty_decisions(isolated_root: Path) -> None:
+    _, in_progress_ledger = _record(isolated_root)
+    in_progress = PublicCatalogDecisionProgress.model_validate(
+        json.loads((isolated_root / PUBLIC_PROGRESS_REFERENCE).read_text(encoding="utf-8"))
+    )
+    before = (isolated_root / PUBLIC_PROGRESS_REFERENCE).read_bytes()
+    assert in_progress.status == "in_progress_awaiting_owner"
+    assert in_progress.next_gate == CONTINUE_OWNER_REVIEW_GATE
+    assert _check(isolated_root) == in_progress_ledger
+    assert (isolated_root / PUBLIC_PROGRESS_REFERENCE).read_bytes() == before
+
+    final_ledger = in_progress_ledger.model_copy(
+        update={
+            "status": "complete_awaiting_batch_application_gate",
+            "events": [in_progress_ledger.events[-1]] * 20,
+            "decision_counts": in_progress_ledger.decision_counts.model_copy(
+                update={"approved": 20, "pending": 0}
+            ),
+            "next_pending_ordinal": None,
+        }
+    )
+    final_progress = _build_public_progress(
+        final_ledger,
+        ProgressCommitment(
+            anchor_commit_sha=BASE_CAR_T4_COMMIT,
+            previous_progress_sha256="a" * 64,
+            previous_private_ledger_sha256="b" * 64,
+            previous_committed_event_count=19,
+        ),
+    )
+    assert final_progress.status == "complete_awaiting_batch_application_gate"
+    assert final_progress.recorded_event_count == 20
+    assert final_progress.pending_owner_decision_count == 0
+    assert final_progress.next_gate == CATALOG_BATCH_APPLICATION_GATE
+    rendered = _render_public_method(final_progress)
+    assert "All 20 owner decisions are recorded" in rendered
+    assert "separate catalog\nbatch application owner Gate" in rendered
+    assert "does not apply catalog records" in rendered
+
+    stale_final = final_progress.model_dump(mode="json")
+    stale_final["next_gate"] = CONTINUE_OWNER_REVIEW_GATE
+    with pytest.raises(ValidationError, match="next Gate differs"):
+        PublicCatalogDecisionProgress.model_validate(stale_final)
+
+    premature_final = in_progress.model_dump(mode="json")
+    premature_final["next_gate"] = CATALOG_BATCH_APPLICATION_GATE
+    with pytest.raises(ValidationError, match="next Gate differs"):
+        PublicCatalogDecisionProgress.model_validate(premature_final)
 
 
 def test_partial_atomic_write_rolls_back_all_new_outputs(
