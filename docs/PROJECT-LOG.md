@@ -1,5 +1,48 @@
 # Project Log
 
+## 2026-09-30 — Catalog proposal bulk owner review：完成 ordinals 5–20，但不自動套用 catalog
+
+### 新執行了什麼，以及解決了什麼問題
+
+Owner 以一段明確的 bulk attestation 完成 canonical queue 剩餘 ordinals 5–20 的審查。為避免公開文件擴散原始授權內容，本日誌不重述該
+exact literal；原文只保存在 Git-ignored private ledger。系統也沒有把一段 bulk 回覆偽裝成 16 次使用者逐筆發言，而是將同一份已驗證授權
+正確展開為 16 個分別綁定 ordinal、candidate、proposal、packet、product、六個 accepted mappings、null constraints 與 predecessor hash 的
+decision events。既有 events 1–4 的 bytes 與 hashes 全部保持不變，解決了「一次確認全部剩餘資料」如何在不捏造對話、不改寫歷史的前提下
+進入既有 append-only contract。
+
+執行採逐筆 `record → precheck → commit → postcheck`，依序建立 Decision 05–20 共 16 個 local first-parent anchor commits。這是目前最安全的
+做法，因為已驗證的 contract 明確要求每次 event count 只能 `+1`，且每個 introduction commit 都要錨定自己的 first parent；任一步失敗即可停在
+最後一個有效 committed prefix，再從下一個 ordinal 安全續跑。沒有為了「一次批准 16 筆」改成 atomic multi-event append，因為那會要求放寬
+one-event contract、history validator 與既有攻擊測試，削弱已建立的 provenance，而不是單純提升效率。
+
+### 修改了哪一部分，以及為何先修完成狀態
+
+真正執行 bulk review 前，先發現並修正 progress contract／renderer 的 finish-state bug：原邏輯在 20／20 完成時仍會把 `next_gate` 指向繼續
+逐筆審查。修正後，只有完整 20／20 才能輸出 `separate_catalog_batch_application_owner_gate`；1–19 筆仍必須維持 sequential review Gate，
+且 status、pending count 與 next Gate 不一致時 fail closed。這項修改先證明當時既有 4／20 public progress bytes 完全不變，再開始追加 events，
+避免用 finish-state 修復暗中重寫已錨定的前四筆歷史。
+
+每個 anchor 同步維護公開 progress／method；完成後 tasks 的 20／20 狀態與 source manifest 中的 tasks hash 亦已同步。最後狀態為 owner-approved
+proposals `20`、pending `0`，但 20 筆 proposal artifacts 仍全部是 `staged`。Catalog applied=`0`、exact authority=`0`、RHB-T5
+authorization=`false`；本輪既沒有更改 canonical catalog，也沒有把第三方 source proposal 宣稱成 Mattel 官方真值。
+
+### 為何 review 完成仍不會自動修改 catalog
+
+這次 owner 授權的 bounded scope 是完成 catalog proposal review，並允許 20 筆 staged proposals 進入下一道獨立 Gate；它不是 catalog write
+authorization，更不是 exact-variant authority approval。讓 review event 自動 mutation catalog，會把「人已看過候選資料」與「批准寫入 canonical
+namespace」兩種不同風險的決策合併，也會繞過原本要求的 separate batch Gate。因此完成狀態只改變 review progress，不改變 proposal staging、
+authority metadata、resolver output boundary 或 RHB-T5 狀態。
+
+### 最終 QA、留下的邊界與下一步
+
+獨立 QA 判定 **PASS**：6／6 attack cases 全部拒絕；CAR focused tests 為 `150 passed`，完整 repository suite 為 `1201 passed`。Ruff、Ruff
+format、strict MyPy、compileall、CAR-T1 Source Gate、兩個 builders、default decision check、privacy／secret scan、JSON parse 與 diff check
+全部通過；catalog、proposal bundle 與 packet hashes 均未漂移。唯一訊息仍是既有 Starlette／AnyIO deprecation warning，與本輪變更無關。
+這些結果來自已完成的獨立 QA；本次 Project Log 策展沒有重跑測試。
+
+Decision 05–20 的 16 個 local anchors、finish-state 修復與最後同步 commit 均仍未 push，本日誌不逐一列出所有 SHA。下一個合法步驟是由 owner
+另外明確授權 `separate_catalog_batch_application_owner_gate`；在取得該授權前，不得套用 catalog、建立 exact authority 或啟動 RHB-T5。
+
 ## 2026-09-30 — Remaining catalog review queue audit — prepare all records before approvals
 
 ### 新執行了什麼，以及解決了什麼問題
