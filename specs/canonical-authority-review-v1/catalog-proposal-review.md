@@ -13,14 +13,16 @@ reason; the mutable ledger cannot authorize its own wording.
 The verifier walks first-parent history through every commit carrying identical progress
 bytes. The commit that introduced those bytes must name its own first parent as the
 predecessor; later code-only commits cannot launder a rewritten history.
+All 20 owner decisions are recorded. The next permitted step is the separate catalog
+batch application owner Gate; this progress artifact does not apply catalog records.
 
 ## Current progress
 
-- Recorded decisions: **19 / 20**
-- Approved for a later catalog batch gate: **19**
+- Recorded decisions: **20 / 20**
+- Approved for a later catalog batch gate: **20**
 - Held: **0**
 - Rejected: **0**
-- Pending: **1**
+- Pending: **0**
 - Proposal artifacts remain `staged`: **20**
 - Catalog records applied: **0**
 - Exact-authority records approved: **0**
@@ -33,6 +35,6 @@ An owner approval here records only a catalog-proposal decision. It does not edi
 authorize RHB-T5. Catalog application waits for a separate batch application Gate after
 all 20 proposals have been reviewed.
 
-Private ledger SHA-256: `1a0b226466b6ba63e15fca3457eb9f9d5e1820f8821b7010bd0851db28f6fb11`.
-Event head SHA-256: `6a9ba3f4ea99753bef890ed88d379b847f13c8fd505d8c5126033969af449a8e`.
-Git predecessor commit: `251c5acd1ab0a0957d54f7456020739a6648f8e2`.
+Private ledger SHA-256: `c1fe895d5fa525b49c9115ffc4883e0b6d54bc172a3af7dc2fcb73ab9bc39b85`.
+Event head SHA-256: `7dbcda7f83682e2e15f1d940c32d9004750679f692afef2e37bda6bd658eac74`.
+Git predecessor commit: `ee51c69b23a690f87e76a8d72c39e1a3c0c5e54d`.
