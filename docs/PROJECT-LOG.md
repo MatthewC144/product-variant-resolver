@@ -1,5 +1,52 @@
 # Project Log
 
+## 2026-10-01 — T5-G1 Batch 4：bounded prefix 累積 9 reviewed／11 staged
+
+### 新執行了什麼，以及解決了什麼問題
+
+本輪記錄 T5-G1 Batch 4，把 Nissan Skyline 2000GT-R LBWK 的 packet ordinals `4`、`13`、`20`
+從 `staged` 推進為 `reviewed`，並保留 Batches 2–3 的全部既有 objects。累積狀態成為 9 reviewed／
+11 staged、3 份 private batch authorizations、9 份 private attestations 與 9 個 public events。這解決了
+第三個 review batch 如何在不改寫前兩批歷史、也不擴張授權 Gate 的前提下安全追加的問題。
+
+本輪仍只完成第一道 evidence review：`approved_exact` 為 0，authority bundle／manifest 不存在，
+RHB-T5 authorization 為 false。日誌不重述、推導或硬編碼 trusted response 或 private identity。
+
+### 修改了哪一部分，以及為何這樣決定
+
+Decision recorder／CLI／tests 的允許 prefix 從 Batch 2 → Batch 3 擴充到 Batch 2 → Batch 3 → Batch 4。
+Batch 4 必須先驗證完整 predecessor prefix，才能建立一份 private batch authorization、三份逐筆
+attestations 與三個 public `staged -> reviewed` events。這種 bounded prefix 設計刻意沒有改成可接受
+任意 batch 的通用入口：固定前置狀態能阻止跳序、遺漏歷史、重寫既有 objects，或把一批授權重用到
+另一批與另一道 Gate。
+
+四個 private／public outputs 繼續採 atomic promotion 與 rollback。原因是 candidate state、events、
+authorization 和 attestations 必須共同前進；若只寫成其中一部分，公開進度和私密授權證據會互相矛盾。
+Privacy 設計則維持 public／private 分離：公開檔案只保留 bounded state、bindings 與不可逆 hashes，授權
+材料留在 private ledgers，使 Git 中的可稽核進度不需要攜帶 trusted response 或 private identity。
+
+### 驗證方式與結果
+
+Batch 4 首次 materialization 回報 `created`，接著兩次 real checks 都回報 `unchanged`。驗證確認 Batches
+2–3 objects 保持不變，累積 9／11 state 與 3／9／9 authorization-attestation-event counts 正確，並持續
+拒絕 `approved_exact`、authority bundle／manifest 與 RHB-T5 權限擴張。
+
+獨立 pre-materialization QA 判定 **PASS**：focused `53 passed`、full repository `1298 passed`。本次
+Project Log 策展只整理已存在的 QA 與 materialization 證據，沒有重跑測試，也不把這些結果解讀成
+resolver accuracy、retrieval quality 或 manufacturer truth。
+
+Post-materialization QA 曾在 specs 與 source manifest 並行更新的瞬間遇到一次 fixture
+競態：首次 run 為 7 pass／23 fail，23 個 failure 皆來自 tasks hash 與 manifest binding 在複製時
+暫時不一致。待並行更新完成後，binding 相等，穩定重跑 `30 passed`。因此最終為
+**PASS WITH RISKS**；這項風險是 shared-workspace 更新競態，不是 Batch 4 decision state 錯誤，也沒有
+被忽略或從紀錄中移除。
+
+### 留下的邊界與下一步
+
+目前仍有 11 筆 staged。下一步需對另一個 frozen batch 取得新的、明確 T5-G1 outcome，不能沿用本輪
+authorization 或一般 continuation 指示；完成必要的 first-Gate events 後，才可另行提出 T5-G2
+exact-authority request。Architect、security 與 performance review 在 Lite／Lean 模式下仍為 deferred。
+
 ## 2026-10-01 — T5-G1 Batch 3：bounded append 後累積 6 reviewed／14 staged
 
 ### 新執行了什麼，以及解決了什麼問題
