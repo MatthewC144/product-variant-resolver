@@ -1,0 +1,218 @@
+{
+  "candidates": [
+    {
+      "candidate_id": "car-t3-fandom-row-0b280377b913e854",
+      "canonical_uuid": "d20977aa-09a2-55e7-8d77-c8fa54f5479d",
+      "catalog_record_sha256": "3cf9f09e065bcd3f5d78e0930390cac3393df8f77daa1f7d402884ab0b212112",
+      "entry_sha256": "f37a2b0e5f4b3eb696e90ff1c252af1c1537fa25078fc6885e9e092412a2756f",
+      "latest_event_id": null,
+      "latest_event_sha256": null,
+      "ordinal": 1,
+      "status": "staged"
+    },
+    {
+      "candidate_id": "car-t3-fandom-row-20f16ad2c5417006",
+      "canonical_uuid": "50b358f9-cdf0-56d7-be81-f0b75ea000d7",
+      "catalog_record_sha256": "753083d8538a73cab14299c7669154cf24c82fc7d2e76e65da838508654e52b9",
+      "entry_sha256": "9fcb78c6cefd2ed62b3a2cc87d72abb3e22a4da0b2711c1a4e7543d8ba6f42ca",
+      "latest_event_id": "car-t5-g1-batch-2-ordinal-02",
+      "latest_event_sha256": "fa9a5dad2c9eea6ec99145717273e2a97f087a5d9a606b5f33441e7fa52cfd5b",
+      "ordinal": 2,
+      "status": "reviewed"
+    },
+    {
+      "candidate_id": "car-t3-fandom-row-26b0ba519bca3a01",
+      "canonical_uuid": "76188645-6430-559e-96a2-73a844524763",
+      "catalog_record_sha256": "fd0504ef7b109d34509648dd9489feb76227c18879b30d3e73a1d6500fe1ee14",
+      "entry_sha256": "f6e2bc259fa7f2c0becfe6eca36fc4905c4b77c84f6b7258e4dbc865f10ce151",
+      "latest_event_id": null,
+      "latest_event_sha256": null,
+      "ordinal": 3,
+      "status": "staged"
+    },
+    {
+      "candidate_id": "car-t3-fandom-row-27fe2c9ab41942b8",
+      "canonical_uuid": "d2ee5fd2-006e-5758-bdc3-9cfd7f29bcc9",
+      "catalog_record_sha256": "4719466714687da1f90be551a9c4c971d07e1997b828625ae2af449c2e019065",
+      "entry_sha256": "2e44e44596574b336d3dafe1c013672523ccd930559d66785ca7ce24dfa25a11",
+      "latest_event_id": null,
+      "latest_event_sha256": null,
+      "ordinal": 4,
+      "status": "staged"
+    },
+    {
+      "candidate_id": "car-t3-fandom-row-2a5c961e0bb57c99",
+      "canonical_uuid": "4d4e2f22-2970-5fc6-9262-1891953ec5d3",
+      "catalog_record_sha256": "a1674122ed8223904c27df23074d4f283a4288caf2e580b97821d6430bd1d92b",
+      "entry_sha256": "6689cd878fb85fb6ac4a0571539dd0d8b986b8f8ef3f8b274f9ec7e8748da164",
+      "latest_event_id": null,
+      "latest_event_sha256": null,
+      "ordinal": 5,
+      "status": "staged"
+    },
+    {
+      "candidate_id": "car-t3-fandom-row-38aa30ce0eed34ca",
+      "canonical_uuid": "83f72d7b-7a6e-5b12-aaef-2a1a4e8cd850",
+      "catalog_record_sha256": "e979185de94b2a7e71fa92dbe73defd86f6cf8cba604b1b8173be228eeeaea84",
+      "entry_sha256": "d85f107cc6fc77aaff5abf536b068000b38d090c409392010e46812cd1a0713c",
+      "latest_event_id": null,
+      "latest_event_sha256": null,
+      "ordinal": 6,
+      "status": "staged"
+    },
+    {
+      "candidate_id": "car-t3-fandom-row-3a6c7c2b9a6429fa",
+      "canonical_uuid": "3bdc5a02-281d-5364-9f32-6a0da46bce93",
+      "catalog_record_sha256": "6807071e6830d38bd990b2774a876294385d8c8c065b3dd238a8c350cbeb6db4",
+      "entry_sha256": "9ab94ba4fa44a4e4ee484f53093b92eb4b8e081e124aa0ee3c29544607dde8a2",
+      "latest_event_id": null,
+      "latest_event_sha256": null,
+      "ordinal": 7,
+      "status": "staged"
+    },
+    {
+      "candidate_id": "car-t3-fandom-row-3aa2e8967b2f55bf",
+      "canonical_uuid": "3c5b6cf4-1bd9-502a-8eac-63d865b4fc91",
+      "catalog_record_sha256": "f87212bfbd142a56a80f95b5a1121dc53153aa57317c3572131d133b16ac68eb",
+      "entry_sha256": "f586e2bafe53bcaef6bcbd5ed26736b28c49921624d8b421c7668ce543f13c95",
+      "latest_event_id": null,
+      "latest_event_sha256": null,
+      "ordinal": 8,
+      "status": "staged"
+    },
+    {
+      "candidate_id": "car-t3-fandom-row-53333b0feb531ebc",
+      "canonical_uuid": "7b089c66-fa6e-5f9f-8aaf-7ff2ae6a296c",
+      "catalog_record_sha256": "86dd3f8d0d29e42ac767698d05bbddf0a5fc51210ae5492c7736dee9bfe4a7a6",
+      "entry_sha256": "71ebbe18423c0ab350e91f39e24cf1496b008e5296eb2c6d042d617dfa4a1f6d",
+      "latest_event_id": null,
+      "latest_event_sha256": null,
+      "ordinal": 9,
+      "status": "staged"
+    },
+    {
+      "candidate_id": "car-t3-fandom-row-592082e49745a19f",
+      "canonical_uuid": "97dee015-29b9-564e-b529-a51c151edd6d",
+      "catalog_record_sha256": "4a779382615f824436c8e36abd4ecaeab1c2953862b3825030b9127d7dabc0cb",
+      "entry_sha256": "5c354078583dd39cf540b235a78567c54bba35e1c3bc62d46e127268ae1039c7",
+      "latest_event_id": null,
+      "latest_event_sha256": null,
+      "ordinal": 10,
+      "status": "staged"
+    },
+    {
+      "candidate_id": "car-t3-fandom-row-710c84b99e8c2e48",
+      "canonical_uuid": "75ddc979-dc29-51b8-8e24-543243af74bd",
+      "catalog_record_sha256": "40c128d0bb8e643912fb6c86feb48b40f0f1661aa96ad7ce98bc2ea711ba0756",
+      "entry_sha256": "a5ad2f75c5b7cb11daa65f91c4397860263410cecbf1d1bcc4f7bf522dc7f244",
+      "latest_event_id": "car-t5-g1-batch-2-ordinal-11",
+      "latest_event_sha256": "008c195bd8a3ea0d5e5da1a76e9c8a943e3e8f8dac95de1d27bebad9038276b5",
+      "ordinal": 11,
+      "status": "reviewed"
+    },
+    {
+      "candidate_id": "car-t3-fandom-row-75cd82288d943dce",
+      "canonical_uuid": "b56c19bc-8806-5285-85eb-fe6944a2d267",
+      "catalog_record_sha256": "6e66b5909396753f07df3117d4c4f91900b4a409968d78f7764d98fd672027d1",
+      "entry_sha256": "3c022d2d0472eb87665b03b430db712d26d2fe48cb04759e747ec25ed07960f5",
+      "latest_event_id": null,
+      "latest_event_sha256": null,
+      "ordinal": 12,
+      "status": "staged"
+    },
+    {
+      "candidate_id": "car-t3-fandom-row-77ecedc5e3db3f77",
+      "canonical_uuid": "4930354f-a9fe-5928-8358-4c96bfb1907e",
+      "catalog_record_sha256": "5b9b3974d899b93ad545f35b3ea90f45add80e89fbf11cbd26952d2e95fae0df",
+      "entry_sha256": "837d3c105bec944ef6cf06884630981d311fa23968c1b0aa7845af66cea8e796",
+      "latest_event_id": null,
+      "latest_event_sha256": null,
+      "ordinal": 13,
+      "status": "staged"
+    },
+    {
+      "candidate_id": "car-t3-fandom-row-78748248e56441f5",
+      "canonical_uuid": "7719b74b-ede7-5eab-8256-ce92b2a26618",
+      "catalog_record_sha256": "13924839ca20b4a9c04924e1d1a1f63ed5c5c9b4a59528a785c2f4e4172b5b45",
+      "entry_sha256": "787d22a27e00d7c3a0f47bb0b59bcbcc54f3377e66f6c32251ecf7b54d67bb48",
+      "latest_event_id": null,
+      "latest_event_sha256": null,
+      "ordinal": 14,
+      "status": "staged"
+    },
+    {
+      "candidate_id": "car-t3-fandom-row-7e1a3b3ad2244c80",
+      "canonical_uuid": "2a0fc7fb-896f-53fd-b8f9-3dd3b49568a8",
+      "catalog_record_sha256": "51c01e8fe2f4c59ddb36842122f8c238a818dd5c3349ce1f2e7a360b4b6dcdb3",
+      "entry_sha256": "31fdb3c853f92c060e8f8cff3c26f879fa08ac09f91f67d9df63805c0cb41d95",
+      "latest_event_id": null,
+      "latest_event_sha256": null,
+      "ordinal": 15,
+      "status": "staged"
+    },
+    {
+      "candidate_id": "car-t3-fandom-row-a69d24d7e300d639",
+      "canonical_uuid": "7f017730-d2c7-5928-983c-fd90408f95a5",
+      "catalog_record_sha256": "d03ec32cc013cc71aee1fc6e078d3389b61ebe966f2a920ebefa523a548c56d4",
+      "entry_sha256": "b61f05877e59430bce316add27be69b48e37a9b31a784dc97a7452dfa9b441ee",
+      "latest_event_id": null,
+      "latest_event_sha256": null,
+      "ordinal": 16,
+      "status": "staged"
+    },
+    {
+      "candidate_id": "car-t3-fandom-row-d9d82c60489c0456",
+      "canonical_uuid": "bd252c2f-042d-51b3-a735-cf7561509675",
+      "catalog_record_sha256": "6356f7e25c411de574ec215ed769752b3c196dcdf24b38ed34d71cc84c0c881f",
+      "entry_sha256": "0fd3a59db87fbd769aeefdabe5f4b6d3beca152b7b1657d5401a369814e98e32",
+      "latest_event_id": null,
+      "latest_event_sha256": null,
+      "ordinal": 17,
+      "status": "staged"
+    },
+    {
+      "candidate_id": "car-t3-fandom-row-e5b00b0411a6187d",
+      "canonical_uuid": "04639476-4feb-5788-97ef-89e32af3f408",
+      "catalog_record_sha256": "e3fabdbed5ef68909099e5b551f59384ff04449fe260ca4bbd4d8365c9f2f180",
+      "entry_sha256": "7864546f3a3cf52d0a39bccc745afa233b08d91e287f218ea06b6d177be5a898",
+      "latest_event_id": "car-t5-g1-batch-2-ordinal-18",
+      "latest_event_sha256": "c3c2b3f2a412702fdd1234e5cf36ddc472b4a8d026636bf970e33d385ce4e131",
+      "ordinal": 18,
+      "status": "reviewed"
+    },
+    {
+      "candidate_id": "car-t3-fandom-row-eb74e3eebcc4dcf4",
+      "canonical_uuid": "02168928-7106-5066-bacf-a760443020c2",
+      "catalog_record_sha256": "3605c035e6c35fdb2bdc087c2daff1a8b83677d1c7acfc9bfd62dcb9786edf98",
+      "entry_sha256": "4ee1bf748506c9b6df5baee90324d09a45cd7d7ab72363271abd2b58d49f2ee1",
+      "latest_event_id": null,
+      "latest_event_sha256": null,
+      "ordinal": 19,
+      "status": "staged"
+    },
+    {
+      "candidate_id": "car-t3-fandom-row-ebf5fc720ec1d06d",
+      "canonical_uuid": "7d451d55-950c-59c0-8b43-a65c60c93557",
+      "catalog_record_sha256": "c7e072b3d5aeaa4059a7b99d531aded814f6f44e445a2d1e40005982d6259930",
+      "entry_sha256": "4dfd58404dccf670380ee28bec3322cba3729bbb75fdad8a471d57bb9f489022",
+      "latest_event_id": null,
+      "latest_event_sha256": null,
+      "ordinal": 20,
+      "status": "staged"
+    }
+  ],
+  "catalog_sha256": "e763c8739a76ab4cc9b66169aecd4aea241ee810d8a27cdfb7d05bcacd98562e",
+  "catalog_version": "catalog-v2",
+  "network_requests": 0,
+  "packet_sha256": "1086fa0ea7ddd4fda2b7a4b021797e5630a7b55d9f840c3508c4744d9703fe2b",
+  "resolver_output_consulted": false,
+  "rhb_t5_authorized": false,
+  "schema_version": "pvr-canonical-authority-candidate-state-v1",
+  "state_sha256": "4323d60bfab6a66695f08a7ad6ec558d44cdb475fb7ec654b05f391e0df12876",
+  "state_version": "canonical-authority-review-t5-g1-v1",
+  "status_counts": {
+    "approved_exact": 0,
+    "reviewed": 3,
+    "staged": 17
+  }
+}
