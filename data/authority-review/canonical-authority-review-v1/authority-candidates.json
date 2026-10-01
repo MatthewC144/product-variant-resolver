@@ -45,10 +45,10 @@
       "canonical_uuid": "4d4e2f22-2970-5fc6-9262-1891953ec5d3",
       "catalog_record_sha256": "a1674122ed8223904c27df23074d4f283a4288caf2e580b97821d6430bd1d92b",
       "entry_sha256": "6689cd878fb85fb6ac4a0571539dd0d8b986b8f8ef3f8b274f9ec7e8748da164",
-      "latest_event_id": null,
-      "latest_event_sha256": null,
+      "latest_event_id": "car-t5-g1-batch-5-ordinal-05",
+      "latest_event_sha256": "75af062ecc72d655c226f4608ac9c34256a4179082b5331dc7f4ddae12e059df",
       "ordinal": 5,
-      "status": "staged"
+      "status": "reviewed"
     },
     {
       "candidate_id": "car-t3-fandom-row-38aa30ce0eed34ca",
@@ -65,10 +65,10 @@
       "canonical_uuid": "3bdc5a02-281d-5364-9f32-6a0da46bce93",
       "catalog_record_sha256": "6807071e6830d38bd990b2774a876294385d8c8c065b3dd238a8c350cbeb6db4",
       "entry_sha256": "9ab94ba4fa44a4e4ee484f53093b92eb4b8e081e124aa0ee3c29544607dde8a2",
-      "latest_event_id": null,
-      "latest_event_sha256": null,
+      "latest_event_id": "car-t5-g1-batch-5-ordinal-07",
+      "latest_event_sha256": "358f0a0a298411e03eff4a952c17263725f07b1b4f8def7f942ab3629ab376b6",
       "ordinal": 7,
-      "status": "staged"
+      "status": "reviewed"
     },
     {
       "candidate_id": "car-t3-fandom-row-3aa2e8967b2f55bf",
@@ -165,10 +165,10 @@
       "canonical_uuid": "bd252c2f-042d-51b3-a735-cf7561509675",
       "catalog_record_sha256": "6356f7e25c411de574ec215ed769752b3c196dcdf24b38ed34d71cc84c0c881f",
       "entry_sha256": "0fd3a59db87fbd769aeefdabe5f4b6d3beca152b7b1657d5401a369814e98e32",
-      "latest_event_id": null,
-      "latest_event_sha256": null,
+      "latest_event_id": "car-t5-g1-batch-5-ordinal-17",
+      "latest_event_sha256": "0368a1b15f96cede603d2659cb9a57b4f257144a73b21cdcb0dc0a9fe86639f7",
       "ordinal": 17,
-      "status": "staged"
+      "status": "reviewed"
     },
     {
       "candidate_id": "car-t3-fandom-row-e5b00b0411a6187d",
@@ -208,11 +208,11 @@
   "resolver_output_consulted": false,
   "rhb_t5_authorized": false,
   "schema_version": "pvr-canonical-authority-candidate-state-v1",
-  "state_sha256": "01f6400735dc1ab0637e7910eb041e86ac0946d55ded8964df37176359098dab",
+  "state_sha256": "20e6f807329c812f54c472025e2f5f9997f101c5a96862ccbabebe269c1ed07a",
   "state_version": "canonical-authority-review-t5-g1-v1",
   "status_counts": {
     "approved_exact": 0,
-    "reviewed": 9,
-    "staged": 11
+    "reviewed": 12,
+    "staged": 8
   }
 }
