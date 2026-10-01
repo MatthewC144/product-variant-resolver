@@ -1,5 +1,52 @@
 # Project Log
 
+## 2026-10-01 — T5-G1 Batch 2：三筆 reviewed，17 筆維持 staged
+
+### 新執行了什麼，以及解決了什麼問題
+
+本輪在 T5-G1 contract 下記錄 Batch 2 的 owner review progress：只把 Draftnator 的 packet ordinals `2`、`11`、`18` 從 `staged` 推進為
+`reviewed`，其餘 17 筆維持 staged。這解決了「一份 batch 回覆如何安全套用到三個明確 entries」的問題，但沒有把第一道 evidence review 擴張成
+exact-authority approval：exact authority 仍為 `0`，`approved-authority.json`、`authority-manifest.json` 與 RHB outputs／authorization 仍不存在。
+
+本日誌不重述或重建 trusted owner response，也不揭露 private identity。實際 private state 是一份 batch authorization 加三份 owner attestations；
+public state 是三個 `staged -> reviewed` events，三者共享同一 authorization hash，並各自綁定 ordinal、candidate／catalog record、evidence 與 prior
+state。這誠實表達「一次 batch authorization 覆蓋三筆」，沒有偽裝成 owner 說了三次不同的話。
+
+### 修改了哪些部分，以及為何採 external expected Gate
+
+實作新增 dedicated decision recorder／CLI 與 append-only validation，將 public `authority-candidates.json`／`review-events.json` 和 Git-ignored private
+batch-authorization／attestation ledgers 分開。Private ledgers 為 `0600`，public artifacts 為 `0644`；public files 只揭露 bounded state、bindings 與 hashes，
+不含 owner verbatim 或 private identity。第一次記錄回報 `created`，接著兩次 real checks 都是 `unchanged`。
+
+Private ledger 不能自行證明 authorization。呼叫端必須另外提供 strict `ExpectedBatchOwnerAuthorization`，validator 會精確比對 T5-G1 Gate、
+`staged_to_reviewed` scope、outcome、covered entries、external response hash 與 prior-Gate constraints。這個 positive external expectation 比搜尋關鍵字更安全：
+即使有人重算 stored artifact hashes，只要與外部期待的 Gate／scope／entries／response 不一致，仍會 fail closed。相同 response 也不會因為已有三個
+events 就取得 T5-G2 權限。
+
+四個 materialized artifacts 的 final SHA-256 分別為 private authorization
+`04fb14d4a3f8e43f31e59900ed7e573f7b46ffd1216c270a67c8457dc0dc272b`、private attestations
+`49bdf299456179d6087c6276d372d7ed63b1037cef71b02a1034bfa318a55446`、public candidates
+`1a844f73c875797fce907048a2e8ad9532090f01b356882d990ff07a20d204da` 與 public events
+`a35c63d4a26a4a4f01be917a15b46ab56477f771e45f3181b6fc88985bbf44ae`。
+
+### QA 發現的 privacy failure 與修復
+
+獨立 QA 發現 test fixture 曾硬編碼 trusted owner response。即使 production private ledgers 沒有被 track，verbatim fragment 出現在 tracked test source
+仍是 privacy leak，不能以「只是測試」忽略。修復移除真實回覆，換成明確標記 `TEST-ONLY` 的 synthetic Unicode／backslash text；production recorder
+保持 response-agnostic，不把任何特定人類字句寫成產品邏輯。
+
+Post-materialization QA 不只驗 temporary fixture，也直接驗真實 outputs：3 reviewed／17 staged、1 private authorization／3 attestations／3 public events、
+一個 shared authorization hash、`0600`／`0644` permissions、parent bindings 與兩次 unchanged checks 全部成立。Repo-wide privacy scan 對 792 個
+tracked／unignored files 確認 trusted-response fragments 為零。
+
+### 最終 QA、邊界與下一步
+
+最終獨立 QA 判定 **PASS**：focused `16 passed`、full repository `1284 passed`；Ruff、Ruff format、strict MyPy、compileall、fixture isolation、
+permissions、privacy 與四個 artifact hashes 全部通過。沒有 blocker 或 important finding。本次 Project Log 策展沒有重跑測試。
+
+下一步仍是對另一個 frozen batch 取得**新的 owner T5-G1 outcome**，不是啟動 T5-G2。Batch 2 reviewed 只證明 first-Gate progress，不建立 exact／
+manufacturer truth、不授權 authority bundle、benchmark readiness 或任何 RHB stage，也不是 resolver accuracy 結論。
+
 ## 2026-09-30 — CAR-T5P：準備 20 筆 output-blind authority review entries，停在 T5-G1
 
 ### 新執行了什麼，以及解決了什麼問題
