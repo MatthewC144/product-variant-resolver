@@ -52,9 +52,15 @@ SYNTHETIC_BATCH_FOUR_RESPONSE = (
     "測試欄位維持 null。此合成句只測第三個 staged→reviewed 批次，"
     "不代表任何真實 owner 決策。"
 )
+SYNTHETIC_BATCH_FIVE_RESPONSE = (
+    "TEST-ONLY T5-G1 Batch 5：審閱測試項目 κ、λ、μ；三筆皆標記 reviewed，"
+    "測試欄位維持 null。此合成句只測第四個 staged→reviewed 批次，"
+    "不代表任何真實 owner 決策。"
+)
 EXPECTED_ORDINALS = {2, 11, 18}
 EXPECTED_BATCH_THREE_ORDINALS = {3, 8, 14}
 EXPECTED_BATCH_FOUR_ORDINALS = {4, 13, 20}
+EXPECTED_BATCH_FIVE_ORDINALS = {5, 7, 17}
 TARGETS = (
     AUTHORIZATION_LEDGER_REFERENCE,
     ATTESTATION_LEDGER_REFERENCE,
@@ -115,6 +121,17 @@ def _record_batch_four(root: Path, **overrides: Any) -> str:
         "authorized_exact_owner_response": SYNTHETIC_BATCH_FOUR_RESPONSE,
         "reviewed_at": datetime(2026, 10, 1, 12, 2, tzinfo=UTC),
         "batch_ordinal": 4,
+    }
+    arguments.update(overrides)
+    return record_t5_g1_batch_review(root, **arguments)
+
+
+def _record_batch_five(root: Path, **overrides: Any) -> str:
+    arguments: dict[str, Any] = {
+        "owner_response_verbatim": SYNTHETIC_BATCH_FIVE_RESPONSE,
+        "authorized_exact_owner_response": SYNTHETIC_BATCH_FIVE_RESPONSE,
+        "reviewed_at": datetime(2026, 10, 1, 12, 3, tzinfo=UTC),
+        "batch_ordinal": 5,
     }
     arguments.update(overrides)
     return record_t5_g1_batch_review(root, **arguments)
@@ -283,6 +300,87 @@ def test_appends_batch_four_to_complete_prefix_without_rewriting_prior_objects(
         assert private_response.encode("utf-8") not in public_raw
 
 
+def test_appends_batch_five_to_complete_prefix_without_rewriting_prior_objects(
+    isolated_root: Path,
+) -> None:
+    assert _record(isolated_root) == "created"
+    assert _record_batch_three(isolated_root) == "created"
+    assert _record_batch_four(isolated_root) == "created"
+    before_authorizations = _read(isolated_root, AUTHORIZATION_LEDGER_REFERENCE)["authorizations"]
+    before_attestations = _read(isolated_root, ATTESTATION_LEDGER_REFERENCE)["attestations"]
+    before_events = _read(isolated_root, REVIEW_EVENTS_REFERENCE)["events"]
+
+    assert _record_batch_five(isolated_root) == "created"
+    first_materialization = {
+        reference: (isolated_root / reference).read_bytes() for reference in TARGETS
+    }
+    assert _record_batch_five(isolated_root) == "unchanged"
+    assert _record_batch_five(isolated_root, check=True) == "unchanged"
+    assert {
+        reference: (isolated_root / reference).read_bytes() for reference in TARGETS
+    } == first_materialization
+
+    authorization = BatchAuthorizationLedger.model_validate(
+        _read(isolated_root, AUTHORIZATION_LEDGER_REFERENCE)
+    )
+    attestations = OwnerAttestationLedger.model_validate(
+        _read(isolated_root, ATTESTATION_LEDGER_REFERENCE)
+    )
+    candidates = AuthorityCandidateStateFile.model_validate(
+        _read(isolated_root, AUTHORITY_CANDIDATES_REFERENCE)
+    )
+    events = AuthorityReviewEventFile.model_validate(_read(isolated_root, REVIEW_EVENTS_REFERENCE))
+
+    assert [item.batch_ordinal for item in authorization.authorizations] == [2, 3, 4, 5]
+    assert [item.model_dump(mode="json") for item in authorization.authorizations[:3]] == (
+        before_authorizations
+    )
+    assert len(attestations.attestations) == 12
+    attestation_by_candidate = {
+        item.candidate_id: item.model_dump(mode="json") for item in attestations.attestations
+    }
+    event_by_candidate = {item.candidate_id: item.model_dump(mode="json") for item in events.events}
+    assert {
+        item["candidate_id"]: attestation_by_candidate[item["candidate_id"]]
+        for item in before_attestations
+    } == {item["candidate_id"]: item for item in before_attestations}
+    assert {
+        item["candidate_id"]: event_by_candidate[item["candidate_id"]] for item in before_events
+    } == {item["candidate_id"]: item for item in before_events}
+    assert candidates.status_counts == {"staged": 8, "reviewed": 12, "approved_exact": 0}
+    assert {
+        candidate.ordinal
+        for candidate in candidates.candidates
+        if candidate.status.value == "reviewed"
+    } == (
+        EXPECTED_ORDINALS
+        | EXPECTED_BATCH_THREE_ORDINALS
+        | EXPECTED_BATCH_FOUR_ORDINALS
+        | EXPECTED_BATCH_FIVE_ORDINALS
+    )
+    assert events.batch_authorization_count == 4
+    assert events.owner_attestation_count == 12
+    assert events.review_event_count == 12
+    assert events.status_counts == {"reviewed": 12, "approved_exact": 0}
+    assert {event.to_status.value for event in events.events} == {"reviewed"}
+    assert not candidates.rhb_t5_authorized
+    assert not events.rhb_t5_authorized
+    assert not (isolated_root / decisions.FORBIDDEN_AUTHORITY_REFERENCE).exists()
+    assert not (isolated_root / decisions.FORBIDDEN_AUTHORITY_MANIFEST_REFERENCE).exists()
+
+    public_raw = b"".join(
+        (isolated_root / reference).read_bytes()
+        for reference in (AUTHORITY_CANDIDATES_REFERENCE, REVIEW_EVENTS_REFERENCE)
+    )
+    for private_response in (
+        SYNTHETIC_OWNER_RESPONSE,
+        SYNTHETIC_BATCH_THREE_RESPONSE,
+        SYNTHETIC_BATCH_FOUR_RESPONSE,
+        SYNTHETIC_BATCH_FIVE_RESPONSE,
+    ):
+        assert private_response.encode("utf-8") not in public_raw
+
+
 def test_batch_three_requires_complete_batch_two_state(isolated_root: Path) -> None:
     with pytest.raises(AuthorityContractError, match="requires the complete Batch 2"):
         _record_batch_three(isolated_root)
@@ -303,6 +401,33 @@ def test_batch_four_requires_complete_batch_two_and_three_prefix(
 
     with pytest.raises(AuthorityContractError, match="requires the complete Batch 2 and Batch 3"):
         _record_batch_four(isolated_root)
+
+    assert {
+        reference: (isolated_root / reference).read_bytes()
+        for reference in TARGETS
+        if (isolated_root / reference).exists()
+    } == before
+
+
+@pytest.mark.parametrize("prefix_length", [0, 1, 2])
+def test_batch_five_requires_complete_batch_two_three_and_four_prefix(
+    isolated_root: Path, prefix_length: int
+) -> None:
+    if prefix_length >= 1:
+        _record(isolated_root)
+    if prefix_length >= 2:
+        _record_batch_three(isolated_root)
+    before = {
+        reference: (isolated_root / reference).read_bytes()
+        for reference in TARGETS
+        if (isolated_root / reference).exists()
+    }
+
+    with pytest.raises(
+        AuthorityContractError,
+        match="requires the complete Batch 2 and Batch 3 and Batch 4",
+    ):
+        _record_batch_five(isolated_root)
 
     assert {
         reference: (isolated_root / reference).read_bytes()
@@ -420,6 +545,44 @@ def test_batch_four_rejects_prior_private_response_leaked_into_public_events(
         _record_batch_four(isolated_root)
 
 
+def test_batch_five_rejects_prior_private_response_leaked_into_public_events(
+    isolated_root: Path,
+) -> None:
+    _record(isolated_root)
+    _record_batch_three(isolated_root)
+    _record_batch_four(isolated_root)
+    event_path = isolated_root / REVIEW_EVENTS_REFERENCE
+    candidate_path = isolated_root / AUTHORITY_CANDIDATES_REFERENCE
+    event_payload = _read(isolated_root, REVIEW_EVENTS_REFERENCE)
+    candidate_payload = _read(isolated_root, AUTHORITY_CANDIDATES_REFERENCE)
+
+    leaked_event = event_payload["events"][6]
+    leaked_event["review_reason"] = SYNTHETIC_BATCH_FOUR_RESPONSE
+    leaked_event["event_sha256"] = content_sha256(
+        {key: value for key, value in leaked_event.items() if key != "event_sha256"}
+    )
+    event_payload["cumulative_event_sha256"] = content_sha256(
+        [event["event_sha256"] for event in event_payload["events"]]
+    )
+    event_payload["ledger_sha256"] = content_sha256(
+        {key: value for key, value in event_payload.items() if key != "ledger_sha256"}
+    )
+    candidate = next(
+        item
+        for item in candidate_payload["candidates"]
+        if item["candidate_id"] == leaked_event["candidate_id"]
+    )
+    candidate["latest_event_sha256"] = leaked_event["event_sha256"]
+    candidate_payload["state_sha256"] = content_sha256(
+        {key: value for key, value in candidate_payload.items() if key != "state_sha256"}
+    )
+    event_path.write_bytes(stable_json_bytes(event_payload))
+    candidate_path.write_bytes(stable_json_bytes(candidate_payload))
+
+    with pytest.raises(AuthorityContractError, match="public.*owner verbatim"):
+        _record_batch_five(isolated_root)
+
+
 @pytest.mark.parametrize(
     ("owner_response", "expected_response"),
     [
@@ -517,6 +680,34 @@ def test_conflicting_batch_four_retry_preserves_cumulative_state(
     assert {reference: (isolated_root / reference).read_bytes() for reference in TARGETS} == before
 
 
+def test_batch_five_wrong_response_and_conflicting_retry_preserve_cumulative_state(
+    isolated_root: Path,
+) -> None:
+    _record(isolated_root)
+    _record_batch_three(isolated_root)
+    _record_batch_four(isolated_root)
+    before_prefix = {reference: (isolated_root / reference).read_bytes() for reference in TARGETS}
+    with pytest.raises((AuthorityContractError, ValueError), match="exact|external|differs"):
+        _record_batch_five(
+            isolated_root,
+            owner_response_verbatim="TEST-ONLY wrong Batch 5 response",
+        )
+    assert {
+        reference: (isolated_root / reference).read_bytes() for reference in TARGETS
+    } == before_prefix
+
+    _record_batch_five(isolated_root)
+    before_complete = {reference: (isolated_root / reference).read_bytes() for reference in TARGETS}
+    with pytest.raises((AuthorityContractError, ValueError), match="exact|external|differs"):
+        _record_batch_five(
+            isolated_root,
+            owner_response_verbatim=SYNTHETIC_BATCH_FIVE_RESPONSE + " extra",
+        )
+    assert {
+        reference: (isolated_root / reference).read_bytes() for reference in TARGETS
+    } == before_complete
+
+
 def test_batch_four_rejects_direct_exact_and_partial_state(isolated_root: Path) -> None:
     _record(isolated_root)
     _record_batch_three(isolated_root)
@@ -528,6 +719,20 @@ def test_batch_four_rejects_direct_exact_and_partial_state(isolated_root: Path) 
     (isolated_root / REVIEW_EVENTS_REFERENCE).unlink()
     with pytest.raises(AuthorityContractError, match="partial"):
         _record_batch_four(isolated_root)
+
+
+def test_batch_five_rejects_direct_exact_and_partial_state(isolated_root: Path) -> None:
+    _record(isolated_root)
+    _record_batch_three(isolated_root)
+    _record_batch_four(isolated_root)
+    before = {reference: (isolated_root / reference).read_bytes() for reference in TARGETS}
+    with pytest.raises(AuthorityContractError, match="staged to reviewed"):
+        _record_batch_five(isolated_root, expected_outcome="approved_exact")
+    assert {reference: (isolated_root / reference).read_bytes() for reference in TARGETS} == before
+
+    (isolated_root / REVIEW_EVENTS_REFERENCE).unlink()
+    with pytest.raises(AuthorityContractError, match="partial"):
+        _record_batch_five(isolated_root)
 
 
 def test_batch_four_rejects_tampered_prefix_state_without_writing(
@@ -549,6 +754,30 @@ def test_batch_four_rejects_tampered_prefix_state_without_writing(
 
     with pytest.raises(AuthorityContractError, match="candidate state differs"):
         _record_batch_four(isolated_root)
+
+    assert {reference: (isolated_root / reference).read_bytes() for reference in TARGETS} == before
+
+
+def test_batch_five_rejects_tampered_prefix_state_without_writing(
+    isolated_root: Path,
+) -> None:
+    _record(isolated_root)
+    _record_batch_three(isolated_root)
+    _record_batch_four(isolated_root)
+    candidate_path = isolated_root / AUTHORITY_CANDIDATES_REFERENCE
+    candidate_payload = _read(isolated_root, AUTHORITY_CANDIDATES_REFERENCE)
+    reviewed_candidate = next(
+        item for item in candidate_payload["candidates"] if item["status"] == "reviewed"
+    )
+    reviewed_candidate["latest_event_id"] = "tampered-test-only-event"
+    candidate_payload["state_sha256"] = content_sha256(
+        {key: value for key, value in candidate_payload.items() if key != "state_sha256"}
+    )
+    candidate_path.write_bytes(stable_json_bytes(candidate_payload))
+    before = {reference: (isolated_root / reference).read_bytes() for reference in TARGETS}
+
+    with pytest.raises(AuthorityContractError, match="candidate state differs"):
+        _record_batch_five(isolated_root)
 
     assert {reference: (isolated_root / reference).read_bytes() for reference in TARGETS} == before
 
@@ -622,6 +851,32 @@ def test_atomic_batch_four_append_failure_restores_complete_prefix_bytes(
 
     monkeypatch.setattr(os, "replace", real_replace)
     assert _record_batch_four(isolated_root) == "created"
+
+
+def test_atomic_batch_five_append_failure_restores_complete_prefix_bytes(
+    isolated_root: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _record(isolated_root)
+    _record_batch_three(isolated_root)
+    _record_batch_four(isolated_root)
+    before = {reference: (isolated_root / reference).read_bytes() for reference in TARGETS}
+    real_replace = os.replace
+    calls = 0
+
+    def fail_second(source: Path, target: Path) -> None:
+        nonlocal calls
+        calls += 1
+        if calls == 2:
+            raise OSError("injected Batch 5 append replace failure")
+        real_replace(source, target)
+
+    monkeypatch.setattr(os, "replace", fail_second)
+    with pytest.raises(OSError, match="injected Batch 5"):
+        _record_batch_five(isolated_root)
+    assert {reference: (isolated_root / reference).read_bytes() for reference in TARGETS} == before
+
+    monkeypatch.setattr(os, "replace", real_replace)
+    assert _record_batch_five(isolated_root) == "created"
 
 
 def test_symlink_and_unsafe_private_permissions_are_rejected(
