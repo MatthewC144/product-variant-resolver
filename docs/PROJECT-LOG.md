@@ -1,5 +1,53 @@
 # Project Log
 
+## 2026-10-01 — T5-G1 Batch 3：bounded append 後累積 6 reviewed／14 staged
+
+### 新執行了什麼，以及解決了什麼問題
+
+本輪記錄 T5-G1 Batch 3，把 Subaru BRZ 的 packet ordinals `3`、`8`、`14` 從 `staged` 推進為
+`reviewed`；Batch 2 的三筆 reviewed objects 保持不變。累積狀態成為 6 reviewed／14 staged、2 份
+private batch authorizations、6 份 private attestations 與 6 個 public events。這解決了 recorder 原本只能
+承接第一個 owner batch、無法在保留歷史的情況下安全追加下一批的問題。
+
+本輪沒有把第一道 review 擴張成 exact approval：`approved_exact` 仍為 0，authority bundle／manifest
+仍不存在，RHB-T5 authorization 仍為 false。日誌不重述、推導或硬編碼任何 trusted owner response 或
+private identity。
+
+### 修改了哪一部分，以及為何這樣決定
+
+Decision recorder／CLI／tests 從單一 Batch 2 contract 擴充為明確限定 Batch 2 → Batch 3 的 ordered
+append。Batch 3 必須先驗證完整 Batch 2 predecessor state，並為新 batch 建立一份 authorization、三份
+逐筆 attestations 與三個 public `staged -> reviewed` events；這比建立一個可接受任意 batch 的通用入口更
+容易限制授權範圍，也能阻止跳序、覆寫歷史或跨 Gate 重用。
+
+既有 Batch 2 private ledger 使用早期 shape，因此讀取路徑加入 strict legacy migration。選擇單向正規化，
+而不是就地重寫或同時永久支援兩套可變 schema，是為了讓後續 validation 只面對一個 canonical contract，
+同時保留舊資料的 outcome、scope 與語意。四個 private／public outputs 維持 atomic promotion 和 rollback；
+若中途寫入失敗，全部回復原始 bytes，避免 authority、attestation、candidate state 與 events 互相矛盾。
+
+### 驗證、QA 發現與修復
+
+Batch 3 第一次 materialization 回報 `created`，接著兩次 real checks 都回報 `unchanged`；驗證亦確認 Batch 2
+objects 保留、累積 6／14 state 與 2／6／6 authorization-attestation-event counts。Privacy scan 同時覆蓋
+歷史和新增 response，因為只掃描 Batch 3 會漏掉 migration、fixture 或 renderer 重新帶出舊 response 的
+風險；公開 artifacts、tracked source、tests 和 docs 均不得包含 trusted response 或 private identity。
+
+QA 的 changed-test strict MyPy 初次發現 7 個型別錯誤，修正後該 scoped check 為 0 errors。這代表本輪
+changed-test typing 問題已清除，不代表全 repository 的既有 type debt 已消失。Atomic rollback、bounded
+Batch 2 → 3 append、legacy migration、歷史＋新增 response public-leak boundary 也已納入驗證。本次
+Project Log 策展沒有重跑測試。
+
+獨立 QA 最終判定 **PASS**：focused `22 passed`、pre-materialization full repository `1290 passed`；
+post-materialization 再驗證 6／14 state、2／6／6 counts、Batch 2 object preservation、permissions、Git-ignore
+與 794 個 tracked／unignored files 的 privacy boundary。沒有 Blocker 或 Important finding；唯一 warning 是
+既有 Starlette／AnyIO deprecation warning。
+
+### 保留邊界與下一步
+
+這次只完成另一個 T5-G1 first-Gate batch，不建立 manufacturer truth、resolver accuracy、benchmark
+readiness、T5-G2 或 RHB-T5 結論。下一步仍需 owner 對另一個 frozen batch 提供新的明確 T5-G1 outcome；
+不能把本輪 authorization 或一般 continuation 指示當成後續 batch 或 exact-authority 授權。
+
 ## 2026-10-01 — T5-G1 Batch 2：三筆 reviewed，17 筆維持 staged
 
 ### 新執行了什麼，以及解決了什麼問題
