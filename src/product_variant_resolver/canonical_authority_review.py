@@ -412,6 +412,227 @@ class OwnerAttestation(StrictContract):
         return self
 
 
+class CatalogResolutionBinding(StrictContract):
+    """Immutable bridge from a frozen CAR-T4 proposal to one applied catalog-v2 row."""
+
+    schema_version: Literal["pvr-canonical-authority-catalog-resolution-binding-v1"]
+    ordinal: int = Field(ge=1, le=20)
+    candidate_id: OpaqueId
+    candidate_sha256: Sha256
+    proposal_id: OpaqueId
+    proposal_sha256: Sha256
+    proposal_product_record_sha256: Sha256
+    catalog_application_manifest_sha256: Sha256
+    catalog_version: Literal["catalog-v2"]
+    catalog_sha256: Sha256
+    family_group_key: OpaqueId
+    release_key: OpaqueId
+    applied_canonical_uuid: UUID
+    applied_canonical_id: OpaqueId
+    applied_catalog_record_sha256: Sha256
+
+
+class ExpectedBatchOwnerAuthorization(StrictContract):
+    """External Gate expectation supplied independently of the stored authorization artifact."""
+
+    gate: Literal["T5-G1", "T5-G2"]
+    authorization_scope: Literal["staged_to_reviewed", "reviewed_to_approved_exact"]
+    authorization_declaration: Literal[
+        "owner_explicitly_authorized_t5_g1_review_outcomes_for_every_covered_entry",
+        "owner_explicitly_authorized_t5_g2_exact_authority_outcomes_for_every_covered_entry",
+    ]
+    expected_outcome: ReviewStatus
+    exact_external_response: NonBlank
+    exact_external_response_sha256: Sha256
+    prior_gate_response_sha256s: list[Sha256]
+
+    @model_validator(mode="after")
+    def expectation_is_gate_specific_and_external(self) -> ExpectedBatchOwnerAuthorization:
+        expected_scope = {
+            "T5-G1": "staged_to_reviewed",
+            "T5-G2": "reviewed_to_approved_exact",
+        }
+        expected_declaration = {
+            "T5-G1": "owner_explicitly_authorized_t5_g1_review_outcomes_for_every_covered_entry",
+            "T5-G2": (
+                "owner_explicitly_authorized_t5_g2_exact_authority_outcomes_for_every_covered_entry"
+            ),
+        }
+        if self.authorization_scope != expected_scope[self.gate]:
+            raise ValueError("external authorization scope differs from the expected Gate")
+        if self.authorization_declaration != expected_declaration[self.gate]:
+            raise ValueError("external authorization declaration differs from the expected Gate")
+        allowed_outcomes = {
+            "T5-G1": {
+                ReviewStatus.reviewed,
+                ReviewStatus.held,
+                ReviewStatus.conflicted,
+                ReviewStatus.insufficient,
+            },
+            "T5-G2": {
+                ReviewStatus.approved_exact,
+                ReviewStatus.held,
+                ReviewStatus.conflicted,
+                ReviewStatus.insufficient,
+            },
+        }
+        if self.expected_outcome not in allowed_outcomes[self.gate]:
+            raise ValueError("external expected outcome differs from the expected Gate")
+        response_sha = hashlib.sha256(self.exact_external_response.encode("utf-8")).hexdigest()
+        if self.exact_external_response_sha256 != response_sha:
+            raise ValueError("external owner response checksum is stale")
+        if self.prior_gate_response_sha256s != sorted(set(self.prior_gate_response_sha256s)):
+            raise ValueError("prior Gate response hashes must be unique and ordered")
+        if self.gate == "T5-G1" and self.prior_gate_response_sha256s:
+            raise ValueError("T5-G1 cannot declare a prior authority-review Gate response")
+        if self.gate == "T5-G2" and not self.prior_gate_response_sha256s:
+            raise ValueError("T5-G2 requires the independently committed T5-G1 response hash")
+        if self.exact_external_response_sha256 in self.prior_gate_response_sha256s:
+            raise ValueError("one external owner response cannot authorize both Gates")
+        return self
+
+
+class BatchOwnerAuthorization(StrictContract):
+    """Future-Gate exact external authorization; preparation never creates this contract."""
+
+    schema_version: Literal["pvr-canonical-authority-batch-owner-authorization-v1"]
+    gate: Literal["T5-G1", "T5-G2"]
+    authorization_scope: Literal["staged_to_reviewed", "reviewed_to_approved_exact"]
+    authorization_declaration: Literal[
+        "owner_explicitly_authorized_t5_g1_review_outcomes_for_every_covered_entry",
+        "owner_explicitly_authorized_t5_g2_exact_authority_outcomes_for_every_covered_entry",
+    ]
+    packet_sha256: Sha256
+    catalog_version: Literal["catalog-v2"]
+    catalog_sha256: Sha256
+    ordered_candidate_ids: list[OpaqueId] = Field(min_length=1)
+    ordered_entry_sha256s: list[Sha256] = Field(min_length=1)
+    declared_outcome: ReviewStatus
+    owner_response_verbatim: NonBlank
+    authorized_exact_owner_response: NonBlank
+    response_verbatim_sha256: Sha256
+    prior_gate_response_sha256s: list[Sha256]
+    confirmation_method: Literal["owner_attestation"]
+    reviewed_by_role: Literal["project_owner"]
+    authorized_at: AwareDatetime
+    resolver_output_consulted: Literal[False]
+    authorization_sha256: Sha256
+
+    @model_validator(mode="after")
+    def authorization_is_exact_and_gate_scoped(self) -> BatchOwnerAuthorization:
+        if self.owner_response_verbatim != self.authorized_exact_owner_response:
+            raise ValueError("batch authorization must match the exact external owner response")
+        if len(self.ordered_candidate_ids) != len(self.ordered_entry_sha256s):
+            raise ValueError("batch authorization must bind every covered entry")
+        if self.ordered_candidate_ids != sorted(set(self.ordered_candidate_ids)):
+            raise ValueError("batch authorization candidates must be unique and ordered")
+        response_sha = hashlib.sha256(self.owner_response_verbatim.encode("utf-8")).hexdigest()
+        if self.response_verbatim_sha256 != response_sha:
+            raise ValueError("batch owner response checksum is stale")
+        expected_scope = {
+            "T5-G1": "staged_to_reviewed",
+            "T5-G2": "reviewed_to_approved_exact",
+        }
+        expected_declaration = {
+            "T5-G1": "owner_explicitly_authorized_t5_g1_review_outcomes_for_every_covered_entry",
+            "T5-G2": (
+                "owner_explicitly_authorized_t5_g2_exact_authority_outcomes_for_every_covered_entry"
+            ),
+        }
+        if self.authorization_scope != expected_scope[self.gate]:
+            raise ValueError("batch authorization scope differs from its Gate")
+        if self.authorization_declaration != expected_declaration[self.gate]:
+            raise ValueError("batch authorization declaration differs from its Gate")
+        if self.prior_gate_response_sha256s != sorted(set(self.prior_gate_response_sha256s)):
+            raise ValueError("prior Gate response hashes must be unique and ordered")
+        if self.gate == "T5-G1" and self.prior_gate_response_sha256s:
+            raise ValueError("T5-G1 cannot declare a prior Gate response")
+        if self.gate == "T5-G2" and not self.prior_gate_response_sha256s:
+            raise ValueError("T5-G2 requires the T5-G1 response hash")
+        if self.response_verbatim_sha256 in self.prior_gate_response_sha256s:
+            raise ValueError("one owner response cannot authorize both Gates")
+        expected_outcomes = {
+            "staged_to_reviewed": {
+                ReviewStatus.reviewed,
+                ReviewStatus.held,
+                ReviewStatus.conflicted,
+                ReviewStatus.insufficient,
+            },
+            "reviewed_to_approved_exact": {
+                ReviewStatus.approved_exact,
+                ReviewStatus.held,
+                ReviewStatus.conflicted,
+                ReviewStatus.insufficient,
+            },
+        }
+        if self.declared_outcome not in expected_outcomes[self.authorization_scope]:
+            raise ValueError("declared outcome is invalid for the selected owner Gate")
+        expected = content_sha256(self.model_dump(mode="json", exclude={"authorization_sha256"}))
+        if self.authorization_sha256 != expected:
+            raise ValueError("batch authorization checksum is stale")
+        return self
+
+
+def validate_batch_owner_authorization(
+    payload: BatchOwnerAuthorization | Mapping[str, Any],
+    *,
+    expected: ExpectedBatchOwnerAuthorization | Mapping[str, Any],
+) -> BatchOwnerAuthorization:
+    """Validate a stored batch only against independently supplied external authorization."""
+
+    authorization_payload = (
+        payload.model_dump(mode="json") if isinstance(payload, BatchOwnerAuthorization) else payload
+    )
+    expected_payload = (
+        expected.model_dump(mode="json")
+        if isinstance(expected, ExpectedBatchOwnerAuthorization)
+        else expected
+    )
+    authorization = BatchOwnerAuthorization.model_validate(authorization_payload)
+    external = ExpectedBatchOwnerAuthorization.model_validate(expected_payload)
+    if (
+        authorization.gate != external.gate
+        or authorization.authorization_scope != external.authorization_scope
+        or authorization.authorization_declaration != external.authorization_declaration
+        or authorization.declared_outcome != external.expected_outcome
+        or authorization.owner_response_verbatim != external.exact_external_response
+        or authorization.authorized_exact_owner_response != external.exact_external_response
+        or authorization.response_verbatim_sha256 != external.exact_external_response_sha256
+        or authorization.prior_gate_response_sha256s != external.prior_gate_response_sha256s
+    ):
+        raise AuthorityContractError(
+            "stored batch authorization differs from the independent external Gate expectation"
+        )
+    return authorization
+
+
+class OwnerAttestationV2(StrictContract):
+    schema_version: Literal["pvr-canonical-authority-owner-attestation-v2"]
+    candidate_id: OpaqueId
+    packet_sha256: Sha256
+    catalog_version: Literal["catalog-v2"]
+    catalog_sha256: Sha256
+    catalog_record_sha256: Sha256 | None
+    outcome: ReviewStatus
+    confirmation_method: Literal["owner_attestation"]
+    resolver_output_consulted: Literal[False]
+    reviewed_by_role: Literal["project_owner"]
+    reviewed_at: AwareDatetime
+    review_reason: NonBlank
+    batch_authorization_sha256: Sha256
+
+    @model_validator(mode="after")
+    def attestation_is_explicit_and_batch_bound(self) -> OwnerAttestationV2:
+        if self.outcome == ReviewStatus.staged:
+            raise ValueError("owner attestation cannot preserve staged")
+        if self.outcome in {ReviewStatus.reviewed, ReviewStatus.approved_exact} and (
+            self.catalog_record_sha256 is None
+        ):
+            raise ValueError("reviewed/exact attestation requires a catalog record checksum")
+        _reject_pii(self.review_reason, context="owner attestation reason")
+        return self
+
+
 class AuthorityReviewEvent(StrictContract):
     schema_version: Literal["pvr-canonical-authority-review-event-v1"]
     event_id: OpaqueId
@@ -464,6 +685,87 @@ class AuthorityReviewEvent(StrictContract):
             raise ValueError("non-approved outcomes require remediation; positive states forbid it")
         _reject_pii(self.review_reason, context="review reason")
         _reject_pii(self.remediation_note or "", context="remediation note")
+        return self
+
+
+class AuthorityReviewEventV2(StrictContract):
+    schema_version: Literal["pvr-canonical-authority-review-event-v2"]
+    event_id: OpaqueId
+    candidate_id: OpaqueId
+    from_status: ReviewStatus
+    to_status: ReviewStatus
+    packet_sha256: Sha256
+    catalog_version: Literal["catalog-v2"]
+    catalog_sha256: Sha256
+    canonical_uuid: UUID | None
+    catalog_record_sha256: Sha256 | None
+    variant_field_evidence: list[VariantFieldEvidence]
+    source_decision_ids: list[Literal["fandom-hot-wheels-2025-pilot-r790665-v1"]] = Field(
+        min_length=1
+    )
+    confirmation_method: Literal["owner_attestation"]
+    attestation_sha256: Sha256
+    batch_authorization_sha256: Sha256
+    resolver_output_consulted: Literal[False]
+    reviewed_by_role: Literal["project_owner"]
+    reviewed_at: AwareDatetime
+    review_reason: NonBlank
+    remediation_note: str | None
+    event_sha256: Sha256
+
+    @model_validator(mode="after")
+    def transition_is_two_gate_and_hash_bound(self) -> AuthorityReviewEventV2:
+        allowed = {
+            ReviewStatus.staged: {
+                ReviewStatus.reviewed,
+                ReviewStatus.held,
+                ReviewStatus.conflicted,
+                ReviewStatus.insufficient,
+            },
+            ReviewStatus.held: {ReviewStatus.reviewed},
+            ReviewStatus.conflicted: {ReviewStatus.reviewed},
+            ReviewStatus.insufficient: {ReviewStatus.reviewed},
+            ReviewStatus.reviewed: {
+                ReviewStatus.approved_exact,
+                ReviewStatus.held,
+                ReviewStatus.conflicted,
+                ReviewStatus.insufficient,
+            },
+            ReviewStatus.approved_exact: {ReviewStatus.revoked},
+            ReviewStatus.revoked: set(),
+        }
+        if self.to_status not in allowed[self.from_status]:
+            raise ValueError(f"invalid authority transition {self.from_status}->{self.to_status}")
+        if (
+            self.from_status == ReviewStatus.staged
+            and self.to_status == ReviewStatus.approved_exact
+        ):
+            raise ValueError("exact authority requires a separate reviewed Gate")
+        _require_canonical_evidence_order(self.variant_field_evidence)
+        if self.source_decision_ids != sorted(set(self.source_decision_ids)):
+            raise ValueError("source decision IDs must be unique and ordered")
+        if (self.canonical_uuid is None) != (self.catalog_record_sha256 is None):
+            raise ValueError("canonical UUID and catalog checksum must be present together")
+        positive = self.to_status in {ReviewStatus.reviewed, ReviewStatus.approved_exact}
+        if positive and (self.canonical_uuid is None or not self.variant_field_evidence):
+            raise ValueError("reviewed/exact events require catalog identity and evidence")
+        if self.to_status == ReviewStatus.approved_exact and any(
+            row.agreement != EvidenceAgreement.agrees for row in self.variant_field_evidence
+        ):
+            raise ValueError("approved_exact requires complete agreeing evidence")
+        needs_remediation = self.to_status in {
+            ReviewStatus.held,
+            ReviewStatus.conflicted,
+            ReviewStatus.insufficient,
+            ReviewStatus.revoked,
+        }
+        if needs_remediation != bool(self.remediation_note and self.remediation_note.strip()):
+            raise ValueError("non-approved outcomes require remediation; positive states forbid it")
+        _reject_pii(self.review_reason, context="review reason")
+        _reject_pii(self.remediation_note or "", context="remediation note")
+        expected = content_sha256(self.model_dump(mode="json", exclude={"event_sha256"}))
+        if self.event_sha256 != expected:
+            raise ValueError("authority review event checksum is stale")
         return self
 
 
@@ -1354,14 +1656,19 @@ __all__ = [
     "AuthorityCandidate",
     "AuthorityContractError",
     "AuthorityReviewEvent",
+    "AuthorityReviewEventV2",
     "AuthorityShortfalls",
+    "BatchOwnerAuthorization",
     "CanonicalProductRecord",
     "CatalogRecordProposal",
+    "CatalogResolutionBinding",
     "EvidenceAgreement",
+    "ExpectedBatchOwnerAuthorization",
     "FamilyComposition",
     "FrozenCatalogParent",
     "FrozenCatalogProduct",
     "OwnerAttestation",
+    "OwnerAttestationV2",
     "OwnerReviewPacket",
     "ReviewStatus",
     "SourceRecordBinding",
@@ -1373,6 +1680,7 @@ __all__ = [
     "validate_authority_bundle",
     "validate_authority_candidate",
     "validate_authority_source_decisions",
+    "validate_batch_owner_authorization",
     "validate_catalog_record_proposal",
     "validate_field_evidence",
     "validate_frozen_catalog_parent",
