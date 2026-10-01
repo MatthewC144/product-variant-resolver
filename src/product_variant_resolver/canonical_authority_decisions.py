@@ -71,6 +71,11 @@ SUPPORTED_BATCHES = {
         "entry_ordinals": (3, 8, 14),
         "toy_identifiers": ("JBB55", "HYY12", "HYW99"),
     },
+    4: {
+        "family_group_key": "car-t3-family-nissan-skyline-2000gt-r-lbwk",
+        "entry_ordinals": (4, 13, 20),
+        "toy_identifiers": ("HYX54", "HYW79", "HYY30"),
+    },
 }
 REVIEW_REASON: Literal[
     "Project owner explicitly reviewed the exact bound T5-G1 family batch; all six evidence "
@@ -273,7 +278,9 @@ def _selected_batch(
 ) -> tuple[Any, list[Any]]:
     specification = SUPPORTED_BATCHES.get(batch_ordinal)
     if specification is None:
-        raise AuthorityContractError("this bounded recorder accepts only T5-G1 Batch 2 or Batch 3")
+        raise AuthorityContractError(
+            "this bounded recorder accepts only T5-G1 Batch 2, Batch 3, or Batch 4"
+        )
     batch = packet.family_batches[batch_ordinal - 1]
     if (
         batch.batch_ordinal != batch_ordinal
@@ -338,7 +345,7 @@ def _validate_existing_outputs(
         raise AuthorityContractError("existing review events differ from frozen packet")
 
     ordinals = [item.batch_ordinal for item in authorization_ledger.authorizations]
-    if ordinals not in ([2], [2, 3]):
+    if ordinals not in ([2], [2, 3], [2, 3, 4]):
         raise AuthorityContractError("existing T5-G1 authorizations are not the supported prefix")
     authorization_hashes = [
         item.authorization_sha256 for item in authorization_ledger.authorizations
@@ -444,7 +451,9 @@ def _build_outputs(
     | None,
 ) -> dict[Path, bytes]:
     if batch_ordinal not in SUPPORTED_BATCHES:
-        raise AuthorityContractError("this bounded recorder accepts only T5-G1 Batch 2 or Batch 3")
+        raise AuthorityContractError(
+            "this bounded recorder accepts only T5-G1 Batch 2, Batch 3, or Batch 4"
+        )
     if expected_outcome != "reviewed":
         raise AuthorityContractError("this bounded recorder accepts only staged to reviewed")
     if reviewed_at.tzinfo is None or reviewed_at.utcoffset() is None:
@@ -473,12 +482,19 @@ def _build_outputs(
     existing_authorization = next(
         (item for item in authorizations if item.batch_ordinal == batch_ordinal), None
     )
+    required_prefix = {
+        2: [],
+        3: [2],
+        4: [2, 3],
+    }[batch_ordinal]
     if (
         existing_authorization is None
-        and batch_ordinal == 3
-        and [item.batch_ordinal for item in authorizations] != [2]
+        and [item.batch_ordinal for item in authorizations] != required_prefix
     ):
-        raise AuthorityContractError("T5-G1 Batch 3 requires the complete Batch 2 decision state")
+        prefix_description = " and ".join(f"Batch {ordinal}" for ordinal in required_prefix)
+        raise AuthorityContractError(
+            f"T5-G1 Batch {batch_ordinal} requires the complete {prefix_description} decision state"
+        )
     response_sha = _sha256_text(authorized_exact_owner_response)
     expected = ExpectedBatchOwnerAuthorization(
         gate="T5-G1",
