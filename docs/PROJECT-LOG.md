@@ -1,5 +1,63 @@
 # Project Log
 
+## 2026-09-30 — CAR-T4A：以獨立 owner Gate 套用 20 筆 catalog proposals
+
+### 新執行了什麼，以及解決了什麼問題
+
+CAR-T4 的 20 筆 proposals 已完成 review，但前一輪刻意停在 `staged`，因為 proposal approval 不是 catalog write authorization。本輪取得另一道
+明確的 catalog-application owner Gate，才將完整 batch 套用至 canonical namespace；owner exact response 只保存在 Git-ignored private event，
+本日誌不公開該文字或 private candidate／review payload。Application 第一次執行回報 `created`，read-only check 回報 `valid`，相同輸入重播
+回報 `unchanged`，解決了如何在不重做人工 review、也不擴張其授權範圍的情況下，把已核准 proposals 安全轉成可由 runtime 使用的 catalog rows。
+
+資料面由 120-row `fixture-v1` parent 產生 140-row `catalog-v2` child：原 120 筆 synthetic regression rows 保持原順序與 record-level content，
+後方依 packet order 追加 20 筆 community-snapshot rows。20 筆的 `color`／`edition` 全部維持 `null`，exact authority 仍為 `0`，RHB-T5
+authorization 仍為 `false`。最終 catalog SHA-256 是 `e763c8739a76ab4cc9b66169aecd4aea241ee810d8a27cdfb7d05bcacd98562e`，data
+manifest SHA-256 是 `38b7d3c0332bbbf757979576d796e08ace6659aa158de3e9466f5ed22dc2fac5`，public application manifest
+SHA-256 是 `cf1c95ec8985f80f9ee48c2d8af8b297f5e7d771eff3bb07990034643e4b37b4`。
+
+### 修改了哪些 code／data，以及為何這樣選
+
+程式面新增 strict catalog-v2 schema、deterministic proposal materializer、catalog-only application CLI、private authorization／transaction journal、
+public safe manifest 與 atomic recovery；既有 catalog loader、fixture validator／generator guard、in-memory ingestion 和 PostgreSQL ingestion 也擴充為
+理解 catalog-v2。Alembic migration `0004` 加入 nullable `release_key`／`normalized_release_key` pair、normalized uniqueness 與 pair consistency，
+讓 legacy 120 rows 不需偽造新欄位，同時能保存新 release identity。
+
+資料面只修改 current catalog、data manifest、safe public application manifest 與必要 lineage/task status，沒有回寫 frozen proposal／review events。
+Identity 採 owner-approved `release_key` 加 typed toy identifier，因為 20 筆中有多個 releases 共享 casting、year、series、collector 與 position，而實際
+color／edition 又沒有證據。用明確 release fields 可保留不同 releases；用猜測顏色、edition、alias 或 rarity 來製造唯一性，則會把 catalog identity
+錯寫成未經證實的 physical truth。歷史 RHB／CAR artifacts 仍綁定可重建的 120-row parent，避免 catalog 成長後偷換舊評估母體。
+
+### QA 發現的失敗、修復與方法決策
+
+Pre-apply QA 先後逼出四個不能用 happy-path tests 取代的問題。第一，hash 自洽不足以證明完整 review history，因此 application 另驗 Git
+first-parent anchor，拒絕重寫 event 20 後重新雜湊。第二，staging 在 durable journal 前失敗可能留下 orphan；修復後 pre-journal failure 必須清乾淨，
+retry 才能安全重來。第三，journal 若可自行描述 targets 會成為任意檔案 mutation surface，因此 recovery 改採四個 canonical targets 的 strict
+allowlist，並在任何寫入前拒絕 unrelated、duplicate、omitted、reordered 或 swapped entries。第四，四個 child outputs 已完成 promotion、transaction
+directory 已清除，但 journal unlink 中斷時，recovery 曾無法確認完成；修復後以完整 child hashes 辨識 committed child state、安全清理 journal，且
+後續 check／replay 維持 idempotent。
+
+最終 pre-apply QA 為 `47 passed` focused、`1243 passed` full suite；Ruff、format、strict MyPy、compileall、Source Gate、builders、ledger、fixture
+validation、JSON、privacy／secret／symlink 與 diff checks 全部通過，只有既有 Starlette／AnyIO deprecation warning。Pre-apply 全綠仍沒有被當作
+真實資料落地後的結果：post-apply 驗證發現 fixture／history tests 曾把 current 140-row child 當成 historical 120-row parent 的 test-state coupling。
+修正後改由 generator 重建 immutable parent、比對 child 前 120 rows 並重算 canonical parent hash，使歷史 checks 與 current runtime 各自使用正確
+狀態，而不是修改舊 evidence 迎合新 catalog。
+
+同一輪也清理 9 個 scoped Ruff issues：兩個 shebang scripts 補 executable bit，七個 invalid-type paths 改用正確的 `TypeError`；這些修復未改變
+資料或 application scope，affected tests 為 `21 passed`。最終獨立 post-apply QA 判定 **PASS**：真實 application `--check` 為 `valid`，temporary
+replay 為 `unchanged`；140 rows 精確等於 immutable 120-row parent 加 packet-order 20-row suffix，且 20 筆 color／edition 全為 null。Loader、
+`ResolverService`、in-memory ingestion 通過，PostgreSQL repository／migration／runtime standalone subset 為 `26 passed`；historical CAR／Fandom／RHB／
+release／human-alignment checks 保持 `valid`、`unchanged` 或 byte-identical。
+
+最終 focused tests 為 `201 passed`，full suite 為 `1245 passed, 1 warning`；Ruff／format（17 files）、strict MyPy（8 implementation／scripts）、
+compileall、JSON／hash、privacy／secret、license、symlink 與 diff checks 全部通過。唯一 warning 仍是既有 Starlette／AnyIO deprecation；三個已記錄
+application hashes 亦精確吻合。這完成 CAR-T4A Lean G3，但結論只涵蓋 catalog application，不涵蓋 exact truth、resolver accuracy 或 benchmark readiness。
+
+### 留下的邊界與下一步
+
+Catalog application 只表示 20 個 owner-reviewed identities 已進入 catalog namespace，不是 Mattel／manufacturer truth，也不代表 benchmark 已
+ready。下一個產品 Gate 仍是**獨立 CAR-T5 exact-authority review**；不得因 catalog 已有 140 rows 就自動建立
+`approved_exact` authority bundle、重判 RHB-T4 或啟動 RHB-T5。
+
 ## 2026-09-30 — Catalog proposal bulk owner review：完成 ordinals 5–20，但不自動套用 catalog
 
 ### 新執行了什麼，以及解決了什麼問題
