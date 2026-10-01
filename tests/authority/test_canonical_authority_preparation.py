@@ -42,6 +42,13 @@ def isolated_root(tmp_path: Path) -> Path:
     shutil.copytree(ROOT / "data", root / "data")
     shutil.copytree(ROOT / "specs", root / "specs")
     shutil.copyfile(ROOT / ".gitignore", root / ".gitignore")
+    # Every isolated test starts immediately before CAR-T5P.  The real workspace may already have
+    # the materialized packet, but CAR-T4/catalog/application parents must remain exact copies.
+    private_output = root / preparation.PRIVATE_DIRECTORY
+    if private_output.exists():
+        shutil.rmtree(private_output)
+    public_output = root / preparation.PUBLIC_MANIFEST_REFERENCE
+    public_output.unlink(missing_ok=True)
     return root
 
 
@@ -531,6 +538,13 @@ def test_cli_runs_from_repository_root_against_isolated_root(isolated_root: Path
     )
     assert created.stdout.strip() == "created"
     assert checked.stdout.strip() == "unchanged"
+
+
+def test_real_post_materialized_workspace_check_is_unchanged() -> None:
+    assert (ROOT / preparation.PRIVATE_PACKET_REFERENCE).is_file()
+    assert (ROOT / preparation.OWNER_REVIEW_REFERENCE).is_file()
+    assert (ROOT / preparation.PUBLIC_MANIFEST_REFERENCE).is_file()
+    assert prepare_authority_review(ROOT, check=True) == "unchanged"
 
 
 def test_preparation_does_not_mutate_rhb_t5_or_create_authority_state(isolated_root: Path) -> None:
