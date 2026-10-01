@@ -1,8 +1,9 @@
 # Canonical Authority Review v1 — Tasks
 
 Date: 2026-09-26. Source-plan owner approval recorded: 2026-09-28. CAR-T3 owner approval recorded:
-2026-09-29. Mode: Lite / Lean Industrial. Status: **CAR-T1–T4 complete; catalog proposal review
-20/20 recorded; separate catalog batch application Gate pending; T5+ not started**.
+2026-09-29. Catalog batch application owner approval recorded: 2026-09-30. Mode: Lite / Lean
+Industrial. Status: **CAR-T1–T4 and CAR-T4A complete; 20/20 reviewed catalog proposals applied;
+exact authority remains 0; CAR-T5+ not started**.
 
 After owner approval, execute sequentially. Each task is one reviewable commit. A failed owner/data
 Gate stops later work without being treated as an engineering failure.
@@ -104,6 +105,37 @@ Acceptance:
   separate commit, validates the parent catalog, and does not approve authority.
 
 Commit: packet/proposal tooling and tests. Any approved catalog mutation is its own later commit.
+
+## CAR-T4A — Apply the reviewed catalog proposals **OWNER GATE** `[backend/qa/doc_curator]`
+
+- [x] Apply the complete 20-proposal catalog-only batch under the separate owner authorization,
+  while preserving the exact-authority and RHB-T5 boundaries. _(→CCA-R1–CCA-R9)_
+
+Files:
+
+- `specs/canonical-authority-review-v1/catalog-application.md`
+- `scripts/apply_canonical_catalog_proposals.py`
+- `src/product_variant_resolver/canonical_catalog_application.py`
+- `data/catalog.json`
+- `data/manifest.json`
+- `data/authority-review/canonical-authority-review-v1/catalog-application-manifest.json`
+- local-only authorization event and recovery journal under the ignored review directory
+
+Acceptance:
+
+- The immutable 120-row parent remains first and record-equivalent; 20 approved community-snapshot
+  rows are appended in packet order, producing `catalog-v2` with exactly 140 products.
+- `release_key` plus the typed toy identifier distinguishes reviewed releases without inventing
+  color or edition; duplicate UUID, ID, release key or typed identifier fails closed.
+- First apply reports `created`, read-only check reports `valid`, and identical replay reports
+  `unchanged`; interrupted publication is recoverable and unrelated paths cannot be targeted.
+- Runtime loading, in-memory ingestion and PostgreSQL ingestion understand catalog-v2 while legacy
+  fixture behavior remains unchanged.
+- Public artifacts contain only safe counts and hashes. The exact owner response remains ignored,
+  `exact_authority_count=0`, and `rhb_t5_authorized=false`.
+
+Commit: schema/application tooling first, then the owner-authorized catalog and safe manifest as a
+separate data-state commit. This task does not satisfy or start CAR-T5.
 
 ## CAR-T5 — Review, approve and freeze the bundle **OWNER GATE** `[task_executor/qa/doc_curator]`
 

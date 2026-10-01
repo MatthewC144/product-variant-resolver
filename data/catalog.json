@@ -1,5 +1,15 @@
 {
-  "catalog_version": "fixture-v1",
+  "catalog_lineage": {
+    "appended_product_count": 20,
+    "application_version": "canonical-catalog-application-car-t4a-v1",
+    "parent_catalog_version": "fixture-v1",
+    "parent_dataset_version": "fixture-v1",
+    "parent_ordered_product_sha256": "7a04c928dfa60dd3beb0dcb411ac6f6d28ad55a2094856c099a8ebee6d89087d",
+    "parent_product_count": 120,
+    "parent_raw_catalog_sha256": "0d3ea55eab414e3845bf3bf72635707210f2d5c20d96b3d6b5940eb0ffc7d261",
+    "schema_version": "pvr-catalog-lineage-v1"
+  },
+  "catalog_version": "catalog-v2",
   "dataset_version": "fixture-v1",
   "products": [
     {
@@ -5281,7 +5291,1587 @@
       "release_year": 2024,
       "series": "Then and Now",
       "series_position": "4/10"
+    },
+    {
+      "aliases": [],
+      "brand": "Hot Wheels",
+      "canonical_id": "hot-wheels-mazda-autozam-2025-hyx45",
+      "canonical_uuid": "d20977aa-09a2-55e7-8d77-c8fa54f5479d",
+      "casting": "Mazda Autozam",
+      "collector_number": "008",
+      "color": null,
+      "edition": null,
+      "identifiers": [
+        {
+          "identifier_type": "toy_number",
+          "identifier_value": "HYX45",
+          "source_id": "snapshot:fandom-row-0b280377b913e854:toy_number"
+        }
+      ],
+      "near_duplicate_group": "car-t3-family-mazda-autozam",
+      "provenance": [
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "casting",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-0b280377b913e854",
+          "value_snapshot": "\"Mazda Autozam\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "release_year",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-0b280377b913e854",
+          "value_snapshot": "2025"
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-0b280377b913e854",
+          "value_snapshot": "\"HW Dream Garage\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "collector_number",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-0b280377b913e854",
+          "value_snapshot": "\"008\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series_position",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-0b280377b913e854",
+          "value_snapshot": "\"1/5\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "identifiers",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-0b280377b913e854",
+          "value_snapshot": "[\"HYX45\"]"
+        }
+      ],
+      "rarity_tier": null,
+      "release_key": "release-2025-hyx45",
+      "release_year": 2025,
+      "series": "HW Dream Garage",
+      "series_position": "1/5"
+    },
+    {
+      "aliases": [],
+      "brand": "Hot Wheels",
+      "canonical_id": "hot-wheels-draftnator-2025-hyw70",
+      "canonical_uuid": "50b358f9-cdf0-56d7-be81-f0b75ea000d7",
+      "casting": "Draftnator",
+      "collector_number": "014",
+      "color": null,
+      "edition": null,
+      "identifiers": [
+        {
+          "identifier_type": "toy_number",
+          "identifier_value": "HYW70",
+          "source_id": "snapshot:fandom-row-20f16ad2c5417006:toy_number"
+        }
+      ],
+      "near_duplicate_group": "car-t3-family-draftnator",
+      "provenance": [
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "casting",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-20f16ad2c5417006",
+          "value_snapshot": "\"Draftnator\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "release_year",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-20f16ad2c5417006",
+          "value_snapshot": "2025"
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-20f16ad2c5417006",
+          "value_snapshot": "\"X-Raycers\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "collector_number",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-20f16ad2c5417006",
+          "value_snapshot": "\"014\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series_position",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-20f16ad2c5417006",
+          "value_snapshot": "\"2/10\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "identifiers",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-20f16ad2c5417006",
+          "value_snapshot": "[\"HYW70\"]"
+        }
+      ],
+      "rarity_tier": null,
+      "release_key": "release-2025-hyw70",
+      "release_year": 2025,
+      "series": "X-Raycers",
+      "series_position": "2/10"
+    },
+    {
+      "aliases": [],
+      "brand": "Hot Wheels",
+      "canonical_id": "hot-wheels-subaru-brz-2025-jbb55",
+      "canonical_uuid": "76188645-6430-559e-96a2-73a844524763",
+      "casting": "Subaru BRZ",
+      "collector_number": "048",
+      "color": null,
+      "edition": null,
+      "identifiers": [
+        {
+          "identifier_type": "toy_number",
+          "identifier_value": "JBB55",
+          "source_id": "snapshot:fandom-row-26b0ba519bca3a01:toy_number"
+        }
+      ],
+      "near_duplicate_group": "car-t3-family-subaru-brz",
+      "provenance": [
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "casting",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-26b0ba519bca3a01",
+          "value_snapshot": "\"Subaru BRZ\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "release_year",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-26b0ba519bca3a01",
+          "value_snapshot": "2025"
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-26b0ba519bca3a01",
+          "value_snapshot": "\"HW J-Imports\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "collector_number",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-26b0ba519bca3a01",
+          "value_snapshot": "\"048\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series_position",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-26b0ba519bca3a01",
+          "value_snapshot": "\"3/5\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "identifiers",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-26b0ba519bca3a01",
+          "value_snapshot": "[\"JBB55\"]"
+        }
+      ],
+      "rarity_tier": null,
+      "release_key": "release-2025-jbb55",
+      "release_year": 2025,
+      "series": "HW J-Imports",
+      "series_position": "3/5"
+    },
+    {
+      "aliases": [],
+      "brand": "Hot Wheels",
+      "canonical_id": "hot-wheels-nissan-skyline-2000gt-r-lbwk-2025-hyx54",
+      "canonical_uuid": "d2ee5fd2-006e-5758-bdc3-9cfd7f29bcc9",
+      "casting": "Nissan Skyline 2000GT-R LBWK",
+      "collector_number": "026",
+      "color": null,
+      "edition": null,
+      "identifiers": [
+        {
+          "identifier_type": "toy_number",
+          "identifier_value": "HYX54",
+          "source_id": "snapshot:fandom-row-27fe2c9ab41942b8:toy_number"
+        }
+      ],
+      "near_duplicate_group": "car-t3-family-nissan-skyline-2000gt-r-lbwk",
+      "provenance": [
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "casting",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-27fe2c9ab41942b8",
+          "value_snapshot": "\"Nissan Skyline 2000GT-R LBWK\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "release_year",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-27fe2c9ab41942b8",
+          "value_snapshot": "2025"
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-27fe2c9ab41942b8",
+          "value_snapshot": "\"HW J-Imports\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "collector_number",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-27fe2c9ab41942b8",
+          "value_snapshot": "\"026\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series_position",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-27fe2c9ab41942b8",
+          "value_snapshot": "\"1/5\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "identifiers",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-27fe2c9ab41942b8",
+          "value_snapshot": "[\"HYX54\"]"
+        }
+      ],
+      "rarity_tier": null,
+      "release_key": "release-2025-hyx54",
+      "release_year": 2025,
+      "series": "HW J-Imports",
+      "series_position": "1/5"
+    },
+    {
+      "aliases": [],
+      "brand": "Hot Wheels",
+      "canonical_id": "hot-wheels-21-ford-bronco-2025-hyy32",
+      "canonical_uuid": "4d4e2f22-2970-5fc6-9262-1891953ec5d3",
+      "casting": "'21 Ford Bronco",
+      "collector_number": "020",
+      "color": null,
+      "edition": null,
+      "identifiers": [
+        {
+          "identifier_type": "toy_number",
+          "identifier_value": "HYY32",
+          "source_id": "snapshot:fandom-row-2a5c961e0bb57c99:toy_number"
+        }
+      ],
+      "near_duplicate_group": "car-t3-family-21-ford-bronco",
+      "provenance": [
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "casting",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-2a5c961e0bb57c99",
+          "value_snapshot": "\"'21 Ford Bronco\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "release_year",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-2a5c961e0bb57c99",
+          "value_snapshot": "2025"
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-2a5c961e0bb57c99",
+          "value_snapshot": "\"HW Hot Trucks\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "collector_number",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-2a5c961e0bb57c99",
+          "value_snapshot": "\"020\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series_position",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-2a5c961e0bb57c99",
+          "value_snapshot": "\"1/10\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "identifiers",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-2a5c961e0bb57c99",
+          "value_snapshot": "[\"HYY32\"]"
+        }
+      ],
+      "rarity_tier": null,
+      "release_key": "release-2025-hyy32",
+      "release_year": 2025,
+      "series": "HW Hot Trucks",
+      "series_position": "1/10"
+    },
+    {
+      "aliases": [],
+      "brand": "Hot Wheels",
+      "canonical_id": "hot-wheels-morgan-super-3-2025-hyx48",
+      "canonical_uuid": "83f72d7b-7a6e-5b12-aaef-2a1a4e8cd850",
+      "casting": "Morgan Super 3",
+      "collector_number": "015",
+      "color": null,
+      "edition": null,
+      "identifiers": [
+        {
+          "identifier_type": "toy_number",
+          "identifier_value": "HYX48",
+          "source_id": "snapshot:fandom-row-38aa30ce0eed34ca:toy_number"
+        }
+      ],
+      "near_duplicate_group": "car-t3-family-morgan-super-3",
+      "provenance": [
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "casting",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-38aa30ce0eed34ca",
+          "value_snapshot": "\"Morgan Super 3\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "release_year",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-38aa30ce0eed34ca",
+          "value_snapshot": "2025"
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-38aa30ce0eed34ca",
+          "value_snapshot": "\"Factory Fresh\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "collector_number",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-38aa30ce0eed34ca",
+          "value_snapshot": "\"015\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series_position",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-38aa30ce0eed34ca",
+          "value_snapshot": "\"1/5\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "identifiers",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-38aa30ce0eed34ca",
+          "value_snapshot": "[\"HYX48\"]"
+        }
+      ],
+      "rarity_tier": null,
+      "release_key": "release-2025-hyx48",
+      "release_year": 2025,
+      "series": "Factory Fresh",
+      "series_position": "1/5"
+    },
+    {
+      "aliases": [],
+      "brand": "Hot Wheels",
+      "canonical_id": "hot-wheels-21-ford-bronco-2025-hyw73",
+      "canonical_uuid": "3bdc5a02-281d-5364-9f32-6a0da46bce93",
+      "casting": "'21 Ford Bronco",
+      "collector_number": "020",
+      "color": null,
+      "edition": null,
+      "identifiers": [
+        {
+          "identifier_type": "toy_number",
+          "identifier_value": "HYW73",
+          "source_id": "snapshot:fandom-row-3a6c7c2b9a6429fa:toy_number"
+        }
+      ],
+      "near_duplicate_group": "car-t3-family-21-ford-bronco",
+      "provenance": [
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "casting",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-3a6c7c2b9a6429fa",
+          "value_snapshot": "\"'21 Ford Bronco\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "release_year",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-3a6c7c2b9a6429fa",
+          "value_snapshot": "2025"
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-3a6c7c2b9a6429fa",
+          "value_snapshot": "\"HW Hot Trucks\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "collector_number",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-3a6c7c2b9a6429fa",
+          "value_snapshot": "\"020\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series_position",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-3a6c7c2b9a6429fa",
+          "value_snapshot": "\"1/10\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "identifiers",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-3a6c7c2b9a6429fa",
+          "value_snapshot": "[\"HYW73\"]"
+        }
+      ],
+      "rarity_tier": null,
+      "release_key": "release-2025-hyw73",
+      "release_year": 2025,
+      "series": "HW Hot Trucks",
+      "series_position": "1/10"
+    },
+    {
+      "aliases": [],
+      "brand": "Hot Wheels",
+      "canonical_id": "hot-wheels-subaru-brz-2025-hyy12",
+      "canonical_uuid": "3c5b6cf4-1bd9-502a-8eac-63d865b4fc91",
+      "casting": "Subaru BRZ",
+      "collector_number": "048",
+      "color": null,
+      "edition": null,
+      "identifiers": [
+        {
+          "identifier_type": "toy_number",
+          "identifier_value": "HYY12",
+          "source_id": "snapshot:fandom-row-3aa2e8967b2f55bf:toy_number"
+        }
+      ],
+      "near_duplicate_group": "car-t3-family-subaru-brz",
+      "provenance": [
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "casting",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-3aa2e8967b2f55bf",
+          "value_snapshot": "\"Subaru BRZ\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "release_year",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-3aa2e8967b2f55bf",
+          "value_snapshot": "2025"
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-3aa2e8967b2f55bf",
+          "value_snapshot": "\"HW J-Imports\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "collector_number",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-3aa2e8967b2f55bf",
+          "value_snapshot": "\"048\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series_position",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-3aa2e8967b2f55bf",
+          "value_snapshot": "\"3/5\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "identifiers",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-3aa2e8967b2f55bf",
+          "value_snapshot": "[\"HYY12\"]"
+        }
+      ],
+      "rarity_tier": null,
+      "release_key": "release-2025-hyy12",
+      "release_year": 2025,
+      "series": "HW J-Imports",
+      "series_position": "3/5"
+    },
+    {
+      "aliases": [],
+      "brand": "Hot Wheels",
+      "canonical_id": "hot-wheels-mazda-mx-5-miata-2025-hyw18",
+      "canonical_uuid": "7b089c66-fa6e-5f9f-8aaf-7ff2ae6a296c",
+      "casting": "Mazda MX-5 Miata",
+      "collector_number": "001",
+      "color": null,
+      "edition": null,
+      "identifiers": [
+        {
+          "identifier_type": "toy_number",
+          "identifier_value": "HYW18",
+          "source_id": "snapshot:fandom-row-53333b0feb531ebc:toy_number"
+        }
+      ],
+      "near_duplicate_group": "car-t3-family-mazda-mx-5-miata",
+      "provenance": [
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "casting",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-53333b0feb531ebc",
+          "value_snapshot": "\"Mazda MX-5 Miata\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "release_year",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-53333b0feb531ebc",
+          "value_snapshot": "2025"
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-53333b0feb531ebc",
+          "value_snapshot": "\"HW Dream Garage\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "collector_number",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-53333b0feb531ebc",
+          "value_snapshot": "\"001\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series_position",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-53333b0feb531ebc",
+          "value_snapshot": "\"2/5\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "identifiers",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-53333b0feb531ebc",
+          "value_snapshot": "[\"HYW18\"]"
+        }
+      ],
+      "rarity_tier": null,
+      "release_key": "release-2025-hyw18",
+      "release_year": 2025,
+      "series": "HW Dream Garage",
+      "series_position": "2/5"
+    },
+    {
+      "aliases": [],
+      "brand": "Hot Wheels",
+      "canonical_id": "hot-wheels-mazda-autozam-2025-hyy10",
+      "canonical_uuid": "97dee015-29b9-564e-b529-a51c151edd6d",
+      "casting": "Mazda Autozam",
+      "collector_number": "008",
+      "color": null,
+      "edition": null,
+      "identifiers": [
+        {
+          "identifier_type": "toy_number",
+          "identifier_value": "HYY10",
+          "source_id": "snapshot:fandom-row-592082e49745a19f:toy_number"
+        }
+      ],
+      "near_duplicate_group": "car-t3-family-mazda-autozam",
+      "provenance": [
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "casting",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-592082e49745a19f",
+          "value_snapshot": "\"Mazda Autozam\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "release_year",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-592082e49745a19f",
+          "value_snapshot": "2025"
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-592082e49745a19f",
+          "value_snapshot": "\"HW Dream Garage\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "collector_number",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-592082e49745a19f",
+          "value_snapshot": "\"008\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series_position",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-592082e49745a19f",
+          "value_snapshot": "\"1/5\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "identifiers",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-592082e49745a19f",
+          "value_snapshot": "[\"HYY10\"]"
+        }
+      ],
+      "rarity_tier": null,
+      "release_key": "release-2025-hyy10",
+      "release_year": 2025,
+      "series": "HW Dream Garage",
+      "series_position": "1/5"
+    },
+    {
+      "aliases": [],
+      "brand": "Hot Wheels",
+      "canonical_id": "hot-wheels-draftnator-2025-hyx67",
+      "canonical_uuid": "75ddc979-dc29-51b8-8e24-543243af74bd",
+      "casting": "Draftnator",
+      "collector_number": "014",
+      "color": null,
+      "edition": null,
+      "identifiers": [
+        {
+          "identifier_type": "toy_number",
+          "identifier_value": "HYX67",
+          "source_id": "snapshot:fandom-row-710c84b99e8c2e48:toy_number"
+        }
+      ],
+      "near_duplicate_group": "car-t3-family-draftnator",
+      "provenance": [
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "casting",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-710c84b99e8c2e48",
+          "value_snapshot": "\"Draftnator\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "release_year",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-710c84b99e8c2e48",
+          "value_snapshot": "2025"
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-710c84b99e8c2e48",
+          "value_snapshot": "\"X-Raycers\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "collector_number",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-710c84b99e8c2e48",
+          "value_snapshot": "\"014\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series_position",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-710c84b99e8c2e48",
+          "value_snapshot": "\"2/10\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "identifiers",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-710c84b99e8c2e48",
+          "value_snapshot": "[\"HYX67\"]"
+        }
+      ],
+      "rarity_tier": null,
+      "release_key": "release-2025-hyx67",
+      "release_year": 2025,
+      "series": "X-Raycers",
+      "series_position": "2/10"
+    },
+    {
+      "aliases": [],
+      "brand": "Hot Wheels",
+      "canonical_id": "hot-wheels-morgan-super-3-2025-hyw13",
+      "canonical_uuid": "b56c19bc-8806-5285-85eb-fe6944a2d267",
+      "casting": "Morgan Super 3",
+      "collector_number": "015",
+      "color": null,
+      "edition": null,
+      "identifiers": [
+        {
+          "identifier_type": "toy_number",
+          "identifier_value": "HYW13",
+          "source_id": "snapshot:fandom-row-75cd82288d943dce:toy_number"
+        }
+      ],
+      "near_duplicate_group": "car-t3-family-morgan-super-3",
+      "provenance": [
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "casting",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-75cd82288d943dce",
+          "value_snapshot": "\"Morgan Super 3\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "release_year",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-75cd82288d943dce",
+          "value_snapshot": "2025"
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-75cd82288d943dce",
+          "value_snapshot": "\"Factory Fresh\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "collector_number",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-75cd82288d943dce",
+          "value_snapshot": "\"015\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series_position",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-75cd82288d943dce",
+          "value_snapshot": "\"1/5\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "identifiers",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-75cd82288d943dce",
+          "value_snapshot": "[\"HYW13\"]"
+        }
+      ],
+      "rarity_tier": null,
+      "release_key": "release-2025-hyw13",
+      "release_year": 2025,
+      "series": "Factory Fresh",
+      "series_position": "1/5"
+    },
+    {
+      "aliases": [],
+      "brand": "Hot Wheels",
+      "canonical_id": "hot-wheels-nissan-skyline-2000gt-r-lbwk-2025-hyw79",
+      "canonical_uuid": "4930354f-a9fe-5928-8358-4c96bfb1907e",
+      "casting": "Nissan Skyline 2000GT-R LBWK",
+      "collector_number": "026",
+      "color": null,
+      "edition": null,
+      "identifiers": [
+        {
+          "identifier_type": "toy_number",
+          "identifier_value": "HYW79",
+          "source_id": "snapshot:fandom-row-77ecedc5e3db3f77:toy_number"
+        }
+      ],
+      "near_duplicate_group": "car-t3-family-nissan-skyline-2000gt-r-lbwk",
+      "provenance": [
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "casting",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-77ecedc5e3db3f77",
+          "value_snapshot": "\"Nissan Skyline 2000GT-R LBWK\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "release_year",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-77ecedc5e3db3f77",
+          "value_snapshot": "2025"
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-77ecedc5e3db3f77",
+          "value_snapshot": "\"HW J-Imports\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "collector_number",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-77ecedc5e3db3f77",
+          "value_snapshot": "\"026\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series_position",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-77ecedc5e3db3f77",
+          "value_snapshot": "\"1/5\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "identifiers",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-77ecedc5e3db3f77",
+          "value_snapshot": "[\"HYW79\"]"
+        }
+      ],
+      "rarity_tier": null,
+      "release_key": "release-2025-hyw79",
+      "release_year": 2025,
+      "series": "HW J-Imports",
+      "series_position": "1/5"
+    },
+    {
+      "aliases": [],
+      "brand": "Hot Wheels",
+      "canonical_id": "hot-wheels-subaru-brz-2025-hyw99",
+      "canonical_uuid": "7719b74b-ede7-5eab-8256-ce92b2a26618",
+      "casting": "Subaru BRZ",
+      "collector_number": "048",
+      "color": null,
+      "edition": null,
+      "identifiers": [
+        {
+          "identifier_type": "toy_number",
+          "identifier_value": "HYW99",
+          "source_id": "snapshot:fandom-row-78748248e56441f5:toy_number"
+        }
+      ],
+      "near_duplicate_group": "car-t3-family-subaru-brz",
+      "provenance": [
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "casting",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-78748248e56441f5",
+          "value_snapshot": "\"Subaru BRZ\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "release_year",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-78748248e56441f5",
+          "value_snapshot": "2025"
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-78748248e56441f5",
+          "value_snapshot": "\"HW J-Imports\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "collector_number",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-78748248e56441f5",
+          "value_snapshot": "\"048\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series_position",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-78748248e56441f5",
+          "value_snapshot": "\"3/5\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "identifiers",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-78748248e56441f5",
+          "value_snapshot": "[\"HYW99\"]"
+        }
+      ],
+      "rarity_tier": null,
+      "release_key": "release-2025-hyw99",
+      "release_year": 2025,
+      "series": "HW J-Imports",
+      "series_position": "3/5"
+    },
+    {
+      "aliases": [],
+      "brand": "Hot Wheels",
+      "canonical_id": "hot-wheels-mazda-mx-5-miata-2025-hyx57",
+      "canonical_uuid": "2a0fc7fb-896f-53fd-b8f9-3dd3b49568a8",
+      "casting": "Mazda MX-5 Miata",
+      "collector_number": "001",
+      "color": null,
+      "edition": null,
+      "identifiers": [
+        {
+          "identifier_type": "toy_number",
+          "identifier_value": "HYX57",
+          "source_id": "snapshot:fandom-row-7e1a3b3ad2244c80:toy_number"
+        }
+      ],
+      "near_duplicate_group": "car-t3-family-mazda-mx-5-miata",
+      "provenance": [
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "casting",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-7e1a3b3ad2244c80",
+          "value_snapshot": "\"Mazda MX-5 Miata\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "release_year",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-7e1a3b3ad2244c80",
+          "value_snapshot": "2025"
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-7e1a3b3ad2244c80",
+          "value_snapshot": "\"HW Dream Garage\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "collector_number",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-7e1a3b3ad2244c80",
+          "value_snapshot": "\"001\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series_position",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-7e1a3b3ad2244c80",
+          "value_snapshot": "\"2/5\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "identifiers",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-7e1a3b3ad2244c80",
+          "value_snapshot": "[\"HYX57\"]"
+        }
+      ],
+      "rarity_tier": null,
+      "release_key": "release-2025-hyx57",
+      "release_year": 2025,
+      "series": "HW Dream Garage",
+      "series_position": "2/5"
+    },
+    {
+      "aliases": [],
+      "brand": "Hot Wheels",
+      "canonical_id": "hot-wheels-mazda-autozam-2025-hyw66",
+      "canonical_uuid": "7f017730-d2c7-5928-983c-fd90408f95a5",
+      "casting": "Mazda Autozam",
+      "collector_number": "008",
+      "color": null,
+      "edition": null,
+      "identifiers": [
+        {
+          "identifier_type": "toy_number",
+          "identifier_value": "HYW66",
+          "source_id": "snapshot:fandom-row-a69d24d7e300d639:toy_number"
+        }
+      ],
+      "near_duplicate_group": "car-t3-family-mazda-autozam",
+      "provenance": [
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "casting",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-a69d24d7e300d639",
+          "value_snapshot": "\"Mazda Autozam\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "release_year",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-a69d24d7e300d639",
+          "value_snapshot": "2025"
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-a69d24d7e300d639",
+          "value_snapshot": "\"HW Dream Garage\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "collector_number",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-a69d24d7e300d639",
+          "value_snapshot": "\"008\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series_position",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-a69d24d7e300d639",
+          "value_snapshot": "\"1/5\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "identifiers",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-a69d24d7e300d639",
+          "value_snapshot": "[\"HYW66\"]"
+        }
+      ],
+      "rarity_tier": null,
+      "release_key": "release-2025-hyw66",
+      "release_year": 2025,
+      "series": "HW Dream Garage",
+      "series_position": "1/5"
+    },
+    {
+      "aliases": [],
+      "brand": "Hot Wheels",
+      "canonical_id": "hot-wheels-21-ford-bronco-2025-hyx50",
+      "canonical_uuid": "bd252c2f-042d-51b3-a735-cf7561509675",
+      "casting": "'21 Ford Bronco",
+      "collector_number": "020",
+      "color": null,
+      "edition": null,
+      "identifiers": [
+        {
+          "identifier_type": "toy_number",
+          "identifier_value": "HYX50",
+          "source_id": "snapshot:fandom-row-d9d82c60489c0456:toy_number"
+        }
+      ],
+      "near_duplicate_group": "car-t3-family-21-ford-bronco",
+      "provenance": [
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "casting",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-d9d82c60489c0456",
+          "value_snapshot": "\"'21 Ford Bronco\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "release_year",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-d9d82c60489c0456",
+          "value_snapshot": "2025"
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-d9d82c60489c0456",
+          "value_snapshot": "\"HW Hot Trucks\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "collector_number",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-d9d82c60489c0456",
+          "value_snapshot": "\"020\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series_position",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-d9d82c60489c0456",
+          "value_snapshot": "\"1/10\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "identifiers",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-d9d82c60489c0456",
+          "value_snapshot": "[\"HYX50\"]"
+        }
+      ],
+      "rarity_tier": null,
+      "release_key": "release-2025-hyx50",
+      "release_year": 2025,
+      "series": "HW Hot Trucks",
+      "series_position": "1/10"
+    },
+    {
+      "aliases": [],
+      "brand": "Hot Wheels",
+      "canonical_id": "hot-wheels-draftnator-2025-hyy31",
+      "canonical_uuid": "04639476-4feb-5788-97ef-89e32af3f408",
+      "casting": "Draftnator",
+      "collector_number": "014",
+      "color": null,
+      "edition": null,
+      "identifiers": [
+        {
+          "identifier_type": "toy_number",
+          "identifier_value": "HYY31",
+          "source_id": "snapshot:fandom-row-e5b00b0411a6187d:toy_number"
+        }
+      ],
+      "near_duplicate_group": "car-t3-family-draftnator",
+      "provenance": [
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "casting",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-e5b00b0411a6187d",
+          "value_snapshot": "\"Draftnator\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "release_year",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-e5b00b0411a6187d",
+          "value_snapshot": "2025"
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-e5b00b0411a6187d",
+          "value_snapshot": "\"X-Raycers\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "collector_number",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-e5b00b0411a6187d",
+          "value_snapshot": "\"014\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series_position",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-e5b00b0411a6187d",
+          "value_snapshot": "\"2/10\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "identifiers",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-e5b00b0411a6187d",
+          "value_snapshot": "[\"HYY31\"]"
+        }
+      ],
+      "rarity_tier": null,
+      "release_key": "release-2025-hyy31",
+      "release_year": 2025,
+      "series": "X-Raycers",
+      "series_position": "2/10"
+    },
+    {
+      "aliases": [],
+      "brand": "Hot Wheels",
+      "canonical_id": "hot-wheels-morgan-super-3-2025-hyy33",
+      "canonical_uuid": "02168928-7106-5066-bacf-a760443020c2",
+      "casting": "Morgan Super 3",
+      "collector_number": "015",
+      "color": null,
+      "edition": null,
+      "identifiers": [
+        {
+          "identifier_type": "toy_number",
+          "identifier_value": "HYY33",
+          "source_id": "snapshot:fandom-row-eb74e3eebcc4dcf4:toy_number"
+        }
+      ],
+      "near_duplicate_group": "car-t3-family-morgan-super-3",
+      "provenance": [
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "casting",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-eb74e3eebcc4dcf4",
+          "value_snapshot": "\"Morgan Super 3\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "release_year",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-eb74e3eebcc4dcf4",
+          "value_snapshot": "2025"
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-eb74e3eebcc4dcf4",
+          "value_snapshot": "\"Factory Fresh\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "collector_number",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-eb74e3eebcc4dcf4",
+          "value_snapshot": "\"015\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series_position",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-eb74e3eebcc4dcf4",
+          "value_snapshot": "\"1/5\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "identifiers",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-eb74e3eebcc4dcf4",
+          "value_snapshot": "[\"HYY33\"]"
+        }
+      ],
+      "rarity_tier": null,
+      "release_key": "release-2025-hyy33",
+      "release_year": 2025,
+      "series": "Factory Fresh",
+      "series_position": "1/5"
+    },
+    {
+      "aliases": [],
+      "brand": "Hot Wheels",
+      "canonical_id": "hot-wheels-nissan-skyline-2000gt-r-lbwk-2025-hyy30",
+      "canonical_uuid": "7d451d55-950c-59c0-8b43-a65c60c93557",
+      "casting": "Nissan Skyline 2000GT-R LBWK",
+      "collector_number": "026",
+      "color": null,
+      "edition": null,
+      "identifiers": [
+        {
+          "identifier_type": "toy_number",
+          "identifier_value": "HYY30",
+          "source_id": "snapshot:fandom-row-ebf5fc720ec1d06d:toy_number"
+        }
+      ],
+      "near_duplicate_group": "car-t3-family-nissan-skyline-2000gt-r-lbwk",
+      "provenance": [
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "casting",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-ebf5fc720ec1d06d",
+          "value_snapshot": "\"Nissan Skyline 2000GT-R LBWK\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "release_year",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-ebf5fc720ec1d06d",
+          "value_snapshot": "2025"
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-ebf5fc720ec1d06d",
+          "value_snapshot": "\"HW J-Imports\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "collector_number",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-ebf5fc720ec1d06d",
+          "value_snapshot": "\"026\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "series_position",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-ebf5fc720ec1d06d",
+          "value_snapshot": "\"1/5\""
+        },
+        {
+          "confidence_note": "Owner-approved catalog namespace mapping only; not exact authority; normalized snapshot sha256=e5e0384afcf9fb2c7924a30fd9e308ea713a785be6e1d103bde54251cbd6b9a6.",
+          "field_name": "identifiers",
+          "license_note": "CC-BY-SA; https://www.fandom.com/licensing; Source: Hot Wheels Wiki contributors, List of 2025 Hot Wheels, revision 790665; normalized derivative.; share-alike required",
+          "retrieved_at": "2026-07-17T05:50:26Z",
+          "source_name": "fandom-hot-wheels-2025-pilot-r790665-v1",
+          "source_reference": "https://hotwheels.fandom.com/wiki/List_of_2025_Hot_Wheels?oldid=790665#fandom-row-ebf5fc720ec1d06d",
+          "value_snapshot": "[\"HYY30\"]"
+        }
+      ],
+      "rarity_tier": null,
+      "release_key": "release-2025-hyy30",
+      "release_year": 2025,
+      "series": "HW J-Imports",
+      "series_position": "1/5"
     }
   ],
-  "source_note": "Deterministic synthetic records for architecture and test validation only; not an authoritative Hot Wheels catalog."
+  "source_note": "Catalog contains 120 synthetic regression rows plus 20 owner-approved community-snapshot catalog rows; catalog inclusion is not exact authority."
 }

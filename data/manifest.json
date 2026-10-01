@@ -6,8 +6,13 @@
     "test": 21,
     "train": 58
   },
-  "catalog_sha256": "0d3ea55eab414e3845bf3bf72635707210f2d5c20d96b3d6b5940eb0ffc7d261",
+  "catalog_application_version": "canonical-catalog-application-car-t4a-v1",
+  "catalog_sha256": "e763c8739a76ab4cc9b66169aecd4aea241ee810d8a27cdfb7d05bcacd98562e",
+  "catalog_version": "catalog-v2",
   "dataset_version": "fixture-v1",
   "generator": "scripts/generate_fixture_data.py",
-  "product_count": 120
+  "parent_catalog_sha256": "0d3ea55eab414e3845bf3bf72635707210f2d5c20d96b3d6b5940eb0ffc7d261",
+  "parent_catalog_version": "fixture-v1",
+  "parent_product_count": 120,
+  "product_count": 140
 }
