@@ -2,8 +2,8 @@
 
 Date: 2026-09-26. Source-plan owner approval recorded: 2026-09-28. CAR-T3 owner approval recorded:
 2026-09-29. Catalog batch application owner approval recorded: 2026-09-30. Mode: Lite / Lean
-Industrial. Status: **CAR-T1–T4A and CAR-T5P complete; Owner Gate T5-G1 in progress with Batches 2
-and 3 recorded (6 reviewed / 14 staged); exact authority remains 0; CAR-T6+ not started**.
+Industrial. Status: **CAR-T1–T4A and CAR-T5P complete; Owner Gate T5-G1 in progress with Batches
+2–4 recorded (9 reviewed / 11 staged); exact authority remains 0; CAR-T6+ not started**.
 
 After owner approval, execute sequentially. Each task is one reviewable commit. A failed owner/data
 Gate stops later work without being treated as an engineering failure.
@@ -144,8 +144,8 @@ separate data-state commit. This task does not satisfy or start CAR-T5.
 - [x] CAR-T5P: reconcile the 20 applied catalog-v2 records, materialize the ignored output-blind
   packet and publish only its safe hash/count manifest.
 - [ ] T5-G1: obtain explicit `staged -> reviewed/held/conflicted/insufficient` owner outcomes for
-  every covered entry; a generic continuation is not a decision. _(Progress: Batches 2 and 3
-  recorded; ordinals 2, 3, 8, 11, 14 and 18 are reviewed, while 14 entries remain staged.)_
+  every covered entry; a generic continuation is not a decision. _(Progress: Batches 2–4 recorded;
+  ordinals 2, 3, 4, 8, 11, 13, 14, 18 and 20 are reviewed, while 11 entries remain staged.)_
 - [ ] T5-G2: after successful reconciliation, obtain a fresh and separate exact-authority decision;
   no T5-G1 or catalog-application response may be reused.
 - [ ] CAR-T5F: freeze the event chain and authority bundle, or publish exact shortfalls.
