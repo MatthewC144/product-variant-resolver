@@ -1,5 +1,54 @@
 # Project Log
 
+## 2026-09-30 — CAR-T5P：準備 20 筆 output-blind authority review entries，停在 T5-G1
+
+### 新執行了什麼，以及解決了什麼問題
+
+Catalog-v2 已有 20 筆 owner-reviewed catalog identities，但 catalog inclusion 不是 exact authority；直接沿用 generic continuation instruction 產生 review outcome
+會替使用者做出從未給過的判斷。本輪因此只執行 CAR-T5P preparation：將 20 筆既有 UUID records 整理為 staged、output-blind review packet，按 7 個
+family batches `[3,3,3,3,3,3,2]` 呈現，並生成每筆 6 個、合計 120 個 agreeing evidence rows。所有 color／edition 仍是 null；review events、owner
+attestations、`approved_exact`、authority bundle、network requests 與 RHB-T5 authorization 均為 0，resolver／model output 也完全沒有被使用。
+
+目前 continuation 的權限只涵蓋 preparation，沒有推定 T5-G1 或 T5-G2 outcomes。第一次 materialization 回報 `created`，後續兩次 real `--check`
+皆為 `unchanged`。Private packet SHA-256 是 `1086fa0ea7ddd4fda2b7a4b021797e5630a7b55d9f840c3508c4744d9703fe2b`，private owner-review
+Markdown SHA-256 是 `f1bfa2d7a296de06d132e019513b03745d7cf3062007f23e40bc9655c1260bf2`，public safe manifest SHA-256 是
+`6b849f016a5c965397aaba7839e5c6c3d81acb44ed796e171355990c5b211053`。本日誌只記 hashes／counts，不公開 private owner text 或 product rows。
+
+### 修改了哪些部分，以及為何這樣選
+
+程式面新增 dedicated preparation CLI／builder、catalog-resolution bindings、private packet／public manifest strict contracts，以及為未來事件預先定義的
+batch authorization、owner attestation 和 review-event v2 contracts；測試涵蓋 reconciliation、privacy、Gate transitions、atomic write 與 replay。
+`.gitignore` 先加入 exact private workspace，再以 directory `0700`、files `0600` 產生 owner packet；tracked manifest 僅公開安全 aggregates、hashes、
+attribution、license 與 next Gate。這讓人類可查看完整 evidence，同時不把問題、逐筆內容或未來 owner verbatim 放進 Git。
+
+Frozen CAR-T4 candidates 沒有因 catalog-v2 已套用而被回寫。每筆另以 immutable binding 把 historical candidate／proposal hashes 接到 current
+catalog-v2 UUID、canonical ID、release key 與 record hash，保留「當時 proposal 是什麼」和「現在 catalog identity 是什麼」兩條 lineage。這比直接
+修改舊 packet 安全，因為後者會讓既有 hash／review evidence 失去歷史意義。
+
+Owner flow 刻意拆成兩道不同 contract：T5-G1 只建立 `staged -> reviewed`（或明確 non-reviewed outcome），T5-G2 才能建立 `reviewed -> approved_exact`。
+未來每個 batch 都必須對照 ledger 外部的 `ExpectedBatchOwnerAuthorization`；G2 必須引用獨立 G1 response hash，而且同一 response hash 不得跨 Gate。
+這避免把「我看過」和「我批准 exact authority」壓成同一個模糊布林值。
+
+### QA 如何找出設計漏洞並修正
+
+最初若只以有限 generic blacklist 排除幾種 continuation 語句，未列入名單的模糊文字仍可能被誤認為授權；只要重算 mutable Gate fields／hashes，
+同一 response 也可能被包裝到另一道 Gate。獨立 QA 重現此 cross-Gate rehash 風險後，設計改成 positive external expectation：精確比對 Gate、scope、
+declaration、outcome 與 response hash，並以 prior G1 response hash 和「current 不得等於 prior」規則隔離 G2。授權因此來自 ledger 外部的明確 expectation，
+而不是靠持續擴充禁用詞。
+
+Materialization 後另發現 temp fixture 的 state coupling：fixture 已複製真實 T5P outputs，舊 setup 卻會刪除過多 parent inputs，使測試環境不同於正式
+workspace。修正後 temp fixture 只移除三個 T5P outputs（兩個 private preparation files 與一個 public manifest），完整保留 catalog-v2、CAR-T4 與
+CAR-T4A parents，再驗證 created／unchanged。這說明「測試全綠」仍必須確認測試準備本身沒有改變被驗對象。
+
+### 最終 QA、仍保留的邊界與下一步
+
+最終獨立 QA 判定 **PASS**：CAR-T5P focused `23 passed`、authority suite `199 passed`、full repository `1268 passed`；Ruff、Ruff format、strict
+MyPy、compileall、permissions、privacy、canonical bytes、ignore behavior、parent immutability 與兩次 unchanged checks 全部通過。唯一訊息是既有、
+無關的 Starlette deprecation warning。本次 Project Log 策展沒有重跑測試。
+
+下一個合法動作只有 **Owner Gate T5-G1**：owner 必須對 frozen packet 明確給出 20 筆 outcomes，系統才可追加 `staged -> reviewed` events。準備完成
+本身不授權 T5-G2 exact approval、authority bundle、CAR-T6／RHB re-audit 或 RHB-T5，也不建立 manufacturer truth、accuracy 或 benchmark-ready 結論。
+
 ## 2026-09-30 — CAR-T4A：以獨立 owner Gate 套用 20 筆 catalog proposals
 
 ### 新執行了什麼，以及解決了什麼問題
