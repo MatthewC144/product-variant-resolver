@@ -8,7 +8,7 @@ import subprocess
 import sys
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 import pytest
 
@@ -28,7 +28,11 @@ from product_variant_resolver.canonical_authority_preparation import (
     PRIVATE_DIRECTORY,
     PRIVATE_PACKET_REFERENCE,
 )
-from product_variant_resolver.canonical_authority_review import AuthorityContractError
+from product_variant_resolver.canonical_authority_review import (
+    AuthorityContractError,
+    content_sha256,
+    stable_json_bytes,
+)
 
 ROOT = Path(__file__).resolve().parents[2]
 CLI = ROOT / "scripts" / "record_canonical_authority_review_decision.py"
@@ -38,7 +42,13 @@ SYNTHETIC_OWNER_RESPONSE = (
     "測試欄位維持 null。此合成句僅測 staged→reviewed 與 approved\\_exact 的 Unicode/escape，"
     "不代表任何真實 owner 決策。"
 )
+SYNTHETIC_BATCH_THREE_RESPONSE = (
+    "TEST-ONLY T5-G1 Batch 3：審閱測試項目 δ、ε、ζ；三筆皆標記 reviewed，"
+    "測試欄位維持 null。此合成句只測第二個 staged→reviewed 批次，"
+    "不代表任何真實 owner 決策。"
+)
 EXPECTED_ORDINALS = {2, 11, 18}
+EXPECTED_BATCH_THREE_ORDINALS = {3, 8, 14}
 TARGETS = (
     AUTHORIZATION_LEDGER_REFERENCE,
     ATTESTATION_LEDGER_REFERENCE,
@@ -66,7 +76,10 @@ def isolated_root(tmp_path: Path) -> Path:
 
 
 def _read(root: Path, reference: Path) -> dict[str, Any]:
-    return json.loads((root / reference).read_text(encoding="utf-8"))
+    return cast(
+        dict[str, Any],
+        json.loads((root / reference).read_text(encoding="utf-8")),
+    )
 
 
 def _record(root: Path, **overrides: Any) -> str:
@@ -74,6 +87,17 @@ def _record(root: Path, **overrides: Any) -> str:
         "owner_response_verbatim": SYNTHETIC_OWNER_RESPONSE,
         "authorized_exact_owner_response": SYNTHETIC_OWNER_RESPONSE,
         "reviewed_at": REVIEWED_AT,
+    }
+    arguments.update(overrides)
+    return record_t5_g1_batch_review(root, **arguments)
+
+
+def _record_batch_three(root: Path, **overrides: Any) -> str:
+    arguments: dict[str, Any] = {
+        "owner_response_verbatim": SYNTHETIC_BATCH_THREE_RESPONSE,
+        "authorized_exact_owner_response": SYNTHETIC_BATCH_THREE_RESPONSE,
+        "reviewed_at": datetime(2026, 10, 1, 12, 1, tzinfo=UTC),
+        "batch_ordinal": 3,
     }
     arguments.update(overrides)
     return record_t5_g1_batch_review(root, **arguments)
@@ -119,6 +143,76 @@ def test_records_only_batch_two_and_replays_idempotently(isolated_root: Path) ->
     assert not events.rhb_t5_authorized
 
 
+def test_appends_batch_three_to_batch_two_and_replays_idempotently(
+    isolated_root: Path,
+) -> None:
+    assert _record(isolated_root) == "created"
+    assert _record_batch_three(isolated_root) == "created"
+    assert _record_batch_three(isolated_root) == "unchanged"
+    assert _record_batch_three(isolated_root, check=True) == "unchanged"
+
+    authorization = BatchAuthorizationLedger.model_validate(
+        _read(isolated_root, AUTHORIZATION_LEDGER_REFERENCE)
+    )
+    attestations = OwnerAttestationLedger.model_validate(
+        _read(isolated_root, ATTESTATION_LEDGER_REFERENCE)
+    )
+    candidates = AuthorityCandidateStateFile.model_validate(
+        _read(isolated_root, AUTHORITY_CANDIDATES_REFERENCE)
+    )
+    events = AuthorityReviewEventFile.model_validate(_read(isolated_root, REVIEW_EVENTS_REFERENCE))
+
+    assert [item.batch_ordinal for item in authorization.authorizations] == [2, 3]
+    assert len({item.authorization_sha256 for item in authorization.authorizations}) == 2
+    assert attestations.batch_authorization_sha256s == [
+        item.authorization_sha256 for item in authorization.authorizations
+    ]
+    assert len(attestations.attestations) == 6
+    assert candidates.status_counts == {"staged": 14, "reviewed": 6, "approved_exact": 0}
+    assert {
+        candidate.ordinal
+        for candidate in candidates.candidates
+        if candidate.status.value == "reviewed"
+    } == EXPECTED_ORDINALS | EXPECTED_BATCH_THREE_ORDINALS
+    assert events.batch_authorization_count == 2
+    assert events.owner_attestation_count == 6
+    assert events.review_event_count == 6
+    assert events.status_counts == {"reviewed": 6, "approved_exact": 0}
+    assert {event.to_status.value for event in events.events} == {"reviewed"}
+    assert not candidates.rhb_t5_authorized
+    assert not events.rhb_t5_authorized
+    assert not (isolated_root / decisions.FORBIDDEN_AUTHORITY_REFERENCE).exists()
+    assert not (isolated_root / decisions.FORBIDDEN_AUTHORITY_MANIFEST_REFERENCE).exists()
+
+    public_raw = b"".join(
+        (isolated_root / reference).read_bytes()
+        for reference in (AUTHORITY_CANDIDATES_REFERENCE, REVIEW_EVENTS_REFERENCE)
+    )
+    assert SYNTHETIC_OWNER_RESPONSE.encode("utf-8") not in public_raw
+    assert SYNTHETIC_BATCH_THREE_RESPONSE.encode("utf-8") not in public_raw
+
+
+def test_batch_three_requires_complete_batch_two_state(isolated_root: Path) -> None:
+    with pytest.raises(AuthorityContractError, match="requires the complete Batch 2"):
+        _record_batch_three(isolated_root)
+    assert not any((isolated_root / reference).exists() for reference in TARGETS)
+
+
+def test_appending_batch_three_migrates_the_original_private_ledger_shape(
+    isolated_root: Path,
+) -> None:
+    _record(isolated_root)
+    path = isolated_root / ATTESTATION_LEDGER_REFERENCE
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    assert "batch_authorization_sha256" in payload
+    assert "batch_authorization_sha256s" not in payload
+
+    assert _record_batch_three(isolated_root) == "created"
+    migrated = _read(isolated_root, ATTESTATION_LEDGER_REFERENCE)
+    assert "batch_authorization_sha256" not in migrated
+    assert len(migrated["batch_authorization_sha256s"]) == 2
+
+
 def test_verbatim_is_private_once_and_no_entry_utterances_are_fabricated(
     isolated_root: Path,
 ) -> None:
@@ -138,6 +232,42 @@ def test_verbatim_is_private_once_and_no_entry_utterances_are_fabricated(
     assert SYNTHETIC_OWNER_RESPONSE.encode("utf-8") not in public_raw
     assert b"owner_response_verbatim" not in public_raw
     assert b"authorized_exact_owner_response" not in public_raw
+
+
+def test_append_rejects_a_prior_owner_response_leaked_into_public_events(
+    isolated_root: Path,
+) -> None:
+    _record(isolated_root)
+    event_path = isolated_root / REVIEW_EVENTS_REFERENCE
+    candidate_path = isolated_root / AUTHORITY_CANDIDATES_REFERENCE
+    event_payload = _read(isolated_root, REVIEW_EVENTS_REFERENCE)
+    candidate_payload = _read(isolated_root, AUTHORITY_CANDIDATES_REFERENCE)
+
+    leaked_event = event_payload["events"][0]
+    leaked_event["review_reason"] = SYNTHETIC_OWNER_RESPONSE
+    leaked_event["event_sha256"] = content_sha256(
+        {key: value for key, value in leaked_event.items() if key != "event_sha256"}
+    )
+    event_payload["cumulative_event_sha256"] = content_sha256(
+        [event["event_sha256"] for event in event_payload["events"]]
+    )
+    event_payload["ledger_sha256"] = content_sha256(
+        {key: value for key, value in event_payload.items() if key != "ledger_sha256"}
+    )
+    candidate = next(
+        item
+        for item in candidate_payload["candidates"]
+        if item["candidate_id"] == leaked_event["candidate_id"]
+    )
+    candidate["latest_event_sha256"] = leaked_event["event_sha256"]
+    candidate_payload["state_sha256"] = content_sha256(
+        {key: value for key, value in candidate_payload.items() if key != "state_sha256"}
+    )
+    event_path.write_bytes(stable_json_bytes(event_payload))
+    candidate_path.write_bytes(stable_json_bytes(candidate_payload))
+
+    with pytest.raises(AuthorityContractError, match="public.*owner verbatim"):
+        _record_batch_three(isolated_root)
 
 
 @pytest.mark.parametrize(
@@ -208,10 +338,24 @@ def test_conflicting_retry_and_partial_state_fail_closed(isolated_root: Path) ->
         _record(isolated_root)
 
 
+def test_conflicting_batch_three_retry_preserves_cumulative_state(
+    isolated_root: Path,
+) -> None:
+    _record(isolated_root)
+    _record_batch_three(isolated_root)
+    before = {reference: (isolated_root / reference).read_bytes() for reference in TARGETS}
+    with pytest.raises((AuthorityContractError, ValueError), match="exact|external|differs"):
+        _record_batch_three(
+            isolated_root,
+            owner_response_verbatim=SYNTHETIC_BATCH_THREE_RESPONSE + " extra",
+        )
+    assert {reference: (isolated_root / reference).read_bytes() for reference in TARGETS} == before
+
+
 def test_atomic_failure_removes_every_decision_output_and_retry_succeeds(
     isolated_root: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    real_replace = decisions.os.replace
+    real_replace = os.replace
     calls = 0
 
     def fail_second(source: Path, target: Path) -> None:
@@ -221,13 +365,37 @@ def test_atomic_failure_removes_every_decision_output_and_retry_succeeds(
             raise OSError("injected replace failure")
         real_replace(source, target)
 
-    monkeypatch.setattr(decisions.os, "replace", fail_second)
+    monkeypatch.setattr(os, "replace", fail_second)
     with pytest.raises(OSError, match="injected"):
         _record(isolated_root)
     assert not any((isolated_root / reference).exists() for reference in TARGETS)
 
-    monkeypatch.setattr(decisions.os, "replace", real_replace)
+    monkeypatch.setattr(os, "replace", real_replace)
     assert _record(isolated_root) == "created"
+
+
+def test_atomic_append_failure_restores_batch_two_bytes(
+    isolated_root: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _record(isolated_root)
+    before = {reference: (isolated_root / reference).read_bytes() for reference in TARGETS}
+    real_replace = os.replace
+    calls = 0
+
+    def fail_second(source: Path, target: Path) -> None:
+        nonlocal calls
+        calls += 1
+        if calls == 2:
+            raise OSError("injected append replace failure")
+        real_replace(source, target)
+
+    monkeypatch.setattr(os, "replace", fail_second)
+    with pytest.raises(OSError, match="injected append"):
+        _record_batch_three(isolated_root)
+    assert {reference: (isolated_root / reference).read_bytes() for reference in TARGETS} == before
+
+    monkeypatch.setattr(os, "replace", real_replace)
+    assert _record_batch_three(isolated_root) == "created"
 
 
 def test_symlink_and_unsafe_private_permissions_are_rejected(
@@ -245,6 +413,7 @@ def test_symlink_and_unsafe_private_permissions_are_rejected(
     private_dir = isolated_root / PRIVATE_DIRECTORY
     assert stat.S_IMODE(private_dir.stat().st_mode) == 0o700
     assert stat.S_IMODE((isolated_root / AUTHORIZATION_LEDGER_REFERENCE).stat().st_mode) == 0o600
+    assert stat.S_IMODE((isolated_root / AUTHORITY_CANDIDATES_REFERENCE).stat().st_mode) == 0o644
     os.chmod(private_dir, 0o755)
     with pytest.raises(AuthorityContractError, match="permissions"):
         _record(isolated_root)

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Record or verify the bounded CAR-T5 T5-G1 Batch 2 review decision."""
+"""Record or verify one supported CAR-T5 T5-G1 family-batch review decision."""
 
 from __future__ import annotations
 
