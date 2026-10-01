@@ -12,6 +12,7 @@ import json
 import re
 from collections import Counter, defaultdict
 from collections.abc import Mapping, Sequence
+from datetime import UTC
 from enum import Enum
 from pathlib import Path
 from typing import Annotated, Any, Literal, cast
@@ -442,6 +443,9 @@ class ExpectedBatchOwnerAuthorization(StrictContract):
         "owner_explicitly_authorized_t5_g2_exact_authority_outcomes_for_every_covered_entry",
     ]
     expected_outcome: ReviewStatus
+    batch_ordinal: int = Field(ge=1)
+    family_batch_sha256: Sha256
+    catalog_application_manifest_sha256: Sha256
     exact_external_response: NonBlank
     exact_external_response_sha256: Sha256
     prior_gate_response_sha256s: list[Sha256]
@@ -503,6 +507,9 @@ class BatchOwnerAuthorization(StrictContract):
         "owner_explicitly_authorized_t5_g2_exact_authority_outcomes_for_every_covered_entry",
     ]
     packet_sha256: Sha256
+    batch_ordinal: int = Field(ge=1)
+    family_batch_sha256: Sha256
+    catalog_application_manifest_sha256: Sha256
     catalog_version: Literal["catalog-v2"]
     catalog_sha256: Sha256
     ordered_candidate_ids: list[OpaqueId] = Field(min_length=1)
@@ -529,6 +536,10 @@ class BatchOwnerAuthorization(StrictContract):
         response_sha = hashlib.sha256(self.owner_response_verbatim.encode("utf-8")).hexdigest()
         if self.response_verbatim_sha256 != response_sha:
             raise ValueError("batch owner response checksum is stale")
+        if self.authorized_at.utcoffset() != UTC.utcoffset(self.authorized_at):
+            raise ValueError("batch authorization timestamp must be UTC")
+        if self.authorized_at.microsecond:
+            raise ValueError("batch authorization timestamp must use whole-second precision")
         expected_scope = {
             "T5-G1": "staged_to_reviewed",
             "T5-G2": "reviewed_to_approved_exact",
@@ -595,6 +606,10 @@ def validate_batch_owner_authorization(
         or authorization.authorization_scope != external.authorization_scope
         or authorization.authorization_declaration != external.authorization_declaration
         or authorization.declared_outcome != external.expected_outcome
+        or authorization.batch_ordinal != external.batch_ordinal
+        or authorization.family_batch_sha256 != external.family_batch_sha256
+        or authorization.catalog_application_manifest_sha256
+        != external.catalog_application_manifest_sha256
         or authorization.owner_response_verbatim != external.exact_external_response
         or authorization.authorized_exact_owner_response != external.exact_external_response
         or authorization.response_verbatim_sha256 != external.exact_external_response_sha256
@@ -620,6 +635,7 @@ class OwnerAttestationV2(StrictContract):
     reviewed_at: AwareDatetime
     review_reason: NonBlank
     batch_authorization_sha256: Sha256
+    attestation_sha256: Sha256
 
     @model_validator(mode="after")
     def attestation_is_explicit_and_batch_bound(self) -> OwnerAttestationV2:
@@ -630,6 +646,9 @@ class OwnerAttestationV2(StrictContract):
         ):
             raise ValueError("reviewed/exact attestation requires a catalog record checksum")
         _reject_pii(self.review_reason, context="owner attestation reason")
+        expected = content_sha256(self.model_dump(mode="json", exclude={"attestation_sha256"}))
+        if self.attestation_sha256 != expected:
+            raise ValueError("owner attestation checksum is stale")
         return self
 
 

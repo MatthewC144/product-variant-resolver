@@ -82,6 +82,9 @@ def _valid_batch_authorization(**overrides: Any) -> dict[str, Any]:
             "owner_explicitly_authorized_t5_g1_review_outcomes_for_every_covered_entry"
         ),
         "packet_sha256": "1" * 64,
+        "batch_ordinal": 1,
+        "family_batch_sha256": "4" * 64,
+        "catalog_application_manifest_sha256": "5" * 64,
         "catalog_version": "catalog-v2",
         "catalog_sha256": "2" * 64,
         "ordered_candidate_ids": ["candidate-a"],
@@ -118,6 +121,9 @@ def _expected_batch(
                 else "owner_explicitly_authorized_t5_g2_exact_authority_outcomes_for_every_covered_entry"
             ),
             "expected_outcome": "reviewed" if is_g1 else "approved_exact",
+            "batch_ordinal": 1,
+            "family_batch_sha256": "4" * 64,
+            "catalog_application_manifest_sha256": "5" * 64,
             "exact_external_response": response,
             "exact_external_response_sha256": _response_sha256(response),
             "prior_gate_response_sha256s": prior or [],
