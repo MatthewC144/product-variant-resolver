@@ -8,6 +8,9 @@ from typing import Any, cast
 import pytest
 from pydantic import ValidationError
 
+from product_variant_resolver.canonical_authority_packet import (
+    reconstruct_frozen_parent_catalog,
+)
 from product_variant_resolver.representative_benchmark import (
     CanonicalAuthorityArtifact,
     ContractError,
@@ -407,7 +410,7 @@ def test_downstream_exact_authority_requires_owner_approved_decision() -> None:
     inventory_payload = _load(INVENTORY_PATH)
     inventory = validate_source_inventory(inventory_payload)
     decisions = _validate_decisions(_load(DECISIONS_PATH), inventory_payload)
-    catalog = _load(ROOT / "data/catalog.json")
+    catalog = reconstruct_frozen_parent_catalog(ROOT)[0].model_dump(mode="json")
     product = catalog["products"][0]
     authority_payload = {
         "schema_version": "pvr-representative-hard-benchmark-canonical-authority-v1",

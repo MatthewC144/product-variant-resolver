@@ -6,6 +6,7 @@ from typing import Any
 
 import pytest
 
+from product_variant_resolver.canonical_authority_packet import reconstruct_frozen_parent_catalog
 from product_variant_resolver.release_casting_review import (
     STATUSES,
     build_public_manifest,
@@ -177,7 +178,7 @@ def test_owner_snapshot_has_expected_review_aggregate_when_present() -> None:
     if not staging.is_file():
         pytest.skip("owner-supplied normalized snapshot is local and unpublished")
     snapshot = json.loads(staging.read_text(encoding="utf-8"))
-    canonical = json.loads((ROOT / "data/catalog.json").read_text(encoding="utf-8"))
+    canonical = reconstruct_frozen_parent_catalog(ROOT)[0].model_dump(mode="json")
     human = json.loads((ROOT / "data/human_backed_catalog.json").read_text(encoding="utf-8"))
     summary = build_review_queue(snapshot, canonical, human)["summary"]
     assert summary == {

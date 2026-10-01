@@ -35,7 +35,7 @@ def load(name: str) -> dict[str, Any]:
 
 
 def content_sha256(value: object) -> str:
-    encoded = json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode(
+    encoded = (json.dumps(value, ensure_ascii=False, indent=2, sort_keys=True) + "\n").encode(
         "utf-8"
     )
     return hashlib.sha256(encoded).hexdigest()

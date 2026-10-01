@@ -12,6 +12,11 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
+from product_variant_resolver.canonical_authority_packet import (
+    EXPECTED_RAW_CATALOG_SHA256,
+    reconstruct_frozen_parent_catalog,
+)
+
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT_DIR = ROOT / "data" / "evaluation" / "representative-hard-benchmark-v1"
 INVENTORY_PATH = OUTPUT_DIR / "source-inventory.json"
@@ -23,6 +28,7 @@ MANIFEST_SCHEMA = "pvr-representative-hard-benchmark-source-inventory-manifest-v
 INVENTORY_VERSION = "representative-hard-benchmark-source-baseline-v1"
 BASELINE_DATE = "2026-09-26"
 GENERATOR = "scripts/build_representative_hard_benchmark_source_inventory.py"
+FROZEN_GENERATOR_SHA256 = "a0b4ac376358ae1a7e261547ada6bae66936eee4b97d668e136e09bb29973a72"
 TRACKED_PUBLIC_ARTIFACTS = (
     "data/benchmark.json",
     "data/catalog.json",
@@ -87,8 +93,38 @@ def _relative(path: Path, root: Path) -> str:
     return path.relative_to(root).as_posix()
 
 
-def _artifact(path: Path, root: Path) -> dict[str, str]:
-    return {"path": _relative(path, root), "sha256": _sha256(path)}
+def _artifact(path: Path, root: Path, *, effective_sha256: str | None = None) -> dict[str, str]:
+    return {
+        "path": _relative(path, root),
+        "sha256": effective_sha256 or _sha256(path),
+    }
+
+
+def _frozen_fixture_manifest(payload: dict[str, Any]) -> tuple[dict[str, Any], bytes]:
+    """Reconstruct the fixture-v1 manifest after an explicitly linked catalog-v2 apply."""
+
+    if "catalog_application_version" not in payload:
+        parent = payload
+    else:
+        _expect(
+            payload.get("parent_catalog_sha256") == EXPECTED_RAW_CATALOG_SHA256,
+            "fixture manifest parent catalog drift",
+        )
+        _expect(payload.get("parent_catalog_version") == "fixture-v1", "fixture parent changed")
+        _expect(payload.get("parent_product_count") == 120, "fixture parent count changed")
+        parent = dict(payload)
+        for key in (
+            "catalog_application_version",
+            "catalog_version",
+            "parent_catalog_sha256",
+            "parent_catalog_version",
+            "parent_product_count",
+        ):
+            parent.pop(key, None)
+        parent["catalog_sha256"] = EXPECTED_RAW_CATALOG_SHA256
+        parent["product_count"] = 120
+    parent_raw = _stable_json(parent)
+    return parent, parent_raw
 
 
 def _entry(
@@ -167,9 +203,10 @@ def build_baseline(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any], s
     for path in tracked_public_paths:
         _expect(path.is_file(), f"checked-in artifact contract is missing {_relative(path, root)}")
 
-    fixture_manifest = _load(fixture_manifest_path)
+    fixture_manifest, fixture_manifest_raw = _frozen_fixture_manifest(_load(fixture_manifest_path))
     benchmark = _load(benchmark_path)
-    catalog = _load(catalog_path)
+    catalog_model, catalog_raw = reconstruct_frozen_parent_catalog(root)
+    catalog = catalog_model.model_dump(mode="json")
     human = _load(human_path)
     human_manifest = _load(human_manifest_path)
     alignment = _load(alignment_path)
@@ -201,7 +238,7 @@ def build_baseline(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any], s
     _expect(len(wiki_records) == 100, "Wiki pilot count must be 100")
 
     benchmark_sha = _sha256(benchmark_path)
-    catalog_sha = _sha256(catalog_path)
+    catalog_sha = hashlib.sha256(catalog_raw).hexdigest()
     human_sha = _sha256(human_path)
     alignment_sha = _sha256(alignment_path)
     wiki_normalized_sha = _sha256(wiki_normalized_path)
@@ -582,6 +619,11 @@ def build_baseline(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any], s
         wiki_normalized_path,
         wiki_raw_path,
     ]
+    historical_hashes = {
+        root / GENERATOR: FROZEN_GENERATOR_SHA256,
+        fixture_manifest_path: hashlib.sha256(fixture_manifest_raw).hexdigest(),
+        catalog_path: catalog_sha,
+    }
     manifest = {
         "alignment_summary": inventory["alignment_summary"],
         "baseline_date": BASELINE_DATE,
@@ -589,7 +631,10 @@ def build_baseline(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any], s
             "owner_local_release_snapshot_content_sha256": local_content_sha,
         },
         "generator": GENERATOR,
-        "input_artifacts": [_artifact(path, root) for path in input_paths],
+        "input_artifacts": [
+            _artifact(path, root, effective_sha256=historical_hashes.get(path))
+            for path in input_paths
+        ],
         "inventory_file": "source-inventory.json",
         "inventory_sha256": inventory_sha,
         "inventory_version": INVENTORY_VERSION,
@@ -597,7 +642,10 @@ def build_baseline(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any], s
         "private_source_rows_copied": False,
         "repository_tracking_contract": {
             "state": "tracked_public_repository",
-            "artifacts": [_artifact(path, root) for path in tracked_public_paths],
+            "artifacts": [
+                _artifact(path, root, effective_sha256=historical_hashes.get(path))
+                for path in tracked_public_paths
+            ],
             "owner_private_rows": "untracked_and_not_copied",
         },
         "record_counts": {

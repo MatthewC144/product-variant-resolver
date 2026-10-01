@@ -8,6 +8,9 @@ from typing import Any, cast
 import pytest
 from pydantic import ValidationError
 
+from product_variant_resolver.canonical_authority_packet import (
+    reconstruct_frozen_parent_catalog,
+)
 from product_variant_resolver.representative_benchmark import (
     ContractError,
     SourceDecisionArtifact,
@@ -83,7 +86,7 @@ def _approved_inventory_payload() -> dict[str, Any]:
 
 
 def _catalog() -> dict[str, Any]:
-    return _json(ROOT / "data" / "catalog.json")
+    return reconstruct_frozen_parent_catalog(ROOT)[0].model_dump(mode="json")
 
 
 def _decisions_for_inventory(inventory: Any) -> SourceDecisionArtifact:

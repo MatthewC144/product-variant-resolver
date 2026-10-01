@@ -11,6 +11,7 @@ from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
 
+from .canonical_authority_packet import reconstruct_frozen_parent_catalog
 from .release_staging import (
     REVIEW_STATUS,
     SOURCE_RIGHTS_STATE,
@@ -204,7 +205,7 @@ def build_review_queue(
         for item in members:
             year = item.get("release_year")
             if not isinstance(year, int) or isinstance(year, bool):
-                raise ValueError("release years must be integers")
+                raise TypeError("release years must be integers")
             year_values.add(year)
         years = sorted(year_values)
         clusters.append(
@@ -361,15 +362,15 @@ def _stable_json(value: Any) -> str:
 
 def build_artifacts(root: Path, staging_directory: Path) -> tuple[dict[str, Any], dict[str, Any]]:
     snapshot = check_staging_bundle(staging_directory, root)
-    canonical_path = root / "data" / "catalog.json"
     human_path = root / "data" / "human_backed_catalog.json"
-    canonical_catalog = _load_object(canonical_path)
+    canonical_catalog_model, canonical_raw = reconstruct_frozen_parent_catalog(root)
+    canonical_catalog = canonical_catalog_model.model_dump(mode="json")
     human_catalog = _load_object(human_path)
     queue = build_review_queue(snapshot, canonical_catalog, human_catalog)
     manifest = build_public_manifest(
         queue,
         snapshot,
-        canonical_sha256=hashlib.sha256(canonical_path.read_bytes()).hexdigest(),
+        canonical_sha256=hashlib.sha256(canonical_raw).hexdigest(),
         human_sha256=hashlib.sha256(human_path.read_bytes()).hexdigest(),
     )
     return queue, manifest

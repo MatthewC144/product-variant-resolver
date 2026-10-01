@@ -6,6 +6,9 @@ import json
 import unittest
 from pathlib import Path
 
+from product_variant_resolver.canonical_authority_packet import (
+    reconstruct_frozen_parent_catalog,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -34,19 +37,14 @@ class HumanCatalogAlignmentTests(unittest.TestCase):
 
     def test_family_only_rows_are_exact_toyota_supra_matches(self) -> None:
         family_only = [
-            row for row in self.alignment["alignments"]
-            if row["status"] == "casting_family_only"
+            row for row in self.alignment["alignments"] if row["status"] == "casting_family_only"
         ]
         self.assertEqual(len(family_only), 2)
-        self.assertTrue(
-            all(row["matched_casting_family"] == "Toyota Supra" for row in family_only)
-        )
+        self.assertTrue(all(row["matched_casting_family"] == "Toyota Supra" for row in family_only))
         self.assertTrue(all(len(row["candidate_canonical_ids"]) == 12 for row in family_only))
 
     def test_unmapped_rows_do_not_receive_suggested_catalog_ids(self) -> None:
-        unmapped = [
-            row for row in self.alignment["alignments"] if row["status"] == "unmapped"
-        ]
+        unmapped = [row for row in self.alignment["alignments"] if row["status"] == "unmapped"]
         self.assertEqual(len(unmapped), 99)
         self.assertTrue(all(not row["candidate_canonical_ids"] for row in unmapped))
 
@@ -61,7 +59,7 @@ class HumanCatalogAlignmentTests(unittest.TestCase):
         )
         self.assertEqual(
             self.manifest["catalog_sha256"],
-            hashlib.sha256((ROOT / "data" / "catalog.json").read_bytes()).hexdigest(),
+            hashlib.sha256(reconstruct_frozen_parent_catalog(ROOT)[1]).hexdigest(),
         )
 
     def test_alignment_builder_is_deterministic_in_memory(self) -> None:

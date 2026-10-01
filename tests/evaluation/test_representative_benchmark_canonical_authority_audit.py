@@ -11,6 +11,9 @@ from typing import Any, cast
 import pytest
 from pydantic import ValidationError
 
+from product_variant_resolver.canonical_authority_packet import (
+    reconstruct_frozen_parent_catalog,
+)
 from product_variant_resolver.representative_benchmark import (
     ContractError,
     canonical_record_sha256,
@@ -205,7 +208,7 @@ def test_source_audit_rejects_missing_reordered_or_promoted_sources() -> None:
 
 
 def test_fixture_uuid_cannot_be_inferred_into_exact_authority() -> None:
-    catalog = _load(ROOT / "data/catalog.json")
+    catalog = reconstruct_frozen_parent_catalog(ROOT)[0].model_dump(mode="json")
     product = catalog["products"][0]
     authority = {
         "schema_version": "pvr-representative-hard-benchmark-canonical-authority-v1",
@@ -252,5 +255,12 @@ def test_authority_artifact_and_manifest_have_stable_raw_sha256_binding() -> Non
     assert hashlib.sha256(authority_path.read_bytes()).hexdigest() == manifest["authority_sha256"]
     paths = [item["path"] for item in manifest["input_artifacts"]]
     assert paths == sorted(paths)
+    frozen_catalog_sha = hashlib.sha256(reconstruct_frozen_parent_catalog(ROOT)[1]).hexdigest()
+    builder = _load_builder()
     for item in manifest["input_artifacts"]:
-        assert hashlib.sha256((ROOT / item["path"]).read_bytes()).hexdigest() == item["sha256"]
+        expected = hashlib.sha256((ROOT / item["path"]).read_bytes()).hexdigest()
+        if item["path"] == "data/catalog.json":
+            expected = frozen_catalog_sha
+        elif item["path"] == "scripts/build_representative_hard_benchmark_canonical_authority.py":
+            expected = builder.FROZEN_GENERATOR_SHA256
+        assert expected == item["sha256"]

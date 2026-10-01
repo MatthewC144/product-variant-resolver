@@ -485,16 +485,11 @@ def _raw_sha256(raw: bytes) -> str:
     return hashlib.sha256(raw).hexdigest()
 
 
-def build_catalog_projection(root: Path) -> tuple[FrozenCatalogProjectionV2, RawCatalog]:
-    """Rebuild the eligibility projection from strict, duplicate-key-safe raw catalog bytes."""
+def frozen_parent_catalog_from_payload(raw_payload: Mapping[str, Any]) -> RawCatalog:
+    """Select the immutable fixture-v1 parent from a parent or applied catalog payload."""
 
-    raw_payload, raw = _read_strict_json(root / CATALOG_REFERENCE)
-    raw_sha = _raw_sha256(raw)
-    if not isinstance(raw_payload, Mapping):
-        raise AuthorityContractError("raw catalog root must be an object")
-    if raw_sha == EXPECTED_RAW_CATALOG_SHA256:
-        parent_payload = raw_payload
-        parent_raw = raw
+    if raw_payload.get("catalog_version") == "fixture-v1":
+        catalog = RawCatalog.model_validate(raw_payload)
     else:
         if set(raw_payload) != {
             "catalog_lineage",
@@ -518,23 +513,51 @@ def build_catalog_projection(root: Path) -> tuple[FrozenCatalogProjectionV2, Raw
         ordered_sha = content_sha256([content_sha256(item) for item in parent_products])
         if ordered_sha != lineage.parent_ordered_product_sha256:
             raise AuthorityContractError("applied catalog parent product order or content changed")
-        parent_payload = {
-            "catalog_version": lineage.parent_catalog_version,
-            "dataset_version": lineage.parent_dataset_version,
-            "products": parent_products,
-            "source_note": FROZEN_PARENT_SOURCE_NOTE,
-        }
-        parent_raw = stable_json_bytes(parent_payload)
+        catalog = RawCatalog.model_validate(
+            {
+                "catalog_version": lineage.parent_catalog_version,
+                "dataset_version": lineage.parent_dataset_version,
+                "products": parent_products,
+                "source_note": FROZEN_PARENT_SOURCE_NOTE,
+            }
+        )
+        parent_raw = stable_json_bytes(catalog.model_dump(mode="json"))
         if _raw_sha256(parent_raw) != lineage.parent_raw_catalog_sha256:
             raise AuthorityContractError(
                 "applied catalog cannot reconstruct the frozen CAR-T4 parent"
             )
-    catalog = RawCatalog.model_validate(parent_payload)
-    raw_sha = _raw_sha256(parent_raw)
-    if raw_sha != EXPECTED_RAW_CATALOG_SHA256:
+    parent_raw = stable_json_bytes(catalog.model_dump(mode="json"))
+    if _raw_sha256(parent_raw) != EXPECTED_RAW_CATALOG_SHA256:
         raise AuthorityContractError("raw catalog checksum differs from the approved CAR-T4 parent")
     if len(catalog.products) != 120:
         raise AuthorityContractError("raw catalog product count differs from 120")
+    return catalog
+
+
+def reconstruct_frozen_parent_catalog(root: Path) -> tuple[RawCatalog, bytes]:
+    """Return the exact 120-row CAR-T4 parent from either fixture-v1 or proven v2 lineage."""
+
+    raw_payload, raw = _read_strict_json(root / CATALOG_REFERENCE)
+    raw_sha = _raw_sha256(raw)
+    if not isinstance(raw_payload, Mapping):
+        raise AuthorityContractError("raw catalog root must be an object")
+    if raw_sha == EXPECTED_RAW_CATALOG_SHA256:
+        catalog = frozen_parent_catalog_from_payload(raw_payload)
+        return catalog, raw
+    else:
+        if raw_payload.get("catalog_version") != "catalog-v2":
+            raise AuthorityContractError(
+                "raw catalog checksum differs from the approved CAR-T4 parent"
+            )
+        catalog = frozen_parent_catalog_from_payload(raw_payload)
+        return catalog, stable_json_bytes(catalog.model_dump(mode="json"))
+
+
+def build_catalog_projection(root: Path) -> tuple[FrozenCatalogProjectionV2, RawCatalog]:
+    """Rebuild the eligibility projection from the exact frozen catalog parent."""
+
+    catalog, parent_raw = reconstruct_frozen_parent_catalog(root)
+    raw_sha = _raw_sha256(parent_raw)
     raw_uuids = sorted(str(item.canonical_uuid) for item in catalog.products)
     synthetic = [item for item in catalog.products if item.is_synthetic_fixture]
     if len(synthetic) != len(catalog.products):
@@ -1129,16 +1152,19 @@ def _matches_directory(path: Path, expected: Mapping[str, bytes]) -> bool:
         return False
     actual_names = {item.name for item in path.iterdir()}
     expected_names = set(expected)
-    # CAR-T4's base workspace remains immutable after review begins.  Its one recognized private
-    # append-only ledger is validated by canonical_catalog_decisions; allowing that exact regular
-    # file here keeps the original packet builder's --check useful without accepting arbitrary
-    # local drift.
-    allowed_names = expected_names | {"catalog-decision-ledger.json"}
-    if actual_names not in (expected_names, allowed_names):
+    # CAR-T4's base workspace remains immutable after review begins.  The decision ledger and the
+    # later application event are the only recognized private append-only artifacts; their owning
+    # validators check content.  Allowing only these exact regular files keeps the historical
+    # builder's --check useful without accepting arbitrary local drift.
+    reviewed_names = expected_names | {"catalog-decision-ledger.json"}
+    applied_names = reviewed_names | {"catalog-application-event.json"}
+    if actual_names not in (expected_names, reviewed_names, applied_names):
         return False
-    if "catalog-decision-ledger.json" in actual_names:
-        ledger = path / "catalog-decision-ledger.json"
-        if ledger.is_symlink() or not ledger.is_file():
+    for private_append in ("catalog-decision-ledger.json", "catalog-application-event.json"):
+        if private_append not in actual_names:
+            continue
+        artifact = path / private_append
+        if artifact.is_symlink() or not artifact.is_file():
             return False
     return all(
         not (path / name).is_symlink()

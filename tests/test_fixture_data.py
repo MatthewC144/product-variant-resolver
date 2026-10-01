@@ -19,6 +19,16 @@ class FixtureDataTests(unittest.TestCase):
         cls.catalog = json.loads((ROOT / "data" / "catalog.json").read_text(encoding="utf-8"))
         cls.benchmark = json.loads((ROOT / "data" / "benchmark.json").read_text(encoding="utf-8"))
         cls.manifest = json.loads((ROOT / "data" / "manifest.json").read_text(encoding="utf-8"))
+        path = ROOT / "scripts" / "generate_fixture_data.py"
+        spec = importlib.util.spec_from_file_location("fixture_generator_parent", path)
+        assert spec and spec.loader
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        cls.fixture_catalog = module.build_catalog()
+        cls.fixture_catalog_bytes = (
+            json.dumps(cls.fixture_catalog, indent=2, sort_keys=True) + "\n"
+        ).encode()
+        cls.fixture_catalog_sha256 = hashlib.sha256(cls.fixture_catalog_bytes).hexdigest()
 
     def test_catalog_minimums_and_identity_uniqueness(self) -> None:
         products = self.catalog["products"]
@@ -75,7 +85,16 @@ class FixtureDataTests(unittest.TestCase):
         catalog = module.build_catalog()
         self.assertEqual(module.build_benchmark(catalog), module.build_benchmark(catalog))
         expected_bytes = (json.dumps(catalog, indent=2, sort_keys=True) + "\n").encode()
-        self.assertEqual(expected_bytes, (ROOT / "data" / "catalog.json").read_bytes())
+        self.assertEqual(expected_bytes, self.fixture_catalog_bytes)
+        self.assertEqual(catalog["products"], self.catalog["products"][:120])
+        self.assertEqual(
+            hashlib.sha256(expected_bytes).hexdigest(),
+            self.manifest["parent_catalog_sha256"],
+        )
+        self.assertEqual(
+            hashlib.sha256(expected_bytes).hexdigest(),
+            self.catalog["catalog_lineage"]["parent_raw_catalog_sha256"],
+        )
 
     def test_generator_refuses_to_overwrite_applied_catalog_v2(self) -> None:
         path = ROOT / "scripts" / "generate_fixture_data.py"
@@ -110,13 +129,13 @@ class FixtureDataTests(unittest.TestCase):
         module = importlib.util.module_from_spec(spec)
         assert spec and spec.loader
         spec.loader.exec_module(module)
-        parent_products = self.catalog["products"]
+        parent_products = self.fixture_catalog["products"]
         ordered_digest = module.content_sha256(
             [module.content_sha256(product) for product in parent_products]
         )
         catalog_v2 = {
-            **self.catalog,
             "catalog_version": "catalog-v2",
+            "dataset_version": "fixture-v1",
             "source_note": (
                 "Catalog contains 120 synthetic regression rows plus 20 owner-approved "
                 "community-snapshot catalog rows; catalog inclusion is not exact authority."
@@ -126,7 +145,7 @@ class FixtureDataTests(unittest.TestCase):
                 "schema_version": "pvr-catalog-lineage-v1",
                 "parent_catalog_version": "fixture-v1",
                 "parent_dataset_version": "fixture-v1",
-                "parent_raw_catalog_sha256": self.manifest["catalog_sha256"],
+                "parent_raw_catalog_sha256": self.fixture_catalog_sha256,
                 "parent_product_count": 120,
                 "parent_ordered_product_sha256": ordered_digest,
                 "application_version": "canonical-catalog-application-car-t4a-v1",
@@ -134,10 +153,9 @@ class FixtureDataTests(unittest.TestCase):
             },
         }
         child_manifest = {
-            **self.manifest,
             "catalog_version": "catalog-v2",
             "parent_catalog_version": "fixture-v1",
-            "parent_catalog_sha256": self.manifest["catalog_sha256"],
+            "parent_catalog_sha256": self.fixture_catalog_sha256,
             "parent_product_count": 120,
             "catalog_application_version": "canonical-catalog-application-car-t4a-v1",
             "product_count": 121,
@@ -148,7 +166,7 @@ class FixtureDataTests(unittest.TestCase):
 
         self.assertEqual(errors, [])
         self.assertEqual(restored, parent_products)
-        self.assertEqual(digest, self.manifest["catalog_sha256"])
+        self.assertEqual(digest, self.fixture_catalog_sha256)
 
     def test_full_validator_uses_fixture_parent_for_catalog_v2_history(self) -> None:
         path = ROOT / "scripts" / "validate_fixture_data.py"
@@ -157,7 +175,7 @@ class FixtureDataTests(unittest.TestCase):
         module = importlib.util.module_from_spec(spec)
         assert spec and spec.loader
         spec.loader.exec_module(module)
-        parent_products = self.catalog["products"]
+        parent_products = self.fixture_catalog["products"]
         appended = [
             {
                 "aliases": [],
@@ -190,7 +208,7 @@ class FixtureDataTests(unittest.TestCase):
                 "schema_version": "pvr-catalog-lineage-v1",
                 "parent_catalog_version": "fixture-v1",
                 "parent_dataset_version": "fixture-v1",
-                "parent_raw_catalog_sha256": self.manifest["catalog_sha256"],
+                "parent_raw_catalog_sha256": self.fixture_catalog_sha256,
                 "parent_product_count": 120,
                 "parent_ordered_product_sha256": module.content_sha256(
                     [module.content_sha256(product) for product in parent_products]
@@ -212,7 +230,7 @@ class FixtureDataTests(unittest.TestCase):
             "catalog_application_version": "canonical-catalog-application-car-t4a-v1",
             "catalog_sha256": hashlib.sha256(child_bytes).hexdigest(),
             "catalog_version": "catalog-v2",
-            "parent_catalog_sha256": self.manifest["catalog_sha256"],
+            "parent_catalog_sha256": self.fixture_catalog_sha256,
             "parent_catalog_version": "fixture-v1",
             "parent_product_count": 120,
             "product_count": 140,

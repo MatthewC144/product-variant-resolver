@@ -12,6 +12,10 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
+from product_variant_resolver.canonical_authority_packet import (
+    frozen_parent_catalog_from_payload,
+)
+from product_variant_resolver.canonical_authority_review import stable_json_bytes
 
 ROOT = Path(__file__).resolve().parents[1]
 REVIEW_SCHEMA_VERSION = "pvr-fandom-catalog-review-v1"
@@ -21,7 +25,7 @@ REVIEW_VERSION = "fandom-2025-pilot-cross-catalog-review-v1"
 def _load(path: Path) -> dict[str, Any]:
     payload = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(payload, dict):
-        raise ValueError(f"{path.name}: root must be an object")
+        raise TypeError(f"{path.name}: root must be an object")
     return payload
 
 
@@ -70,17 +74,20 @@ def build_review(
     human_catalog_path: Path,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     staging = _load(staging_path)
-    canonical_catalog = _load(canonical_catalog_path)
+    canonical_catalog = frozen_parent_catalog_from_payload(
+        _load(canonical_catalog_path)
+    ).model_dump(mode="json")
+    canonical_catalog_raw = stable_json_bytes(canonical_catalog)
     human_catalog = _load(human_catalog_path)
     records = staging.get("records")
     products = canonical_catalog.get("products")
     human_castings = human_catalog.get("castings")
     if not isinstance(records, list):
-        raise ValueError("staging input must contain records[]")
+        raise TypeError("staging input must contain records[]")
     if not isinstance(products, list):
-        raise ValueError("canonical catalog must contain products[]")
+        raise TypeError("canonical catalog must contain products[]")
     if not isinstance(human_castings, list):
-        raise ValueError("human-backed catalog must contain castings[]")
+        raise TypeError("human-backed catalog must contain castings[]")
 
     canonical_families: dict[tuple[str, str], list[dict[str, Any]]] = {}
     for product in products:
@@ -104,12 +111,8 @@ def build_review(
         canonical_candidates = sorted(
             canonical_families.get(key, []), key=lambda item: item["canonical_id"]
         )
-        human_candidates = sorted(
-            human_families.get(key, []), key=lambda item: item["casting_id"]
-        )
-        status, reason, action = _status_and_action(
-            canonical_candidates, human_candidates
-        )
+        human_candidates = sorted(human_families.get(key, []), key=lambda item: item["casting_id"])
+        status, reason, action = _status_and_action(canonical_candidates, human_candidates)
         human_variant_ids = sorted(
             variant["provisional_variant_id"]
             for casting in human_candidates
@@ -135,9 +138,7 @@ def build_review(
                 "canonical_family_candidate_ids": [
                     item["canonical_id"] for item in canonical_candidates
                 ],
-                "human_casting_candidate_ids": [
-                    item["casting_id"] for item in human_candidates
-                ],
+                "human_casting_candidate_ids": [item["casting_id"] for item in human_candidates],
                 "human_variant_candidate_ids": human_variant_ids,
                 "recommended_action": action,
                 "promotion_decision": "hold_for_human_review",
@@ -186,9 +187,7 @@ def build_review(
             },
             "canonical_catalog": {
                 "file": canonical_catalog_path.name,
-                "sha256": hashlib.sha256(
-                    canonical_catalog_path.read_bytes()
-                ).hexdigest(),
+                "sha256": hashlib.sha256(canonical_catalog_raw).hexdigest(),
             },
             "human_catalog": {
                 "file": human_catalog_path.name,
@@ -218,9 +217,7 @@ def expected_outputs(
     review_text = _stable_json(review)
     frozen_manifest = dict(manifest)
     frozen_manifest["review_file"] = review_file_name
-    frozen_manifest["review_sha256"] = hashlib.sha256(
-        review_text.encode("utf-8")
-    ).hexdigest()
+    frozen_manifest["review_sha256"] = hashlib.sha256(review_text.encode("utf-8")).hexdigest()
     return review_text, _stable_json(frozen_manifest)
 
 
@@ -231,9 +228,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--staging", type=Path, default=directory / "normalized.json")
     parser.add_argument("--canonical", type=Path, default=ROOT / "data" / "catalog.json")
-    parser.add_argument(
-        "--human", type=Path, default=ROOT / "data" / "human_backed_catalog.json"
-    )
+    parser.add_argument("--human", type=Path, default=ROOT / "data" / "human_backed_catalog.json")
     parser.add_argument("--output", type=Path, default=directory / "review.json")
     parser.add_argument("--manifest", type=Path, default=directory / "review-manifest.json")
     parser.add_argument(

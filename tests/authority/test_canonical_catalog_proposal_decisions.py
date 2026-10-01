@@ -11,7 +11,10 @@ from typing import Any
 import pytest
 from pydantic import ValidationError
 
-from product_variant_resolver.canonical_authority_packet import publish_workspace
+from product_variant_resolver.canonical_authority_packet import (
+    publish_workspace,
+    reconstruct_frozen_parent_catalog,
+)
 from product_variant_resolver.canonical_authority_review import (
     AuthorityContractError,
     content_sha256,
@@ -19,6 +22,7 @@ from product_variant_resolver.canonical_authority_review import (
 from product_variant_resolver.canonical_catalog_decisions import (
     APPROVAL_REASON,
     BASE_CAR_T4_COMMIT,
+    CATALOG_APPLICATION_EVENT_NAME,
     CATALOG_BATCH_APPLICATION_GATE,
     CONTINUE_OWNER_REVIEW_GATE,
     LEDGER_REFERENCE,
@@ -69,7 +73,14 @@ def isolated_root(tmp_path: Path) -> Path:
         shutil.copy2(source, target)
     local = Path("data/authority-review/canonical-authority-review-v1/local-catalog-review-v1")
     shutil.copytree(ROOT / local, tmp_path / local)
+    _, parent_catalog_raw = reconstruct_frozen_parent_catalog(tmp_path)
+    (tmp_path / "data/catalog.json").write_bytes(parent_catalog_raw)
     (tmp_path / LEDGER_REFERENCE).unlink(missing_ok=True)
+    (tmp_path / LEDGER_REFERENCE.parent / CATALOG_APPLICATION_EVENT_NAME).unlink(missing_ok=True)
+    (
+        tmp_path
+        / "data/authority-review/canonical-authority-review-v1/catalog-application-manifest.json"
+    ).unlink(missing_ok=True)
     return tmp_path
 
 
@@ -122,6 +133,17 @@ def _write(path: Path, payload: dict[str, Any]) -> None:
         json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )
+
+
+def test_applied_workspace_preserves_completed_historical_decision_ledger() -> None:
+    current = _load(ROOT / "data/catalog.json")
+    assert current["catalog_version"] == "catalog-v2"
+    assert len(current["products"]) == 140
+
+    ledger = check_catalog_decisions(ROOT)
+    assert len(ledger.events) == 20
+    assert ledger.decision_counts.approved == 20
+    assert ledger.catalog_applied_count == 0
 
 
 def test_records_only_first_canonical_decision_and_preserves_all_base_artifacts(

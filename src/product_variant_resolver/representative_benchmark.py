@@ -18,6 +18,11 @@ from uuid import UUID
 
 from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, PrivateAttr, model_validator
 
+from product_variant_resolver.canonical_authority_packet import (
+    frozen_parent_catalog_from_payload,
+)
+from product_variant_resolver.canonical_authority_review import AuthorityContractError
+
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 EMAIL_RE = re.compile(r"(?<![\w.+-])[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}(?![\w.-])")
 PHONE_RE = re.compile(r"(?<!\d)(?:\+?\d[\d ().-]{7,}\d)(?!\d)")
@@ -1558,6 +1563,18 @@ def validate_canonical_authority(
 
     artifact = CanonicalAuthorityArtifact.model_validate(payload)
     _assert_decisions_match_inventory(source_decisions, inventory)
+    if (
+        catalog_payload.get("catalog_version") == "catalog-v2"
+        and "catalog_lineage" in catalog_payload
+    ):
+        try:
+            catalog_payload = frozen_parent_catalog_from_payload(catalog_payload).model_dump(
+                mode="json"
+            )
+        except (AuthorityContractError, ValueError) as error:
+            raise ContractError(
+                "canonical catalog checksum does not match the authority audit"
+            ) from error
     catalog_version, catalog = _catalog_index(catalog_payload)
     sources = _source_map(inventory)
     for record in artifact.records:
@@ -1649,6 +1666,18 @@ def validate_canonical_authority_manifest(
     """Validate the frozen T4 audit and fail closed on stale or incomplete parents."""
 
     manifest = CanonicalAuthorityManifest.model_validate(payload)
+    if (
+        catalog_payload.get("catalog_version") == "catalog-v2"
+        and "catalog_lineage" in catalog_payload
+    ):
+        try:
+            catalog_payload = frozen_parent_catalog_from_payload(catalog_payload).model_dump(
+                mode="json"
+            )
+        except (AuthorityContractError, ValueError) as error:
+            raise ContractError(
+                "canonical catalog checksum does not match the authority audit"
+            ) from error
     authority = validate_canonical_authority(
         authority_payload,
         inventory=inventory,

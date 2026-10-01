@@ -24,6 +24,7 @@ from product_variant_resolver.canonical_authority_packet import (
     build_catalog_projection,
     derive_workspace,
     publish_workspace,
+    reconstruct_frozen_parent_catalog,
     validate_catalog_projection,
     validate_proposal_bundle,
     validate_proposal_review_packet,
@@ -58,6 +59,8 @@ def isolated_root(tmp_path: Path) -> Path:
         target = tmp_path / reference
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, target)
+    _, parent_catalog_raw = reconstruct_frozen_parent_catalog(tmp_path)
+    (tmp_path / "data/catalog.json").write_bytes(parent_catalog_raw)
     return tmp_path
 
 
@@ -72,6 +75,19 @@ def test_projection_rebuilds_raw_catalog_and_excludes_every_synthetic_fixture() 
     assert projection.eligible_product_count == 0
     assert projection.excluded_synthetic_product_count == 120
     assert projection.eligible_products == []
+
+
+def test_applied_workspace_reconstructs_exact_parent_and_keeps_frozen_builder_outputs() -> None:
+    current = json.loads((ROOT / "data/catalog.json").read_text(encoding="utf-8"))
+    assert current["catalog_version"] == "catalog-v2"
+    assert len(current["products"]) == 140
+
+    parent, parent_raw = reconstruct_frozen_parent_catalog(ROOT)
+    assert len(parent.products) == 120
+    assert hashlib.sha256(parent_raw).hexdigest() == (
+        "0d3ea55eab414e3845bf3bf72635707210f2d5c20d96b3d6b5940eb0ffc7d261"
+    )
+    assert publish_workspace(ROOT, check=True) == "unchanged"
 
 
 def test_workspace_contains_twenty_staged_deterministic_proposals_only() -> None:

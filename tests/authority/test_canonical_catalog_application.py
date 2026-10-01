@@ -13,7 +13,10 @@ import pytest
 
 import product_variant_resolver.canonical_catalog_application as application_module
 import product_variant_resolver.canonical_catalog_decisions as decision_module
-from product_variant_resolver.canonical_authority_packet import derive_workspace
+from product_variant_resolver.canonical_authority_packet import (
+    derive_workspace,
+    reconstruct_frozen_parent_catalog,
+)
 from product_variant_resolver.canonical_authority_review import (
     AuthorityContractError,
     content_sha256,
@@ -24,6 +27,7 @@ from product_variant_resolver.canonical_catalog_application import (
     PUBLIC_MANIFEST_REFERENCE,
     TRANSACTION_DIRECTORY_REFERENCE,
     TRANSACTION_JOURNAL_REFERENCE,
+    _base_data_manifest,
     _build_catalog,
     _build_event,
     _build_public_manifest,
@@ -78,6 +82,12 @@ def isolated_root(tmp_path: Path) -> Path:
         shutil.copy2(source, target)
     local = Path("data/authority-review/canonical-authority-review-v1/local-catalog-review-v1")
     shutil.copytree(ROOT / local, tmp_path / local)
+    _, parent_catalog_raw = reconstruct_frozen_parent_catalog(tmp_path)
+    (tmp_path / "data/catalog.json").write_bytes(parent_catalog_raw)
+    child_manifest = _load(tmp_path / "data/manifest.json")
+    _write(tmp_path / "data/manifest.json", _base_data_manifest(child_manifest))
+    (tmp_path / PRIVATE_EVENT_REFERENCE).unlink(missing_ok=True)
+    (tmp_path / PUBLIC_MANIFEST_REFERENCE).unlink(missing_ok=True)
     (tmp_path / ".git").write_text(f"gitdir: {ROOT / '.git'}\n", encoding="utf-8")
     return tmp_path
 

@@ -12,6 +12,9 @@ from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
 
+from product_variant_resolver.canonical_authority_packet import (
+    reconstruct_frozen_parent_catalog,
+)
 from product_variant_resolver.representative_benchmark import (
     AuthorityEligibility,
     SourceDecisionUse,
@@ -34,6 +37,7 @@ HUMAN_CATALOG_PATH = ROOT / "data" / "human_backed_catalog.json"
 HUMAN_CATALOG_MANIFEST_PATH = ROOT / "data" / "human_backed_catalog_manifest.json"
 WIKI_PATH = ROOT / "data" / "external" / "hot-wheels-wiki" / "pilot-2025" / "normalized.json"
 GENERATOR_PATH = ROOT / "scripts" / "build_representative_hard_benchmark_canonical_authority.py"
+FROZEN_GENERATOR_SHA256 = "bca9a74b1efd411ee3ab5ab06e6a845efbaf44c8825a88fb1efe6caff0a909e5"
 
 AUTHORITY_VERSION = "representative-hard-benchmark-canonical-authority-v1"
 MANIFEST_VERSION = "representative-hard-benchmark-canonical-authority-audit-v1"
@@ -104,7 +108,18 @@ def _input_sha256(root: Path) -> dict[str, str]:
         root / "data" / "evaluation" / "representative-hard-benchmark-v1" / "source-inventory.json",
         root / "scripts" / "build_representative_hard_benchmark_canonical_authority.py",
     )
-    return {_relative(path, root): _sha256(path) for path in sorted(paths)}
+    _, parent_catalog_raw = reconstruct_frozen_parent_catalog(root)
+    catalog_path = root / "data" / "catalog.json"
+    return {
+        _relative(path, root): (
+            hashlib.sha256(parent_catalog_raw).hexdigest()
+            if path == catalog_path
+            else FROZEN_GENERATOR_SHA256
+            if path == root / "scripts" / GENERATOR_PATH.name
+            else _sha256(path)
+        )
+        for path in sorted(paths)
+    }
 
 
 def build_audit(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any]]:
@@ -114,7 +129,8 @@ def build_audit(root: Path = ROOT) -> tuple[dict[str, Any], dict[str, Any]]:
     inventory_payload = _load(output_dir / "source-inventory.json")
     inventory_manifest_payload = _load(output_dir / "source-inventory-manifest.json")
     decisions_payload = _load(output_dir / "source-decisions.json")
-    catalog_payload = _load(root / "data" / "catalog.json")
+    catalog_model, _ = reconstruct_frozen_parent_catalog(root)
+    catalog_payload = catalog_model.model_dump(mode="json")
     human_catalog_payload = _load(root / "data" / "human_backed_catalog.json")
     human_catalog_manifest = _load(root / "data" / "human_backed_catalog_manifest.json")
     wiki_payload = _load(

@@ -12,6 +12,10 @@ from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
 
+from product_variant_resolver.canonical_authority_packet import (
+    frozen_parent_catalog_from_payload,
+)
+from product_variant_resolver.canonical_authority_review import stable_json_bytes
 
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_VERSION = "pvr-human-catalog-alignment-v1"
@@ -21,7 +25,7 @@ ALIGNMENT_VERSION = "human-labeled-real-noisy-to-fixture-v1"
 def _load(path: Path) -> dict[str, Any]:
     value = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(value, dict):
-        raise ValueError(f"{path.name}: root must be an object")
+        raise TypeError(f"{path.name}: root must be an object")
     return value
 
 
@@ -57,11 +61,12 @@ def build_alignment(
     catalog_path: Path,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     human_dataset = _load(human_dataset_path)
-    catalog = _load(catalog_path)
+    catalog = frozen_parent_catalog_from_payload(_load(catalog_path)).model_dump(mode="json")
+    catalog_raw = stable_json_bytes(catalog)
     records = human_dataset.get("records")
     products = catalog.get("products")
     if not isinstance(records, list) or not isinstance(products, list):
-        raise ValueError("dataset and catalog must contain record arrays")
+        raise TypeError("dataset and catalog must contain record arrays")
 
     families: dict[tuple[str, str], list[dict[str, Any]]] = defaultdict(list)
     for product in products:
@@ -138,7 +143,7 @@ def build_alignment(
         "human_dataset_file": human_dataset_path.name,
         "human_dataset_sha256": hashlib.sha256(human_dataset_path.read_bytes()).hexdigest(),
         "catalog_file": catalog_path.name,
-        "catalog_sha256": hashlib.sha256(catalog_path.read_bytes()).hexdigest(),
+        "catalog_sha256": hashlib.sha256(catalog_raw).hexdigest(),
         "alignment_count": len(alignments),
         "status_counts": {
             "mapped": counts["mapped"],
@@ -161,9 +166,7 @@ def write_outputs(
     alignment_text = json.dumps(alignment, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
     output_path.write_text(alignment_text, encoding="utf-8")
     manifest["alignment_file"] = output_path.name
-    manifest["alignment_sha256"] = hashlib.sha256(
-        alignment_text.encode("utf-8")
-    ).hexdigest()
+    manifest["alignment_sha256"] = hashlib.sha256(alignment_text.encode("utf-8")).hexdigest()
     manifest_path.write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
