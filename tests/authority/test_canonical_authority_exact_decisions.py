@@ -54,6 +54,10 @@ EXACT_RESPONSES = {
         "TEST-ONLY T5-G2 Batch 4：明確批准測試項目 δ、ε、ζ 為 approved_exact；"
         "測試欄位維持 null，且不授權後續 Gate。"
     ),
+    5: (
+        "TEST-ONLY T5-G2 Batch 5：明確批准測試項目 η、θ、ι 為 approved_exact；"
+        "測試欄位維持 null，且不授權後續 Gate。"
+    ),
 }
 EXACT_RESPONSE = EXACT_RESPONSES[1]
 G1_RESPONSES = {
@@ -515,6 +519,118 @@ def test_batch_four_requires_complete_three_batch_prefix(isolated_root: Path) ->
     assert {reference: (isolated_root / reference).read_bytes() for reference in TARGETS} == before
 
 
+def test_appends_batch_five_and_preserves_complete_four_batch_prefix(
+    isolated_root: Path,
+) -> None:
+    for batch_ordinal in (1, 2, 3, 4):
+        assert _record(isolated_root, batch_ordinal=batch_ordinal) == "created"
+    before_authorizations = _read(isolated_root, EXACT_AUTHORIZATION_LEDGER_REFERENCE)[
+        "authorizations"
+    ]
+    before_attestations = _read(isolated_root, EXACT_ATTESTATION_LEDGER_REFERENCE)["attestations"]
+    before_events = {
+        item["event_id"]: item
+        for item in _read(isolated_root, REVIEW_EVENTS_REFERENCE)["events"]
+        if item["event_id"].startswith("car-t5-g2-")
+    }
+    before_candidates = {
+        item["candidate_id"]: item
+        for item in _read(isolated_root, AUTHORITY_CANDIDATES_REFERENCE)["candidates"]
+    }
+    g1_authorizations = BatchAuthorizationLedger.model_validate(
+        _read(isolated_root, AUTHORIZATION_LEDGER_REFERENCE)
+    )
+
+    assert _record(isolated_root, batch_ordinal=5) == "created"
+    first = {reference: (isolated_root / reference).read_bytes() for reference in TARGETS}
+    assert _record(isolated_root, batch_ordinal=5) == "unchanged"
+    for batch_ordinal in (1, 2, 3, 4, 5):
+        assert _record(isolated_root, batch_ordinal=batch_ordinal, check=True) == "unchanged"
+    assert {reference: (isolated_root / reference).read_bytes() for reference in TARGETS} == first
+
+    authorizations = ExactBatchAuthorizationLedger.model_validate(
+        _read(isolated_root, EXACT_AUTHORIZATION_LEDGER_REFERENCE)
+    )
+    attestations = ExactOwnerAttestationLedger.model_validate(
+        _read(isolated_root, EXACT_ATTESTATION_LEDGER_REFERENCE)
+    )
+    candidates = AuthorityCandidateStateFile.model_validate(
+        _read(isolated_root, AUTHORITY_CANDIDATES_REFERENCE)
+    )
+    events = AuthorityReviewEventFile.model_validate(_read(isolated_root, REVIEW_EVENTS_REFERENCE))
+
+    assert [item.batch_ordinal for item in authorizations.authorizations] == [1, 2, 3, 4, 5]
+    assert [
+        item.model_dump(mode="json") for item in authorizations.authorizations[:4]
+    ] == before_authorizations
+    batch_five = authorizations.authorizations[4]
+    prior = next(item for item in g1_authorizations.authorizations if item.batch_ordinal == 5)
+    assert batch_five.prior_gate_response_sha256s == [prior.response_verbatim_sha256]
+    assert batch_five.response_verbatim_sha256 != prior.response_verbatim_sha256
+    assert len(attestations.attestations) == 15
+    after_attestations = {
+        item.candidate_id: item.model_dump(mode="json") for item in attestations.attestations
+    }
+    for previous in before_attestations:
+        assert after_attestations[previous["candidate_id"]] == previous
+    assert candidates.status_counts == {"staged": 0, "reviewed": 5, "approved_exact": 15}
+    assert {
+        item.ordinal for item in candidates.candidates if item.status.value == "approved_exact"
+    } == {1, 2, 3, 4, 5, 7, 8, 10, 11, 13, 14, 16, 17, 18, 20}
+    assert events.batch_authorization_count == 12
+    assert events.owner_attestation_count == 35
+    assert events.review_event_count == 35
+    assert events.status_counts == {"reviewed": 5, "approved_exact": 15}
+    after_events = {item.event_id: item.model_dump(mode="json") for item in events.events}
+    for event_id, previous in before_events.items():
+        assert after_events[event_id] == previous
+    batch_five_events = [
+        item for item in events.events if item.event_id.startswith("car-t5-g2-batch-5-")
+    ]
+    assert len(batch_five_events) == 3
+    expected_values = {
+        "casting": "'21 Ford Bronco",
+        "release_year": 2025,
+        "series": "HW Hot Trucks",
+        "collector_number": "020",
+        "series_position": "1/10",
+    }
+    observed_identifiers = set()
+    for event in batch_five_events:
+        evidence = {item.field: item for item in event.variant_field_evidence}
+        assert set(evidence) == {
+            "casting",
+            "release_year",
+            "series",
+            "collector_number",
+            "series_position",
+            "identifiers",
+        }
+        assert all(
+            evidence[field].reviewed_value == value for field, value in expected_values.items()
+        )
+        observed_identifiers.add(evidence["identifiers"].reviewed_value)
+    assert observed_identifiers == {"HYY32", "HYW73", "HYX50"}
+    after_candidates = {item.candidate_id: item for item in candidates.candidates}
+    for candidate_id, previous in before_candidates.items():
+        if previous["ordinal"] not in {5, 7, 17}:
+            assert after_candidates[candidate_id].model_dump(mode="json") == previous
+    public = (isolated_root / AUTHORITY_CANDIDATES_REFERENCE).read_bytes() + (
+        isolated_root / REVIEW_EVENTS_REFERENCE
+    ).read_bytes()
+    for response in (*EXACT_RESPONSES.values(), *G1_RESPONSES.values()):
+        assert response.encode("utf-8") not in public
+
+
+def test_batch_five_requires_complete_four_batch_prefix(isolated_root: Path) -> None:
+    for batch_ordinal in (1, 2, 3):
+        assert _record(isolated_root, batch_ordinal=batch_ordinal) == "created"
+    before = {reference: (isolated_root / reference).read_bytes() for reference in TARGETS}
+    with pytest.raises(AuthorityContractError, match="prefix order"):
+        _record(isolated_root, batch_ordinal=5)
+    assert {reference: (isolated_root / reference).read_bytes() for reference in TARGETS} == before
+
+
 def test_requires_fresh_exact_response_distinct_from_g1(isolated_root: Path) -> None:
     response = G1_RESPONSES[1]
     before = {reference: (isolated_root / reference).read_bytes() for reference in TARGETS[2:]}
@@ -555,7 +671,7 @@ def test_requires_independently_supplied_exact_response(isolated_root: Path) -> 
 @pytest.mark.parametrize(
     ("overrides", "message"),
     [
-        ({"batch_ordinal": 5}, "Batches 1-4"),
+        ({"batch_ordinal": 6}, "Batches 1-5"),
         ({"expected_outcome": "reviewed"}, "approved_exact"),
         ({"expected_outcome": "held"}, "approved_exact"),
     ],
@@ -750,3 +866,28 @@ def test_cli_records_and_checks_exact_batch_one(isolated_root: Path) -> None:
     )
     assert checked_four.returncode == 0, checked_four.stderr
     assert checked_four.stdout.strip() == "unchanged"
+
+    batch_five = [
+        sys.executable,
+        str(CLI),
+        "--root",
+        str(isolated_root),
+        "--batch-ordinal",
+        "5",
+        "--owner-response",
+        EXACT_RESPONSES[5],
+        "--authorized-exact-owner-response",
+        EXACT_RESPONSES[5],
+        "--reviewed-at",
+        "2026-10-02T17:00:00Z",
+    ]
+    appended_five = subprocess.run(
+        batch_five, cwd=ROOT, text=True, capture_output=True, check=False
+    )
+    assert appended_five.returncode == 0, appended_five.stderr
+    assert appended_five.stdout.strip() == "created"
+    checked_five = subprocess.run(
+        [*batch_five, "--check"], cwd=ROOT, text=True, capture_output=True, check=False
+    )
+    assert checked_five.returncode == 0, checked_five.stderr
+    assert checked_five.stdout.strip() == "unchanged"
