@@ -1,49 +1,53 @@
-# AI artifact evaluation — T5-G1 Batches 2–6 progress
+# AI artifact evaluation — T5-G1 Batches 2–7 progress
 
 Date: 2026-10-01
-Scope: generated T5-G1 event／hash／state claims for Batches 2–6 only
+Scope: generated T5-G1 event／hash／state claims for Batches 2–7 only
 Verdict: **PASS — FAITHFUL FIRST-GATE CLAIMS**
 
-This rubric evaluates whether generated artifacts append Batch 6 without rewriting Batches 2–5, leaking a
-trusted response or private identity, or claiming a later Gate.
+This rubric evaluates whether generated artifacts append the two-entry Batch 7 without rewriting Batches 2–6,
+leaking a trusted response or private identity, or claiming a later Gate.
 
 | Criterion | Result | Evidence and boundary |
 |---|---|---|
-| State accuracy | PASS | Only 15 bounded entries are `reviewed`; five remain `staged`, and exact authority remains zero. |
-| Authorization fidelity | PASS | Five private batch authorizations back 15 attestations and 15 public events; a batch response is not represented as three separate utterances. |
-| Append integrity | PASS | Batch 6 requires the complete Batches 2–5 predecessor prefix; all existing objects are preserved and the four-output update remains atomic. |
+| State accuracy | PASS | Only 17 bounded entries are `reviewed`; three remain `staged`, and exact authority remains zero. |
+| Authorization fidelity | PASS | Six private batch authorizations back 17 attestations and 17 public events; the two-entry batch adds two attestations／events, not a fixed three. |
+| Append integrity | PASS | Batch 7 requires the complete Batches 2–6 predecessor prefix; all 15 existing objects are preserved and the four-output update remains atomic. |
 | Privacy | PASS | Trusted responses and private identity are excluded from public artifacts and tracked content. |
-| Replay | PASS | Batch 6 initially returned `created`; two subsequent real checks returned `unchanged`. |
+| Replay | PASS | Batch 7 initially returned `created`; two subsequent real checks returned `unchanged`. |
 | Gate honesty | PASS | `approved_exact` remains zero; authority bundle／manifest and RHB-T5 authorization remain absent or false. |
 
 ## Allowed claims
 
-- T5-G1 Batches 2–6 record 15 entries as reviewed, leaving five staged.
-- Batch 6 is a bounded append whose predecessor is the complete Batches 2–5 decision prefix.
-- Five batch authorizations map to 15 independently bound attestations and 15 public review events.
-- Existing Batches 2–5 decision objects were preserved.
+- T5-G1 Batches 2–7 record 17 entries as reviewed, leaving three staged.
+- Batch 7 is a two-entry bounded append whose predecessor is the complete Batches 2–6 decision prefix.
+- Six batch authorizations map to 17 independently bound attestations and 17 public review events.
+- Existing Batches 2–6 decision objects were preserved.
+- The three remaining staged entries are Batch 1 Mazda Autozam ordinals `1`, `10` and `16`.
 
 ## Prohibited claims
 
-- Fifteen separate utterances were supplied, or an exact-authority outcome was approved.
+- Seventeen separate utterances were supplied, every batch has three records, or an exact-authority outcome was approved.
 - These events establish manufacturer-certified or independent exact product truth.
-- Batches 2–6 authorize T5-G2, an authority bundle, benchmark readiness or RHB-T5.
+- Batches 2–7 complete T5-G1 or authorize T5-G2, an authority bundle, benchmark readiness or RHB-T5.
 - This PASS measures resolver accuracy, retrieval／ranking quality or model performance.
 
 ## Evidence status
 
-Available verification covered the Batch 6 `created` operation, two `unchanged` checks, predecessor preservation,
-cumulative 15／5 state, 5／15／15 private-authorization／attestation／public-event counts, atomic output handling,
-and the continued absence of exact authority, bundle／manifest and RHB authorization. Independent pre-
-materialization QA recorded focused `72 passed` and a full-suite result of `1317 passed`; the only message was
-an existing dependency warning. This documentation update itself did not rerun tests.
+Available verification covered the Batch 7 `created` operation, two `unchanged` checks, predecessor preservation,
+cumulative 17／3 state, 6／17／17 private-authorization／attestation／public-event counts, two-entry dynamic counting,
+atomic output handling, and the continued absence of exact authority, bundle／manifest and RHB authorization.
+Independent pre-materialization QA recorded focused `60 passed` and a full-suite result of `1328 passed`; the only
+message was an existing dependency warning. This documentation update itself did not rerun tests.
+
+Independent post-materialization QA also passed: all 17 decision links were valid; the prior 15 events, candidate
+objects and attestation hashes were preserved; permission, Git-ignore and bytes-stable replay checks passed; and a
+794-file privacy scan covering all six real authorization inputs found no tracked or unignored disclosure. Blocker
+and Important findings were both zero.
 
 Batch 4 previously exposed a shared-workspace tasks／manifest update race and passed after a stable rerun; that
-known orchestration risk remains documented. Batch 6 materialization evidence confirms the 5／15／15 cumulative
-counts, preservation of the 12 prior objects, and idempotent replay. Post-materialization QA returned **PASS**:
-focused `72 passed`; all 15 candidate-to-authorization links, 35 item hashes and four top-level hashes were
-valid; permissions, Git-ignore and forbidden-output checks passed; and five private responses had zero hits
-across 794 tracked／unignored files. Blocker, Important and Later findings were all zero.
+known orchestration risk remains documented. Batch 7 materialization evidence confirms preservation of the 15 prior
+objects and idempotent replay. No supplied evidence authorizes claims beyond these bounded checks.
 
-Verdict **PASS** applies only to faithful first-Gate event, hash and state claims already evidenced. Exact truth, manufacturer
-truth, T5-G2 outcomes, resolver accuracy, benchmark readiness and RHB claims remain not evaluated.
+Verdict **PASS** applies only to faithful first-Gate event, hash and state claims already evidenced. Exact truth,
+manufacturer truth, T5-G1 completion, T5-G2 outcomes, resolver accuracy, benchmark readiness and RHB claims remain
+not evaluated.

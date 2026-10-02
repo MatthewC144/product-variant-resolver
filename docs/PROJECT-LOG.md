@@ -1,5 +1,54 @@
 # Project Log
 
+## 2026-10-01 — T5-G1 Batch 7：兩筆 bounded append，累積 17 reviewed／3 staged
+
+### 新執行了什麼，以及解決了什麼問題
+
+本輪記錄 T5-G1 Batch 7，把 Mazda MX-5 Miata 的 packet ordinals `9`、`15` 從 `staged` 推進為
+`reviewed`，同時完整保留 Batches 2–6 的 15 個既有 objects。Batch 7 只有兩筆，因此累積狀態從
+15 reviewed／5 staged 動態變為 17 reviewed／3 staged；private batch authorizations 由 5 增為 6，
+private attestations 與 public events 則各由 15 增為 17。這解決了 recorder 如何承接非三筆批次，並
+讓授權、逐筆證據與公開狀態依實際 batch 大小一致增加的問題。
+
+本輪仍只記錄 evidence review：`approved_exact` 為 0，authority bundle／manifest 不存在，RHB-T5
+authorization 為 false。日誌不重述、推導或硬編碼 trusted response 或 private identity。
+
+### 修改了哪一部分，以及為何這樣決定
+
+Decision recorder／CLI／tests 的允許 prefix 擴充為 Batch 2 → Batch 3 → Batch 4 → Batch 5 →
+Batch 6 → Batch 7。Batch 7 只有在完整且有效的 Batches 2–6 predecessor prefix 已存在時，才能建立
+一份 private batch authorization、兩份逐筆 attestations 與兩個 public `staged -> reviewed` events。
+計數改由 frozen batch 的實際兩筆 records 驅動，而不是硬編碼每批三筆；這個決定避免少建或多建
+attestation／event，也讓 state transition 與授權覆蓋範圍一一對應。
+
+bounded prefix 繼續阻止跳序、漏失或改寫既有 objects，以及跨 batch／Gate 重用授權。四個
+private／public outputs 仍採 atomic promotion 與 rollback，確保 candidate state、events、authorization
+與 attestations 一起前進，任一失敗都回復原始 bytes。Privacy 方法維持 public／private 分離：tracked
+artifacts 只保留 bounded state、bindings 與不可逆 hashes，授權原文與 private identity 不進入 Git
+公開內容。
+
+### 驗證方式與結果
+
+Batch 7 首次 materialization 回報 `created`，接著兩次 real checks 均回報 `unchanged`。現有證據確認
+Batches 2–6 的 15 個既有 objects 保持不變，累積 17／3 state 與 6／17／17
+authorization-attestation-event counts 正確，並持續拒絕 `approved_exact`、authority bundle／manifest
+及 RHB-T5 權限擴張。
+
+獨立 pre-materialization QA 判定 **PASS**：focused `60 passed`、full repository `1328 passed`；唯一
+訊息為既有 dependency warning。本次 Project Log 只整理已交付的 QA 與 materialization 證據，沒有
+重跑測試，也不將 first-Gate evidence 解讀成 resolver accuracy、retrieval quality 或 manufacturer truth。
+
+獨立 post-materialization QA 同樣判定 **PASS**：17 條 decision links 全部有效，先前 15 個 events、
+candidate objects 與 attestation hashes 均保持不變；private/public 權限、Git-ignore 邊界、bytes-stable
+replay，以及涵蓋六份真實授權輸入的 794-file privacy scan 皆通過。Blocker 與 Important 均為 0。
+
+### 留下的邊界與下一步
+
+目前剩餘 3 筆 staged，全部是 Batch 1 Mazda Autozam 的 ordinals `1`、`10`、`16`，所以 T5-G1
+尚未完成。下一步必須對 Batch 1 取得新的、明確 T5-G1 outcome，不能沿用本輪 authorization 或一般
+continuation 指示；全部 first-Gate events 合法記錄後，才可另行提出 fresh T5-G2 exact-authority
+request。Architect、security 與 performance review 在 Lite／Lean 模式下仍為 deferred。
+
 ## 2026-10-01 — T5-G1 Batch 6：bounded prefix 累積 15 reviewed／5 staged
 
 ### 新執行了什麼，以及解決了什麼問題
