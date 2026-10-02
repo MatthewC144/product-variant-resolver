@@ -15,10 +15,10 @@
       "canonical_uuid": "50b358f9-cdf0-56d7-be81-f0b75ea000d7",
       "catalog_record_sha256": "753083d8538a73cab14299c7669154cf24c82fc7d2e76e65da838508654e52b9",
       "entry_sha256": "9fcb78c6cefd2ed62b3a2cc87d72abb3e22a4da0b2711c1a4e7543d8ba6f42ca",
-      "latest_event_id": "car-t5-g1-batch-2-ordinal-02",
-      "latest_event_sha256": "fa9a5dad2c9eea6ec99145717273e2a97f087a5d9a606b5f33441e7fa52cfd5b",
+      "latest_event_id": "car-t5-g2-batch-2-ordinal-02",
+      "latest_event_sha256": "45b84f91aaca2e29b2ee084f98ddca71607b8ce556ee678c9685571a3e8ddc54",
       "ordinal": 2,
-      "status": "reviewed"
+      "status": "approved_exact"
     },
     {
       "candidate_id": "car-t3-fandom-row-26b0ba519bca3a01",
@@ -105,10 +105,10 @@
       "canonical_uuid": "75ddc979-dc29-51b8-8e24-543243af74bd",
       "catalog_record_sha256": "40c128d0bb8e643912fb6c86feb48b40f0f1661aa96ad7ce98bc2ea711ba0756",
       "entry_sha256": "a5ad2f75c5b7cb11daa65f91c4397860263410cecbf1d1bcc4f7bf522dc7f244",
-      "latest_event_id": "car-t5-g1-batch-2-ordinal-11",
-      "latest_event_sha256": "008c195bd8a3ea0d5e5da1a76e9c8a943e3e8f8dac95de1d27bebad9038276b5",
+      "latest_event_id": "car-t5-g2-batch-2-ordinal-11",
+      "latest_event_sha256": "290318f437c3fda5c2cd15726186f240b4d93faeaa055b012d35f6ea8425699f",
       "ordinal": 11,
-      "status": "reviewed"
+      "status": "approved_exact"
     },
     {
       "candidate_id": "car-t3-fandom-row-75cd82288d943dce",
@@ -175,10 +175,10 @@
       "canonical_uuid": "04639476-4feb-5788-97ef-89e32af3f408",
       "catalog_record_sha256": "e3fabdbed5ef68909099e5b551f59384ff04449fe260ca4bbd4d8365c9f2f180",
       "entry_sha256": "7864546f3a3cf52d0a39bccc745afa233b08d91e287f218ea06b6d177be5a898",
-      "latest_event_id": "car-t5-g1-batch-2-ordinal-18",
-      "latest_event_sha256": "c3c2b3f2a412702fdd1234e5cf36ddc472b4a8d026636bf970e33d385ce4e131",
+      "latest_event_id": "car-t5-g2-batch-2-ordinal-18",
+      "latest_event_sha256": "cb858204c72c0fd195f219d5487dbdf7dca7205c00dc3d3c9eb690331da26f8a",
       "ordinal": 18,
-      "status": "reviewed"
+      "status": "approved_exact"
     },
     {
       "candidate_id": "car-t3-fandom-row-eb74e3eebcc4dcf4",
@@ -208,11 +208,11 @@
   "resolver_output_consulted": false,
   "rhb_t5_authorized": false,
   "schema_version": "pvr-canonical-authority-candidate-state-v1",
-  "state_sha256": "1c45a9accdfd5dd4274659765a974b673cbb238d4d8ccd0b7b0b02cfb3525d3b",
+  "state_sha256": "b77cdab61b0b9a1e3ce171d0d81af14abc3b0753112e9ee6cf1367cb9a3786fb",
   "state_version": "canonical-authority-review-t5-g2-v1",
   "status_counts": {
-    "approved_exact": 3,
-    "reviewed": 17,
+    "approved_exact": 6,
+    "reviewed": 14,
     "staged": 0
   }
 }
