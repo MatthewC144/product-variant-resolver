@@ -1,5 +1,51 @@
 # Project Log
 
+## 2026-10-02 — T5-G2 Batch 3 recorder ready，停在 Subaru BRZ Owner Gate
+
+### 新執行了什麼，以及解決了什麼問題
+
+本輪將 T5-G2 bounded recorder 從 `[1,2]` prefix 擴充為 `[1,2,3]`，下一批為 Subaru BRZ
+的 packet ordinals `3`、`8`、`14`，toy identifiers 為 `JBB55`、`HYY12`、`HYW99`。三筆的
+casting、release year、series、collector number、series position 與 toy identifier 均與 frozen
+community snapshot 一致，`color` 與 `edition` 仍為 null。
+
+其中來源 context 含有「3rd Color」與「2nd Color - Zamac」，但這些文字不足以證明
+具體顏色，也不能把 Zamac 當成 edition。因此 recorder 只能記錄六個 supported fields，
+不能擴大 exact scope。本輪解決的工程問題是：第三批必須在 Batches 1–2 完整存在
+時才能 append，而且重播舊批次時不能把後續歷史清掉。
+
+本輪只交付 readiness，沒有 materialize Batch 3 owner decision。真實狀態仍是 6
+`approved_exact`／14 `reviewed`／0 `staged`。
+
+### 代碼修改了哪一部分，原因與方法選擇
+
+`canonical_authority_exact_decisions.py` 的 frozen batch map 新增 Subaru BRZ family key、ordinals 與三個
+identifiers，並把 supported prefix 上限改為 Batch 3。選擇繼續明確列出 frozen map，而不是
+讓 recorder 自動接受所有 packet batches，是為了在每批前先審核家族、identifiers、context
+與 evidence boundary。因此 Batch 4 依然 fail closed，不會因 Batch 3 readiness 而被間接開放。
+
+測試新增完整 `[1,2,3]` append/replay，要求前兩批 authorizations、六個 attestations、
+六個 exact events 與 17 個非目標 candidate objects 完全保留；也覆蓋缺 Batch 2 時拒絕、
+六欄 evidence values、toy identifiers、CLI append 與三批 replay。所有 owner text 都是 TEST-ONLY
+合成內容。
+
+### 驗證方式與結果
+
+T5-G2 focused suite 為 `18 passed`，完整 repository 為 `1357 passed, 1 warning`；Ruff、
+format、strict MyPy、compileall 與 diff check 全部通過。唯一 warning 仍是既有
+Starlette／AnyIO deprecation。合成 Batch 3 最終為 9 exact／11 reviewed、3 份 T5-G2
+authorizations、9 份 T5-G2 attestations、29 個總 events。
+
+真實 Batch 2 在擴充後的 recorder 下重播仍為 `unchanged`；802 個 tracked／unignored 文字檔
+對兩份真實 owner responses 的 privacy scan 為 0 hits。真實 private ledger 仍只含 Batches
+1–2，所以合成 Batch 3 counts 只是驗證證據，不是真實批准狀態。
+
+### 留下的邊界與下一步
+
+下一步是 Batch 3 Owner Gate。需要一份全新、明確綁定 Subaru BRZ 三個 identifiers、
+snapshot-relative 六欄 scope、null color／edition 與 `approved_exact` outcome 的 response。它不能
+重用 T5-G1 或前兩批的 response，也不能擴大為 CAR-T5F、CAR-T6 或 RHB-T5 授權。
+
 ## 2026-10-02 — T5-G2 Batch 2：Draftnator 三筆追加，累積 6 exact／14 reviewed
 
 ### 新執行了什麼，以及解決了什麼問題
