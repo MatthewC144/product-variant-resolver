@@ -1,5 +1,48 @@
 # Project Log
 
+## 2026-10-02 — T5-G2 Batch 3：Subaru BRZ 三筆追加，累積 9 exact／11 reviewed
+
+### 新執行了什麼，以及解決了什麼問題
+
+本輪在取得新的、只限 T5-G2 Batch 3 的 owner decision 後，將 Subaru BRZ 的 packet
+ordinals `3`、`8`、`14` 由 `reviewed` 推進為 `approved_exact`。首次 materialization
+回報 `created`，公開狀態由 6 exact／14 reviewed 變為 9 exact／11 reviewed／0 staged，
+事件鏈由 26 增為 29。這解決第三個 family 如何在完整 Batches 1–2 prefix 上安全
+append，同時不改寫前兩批的授權、attestation、event 與 candidate state。
+
+這三筆只承認 frozen community snapshot 的六個 supported fields。`3rd Color` 與 `2nd
+Color - Zamac` 繼續只是 context：沒有據此推導實際顏色，也沒有把 Zamac 記為 edition。
+`color` 與 `edition` 維持 null，exactness 仍只相對於 frozen community revision，不是
+manufacturer-certified truth。
+
+### 代碼與資料修改了哪一部分，以及為何這樣決定
+
+本輪沒有再改 recorder 程式碼，而是使用已通過 18 個 focused tests 與 1,357 個
+full-suite tests 的 bounded Batch 3 path。Private exact ledger 追加一份 batch authorization 與三份
+attestations；tracked public state 追加三個 events，並只更新對應三個 candidates 的 latest-state。
+
+選擇繼續分離 private verbatim 與 public hash-bound state，是為了使 Git 能稽核變更，但不暴露
+owner response。記錄前會重新驗證完整 `[1,2]` prefix、packet/catalog、對應 T5-G1
+response hash、六個 evidence values 與 Subaru BRZ identifiers；任一綁定不符都會在寫入前拒絕。
+
+### 驗證方式與結果
+
+真實 append 後兩次 `--check` 均回報 `unchanged`。Post-materialization QA 確認原有 26
+個 events 與 17 個非目標 candidate objects 完全保留；10 個 authorization links、29 個
+attestation links、29 個 events 與 20 個 latest-state links 全部成立。Batch 3 的三個 events
+各含六個正確 evidence fields，toy identifiers 與 expected values 完全符合。
+
+私密／公開權限仍為 `0700`／`0600`／`0644`，private ledgers 繼續被專用 ignore rule
+排除。804 個 tracked／unignored 文字檔對三份真實 owner responses 的 privacy scan 為 0 hits。
+落地後 focused suite 為 `18 passed`；寫入前完整 repository 為 `1357 passed, 1 warning`，唯一
+warning 是既有 Starlette／AnyIO deprecation。狀態寫入後未重跑完整 suite。
+
+### 留下的邊界與下一步
+
+T5-G2 尚未完成，還有 11 筆 `reviewed` 候選資料。下一步是為下一個 frozen family
+batch 建立 bounded recorder、執行完整測試後再停在對應 Owner Gate。Authority bundle／
+manifest 仍不存在，CAR-T5F、CAR-T6 與 RHB-T5 均未授權。
+
 ## 2026-10-02 — T5-G2 Batch 3 recorder ready，停在 Subaru BRZ Owner Gate
 
 ### 新執行了什麼，以及解決了什麼問題
