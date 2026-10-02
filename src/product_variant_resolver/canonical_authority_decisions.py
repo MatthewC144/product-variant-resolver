@@ -86,6 +86,11 @@ SUPPORTED_BATCHES = {
         "entry_ordinals": (6, 12, 19),
         "toy_identifiers": ("HYX48", "HYW13", "HYY33"),
     },
+    7: {
+        "family_group_key": "car-t3-family-mazda-mx-5-miata",
+        "entry_ordinals": (9, 15),
+        "toy_identifiers": ("HYW18", "HYX57"),
+    },
 }
 REVIEW_REASON: Literal[
     "Project owner explicitly reviewed the exact bound T5-G1 family batch; all six evidence "
@@ -289,7 +294,7 @@ def _selected_batch(
     specification = SUPPORTED_BATCHES.get(batch_ordinal)
     if specification is None:
         raise AuthorityContractError(
-            "this bounded recorder accepts only T5-G1 Batch 2 through Batch 6"
+            "this bounded recorder accepts only T5-G1 Batch 2 through Batch 7"
         )
     batch = packet.family_batches[batch_ordinal - 1]
     if (
@@ -355,7 +360,14 @@ def _validate_existing_outputs(
         raise AuthorityContractError("existing review events differ from frozen packet")
 
     ordinals = [item.batch_ordinal for item in authorization_ledger.authorizations]
-    if ordinals not in ([2], [2, 3], [2, 3, 4], [2, 3, 4, 5], [2, 3, 4, 5, 6]):
+    if ordinals not in (
+        [2],
+        [2, 3],
+        [2, 3, 4],
+        [2, 3, 4, 5],
+        [2, 3, 4, 5, 6],
+        [2, 3, 4, 5, 6, 7],
+    ):
         raise AuthorityContractError("existing T5-G1 authorizations are not the supported prefix")
     authorization_hashes = [
         item.authorization_sha256 for item in authorization_ledger.authorizations
@@ -462,7 +474,7 @@ def _build_outputs(
 ) -> dict[Path, bytes]:
     if batch_ordinal not in SUPPORTED_BATCHES:
         raise AuthorityContractError(
-            "this bounded recorder accepts only T5-G1 Batch 2 through Batch 6"
+            "this bounded recorder accepts only T5-G1 Batch 2 through Batch 7"
         )
     if expected_outcome != "reviewed":
         raise AuthorityContractError("this bounded recorder accepts only staged to reviewed")
@@ -498,6 +510,7 @@ def _build_outputs(
         4: [2, 3],
         5: [2, 3, 4],
         6: [2, 3, 4, 5],
+        7: [2, 3, 4, 5, 6],
     }[batch_ordinal]
     if (
         existing_authorization is None
