@@ -1,5 +1,50 @@
 # Project Log
 
+## 2026-10-02 — T5-G2 Batch 4：Nissan Skyline LBWK 三筆追加，累積 12 exact／8 reviewed
+
+### 新執行了什麼，以及解決了什麼問題
+
+本輪在取得新的、只限 T5-G2 Batch 4 的 owner decision 後，將 Nissan Skyline
+2000GT-R LBWK 的 packet ordinals `4`、`13`、`20` 由 `reviewed` 推進為
+`approved_exact`。首次 materialization 回報 `created`，公開狀態由 9 exact／11 reviewed
+變為 12 exact／8 reviewed／0 staged；三筆依然只核准 frozen community snapshot 支持的
+casting、release year、series、collector number、series position 與 toy identifier。
+
+這一步解決的不是「把名稱標記為正確」而已，而是把每一筆狀態轉移與 frozen
+packet、catalog record、六欄 evidence、owner attestation 和 batch authorization 全部用 hash
+連結。因此後續若有人改動任一批次或任一欄，重播與封存檢查會 fail closed，不會悄悄接受。
+
+### 代碼修改了哪一部分，原因與方法選擇
+
+這次沒有擴張 recorder 的產品邏輯，而是使用已經過 readiness 驗證的 bounded append
+路徑。私有 ledger 只保存精確的 owner response 與 12 份 T5-G2 attestations，並維持
+`0700`／`0600` 權限；Git 只追蹤 `authority-candidates.json` 與 `review-events.json`
+中不含原文的 hash-bound 狀態。選擇 private/public split，是為了同時滿足「可重播稽核」和
+「不將人類授權原文推上 GitHub」兩個需求。
+
+新增的三個 public events 只做 `reviewed -> approved_exact`，並保留先前 29 個 events
+與 17 個非目標 candidate objects。全部共有 11 個 batch authorization links、32 個
+attestation links、32 個 public events 與 20 個 candidate latest-event links。`color` 和
+`edition` 仍為 null；顏色次序文字只是 context，不被提升為 exact field。
+
+### 驗證方式與結果
+
+首次寫入回報 `created`，後續兩次使用同一份 Batch 4 私有授權做真實重播，都回報
+`unchanged`。一次操作者檢查曾誤把不同 Gate 的 response 配對，validator 在寫入前即拒絕；
+改用本批同一份授權後通過。這個失敗沒有修改公開或私有狀態，也實際證明 cross-Gate
+重用會 fail closed。
+
+寫入後 T5-G2 focused suite 收集並通過 20 項測試。寫入前的完整 repository 結果為
+`1359 passed, 1 warning`，且 Ruff、format、strict MyPy、compileall 與 diff check 全數通過；
+唯一 warning 仍是既有 Starlette／AnyIO deprecation。最終 811 個 tracked／unignored
+文字檔對四份真實 owner responses 的 privacy scan 為 0 hits，私有檔仍被 dedicated ignore rule 排除。
+
+### 留下的邊界與下一步
+
+T5-G2 仍未完成，還有 8 筆 `reviewed` 候選資料。下一個合法步驟是先為下一個 frozen
+family batch 實作並驗證 bounded path，再取得新的、只限該批的 T5-G2 owner decision。
+這次授權不建立 manufacturer-certified truth，也不授權 CAR-T5F、CAR-T6 或 RHB-T5。
+
 ## 2026-10-02 — T5-G2 Batch 4 recorder ready，停在 Nissan Skyline LBWK Owner Gate
 
 ### 新執行了什麼，以及解決了什麼問題
