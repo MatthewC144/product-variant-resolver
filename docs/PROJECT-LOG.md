@@ -1,5 +1,55 @@
 # Project Log
 
+## 2026-10-02 — T5-G2 Batch 2 recorder ready，停在 Draftnator Owner Gate
+
+### 新執行了什麼，以及解決了什麼問題
+
+本輪把 T5-G2 recorder 從只能處理 Batch 1，擴充為只能處理已明確審核的 Batch
+1→2 prefix。下一批是 Draftnator 的 packet ordinals `2`、`11`、`18`，toy identifiers
+為 `HYW70`、`HYX67`、`HYY31`。這三筆的 casting、release year、series、collector
+number、series position 與 toy identifier 均與 frozen community snapshot 一致；`color` 與
+`edition` 仍為 null。來源中的「2nd/3rd Color」文字只是 context，不被推導為實際顏色。
+
+這次解決的主要問題，是如何讓第二批可以安全 append，同時不得跳過 Batch 1、
+不得重用 T5-G1 回覆，也不得因重播舊批次而丟失新批次。本輪只交付 recorder
+readiness，沒有 materialize Batch 2 的 owner decision；真實狀態仍是 3 `approved_exact`／
+17 `reviewed`／0 `staged`。
+
+### 代碼修改了哪一部分，原因與方法選擇
+
+`canonical_authority_exact_decisions.py` 將 frozen family、ordinals 與 identifiers 定義為明確的
+bounded batch map，並要求現有 T5-G2 authorizations 必須是連續 prefix。選擇固定 map，而不是
+讓 CLI 接受任意 family，是為了把授權邊界放在可測試的程式中：Batch 2 只能跟在完整
+Batch 1 之後，Batch 3 目前仍會 fail closed。
+
+新的 prefix validator 會逐批重建 frozen expectations，並檢查 authorization→attestation→event→
+candidate latest-state 的連續關係。不只驗證數量，也綁定 packet/catalog hashes、candidate
+IDs、entry hashes、UUID、catalog-record hash、六個 evidence rows、timestamp、reason 與對應的
+T5-G1 response hash。如果重播 Batch 1，recorder 會保留已存在的 Batch 2+、而不是用舊輸出
+覆寫後續歷史。
+
+測試方面新增 Batch 2 正常 append、不可跳批、fresh cross-Gate response、舊 Batch 1 完整
+保留、舊批次重播、六欄 evidence boundary、CLI 與中斷時 atomic rollback。測試全部使用
+TEST-ONLY 合成回覆，不會把真實 owner response 放進 source 或 tracked artifacts。
+
+### 驗證方式與結果
+
+T5-G2 focused suite 為 `16 passed`，完整 repository 為 `1355 passed, 1 warning`；Ruff、
+format、strict MyPy、compileall 與 diff check 全數通過。唯一 warning 是既有 Starlette／
+AnyIO deprecation。合成 Batch 2 可得到 6 approved exact／14 reviewed、2／6 份第二道
+Gate authorization／attestation、26 個總 events，並且 Batch 1 的 authorization、3 attestations、3
+events 與所有非目標 candidates 保持不變。
+
+真實 Batch 1 在新 recorder 下重播仍為 `unchanged`；798 個 tracked／unignored 文字檔的
+真實 owner response privacy scan 為 0 hits。真實 private ledger 仍只有 Batch 1，因此上述 Batch 2
+counts 是合成驗證結果，不是已完成的 owner decision。
+
+### 留下的邊界與下一步
+
+下一步是 Owner Gate：只有在取得新的、明確綁定 Draftnator 三個 toy identifiers 與
+`approved_exact` 的 T5-G2 response 後，才能 materialize Batch 2。這份回覆不能重用 Batch 1、
+T5-G1 或 catalog-application 授權，也不能擴大為 CAR-T5F、CAR-T6 或 RHB-T5 授權。
+
 ## 2026-10-01 — T5-G2 Batch 1：3 筆 fresh exact decisions，其餘 17 筆保持 reviewed
 
 ### 新執行了什麼，以及解決了什麼問題
