@@ -1,7 +1,7 @@
 """Bounded CAR-T5 second-Gate exact-authority decision recording.
 
-The recorder currently accepts only T5-G2 Batch 1 after the complete T5-G1 state.
-It keeps second-Gate owner text in separate ignored ledgers, appends
+The recorder accepts only the supported T5-G2 family-batch prefix after the complete
+T5-G1 state. It keeps second-Gate owner text in separate ignored ledgers, appends
 ``reviewed -> approved_exact`` events, and cannot freeze a bundle or authorize RHB-T5.
 """
 
@@ -61,7 +61,12 @@ EXACT_ATTESTATION_LEDGER_REFERENCE = PRIVATE_DIRECTORY / "exact-owner-attestatio
 DECISION_VERSION: Literal["canonical-authority-review-t5-g2-v1"] = (
     "canonical-authority-review-t5-g2-v1"
 )
-SUPPORTED_BATCH_ORDINAL: Literal[1] = 1
+SUPPORTED_BATCH_ORDINALS = (1, 2)
+DEFAULT_BATCH_ORDINAL: Literal[1] = 1
+FROZEN_BATCHES: dict[int, tuple[str, tuple[int, ...], tuple[str, ...]]] = {
+    1: ("car-t3-family-mazda-autozam", (1, 10, 16), ("HYX45", "HYY10", "HYW66")),
+    2: ("car-t3-family-draftnator", (2, 11, 18), ("HYW70", "HYX67", "HYY31")),
+}
 G2_DECLARATION: Literal[
     "owner_explicitly_authorized_t5_g2_exact_authority_outcomes_for_every_covered_entry"
 ] = "owner_explicitly_authorized_t5_g2_exact_authority_outcomes_for_every_covered_entry"
@@ -147,24 +152,28 @@ def _with_hash(body: dict[str, Any], key: str) -> dict[str, Any]:
 def _selected_batch(
     packet: AuthorityReviewPreparationPacket, batch_ordinal: int
 ) -> tuple[Any, list[Any]]:
-    if batch_ordinal != SUPPORTED_BATCH_ORDINAL:
-        raise AuthorityContractError("this bounded exact recorder accepts only T5-G2 Batch 1")
-    batch = packet.family_batches[0]
+    expected = FROZEN_BATCHES.get(batch_ordinal)
+    if expected is None:
+        raise AuthorityContractError("this bounded exact recorder accepts only T5-G2 Batches 1-2")
+    family_group_key, entry_ordinals, toy_identifiers = expected
+    batch = packet.family_batches[batch_ordinal - 1]
     if (
-        batch.batch_ordinal != 1
-        or batch.family_group_key != "car-t3-family-mazda-autozam"
-        or tuple(batch.entry_ordinals) != (1, 10, 16)
+        batch.batch_ordinal != batch_ordinal
+        or batch.family_group_key != family_group_key
+        or tuple(batch.entry_ordinals) != entry_ordinals
     ):
-        raise AuthorityContractError("T5-G2 Batch 1 differs from the frozen family batch")
+        raise AuthorityContractError(
+            f"T5-G2 Batch {batch_ordinal} differs from the frozen family batch"
+        )
     entries_by_ordinal = {entry.ordinal: entry for entry in packet.entries}
     entries = [entries_by_ordinal[ordinal] for ordinal in batch.entry_ordinals]
     identifiers = tuple(entry.catalog_record.identifiers[0] for entry in entries)
-    if identifiers != ("HYX45", "HYY10", "HYW66"):
-        raise AuthorityContractError("T5-G2 Batch 1 toy identifiers are stale")
+    if identifiers != toy_identifiers:
+        raise AuthorityContractError(f"T5-G2 Batch {batch_ordinal} toy identifiers are stale")
     if batch.candidate_ids != [entry.candidate.candidate_id for entry in entries]:
-        raise AuthorityContractError("T5-G2 Batch 1 candidate order is stale")
+        raise AuthorityContractError(f"T5-G2 Batch {batch_ordinal} candidate order is stale")
     if batch.entry_sha256s != [entry.entry_sha256 for entry in entries]:
-        raise AuthorityContractError("T5-G2 Batch 1 entry hashes are stale")
+        raise AuthorityContractError(f"T5-G2 Batch {batch_ordinal} entry hashes are stale")
     return batch, entries
 
 
@@ -207,6 +216,7 @@ def _validate_g1_and_public_state(
     candidates: AuthorityCandidateStateFile,
     events: AuthorityReviewEventFile,
     exact_state: tuple[ExactBatchAuthorizationLedger, ExactOwnerAttestationLedger] | None,
+    target_batch_ordinal: int,
 ) -> None:
     if [item.batch_ordinal for item in g1_authorizations.authorizations] != list(range(1, 8)):
         raise AuthorityContractError("T5-G2 requires all seven T5-G1 authorizations")
@@ -265,6 +275,8 @@ def _validate_g1_and_public_state(
             raise AuthorityContractError("candidate state differs from its latest review event")
 
     if exact_state is None:
+        if target_batch_ordinal != 1:
+            raise AuthorityContractError("T5-G2 exact batches must be appended in prefix order")
         if exact_events or candidates.status_counts != {
             "staged": 0,
             "reviewed": 20,
@@ -279,24 +291,98 @@ def _validate_g1_and_public_state(
         or exact_attestations.packet_sha256 != packet_sha
     ):
         raise AuthorityContractError("existing T5-G2 private state differs from the packet")
-    if [item.batch_ordinal for item in exact_authorizations.authorizations] != [1]:
+    exact_ordinals = [item.batch_ordinal for item in exact_authorizations.authorizations]
+    if exact_ordinals != list(range(1, len(exact_ordinals) + 1)) or any(
+        ordinal not in SUPPORTED_BATCH_ORDINALS for ordinal in exact_ordinals
+    ):
         raise AuthorityContractError("existing T5-G2 authorizations are not the supported prefix")
-    if len(exact_attestations.attestations) != 3 or len(exact_events) != 3:
-        raise AuthorityContractError("existing T5-G2 Batch 1 must contain exactly three decisions")
+    if (
+        target_batch_ordinal not in exact_ordinals
+        and target_batch_ordinal != len(exact_ordinals) + 1
+    ):
+        raise AuthorityContractError("T5-G2 exact batches must be appended in prefix order")
+
+    g1_by_ordinal = {item.batch_ordinal: item for item in g1_authorizations.authorizations}
+    expected_entries: dict[str, tuple[Any, str, int]] = {}
+    for authorization in exact_authorizations.authorizations:
+        batch, entries = _selected_batch(packet, authorization.batch_ordinal)
+        prior_response_hashes = [
+            g1_by_ordinal[authorization.batch_ordinal].response_verbatim_sha256
+        ]
+        expected = ExpectedBatchOwnerAuthorization(
+            gate="T5-G2",
+            authorization_scope="reviewed_to_approved_exact",
+            authorization_declaration=G2_DECLARATION,
+            expected_outcome=ReviewStatus.approved_exact,
+            batch_ordinal=batch.batch_ordinal,
+            family_batch_sha256=batch.batch_sha256,
+            catalog_application_manifest_sha256=packet.catalog_application_manifest_sha256,
+            exact_external_response=authorization.authorized_exact_owner_response,
+            exact_external_response_sha256=_sha256_text(
+                authorization.authorized_exact_owner_response
+            ),
+            prior_gate_response_sha256s=prior_response_hashes,
+        )
+        validate_batch_owner_authorization(authorization, expected=expected)
+        if (
+            authorization.ordered_candidate_ids != batch.candidate_ids
+            or authorization.ordered_entry_sha256s != batch.entry_sha256s
+        ):
+            raise AuthorityContractError("existing T5-G2 authorization differs from frozen batch")
+        for entry in entries:
+            if entry.candidate.candidate_id in expected_entries:
+                raise AuthorityContractError("existing T5-G2 batches overlap candidates")
+            expected_entries[entry.candidate.candidate_id] = (
+                entry,
+                authorization.authorization_sha256,
+                authorization.batch_ordinal,
+            )
+
+    expected_exact_count = len(expected_entries)
+    if (
+        len(exact_attestations.attestations) != expected_exact_count
+        or len(exact_events) != expected_exact_count
+    ):
+        raise AuthorityContractError("existing T5-G2 prefix has incomplete decisions")
     exact_attestation_by_id = {item.candidate_id: item for item in exact_attestations.attestations}
-    exact_hashes = {item.authorization_sha256 for item in exact_authorizations.authorizations}
-    for event in exact_events:
-        attestation = exact_attestation_by_id.get(event.candidate_id)
+    exact_event_by_id = {item.candidate_id: item for item in exact_events}
+    if set(exact_attestation_by_id) != set(expected_entries) or set(exact_event_by_id) != set(
+        expected_entries
+    ):
+        raise AuthorityContractError("existing T5-G2 decisions differ from frozen prefix")
+    for candidate_id, (entry, authorization_sha256, batch_ordinal) in expected_entries.items():
+        attestation = exact_attestation_by_id[candidate_id]
+        event = exact_event_by_id[candidate_id]
+        expected_event_id = f"car-t5-g2-batch-{batch_ordinal}-ordinal-{entry.ordinal:02d}"
         if (
             event.from_status != ReviewStatus.reviewed
             or event.to_status != ReviewStatus.approved_exact
-            or attestation is None
+            or event.event_id != expected_event_id
+            or event.packet_sha256 != packet_sha
+            or event.catalog_version != packet.catalog_version
+            or event.catalog_sha256 != packet.catalog_sha256
+            or event.canonical_uuid != entry.candidate.canonical_uuid
+            or event.catalog_record_sha256 != entry.catalog_record_sha256
+            or event.variant_field_evidence != entry.field_evidence
             or event.attestation_sha256 != attestation.attestation_sha256
             or event.batch_authorization_sha256 != attestation.batch_authorization_sha256
-            or event.batch_authorization_sha256 not in exact_hashes
+            or event.batch_authorization_sha256 != authorization_sha256
+            or event.reviewed_at != attestation.reviewed_at
+            or event.review_reason != EXACT_REASON
+            or event.remediation_note is not None
+            or attestation.packet_sha256 != packet_sha
+            or attestation.catalog_version != packet.catalog_version
+            or attestation.catalog_sha256 != packet.catalog_sha256
+            or attestation.catalog_record_sha256 != entry.catalog_record_sha256
+            or attestation.outcome != ReviewStatus.approved_exact
+            or attestation.review_reason != EXACT_REASON
         ):
             raise AuthorityContractError("existing T5-G2 event chain is inconsistent")
-    if candidates.status_counts != {"staged": 0, "reviewed": 17, "approved_exact": 3}:
+    if candidates.status_counts != {
+        "staged": 0,
+        "reviewed": 20 - expected_exact_count,
+        "approved_exact": expected_exact_count,
+    }:
         raise AuthorityContractError("existing T5-G2 candidate counts are stale")
 
 
@@ -310,8 +396,8 @@ def _build_outputs(
     expected_outcome: str,
     exact_state: tuple[ExactBatchAuthorizationLedger, ExactOwnerAttestationLedger] | None,
 ) -> dict[Path, bytes]:
-    if batch_ordinal != SUPPORTED_BATCH_ORDINAL:
-        raise AuthorityContractError("this bounded exact recorder accepts only T5-G2 Batch 1")
+    if batch_ordinal not in SUPPORTED_BATCH_ORDINALS:
+        raise AuthorityContractError("this bounded exact recorder accepts only T5-G2 Batches 1-2")
     if expected_outcome != "approved_exact":
         raise AuthorityContractError("this bounded exact recorder accepts only approved_exact")
     if reviewed_at.tzinfo is None or reviewed_at.utcoffset() is None:
@@ -336,6 +422,7 @@ def _build_outputs(
         candidates,
         events,
         exact_state,
+        batch_ordinal,
     )
 
     prior_g1 = next(
@@ -383,22 +470,32 @@ def _build_outputs(
     )
     validate_batch_owner_authorization(proposed_authorization, expected=expected)
 
-    existing_authorization = None
+    existing_authorizations = list(exact_state[0].authorizations) if exact_state is not None else []
+    existing_authorization = next(
+        (item for item in existing_authorizations if item.batch_ordinal == batch_ordinal), None
+    )
     exact_attestations: list[OwnerAttestationV2] = []
-    if exact_state is not None:
-        existing_authorization = exact_state[0].authorizations[0]
+    if existing_authorization is not None:
         validate_batch_owner_authorization(existing_authorization, expected=expected)
         if existing_authorization != proposed_authorization:
-            raise AuthorityContractError("conflicting or tampered T5-G2 Batch 1 replay")
+            raise AuthorityContractError(
+                f"conflicting or tampered T5-G2 Batch {batch_ordinal} replay"
+            )
+    if exact_state is not None:
         exact_attestations = list(exact_state[1].attestations)
     authorization = existing_authorization or proposed_authorization
+    if existing_authorization is None:
+        existing_authorizations.append(authorization)
+    existing_authorizations.sort(key=lambda item: item.batch_ordinal)
 
     authorization_ledger_body = {
         "schema_version": "pvr-canonical-authority-exact-batch-authorization-ledger-v1",
         "ledger_version": DECISION_VERSION,
         "packet_sha256": packet_sha,
-        "authorizations": [authorization.model_dump(mode="json")],
-        "cumulative_authorization_sha256": content_sha256([authorization.authorization_sha256]),
+        "authorizations": [item.model_dump(mode="json") for item in existing_authorizations],
+        "cumulative_authorization_sha256": content_sha256(
+            [item.authorization_sha256 for item in existing_authorizations]
+        ),
     }
     authorization_ledger = ExactBatchAuthorizationLedger.model_validate(
         _with_hash(authorization_ledger_body, "ledger_sha256")
@@ -428,7 +525,7 @@ def _build_outputs(
             exact_attestations.append(attestation)
             event_body: dict[str, Any] = {
                 "schema_version": "pvr-canonical-authority-review-event-v2",
-                "event_id": f"car-t5-g2-batch-1-ordinal-{entry.ordinal:02d}",
+                "event_id": (f"car-t5-g2-batch-{batch_ordinal}-ordinal-{entry.ordinal:02d}"),
                 "candidate_id": entry.candidate.candidate_id,
                 "from_status": "reviewed",
                 "to_status": "approved_exact",
@@ -459,7 +556,9 @@ def _build_outputs(
         "schema_version": "pvr-canonical-authority-exact-owner-attestation-ledger-v1",
         "ledger_version": DECISION_VERSION,
         "packet_sha256": packet_sha,
-        "batch_authorization_sha256s": [authorization.authorization_sha256],
+        "batch_authorization_sha256s": sorted(
+            item.authorization_sha256 for item in existing_authorizations
+        ),
         "attestations": [item.model_dump(mode="json") for item in exact_attestations],
         "cumulative_attestation_sha256": content_sha256(
             [item.attestation_sha256 for item in exact_attestations]
@@ -548,7 +647,7 @@ def _build_outputs(
     combined_public = outputs[AUTHORITY_CANDIDATES_REFERENCE] + outputs[REVIEW_EVENTS_REFERENCE]
     private_responses = [
         item.owner_response_verbatim for item in g1_authorizations.authorizations
-    ] + [authorization.owner_response_verbatim]
+    ] + [item.owner_response_verbatim for item in existing_authorizations]
     if any(response.encode("utf-8") in combined_public for response in private_responses):
         raise AuthorityContractError("public exact decision artifact contains owner verbatim")
     if b"@example.com" in combined_public:
@@ -571,7 +670,7 @@ def record_t5_g2_batch_exact(
     *,
     owner_response_verbatim: str,
     authorized_exact_owner_response: str,
-    batch_ordinal: int = SUPPORTED_BATCH_ORDINAL,
+    batch_ordinal: int = DEFAULT_BATCH_ORDINAL,
     expected_outcome: str = "approved_exact",
     reviewed_at: datetime | None = None,
     check: bool = False,
@@ -603,12 +702,17 @@ def record_t5_g2_batch_exact(
         raise AuthorityContractError("partial T5-G2 private decision state")
     materialized = all(states.values())
     if check and not materialized:
-        raise AuthorityContractError("T5-G2 Batch 1 exact decision is not materialized")
+        raise AuthorityContractError("requested T5-G2 exact decision is not materialized")
     exact_state = _load_exact_state(root) if materialized else None
 
     timestamp = reviewed_at
     if exact_state is not None and timestamp is None:
-        timestamp = exact_state[0].authorizations[0].authorized_at
+        existing = next(
+            (item for item in exact_state[0].authorizations if item.batch_ordinal == batch_ordinal),
+            None,
+        )
+        if existing is not None:
+            timestamp = existing.authorized_at
     timestamp = timestamp or datetime.now(UTC).replace(microsecond=0)
     outputs = _build_outputs(
         root,
@@ -627,7 +731,9 @@ def record_t5_g2_batch_exact(
     ):
         return "unchanged"
     if check:
-        raise AuthorityContractError("T5-G2 Batch 1 artifacts differ from the expected state")
+        raise AuthorityContractError(
+            f"T5-G2 Batch {batch_ordinal} artifacts differ from the expected state"
+        )
 
     original_bytes = {
         reference: target.read_bytes() for reference, target in targets.items() if target.exists()
