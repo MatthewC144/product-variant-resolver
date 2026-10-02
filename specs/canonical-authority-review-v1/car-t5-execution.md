@@ -1,7 +1,7 @@
 # CAR-T5 exact-authority execution addendum
 
-Status: **CAR-T5P and Owner Gate T5-G1 complete (20 reviewed / 0 staged); T5-G2 not started and
-exact authority remains 0**
+Status: **CAR-T5P and Owner Gate T5-G1 complete; T5-G2 Batch 1 recorded (3 approved exact /
+17 reviewed / 0 staged), while CAR-T5F remains blocked on the other six batches**
 
 Mode: Lean Industrial
 
@@ -13,10 +13,10 @@ Prepare, review and freeze an output-blind exact-authority bundle for the 20 cat
 created by CAR-T4A. This addendum does not alter the authority claim: any accepted value is exact
 only relative to the approved, frozen community snapshot.
 
-The current continuation instruction authorizes preparation of the next review material only. It is
-not an attestation that a candidate was reviewed, is not an `approved_exact` decision, and does not
-authorize an authority bundle, RHB-T4 re-audit or RHB-T5. Catalog-application authorization also
-cannot be reused as exact-authority authorization.
+The first separately scoped T5-G2 owner decision now authorizes only the three Mazda Autozam
+entries in Batch 1 to move from `reviewed` to `approved_exact`, relative to the frozen community
+snapshot. It does not authorize any other batch, an authority bundle, RHB-T4 re-audit or RHB-T5.
+Catalog-application and T5-G1 authorizations cannot be reused as exact-authority authorization.
 
 Current immutable anchors are:
 
@@ -241,14 +241,19 @@ the batch; the exact owner response must explicitly bind Batch 1, its three toy 
 `reviewed` outcome, null `color`／`edition`, and the exclusion of `approved_exact` and RHB-T5.
 
 T5-G1 is now complete: all seven family batches produced 20 reviewed events with zero staged
-entries. This completion authorizes neither exact authority nor RHB work; execution stops before
-T5-G2 until a fresh, separately scoped owner outcome is supplied.
+entries. That completion did not itself authorize exact authority or RHB work. T5-G2 now advances
+only through separately scoped owner outcomes, beginning with the independently recorded Batch 1.
 
 ### Owner Gate T5-G2 — Exact-authority approval
 
 The owner must separately authorize `approved_exact` for the exact reviewed scope. Successful
 entries receive `reviewed -> approved_exact`; failures remain traceable and excluded. This Gate does
 not authorize RHB-T5.
+
+Batch 1 is complete: its three Mazda Autozam entries are `approved_exact`, while the other 17
+entries remain `reviewed`. The exact decisions cover only the six supported snapshot fields;
+`color` and `edition` remain null. The next executable action is another fresh, family-bounded
+T5-G2 decision. CAR-T5F cannot start until all remaining outcomes are recorded and reconciled.
 
 ### CAR-T5F — Freeze bundle `[task_executor -> qa -> doc_curator]`
 
@@ -283,7 +288,7 @@ approval is revoked by a new event; dependent counts and manifests become invali
 
 The following decisions remain exclusively with the owner:
 
-1. T5-G1 outcome for each of the 20 entries, supplied per family or as one explicitly scoped batch;
-2. after all successful reviews, the separate T5-G2 exact-authority outcome for each entry;
-3. the disposition/remediation of any held, conflicted or insufficient entry;
-4. any later authorization to run CAR-T6; RHB-T5 remains a still later, separate Gate.
+1. fresh T5-G2 exact-authority outcomes for the remaining 17 reviewed entries;
+2. the disposition/remediation of any held, conflicted or insufficient entry;
+3. any later authorization to freeze CAR-T5F or run CAR-T6; RHB-T5 remains a still later, separate
+   Gate.
