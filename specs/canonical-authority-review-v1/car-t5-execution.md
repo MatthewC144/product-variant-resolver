@@ -1,6 +1,6 @@
 # CAR-T5 exact-authority execution addendum
 
-Status: **CAR-T5P complete; Owner Gate T5-G1 in progress (15 reviewed / 5 staged)**
+Status: **CAR-T5P complete; Owner Gate T5-G1 in progress (17 reviewed / 3 staged)**
 
 Mode: Lean Industrial
 
