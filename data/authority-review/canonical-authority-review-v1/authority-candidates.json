@@ -35,10 +35,10 @@
       "canonical_uuid": "d2ee5fd2-006e-5758-bdc3-9cfd7f29bcc9",
       "catalog_record_sha256": "4719466714687da1f90be551a9c4c971d07e1997b828625ae2af449c2e019065",
       "entry_sha256": "2e44e44596574b336d3dafe1c013672523ccd930559d66785ca7ce24dfa25a11",
-      "latest_event_id": "car-t5-g1-batch-4-ordinal-04",
-      "latest_event_sha256": "652e246604f63e576d53112aea8c1aa5df2e210ac004010d501f350a7e8ddf5e",
+      "latest_event_id": "car-t5-g2-batch-4-ordinal-04",
+      "latest_event_sha256": "faad05129379b030a2b758a32aa7dd1b0edc0f39bed30e7ca76a0390dfcfca98",
       "ordinal": 4,
-      "status": "reviewed"
+      "status": "approved_exact"
     },
     {
       "candidate_id": "car-t3-fandom-row-2a5c961e0bb57c99",
@@ -125,10 +125,10 @@
       "canonical_uuid": "4930354f-a9fe-5928-8358-4c96bfb1907e",
       "catalog_record_sha256": "5b9b3974d899b93ad545f35b3ea90f45add80e89fbf11cbd26952d2e95fae0df",
       "entry_sha256": "837d3c105bec944ef6cf06884630981d311fa23968c1b0aa7845af66cea8e796",
-      "latest_event_id": "car-t5-g1-batch-4-ordinal-13",
-      "latest_event_sha256": "fde4d6d34ff344636dc583f7894acec9b24ad4335f9c800521f7ef9e5b595d67",
+      "latest_event_id": "car-t5-g2-batch-4-ordinal-13",
+      "latest_event_sha256": "b493a5eb6a18d620d324d1ceff4e89e8d16c580d6e582c0656eb963dc96b3e21",
       "ordinal": 13,
-      "status": "reviewed"
+      "status": "approved_exact"
     },
     {
       "candidate_id": "car-t3-fandom-row-78748248e56441f5",
@@ -195,10 +195,10 @@
       "canonical_uuid": "7d451d55-950c-59c0-8b43-a65c60c93557",
       "catalog_record_sha256": "c7e072b3d5aeaa4059a7b99d531aded814f6f44e445a2d1e40005982d6259930",
       "entry_sha256": "4dfd58404dccf670380ee28bec3322cba3729bbb75fdad8a471d57bb9f489022",
-      "latest_event_id": "car-t5-g1-batch-4-ordinal-20",
-      "latest_event_sha256": "d8205e7935bea35a360a29b80cb07d3b095a11bc06bd07807001fd85931b9612",
+      "latest_event_id": "car-t5-g2-batch-4-ordinal-20",
+      "latest_event_sha256": "52f797e3de0d65a451f3d46b9898957d5632c0de17e45bf08f0247bd008d5a1d",
       "ordinal": 20,
-      "status": "reviewed"
+      "status": "approved_exact"
     }
   ],
   "catalog_sha256": "e763c8739a76ab4cc9b66169aecd4aea241ee810d8a27cdfb7d05bcacd98562e",
@@ -208,11 +208,11 @@
   "resolver_output_consulted": false,
   "rhb_t5_authorized": false,
   "schema_version": "pvr-canonical-authority-candidate-state-v1",
-  "state_sha256": "b20d66b247961bc76a81096b06d76c64d263a12d87a8be2220deb7dc1a954ad5",
+  "state_sha256": "d5f1e8c008e8c7bced4d6320b8adce4785cbfc104101fe64e805d64e1994f462",
   "state_version": "canonical-authority-review-t5-g2-v1",
   "status_counts": {
-    "approved_exact": 9,
-    "reviewed": 11,
+    "approved_exact": 12,
+    "reviewed": 8,
     "staged": 0
   }
 }
