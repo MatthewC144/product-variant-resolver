@@ -1,5 +1,50 @@
 # Project Log
 
+## 2026-10-02 — T5-G2 Batch 5 recorder ready，停在 '21 Ford Bronco Owner Gate
+
+### 新執行了什麼，以及解決了什麼問題
+
+本輪將 T5-G2 bounded recorder 從 `[1,2,3,4]` 擴充為 `[1,2,3,4,5]` prefix。下一批是
+`'21 Ford Bronco` 的 packet ordinals `5`、`7`、`17`，toy identifiers 為 `HYY32`、
+`HYW73`、`HYX50`。三筆在 casting、release year、series、collector number、series
+position 與 toy identifier 都和 frozen community snapshot 一致；`color` 與 `edition` 仍為 null。
+
+這一步解決的問題是：即使 Batch 5 的資料表面上完整，也不能直接把三筆記成
+`approved_exact`。系統必須先證明 Batches 1–4 是完整、連續且未被篡改的 prefix，再將
+Batch 5 的 family、ordinals、identifiers 與 entry hashes 精確綁定。目前只完成這條安全路徑，
+並沒有 materialize 任何 Batch 5 owner decision，真實狀態仍是 12 exact／8 reviewed／0 staged。
+
+### 代碼修改了哪一部分，原因與方法選擇
+
+`canonical_authority_exact_decisions.py` 的 frozen batch map 新增 `'21 Ford Bronco` 的 family
+key、ordinals 與 identifiers，supported prefix 上限只擴為 Batch 5。繼續使用明確 frozen
+map，而不是一次開放 Batches 5–7，是為了讓每批的 context、null-field boundary 與 owner
+authorization 分開驗證；因此 Batch 6 仍會 fail closed。
+
+測試新增完整 `[1,2,3,4,5]` append/replay，要求四批舊 authorizations、12 個舊
+attestations/exact events 與 17 個非目標 candidate objects 全部保留；也覆蓋缺 Batch 4
+時拒絕、Bronco 六欄 evidence values、三個 identifiers、CLI append 與五批 replay。
+測試授權文字全是 `TEST-ONLY` 合成內容，沒有複製真實 owner response。
+
+### 驗證方式與結果
+
+T5-G2 focused suite 為 `22 passed`，完整 repository 為 `1361 passed, 1 warning`。本次修改
+檔案的 Ruff、format、strict MyPy、compileall 與 diff check 全數通過；唯一 test warning
+仍是既有 Starlette／AnyIO deprecation。合成 Batch 5 最終為 15 exact／5 reviewed、5 份
+T5-G2 authorizations、15 份 T5-G2 attestations 與 35 個總 events。
+
+真實 Batch 4 在新 recorder 下重播仍為 `unchanged`；813 個 tracked／unignored 文字檔對
+四份真實 owner responses 的 privacy scan 為 0 hits。額外的 repo-wide Ruff 探索檢查揭露
+245 個既有 lint 技術債，主要在舊 scripts、migrations 與 tests；因為不屬於 Batch 5 且大量
+自動修改會擴大風險，本輪只記錄待辦，沒有順便重寫無關檔案。
+
+### 留下的邊界與下一步
+
+下一步是 Batch 5 Owner Gate：需要一份新的、明確綁定三個 Bronco identifiers、
+snapshot-relative 六欄 scope、null color／edition 與 `approved_exact` outcome 的 response。
+它不能重用 T5-G1 或前四批 response，也不授權 CAR-T5F、CAR-T6 或 RHB-T5。Batch 5
+如果通過，還有 Batch 6 的 3 筆與 Batch 7 的 2 筆需要分別完成 readiness 和 owner decision。
+
 ## 2026-10-02 — T5-G2 Batch 4：Nissan Skyline LBWK 三筆追加，累積 12 exact／8 reviewed
 
 ### 新執行了什麼，以及解決了什麼問題
