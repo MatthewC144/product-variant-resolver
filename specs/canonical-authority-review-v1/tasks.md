@@ -154,6 +154,9 @@ separate data-state commit. This task does not satisfy or start CAR-T5.
   no T5-G1 or catalog-application response may be reused. _(In progress: Batch 1 recorded for
   Mazda Autozam; 3 entries are `approved_exact`, 17 remain `reviewed`, and each approved field is
   exact only relative to the frozen community snapshot.)_
+- [x] T5-G2 Batch 2 readiness: extend the bounded exact recorder to the Draftnator family only,
+  require the complete immutable Batch 1 prefix, preserve all prior objects, and stop without
+  materializing an owner outcome.
 - [ ] CAR-T5F: freeze the event chain and authority bundle, or publish exact shortfalls.
 
 Files:
