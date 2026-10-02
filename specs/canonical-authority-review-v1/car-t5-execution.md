@@ -1,7 +1,7 @@
 # CAR-T5 exact-authority execution addendum
 
-Status: **CAR-T5P complete; Owner Gate T5-G1 in progress (17 reviewed / 3 staged); final Batch 1
-recorder verified and awaiting an explicit owner outcome**
+Status: **CAR-T5P and Owner Gate T5-G1 complete (20 reviewed / 0 staged); T5-G2 not started and
+exact authority remains 0**
 
 Mode: Lean Industrial
 
@@ -239,6 +239,10 @@ Batches 2–7 state. This allows the previously deferred Mazda Autozam family to
 without weakening predecessor validation. A generic continuation instruction does not materialize
 the batch; the exact owner response must explicitly bind Batch 1, its three toy identifiers, the
 `reviewed` outcome, null `color`／`edition`, and the exclusion of `approved_exact` and RHB-T5.
+
+T5-G1 is now complete: all seven family batches produced 20 reviewed events with zero staged
+entries. This completion authorizes neither exact authority nor RHB work; execution stops before
+T5-G2 until a fresh, separately scoped owner outcome is supplied.
 
 ### Owner Gate T5-G2 — Exact-authority approval
 
