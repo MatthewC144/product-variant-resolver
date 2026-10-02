@@ -160,6 +160,9 @@ separate data-state commit. This task does not satisfy or start CAR-T5.
 - [x] T5-G2 Batch 2 decision: record the fresh Draftnator owner outcome as three
   `reviewed -> approved_exact` events while preserving the complete Batch 1 prefix and null
   color/edition boundary.
+- [x] T5-G2 Batch 3 readiness: extend the bounded exact recorder to the Subaru BRZ family only,
+  require the complete immutable Batches 1–2 prefix, preserve all prior objects, and stop without
+  materializing an owner outcome.
 - [ ] CAR-T5F: freeze the event chain and authority bundle, or publish exact shortfalls.
 
 Files:

@@ -260,6 +260,12 @@ event and non-target candidate object. The current state is 6 approved exact / 1
 next executable action is another fresh, family-bounded T5-G2 decision. CAR-T5F cannot start until
 all remaining outcomes are recorded and reconciled.
 
+The bounded Batch 3 path is now implementation-ready for the Subaru BRZ entries at packet ordinals
+`3`, `8` and `14`. It requires the complete validated Batches 1–2 prefix, a fresh exact response
+distinct from the corresponding T5-G1 response, and exact preservation of every prior object.
+Second/third-color and Zamac wording remain context only; color and edition remain null. No Batch 3
+owner decision has been materialized, so the real state remains 6 approved exact / 14 reviewed.
+
 ### CAR-T5F — Freeze bundle `[task_executor -> qa -> doc_curator]`
 
 After T5-G2, validate all parents and event chains, freeze safe tracked outputs, run two unchanged
@@ -293,7 +299,8 @@ approval is revoked by a new event; dependent counts and manifests become invali
 
 The following decisions remain exclusively with the owner:
 
-1. fresh, separately bounded T5-G2 exact-authority outcomes for the remaining 14 reviewed entries;
+1. a fresh T5-G2 exact-authority outcome for Batch 3, followed by separately bounded outcomes for
+   the remaining 11 reviewed entries;
 2. the disposition/remediation of any held, conflicted or insufficient entry;
 3. any later authorization to freeze CAR-T5F or run CAR-T6; RHB-T5 remains a still later, separate
    Gate.
