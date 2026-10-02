@@ -1,5 +1,51 @@
 # Project Log
 
+## 2026-10-02 — T5-G2 Batch 4 recorder ready，停在 Nissan Skyline LBWK Owner Gate
+
+### 新執行了什麼，以及解決了什麼問題
+
+本輪把 T5-G2 bounded recorder 從 `[1,2,3]` 擴充為 `[1,2,3,4]` prefix。下一批是 Nissan
+Skyline 2000GT-R LBWK 的 packet ordinals `4`、`13`、`20`，toy identifiers 為 `HYX54`、
+`HYW79`、`HYY30`。三筆的 casting、release year、series、collector number、series position
+與 toy identifier 都與 frozen community snapshot 一致；`color` 與 `edition` 均為 null。
+
+來源中的「3rd Color」與「2nd Color」仍只是 context，無法支持一個實際顏色值。因此新批次
+仍只能綁定六個 supported fields，不能使用 free-text context 擴張 exact scope。本輪解決
+的工程問題是：Batch 4 只能在 Batches 1–3 的 authorization、attestation、event 與 candidate
+state 全部通過對帳後追加，而且不能跳批或清除後續歷史。
+
+本輪只完成 readiness，沒有 materialize Batch 4 owner decision；真實狀態仍為 9 exact／
+11 reviewed／0 staged。
+
+### 代碼修改了哪一部分，原因與方法選擇
+
+`canonical_authority_exact_decisions.py` 的 frozen batch map 新增 Nissan Skyline family key、ordinals 與
+identifiers，supported prefix 上限擴為 Batch 4。繼續使用明確 frozen map，而不是一次開放
+所有剩餘 batches，是為了在每一批進入 Gate 前分別驗證 family name、toy identifiers、context
+與 null field boundary。Batch 5 仍然 fail closed。
+
+測試新增完整 `[1,2,3,4]` append/replay，要求前三批 authorizations、9 個 attestations、9 個
+exact events 與 17 個非目標 candidate objects 完全保留。也覆蓋缺 Batch 3 時拒絕、六欄
+evidence values、Nissan identifiers、CLI append 與四批 replay。所有授權文字均為 TEST-ONLY
+合成內容。
+
+### 驗證方式與結果
+
+T5-G2 focused suite 為 `20 passed`，完整 repository 為 `1359 passed, 1 warning`；Ruff、
+format、strict MyPy、compileall 與 diff check 全數通過。唯一 warning 仍是既有 Starlette／
+AnyIO deprecation。合成 Batch 4 最終為 12 exact／8 reviewed、4 份 T5-G2 authorizations、
+12 份 T5-G2 attestations 與 32 個總 events。
+
+真實 Batch 3 在新 recorder 下重播仍為 `unchanged`；806 個 tracked／unignored 文字檔對三份
+真實 owner responses 的 privacy scan 為 0 hits。真實 private ledger 仍只含 Batches 1–3，所以
+合成 Batch 4 counts 只是驗證證據，不是真實批准狀態。
+
+### 留下的邊界與下一步
+
+下一步是 Batch 4 Owner Gate：需要一份新的、明確綁定 Nissan Skyline 三個 identifiers、
+snapshot-relative 六欄 scope、null color／edition 與 `approved_exact` outcome 的 response。它不能
+重用 T5-G1 或前三批 response，也不授權 CAR-T5F、CAR-T6 或 RHB-T5。
+
 ## 2026-10-02 — T5-G2 Batch 3：Subaru BRZ 三筆追加，累積 9 exact／11 reviewed
 
 ### 新執行了什麼，以及解決了什麼問題
