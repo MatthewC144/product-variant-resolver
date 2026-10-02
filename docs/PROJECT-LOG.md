@@ -1,5 +1,44 @@
 # Project Log
 
+## 2026-10-01 — T5-G1 完成：Final Batch 1 累積 20 reviewed／0 staged
+
+### 新執行了什麼，以及解決了什麼問題
+
+本輪在取得新的、明確且只限 T5-G1 的 owner outcome 後，正式記錄 Mazda Autozam 最後三筆
+ordinals `1`、`10`、`16`。首次 materialization 回報 `created`，累積狀態由 17 reviewed／3 staged
+推進為 20 reviewed／0 staged；private batch authorizations 由 6 增至 7，private attestations 與 public
+events 則各由 17 增至 20。這完成了所有七個 family batches 的第一道 evidence review。
+
+本輪沒有將 review 解讀為 exact truth：`approved_exact` 仍為 0，authority bundle／manifest 未建立，
+RHB-T5 authorization 仍為 false。授權原文只存在 Git-ignored private ledger，不會在本日誌重述。
+
+### 代碼與資料修改了哪一部分，以及為何這樣決定
+
+本輪沒有再修改 recorder 程式碼，而是使用上一個已通過 71 個 focused tests 與 1339 個 full-suite
+tests 的 final-batch path。公開資料只更新 `authority-candidates.json` 與 `review-events.json`；私密
+authorization／attestation ledgers 留在 ignored workspace。選擇分離 public state 與 private verbatim，
+是為了讓 Git 能審計 20 筆狀態與 hash links，同時不公開 owner response 或 private identity。
+
+Batch 1 只有在完整 Batches 2–7 predecessor state 驗證成功後才能追加。這個反向依賴不是放寬順序，
+而是針對先前延後的最後一批所做的 bounded rule；它保證舊 17 個 events、candidate objects 與其
+hash links 不會因補入 Batch 1 而被重寫。
+
+### 驗證方式與結果
+
+真實 append 後兩次 `--check` 都回報 `unchanged`。Post-materialization QA 驗證 20 條
+candidate→event→attestation→authorization links、7／20／20 counts、20／0 state 與完整 packet/catalog
+bindings；先前 17 個 events 與 reviewed candidate objects 保持完全相同。Private 目錄／檔案權限、
+public file 權限與 `.gitignore` 邊界均正確，794 個 tracked／unignored files 的真實授權 privacy scan
+為 0 hits。Pre-materialization 的 focused `71 passed`、full `1339 passed`、Ruff、format、strict MyPy、
+compileall 與 diff check 結果持續適用；狀態寫入後沒有重跑完整 suite。
+
+### 留下的邊界與下一步
+
+T5-G1 現已完成，但 CAR-T5 尚未完成。下一個合法步驟是 T5-G2：取得另一份 fresh、獨立且明確的
+exact-authority outcome，不能重用任何 T5-G1 或 catalog-application response。T5-G2 完成後才能執行
+CAR-T5F freeze；CAR-T6 RHB-T4 re-audit 與 RHB-T5 仍是後續不同 Gate。Lite／Lean 模式下的
+architect、security 與 performance review 維持 deferred。
+
 ## 2026-10-01 — Final Batch 1 recorder ready，等待明確 T5-G1 outcome
 
 ### 新執行了什麼，以及解決了什麼問題
