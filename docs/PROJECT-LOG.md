@@ -1,5 +1,51 @@
 # Project Log
 
+## 2026-10-02 — T5-G2 Batch 2：Draftnator 三筆追加，累積 6 exact／14 reviewed
+
+### 新執行了什麼，以及解決了什麼問題
+
+本輪在取得新的、只限 T5-G2 Batch 2 的 owner decision 後，將 Draftnator 的 packet
+ordinals `2`、`11`、`18` 由 `reviewed` 推進為 `approved_exact`。首次 materialization
+回報 `created`，公開狀態由 3 exact／17 reviewed 變為 6 exact／14 reviewed／0 staged，
+事件鏈由 23 增為 26。這解決了第二個 family 如何在不改寫 Batch 1 與 T5-G1
+歷史的情況下，用獨立 cross-Gate 授權追加 exact decisions。
+
+這三筆只承認 frozen community snapshot 中的 casting、release year、series、collector
+number、series position 與 toy identifier。`color` 與 `edition` 繼續為 null；「2nd/3rd
+Color」文字沒有被推導成實際顏色。這不是 manufacturer-certified truth，也沒有產生
+authority bundle／manifest 或授權 CAR-T5F、CAR-T6、RHB-T5。
+
+### 代碼與資料修改了哪一部分，以及為何這樣決定
+
+本輪沒有再改 recorder 程式碼，而是使用上一步已通過 16 個 focused tests 與 1,355
+個 full-suite tests 的 bounded Batch 2 path。資料寫入方面，private ledger 追加一份 batch
+authorization 與三份 attestations；tracked public state 只追加三個 events，並將對應三個
+candidate latest-state 更新為 exact。
+
+這種 private／public 分離是為了同時達成兩個目標：Git 可以稽核 status、field evidence 與
+不可逆 hashes，但不會公開 owner response。寫入前會重新驗證 Batch 1 prefix、frozen
+packet/catalog、六個 supported fields 與對應 T5-G1 response hash；因此不能用「繼續」、
+舊授權或不完整批次觸發狀態變更。
+
+### 驗證方式與結果
+
+真實 append 後兩次 `--check` 都回報 `unchanged`。Post-materialization QA 確認原有 23
+個 events 與 17 個非目標 candidate objects 完全保留；9 個 authorization links、26 個
+attestation links、26 個 events 與 20 個 latest-state links 全部成立。Batch 2 三個 events
+各含六個正確 evidence fields 與預期值，沒有 color／edition 推導。
+
+權限仍為 private directory `0700`、private files `0600`、public files `0644`，專用 ignore
+rule 命中新 private ledgers。800 個 tracked／unignored 文字檔對兩份真實批准的 privacy scan
+為 0 hits。落地後 focused suite 為 `16 passed`；寫入前完整 repository 為 `1355 passed,
+1 warning`，唯一 warning 是既有 Starlette／AnyIO deprecation。狀態寫入後未重跑完整
+suite。
+
+### 留下的邊界與下一步
+
+T5-G2 仍在進行中，還有 14 筆 `reviewed` 候選資料需要後續獨立 decisions。下一步是
+為下一個 frozen family batch 建立同樣的 bounded recorder，完成測試後再停在 Owner Gate。
+在所有餘下 outcomes 完整記錄並對帳前，不執行 CAR-T5F、CAR-T6 或 RHB-T5。
+
 ## 2026-10-02 — T5-G2 Batch 2 recorder ready，停在 Draftnator Owner Gate
 
 ### 新執行了什麼，以及解決了什麼問題
