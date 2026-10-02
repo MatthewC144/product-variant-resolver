@@ -61,6 +61,11 @@ DECISION_VERSION: Literal["canonical-authority-review-t5-g1-v1"] = (
 )
 EXPECTED_BATCH_ORDINAL = 2
 SUPPORTED_BATCHES = {
+    1: {
+        "family_group_key": "car-t3-family-mazda-autozam",
+        "entry_ordinals": (1, 10, 16),
+        "toy_identifiers": ("HYX45", "HYY10", "HYW66"),
+    },
     2: {
         "family_group_key": "car-t3-family-draftnator",
         "entry_ordinals": (2, 11, 18),
@@ -294,7 +299,7 @@ def _selected_batch(
     specification = SUPPORTED_BATCHES.get(batch_ordinal)
     if specification is None:
         raise AuthorityContractError(
-            "this bounded recorder accepts only T5-G1 Batch 2 through Batch 7"
+            "this bounded recorder accepts only T5-G1 Batch 1 through Batch 7"
         )
     batch = packet.family_batches[batch_ordinal - 1]
     if (
@@ -367,6 +372,7 @@ def _validate_existing_outputs(
         [2, 3, 4, 5],
         [2, 3, 4, 5, 6],
         [2, 3, 4, 5, 6, 7],
+        [1, 2, 3, 4, 5, 6, 7],
     ):
         raise AuthorityContractError("existing T5-G1 authorizations are not the supported prefix")
     authorization_hashes = [
@@ -474,7 +480,7 @@ def _build_outputs(
 ) -> dict[Path, bytes]:
     if batch_ordinal not in SUPPORTED_BATCHES:
         raise AuthorityContractError(
-            "this bounded recorder accepts only T5-G1 Batch 2 through Batch 7"
+            "this bounded recorder accepts only T5-G1 Batch 1 through Batch 7"
         )
     if expected_outcome != "reviewed":
         raise AuthorityContractError("this bounded recorder accepts only staged to reviewed")
@@ -505,6 +511,7 @@ def _build_outputs(
         (item for item in authorizations if item.batch_ordinal == batch_ordinal), None
     )
     required_prefix = {
+        1: [2, 3, 4, 5, 6, 7],
         2: [],
         3: [2],
         4: [2, 3],
