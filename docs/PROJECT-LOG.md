@@ -1,5 +1,54 @@
 # Project Log
 
+## 2026-10-01 — T5-G2 Batch 1：3 筆 fresh exact decisions，其餘 17 筆保持 reviewed
+
+### 新執行了什麼，以及解決了什麼問題
+
+本輪在取得新的、明確且只限 T5-G2 Batch 1 的 owner decision 後，將 Mazda Autozam
+的 packet ordinals `1`、`10`、`16` 由 `reviewed` 推進為 `approved_exact`。首次
+materialization 回報 `created`，公開狀態成為 3 approved exact／17 reviewed／0 staged，
+事件鏈由 20 個第一道 Gate events 增為 23 個歷史 events。這解決了「已完成
+evidence review 的候選資料，如何在不重用 T5-G1 授權、不覆寫舊事件的前提下，
+進入第二道 exact-authority Gate」的問題。
+
+這三筆的 `approved_exact` 僅表示六個有來源支持的欄位與 frozen community snapshot
+完全一致，不是 Mattel／manufacturer-certified truth。`color` 與 `edition` 仍為 null；公開
+authority bundle／manifest 尚未建立，CAR-T5F、CAR-T6 與 RHB-T5 也沒有被授權。
+
+### 代碼與資料修改了哪一部分，以及為何這樣決定
+
+新增的 `canonical_authority_exact_decisions.py` 與專用 CLI 只允許 T5-G2 Batch 1，並在
+寫入前驗證完整的七批 T5-G1 狀態、frozen packet／catalog，以及 20 條舊事件與
+private attestations 的鏈結。選擇「另一個 bounded recorder + 另一組 private ledgers」，
+而不是直接改 JSON 或延用 T5-G1 recorder，是為了讓兩道 Gate 在授權文字、時間、
+transition 與追蹤 hash 上都能獨立稽核。程式明確要求 fresh response hash，並拒絕
+任何與對應 T5-G1 response 相同的輸入。
+
+共用的 event contract 則由「每個 candidate 只能有一個 event」改為驗證完整的狀態鏈，
+因為同一 candidate 現在合法地擁有 `staged -> reviewed -> approved_exact` 兩個先後事件。
+驗證器仍要求穩定排序、唯一 event ID、連續 from/to state 與 terminal counts，所以不會
+因支援多事件而放鬆 append-only 安全性。四個 private／public outputs 繼續採 atomic
+write／rollback，避免中途失敗後產生授權與公開狀態不同步。
+
+### 驗證方式與結果
+
+新增的 T5-G2 focused suite 為 `12 passed`，T5-G1 regression 為 `71 passed`，完整 repository
+為 `1351 passed, 1 warning`；Ruff、format、strict MyPy、compileall 與 diff check 均通過，唯一
+warning 是既有 Starlette／AnyIO deprecation。測試使用 TEST-ONLY 合成授權，沒有將真實
+owner response 寫入測試。
+
+真實 append 後兩次 `--check` 皆回報 `unchanged`。Post-materialization QA 確認先前 20
+個 T5-G1 events 與其餘 17 個 candidate objects 保持完全不變；8 份 batch authorizations、23
+份 attestations、23 個 events 與 20 個 latest-event links 全數有效。Private 目錄／檔案權限
+為 `0700`／`0600`，public files 為 `0644`；796 個 tracked／unignored 文字檔的真實授權
+privacy scan 為 0 hits。狀態寫入後沒有重跑完整 suite。
+
+### 留下的邊界與下一步
+
+T5-G2 仍未完成：另外 17 筆候選資料仍是 `reviewed`，而不是 `approved_exact`。
+下一個合法步驟是以新的、明確的 T5-G2 family-bounded owner decision 處理下一批；在
+其餘 outcomes 都記錄並重新對帳前，不會執行 CAR-T5F、CAR-T6 或 RHB-T5。
+
 ## 2026-10-01 — T5-G1 完成：Final Batch 1 累積 20 reviewed／0 staged
 
 ### 新執行了什麼，以及解決了什麼問題
