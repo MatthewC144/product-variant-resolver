@@ -195,19 +195,26 @@ class AuthorityCandidateState(DecisionContract):
 
     @model_validator(mode="after")
     def status_and_event_are_consistent(self) -> AuthorityCandidateState:
-        reviewed = self.status == ReviewStatus.reviewed
-        if reviewed != (self.latest_event_id is not None and self.latest_event_sha256 is not None):
+        resolved = self.status != ReviewStatus.staged
+        if resolved != (self.latest_event_id is not None and self.latest_event_sha256 is not None):
             raise ValueError(
-                "reviewed candidates require one latest event; staged candidates forbid it"
+                "resolved candidates require one latest event; staged candidates forbid it"
             )
-        if self.status not in {ReviewStatus.staged, ReviewStatus.reviewed}:
-            raise ValueError("T5-G1 partial candidate state may only be staged or reviewed")
+        if self.status not in {
+            ReviewStatus.staged,
+            ReviewStatus.reviewed,
+            ReviewStatus.approved_exact,
+        }:
+            raise ValueError("candidate state may only be staged, reviewed or approved_exact")
         return self
 
 
 class AuthorityCandidateStateFile(DecisionContract):
     schema_version: Literal["pvr-canonical-authority-candidate-state-v1"]
-    state_version: Literal["canonical-authority-review-t5-g1-v1"]
+    state_version: Literal[
+        "canonical-authority-review-t5-g1-v1",
+        "canonical-authority-review-t5-g2-v1",
+    ]
     packet_sha256: Sha256
     catalog_version: Literal["catalog-v2"]
     catalog_sha256: Sha256
@@ -242,7 +249,10 @@ class AuthorityCandidateStateFile(DecisionContract):
 
 class AuthorityReviewEventFile(DecisionContract):
     schema_version: Literal["pvr-canonical-authority-review-event-ledger-v1"]
-    ledger_version: Literal["canonical-authority-review-t5-g1-v1"]
+    ledger_version: Literal[
+        "canonical-authority-review-t5-g1-v1",
+        "canonical-authority-review-t5-g2-v1",
+    ]
     packet_sha256: Sha256
     catalog_version: Literal["catalog-v2"]
     catalog_sha256: Sha256
@@ -258,24 +268,36 @@ class AuthorityReviewEventFile(DecisionContract):
     ledger_sha256: Sha256
 
     @model_validator(mode="after")
-    def events_are_append_only_partial_batches(self) -> AuthorityReviewEventFile:
-        ids = [event.candidate_id for event in self.events]
-        if ids != sorted(ids) or len(ids) != len(set(ids)):
-            raise ValueError("review events must be distinct and ordered")
+    def events_are_append_only_gate_chains(self) -> AuthorityReviewEventFile:
+        order = [(event.candidate_id, event.reviewed_at, event.event_id) for event in self.events]
+        if order != sorted(order):
+            raise ValueError("review events must use stable candidate/time/event order")
+        event_ids = [event.event_id for event in self.events]
+        if len(event_ids) != len(set(event_ids)):
+            raise ValueError("review event IDs must be distinct")
         batch_hashes = {event.batch_authorization_sha256 for event in self.events}
         if len(batch_hashes) != self.batch_authorization_count:
             raise ValueError("review-event batch authorization count is stale")
-        if any(
-            event.from_status != ReviewStatus.staged or event.to_status != ReviewStatus.reviewed
-            for event in self.events
-        ):
-            raise ValueError("T5-G1 partial events must be staged to reviewed")
+        terminal_statuses: dict[str, ReviewStatus] = {}
+        for event in self.events:
+            prior = terminal_statuses.get(event.candidate_id, ReviewStatus.staged)
+            if event.from_status != prior:
+                raise ValueError("review event chain does not continue the candidate state")
+            terminal_statuses[event.candidate_id] = event.to_status
         if self.owner_attestation_count != len(self.events):
             raise ValueError("review-event owner attestation count is stale")
         if self.review_event_count != len(self.events):
             raise ValueError("review-event count is stale")
-        if self.status_counts != {"reviewed": len(self.events), "approved_exact": 0}:
-            raise ValueError("partial event status counts are stale")
+        observed = {
+            "reviewed": sum(
+                status == ReviewStatus.reviewed for status in terminal_statuses.values()
+            ),
+            "approved_exact": sum(
+                status == ReviewStatus.approved_exact for status in terminal_statuses.values()
+            ),
+        }
+        if self.status_counts != observed:
+            raise ValueError("review event terminal status counts are stale")
         hashes = [event.event_sha256 for event in self.events]
         if self.cumulative_event_sha256 != content_sha256(hashes):
             raise ValueError("review event cumulative checksum is stale")
