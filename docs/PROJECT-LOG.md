@@ -1,5 +1,43 @@
 # Project Log
 
+## 2026-10-01 — Final Batch 1 recorder ready，等待明確 T5-G1 outcome
+
+### 新執行了什麼，以及解決了什麼問題
+
+本輪完成 Mazda Autozam 最後三筆的 recorder 能力，但沒有 materialize 真實 owner decision。這三筆是
+先前刻意保留的 Batch 1 ordinals `1`、`10`、`16`；由於 Batches 2–7 已先完成，原本只接受順序 prefix
+的 recorder 無法安全地回頭追加 Batch 1。本次新增「final-batch」路徑，讓它只能建立在完整 17-event
+predecessor state 上，避免將缺批、跳批或一般 continuation 指示誤認為可審計授權。
+
+目前真實狀態仍為 17 reviewed／3 staged，exact authority 為 0，authority bundle／manifest 不存在，
+RHB-T5 authorization 為 false。這個停點是 Gate contract 的一部分，不是功能失敗。
+
+### 代碼修改了哪一部分，原因與方法選擇
+
+`canonical_authority_decisions.py` 加入 frozen Batch 1 family、ordinals 與 toy identifiers，並把 Batch 1
+的必要前置狀態明確定義為 Batches 2–7。選擇「指定完整 predecessor set」而不是放寬成任意 batch
+順序，是為了保留既有 append-only 保證：只有當 17 筆既有 candidate／event／attestation／authorization
+objects 全部合法時，最後三筆才有資格追加。完成後 authorization ledger 會依 ordinal 排成 1–7，
+但測試要求舊有六份 authorizations 與 17 個逐筆 objects 保持完全相同。
+
+測試新增 final append、六種不完整 prefix、exact-response mismatch、direct exact、partial state、tampered
+state 與 atomic rollback 情境。所有 owner text 都是 `TEST-ONLY` 合成內容；真實授權原文不進入 source、
+test、docs 或 tracked public artifacts。
+
+### 驗證方式與結果
+
+Focused recorder suite 為 `71 passed`，完整 repository 為 `1339 passed`；Ruff、format、strict MyPy、
+compileall 與 diff check 均通過。唯一 warning 是既有 Starlette／AnyIO deprecation。合成 materialization
+可得到 20 reviewed／0 staged、7／20／20 authorization-attestation-event counts，兩次 replay 保持
+`unchanged`，且 direct `approved_exact`、RHB-T5 與 authority bundle／manifest 仍被拒絕。
+
+### 留下的邊界與下一步
+
+一般的繼續指示不等同於逐筆 T5-G1 outcome，所以本輪只交付並驗證 recorder，沒有改動真實 state。
+下一步需要一份新的、明確綁定 Batch 1 三個 identifiers、`reviewed`、null `color`／`edition`，並排除
+`approved_exact` 與 RHB-T5 的 owner response。記錄成功並完成 post-materialization QA 後，T5-G1
+才會成為 20／20 complete；T5-G2 仍需另一份 fresh authorization。
+
 ## 2026-10-01 — T5-G1 Batch 7：兩筆 bounded append，累積 17 reviewed／3 staged
 
 ### 新執行了什麼，以及解決了什麼問題

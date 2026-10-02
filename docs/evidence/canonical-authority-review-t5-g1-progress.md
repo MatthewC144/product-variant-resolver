@@ -24,6 +24,18 @@ T5-G1 Batch 7 已在 output-blind owner review contract 下完成 bounded append
 `reviewed` 只表示第一道 evidence review 已完成，不是 `approved_exact`。本文件不重述、推導或
 硬編碼任何 trusted response 或 private identity。
 
+## Batch 1 pre-materialization readiness
+
+Final Batch 1 recorder 已完成但尚未 materialize。它綁定 Mazda Autozam 的 ordinals `1`、`10`、`16`
+與三個 frozen toy identifiers，並只在 Batches 2–7 的完整 17-event predecessor state 通過驗證後接受
+append。成功的合成測試結果為 20 reviewed／0 staged、7 authorizations、20 attestations、20 events，
+同時維持 exact authority 0、authority bundle／manifest absent 與 RHB-T5 false。
+
+專項 `71 passed`、完整 repository `1339 passed`，Ruff、format、strict MyPy、compileall 與 diff check
+亦通過；唯一訊息仍是既有 Starlette／AnyIO dependency warning。測試只使用 `TEST-ONLY` 合成授權，
+沒有把一般 continuation 指示升格成真實 owner decision，因此目前公開與私密真實狀態仍維持
+17 reviewed／3 staged。
+
 ## Bounded prefix、動態筆數與 atomic append
 
 Recorder 的允許範圍依序擴充為 Batch 2 → Batch 3 → Batch 4 → Batch 5 → Batch 6 → Batch 7。

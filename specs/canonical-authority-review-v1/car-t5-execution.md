@@ -1,6 +1,7 @@
 # CAR-T5 exact-authority execution addendum
 
-Status: **CAR-T5P complete; Owner Gate T5-G1 in progress (17 reviewed / 3 staged)**
+Status: **CAR-T5P complete; Owner Gate T5-G1 in progress (17 reviewed / 3 staged); final Batch 1
+recorder verified and awaiting an explicit owner outcome**
 
 Mode: Lean Industrial
 
@@ -232,6 +233,12 @@ The owner must explicitly provide an outcome for every covered entry against the
 successful result produces append-only `staged -> reviewed` events. Any other explicit outcome is
 recorded without counting the entry. After event capture and replay verification, present the
 20-entry reconciliation summary and stop.
+
+The final Batch 1 path is deliberately non-sequential: it may run only after the complete recorded
+Batches 2–7 state. This allows the previously deferred Mazda Autozam family to close the first Gate
+without weakening predecessor validation. A generic continuation instruction does not materialize
+the batch; the exact owner response must explicitly bind Batch 1, its three toy identifiers, the
+`reviewed` outcome, null `color`／`edition`, and the exclusion of `approved_exact` and RHB-T5.
 
 ### Owner Gate T5-G2 — Exact-authority approval
 

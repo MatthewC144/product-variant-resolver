@@ -1,11 +1,12 @@
-# AI artifact evaluation — T5-G1 Batches 2–7 progress
+# AI artifact evaluation — T5-G1 Batches 2–7 progress and Batch 1 readiness
 
 Date: 2026-10-01
-Scope: generated T5-G1 event／hash／state claims for Batches 2–7 only
+Scope: generated T5-G1 event／hash／state claims for Batches 2–7 and pre-materialization Batch 1 readiness
 Verdict: **PASS — FAITHFUL FIRST-GATE CLAIMS**
 
 This rubric evaluates whether generated artifacts append the two-entry Batch 7 without rewriting Batches 2–6,
-leaking a trusted response or private identity, or claiming a later Gate.
+leaking a trusted response or private identity, or claiming a later Gate. It also evaluates whether the final
+Batch 1 implementation remains inert until a separately explicit owner outcome is supplied.
 
 | Criterion | Result | Evidence and boundary |
 |---|---|---|
@@ -15,6 +16,7 @@ leaking a trusted response or private identity, or claiming a later Gate.
 | Privacy | PASS | Trusted responses and private identity are excluded from public artifacts and tracked content. |
 | Replay | PASS | Batch 7 initially returned `created`; two subsequent real checks returned `unchanged`. |
 | Gate honesty | PASS | `approved_exact` remains zero; authority bundle／manifest and RHB-T5 authorization remain absent or false. |
+| Batch 1 readiness | PASS | The final path requires the complete Batches 2–7 state; synthetic tests reach 20／0 without mutating real state, while generic continuation remains insufficient. |
 
 ## Allowed claims
 
@@ -23,6 +25,7 @@ leaking a trusted response or private identity, or claiming a later Gate.
 - Six batch authorizations map to 17 independently bound attestations and 17 public review events.
 - Existing Batches 2–6 decision objects were preserved.
 - The three remaining staged entries are Batch 1 Mazda Autozam ordinals `1`, `10` and `16`.
+- Batch 1 recorder readiness is verified, but no real Batch 1 event or authorization has been materialized.
 
 ## Prohibited claims
 
@@ -43,6 +46,11 @@ Independent post-materialization QA also passed: all 17 decision links were vali
 objects and attestation hashes were preserved; permission, Git-ignore and bytes-stable replay checks passed; and a
 794-file privacy scan covering all six real authorization inputs found no tracked or unignored disclosure. Blocker
 and Important findings were both zero.
+
+Batch 1 pre-materialization QA recorded `71 passed` for the focused recorder suite and `1339 passed` for the full
+repository. Ruff, format, strict MyPy, compileall and diff checks passed; the only warning was the existing
+Starlette／AnyIO deprecation. These tests used synthetic `TEST-ONLY` owner text and did not change the real
+17-reviewed／3-staged state.
 
 Batch 4 previously exposed a shared-workspace tasks／manifest update race and passed after a stable rerun; that
 known orchestration risk remains documented. Batch 7 materialization evidence confirms preservation of the 15 prior
