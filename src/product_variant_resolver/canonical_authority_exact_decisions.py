@@ -61,11 +61,12 @@ EXACT_ATTESTATION_LEDGER_REFERENCE = PRIVATE_DIRECTORY / "exact-owner-attestatio
 DECISION_VERSION: Literal["canonical-authority-review-t5-g2-v1"] = (
     "canonical-authority-review-t5-g2-v1"
 )
-SUPPORTED_BATCH_ORDINALS = (1, 2)
+SUPPORTED_BATCH_ORDINALS = (1, 2, 3)
 DEFAULT_BATCH_ORDINAL: Literal[1] = 1
 FROZEN_BATCHES: dict[int, tuple[str, tuple[int, ...], tuple[str, ...]]] = {
     1: ("car-t3-family-mazda-autozam", (1, 10, 16), ("HYX45", "HYY10", "HYW66")),
     2: ("car-t3-family-draftnator", (2, 11, 18), ("HYW70", "HYX67", "HYY31")),
+    3: ("car-t3-family-subaru-brz", (3, 8, 14), ("JBB55", "HYY12", "HYW99")),
 }
 G2_DECLARATION: Literal[
     "owner_explicitly_authorized_t5_g2_exact_authority_outcomes_for_every_covered_entry"
@@ -154,7 +155,7 @@ def _selected_batch(
 ) -> tuple[Any, list[Any]]:
     expected = FROZEN_BATCHES.get(batch_ordinal)
     if expected is None:
-        raise AuthorityContractError("this bounded exact recorder accepts only T5-G2 Batches 1-2")
+        raise AuthorityContractError("this bounded exact recorder accepts only T5-G2 Batches 1-3")
     family_group_key, entry_ordinals, toy_identifiers = expected
     batch = packet.family_batches[batch_ordinal - 1]
     if (
@@ -397,7 +398,7 @@ def _build_outputs(
     exact_state: tuple[ExactBatchAuthorizationLedger, ExactOwnerAttestationLedger] | None,
 ) -> dict[Path, bytes]:
     if batch_ordinal not in SUPPORTED_BATCH_ORDINALS:
-        raise AuthorityContractError("this bounded exact recorder accepts only T5-G2 Batches 1-2")
+        raise AuthorityContractError("this bounded exact recorder accepts only T5-G2 Batches 1-3")
     if expected_outcome != "approved_exact":
         raise AuthorityContractError("this bounded exact recorder accepts only approved_exact")
     if reviewed_at.tzinfo is None or reviewed_at.utcoffset() is None:
