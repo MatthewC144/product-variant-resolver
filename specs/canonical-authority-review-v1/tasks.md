@@ -166,6 +166,9 @@ separate data-state commit. This task does not satisfy or start CAR-T5.
 - [x] T5-G2 Batch 3 decision: record the fresh Subaru BRZ owner outcome as three
   `reviewed -> approved_exact` events while preserving the complete Batches 1–2 prefix and null
   color/edition boundary.
+- [x] T5-G2 Batch 4 readiness: extend the bounded exact recorder to the Nissan Skyline 2000GT-R
+  LBWK family only, require the complete immutable Batches 1–3 prefix, preserve all prior objects,
+  and stop without materializing an owner outcome.
 - [ ] CAR-T5F: freeze the event chain and authority bundle, or publish exact shortfalls.
 
 Files:

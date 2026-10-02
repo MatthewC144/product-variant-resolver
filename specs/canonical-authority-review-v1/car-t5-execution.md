@@ -265,6 +265,12 @@ only; color and edition remain null. The current state is 9 approved exact / 11 
 executable action is another fresh, family-bounded T5-G2 decision; CAR-T5F cannot start until all
 remaining outcomes are recorded and reconciled.
 
+The bounded Batch 4 path is now implementation-ready for the Nissan Skyline 2000GT-R LBWK entries
+at packet ordinals `4`, `13` and `20`. It requires the complete validated Batches 1–3 prefix, a fresh
+exact response distinct from its corresponding T5-G1 response, and preservation of all prior
+objects. Second/third-color wording remains context only; color and edition remain null. No Batch 4
+owner decision has been materialized, so the real state remains 9 approved exact / 11 reviewed.
+
 ### CAR-T5F — Freeze bundle `[task_executor -> qa -> doc_curator]`
 
 After T5-G2, validate all parents and event chains, freeze safe tracked outputs, run two unchanged
@@ -298,7 +304,8 @@ approval is revoked by a new event; dependent counts and manifests become invali
 
 The following decisions remain exclusively with the owner:
 
-1. fresh, separately bounded T5-G2 exact-authority outcomes for the remaining 11 reviewed entries;
+1. a fresh T5-G2 exact-authority outcome for Batch 4, followed by separately bounded outcomes for
+   the remaining 8 reviewed entries;
 2. the disposition/remediation of any held, conflicted or insufficient entry;
 3. any later authorization to freeze CAR-T5F or run CAR-T6; RHB-T5 remains a still later, separate
    Gate.
