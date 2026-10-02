@@ -1,7 +1,7 @@
 # CAR-T5 exact-authority execution addendum
 
-Status: **CAR-T5P and Owner Gate T5-G1 complete; T5-G2 Batch 1 recorded (3 approved exact /
-17 reviewed / 0 staged), while CAR-T5F remains blocked on the other six batches**
+Status: **CAR-T5P and Owner Gate T5-G1 complete; T5-G2 Batches 1–2 recorded (6 approved exact /
+14 reviewed / 0 staged), while CAR-T5F remains blocked on the other five batches**
 
 Mode: Lean Industrial
 
@@ -250,16 +250,15 @@ The owner must separately authorize `approved_exact` for the exact reviewed scop
 entries receive `reviewed -> approved_exact`; failures remain traceable and excluded. This Gate does
 not authorize RHB-T5.
 
-Batch 1 is complete: its three Mazda Autozam entries are `approved_exact`, while the other 17
-entries remain `reviewed`. The exact decisions cover only the six supported snapshot fields;
-`color` and `edition` remain null. The next executable action is another fresh, family-bounded
-T5-G2 decision. CAR-T5F cannot start until all remaining outcomes are recorded and reconciled.
+Batch 1 is complete: its three Mazda Autozam entries are `approved_exact`. The exact decisions
+cover only the six supported snapshot fields; `color` and `edition` remain null.
 
-The bounded Batch 2 path is now implementation-ready for the three Draftnator entries at packet
-ordinals `2`, `11` and `18`. It accepts Batch 2 only when Batch 1 is the complete validated prefix,
-requires a new exact external response distinct from the corresponding T5-G1 response, and
-preserves every existing authorization, attestation, event and non-target candidate object. No
-Batch 2 owner decision has been materialized; the state remains 3 approved exact / 17 reviewed.
+Batch 2 is also complete: its Draftnator entries at packet ordinals `2`, `11` and `18` were accepted
+only after Batch 1 validated as the complete prefix and a new exact external response differed from
+the corresponding T5-G1 response. The append preserved every existing authorization, attestation,
+event and non-target candidate object. The current state is 6 approved exact / 14 reviewed; the
+next executable action is another fresh, family-bounded T5-G2 decision. CAR-T5F cannot start until
+all remaining outcomes are recorded and reconciled.
 
 ### CAR-T5F — Freeze bundle `[task_executor -> qa -> doc_curator]`
 
@@ -294,8 +293,7 @@ approval is revoked by a new event; dependent counts and manifests become invali
 
 The following decisions remain exclusively with the owner:
 
-1. a fresh T5-G2 exact-authority outcome for Batch 2, followed by separately bounded outcomes for
-   the remaining 14 reviewed entries;
+1. fresh, separately bounded T5-G2 exact-authority outcomes for the remaining 14 reviewed entries;
 2. the disposition/remediation of any held, conflicted or insufficient entry;
 3. any later authorization to freeze CAR-T5F or run CAR-T6; RHB-T5 remains a still later, separate
    Gate.
