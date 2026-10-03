@@ -272,9 +272,18 @@ Batch 5 is complete: its `'21 Ford Bronco` entries at packet ordinals `5`, `7` a
 identifiers `HYY32`, `HYW73` and `HYX50`, were accepted only after the complete Batches 1–4 prefix
 validated and a new exact response differed from the matching T5-G1 response and all earlier T5-G2
 responses. Second/third-color wording remains context only; color and edition remain null. The
-current state is 15 approved exact / 5 reviewed. The next executable action is a separately
-implemented and verified Batch 6 path; CAR-T5F cannot start until all remaining outcomes are
-recorded and reconciled.
+current state is 15 approved exact / 5 reviewed.
+
+The bounded Batch 6 path is now implementation-ready for the Morgan Super 3 entries at packet
+ordinals `6`, `12` and `19`, with toy identifiers `HYX48`, `HYW13` and `HYY33`. It requires the
+complete validated Batches 1–5 prefix, a fresh response distinct from its matching T5-G1 response
+and all earlier T5-G2 responses, and preservation of every prior object.
+
+The bounded Batch 7 path is also implementation-ready for the Mazda MX-5 Miata entries at packet
+ordinals `9` and `15`, with toy identifiers `HYW18` and `HYX57`. It requires the complete validated
+Batches 1–6 prefix, so it cannot be materialized before Batch 6. Neither batch has an owner decision;
+the real state remains 15 approved exact / 5 reviewed. CAR-T5F cannot start until both fresh,
+separate decisions are recorded and reconciled.
 
 ### CAR-T5F — Freeze bundle `[task_executor -> qa -> doc_curator]`
 
@@ -309,7 +318,8 @@ approval is revoked by a new event; dependent counts and manifests become invali
 
 The following decisions remain exclusively with the owner:
 
-1. separately bounded T5-G2 exact-authority outcomes for the remaining 5 reviewed entries;
+1. a fresh T5-G2 exact-authority outcome for Batch 6 and, only after it validates, a different fresh
+   outcome for Batch 7; the same response cannot authorize both batches;
 2. the disposition/remediation of any held, conflicted or insufficient entry;
 3. any later authorization to freeze CAR-T5F or run CAR-T6; RHB-T5 remains a still later, separate
    Gate.
