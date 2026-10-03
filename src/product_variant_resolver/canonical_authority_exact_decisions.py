@@ -61,7 +61,7 @@ EXACT_ATTESTATION_LEDGER_REFERENCE = PRIVATE_DIRECTORY / "exact-owner-attestatio
 DECISION_VERSION: Literal["canonical-authority-review-t5-g2-v1"] = (
     "canonical-authority-review-t5-g2-v1"
 )
-SUPPORTED_BATCH_ORDINALS = (1, 2, 3, 4, 5)
+SUPPORTED_BATCH_ORDINALS = (1, 2, 3, 4, 5, 6, 7)
 DEFAULT_BATCH_ORDINAL: Literal[1] = 1
 FROZEN_BATCHES: dict[int, tuple[str, tuple[int, ...], tuple[str, ...]]] = {
     1: ("car-t3-family-mazda-autozam", (1, 10, 16), ("HYX45", "HYY10", "HYW66")),
@@ -76,6 +76,16 @@ FROZEN_BATCHES: dict[int, tuple[str, tuple[int, ...], tuple[str, ...]]] = {
         "car-t3-family-21-ford-bronco",
         (5, 7, 17),
         ("HYY32", "HYW73", "HYX50"),
+    ),
+    6: (
+        "car-t3-family-morgan-super-3",
+        (6, 12, 19),
+        ("HYX48", "HYW13", "HYY33"),
+    ),
+    7: (
+        "car-t3-family-mazda-mx-5-miata",
+        (9, 15),
+        ("HYW18", "HYX57"),
     ),
 }
 G2_DECLARATION: Literal[
@@ -165,7 +175,7 @@ def _selected_batch(
 ) -> tuple[Any, list[Any]]:
     expected = FROZEN_BATCHES.get(batch_ordinal)
     if expected is None:
-        raise AuthorityContractError("this bounded exact recorder accepts only T5-G2 Batches 1-5")
+        raise AuthorityContractError("this bounded exact recorder accepts only T5-G2 Batches 1-7")
     family_group_key, entry_ordinals, toy_identifiers = expected
     batch = packet.family_batches[batch_ordinal - 1]
     if (
@@ -408,7 +418,7 @@ def _build_outputs(
     exact_state: tuple[ExactBatchAuthorizationLedger, ExactOwnerAttestationLedger] | None,
 ) -> dict[Path, bytes]:
     if batch_ordinal not in SUPPORTED_BATCH_ORDINALS:
-        raise AuthorityContractError("this bounded exact recorder accepts only T5-G2 Batches 1-5")
+        raise AuthorityContractError("this bounded exact recorder accepts only T5-G2 Batches 1-7")
     if expected_outcome != "approved_exact":
         raise AuthorityContractError("this bounded exact recorder accepts only approved_exact")
     if reviewed_at.tzinfo is None or reviewed_at.utcoffset() is None:
