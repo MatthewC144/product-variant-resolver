@@ -1,5 +1,55 @@
 # Project Log
 
+## 2026-10-03 — T5-G2 Batch 5：'21 Ford Bronco 三筆追加，累積 15 exact／5 reviewed
+
+### 新執行了什麼，以及解決了什麼問題
+
+本輪在取得新的、只限 T5-G2 Batch 5 的 owner decision 後，將 `'21 Ford Bronco`
+的 packet ordinals `5`、`7`、`17` 由 `reviewed` 推進為 `approved_exact`。首次
+materialization 回報 `created`，公開狀態由 12 exact／8 reviewed 變為 15 exact／5 reviewed／
+0 staged。三筆只核准 frozen community snapshot 支持的 casting、release year、series、
+collector number、series position 與 toy identifier；`color` 與 `edition` 仍為 null。
+
+解決的核心問題是將這份 owner decision 精確綁定到 Bronco 三個 identifiers、frozen
+packet、catalog records 和六欄 evidence，而不是用一句模糊的「批准 Batch 5」改動狀態。
+這使未來重播可以區分「同一決定」與「不同 Gate 或不同批次的文字」，後者會 fail closed。
+
+### 代碼修改了哪一部分，原因與方法選擇
+
+這次不需要再擴張 recorder 程式，而是使用前一階段已驗證的 Batch 5 bounded path。
+私有 ledger 新增一個 batch authorization 與三個 owner attestations，並維持 `0700`／
+`0600` 權限與 Git ignore；公開只改動 `authority-candidates.json` 與 `review-events.json`
+內不含授權原文的 hash-bound 狀態。選擇繼續分離 private verbatim 與 public audit trail，是為了讓
+GitHub 可展示完整可驗證鏈，又不公開人類授權原文。
+
+公開狀態新增三個 `reviewed -> approved_exact` events，並保留全部 32 個先前 events
+與 17 個非目標 candidate objects。現在共有 12 個 authorization links、35 個 attestation
+links、35 個 public events 與 20 個 candidate latest-event links；不存在 authority bundle，
+RHB-T5 仍未授權。
+
+### 驗證方式與結果
+
+首次寫入回報 `created`，後續兩次真實 `--check` 都回報 `unchanged`。寫入後 T5-G2
+focused suite 為 `22 passed`。寫入前 readiness 的完整 repository 結果為 `1361 passed,
+1 warning`，且本次範圍的 Ruff、format、strict MyPy、compileall 與 diff check 全數通過；
+唯一 warning 仍是既有 Starlette／AnyIO deprecation。
+
+一開始的歷史比對假設 public events 只會追加在 array 尾端，因此前 32 個位置比對回報
+false；這不是資料被改動，而是 event file 會用 canonical order 重排。後續改用穩定 `event_id`
+map 比對，證明 32 個舊 event objects 全部完全一致。這個修正選擇以 identity 比對，而不是固守
+array position，因為前者才是 event contract 的穩定主鍵。
+
+最終 815 個 tracked／unignored 文字檔對 12 份私有 Gate responses 以及新回覆去掉 Markdown
+外框後的變體做 privacy scan，結果是 0 hits。寫入後沒有重跑完整 suite，因為這次只是通過
+已驗證 recorder 的 state append；專用測試、真實重播、hash links、permissions 與 privacy 都已重驗。
+
+### 留下的邊界與下一步
+
+T5-G2 仍未完成，剩餘 5 筆 `reviewed` 資料：Batch 6 的 Morgan Super 3 三筆與 Batch 7
+的 Mazda MX-5 Miata 兩筆。下一個合法步驟是先實作並驗證 Batch 6 bounded path，再由
+owner 提供新的、只限 Batch 6 的 exact decision。這次授權不建立 manufacturer-certified
+truth，也不授權 CAR-T5F、CAR-T6 或 RHB-T5。
+
 ## 2026-10-02 — T5-G2 Batch 5 recorder ready，停在 '21 Ford Bronco Owner Gate
 
 ### 新執行了什麼，以及解決了什麼問題
