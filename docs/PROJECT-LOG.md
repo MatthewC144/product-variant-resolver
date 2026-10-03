@@ -1,5 +1,49 @@
 # Project Log
 
+## 2026-10-03 — T5-G2 Batch 6：Morgan Super 3 三筆追加，累積 18 exact／2 reviewed
+
+### 新執行了什麼，以及解決了什麼問題
+
+本輪取得新的、只限 T5-G2 Batch 6 的 owner decision 後，將 Morgan Super 3 的
+packet ordinals `6`、`12`、`19` 由 `reviewed` 推進為 `approved_exact`。三個 toy
+identifiers 是 `HYX48`、`HYW13`、`HYY33`，六個 supported fields 都只依據 frozen
+community snapshot，`color` 與 `edition` 維持 null。公開狀態從 15 exact／5 reviewed
+變為 18 exact／2 reviewed／0 staged，而 Mazda MX-5 Miata 兩筆仍保持 `reviewed`。
+
+這一步解決的問題是在 Batch 6 準備與 Batch 7 準備已同時完成的情況下，系統仍必須只消費
+Batch 6 自己的授權。Recorder 先驗證完整 Batches 1–5 prefix，再把授權綁定到 Morgan 三筆；
+Batch 7 沒有獨立 response，所以不會因「路徑已就緒」被預先寫入。
+
+### 代碼修改了哪一部分，原因與方法選擇
+
+這次不需要修改 recorder 邏輯，而是使用已經通過 1365 項 regression 的 Batch 6 path。
+私有 ledger 追加一個 Batch 6 authorization 與三個 owner attestations，保持 `0700`／
+`0600` 權限並被 Git ignore；公開只更新 `authority-candidates.json` 與 `review-events.json`
+中不含授權原文的 hash-bound 狀態。使用這個 private/public split，可以在不公開人類回覆的前提下，
+讓 GitHub 上的每個 state transition 仍能被重播與對帳。
+
+公開事件新增三個 `reviewed -> approved_exact`，全部 35 個先前 events 與 17 個非目標
+candidate objects 均以穩定 identity 比對保留。現在共有 13 個 authorization links、38 個
+attestation links、38 個 public events 與 20 個 candidate latest-event links。
+
+### 驗證方式與結果
+
+首次 materialization 回報 `created`，後續兩次真實重播都回報 `unchanged`。寫入後
+T5-G2 focused suite 為 `26 passed`。寫入前 readiness 的完整 repository 為 `1365 passed,
+1 warning`，且本次範圍的 Ruff、format、strict MyPy、compileall 與 diff check 全數通過；
+唯一 warning 仍是既有 Starlette／AnyIO deprecation。
+
+最終 819 個 tracked／unignored 文字檔對 15 個 private-response variants 做 privacy scan，結果是
+0 hits。Private/public 權限、ignore rules、fresh response hashes、Morgan 六欄 values、forbidden-bundle
+absence 與 RHB-T5=false 也全部通過。寫入後沒有重跑完整 suite，因為這次只是通過已完整
+驗證 recorder 的 state append；專用套件與真實重播已重新執行。
+
+### 留下的邊界與下一步
+
+T5-G2 剩下最後兩筆 `reviewed` 資料：Mazda MX-5 Miata 的 `HYW18`、`HYX57`。Batch 7
+readiness 已完成，下一步只需取得一份新的、只限 Batch 7 的 owner decision；Batch 6 回覆不能重用。
+這次授權沒有完成 T5-G2，也不授權 CAR-T5F、CAR-T6 或 RHB-T5。
+
 ## 2026-10-03 — T5-G2 Batches 6–7 recorder ready，分別停在兩個 Owner Gates
 
 ### 新執行了什麼，以及解決了什麼問題
