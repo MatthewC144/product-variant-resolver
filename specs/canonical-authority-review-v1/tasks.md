@@ -3,7 +3,7 @@
 Date: 2026-09-26. Source-plan owner approval recorded: 2026-09-28. CAR-T3 owner approval recorded:
 2026-09-29. Catalog batch application owner approval recorded: 2026-09-30. Mode: Lite / Lean
 Industrial. Status: **CAR-T1–T4A, CAR-T5P and Owner Gate T5-G1 complete; T5-G2 is in progress with
-Batches 1–5 recorded (15 approved exact / 5 reviewed / 0 staged); CAR-T5F, CAR-T6 and RHB-T5 are
+Batches 1–6 recorded (18 approved exact / 2 reviewed / 0 staged); CAR-T5F, CAR-T6 and RHB-T5 are
 not started**.
 
 After owner approval, execute sequentially. Each task is one reviewable commit. A failed owner/data
@@ -151,10 +151,10 @@ separate data-state commit. This task does not satisfy or start CAR-T5.
   every covered entry; a generic continuation is not a decision. _(Complete: Batches 1–7 recorded;
   all packet ordinals 1–20 are reviewed, zero remain staged, and exact authority remains 0.)_
 - [ ] T5-G2: after successful reconciliation, obtain fresh and separate exact-authority decisions;
-  no T5-G1 or catalog-application response may be reused. _(In progress: Batches 1–5 recorded for
-  Mazda Autozam, Draftnator, Subaru BRZ, Nissan Skyline 2000GT-R LBWK and `'21 Ford Bronco`; 15
-  entries are `approved_exact`, 5 remain `reviewed`, and each approved field is exact only relative
-  to the frozen community snapshot.)_
+  no T5-G1 or catalog-application response may be reused. _(In progress: Batches 1–6 recorded for
+  Mazda Autozam, Draftnator, Subaru BRZ, Nissan Skyline 2000GT-R LBWK, `'21 Ford Bronco` and Morgan
+  Super 3; 18 entries are `approved_exact`, 2 remain `reviewed`, and each approved field is exact
+  only relative to the frozen community snapshot.)_
 - [x] T5-G2 Batch 2 readiness: extend the bounded exact recorder to the Draftnator family only,
   require the complete immutable Batch 1 prefix, preserve all prior objects, and stop without
   materializing an owner outcome.
@@ -182,6 +182,9 @@ separate data-state commit. This task does not satisfy or start CAR-T5.
 - [x] T5-G2 Batch 6 readiness: extend the bounded exact recorder to the Morgan Super 3 family only,
   require the complete immutable Batches 1–5 prefix, preserve all prior objects, and stop without
   materializing an owner outcome.
+- [x] T5-G2 Batch 6 decision: record the fresh Morgan Super 3 owner outcome as three
+  `reviewed -> approved_exact` events while preserving the complete Batches 1–5 prefix and null
+  color/edition boundary.
 - [x] T5-G2 Batch 7 readiness: extend the bounded exact recorder to the Mazda MX-5 Miata family
   only, require the complete immutable Batches 1–6 prefix, preserve all prior objects, and stop
   without materializing an owner outcome.
