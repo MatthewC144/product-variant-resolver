@@ -1,7 +1,7 @@
 # CAR-T5 exact-authority execution addendum
 
-Status: **CAR-T5P and Owner Gate T5-G1 complete; T5-G2 Batches 1–4 recorded (12 approved exact /
-8 reviewed / 0 staged), while CAR-T5F remains blocked on the other three batches**
+Status: **CAR-T5P and Owner Gate T5-G1 complete; T5-G2 Batches 1–5 recorded (15 approved exact /
+5 reviewed / 0 staged), while CAR-T5F remains blocked on the other two batches**
 
 Mode: Lean Industrial
 
@@ -268,13 +268,13 @@ were accepted only after the complete Batches 1–3 prefix validated and a new e
 from the matching T5-G1 response and all earlier T5-G2 responses. Second/third-color wording remains
 context only; color and edition remain null. The current state is 12 approved exact / 8 reviewed.
 
-The bounded Batch 5 path is now implementation-ready for the `'21 Ford Bronco` entries at packet
-ordinals `5`, `7` and `17`, with toy identifiers `HYY32`, `HYW73` and `HYX50`. It requires the
-complete validated Batches 1–4 prefix, a fresh exact response distinct from its corresponding T5-G1
-response and all earlier T5-G2 responses, and preservation of all prior objects. Second/third-color
-wording remains context only; color and edition remain null. No Batch 5 owner decision has been
-materialized, so the real state remains 12 approved exact / 8 reviewed. CAR-T5F cannot start until
-all remaining outcomes are recorded and reconciled.
+Batch 5 is complete: its `'21 Ford Bronco` entries at packet ordinals `5`, `7` and `17`, with toy
+identifiers `HYY32`, `HYW73` and `HYX50`, were accepted only after the complete Batches 1–4 prefix
+validated and a new exact response differed from the matching T5-G1 response and all earlier T5-G2
+responses. Second/third-color wording remains context only; color and edition remain null. The
+current state is 15 approved exact / 5 reviewed. The next executable action is a separately
+implemented and verified Batch 6 path; CAR-T5F cannot start until all remaining outcomes are
+recorded and reconciled.
 
 ### CAR-T5F — Freeze bundle `[task_executor -> qa -> doc_curator]`
 
@@ -309,8 +309,7 @@ approval is revoked by a new event; dependent counts and manifests become invali
 
 The following decisions remain exclusively with the owner:
 
-1. a fresh T5-G2 exact-authority outcome for Batch 5, followed by separately bounded outcomes for
-   the remaining 5 reviewed entries;
+1. separately bounded T5-G2 exact-authority outcomes for the remaining 5 reviewed entries;
 2. the disposition/remediation of any held, conflicted or insufficient entry;
 3. any later authorization to freeze CAR-T5F or run CAR-T6; RHB-T5 remains a still later, separate
    Gate.
