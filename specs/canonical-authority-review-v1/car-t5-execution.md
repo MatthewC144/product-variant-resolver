@@ -1,7 +1,7 @@
 # CAR-T5 exact-authority execution addendum
 
-Status: **CAR-T5P and Owner Gate T5-G1 complete; T5-G2 Batches 1–6 recorded (18 approved exact /
-2 reviewed / 0 staged), while CAR-T5F remains blocked on Batch 7**
+Status: **CAR-T5P and Owner Gates T5-G1/T5-G2 complete (20 approved exact / 0 reviewed / 0 staged),
+while CAR-T5F remains separately unauthorized and not started**
 
 Mode: Lean Industrial
 
@@ -279,11 +279,11 @@ identifiers `HYX48`, `HYW13` and `HYY33`, were accepted only after the complete 
 validated and a new exact response differed from the matching T5-G1 response and all earlier T5-G2
 responses. Color and edition remain null. The current state is 18 approved exact / 2 reviewed.
 
-The bounded Batch 7 path is also implementation-ready for the Mazda MX-5 Miata entries at packet
-ordinals `9` and `15`, with toy identifiers `HYW18` and `HYX57`. It requires the complete validated
-Batches 1–6 prefix, which is now present and validated. Batch 7 still has no owner decision, so the
-real state remains 18 approved exact / 2 reviewed. CAR-T5F cannot start until the final fresh Batch 7
-decision is recorded and reconciled.
+Batch 7 is complete: its Mazda MX-5 Miata entries at packet ordinals `9` and `15`, with toy
+identifiers `HYW18` and `HYX57`, were accepted only after the complete Batches 1–6 prefix validated
+and a new exact response differed from the matching T5-G1 response and all earlier T5-G2 responses.
+Color and edition remain null. T5-G2 is now complete at 20 approved exact / 0 reviewed / 0 staged.
+This state does not create the frozen authority bundle or authorize CAR-T5F, CAR-T6 or RHB-T5.
 
 ### CAR-T5F — Freeze bundle `[task_executor -> qa -> doc_curator]`
 
@@ -316,9 +316,8 @@ Preparation is recoverable by discarding only temporary files; frozen CAR-T4 and
 remain unchanged. Review corrections are new append-only events, never edits. An erroneous exact
 approval is revoked by a new event; dependent counts and manifests become invalid until rebuilt.
 
-The following decisions remain exclusively with the owner:
+No T5-G2 exact outcome remains pending. The following decisions remain exclusively with the owner:
 
-1. a fresh T5-G2 exact-authority outcome for Batch 7; the Batch 6 response cannot be reused;
-2. the disposition/remediation of any held, conflicted or insufficient entry;
-3. any later authorization to freeze CAR-T5F or run CAR-T6; RHB-T5 remains a still later, separate
-   Gate.
+1. a separate authorization to execute CAR-T5F and freeze the validated event chain/authority
+   bundle, or publish exact shortfalls;
+2. any later authorization to run CAR-T6; RHB-T5 remains a still later, separate Gate.
