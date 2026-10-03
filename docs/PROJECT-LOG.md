@@ -1,5 +1,49 @@
 # Project Log
 
+## 2026-10-03 — T5-G2 Batches 6–7 recorder ready，分別停在兩個 Owner Gates
+
+### 新執行了什麼，以及解決了什麼問題
+
+本輪一次將 T5-G2 bounded recorder 從 `[1,2,3,4,5]` 擴充為完整
+`[1,2,3,4,5,6,7]` prefix。Batch 6 是 Morgan Super 3，packet ordinals `6`、`12`、`19`，
+toy identifiers 為 `HYX48`、`HYW13`、`HYY33`；Batch 7 是 Mazda MX-5 Miata，ordinals
+`9`、`15`，identifiers 為 `HYW18`、`HYX57`。五筆的六個 supported fields 均與 frozen
+community snapshot 一致，`color` 與 `edition` 都是 null。
+
+這一步要解決的不只是「讓 recorder 認得最後兩個 family」，而是同時保留決定的
+先後關係：Batch 6 必須見到完整 Batches 1–5，Batch 7 又必須見到已合法記錄的 Batch 6。
+因此可以在同一輪完成兩條 readiness，卻不會讓 Batch 7 跳過 Batch 6，也不會把一份模糊授權
+複用給兩批。本輪沒有 materialize 任何真實 decision，狀態仍是 15 exact／5 reviewed／0 staged。
+
+### 代碼修改了哪一部分，原因與方法選擇
+
+`canonical_authority_exact_decisions.py` 的 frozen map 新增 Morgan Super 3 與 Mazda MX-5
+Miata 的 family keys、ordinals 與 identifiers，supported prefix 擴充到 Batch 7，但 Batch 8 仍
+fail closed。這次一次實作最後兩批，是因為兩批的 frozen packet、null-field boundary 與
+欄位 contract 都已完整，可共用同一輪 regression；但決定邏輯仍保持兩個獨立 response hashes。
+
+測試新增 Batch 6 與 Batch 7 的完整 append/replay、缺 predecessor 拒絕、六欄 values、
+identifiers、舊物件保留與 CLI flows。Batch 6 的合成結果是 18 exact／2 reviewed，Batch 7 之後是
+20 exact／0 reviewed；這些只是 `TEST-ONLY` evidence，不是真實決定或預先寣告 T5-G2 完成。
+
+### 驗證方式與結果
+
+T5-G2 focused suite 為 `26 passed`，完整 repository 為 `1365 passed, 1 warning`。本次範圍的
+Ruff、format、strict MyPy、compileall 與 diff check 全數通過；唯一 warning 仍是既有
+Starlette／AnyIO deprecation。真實 Batch 5 在擴充後的 recorder 下重播為 `unchanged`，
+證明一次準備兩條後續路徑並未修改任何已有 decision state。
+
+最終 817 個 tracked／unignored 文字檔對 12 份私有 Gate responses 及 Markdown 外框變體的
+privacy scan 為 0 hits。私有 exact ledger 仍只有 Batches 1–5，authority bundle 不存在，
+RHB-T5 仍是 false。
+
+### 留下的邊界與下一步
+
+下一步是兩個依序但獨立的 Owner Gates。先用新的 Batch 6 response 明確綁定 Morgan
+Super 3 三個 identifiers、六欄 scope 與 null color／edition；記錄並驗證 Batch 6 後，再用另一份
+不同的 Batch 7 response 綁定 Mazda MX-5 Miata 兩個 identifiers。兩段授權可在同一則使用者訊息中
+分開呈現，但不能用同一段文字同時授權兩批。CAR-T5F、CAR-T6 與 RHB-T5 仍不在此 readiness 範圍。
+
 ## 2026-10-03 — T5-G2 Batch 5：'21 Ford Bronco 三筆追加，累積 15 exact／5 reviewed
 
 ### 新執行了什麼，以及解決了什麼問題
