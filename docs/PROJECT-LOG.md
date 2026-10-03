@@ -1,5 +1,49 @@
 # Project Log
 
+## 2026-10-03 — T5-G2 Batch 7：Mazda MX-5 Miata 兩筆追加，T5-G2 達到 20 exact／0 reviewed
+
+### 新執行了什麼，以及解決了什麼問題
+
+本輪在完整 Batches 1–6 prefix 已記錄並重播驗證後，取得新的、只限 T5-G2 Batch 7 的
+owner decision，將 Mazda MX-5 Miata 的 packet ordinals `9`、`15` 由 `reviewed` 推進為
+`approved_exact`。兩個 toy identifiers 是 `HYW18`、`HYX57`，六個 supported fields 都只依據
+frozen community snapshot，`color` 與 `edition` 維持 null。
+
+這一步完成 T5-G2 最後兩筆狀態轉移：候選清單現在是 20 exact／0 reviewed／0 staged，
+七個 family batches 各有獨立、fresh 且不重用的 T5-G2 response hash。解決的核心問題是讓
+「20 筆都已有 exact outcome」成為可重播的資料狀態，而不是用一個批次總數或單一通用授權代替。
+
+### 代碼修改了哪一部分，原因與方法選擇
+
+這次不需要再修改 recorder 程式，而是使用上一階段已經過完整 regression 的 Batch 7 path。
+私有 ledger 追加第七個 T5-G2 authorization 與最後兩個 owner attestations，並維持 `0700`／
+`0600` 權限與 Git ignore。公開 Git 只更新 `authority-candidates.json` 與 `review-events.json`
+中的 hash-bound links，沒有放入授權原文或 private identity。
+
+公開狀態新增兩個 `reviewed -> approved_exact` events，全部 38 個先前 events 與 18 個非目標
+candidate objects 都以穩定 identity 比對保留。現在共有 14 個 authorization links、40 個
+attestation links、40 個 public events 與 20 個 candidate latest-event links。這些完成的是 T5-G2
+event state，不是 CAR-T5F authority bundle。
+
+### 驗證方式與結果
+
+首次 materialization 回報 `created`，後續兩次真實重播都回報 `unchanged`。寫入後
+T5-G2 focused suite 為 `26 passed`。寫入前 readiness 的完整 repository 為 `1365 passed,
+1 warning`，且本次範圍的 Ruff、format、strict MyPy、compileall 與 diff check 全數通過；
+唯一 warning 仍是既有 Starlette／AnyIO deprecation。
+
+最終 821 個 tracked／unignored 文字檔對 17 個 private-response variants 做 privacy scan，結果是
+0 hits。Private/public permissions、ignore rules、14 個 fresh response hashes、Mazda 六欄 values、
+forbidden-bundle absence 與 RHB-T5=false 全部通過。寫入後沒有重跑完整 suite，因為這次是通過已驗證
+recorder 的 state append；專用套件與真實重播均已重新執行。
+
+### 留下的邊界與下一步
+
+T5-G2 的七批、20 筆 exact outcomes 已全部完成，但這不會自動建立 authority bundle。
+下一個合法步驟是另行取得 CAR-T5F 授權，再重新驗證全部 parent hashes、event chains、
+permissions、privacy 與 20/4 composition，然後封存 safe tracked authority bundle 或公開 exact shortfalls。
+CAR-T6 與 RHB-T5 仍是之後的獨立 Gates，本輪沒有授權。
+
 ## 2026-10-03 — T5-G2 Batch 6：Morgan Super 3 三筆追加，累積 18 exact／2 reviewed
 
 ### 新執行了什麼，以及解決了什麼問題
