@@ -49,6 +49,12 @@ def isolated_root(tmp_path: Path) -> Path:
     for path in private.iterdir():
         if path.is_file():
             os.chmod(path, 0o600)
+    for reference in (
+        FREEZE_AUTHORIZATION_REFERENCE,
+        AUTHORITY_BUNDLE_REFERENCE,
+        AUTHORITY_MANIFEST_REFERENCE,
+    ):
+        (root / reference).unlink(missing_ok=True)
     return root
 
 

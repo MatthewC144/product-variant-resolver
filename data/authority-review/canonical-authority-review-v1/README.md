@@ -1,8 +1,8 @@
 # Canonical Authority Review v1 artifact boundary
 
 This directory contains the public, Git-safe artifacts for Canonical Authority Review (CAR) v1.
-CAR-T2 adds only contracts and synthetic contract tests. It does **not** add a candidate queue,
-human decisions, an approved UUID, an exact-authority row, or permission to begin RHB-T5.
+The workflow has completed CAR-T5F and frozen a 20-record authority bundle. It still provides no
+permission to begin RHB-T5.
 
 ## Current state
 
@@ -15,6 +15,12 @@ human decisions, an approved UUID, an exact-authority row, or permission to begi
 - CAR-T2 supplies an offline validation layer in
   `src/product_variant_resolver/canonical_authority_review.py` and hand-built synthetic tests. It
   deliberately imports the CAR-T1 Gate validator instead of copying or weakening its rules.
+- CAR-T5F freezes 20 distinct `approved_exact` variants across seven qualifying families. The Gate
+  result is `eligible_for_rhb_t4_reaudit`, with zero variant/family shortfall. Exactness remains
+  relative to the frozen community snapshot, not Mattel/manufacturer-certified truth.
+- The fresh CAR-T5F owner authorization remains in the ignored private workspace. Public
+  `approved-authority.json` and `authority-manifest.json` contain only bounded identities, hashes,
+  counts, composition and role metadata; CAR-T6 and RHB-T5 remain false.
 
 ## Contract flow
 
@@ -62,6 +68,9 @@ human decisions, an approved UUID, an exact-authority row, or permission to begi
    recomputes effective status counts, distinct exact variants, qualifying families,
    and 20-variant/four-family shortfalls. Truncated histories and revoked, held, conflicted,
    insufficient, duplicate, or synthetic rows cannot pad the Gate.
+8. `canonical_authority_freeze.py` revalidates the real two-Gate event chain, private attestations,
+   latest-event links, permissions and source/catalog parents. It requires a fresh CAR-T5F response,
+   installs the private authorization plus two public outputs atomically, and replays byte-identically.
 
 Catalog products are also bound to the candidate's exact family and proposed release keys.
 High-level validators re-parse nested Pydantic values from their JSON representation. This matters
@@ -75,12 +84,12 @@ Detailed review packets and unrelated evidence remain in an owner-configured Git
 Public metadata rejects obvious email/phone data and unsafe parent references such as absolute paths
 or `..` traversal.
 
-The module performs no HTTP, browser, Selenium, resolver, FastAPI, model, or database work. It
-contains no write command, so a partial artifact cannot be promoted by CAR-T2. Later builders must
-write atomically and pass these complete-state contracts before replacement.
+The workflow performs no HTTP, browser, Selenium, resolver, FastAPI, model, or database work.
+The original CAR-T2 contract module remains read-only; the CAR-T5F builder uses validated temporary
+files, atomic replacement and rollback so a partial artifact cannot be promoted.
 
 ## What comes next
 
-CAR-T3 is a separate owner Gate for the proposed family/release queue. Until that Gate is approved,
-there are zero CAR exact variants, zero qualifying CAR families, and no authority to create review
-events, modify the catalog, run RHB-T5, or claim benchmark readiness.
+The next possible stage is CAR-T6: a fresh, versioned RHB-T4 re-audit that independently validates
+the bundle. CAR-T5F does not force that audit to pass, does not authorize RHB-T5 and does not prove
+resolver, RAG, embedding or benchmark quality.

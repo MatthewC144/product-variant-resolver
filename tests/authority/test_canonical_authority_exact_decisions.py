@@ -104,6 +104,9 @@ def g1_baseline(tmp_path_factory: pytest.TempPathFactory) -> Path:
         REVIEW_EVENTS_REFERENCE,
         EXACT_AUTHORIZATION_LEDGER_REFERENCE,
         EXACT_ATTESTATION_LEDGER_REFERENCE,
+        exact.FORBIDDEN_AUTHORITY_REFERENCE,
+        exact.FORBIDDEN_AUTHORITY_MANIFEST_REFERENCE,
+        exact.PRIVATE_DIRECTORY / "car-t5f-owner-authorization.json",
     ):
         (root / reference).unlink(missing_ok=True)
     base_time = datetime(2026, 10, 2, 12, 0, tzinfo=UTC)

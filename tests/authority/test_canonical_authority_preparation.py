@@ -49,6 +49,11 @@ def isolated_root(tmp_path: Path) -> Path:
         shutil.rmtree(private_output)
     public_output = root / preparation.PUBLIC_MANIFEST_REFERENCE
     public_output.unlink(missing_ok=True)
+    for reference in (
+        Path("data/authority-review/canonical-authority-review-v1/approved-authority.json"),
+        Path("data/authority-review/canonical-authority-review-v1/authority-manifest.json"),
+    ):
+        (root / reference).unlink(missing_ok=True)
     return root
 
 

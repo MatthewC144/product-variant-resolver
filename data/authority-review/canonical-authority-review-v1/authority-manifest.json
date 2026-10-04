@@ -1,0 +1,142 @@
+{
+  "approved_distinct_variant_count": 20,
+  "authority_bundle_sha256": "9922ff037fd79c61677008951a5de2fc2bfca52441c7f4d5b70d50c174dfa5ae",
+  "bundle_version": "canonical-authority-review-car-t5f-v1",
+  "catalog_sha256": "e763c8739a76ab4cc9b66169aecd4aea241ee810d8a27cdfb7d05bcacd98562e",
+  "catalog_version": "catalog-v2",
+  "counts_by_status": {
+    "approved_exact": 20,
+    "conflicted": 0,
+    "held": 0,
+    "insufficient": 0,
+    "reviewed": 0,
+    "revoked": 0,
+    "staged": 0
+  },
+  "created_at": "2026-10-04T04:44:50Z",
+  "family_composition": [
+    {
+      "approved_variant_count": 3,
+      "family_group_key": "car-t3-family-21-ford-bronco",
+      "release_keys": [
+        "release-2025-hyw73",
+        "release-2025-hyx50",
+        "release-2025-hyy32"
+      ]
+    },
+    {
+      "approved_variant_count": 3,
+      "family_group_key": "car-t3-family-draftnator",
+      "release_keys": [
+        "release-2025-hyw70",
+        "release-2025-hyx67",
+        "release-2025-hyy31"
+      ]
+    },
+    {
+      "approved_variant_count": 3,
+      "family_group_key": "car-t3-family-mazda-autozam",
+      "release_keys": [
+        "release-2025-hyw66",
+        "release-2025-hyx45",
+        "release-2025-hyy10"
+      ]
+    },
+    {
+      "approved_variant_count": 2,
+      "family_group_key": "car-t3-family-mazda-mx-5-miata",
+      "release_keys": [
+        "release-2025-hyw18",
+        "release-2025-hyx57"
+      ]
+    },
+    {
+      "approved_variant_count": 3,
+      "family_group_key": "car-t3-family-morgan-super-3",
+      "release_keys": [
+        "release-2025-hyw13",
+        "release-2025-hyx48",
+        "release-2025-hyy33"
+      ]
+    },
+    {
+      "approved_variant_count": 3,
+      "family_group_key": "car-t3-family-nissan-skyline-2000gt-r-lbwk",
+      "release_keys": [
+        "release-2025-hyw79",
+        "release-2025-hyx54",
+        "release-2025-hyy30"
+      ]
+    },
+    {
+      "approved_variant_count": 3,
+      "family_group_key": "car-t3-family-subaru-brz",
+      "release_keys": [
+        "release-2025-hyw99",
+        "release-2025-hyy12",
+        "release-2025-jbb55"
+      ]
+    }
+  ],
+  "gate_status": "eligible_for_rhb_t4_reaudit",
+  "network_requests": 0,
+  "ordered_parent_artifacts": [
+    {
+      "reference": "authority-candidates.json",
+      "sha256": "e6de7352f99f53161a3d2a8957d4c8b34821cb7beec34f091ab15c39af4c7112"
+    },
+    {
+      "reference": "authority-review-packet-manifest.json",
+      "sha256": "6b849f016a5c965397aaba7839e5c6c3d81acb44ed796e171355990c5b211053"
+    },
+    {
+      "reference": "catalog.json",
+      "sha256": "e763c8739a76ab4cc9b66169aecd4aea241ee810d8a27cdfb7d05bcacd98562e"
+    },
+    {
+      "reference": "private-authority-review-packet.json",
+      "sha256": "1086fa0ea7ddd4fda2b7a4b021797e5630a7b55d9f840c3508c4744d9703fe2b"
+    },
+    {
+      "reference": "private-car-t5f-owner-authorization.json",
+      "sha256": "88502d2754b6e8760318e2cbbf93fdc22f6d8d31c0d8aae220ed65c1c4698c40"
+    },
+    {
+      "reference": "private-t5-g1-attestations.json",
+      "sha256": "b776b3f9818fe7b20dabab247bddd7cb1e36766d8815da1ed30df10022b91868"
+    },
+    {
+      "reference": "private-t5-g1-authorizations.json",
+      "sha256": "6ae5e419dc45e7f0df87f79c63c0da146907ebe95fec9e65b84c47ad475b9db8"
+    },
+    {
+      "reference": "private-t5-g2-attestations.json",
+      "sha256": "7c7fcfefd525b2697a38237bd69e8511b31ca7e16a01a61c93178b25fae97daf"
+    },
+    {
+      "reference": "private-t5-g2-authorizations.json",
+      "sha256": "18ec492bd1fa95d8e55ddcc2f4795dc847e75913a83d2dd8dca0db1a18de5d9d"
+    },
+    {
+      "reference": "review-events.json",
+      "sha256": "6bc25e5057af6d7e583208678f56143b69a990a4ea0b00a0d7c5d4d54d9f4186"
+    },
+    {
+      "reference": "source-decisions.json",
+      "sha256": "390c4ce9232c72e033aae669fc2b07d3c1f456a7e867cc750a37a7778a3311c9"
+    }
+  ],
+  "publication_scope": "safe_metadata_only",
+  "qualifying_family_count": 7,
+  "resolver_output_consulted": false,
+  "rhb_t5_authorized": false,
+  "schema_version": "pvr-canonical-authority-bundle-manifest-v1",
+  "shortfalls": {
+    "exact_variant_shortfall": 0,
+    "qualifying_family_shortfall": 0
+  },
+  "source_decision_sha256s": [
+    "390c4ce9232c72e033aae669fc2b07d3c1f456a7e867cc750a37a7778a3311c9"
+  ],
+  "status": "complete"
+}

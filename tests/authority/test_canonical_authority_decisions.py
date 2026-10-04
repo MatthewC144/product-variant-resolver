@@ -100,6 +100,7 @@ def isolated_root(tmp_path: Path) -> Path:
     for forbidden in (
         decisions.FORBIDDEN_AUTHORITY_REFERENCE,
         decisions.FORBIDDEN_AUTHORITY_MANIFEST_REFERENCE,
+        PRIVATE_DIRECTORY / "car-t5f-owner-authorization.json",
     ):
         (root / forbidden).unlink(missing_ok=True)
     return root
