@@ -2,9 +2,9 @@
 
 Date: 2026-09-26. Source-plan owner approval recorded: 2026-09-28. CAR-T3 owner approval recorded:
 2026-09-29. Catalog batch application owner approval recorded: 2026-09-30. Mode: Lite / Lean
-Industrial. Status: **CAR-T1–T4A, CAR-T5P and Owner Gates T5-G1/T5-G2 complete; Batches 1–7 contain
-20 approved exact / 0 reviewed / 0 staged; CAR-T5F readiness is complete and awaits a separate
-owner authorization; CAR-T5F materialization, CAR-T6 and RHB-T5 are not started**.
+Industrial. Status: **CAR-T1–T5F complete; the frozen authority bundle contains 20 approved exact
+variants across seven qualifying families and is eligible for a fresh RHB-T4 re-audit; CAR-T6 and
+RHB-T5 are not started or authorized**.
 
 After owner approval, execute sequentially. Each task is one reviewable commit. A failed owner/data
 Gate stops later work without being treated as an engineering failure.
@@ -140,7 +140,7 @@ separate data-state commit. This task does not satisfy or start CAR-T5.
 
 ## CAR-T5 — Review, approve and freeze the bundle **OWNER GATE** `[task_executor/qa/doc_curator]`
 
-- [ ] Capture output-blind human reviews, bind owner attestations, apply explicit outcome
+- [x] Capture output-blind human reviews, bind owner attestations, apply explicit outcome
   transitions, and freeze the authority bundle. _(→CAR-R3,CAR-R4,CAR-R5,CAR-R6,CAR-R7,CAR-R8)_
 - [x] CAR-T5P: reconcile the 20 applied catalog-v2 records, materialize the ignored output-blind
   packet and publish only its safe hash/count manifest.
@@ -194,7 +194,9 @@ separate data-state commit. This task does not satisfy or start CAR-T5.
   20 exact candidates, 40 events, 14 batch authorizations, private attestations, parent hashes,
   permissions and 20/4 composition without materializing an authorization or bundle. Reject a
   generic continuation as authorization and keep CAR-T6/RHB-T5 false.
-- [ ] CAR-T5F: freeze the event chain and authority bundle, or publish exact shortfalls.
+- [x] CAR-T5F: freeze the event chain and authority bundle, or publish exact shortfalls.
+  _(Complete: 20 distinct approved exact variants, seven qualifying families, zero shortfalls,
+  `eligible_for_rhb_t4_reaudit`; CAR-T6 and RHB-T5 remain false.)_
 
 Files:
 

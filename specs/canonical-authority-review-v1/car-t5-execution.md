@@ -1,8 +1,8 @@
 # CAR-T5 exact-authority execution addendum
 
-Status: **CAR-T5P and Owner Gates T5-G1/T5-G2 complete (20 approved exact / 0 reviewed / 0 staged);
-CAR-T5F readiness passes at 20 variants / 7 qualifying families, while bundle materialization
-remains separately unauthorized and not started**
+Status: **CAR-T5P, Owner Gates T5-G1/T5-G2 and CAR-T5F complete; the frozen bundle contains 20
+approved exact variants / 7 qualifying families / 0 shortfalls and is eligible for a fresh RHB-T4
+re-audit; CAR-T6 and RHB-T5 remain unauthorized**
 
 Mode: Lean Industrial
 
@@ -305,6 +305,13 @@ response, mismatched response, stale hash, incomplete chain, unsafe permissions,
 failed atomic write stops before a bundle is installed. The exact owner response will remain in the
 Git-ignored private workspace; public outputs retain only its irreversible authorization hash.
 
+CAR-T5F is now complete under that fresh authorization. The private authorization, public
+`approved-authority.json` and public `authority-manifest.json` were installed atomically; two real
+check replays returned `unchanged`. The manifest independently recomputes 20 distinct exact UUIDs,
+seven qualifying families and zero shortfalls, so its Gate result is
+`eligible_for_rhb_t4_reaudit`. This is permission to present the bundle to a new CAR-T6 RHB-T4
+re-audit only; it is not an RHB-T4 PASS and does not authorize RHB-T5.
+
 ## 7. QA acceptance
 
 CAR-T5P passes only when:
@@ -330,8 +337,7 @@ Preparation is recoverable by discarding only temporary files; frozen CAR-T4 and
 remain unchanged. Review corrections are new append-only events, never edits. An erroneous exact
 approval is revoked by a new event; dependent counts and manifests become invalid until rebuilt.
 
-No T5-G2 exact outcome remains pending. The following decisions remain exclusively with the owner:
+No T5-G2 or CAR-T5F outcome remains pending. The following decision remains exclusively with the
+owner:
 
-1. a separate authorization to execute CAR-T5F and freeze the validated event chain/authority
-   bundle, or publish exact shortfalls;
-2. any later authorization to run CAR-T6; RHB-T5 remains a still later, separate Gate.
+1. any later authorization to run CAR-T6; RHB-T5 remains a still later, separate Gate.
