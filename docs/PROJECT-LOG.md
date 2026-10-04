@@ -1,5 +1,57 @@
 # Project Log
 
+## 2026-10-04 — CAR-T5F 完成：封存 20 筆 exact authority，停在 RHB-T4 re-audit 前
+
+### 新執行了什麼，以及解決了什麼問題
+
+在取得只限 CAR-T5F 的 fresh owner authorization 後，本輪將已驗證的 T5-G1/T5-G2 event chain
+封存成 public `approved-authority.json` 與 `authority-manifest.json`。初次執行回報 `created`，接著
+兩次使用 private ledger 內的原始授權做真實 check replay，均回報 `unchanged`。
+
+最終 bundle 有 20 筆 `approved_exact`、20 個 distinct canonical UUID、七個 qualifying families
+與零 shortfall，manifest 結果為 `eligible_for_rhb_t4_reaudit`。這解決了「資料已逐筆批准，卻還
+沒有可交給下游獨立稽核的固定 authority artifact」問題；它沒有把 CAR-T5F 擴張成 RHB-T4 PASS。
+
+### 代碼／資料修改了哪一部分，以及原因
+
+本輪主要變更是資料狀態：exact owner response 寫入 Git-ignored private authorization，public Git
+只新增 20-record authority bundle 與 safe manifest。Manifest 綁定 11 個 parent artifacts，包含
+packet、candidate/event state、T5-G1/T5-G2 private ledgers、catalog、source decisions 與 CAR-T5F
+authorization hash；公開檔沒有 owner verbatim 或 private identity。
+
+另外調整四個 authority test fixtures。原因是這些測試原本直接複製真實 `data/` 來模擬
+CAR-T5P、T5-G1、T5-G2 或 pre-freeze 狀態；bundle 正式 checked in 後，如果不明確移除三個
+freeze outputs，早期階段測試會被後期真實狀態污染。Fixture 現在只在 temporary repository
+移除 outputs，真實 bundle 完全不變。這個設計保留歷史階段的隔離測試，而不是讓測試依賴當前
+專案走到哪個 Gate。
+
+### 技術與安全決定
+
+採用 private authorization + public irreversible hash，而不是把批准原文放進 manifest，是為了
+同時保留 owner accountability 與 Git privacy。三個輸出使用 atomic transaction，因此 private
+authorization、bundle、manifest 不會只成功其中一部分。Bundle 不複製完整產品文字，只保存
+candidate/UUID/family/release identity、latest event、catalog-record hash、source decision 與 evidence
+hashes，足以稽核又減少公開資料面。
+
+### 驗證結果
+
+真實 bundle 驗證確認 20 distinct UUID、七個 qualifying families、11 個 parent hashes、零 shortfall，
+CAR-T6/RHB-T5 都是 false。權限為 private directory `0700`、private authorization `0600`、public
+outputs `0644`，且 private path 通過 `git check-ignore`。Public bundle/manifest 未找到批准原文。
+
+Materialization 後受影響的 suites 共 168 tests 全數通過：CAR-T5F 7、preparation 23、T5-G1 71、
+T5-G2 26、source binding 41。最終 post-materialization 全 repo regression 為 `1372 passed,
+1 warning`，唯一 warning 仍是既有 Starlette／AnyIO deprecation。Ruff/format、source/tasks hash
+binding 與 diff check 通過；830 個 tracked/unignored files 對包含本次授權在內的 25 種 private-
+response variants 做掃描，結果為 0 hits。
+
+### 下一步與未授權範圍
+
+下一步是另行批准 CAR-T6，執行新的、versioned RHB-T4 re-audit。該 audit 必須獨立重驗 permissions、
+hashes、field evidence、owner metadata、blindness、privacy 與 20/4 composition，CAR-T5F 不能強迫它
+PASS。CAR-T6、CAR-T7 與 RHB-T5 本輪均未執行；也沒有建立 benchmark query/label 或宣稱 resolver、
+RAG、embedding、listwise/pointwise 品質。
+
 ## 2026-10-04 — CAR-T5F readiness：完成 freeze 路徑，但不代替 Owner Gate
 
 ### 新執行了什麼，以及解決了什麼問題
