@@ -1,7 +1,8 @@
 # CAR-T5 exact-authority execution addendum
 
-Status: **CAR-T5P and Owner Gates T5-G1/T5-G2 complete (20 approved exact / 0 reviewed / 0 staged),
-while CAR-T5F remains separately unauthorized and not started**
+Status: **CAR-T5P and Owner Gates T5-G1/T5-G2 complete (20 approved exact / 0 reviewed / 0 staged);
+CAR-T5F readiness passes at 20 variants / 7 qualifying families, while bundle materialization
+remains separately unauthorized and not started**
 
 Mode: Lean Industrial
 
@@ -290,6 +291,19 @@ This state does not create the frozen authority bundle or authorize CAR-T5F, CAR
 After T5-G2, validate all parents and event chains, freeze safe tracked outputs, run two unchanged
 checks, and report either `eligible_for_rhb_t4_reaudit` or exact shortfalls. The next possible stage
 is only CAR-T6, a fresh versioned RHB-T4 re-audit.
+
+CAR-T5F readiness is implemented and verified without writing the freeze authorization,
+`approved-authority.json` or `authority-manifest.json`. The readiness path rebuilds the frozen
+preparation packet, validates the seven T5-G1 and seven T5-G2 authorizations, all 40 public events,
+all private attestations and the 20 latest-event links, then recomputes family/release composition.
+The current result is 20 distinct exact variants across seven qualifying families, with zero exact
+variant or family shortfall, so the proposed result is `eligible_for_rhb_t4_reaudit`.
+
+The freeze path requires a fresh owner response explicitly naming CAR-T5F and the authority bundle,
+while stating that CAR-T6 and RHB-T5 remain unauthorized. A generic continuation, reused prior
+response, mismatched response, stale hash, incomplete chain, unsafe permissions, partial output or
+failed atomic write stops before a bundle is installed. The exact owner response will remain in the
+Git-ignored private workspace; public outputs retain only its irreversible authorization hash.
 
 ## 7. QA acceptance
 

@@ -3,7 +3,8 @@
 Date: 2026-09-26. Source-plan owner approval recorded: 2026-09-28. CAR-T3 owner approval recorded:
 2026-09-29. Catalog batch application owner approval recorded: 2026-09-30. Mode: Lite / Lean
 Industrial. Status: **CAR-T1–T4A, CAR-T5P and Owner Gates T5-G1/T5-G2 complete; Batches 1–7 contain
-20 approved exact / 0 reviewed / 0 staged; CAR-T5F, CAR-T6 and RHB-T5 are not started**.
+20 approved exact / 0 reviewed / 0 staged; CAR-T5F readiness is complete and awaits a separate
+owner authorization; CAR-T5F materialization, CAR-T6 and RHB-T5 are not started**.
 
 After owner approval, execute sequentially. Each task is one reviewable commit. A failed owner/data
 Gate stops later work without being treated as an engineering failure.
@@ -189,6 +190,10 @@ separate data-state commit. This task does not satisfy or start CAR-T5.
 - [x] T5-G2 Batch 7 decision: record the fresh Mazda MX-5 Miata owner outcome as two
   `reviewed -> approved_exact` events while preserving the complete Batches 1–6 prefix and null
   color/edition boundary.
+- [x] CAR-T5F readiness: implement a fail-closed, deterministic freeze path that revalidates all
+  20 exact candidates, 40 events, 14 batch authorizations, private attestations, parent hashes,
+  permissions and 20/4 composition without materializing an authorization or bundle. Reject a
+  generic continuation as authorization and keep CAR-T6/RHB-T5 false.
 - [ ] CAR-T5F: freeze the event chain and authority bundle, or publish exact shortfalls.
 
 Files:
@@ -197,6 +202,9 @@ Files:
 - `data/authority-review/canonical-authority-review-v1/authority-candidates.json`
 - `data/authority-review/canonical-authority-review-v1/approved-authority.json`
 - `data/authority-review/canonical-authority-review-v1/authority-manifest.json`
+- `src/product_variant_resolver/canonical_authority_freeze.py`
+- `scripts/freeze_canonical_authority_bundle.py`
+- `tests/authority/test_canonical_authority_freeze.py`
 - `tests/authority/test_canonical_authority_review_bundle.py`
 
 Acceptance:
