@@ -1,5 +1,61 @@
 # Project Log
 
+## 2026-10-04 — CAR-T5F readiness：完成 freeze 路徑，但不代替 Owner Gate
+
+### 新執行了什麼，以及解決了什麼問題
+
+T5-G2 完成後，資料已是 20 exact／0 reviewed／0 staged，但專案只有 authority bundle 的資料
+契約與單元驗證器，沒有一條能把真實 T5-G1/T5-G2 event state 安全封存的執行路徑。本輪新增
+CAR-T5F readiness 與 freeze builder：先重建 frozen preparation packet，再驗證七個 T5-G1、七個
+T5-G2 authorizations、40 個 events、40 個 private attestations、20 個 latest-event links 與所有
+catalog/evidence hashes，最後重新計算 20/4 composition。
+
+真實 readiness 結果是 20 個 distinct exact variants、七個 qualifying families、零 variant/family
+shortfall，proposed Gate result 為 `eligible_for_rhb_t4_reaudit`。但本輪沒有建立 freeze
+authorization、`approved-authority.json` 或 `authority-manifest.json`；原因是一般的「繼續下一步」
+不是規格要求的獨立 CAR-T5F owner decision。
+
+### 代碼修改了哪一部分，原因與方法選擇
+
+新增 `canonical_authority_freeze.py`，將 readiness 與 materialization 分成兩條明確路徑。Readiness
+只在記憶體建立預期的 20 筆 bundle records，逐筆核對 UUID、catalog record hash、family/release、
+latest event 與六個 distinct evidence hashes，不留下任何授權或 bundle 檔案。Freeze 路徑則要求
+fresh exact response 明確包含 CAR-T5F、authority bundle，以及 CAR-T6/RHB-T5 不授權邊界；並拒絕
+重用 T5-G1/T5-G2 response、模糊 continuation 或前後不一致的 response。
+
+另外新增獨立 CLI，讓 `--readiness` 無法與任何 freeze 參數併用。未來取得授權後，owner verbatim
+只寫入 Git-ignored private workspace；tracked bundle/manifest 只保留不可逆 authorization hash、
+record identity、evidence hashes、counts 與 family composition。三個輸出採 temp validation、fsync、
+atomic replace 與 rollback，避免只寫入其中一部分就留下錯誤 Gate 狀態。
+
+### 為何採用這個設計
+
+把 readiness 與 freeze 拆開，是為了同時滿足兩件看似衝突的需求：工程可以先驗證所有 parent
+與 composition，不必每次等人工才發現程式問題；但工程準備完成又不能被誤解為人已批准資料
+Gate。Fresh response、private/public split 與 fail-closed atomic install 讓授權、資料正確性和檔案
+落地成為三個可獨立查證的層次，也讓後續履歷展示能清楚說明 human-in-the-loop governance。
+
+### 驗證與修正
+
+新 focused suite 為 `7 passed`，完整 authority regression 為 `303 passed`，涵蓋 read-only
+readiness、模糊授權拒絕、response mismatch、真實 20/7 freeze/replay、stale state、atomic
+rollback 與 CLI。全 repo regression 為 `1372 passed, 1 warning`，唯一 warning 仍是既有
+Starlette／AnyIO deprecation；Ruff、format、strict MyPy、compileall 與 diff check 通過。針對
+17 種 private-response variants 掃描 826 個 tracked/unignored files，結果為 0 hits。第一次真實
+readiness 因本機 `data/catalog.json` 採較嚴格的 `0600` 而被誤判；修正後公開輸入接受安全的
+`0600` 或 `0644`，但新 tracked outputs 仍固定寫成 `0644`。這是權限策略相容性修正，不是放寬
+private artifacts；private directory/inputs 仍強制 `0700/0600`。
+
+完整 regression 後又補上「bundle 已 materialize 時 readiness 必須拒絕並導向 check mode」及
+既有輸出權限驗證；這個 bounded hardening 完成後，七個 focused tests 已再次全數通過。
+
+### 下一步與仍受限的範圍
+
+下一步仍是獨立的 CAR-T5F Owner Gate。只有 owner 明確授權 freeze validated event chain 與
+authority bundle（若 composition 不足則發布 exact shortfalls），並明確排除 CAR-T6/RHB-T5，才會
+在真實 repo 寫入 bundle。本輪不代表 RHB-T4 re-audit 已通過，也沒有執行 CAR-T6、CAR-T7 或
+RHB-T5。
+
 ## 2026-10-03 — T5-G2 Batch 7：Mazda MX-5 Miata 兩筆追加，T5-G2 達到 20 exact／0 reviewed
 
 ### 新執行了什麼，以及解決了什麼問題
