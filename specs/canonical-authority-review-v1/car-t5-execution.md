@@ -326,6 +326,14 @@ fresh response explicitly authorizing CAR-T6 and the versioned RHB-T4 re-audit w
 RHB-T5, query-pack authoring and label authoring unauthorized. A generic continuation, mismatched
 response, stale parent, partial artifact state or interrupted atomic write fails closed.
 
+CAR-T6 is now complete under that separate owner authorization. The private authorization and the
+public `canonical-authority-reaudit-v1.json` /
+`canonical-authority-reaudit-manifest-v1.json` files were installed atomically, then two real check
+replays returned `unchanged`. The new audit independently records 20 approved exact variants,
+seven qualifying families, zero shortfalls and `passed_exact_authority_gate`; its manifest binds
+the unchanged historical blocked audit by raw SHA-256. RHB-T5, query-pack authoring and label
+authoring remain explicitly prohibited pending another owner Gate.
+
 ## 7. QA acceptance
 
 CAR-T5P passes only when:
@@ -351,8 +359,8 @@ Preparation is recoverable by discarding only temporary files; frozen CAR-T4 and
 remain unchanged. Review corrections are new append-only events, never edits. An erroneous exact
 approval is revoked by a new event; dependent counts and manifests become invalid until rebuilt.
 
-No T5-G2 or CAR-T5F outcome remains pending. CAR-T6 readiness is complete, but the following
-decision remains exclusively with the owner:
+No T5-G2, CAR-T5F or CAR-T6 outcome remains pending. The following decision remains exclusively
+with the owner:
 
-1. whether to authorize CAR-T6 materialization of the versioned RHB-T4 re-audit; RHB-T5 remains a
-   still later, separate Gate.
+1. whether to authorize RHB-T5 query-pack work under a separate Gate. CAR-T6 completion does not
+   provide that authorization.

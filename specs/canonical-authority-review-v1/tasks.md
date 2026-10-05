@@ -2,9 +2,9 @@
 
 Date: 2026-09-26. Source-plan owner approval recorded: 2026-09-28. CAR-T3 owner approval recorded:
 2026-09-29. Catalog batch application owner approval recorded: 2026-09-30. Mode: Lite / Lean
-Industrial. Status: **CAR-T1–T5F complete; CAR-T6 readiness is implemented and independently
-recomputes a possible 20-variant / 7-family RHB-T4 PASS, but the versioned re-audit is not
-materialized or authorized; RHB-T5 is not started or authorized**.
+Industrial. Status: **CAR-T1–T6 complete; the versioned RHB-T4 re-audit independently passes with
+20 approved exact variants, seven qualifying families and zero shortfalls; RHB-T5 is not started or
+authorized**.
 
 After owner approval, execute sequentially. Each task is one reviewable commit. A failed owner/data
 Gate stops later work without being treated as an engineering failure.
@@ -224,15 +224,17 @@ Commit: review event chain, frozen bundle, builder/tests and safe aggregate evid
 - [x] CAR-T6 readiness: implement the versioned RHB-T4 adapter, revalidate the CAR-T5F bundle and
   immutable historical blocked checkpoint, compute the proposed Gate result without writing an
   authorization or re-audit artifact, and reject generic continuation as authorization.
-- [ ] Feed the frozen CAR bundle into a versioned RHB-T4 re-audit without overwriting prior history.
-  _(→CAR-R8,CAR-R9)_
+- [x] Feed the frozen CAR bundle into a versioned RHB-T4 re-audit without overwriting prior history.
+  _(Complete: 20 exact variants, seven qualifying families, zero shortfalls,
+  `passed_exact_authority_gate`; RHB-T5/query-pack/labels remain unauthorized. →CAR-R8,CAR-R9)_
 
 Files:
 
 - `src/product_variant_resolver/representative_benchmark_reaudit.py`
 - `scripts/build_representative_hard_benchmark_authority_reaudit.py`
 - `tests/evaluation/test_representative_benchmark_authority_reaudit.py`
-- new versioned RHB authority artifact/manifest
+- `data/evaluation/representative-hard-benchmark-v1/canonical-authority-reaudit-v1.json`
+- `data/evaluation/representative-hard-benchmark-v1/canonical-authority-reaudit-manifest-v1.json`
 - `docs/evidence/representative-hard-benchmark-authority-reaudit.md`
 
 Acceptance:
