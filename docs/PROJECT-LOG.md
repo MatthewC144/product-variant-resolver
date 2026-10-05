@@ -1,5 +1,49 @@
 # Project Log
 
+## 2026-10-05 — RHB-T6 governance repair proposal：用 bundle-specific overlay 避免過度升格來源
+
+### 新執行了什麼，解決什麼問題
+
+前一步 readiness 已證明 matched-label permission 為 0/20，且 CAR authority 與 frozen T1/T3 的
+authority-source policy 不相容。本輪沒有直接修改 permission 或建立 labels，而是產出 deterministic、
+non-authorizing proposal，把需要 owner 決定的修復範圍完整凍結。Proposal 綁定 60-row query pack、
+20-record CAR authority、source inventory/decisions、CAR manifest 與 readiness hash，狀態為
+`awaiting_owner_decision`。
+
+這解決了「如何讓 later CAR evidence 能支援 matched label，又不把 Human labels 或整個 Wiki 都升格成
+canonical truth」的問題。Query side 只對目前 query-pack SHA 提議新增最多 20 筆 matched；每筆仍必須
+由 owner 審閱並綁定 admitted authority ID/UUID。Authority side 只接納目前 20-record bundle 與 revision
+790665，不是 source-wide promotion，也不是 Mattel/manufacturer truth。
+
+### 代碼修改了哪一部分、原因與決策
+
+新增 `representative_benchmark_governance_repair.py`、builder CLI、strict proposal schema 與專用測試。
+Builder 先重跑 RHB-T6 readiness，只有 0/20 matched、authority incompatible、shortfall 16 的精確 baseline
+仍成立才會建立 proposal；任一 parent hash、authority ID ordering、permission baseline 或 readiness 狀態
+改變都會 fail closed。JSON 採 canonical bytes 與 self SHA-256，首次建立後 replay 必須是 `unchanged`。
+
+方法選型上沒有修改 frozen `source-decisions.json`，也沒有把 Wiki entry 改成全域
+`authorized_export`。改用 bundle-specific overlay proposal，是因為原始 source-wide decision 描述當時
+證據狀態，而 CAR 後來只審了有限 20 筆。覆寫歷史會失去 audit trail；整體升格又超出 owner 實際審核
+範圍。Overlay 讓新證據可以被使用，同時將權限限制在 exact query/authority hashes。
+
+### 技術棧／驗證與未授權範圍
+
+沿用 Python 3.12、Pydantic `extra=forbid`、canonical JSON、SHA-256 與 atomic replace。Public proposal
+只有 hashes、public authority IDs、aggregates 與 negative authorization flags，不含 raw query、source
+row、owner response、expected label/UUID 或 label record。Proposal content hash 為
+`e5d1d74233626dc715f253608d3ea05da8965b043e324255306523b3dffdf8de`，file SHA-256 為
+`0df96c2a37c133584b0c15e11b0f84c304b21c233739bc92031ffff56ef3d28a`。
+
+全部 126 個 representative-benchmark tests 通過；proposal 專用八個測試涵蓋 deterministic scope、
+canonical materialization、real-file replay、authorization/widening rejection、public privacy、parent
+drift、tamper 與 dependency guard。Ruff、format、strict MyPy、compile、兩次 `unchanged` replay 與
+diff check 通過。
+
+本輪只準備 Owner Gate。`governance_overlay_materialized=false`、`rhb_t6_authorized=false`；challenge
+shortfall 16 會帶到未來 owner review，不能因 proposal 自動消失。下一步需要 owner 明確批准 proposal，
+之後才能實作 versioned overlay；即使 overlay 完成，RHB-T6 labeling 還需要另一個獨立批准。
+
 ## 2026-10-05 — RHB-T6 readiness：發現 matched permission 與 authority admission 雙重 blocker
 
 ### 新執行了什麼，解決什麼問題

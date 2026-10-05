@@ -119,6 +119,13 @@ shortfall of `20`; the CAR authority's Wiki evidence source is also not admitted
 by frozen T1/T3. No label, held-label or labels manifest exists. A new versioned governance repair
 must be owner-approved before label authoring can be requested.
 
+`rhb-t6-governance-repair-proposal.json` is the non-authorizing repair proposal. It binds the exact
+query pack, CAR authority bundle, source inventory/decisions and readiness hash. The proposed
+admission is bundle-specific: Human queries remain non-authoritative, the whole Wiki source is not
+promoted, and every future matched label would require an owner-reviewed exact authority reference.
+The file contains no raw query, source-row reference, owner response or label and reports
+`rhb_t6_authorized=false`.
+
 T3 passes only for the declared scopes. Human-name queries and `ambiguous`/`no_match` labels remain
 local-only; they can never produce a `matched` label. Workbook rows are local-only family context and
 cannot enter query packs or scored labels. Git receives only schema/hash/count/aggregate/non-sensitive
@@ -143,6 +150,7 @@ authorization explicitly excludes RHB-T5, query-pack authoring and label authori
 .venv/bin/python scripts/build_representative_hard_benchmark_query_projection.py --check
 .venv/bin/python scripts/build_representative_hard_benchmark_query_pack.py --check
 .venv/bin/python scripts/validate_representative_hard_benchmark_label_readiness.py
+.venv/bin/python scripts/build_representative_hard_benchmark_governance_repair_proposal.py --check
 .venv/bin/ruff check src/product_variant_resolver/representative_benchmark.py \
   src/product_variant_resolver/representative_benchmark_query_projection.py \
   src/product_variant_resolver/representative_benchmark_query_readiness.py \

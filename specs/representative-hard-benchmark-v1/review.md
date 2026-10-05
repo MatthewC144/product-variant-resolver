@@ -3,7 +3,26 @@
 Date: 2026-10-05. Mode: Lite / Lean Industrial. Scope:
 **RHB-T1/T2 history + RHB-T3/T4 final QA + RHB-T5 authoring + RHB-T6 readiness**.
 
-## Current milestone verdict: RHB-T6 READINESS VALIDATOR PASS / OWNER GATE NOT REQUESTABLE
+## Current milestone verdict: GOVERNANCE REPAIR PROPOSAL READY / AWAITING OWNER DECISION
+
+The exact readiness blockers are now represented by a deterministic, public-safe, non-authorizing
+proposal. It binds query pack SHA-256
+`97f7f0dd61cf619bb16b198778356d8ef53c7a504086f11542922f90706a858a`, the 20-record CAR authority
+SHA-256 `72c11aeb8db03267a8deca4f50eb09d89c2c423a7e9ca983f498f76e80553117`, the frozen T1/T3 inputs and
+readiness SHA-256 `b4bf8f9a45b315a2ad64ba9f5626daef63a246c66bbbfc884856b7945e1b9f45`.
+
+The proposal does not rewrite T1/T3. It would permit matched labels only inside the bound query pack
+and only when an owner-reviewed label references an exact record in the bound CAR bundle. It admits
+the 20 exact authority records, not the entire Wiki source, and explicitly denies manufacturer/global
+truth, new color/edition verification, RHB-T6 labels, RHB-T7 and resolver evaluation. Its status is
+`awaiting_owner_decision`, `proposal_only=true`, and `rhb_t6_authorized=false`; implementation must
+not begin before a separate exact Owner Gate.
+
+All 126 representative-benchmark tests pass. Proposal replay is `unchanged / unchanged`; Ruff,
+format, strict MyPy, compile, public-field privacy and diff checks pass. The public proposal file
+SHA-256 is `0df96c2a37c133584b0c15e11b0f84c304b21c233739bc92031ffff56ef3d28a`.
+
+## Previous milestone verdict: RHB-T6 READINESS VALIDATOR PASS / OWNER GATE NOT REQUESTABLE
 
 The read-only RHB-T6 validator now replays the private RHB-T5 pack through the core query validator,
 revalidates T1/T3 and the 20-record CAR authority bundle, checks label-artifact absence, and emits a

@@ -76,6 +76,12 @@ permitted to produce the proposed label status and every exact-authority evidenc
 by the frozen or explicitly versioned source-decision contract. A later authority artifact SHALL NOT
 silently bypass an older T1/T3 source prohibition.
 
+IF a later narrowly reviewed authority bundle conflicts with a frozen source-wide prohibition, THEN
+THE SYSTEM SHALL prepare a checksum-bound proposal or versioned overlay limited to the exact query
+pack and authority records; it SHALL preserve T1/T3 without overwrite, SHALL NOT promote the whole
+source or Human labels into canonical authority, and SHALL require an explicit Owner Gate before
+materialization.
+
 ### RHB-R6 — Honest handling when exact variant truth is absent
 
 IF exact canonical variant authority cannot be established, THEN THE SYSTEM SHALL NOT assign an

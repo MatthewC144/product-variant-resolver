@@ -2310,3 +2310,15 @@ The most likely failure is an over-broad repair that treats Human labels or the 
 as canonical truth. Any proposal must instead admit only the narrowly reviewed CAR bundle and allow
 a matched query label only when it binds an independent admitted authority record. Manufacturer or
 global truth remains out of scope.
+
+The chosen proposal now implements that design boundary as data rather than prose. One admission is
+bound to the current 60-row query-pack hash; the other is bound to the current 20-record CAR authority
+hash. This two-hash overlay is preferred over a source-wide T1/T3 mutation because it preserves the
+historical decision and makes authority expansion mechanically impossible without a new version.
+
+Across six dimensions the overlay proposal is: strong on correctness (exact parent binding),
+security/privacy (no row-level query/label), maintainability (one strict schema), observability
+(explicit 0/20 and 16-shortfall parents), reversibility (proposal only, no mutation), and portfolio
+clarity (demonstrates governed evidence evolution instead of silent permission changes). Its cost is
+one extra Owner Gate before labeling; that is acceptable because owner review is the scarce and
+irreversible resource being protected.

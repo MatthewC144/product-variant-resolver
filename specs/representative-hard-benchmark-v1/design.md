@@ -238,6 +238,14 @@ despite the later CAR workflow accepting it under its own governance. A versione
 and authority-admission repair therefore requires a new Owner Gate; readiness cannot mutate those
 decisions itself.
 
+The repair is proposed as a narrow overlay rather than a T1/T3 rewrite. Its query-label admission
+binds the exact 60-row query-pack SHA and permits at most 20 matched labels, each requiring owner
+review plus an admitted exact authority ID/UUID. Its authority admission binds the exact 20-record
+CAR bundle SHA and revision 790665, not the Wiki source generally. Human labels remain ineligible to
+create identity, the full Wiki source remains staging context, unsupported color/edition stay
+unverified, and manufacturer/global truth is not claimed. Proposal materialization and RHB-T6 label
+authoring require two separate Owner Gates.
+
 ### 6.5 `BenchmarkManifest`
 
 The manifest freezes schema/dataset versions; inventory, query, label, authority, catalog and config

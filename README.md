@@ -98,11 +98,13 @@ output-blind 60-query authoring artifact and aggregate-only public manifest. It 
 `representative_pilot=false` because five provisional challenge classes have declared shortfalls;
 labels, split and resolver evaluation have not begun. RHB-T6 readiness also found that frozen T3
 permits zero matched labels from the current Human query source and does not yet admit the CAR Wiki
-evidence as exact authority, so a versioned governance repair is required before an Owner labeling
-Gate. These are authority/provenance artifacts, not a real-marketplace accuracy result or
+evidence as exact authority. A bundle-specific governance-repair proposal now binds the exact
+60-row query pack and 20-record CAR authority without promoting Human labels or the full Wiki source;
+it is awaiting owner approval and does not authorize labeling. These are authority/provenance
+artifacts, not a real-marketplace accuracy result or
 manufacturer certification. See the
 [final CAR evidence](docs/evidence/canonical-authority-review-v1.md) and
-[RHB-T6 readiness evidence](docs/evidence/representative-hard-benchmark-label-readiness.md).
+[RHB-T6 governance proposal](docs/evidence/representative-hard-benchmark-governance-repair-proposal.md).
 
 ## Measured evaluation
 

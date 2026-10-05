@@ -189,14 +189,20 @@ Acceptance:
 - [x] Add a deterministic read-only RHB-T6 entry validator. It confirms the 60-case pack is core
   valid and label-free, then blocks the Owner Gate because matched-label permission is `0/20`, CAR
   authority is not admitted by frozen T1/T3, and provisional challenge shortfalls total `16`.
-- [ ] Prepare and obtain explicit owner approval for a versioned source-decision/authority-admission
-  repair before requesting any RHB-T6 labeling authorization.
+- [x] Prepare a deterministic non-authorizing governance-repair proposal that binds the exact
+  60-row query-pack SHA and 20-record CAR authority SHA while preserving frozen T1/T3.
+- [ ] Obtain explicit owner approval to materialize the versioned governance overlay. This approval
+  remains separate from RHB-T6 label authoring.
 
 Files:
 
 - `src/product_variant_resolver/representative_benchmark_label_readiness.py`
+- `src/product_variant_resolver/representative_benchmark_governance_repair.py`
 - `scripts/validate_representative_hard_benchmark_label_readiness.py`
+- `scripts/build_representative_hard_benchmark_governance_repair_proposal.py`
 - `tests/evaluation/test_representative_benchmark_label_readiness.py`
+- `tests/evaluation/test_representative_benchmark_governance_repair.py`
+- `data/evaluation/representative-hard-benchmark-v1/rhb-t6-governance-repair-proposal.json`
 - `data/evaluation/representative-hard-benchmark-v1/local-query-authoring-v1/labels.json`
 - `data/evaluation/representative-hard-benchmark-v1/local-query-authoring-v1/held-labels.json`
 - `data/evaluation/representative-hard-benchmark-v1/labels-manifest.json`

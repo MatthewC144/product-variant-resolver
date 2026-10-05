@@ -1,0 +1,118 @@
+{
+  "authority_bundle_admission": {
+    "admission_scope": "exact_records_in_bound_car_bundle_only",
+    "authority_manifest_sha256": "dfb71d8fa5f6964f7a29983c569974a549633022bb12e18f9046fb0e680a6862",
+    "authority_record_count": 20,
+    "authority_record_ids": [
+      "car-t6-car-t3-fandom-row-0b280377b913e854",
+      "car-t6-car-t3-fandom-row-20f16ad2c5417006",
+      "car-t6-car-t3-fandom-row-26b0ba519bca3a01",
+      "car-t6-car-t3-fandom-row-27fe2c9ab41942b8",
+      "car-t6-car-t3-fandom-row-2a5c961e0bb57c99",
+      "car-t6-car-t3-fandom-row-38aa30ce0eed34ca",
+      "car-t6-car-t3-fandom-row-3a6c7c2b9a6429fa",
+      "car-t6-car-t3-fandom-row-3aa2e8967b2f55bf",
+      "car-t6-car-t3-fandom-row-53333b0feb531ebc",
+      "car-t6-car-t3-fandom-row-592082e49745a19f",
+      "car-t6-car-t3-fandom-row-710c84b99e8c2e48",
+      "car-t6-car-t3-fandom-row-75cd82288d943dce",
+      "car-t6-car-t3-fandom-row-77ecedc5e3db3f77",
+      "car-t6-car-t3-fandom-row-78748248e56441f5",
+      "car-t6-car-t3-fandom-row-7e1a3b3ad2244c80",
+      "car-t6-car-t3-fandom-row-a69d24d7e300d639",
+      "car-t6-car-t3-fandom-row-d9d82c60489c0456",
+      "car-t6-car-t3-fandom-row-e5b00b0411a6187d",
+      "car-t6-car-t3-fandom-row-eb74e3eebcc4dcf4",
+      "car-t6-car-t3-fandom-row-ebf5fc720ec1d06d"
+    ],
+    "authority_sha256": "72c11aeb8db03267a8deca4f50eb09d89c2c423a7e9ca983f498f76e80553117",
+    "benchmark_labels_consulted": false,
+    "color_or_edition_newly_verified": false,
+    "evidence_source_id": "fandom-hot-wheels-2025-pilot-r790665-v1",
+    "evidence_source_revision_id": 790665,
+    "manufacturer_certification_claimed": false,
+    "resolver_output_consulted": false,
+    "source_wide_exact_authority_promotion": false
+  },
+  "challenge_review_carry_forward": {
+    "owner_label_review_must_verify_or_hold": true,
+    "provisional_shortfall_total": 16,
+    "provisional_shortfalls": {
+      "alias_or_abbreviation": 0,
+      "conflicting_color": 3,
+      "conflicting_identifier": 2,
+      "conflicting_series": 4,
+      "conflicting_year": 3,
+      "distractor_quantity_or_lot": 0,
+      "missing_metadata": 0,
+      "same_casting_different_release": 0,
+      "unknown_to_catalog": 4
+    },
+    "representative_pilot_preapproved": false
+  },
+  "frozen_t1_t3_preserved_without_overwrite": true,
+  "generated_by": "scripts/build_representative_hard_benchmark_governance_repair_proposal.py",
+  "governance_overlay_materialized": false,
+  "inputs": [
+    {
+      "path": "data/evaluation/representative-hard-benchmark-v1/canonical-authority-reaudit-manifest-v1.json",
+      "sha256": "dfb71d8fa5f6964f7a29983c569974a549633022bb12e18f9046fb0e680a6862"
+    },
+    {
+      "path": "data/evaluation/representative-hard-benchmark-v1/canonical-authority-reaudit-v1.json",
+      "sha256": "72c11aeb8db03267a8deca4f50eb09d89c2c423a7e9ca983f498f76e80553117"
+    },
+    {
+      "path": "data/evaluation/representative-hard-benchmark-v1/query-pack-manifest.json",
+      "sha256": "8f2927a8f4f318d073793d161c310e319b6ac656c63e2cb20ef60565c1b31949"
+    },
+    {
+      "path": "data/evaluation/representative-hard-benchmark-v1/source-decisions.json",
+      "sha256": "d957bb03f6258d70a177c743e7eeca6e2930710af45fa52719c385d5082740a8"
+    },
+    {
+      "path": "data/evaluation/representative-hard-benchmark-v1/source-inventory.json",
+      "sha256": "cdb44f23db2f003c67c5dbe16a176bbeffd465988038af7070d1bfb813e8b0f2"
+    }
+  ],
+  "network_requests": 0,
+  "next_allowed_action": "request_owner_decision_on_governance_repair_proposal",
+  "owner_decision_required": true,
+  "prohibited_actions": [
+    "mutate_frozen_t1_t3_in_place",
+    "promote_human_labels_to_canonical_authority",
+    "promote_full_wiki_source_to_global_exact_authority",
+    "materialize_governance_overlay_without_owner_approval",
+    "RHB-T6_label_authoring",
+    "RHB-T7_split_assignment",
+    "resolver_evaluation",
+    "manufacturer_or_global_truth_claim"
+  ],
+  "proposal_date": "2026-10-05",
+  "proposal_only": true,
+  "proposal_sha256": "e5d1d74233626dc715f253608d3ea05da8965b043e324255306523b3dffdf8de",
+  "proposal_version": "rhb-t6-governance-repair-proposal-v1",
+  "query_label_admission": {
+    "admission_scope": "bound_query_pack_only",
+    "current_allowed_statuses": [
+      "ambiguous",
+      "no_match"
+    ],
+    "exact_admitted_authority_required_for_every_matched_label": true,
+    "human_source_remains_ineligible_for_exact_authority": true,
+    "maximum_matched_labels": 20,
+    "owner_review_required_for_every_label": true,
+    "proposed_additional_status": "matched",
+    "public_row_publication_authorized": false,
+    "publication_scope": "local_only",
+    "query_pack_record_count": 60,
+    "query_pack_sha256": "97f7f0dd61cf619bb16b198778356d8ef53c7a504086f11542922f90706a858a",
+    "query_source_id": "human-labeled-real-noisy-v1"
+  },
+  "readiness_sha256": "b4bf8f9a45b315a2ad64ba9f5626daef63a246c66bbbfc884856b7945e1b9f45",
+  "resolver_evaluation_authorized": false,
+  "rhb_t6_authorized": false,
+  "rhb_t7_authorized": false,
+  "schema_version": "pvr-rhb-t6-governance-repair-proposal-v1",
+  "status": "awaiting_owner_decision"
+}
