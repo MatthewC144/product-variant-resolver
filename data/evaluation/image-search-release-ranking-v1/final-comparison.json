@@ -1,0 +1,112 @@
+{
+  "schema_version": "pvr-image-search-ranking-final-v1",
+  "status": "final_test_scored_once",
+  "development_selection_sha256": "1f241ae3513572b0b85dd24aa5bc1dffb1efeb95275ce9f0f30ca799358399c7",
+  "selected_arm": "neural_pointwise",
+  "test_winner_by_exact_top1": "neural_pointwise",
+  "test_report": {
+    "schema_version": "pvr-image-search-ranking-test-v1",
+    "dataset_version": "image-search-resolver-v1",
+    "split": "test",
+    "split_version": "image-search-release-ranking-split-v1",
+    "split_assignment_sha256": "10ed70cc347f1b548c156e033645d6b0e90f48ee66c95af631832e8d55aebdac",
+    "sample_count": 53,
+    "candidate_corpus_count": 1763,
+    "candidate_limit": 25,
+    "arms": {
+      "rrf": {
+        "sample_count": 53,
+        "casting_top1_correct": 46,
+        "exact_release_top1_correct": 29,
+        "exact_release_retrieved_at_10": 52,
+        "exact_release_retrieved_at_25": 53,
+        "reciprocal_rank_sum_at_10": 38.67063492063492,
+        "casting_top1_accuracy": 0.8679245283018868,
+        "exact_release_top1_accuracy": 0.5471698113207547,
+        "exact_release_recall_at_10": 0.9811320754716981,
+        "exact_release_recall_at_25": 1.0,
+        "exact_release_mrr_at_10": 0.7296346211440551,
+        "rerank_p50_latency_ms": 0.0,
+        "rerank_p95_latency_ms": 0.0
+      },
+      "release_heuristic": {
+        "sample_count": 53,
+        "casting_top1_correct": 46,
+        "exact_release_top1_correct": 33,
+        "exact_release_retrieved_at_10": 51,
+        "exact_release_retrieved_at_25": 53,
+        "reciprocal_rank_sum_at_10": 39.15396825396825,
+        "casting_top1_accuracy": 0.8679245283018868,
+        "exact_release_top1_accuracy": 0.6226415094339622,
+        "exact_release_recall_at_10": 0.9622641509433962,
+        "exact_release_recall_at_25": 1.0,
+        "exact_release_mrr_at_10": 0.7387541179994009,
+        "rerank_p50_latency_ms": 0.17195800319314003,
+        "rerank_p95_latency_ms": 0.20008299907203764
+      },
+      "neural_pointwise": {
+        "sample_count": 53,
+        "casting_top1_correct": 52,
+        "exact_release_top1_correct": 36,
+        "exact_release_retrieved_at_10": 53,
+        "exact_release_retrieved_at_25": 53,
+        "reciprocal_rank_sum_at_10": 44.1,
+        "casting_top1_accuracy": 0.9811320754716981,
+        "exact_release_top1_accuracy": 0.6792452830188679,
+        "exact_release_recall_at_10": 1.0,
+        "exact_release_recall_at_25": 1.0,
+        "exact_release_mrr_at_10": 0.8320754716981132,
+        "rerank_p50_latency_ms": 113.76758299593348,
+        "rerank_p95_latency_ms": 130.48791600158438
+      },
+      "neural_listwise": {
+        "sample_count": 53,
+        "casting_top1_correct": 51,
+        "exact_release_top1_correct": 32,
+        "exact_release_retrieved_at_10": 51,
+        "exact_release_retrieved_at_25": 53,
+        "reciprocal_rank_sum_at_10": 40.35,
+        "casting_top1_accuracy": 0.9622641509433962,
+        "exact_release_top1_accuracy": 0.6037735849056604,
+        "exact_release_recall_at_10": 0.9622641509433962,
+        "exact_release_recall_at_25": 1.0,
+        "exact_release_mrr_at_10": 0.7613207547169811,
+        "rerank_p50_latency_ms": 114.18166699877474,
+        "rerank_p95_latency_ms": 130.90991599892732
+      }
+    },
+    "winner_by_exact_top1": "neural_pointwise",
+    "metadata": {
+      "test_cases_scored": 53,
+      "row_level_output_persisted": false,
+      "canonical_catalog_modified": false,
+      "pointwise_model_version": "cross-encoder/ms-marco-MiniLM-L6-v2@233902d25c440f23af6f7d6e94d2946bac0bee0a",
+      "listwise_model_version": "candidate-set-reranker-v1@9386c0593ec07ad2b9eb0f6daa613b66f7b117e0e6c5a33be2e8705dbe18aead",
+      "pointwise_model_manifest_sha256": "32f889bb415ef5a56760a299da0635e8e1704d46fe0b11ded06c563de896feb8",
+      "listwise_model_sha256": "9386c0593ec07ad2b9eb0f6daa613b66f7b117e0e6c5a33be2e8705dbe18aead",
+      "model_reuse_note": "Frozen models trained on the earlier fixture benchmark are evaluated zero-shot; image-search development/test labels were not used to fit either model.",
+      "score_semantics": "Ranking scores only; no neural score is a match probability.",
+      "authority_note": "Expected identities are relative to the frozen third-party release source; they are not Mattel/manufacturer-certified or global canonical truth."
+    }
+  },
+  "generalization": {
+    "pointwise_exact_top1_delta_count_vs_rrf": 7,
+    "pointwise_exact_top1_delta_rate_vs_rrf": 0.13207547169811318,
+    "pointwise_casting_top1_delta_count_vs_rrf": 6,
+    "pointwise_mrr_at_10_delta_vs_rrf": 0.1024408505540581,
+    "pointwise_recall_at_25": 1.0,
+    "pointwise_rerank_p95_latency_ms": 130.48791600158438,
+    "latency_budget_ms": 1500.0,
+    "exact_top1_improved": true,
+    "mrr_at_10_improved": true,
+    "latency_budget_passed": true
+  },
+  "guardrails": {
+    "test_rerun_allowed": false,
+    "row_level_output_persisted": false,
+    "post_test_model_switch_allowed": false,
+    "post_test_retuning_allowed": false,
+    "runtime_default_changed": false,
+    "calibration_or_policy_changed": false
+  }
+}

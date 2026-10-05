@@ -1,5 +1,48 @@
 # Project Log
 
+## 2026-10-05 — Final release-ranking gate：Pointwise 在未見 test 上維持勝出
+
+### 新執行了什麼，解決什麼問題
+
+本輪依照已封存的 development selection，明確且只執行一次 53-case final test。執行前沒有更換模型、
+feature、候選數、selection rule 或 threshold；四個 arms 仍共用 frozen 1,763-row corpus 與每筆 25 個
+candidates。結果顯示 `neural_pointwise` 不只在 development 勝出，也在未用於選型的 test 維持第一：
+casting Top-1 `52/53 = 98.11%`、exact release Top-1 `36/53 = 67.92%`、MRR@10 `83.21%`、
+Recall@10/25 均為 `100%`。
+
+相較原始 RRF 的 exact Top-1 `29/53 = 54.72%`，Pointwise 多答對 7 筆，提升 13.21 percentage points；
+RRF casting Top-1 為 `46/53 = 86.79%`。Release heuristic 的 exact Top-1 為 `33/53 = 62.26%`，
+Listwise 為 `32/53 = 60.38%`，因此沒有理由在看到 test 後改選較複雜的 Listwise。這一步解決了
+「development 改善是否能泛化」的核心問題，同時避免用 final test 反覆調參而把測試集變成訓練集。
+
+### 代碼修改了哪一部分、原因與決策
+
+`image_search_ranking_development.py` 把共用 comparison runner 明確分成 development 與 test 路徑，並新增
+需要雙重明示參數的 final-test CLI、strict final artifact validator，以及 final artifact 已存在時拒絕再次
+執行的 fail-closed guard。驗證器會重新計算 raw counts 與 rates、winner、dataset／split／model hash
+binding，也會遞迴拒絕實際 key 為 `cases` 或 `predictions` 的 row-level output；它不再以全文字串搜尋，
+避免把合法的 `test_cases_scored` 誤判為 row data。
+
+新增 `data/evaluation/image-search-release-ranking-v1/final-comparison.json`，只保存四組 aggregate metrics、
+generalization gates 與 negative guardrails。沒有保存 query、case ID、prediction 或 failure row；正式
+`dataset.json` 與 canonical catalog 均未修改。最終決策是保留 `neural_pointwise` 為 release-ranking winner，
+但此結論只授權下一階段評估如何整合，不等於已改變 resolver runtime default，也不代表 neural score
+已成為 calibrated match probability。
+
+### 技術棧／方法選型、驗證與下一步
+
+Pointwise 沿用 frozen `cross-encoder/ms-marco-MiniLM-L6-v2@233902d…0a`，沒有使用 100 筆 development 或
+53 筆 test 重新 fit。其 test p95 rerank latency 為 `130.49 ms`，低於既有 `1,500 ms` budget；Listwise
+含 Pointwise 的 p95 為 `130.91 ms`，沒有帶來 accuracy 優勢。13 個 focused tests、Ruff、strict MyPy、
+final CLI integrity check 與 diff check 通過；final artifact 將 `test_rerun_allowed`、`post_test_retuning_allowed`
+與 `post_test_model_switch_allowed` 全部固定為 `false`。
+
+ISRR-T4 至此完成。下一個必要工作不是再次查看 test，而是把已選 Pointwise 接入正式 resolver 的受控
+設定路徑，並只使用 development 資料設計或校準 match／ambiguous／no_match policy；完成後若需要報告
+policy 表現，必須沿用目前 frozen 結果與治理邊界，不能用 53-case final answers 重新選模型或門檻。
+所有 accuracy 都是 frozen 第三方 release source-relative 結果，不代表 Mattel／manufacturer-certified
+或 global canonical truth。
+
 ## 2026-10-05 — Pointwise development selection freeze：封存選型但保持 test 與 runtime 關閉
 
 ### 新執行了什麼，解決什麼問題

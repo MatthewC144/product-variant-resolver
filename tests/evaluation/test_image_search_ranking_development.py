@@ -5,13 +5,17 @@ from collections.abc import Sequence
 from dataclasses import asdict, replace
 from pathlib import Path
 
+import pytest
+
 from product_variant_resolver.config import Settings
 from product_variant_resolver.image_search_evaluation import load_image_search_dataset
 from product_variant_resolver.image_search_ranking_development import (
     ARMS,
     RankingOutcome,
     check_development_selection,
+    check_final_comparison,
     compare_development_rankers,
+    compare_test_rankers,
     load_development_selection,
     summarize_outcomes,
 )
@@ -105,6 +109,21 @@ def test_development_selection_rejects_tampered_winner(tmp_path: Path) -> None:
         assert "winner" in str(error)
     else:  # pragma: no cover - fail-closed assertion
         raise AssertionError("tampered selection was accepted")
+
+
+def test_actual_final_comparison_is_aggregate_and_valid() -> None:
+    payload = check_final_comparison(ROOT, require_local_pointwise=False)
+    report = payload["test_report"]
+    assert isinstance(report, dict)
+    assert report["sample_count"] == 53
+    assert payload["selected_arm"] == "neural_pointwise"
+    assert payload["test_winner_by_exact_top1"] == "neural_pointwise"
+    assert "cases" not in payload
+
+
+def test_final_artifact_blocks_test_rerun() -> None:
+    with pytest.raises(FileExistsError, match="rerun is prohibited"):
+        compare_test_rankers(Settings(), root=ROOT)
 
 
 def test_comparison_scores_development_only_and_emits_no_rows(tmp_path: Path) -> None:

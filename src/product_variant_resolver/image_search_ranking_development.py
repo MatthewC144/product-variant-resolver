@@ -5,9 +5,10 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import statistics
 import time
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any, Literal, Protocol
@@ -58,6 +59,7 @@ LISTWISE_MODEL = Path(
     "data/evaluation/neural-reranker-comparison-v1/models/listwise-model.safetensors"
 )
 SELECTION = Path("data/evaluation/image-search-release-ranking-v1/development-selection.json")
+FINAL_COMPARISON = Path("data/evaluation/image-search-release-ranking-v1/final-comparison.json")
 
 
 class PointwiseScorer(Protocol):
@@ -198,7 +200,7 @@ class ArmMetrics:
 
 
 @dataclass(frozen=True, slots=True)
-class DevelopmentComparisonReport:
+class RankingComparisonReport:
     schema_version: str
     dataset_version: str
     split: str
@@ -301,6 +303,288 @@ def check_development_selection(
     return selection
 
 
+def _require_keys(value: Mapping[str, object], expected: set[str], name: str) -> None:
+    if set(value) != expected:
+        raise ValueError(f"{name} keys differ from the frozen contract")
+
+
+def _object(value: object, name: str) -> dict[str, object]:
+    if not isinstance(value, dict):
+        raise TypeError(f"{name} must be an object")
+    return value
+
+
+def _integer(value: object, name: str) -> int:
+    if not isinstance(value, int) or isinstance(value, bool):
+        raise TypeError(f"{name} must be an integer")
+    return value
+
+
+def _number(value: object, name: str) -> float:
+    if not isinstance(value, (int, float)) or isinstance(value, bool):
+        raise TypeError(f"{name} must be numeric")
+    result = float(value)
+    if not math.isfinite(result):
+        raise ValueError(f"{name} must be finite")
+    return result
+
+
+def _contains_prohibited_row_key(value: object) -> bool:
+    if isinstance(value, dict):
+        return any(
+            (isinstance(key, str) and key in {"cases", "predictions"})
+            or _contains_prohibited_row_key(child)
+            for key, child in value.items()
+        )
+    if isinstance(value, list):
+        return any(_contains_prohibited_row_key(child) for child in value)
+    return False
+
+
+def load_final_comparison(path: Path) -> dict[str, object]:
+    payload = _object(json.loads(path.read_text(encoding="utf-8")), "final comparison")
+    _require_keys(
+        payload,
+        {
+            "schema_version",
+            "status",
+            "development_selection_sha256",
+            "selected_arm",
+            "test_winner_by_exact_top1",
+            "test_report",
+            "generalization",
+            "guardrails",
+        },
+        "final comparison",
+    )
+    if (
+        payload["schema_version"] != "pvr-image-search-ranking-final-v1"
+        or payload["status"] != "final_test_scored_once"
+        or payload["selected_arm"] != "neural_pointwise"
+        or payload["test_winner_by_exact_top1"] != "neural_pointwise"
+    ):
+        raise ValueError("final comparison header differs from the frozen decision")
+    report = _object(payload["test_report"], "final test report")
+    _require_keys(
+        report,
+        {
+            "schema_version",
+            "dataset_version",
+            "split",
+            "split_version",
+            "split_assignment_sha256",
+            "sample_count",
+            "candidate_corpus_count",
+            "candidate_limit",
+            "arms",
+            "winner_by_exact_top1",
+            "metadata",
+        },
+        "final test report",
+    )
+    if (
+        report["schema_version"] != "pvr-image-search-ranking-test-v1"
+        or report["dataset_version"] != "image-search-resolver-v1"
+        or report["split"] != "test"
+        or report["split_version"] != FROZEN_SPLIT_VERSION
+        or report["split_assignment_sha256"] != FROZEN_SPLIT_SHA256
+        or _integer(report["sample_count"], "final sample_count") != 53
+        or _integer(report["candidate_corpus_count"], "candidate_corpus_count") != 1763
+        or _integer(report["candidate_limit"], "candidate_limit") != 25
+        or report["winner_by_exact_top1"] != "neural_pointwise"
+    ):
+        raise ValueError("final test report header differs from the frozen contract")
+    arms = _object(report["arms"], "final arms")
+    if set(arms) != set(ARMS):
+        raise ValueError("final report must contain exactly the four arms")
+    arm_keys = {
+        "sample_count",
+        "casting_top1_correct",
+        "exact_release_top1_correct",
+        "exact_release_retrieved_at_10",
+        "exact_release_retrieved_at_25",
+        "reciprocal_rank_sum_at_10",
+        "casting_top1_accuracy",
+        "exact_release_top1_accuracy",
+        "exact_release_recall_at_10",
+        "exact_release_recall_at_25",
+        "exact_release_mrr_at_10",
+        "rerank_p50_latency_ms",
+        "rerank_p95_latency_ms",
+    }
+    parsed_arms: dict[str, dict[str, object]] = {}
+    for arm in ARMS:
+        row = _object(arms[arm], f"final arm {arm}")
+        _require_keys(row, arm_keys, f"final arm {arm}")
+        count = _integer(row["sample_count"], f"{arm} sample_count")
+        casting = _integer(row["casting_top1_correct"], f"{arm} casting_top1_correct")
+        exact = _integer(row["exact_release_top1_correct"], f"{arm} exact_top1")
+        recall10 = _integer(row["exact_release_retrieved_at_10"], f"{arm} recall10")
+        recall25 = _integer(row["exact_release_retrieved_at_25"], f"{arm} recall25")
+        reciprocal = _number(row["reciprocal_rank_sum_at_10"], f"{arm} reciprocal_sum")
+        if (
+            count != 53
+            or not 0 <= exact <= casting <= count
+            or not exact <= recall10 <= recall25 <= count
+        ):
+            raise ValueError(f"final arm {arm} raw counts are invalid")
+        expected_rates = {
+            "casting_top1_accuracy": casting / count,
+            "exact_release_top1_accuracy": exact / count,
+            "exact_release_recall_at_10": recall10 / count,
+            "exact_release_recall_at_25": recall25 / count,
+            "exact_release_mrr_at_10": reciprocal / count,
+        }
+        if any(
+            not math.isclose(
+                _number(row[name], f"{arm} {name}"), expected, rel_tol=0.0, abs_tol=1e-15
+            )
+            for name, expected in expected_rates.items()
+        ):
+            raise ValueError(f"final arm {arm} rates differ from raw counts")
+        _number(row["rerank_p50_latency_ms"], f"{arm} p50")
+        _number(row["rerank_p95_latency_ms"], f"{arm} p95")
+        parsed_arms[arm] = row
+    winner = max(
+        ARMS,
+        key=lambda arm: (
+            _integer(parsed_arms[arm]["exact_release_top1_correct"], f"{arm} exact"),
+            _number(parsed_arms[arm]["reciprocal_rank_sum_at_10"], f"{arm} mrr sum"),
+            -_number(parsed_arms[arm]["rerank_p95_latency_ms"], f"{arm} p95"),
+        ),
+    )
+    if winner != payload["test_winner_by_exact_top1"]:
+        raise ValueError("final test winner differs from the frozen selection rule")
+    metadata = _object(report["metadata"], "final metadata")
+    _require_keys(
+        metadata,
+        {
+            "test_cases_scored",
+            "row_level_output_persisted",
+            "canonical_catalog_modified",
+            "pointwise_model_version",
+            "listwise_model_version",
+            "pointwise_model_manifest_sha256",
+            "listwise_model_sha256",
+            "model_reuse_note",
+            "score_semantics",
+            "authority_note",
+        },
+        "final metadata",
+    )
+    if (
+        metadata.get("test_cases_scored") != 53
+        or metadata.get("row_level_output_persisted") is not False
+        or metadata.get("canonical_catalog_modified") is not False
+        or metadata.get("authority_note") != AUTHORITY_NOTE
+    ):
+        raise ValueError("final report metadata crosses an evaluation guardrail")
+    generalization = _object(payload["generalization"], "final generalization")
+    _require_keys(
+        generalization,
+        {
+            "pointwise_exact_top1_delta_count_vs_rrf",
+            "pointwise_exact_top1_delta_rate_vs_rrf",
+            "pointwise_casting_top1_delta_count_vs_rrf",
+            "pointwise_mrr_at_10_delta_vs_rrf",
+            "pointwise_recall_at_25",
+            "pointwise_rerank_p95_latency_ms",
+            "latency_budget_ms",
+            "exact_top1_improved",
+            "mrr_at_10_improved",
+            "latency_budget_passed",
+        },
+        "final generalization",
+    )
+    pointwise = parsed_arms["neural_pointwise"]
+    rrf = parsed_arms["rrf"]
+    pointwise_exact = _integer(pointwise["exact_release_top1_correct"], "pointwise exact")
+    rrf_exact = _integer(rrf["exact_release_top1_correct"], "rrf exact")
+    pointwise_casting = _integer(pointwise["casting_top1_correct"], "pointwise casting")
+    rrf_casting = _integer(rrf["casting_top1_correct"], "rrf casting")
+    pointwise_mrr = _number(pointwise["exact_release_mrr_at_10"], "pointwise mrr")
+    rrf_mrr = _number(rrf["exact_release_mrr_at_10"], "rrf mrr")
+    pointwise_recall25 = _number(pointwise["exact_release_recall_at_25"], "pointwise recall25")
+    pointwise_p95 = _number(pointwise["rerank_p95_latency_ms"], "pointwise p95")
+    latency_budget = _number(generalization.get("latency_budget_ms"), "latency budget")
+    if (
+        generalization.get("pointwise_exact_top1_delta_count_vs_rrf") != pointwise_exact - rrf_exact
+        or not math.isclose(
+            _number(
+                generalization.get("pointwise_exact_top1_delta_rate_vs_rrf"),
+                "pointwise exact delta rate",
+            ),
+            (pointwise_exact - rrf_exact) / 53,
+            rel_tol=0.0,
+            abs_tol=1e-15,
+        )
+        or generalization.get("pointwise_casting_top1_delta_count_vs_rrf")
+        != pointwise_casting - rrf_casting
+        or not math.isclose(
+            _number(
+                generalization.get("pointwise_mrr_at_10_delta_vs_rrf"),
+                "pointwise mrr delta",
+            ),
+            pointwise_mrr - rrf_mrr,
+            rel_tol=0.0,
+            abs_tol=1e-15,
+        )
+        or not math.isclose(
+            _number(generalization.get("pointwise_recall_at_25"), "pointwise recall25 gate"),
+            pointwise_recall25,
+            rel_tol=0.0,
+            abs_tol=1e-15,
+        )
+        or not math.isclose(
+            _number(
+                generalization.get("pointwise_rerank_p95_latency_ms"),
+                "pointwise p95 gate",
+            ),
+            pointwise_p95,
+            rel_tol=0.0,
+            abs_tol=1e-15,
+        )
+        or latency_budget != 1500.0
+        or generalization.get("exact_top1_improved") is not (pointwise_exact > rrf_exact)
+        or generalization.get("mrr_at_10_improved") is not (pointwise_mrr > rrf_mrr)
+        or generalization.get("latency_budget_passed") is not (pointwise_p95 <= latency_budget)
+    ):
+        raise ValueError("final generalization gate differs from raw arm metrics")
+    guardrails = _object(payload["guardrails"], "final guardrails")
+    if guardrails != {
+        "test_rerun_allowed": False,
+        "row_level_output_persisted": False,
+        "post_test_model_switch_allowed": False,
+        "post_test_retuning_allowed": False,
+        "runtime_default_changed": False,
+        "calibration_or_policy_changed": False,
+    }:
+        raise ValueError("final guardrails differ from the frozen contract")
+    if _contains_prohibited_row_key(payload):
+        raise ValueError("final comparison contains prohibited row-level output")
+    return payload
+
+
+def check_final_comparison(
+    root: Path, *, require_local_pointwise: bool = True
+) -> dict[str, object]:
+    selection = check_development_selection(root, require_local_pointwise=require_local_pointwise)
+    payload = load_final_comparison(root / FINAL_COMPARISON)
+    if payload["development_selection_sha256"] != _sha256(root / SELECTION):
+        raise ValueError("final comparison selection binding changed")
+    report = _object(payload["test_report"], "final test report")
+    metadata = _object(report["metadata"], "final metadata")
+    if (
+        metadata.get("pointwise_model_manifest_sha256")
+        != selection.model_bindings.pointwise.local_manifest_sha256
+        or metadata.get("listwise_model_sha256")
+        != selection.model_bindings.listwise.checkpoint_sha256
+        or payload["selected_arm"] != selection.winner
+    ):
+        raise ValueError("final comparison differs from the development selection")
+    return payload
+
+
 def load_neural_scorers(root: Path) -> tuple[PointwiseScorer, ListwiseScorer]:
     config_path = root / POINTWISE_CONFIG
     model_path = root / POINTWISE_MODEL
@@ -314,20 +598,23 @@ def load_neural_scorers(root: Path) -> tuple[PointwiseScorer, ListwiseScorer]:
     return pointwise, listwise
 
 
-def compare_development_rankers(
+def _compare_rankers(
     settings: Settings,
     *,
+    split: Literal["development", "test"],
     root: Path,
     dataset_path: Path = DATASET,
     source_path: Path = SOURCE,
     source_expected_count: int = SOURCE_COUNT,
     pointwise: PointwiseScorer | None = None,
     listwise: ListwiseScorer | None = None,
-) -> DevelopmentComparisonReport:
+) -> RankingComparisonReport:
     dataset = load_image_search_dataset(dataset_path)
     frozen_split = load_frozen_split(dataset, dataset_path)
-    development_ids = set(frozen_split.development_case_ids)
-    cases = [case for case in dataset.records if case.id in development_ids]
+    selected_ids = set(
+        frozen_split.development_case_ids if split == "development" else frozen_split.test_case_ids
+    )
+    cases = [case for case in dataset.records if case.id in selected_ids]
     records = load_source_records(source_path, expected_count=source_expected_count)
     bindings = bind_dataset_to_source(dataset, records)
     target_by_case = {binding.case_id: binding.evaluation_uuid for binding in bindings}
@@ -423,10 +710,10 @@ def compare_development_rankers(
             -arm_metrics[arm].rerank_p95_latency_ms,
         ),
     )
-    return DevelopmentComparisonReport(
-        schema_version="pvr-image-search-ranking-development-v1",
+    return RankingComparisonReport(
+        schema_version=f"pvr-image-search-ranking-{split}-v1",
         dataset_version=dataset.dataset_version,
-        split="development",
+        split=split,
         split_version=frozen_split.version,
         split_assignment_sha256=frozen_split.assignment_sha256,
         sample_count=len(cases),
@@ -435,7 +722,7 @@ def compare_development_rankers(
         arms=arm_metrics,
         winner_by_exact_top1=winner,
         metadata={
-            "test_cases_scored": 0,
+            "test_cases_scored": len(cases) if split == "test" else 0,
             "row_level_output_persisted": False,
             "canonical_catalog_modified": False,
             "pointwise_model_version": active_pointwise.version,
@@ -444,7 +731,7 @@ def compare_development_rankers(
             "listwise_model_sha256": _sha256(root / LISTWISE_MODEL),
             "model_reuse_note": (
                 "Frozen models trained on the earlier fixture benchmark are evaluated zero-shot; "
-                "the 100 image-search development labels were not used to fit either model."
+                "image-search development/test labels were not used to fit either model."
             ),
             "score_semantics": "Ranking scores only; no neural score is a match probability.",
             "authority_note": AUTHORITY_NOTE,
@@ -452,16 +739,58 @@ def compare_development_rankers(
     )
 
 
+def compare_development_rankers(
+    settings: Settings,
+    *,
+    root: Path,
+    dataset_path: Path = DATASET,
+    source_path: Path = SOURCE,
+    source_expected_count: int = SOURCE_COUNT,
+    pointwise: PointwiseScorer | None = None,
+    listwise: ListwiseScorer | None = None,
+) -> RankingComparisonReport:
+    return _compare_rankers(
+        settings,
+        split="development",
+        root=root,
+        dataset_path=dataset_path,
+        source_path=source_path,
+        source_expected_count=source_expected_count,
+        pointwise=pointwise,
+        listwise=listwise,
+    )
+
+
+def compare_test_rankers(settings: Settings, *, root: Path) -> RankingComparisonReport:
+    if (root / FINAL_COMPARISON).exists():
+        raise FileExistsError("final comparison already exists; test rerun is prohibited")
+    check_development_selection(root)
+    return _compare_rankers(settings, split="test", root=root)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Compare rankers on image-search development only")
     parser.add_argument("--root", type=Path, default=Path.cwd())
     parser.add_argument("--acknowledge-development-only", action="store_true")
     parser.add_argument("--check-selection", action="store_true")
+    parser.add_argument("--check-final", action="store_true")
+    parser.add_argument("--run-final-test", action="store_true")
+    parser.add_argument("--acknowledge-final-test", action="store_true")
     arguments = parser.parse_args()
     root = arguments.root.resolve()
+    if arguments.check_final:
+        check_final_comparison(root)
+        print("valid")
+        return
     if arguments.check_selection:
         check_development_selection(root)
         print("valid")
+        return
+    if arguments.run_final_test:
+        if not arguments.acknowledge_final_test:
+            parser.error("--run-final-test requires --acknowledge-final-test")
+        report = compare_test_rankers(Settings.from_env(), root=root)
+        print(json.dumps(asdict(report), ensure_ascii=False, sort_keys=True, indent=2))
         return
     if not arguments.acknowledge_development_only:
         parser.error("--acknowledge-development-only is required")

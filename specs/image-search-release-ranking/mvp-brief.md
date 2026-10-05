@@ -1,6 +1,6 @@
 # Image-search release ranking — MVP brief
 
-Date: 2026-10-05. Mode: Lite / Lean Industrial. Status: **in progress**.
+Date: 2026-10-05. Mode: Lite / Lean Industrial. Status: **complete**.
 
 ## Purpose
 
@@ -39,11 +39,14 @@ canonical aggregate checksum in code/report metadata, not by a second data file.
   only. Final test remains closed. _(→ISRR-R5)_
 - [x] **ISRR-T3A** Freeze the aggregate-only Pointwise development selection with dataset, split,
   model and checkpoint checksums; keep runtime/policy unchanged. _(→ISRR-R1–R6)_
-- [ ] **ISRR-T4** Select on development, then run one explicit final test and document tradeoffs.
-  _(future; →ISRR-R5–R6)_
+- [x] **ISRR-T4** Select on development, then run one explicit final test and document tradeoffs.
+  The frozen Pointwise arm won the untouched 53-case test without post-test model switching or
+  retuning. _(→ISRR-R5–R6)_
 
 ## Acceptance for this step
 
-The exact dataset produces 100 development and 53 test cases, zero overlap, stable assignment hash,
-and a development-only aggregate baseline. `dataset.json` remains byte-for-byte unchanged and is
-still the only file in its data directory.
+The exact dataset produces 100 development and 53 test cases, zero overlap and a stable assignment
+hash. Development selection is checksum-bound before one explicit final test. The final artifact
+contains aggregate metrics only, prohibits reruns and records that runtime defaults and decision
+policy remain unchanged. `dataset.json` remains byte-for-byte unchanged and is still the only file
+in its data directory.
