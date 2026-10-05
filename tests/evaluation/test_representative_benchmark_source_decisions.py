@@ -611,7 +611,7 @@ def test_labels_revalidate_nested_query_mutations() -> None:
     )
     query_pack.cases[0].authored_by = "individual_reviewer"
 
-    with pytest.raises(ContractError, match="role-only author project_owner"):
+    with pytest.raises(ContractError, match="approved local-only output-blind author role"):
         validate_labels(
             _label_payload(
                 source_id="human-labeled-real-noisy-v1",
@@ -648,12 +648,34 @@ def test_mutated_inventory_cannot_elevate_a_current_source() -> None:
         )
 
 
-def test_queries_require_project_owner_as_role_only_author() -> None:
+def test_queries_require_an_approved_role_only_author() -> None:
     inventory_payload = _load(INVENTORY_PATH)
     inventory = validate_source_inventory(inventory_payload)
     decisions = _validate_decisions(_load(DECISIONS_PATH), inventory_payload)
 
-    with pytest.raises(ContractError, match="role-only author project_owner"):
+    output_blind = validate_query_pack(
+        _query_payload(
+            "human-labeled-real-noisy-v1",
+            authored_by="fresh_output_blind_independent_agent",
+        ),
+        inventory=inventory,
+        source_decisions=decisions,
+    )
+    assert output_blind.cases[0].authored_by == "fresh_output_blind_independent_agent"
+
+    wiki_ref = _load(WIKI_SOURCE_PATH)["records"][0]["source_record_id"]
+    with pytest.raises(ContractError, match="approved local-only output-blind author role"):
+        validate_query_pack(
+            _query_payload(
+                "fandom-hot-wheels-2025-pilot-r790665-v1",
+                source_record_ref=wiki_ref,
+                authored_by="fresh_output_blind_independent_agent",
+            ),
+            inventory=inventory,
+            source_decisions=decisions,
+        )
+
+    with pytest.raises(ContractError, match="approved local-only output-blind author role"):
         validate_query_pack(
             _query_payload(
                 "human-labeled-real-noisy-v1",

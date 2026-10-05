@@ -96,10 +96,13 @@ later CAR-T6 run published a separate versioned re-audit with `passed_exact_auth
 than rewriting history. A separately authorized RHB-T5 session has since created a private,
 output-blind 60-query authoring artifact and aggregate-only public manifest. It remains
 `representative_pilot=false` because five provisional challenge classes have declared shortfalls;
-labels, split and resolver evaluation have not begun. These are authority/provenance artifacts, not
-a real-marketplace accuracy result or manufacturer certification. See the
+labels, split and resolver evaluation have not begun. RHB-T6 readiness also found that frozen T3
+permits zero matched labels from the current Human query source and does not yet admit the CAR Wiki
+evidence as exact authority, so a versioned governance repair is required before an Owner labeling
+Gate. These are authority/provenance artifacts, not a real-marketplace accuracy result or
+manufacturer certification. See the
 [final CAR evidence](docs/evidence/canonical-authority-review-v1.md) and
-[RHB-T5 authoring evidence](docs/evidence/representative-hard-benchmark-query-authoring.md).
+[RHB-T6 readiness evidence](docs/evidence/representative-hard-benchmark-label-readiness.md).
 
 ## Measured evaluation
 

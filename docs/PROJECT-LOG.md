@@ -1,5 +1,57 @@
 # Project Log
 
+## 2026-10-05 — RHB-T6 readiness：發現 matched permission 與 authority admission 雙重 blocker
+
+### 新執行了什麼，解決什麼問題
+
+本輪沒有直接開始 60 筆 owner labeling，而是新增 deterministic、read-only 的 RHB-T6 readiness。
+Validator 會重播 private RHB-T5 query pack、重新驗證 T1/T3、確認 CAR-T6 20-record authority checksum
+與 Gate、檢查 labels/held/authorization 都尚未出現，並輸出 hash-bound report。這回答了「已有 60 筆
+query 與 20 筆 authority，是否可以直接進 owner labeling」：目前不可以，而且原因不是程式跑不起來，
+而是兩個來源治理 contract 尚未對齊。
+
+第一個 blocker 是 60 筆 query 全屬 `human-labeled-real-noisy-v1`，而 frozen T3 只允許這個來源產生
+`ambiguous` 與 `no_match`；所需 matched 為 20，但 source-permitted matched capacity 是 0。第二個
+blocker 是 CAR-T6 的 20 筆 authority 使用 Wiki pilot evidence；CAR workflow 後來透過 owner review
+接受它，但舊 RHB T1/T3 仍把同一來源標成 exact authority 的 `prohibited/staging_only`。此外五種
+provisional challenge shortfalls 合計仍為 16。因此 readiness 是
+`blocked_before_owner_gate`，不是 RHB-T6 authorization。
+
+### 代碼修改了哪一部分、原因與決策
+
+新增 `representative_benchmark_label_readiness.py`、CLI 與六個直接測試。Readiness 沒有讀取 resolver
+output、既有 human labels 或 split，也不建立任何 label；它只使用 query pack contract、source
+permission metadata、CAR authority metadata 與 artifact existence。選擇先做可執行 readiness，而不是
+直接建立 proposal/labels，是因為 source permission 與 authority admission 都是 owner governance，不能
+由程式碼延伸先前授權。
+
+整合時也發現一個 cross-contract bug：RHB-T5 pack 正確寫成由
+`fresh_output_blind_independent_agent` 撰寫，但既有核心 `validate_query_pack()` 只接受
+`project_owner`；RHB-T5 builder 又直接使用 Pydantic model，繞過了 cross-artifact validator。如果不
+修，RHB-T6 的 `validate_labels()` 會在任何 label 之前拒絕整包 query。
+
+修正方式不是放寬成任意作者，而是只在「local-only + Human query source」同時成立時接受固定 agent
+role；public、其他來源與任意作者仍 fail closed。RHB-T5 builder 也改成必須呼叫核心
+`validate_query_pack()`。這個選擇保留 truthful provenance，同時關閉 schema-valid 但 governance-invalid
+的繞過路徑。
+
+### 技術棧／方法選型與目前決策
+
+延續 Python 3.12、Pydantic strict contracts、canonical JSON SHA-256 與 pytest。Readiness 不寫 JSON
+artifact，而由 CLI 重現，避免把尚未核准的 Gate 狀態誤當 frozen dataset。真實 readiness hash 為
+`b4bf8f9a45b315a2ad64ba9f5626daef63a246c66bbbfc884856b7945e1b9f45`；query pack 仍是 60 筆且
+`representative_pilot=false`，label artifact count 為 0，`rhb_t6_authorized=false`。
+
+下一步只能準備 versioned source-decision／authority-admission repair proposal，交由 owner 審核是否讓
+Human query 在「必須綁定獨立 CAR authority」的條件下產生 matched label，以及是否把 CAR Wiki
+revision 以明確限制接納為該 bundle 的 authority evidence。不能直接修改既有 T1/T3、不能先建立
+labels，也不能進 RHB-T7 或 resolver evaluation。
+
+驗證方面，全部 118 個 representative-benchmark tests 通過；Ruff、format、四個相關 source/CLI 的
+strict MyPy、compile、query-pack `unchanged` replay 與 diff check 都通過。完整 repository regression
+另外執行約 2.5 分鐘，在顯示 5% checkpoint 與其後進度都沒有 failure；因 Lite mode 且無關的
+model/evaluation 測試耗時很長而手動停止，所以本輪不宣稱新的 full-suite PASS。
+
 ## 2026-10-04 — RHB-T5：完成 60 筆 output-blind authoring artifact，但如實保留 coverage blocker
 
 ### 新執行了什麼，解決什麼問題

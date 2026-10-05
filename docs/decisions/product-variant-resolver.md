@@ -2289,3 +2289,24 @@ separate Pointwise and genuine Listwise architectures,use one-time label-blind e
 local-model provenance,and publish a negative result without inflated resume claims. RRF remains the
 runtime default;any future attempt needs a non-ceiling benchmark and a separately frozen v2 rather
 than modifying v1.
+
+## 2026-10-05 — RHB-T6 readiness blocks labeling before owner effort
+
+**Decision:** add a read-only, hash-bound RHB-T6 entry validator and stop before presenting an Owner
+Gate. Do not patch the frozen T1/T3 decisions in place and do not create partial labels.
+
+The readiness check found that all 60 queries come from a source permitted to produce only
+`ambiguous/no_match`, making the required matched composition `0/20`. It also found that CAR's Wiki
+evidence source, although later accepted by the separate CAR workflow, remains prohibited for exact
+authority in the frozen RHB T1/T3 contract. A versioned governance repair is therefore required
+before owner labeling.
+
+The 10x alternative would be to label all 60 rows immediately and resolve contract errors later.
+That appears faster but risks wasting the owner's highest-cost review work and creates labels that
+cannot pass the evaluator. The selected method spends a small deterministic validation step first,
+keeps historical decisions immutable, and exposes exact blockers before asking for new authority.
+
+The most likely failure is an over-broad repair that treats Human labels or the whole Wiki dataset
+as canonical truth. Any proposal must instead admit only the narrowly reviewed CAR bundle and allow
+a matched query label only when it binds an independent admitted authority record. Manufacturer or
+global truth remains out of scope.

@@ -190,6 +190,11 @@ resolver_output_viewed         false before freeze
 The query artifact deliberately contains no expected status, UUID, correctness flag, target rank, or
 Development/Test assignment. RHB-T7 owns the separate `SplitArtifact`; keeping `split` out of the
 query prevents authoring from preselecting Test cases before labels and connected groups exist.
+The core query validator accepts the role-only `project_owner` author used by historical contracts
+and, only for local-only Human query rows, the fixed
+`fresh_output_blind_independent_agent` role. Arbitrary authors and use of that agent role on public
+or unrelated-source rows fail closed; the RHB-T5 builder must call this core validator rather than
+constructing a schema-valid pack around it.
 RHB-T5 challenge tags are provisional query-surface annotations only. Catalog-relative properties,
 especially `unknown_to_catalog`, require RHB-T6 evidence review and cannot be inferred in the
 output-blind authoring session. A 60-row pack with declared tag shortfalls remains a provenance
@@ -217,6 +222,21 @@ public_safe
 
 Held/rejected records are not copied into the scored benchmark. `family_label` exists to enforce
 family-safe grouping and support analysis; it cannot identify a canonical variant by itself.
+
+### 6.5 RHB-T6 entry readiness
+
+RHB-T6 has a separate read-only entry validator. It revalidates the materialized 60-case pack through
+the core query contract, checks the 20-record CAR authority bundle, computes the maximum label-status
+composition permitted by T1/T3, verifies that authority evidence sources are admitted for exact
+authority, reports provisional challenge shortfalls, and rejects premature authorization or label
+artifacts. It never opens a labeling session or imports resolver code.
+
+The first readiness result is intentionally blocked. The Human query source permits only
+`ambiguous` and `no_match`, so it can legally support zero of the required 20 matched labels. The
+CAR authority evidence source also remains `prohibited/staging_only` in the frozen T1/T3 contract,
+despite the later CAR workflow accepting it under its own governance. A versioned source-decision
+and authority-admission repair therefore requires a new Owner Gate; readiness cannot mutate those
+decisions itself.
 
 ### 6.5 `BenchmarkManifest`
 

@@ -113,6 +113,12 @@ shortfalls of year `3`, color `3`, series `4`, identifier `2` and unknown-to-cat
 class is intentionally zero because output-blind query text cannot establish catalog-relative
 absence. Therefore this is a provenance/authoring artifact, not an accepted representative pilot.
 
+RHB-T6 readiness revalidates that pack through the core query contract and stops before an Owner
+Gate. The query source permits only `ambiguous/no_match`, leaving a matched-label permission
+shortfall of `20`; the CAR authority's Wiki evidence source is also not admitted for exact authority
+by frozen T1/T3. No label, held-label or labels manifest exists. A new versioned governance repair
+must be owner-approved before label authoring can be requested.
+
 T3 passes only for the declared scopes. Human-name queries and `ambiguous`/`no_match` labels remain
 local-only; they can never produce a `matched` label. Workbook rows are local-only family context and
 cannot enter query packs or scored labels. Git receives only schema/hash/count/aggregate/non-sensitive
@@ -132,21 +138,26 @@ authorization explicitly excludes RHB-T5, query-pack authoring and label authori
   tests/evaluation/test_representative_benchmark_source_decisions.py \
   tests/evaluation/test_representative_benchmark_query_projection.py \
   tests/evaluation/test_representative_benchmark_query_readiness.py \
-  tests/evaluation/test_representative_benchmark_query_authoring.py -q
+  tests/evaluation/test_representative_benchmark_query_authoring.py \
+  tests/evaluation/test_representative_benchmark_label_readiness.py -q
 .venv/bin/python scripts/build_representative_hard_benchmark_query_projection.py --check
 .venv/bin/python scripts/build_representative_hard_benchmark_query_pack.py --check
+.venv/bin/python scripts/validate_representative_hard_benchmark_label_readiness.py
 .venv/bin/ruff check src/product_variant_resolver/representative_benchmark.py \
   src/product_variant_resolver/representative_benchmark_query_projection.py \
   src/product_variant_resolver/representative_benchmark_query_readiness.py \
   src/product_variant_resolver/representative_benchmark_query_authoring.py \
+  src/product_variant_resolver/representative_benchmark_label_readiness.py \
   tests/evaluation/test_representative_benchmark_contract.py \
   tests/evaluation/test_representative_benchmark_source_decisions.py \
   tests/evaluation/test_representative_benchmark_query_readiness.py \
-  tests/evaluation/test_representative_benchmark_query_authoring.py
+  tests/evaluation/test_representative_benchmark_query_authoring.py \
+  tests/evaluation/test_representative_benchmark_label_readiness.py
 .venv/bin/mypy --strict src/product_variant_resolver/representative_benchmark.py \
   src/product_variant_resolver/representative_benchmark_query_projection.py \
   src/product_variant_resolver/representative_benchmark_query_readiness.py \
   src/product_variant_resolver/representative_benchmark_query_authoring.py \
+  src/product_variant_resolver/representative_benchmark_label_readiness.py \
   src/product_variant_resolver/representative_benchmark_reaudit.py
 ```
 

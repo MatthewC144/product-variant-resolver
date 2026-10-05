@@ -29,6 +29,7 @@ from product_variant_resolver.representative_benchmark import (
     SourceInventory,
     content_sha256,
     stable_json_bytes,
+    validate_query_pack,
     validate_source_decisions,
     validate_t1_inventory_files,
 )
@@ -419,7 +420,7 @@ def build_query_pack(root: Path) -> tuple[QueryPack, QueryPackManifest]:
     """Build the deterministic local query pack and aggregate-only public manifest."""
 
     root = root.absolute()
-    _inventory, _decisions, projection, _projection_manifest, _authorization, authoring_input = (
+    inventory, decisions, projection, _projection_manifest, _authorization, authoring_input = (
         _validate_upstream(root)
     )
     records = {record.source_record_ref: record for record in projection.records}
@@ -453,14 +454,16 @@ def build_query_pack(root: Path) -> tuple[QueryPack, QueryPackManifest]:
         tag: max(0, MINIMUM_PER_CHALLENGE - challenge_counts[tag]) for tag in CHALLENGE_ORDER
     }
     provisional_surface_coverage_complete = all(value == 0 for value in shortfalls.values())
-    query_pack = QueryPack.model_validate(
+    query_pack = validate_query_pack(
         {
             "schema_version": "pvr-representative-hard-benchmark-query-pack-v1",
             "dataset_version": authoring_input.dataset_version,
             "publication_scope": "local_only",
             "representative_pilot": False,
             "cases": cases,
-        }
+        },
+        inventory=inventory,
+        source_decisions=decisions,
     )
     query_pack_raw = stable_json_bytes(query_pack.model_dump(mode="json"))
     aggregate = {

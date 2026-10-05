@@ -1087,6 +1087,7 @@ WORKBOOK_ALLOWED_FIELDS = frozenset(
     }
 )
 HUMAN_SOURCE_ID = "human-labeled-real-noisy-v1"
+OUTPUT_BLIND_QUERY_AUTHOR_ROLE = "fresh_output_blind_independent_agent"
 ALIGNMENT_SOURCE_ID = "human-labeled-to-fixture-alignment-v1"
 WORKBOOK_SOURCE_ID = "owner-local-release-snapshot-2023-2026-v1"
 WIKI_SOURCE_ID = "fandom-hot-wheels-2025-pilot-r790665-v1"
@@ -1793,8 +1794,16 @@ def validate_query_pack(
             SourceDecisionUse.query_text,
             required_scope=required_scope,
         )
-        if case.authored_by != source_decisions.reviewer_identity_policy.reviewer_role:
-            _raise("queries must use role-only author project_owner")
+        owner_authored = case.authored_by == source_decisions.reviewer_identity_policy.reviewer_role
+        output_blind_agent_authored = (
+            artifact.publication_scope == RowPublicationScope.local_only
+            and source.source_id == HUMAN_SOURCE_ID
+            and case.authored_by == OUTPUT_BLIND_QUERY_AUTHOR_ROLE
+        )
+        if not owner_authored and not output_blind_agent_authored:
+            _raise(
+                "queries must use project_owner or the approved local-only output-blind author role"
+            )
         if artifact.publication_scope == RowPublicationScope.public:
             _approved_decision_for_use(
                 source_decisions,

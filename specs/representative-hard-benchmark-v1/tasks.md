@@ -186,9 +186,17 @@ Acceptance:
 
 - [ ] Present source/authority evidence without resolver candidates; record attributable owner labels
   and reasons; quarantine any unresolved item as held. _(→RHB-R5–R11,RHB-R20–R21)_
+- [x] Add a deterministic read-only RHB-T6 entry validator. It confirms the 60-case pack is core
+  valid and label-free, then blocks the Owner Gate because matched-label permission is `0/20`, CAR
+  authority is not admitted by frozen T1/T3, and provisional challenge shortfalls total `16`.
+- [ ] Prepare and obtain explicit owner approval for a versioned source-decision/authority-admission
+  repair before requesting any RHB-T6 labeling authorization.
 
 Files:
 
+- `src/product_variant_resolver/representative_benchmark_label_readiness.py`
+- `scripts/validate_representative_hard_benchmark_label_readiness.py`
+- `tests/evaluation/test_representative_benchmark_label_readiness.py`
 - `data/evaluation/representative-hard-benchmark-v1/local-query-authoring-v1/labels.json`
 - `data/evaluation/representative-hard-benchmark-v1/local-query-authoring-v1/held-labels.json`
 - `data/evaluation/representative-hard-benchmark-v1/labels-manifest.json`

@@ -71,6 +71,11 @@ field, name the reviewer and review time, and predate the frozen benchmark label
 candidate, Human Knowledge result, casting-family decision, staged release row, or model suggestion
 SHALL NOT establish exact canonical truth.
 
+Before the RHB-T6 Owner Gate is presented, THE SYSTEM SHALL revalidate that both the query source is
+permitted to produce the proposed label status and every exact-authority evidence source is admitted
+by the frozen or explicitly versioned source-decision contract. A later authority artifact SHALL NOT
+silently bypass an older T1/T3 source prohibition.
+
 ### RHB-R6 — Honest handling when exact variant truth is absent
 
 IF exact canonical variant authority cannot be established, THEN THE SYSTEM SHALL NOT assign an

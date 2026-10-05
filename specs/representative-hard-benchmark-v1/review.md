@@ -1,9 +1,37 @@
 # Representative Hard Benchmark v1 — Lean QA Review
 
-Date: 2026-10-04. Mode: Lite / Lean Industrial. Scope:
-**RHB-T1/T2 history + RHB-T3/T4 final QA + RHB-T5 output-blind authoring**.
+Date: 2026-10-05. Mode: Lite / Lean Industrial. Scope:
+**RHB-T1/T2 history + RHB-T3/T4 final QA + RHB-T5 authoring + RHB-T6 readiness**.
 
-## Current milestone verdict: RHB-T5 AUTHORING ARTIFACT PASS / COVERAGE GATE BLOCKED
+## Current milestone verdict: RHB-T6 READINESS VALIDATOR PASS / OWNER GATE NOT REQUESTABLE
+
+The read-only RHB-T6 validator now replays the private RHB-T5 pack through the core query validator,
+revalidates T1/T3 and the 20-record CAR authority bundle, checks label-artifact absence, and emits a
+deterministic hash-bound report without writing labels or authorization. Its readiness SHA-256 is
+`b4bf8f9a45b315a2ad64ba9f5626daef63a246c66bbbfc884856b7945e1b9f45`.
+
+The engineering check passes, but the Owner Gate is not yet requestable. All 60 queries use
+`human-labeled-real-noisy-v1`, whose frozen T3 decision permits only `ambiguous` and `no_match`;
+maximum source-permitted matched labels are therefore `0/20`. The 20 CAR exact records use the
+Wiki pilot evidence source, which frozen T1/T3 still marks `prohibited/staging_only` for exact
+authority. Provisional challenge shortfalls also remain `16` across five classes. The next legal
+action is a separately approved versioned source-decision and authority-admission repair—not label
+authoring.
+
+During readiness integration, QA found that the RHB-T5 builder used the truthful independent-agent
+author role while the historical core validator allowed only `project_owner`; the builder had
+constructed a Pydantic-valid pack without the cross-artifact validator. The repair now permits the
+fixed independent-agent role only for local-only Human queries, keeps arbitrary/public authors
+blocked, and makes the builder call `validate_query_pack()` directly. This closes the bypass before
+any label validator can consume the pack.
+
+All 118 representative-benchmark tests pass. Ruff/format, strict MyPy across the four touched
+source/CLI modules, compile, query-pack replay and diff checks pass. A full-repository run showed no
+failure through the displayed 5% checkpoint and later progress, then was manually stopped after
+approximately 2.5 minutes under Lite mode because unrelated model/evaluation tests are slow; no new
+full-suite PASS is claimed.
+
+## Previous milestone verdict: RHB-T5 AUTHORING ARTIFACT PASS / COVERAGE GATE BLOCKED
 
 RHB-T1 through RHB-T3 remain PASS, and the historical zero-authority RHB-T4 blocked checkpoint is
 preserved below. The separately authorized CAR-T6 versioned re-audit now passes the exact-authority
