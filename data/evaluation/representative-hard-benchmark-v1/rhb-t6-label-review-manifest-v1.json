@@ -1,0 +1,47 @@
+{
+  "authorization_sha256": "37e2a4874f1c8423da8a4903b36ebdfc53598353f9119f1aee5b935d2affd250",
+  "evidence_packet_sha256": "a2e8f2f84b88fe23b9746426ea366f626b36f03bd1cab0cce323ce3e484e85f6",
+  "generated_by": "scripts/build_representative_hard_benchmark_label_review.py",
+  "held_pending_owner_count": 51,
+  "historical_labels_consulted": false,
+  "input_artifacts": [
+    {
+      "path": "data/catalog.json",
+      "sha256": "e763c8739a76ab4cc9b66169aecd4aea241ee810d8a27cdfb7d05bcacd98562e"
+    },
+    {
+      "path": "data/evaluation/representative-hard-benchmark-v1/canonical-authority-reaudit-v1.json",
+      "sha256": "72c11aeb8db03267a8deca4f50eb09d89c2c423a7e9ca983f498f76e80553117"
+    },
+    {
+      "path": "data/evaluation/representative-hard-benchmark-v1/local-query-authoring-v1/query-pack.json",
+      "sha256": "97f7f0dd61cf619bb16b198778356d8ef53c7a504086f11542922f90706a858a"
+    },
+    {
+      "path": "data/evaluation/representative-hard-benchmark-v1/rhb-t6-governance-overlay-v1.json",
+      "sha256": "9b8a7965ae568098ff42f83060fc01270b4a100fa0870be7900414b0b8169311"
+    }
+  ],
+  "labels_materialized": false,
+  "manifest_sha256": "457f3c9a986b4d18a4cff0dfb494868279b7f32a27e0093ce1d4f86fdd22bb10",
+  "next_allowed_action": "present_staged_proposals_to_owner_in_batches",
+  "owner_approved_label_count": 0,
+  "prepared_date": "2026-10-05",
+  "publication_scope": "aggregate_only",
+  "record_count": 60,
+  "resolver_evaluation_authorized": false,
+  "resolver_output_consulted": false,
+  "review_version": "representative-hard-benchmark-rhb-t6-review-v1",
+  "rhb_t7_authorized": false,
+  "row_level_data_public": false,
+  "schema_version": "pvr-rhb-t6-label-review-manifest-v1",
+  "split_consulted": false,
+  "staged_proposals_sha256": "6c495624e5a623ff769afe1e17adbbf387b78cd6c49b2010c4ff820d878a985d",
+  "status": "staged_awaiting_owner_review",
+  "suggested_status_counts": {
+    "ambiguous": 5,
+    "held": 51,
+    "matched": 0,
+    "no_match": 4
+  }
+}

@@ -4,6 +4,11 @@ Date: 2026-10-05
 Mode: Lite / Lean Industrial
 Verdict: **VALIDATOR PASS — SEPARATE LABEL-AUTHORING OWNER GATE REQUESTABLE**
 
+Lifecycle update: that separate Gate has now been received. The readiness validator intentionally
+closes once the private authorization exists, so it cannot be reused to restart or reinterpret the
+phase. Current staging evidence is in
+[RHB-T6 label-review staging](representative-hard-benchmark-label-review-staging.md).
+
 ## Current post-overlay result
 
 The owner-approved governance overlay now closes the two admission blockers without modifying

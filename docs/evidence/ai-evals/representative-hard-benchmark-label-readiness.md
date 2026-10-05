@@ -4,6 +4,9 @@ Date: 2026-10-05
 Scope: query-contract integration, governance-overlay admission and pre-labeling readiness
 Verdict: **PASS — SEPARATE OWNER GATE REQUESTABLE; NO LABELING AUTHORITY**
 
+Lifecycle note: the separate Label Review v1 authorization was subsequently received. Readiness now
+fails closed on the presence of that ledger; the authorized staging phase is evaluated separately.
+
 | Rubric | Result | Evidence and boundary |
 |---|---|---|
 | Query integrity | PASS | The private 60-case pack replays deterministically and now passes the core source/scope/author validator. |

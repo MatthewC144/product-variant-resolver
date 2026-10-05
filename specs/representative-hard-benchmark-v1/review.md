@@ -1,9 +1,29 @@
 # Representative Hard Benchmark v1 — Lean QA Review
 
 Date: 2026-10-05. Mode: Lite / Lean Industrial. Scope:
-**RHB-T1/T2 history + RHB-T3/T4 final QA + RHB-T5 authoring + RHB-T6 governance overlay/readiness**.
+**RHB-T1/T2 history + RHB-T3/T4 final QA + RHB-T5 authoring + RHB-T6 governance/readiness/review staging**.
 
-## Current milestone verdict: GOVERNANCE OVERLAY PASS / LABEL OWNER GATE REQUESTABLE
+## Current milestone verdict: LABEL REVIEW STAGING PASS / OWNER ADJUDICATION REQUIRED
+
+The exact RHB-T6 Label Review v1 authorization is stored in a Git-ignored `0600` ledger. A new
+deterministic builder materializes 60 private evidence packets and 60 staged proposals in a `0700`
+workspace, plus one aggregate-only public manifest. It reads only the query pack, catalog-v2,
+governance overlay and bound CAR authority; static and executable guards confirm that historical
+labels/failure categories, resolver output and split are not loaded.
+
+The conservative staging result is `matched=0`, `ambiguous=5`, `no_match=4`, `held=51`. The zero
+matched count is material: none of the 60 queries contains both a unique allowlisted authority toy
+identifier and matching casting/alias evidence. The Subaru BRZ query has three admitted 2025 release
+candidates and therefore cannot identify one UUID. This confirms that governance capacity `20` is
+not the same as actual query/authority overlap. No quota was forced and no row is approved or
+score-eligible.
+
+All 139 representative-benchmark tests pass, including ten new label-review tests. Workspace replay
+is `unchanged`; Ruff, format, strict MyPy, compile, private modes, Git-ignore, aggregate privacy and
+historical overlay replay pass. The next allowed action is owner adjudication in batches. RHB-T7,
+scoring, Pointwise/Listwise and resolver evaluation remain unauthorized.
+
+## Previous milestone verdict: GOVERNANCE OVERLAY PASS / LABEL OWNER GATE REQUESTED
 
 The project owner approved only the versioned governance overlay. The implementation binds the
 Human-source `matched` exception to query pack SHA-256

@@ -134,6 +134,18 @@ Post-overlay readiness reports effective matched capacity `20`, zero permission 
 `ready_for_separate_owner_authorization`. The separate label-authoring Owner Gate is still required,
 and provisional challenge shortfalls remain subject to per-row owner verification or hold.
 
+That separate Label Review v1 Gate is now recorded privately. The review builder creates
+`local-query-authoring-v1/rhb-t6-label-review-v1/evidence-packets.json` and
+`staged-label-proposals.json` with `0700/0600` permissions. These ignored files contain row-level
+queries and catalog/authority evidence; they are not labels and every proposal has
+`owner_decision_recorded=false` and `score_eligible=false`.
+
+`rhb-t6-label-review-manifest-v1.json` is the aggregate-only public proof. It records 60 staged rows:
+`0 matched`, `5 ambiguous`, `4 no_match`, and `51 held`. No query has the unique allowlisted toy
+identifier plus casting evidence required even to suggest matched. This means the overlay provides
+legal capacity for up to 20 matched labels, but the current query pack does not supply the evidence
+overlap needed to use that capacity. The 20/20/20 acceptance target remains unmet and is not padded.
+
 T3 passes only for the declared scopes. Human-name queries and `ambiguous`/`no_match` labels remain
 local-only; they can never produce a `matched` label. Workbook rows are local-only family context and
 cannot enter query packs or scored labels. Git receives only schema/hash/count/aggregate/non-sensitive
@@ -162,6 +174,7 @@ authorization explicitly excludes RHB-T5, query-pack authoring and label authori
 .venv/bin/python scripts/validate_representative_hard_benchmark_label_readiness.py
 .venv/bin/python scripts/build_representative_hard_benchmark_governance_repair_proposal.py --check
 .venv/bin/python scripts/build_representative_hard_benchmark_governance_overlay.py --check
+.venv/bin/python scripts/build_representative_hard_benchmark_label_review.py --check
 .venv/bin/ruff check src/product_variant_resolver/representative_benchmark.py \
   src/product_variant_resolver/representative_benchmark_query_projection.py \
   src/product_variant_resolver/representative_benchmark_query_readiness.py \

@@ -255,6 +255,28 @@ overlay; the original T1/T3 source-wide prohibitions remain unchanged. Post-over
 therefore requestable, but it still returns `rhb_t6_authorized=false`, creates no label, and requires
 a second explicit Owner Gate before authoring.
 
+### 6.5.1 RHB-T6 local label-review staging
+
+After the separate Label Review v1 Gate, the project creates a Git-ignored `0700` workspace with
+`0600` evidence and proposal files. Evidence generation reads only the frozen query pack, complete
+catalog-v2, bound overlay and admitted CAR authority bundle. It uses exact catalog casting/alias or
+toy-identifier surfaces and orders candidates by UUID, explicitly not as resolver ranks. Historical
+human labels/failure categories, resolver output and Development/Test split are neither loaded nor
+inferred.
+
+Proposals are deliberately weaker than labels: `owner_decision_recorded=false`,
+`score_eligible=false`, verified challenge tags are empty, and no failure type or hard-negative flag
+is guessed. `matched` may be suggested only when one allowlisted authority has both an exact toy
+identifier and casting/alias surface. Catalog surface evidence without a unique admitted authority
+suggests `ambiguous`; an explicit non-Hot-Wheels brand absent from the catalog may suggest
+catalog-relative `no_match`; all other cases remain held.
+
+The current pack produces zero matched suggestions because none of its 60 queries contains the
+required unique authority identifier plus casting evidence. One Subaru BRZ query maps to three
+admitted 2025 releases and is therefore ambiguous. This is a data-overlap result, not permission to
+relax authority or force the target composition. A public aggregate manifest may disclose counts and
+hashes, but row-level queries, evidence and proposals remain local-only.
+
 ### 6.5 `BenchmarkManifest`
 
 The manifest freezes schema/dataset versions; inventory, query, label, authority, catalog and config

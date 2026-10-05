@@ -73,12 +73,14 @@ def _read(path: Path) -> dict[str, Any]:
     return cast(dict[str, Any], json.loads(path.read_text(encoding="utf-8")))
 
 
-def test_real_readiness_is_deterministic_read_only_and_ready_for_separate_gate() -> None:
-    watched = [ROOT / reference for reference in LABEL_REFERENCES]
+def test_pre_authorization_readiness_is_deterministic_and_ready(
+    isolated_root: Path,
+) -> None:
+    watched = [isolated_root / reference for reference in LABEL_REFERENCES]
     before = {path: path.exists() for path in watched}
 
-    first = build_rhb_t6_label_readiness(ROOT)
-    second = build_rhb_t6_label_readiness(ROOT)
+    first = build_rhb_t6_label_readiness(isolated_root)
+    second = build_rhb_t6_label_readiness(isolated_root)
 
     assert first == second
     assert first.status == "ready_for_separate_owner_authorization"
@@ -105,9 +107,9 @@ def test_real_readiness_is_deterministic_read_only_and_ready_for_separate_gate()
     assert {path: path.exists() for path in watched} == before
 
 
-def test_cli_emits_the_same_hash_bound_report() -> None:
+def test_cli_emits_the_same_hash_bound_report(isolated_root: Path) -> None:
     result = subprocess.run(
-        [sys.executable, str(CLI), "--root", str(ROOT)],
+        [sys.executable, str(CLI), "--root", str(isolated_root)],
         cwd=ROOT,
         text=True,
         capture_output=True,
@@ -115,7 +117,7 @@ def test_cli_emits_the_same_hash_bound_report() -> None:
     )
     assert result.returncode == 0, result.stderr
     payload = json.loads(result.stdout)
-    expected = build_rhb_t6_label_readiness(ROOT)
+    expected = build_rhb_t6_label_readiness(isolated_root)
     assert payload == expected.model_dump(mode="json")
     unhashed = dict(payload)
     digest = unhashed.pop("readiness_sha256")
@@ -123,6 +125,11 @@ def test_cli_emits_the_same_hash_bound_report() -> None:
         unhashed, ensure_ascii=False, indent=2, sort_keys=True, separators=(",", ": ")
     )
     assert digest == hashlib.sha256(f"{canonical}\n".encode()).hexdigest()
+
+
+def test_real_readiness_closes_after_owner_authorization() -> None:
+    with pytest.raises(LabelReadinessError, match="owner authorization already exists"):
+        build_rhb_t6_label_readiness(ROOT)
 
 
 def test_premature_label_artifact_fails_closed(isolated_root: Path) -> None:

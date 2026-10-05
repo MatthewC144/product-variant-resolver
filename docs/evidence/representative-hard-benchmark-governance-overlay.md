@@ -57,9 +57,10 @@ itself is still source-wide incompatible, that no labels exist, and that provisi
 shortfalls total `16`. Those challenge tags must be confirmed during owner review or the rows must be
 held.
 
-The overlay explicitly records `rhb_t6_label_authoring_authorized=false`, `rhb_t7_authorized=false`
-and `resolver_evaluation_authorized=false`. No label, held-label, split or resolver result was
-created.
+The overlay explicitly records that it did not itself authorize RHB-T6 label review, RHB-T7 or
+resolver evaluation. A later, separately hash-bound Label Review v1 Gate now permits local evidence
+and proposal staging only; it does not retroactively widen this overlay. No approved label,
+held-label artifact, split or resolver result has been created.
 
 ## Verification
 

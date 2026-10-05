@@ -198,22 +198,31 @@ Acceptance:
   `ready_for_separate_owner_authorization`: matched capacity is 20 through the overlay, the exact
   20-record authority bundle is admitted, no labels exist, and challenge shortfalls remain subject
   to owner review.
-- [ ] Obtain a separate explicit RHB-T6 label-authoring Owner Gate before writing any label or held
-  record.
+- [x] Obtain a separate explicit RHB-T6 Label Review v1 Owner Gate. It authorizes only a Git-ignored
+  evidence/proposal workspace; it does not preapprove labels or authorize split/evaluation.
+- [x] Materialize 60 local-only evidence packets and staged proposals without consulting historical
+  labels, failure categories, resolver output or split. Conservative staging yields `0 matched / 5
+  ambiguous / 4 no_match / 51 held`; all remain pending owner review.
+- [ ] Present the staged proposals in owner-review batches. Record a label only after an explicit
+  row/batch decision; verify provisional challenge tags or keep the row held.
 
 Files:
 
 - `src/product_variant_resolver/representative_benchmark_label_readiness.py`
 - `src/product_variant_resolver/representative_benchmark_governance_repair.py`
 - `src/product_variant_resolver/representative_benchmark_governance_overlay.py`
+- `src/product_variant_resolver/representative_benchmark_label_review.py`
 - `scripts/validate_representative_hard_benchmark_label_readiness.py`
 - `scripts/build_representative_hard_benchmark_governance_repair_proposal.py`
 - `scripts/build_representative_hard_benchmark_governance_overlay.py`
+- `scripts/build_representative_hard_benchmark_label_review.py`
 - `tests/evaluation/test_representative_benchmark_label_readiness.py`
 - `tests/evaluation/test_representative_benchmark_governance_repair.py`
 - `tests/evaluation/test_representative_benchmark_governance_overlay.py`
+- `tests/evaluation/test_representative_benchmark_label_review.py`
 - `data/evaluation/representative-hard-benchmark-v1/rhb-t6-governance-repair-proposal.json`
 - `data/evaluation/representative-hard-benchmark-v1/rhb-t6-governance-overlay-v1.json`
+- `data/evaluation/representative-hard-benchmark-v1/rhb-t6-label-review-manifest-v1.json`
 - `data/evaluation/representative-hard-benchmark-v1/local-query-authoring-v1/labels.json`
 - `data/evaluation/representative-hard-benchmark-v1/local-query-authoring-v1/held-labels.json`
 - `data/evaluation/representative-hard-benchmark-v1/labels-manifest.json`

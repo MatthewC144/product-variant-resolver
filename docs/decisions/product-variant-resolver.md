@@ -2345,3 +2345,27 @@ query pack because it shares a source ID, or any record from the same Wiki revis
 therefore checks the exact query-pack content hash, full authority-bundle hash and allowlisted IDs.
 Post-overlay readiness separately reports that frozen source-wide compatibility remains false. This
 makes the distinction between a narrow exception and global promotion visible in both code and QA.
+
+## 2026-10-05 — Stage label review conservatively; do not confuse permission with evidence overlap
+
+**Decision:** use the RHB-T6 authorization to create only local evidence packets and staged proposals.
+Do not materialize labels until the owner adjudicates each row or batch. Candidate discovery may use
+exact catalog casting/alias and alphanumeric toy-identifier surfaces, but may not call the resolver,
+rank candidates, consult old labels/failure categories, or allocate a benchmark split.
+
+The 10x alternative would auto-label all catalog-absent surfaces as `no_match` and tune fuzzy matching
+until 20 authority records appear as `matched`. That would produce the desired denominator quickly,
+but it would violate the owner's quota-forcing prohibition and turn alias coverage into false ground
+truth. The selected method leaves uncertain rows held and publishes the shortfall.
+
+The first staging run finds zero uniquely matchable authority rows. Governance allows up to 20
+matched labels, but the selected 60 real noisy queries barely overlap the seven admitted authority
+families. One Subaru BRZ row hits three releases and cannot identify which UUID is correct. This
+distinction is now explicit: authority admission answers “may this identity be used?”, while evidence
+overlap answers “does this query justify that identity?”. Both must pass.
+
+The most likely failure is pressure to treat the staging counts as final labels or to repair the
+denominator inside the same Gate. Prevent that by keeping every proposal non-score-eligible and
+requiring an owner event before materialization. If owner review confirms insufficient matched
+coverage, the correct next design is a separately versioned source/query-pack expansion, not a
+silent RHB-T5 rewrite or synthetic padding.

@@ -180,14 +180,6 @@ def _validated_context(
         "materialized governance-repair proposal is stale",
     )
     authorization = _load_authorization(root, proposal)
-    _expect(
-        not (root / RHB_T6_AUTHORIZATION_REFERENCE).exists(),
-        "RHB-T6 label authorization already exists",
-    )
-    _expect(
-        not any((root / reference).exists() for reference in LABEL_REFERENCES),
-        "label artifacts already exist before governance repair",
-    )
 
     inventory_payload = _load_object(root / INVENTORY_REFERENCE)
     inventory_manifest_payload = _load_object(root / INVENTORY_MANIFEST_REFERENCE)
@@ -325,6 +317,14 @@ def materialize_governance_overlay(
         raise GovernanceOverlayError("materialized overlay differs from canonical bytes")
     if check:
         raise GovernanceOverlayError("governance overlay is not materialized")
+    _expect(
+        not (root / RHB_T6_AUTHORIZATION_REFERENCE).exists(),
+        "RHB-T6 label authorization already exists before overlay materialization",
+    )
+    _expect(
+        not any((root / reference).exists() for reference in LABEL_REFERENCES),
+        "label artifacts already exist before governance repair",
+    )
     target.parent.mkdir(parents=True, exist_ok=True)
     descriptor, name = tempfile.mkstemp(prefix=f".{target.name}.", dir=target.parent)
     temp = Path(name)

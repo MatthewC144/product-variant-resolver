@@ -101,12 +101,17 @@ permits zero matched labels from the current Human query source and does not adm
 evidence as source-wide exact authority. The owner has now approved a bundle-specific governance
 overlay bound to the exact 60-row query pack and 20-record CAR authority. It does not modify frozen
 T1/T3, promote Human labels or the full Wiki source, or authorize labeling. Repaired readiness now
-allows a separate RHB-T6 label-authoring Gate to be requested; that second approval has not been
-granted. These are authority/provenance
+allowed a separate RHB-T6 Label Review Gate, which the owner has now granted for local-only staging.
+The 60 evidence packets and staged proposals contain no approved labels: conservative evidence
+matching yields `0 matched`, `5 ambiguous`, `4 no_match` and `51 held`. This exposes a real data
+overlap gap—the query pack does not contain any uniquely identified allowlisted authority release—so
+the project does not force the intended 20/20/20 quota. Owner adjudication has not begun. These are authority/provenance
 artifacts, not a real-marketplace accuracy result or
 manufacturer certification. See the
 [final CAR evidence](docs/evidence/canonical-authority-review-v1.md) and
 [RHB-T6 governance overlay](docs/evidence/representative-hard-benchmark-governance-overlay.md).
+The staging boundary and discovered overlap gap are documented in the
+[RHB-T6 label-review evidence](docs/evidence/representative-hard-benchmark-label-review-staging.md).
 
 ## Measured evaluation
 

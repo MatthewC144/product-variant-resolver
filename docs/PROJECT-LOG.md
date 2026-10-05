@@ -1,5 +1,58 @@
 # Project Log
 
+## 2026-10-05 — RHB-T6 Label Review v1：建立 60 筆私有 staging，揭露 query/authority overlap 缺口
+
+### 新執行了什麼，解決什麼問題
+
+本輪收到獨立的 RHB-T6 Label Review v1 批准後，先把完整批准寫入 Git-ignored、`0600` 的 owner
+ledger，再建立 `0700` local review workspace。Workspace 內有 60 筆 evidence packets 與 60 筆
+staged label proposals；public Git 只新增 aggregate manifest，沒有 row-level query、source ref、UUID
+proposal 或 owner 原文。所有 proposal 都還是 `owner_decision_recorded=false`、`score_eligible=false`，
+所以這一步沒有把 AI 建議誤稱為 human label。
+
+這個步驟解決的是「治理 overlay 已允許最多 20 個 matched，但實際 60 個 query 是否真的有足夠 exact
+evidence」的問題。結果是沒有：staging 為 `0 matched / 5 ambiguous / 4 no_match / 51 held`。唯一命中
+admitted family 的 Subaru BRZ query 同時對應三個 2025 release，而且 query 沒有 JBB55、HYY12 或
+HYW99 其中任何 toy identifier，因此不能挑一個 UUID。Overlay 提供的是 permission capacity，不會
+自動創造資料 overlap。
+
+### 代碼修改了哪一部分、原因與決策
+
+新增 `representative_benchmark_label_review.py` 與 CLI。Builder 只讀取 frozen query pack、完整
+catalog-v2、governance overlay 與 20-record CAR authority。Evidence discovery 僅使用 normalized exact
+casting/alias surface 或含英文字母的 toy identifier；純數字 collector/lot number 不作 candidate
+discovery，避免把賣家數量或編號誤認成產品 ID。候選依 canonical UUID 排序並明示
+`not_ranked`，因此不會冒充 resolver 或 ranking output。
+
+提議 matched 的門檻刻意很高：必須只有一個 allowlisted authority，同時有 exact toy identifier 與
+casting/alias surface。只有 catalog surface 但沒有唯一 admitted authority 時提議 ambiguous；明確的
+外部品牌且 catalog candidate 為零時才暫提 catalog-relative no_match；其餘 51 筆全部 held。這個方法
+比使用文字相似度自動補齊配額更保守，原因是 RHB-R5 把 false exact identity 視為最嚴重錯誤，而且
+owner 已明確禁止 query-only challenge 推定與 quota forcing。
+
+同時修正 governance overlay 的生命週期檢查：舊邏輯在後續 label authorization 出現後會讓歷史
+overlay `--check` 失敗。現在「不得已有 downstream authorization/labels」只在首次建立 overlay 時檢查；
+既有 overlay 的 hash-bound replay 可跨越後續 Gate 持續驗證。這保留建立順序限制，也避免合法生命週期
+讓歷史證據失效。
+
+### 技術棧／方法選型、驗證與後續限制
+
+沿用 Python 3.12、Pydantic strict schemas、canonical JSON、SHA-256、atomic replace 與 `0700/0600`
+private storage。Private authorization/content hashes 分別為 `37e2a4…d250`、evidence `a2e8f2…85f6`、
+proposals `6c4956…85d`；public manifest hash 為 `457f3c…bb10`。Public manifest 只有 parent hashes、
+count 與 negative authorization flags。
+
+十個 focused label-review tests 與更新後 readiness/overlay tests 通過；全部 139 個
+representative-benchmark tests 通過。Ruff、format、strict MyPy、compile、replay、private file modes、
+Git-ignore、public privacy、partial-output rollback 與 diff check 都通過。歷史 human labels、
+`data/human_labeled_names.json`、failure categories、resolver output、split、Pointwise/Listwise、scoring
+與 network 都未讀取或執行。
+
+下一步不是 RHB-T7，而是把 staged proposals 分批交給 owner。Owner 可以確認 ambiguous/no_match、
+要求更多 evidence 或維持 held；任何一筆都不能在沒有明確 row/batch decision 時升格為 label。即使全部
+60 筆都完成 review，若 matched 仍不足 20，RHB-R11 仍必須誠實保持未通過，後續需要另行治理的
+query/source revision，而不能在目前 pack 補造資料。
+
 ## 2026-10-05 — RHB-T6 Governance Repair v1：實作精確綁定的 overlay，重新開放獨立 Label Owner Gate
 
 ### 新執行了什麼，解決什麼問題
