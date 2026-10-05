@@ -1,22 +1,33 @@
 import json
 import tempfile
 import unittest
+from collections.abc import Sequence
 from pathlib import Path
+from unittest.mock import patch
 
 from fastapi.testclient import TestClient
 
 from product_variant_resolver.api import create_app
+from product_variant_resolver.calibration import FEATURE_SCHEMA, CalibrationArtifact
 from product_variant_resolver.config import Settings
 from product_variant_resolver.human_knowledge import (
     HUMAN_KNOWLEDGE_CHARACTER_INDEX_VERSION,
     HumanKnowledgeV3Config,
 )
+from product_variant_resolver.rerank import NeuralPointwiseReranker
 from product_variant_resolver.retrieval import RetrievalUnavailable
 from product_variant_resolver.service import ResolverService
 
 ROOT = Path(__file__).resolve().parents[2]
 FAMILY_PROJECTION = ROOT / "data/review_family_knowledge.json"
 FAMILY_MANIFEST = ROOT / "data/review_family_knowledge_manifest.json"
+
+
+class _RuntimePointwiseScorer:
+    version = "cross-encoder/ms-marco-MiniLM-L6-v2@test-revision"
+
+    def score_pairs(self, pairs: Sequence[tuple[str, str]]) -> tuple[float, ...]:
+        return tuple(float(len(pairs) - index) for index, _pair in enumerate(pairs))
 
 
 class ApiTests(unittest.TestCase):
@@ -140,6 +151,111 @@ class ApiTests(unittest.TestCase):
         self.assertTrue(all(candidate["reranker_rank"] is not None
                             and candidate["reranker_score"] is not None
                             for candidate in response["debug"]["candidates"]))
+
+    def test_neural_reranker_fails_readiness_without_local_model(self):
+        settings = Settings(
+            catalog_path=ROOT / "data/catalog.json",
+            benchmark_path=ROOT / "data/benchmark.json",
+            ui_path=ROOT / "ui",
+            reranker_enabled=True,
+            reranker_provider="neural-pointwise-v1",
+            calibration_artifact=ROOT / "data/missing-neural-calibration.json",
+            policy_artifact=ROOT / "data/missing-neural-policy.json",
+            reranker_model_path=ROOT / "model-cache/missing-pointwise",
+        )
+        client = TestClient(create_app(settings))
+        health = client.get("/health")
+        self.assertEqual(health.status_code, 503)
+        self.assertFalse(health.json()["dependencies"]["reranker"]["ready"])
+        self.assertEqual(
+            client.post("/resolve", json={"title": "Chevy Nomad"}).status_code, 503,
+        )
+
+    def test_neural_reranker_requires_bound_artifacts_and_exposes_version(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            calibration = root / "calibration.json"
+            policy = root / "policy.json"
+            CalibrationArtifact(
+                dataset_version="development-only-test",
+                model_version="logistic-python-v1+wrong-ranker",
+                artifact_version="development-only-neural-calibration-test",
+                feature_schema=FEATURE_SCHEMA,
+                weights=(0.0, 0.0, 0.0, 0.0, 0.0),
+                intercept=0.0,
+            ).save(calibration)
+            policy.write_text(json.dumps({
+                "version": "development-only-neural-pointwise-v1-policy-test",
+                "match_threshold": 0.9,
+                "no_match_threshold": 0.1,
+                "margin_threshold": 0.08,
+                "max_conflicts": 2,
+            }), encoding="utf-8")
+            settings = Settings(
+                catalog_path=ROOT / "data/catalog.json",
+                benchmark_path=ROOT / "data/benchmark.json",
+                ui_path=ROOT / "ui",
+                reranker_enabled=True,
+                reranker_provider="neural-pointwise-v1",
+                calibration_artifact=calibration,
+                policy_artifact=policy,
+            )
+            adapter = NeuralPointwiseReranker(_RuntimePointwiseScorer())
+            with patch(
+                "product_variant_resolver.service.load_neural_pointwise_reranker",
+                return_value=adapter,
+            ):
+                wrong_calibration_client = TestClient(create_app(settings))
+            self.assertEqual(wrong_calibration_client.get("/health").status_code, 503)
+
+            CalibrationArtifact(
+                dataset_version="development-only-test",
+                model_version="logistic-python-v1+neural-pointwise-v1",
+                artifact_version="development-only-neural-calibration-test",
+                feature_schema=FEATURE_SCHEMA,
+                weights=(0.0, 0.0, 0.0, 0.0, 0.0),
+                intercept=0.0,
+            ).save(calibration)
+            policy.write_text(json.dumps({
+                "version": "wrong-policy-version",
+                "match_threshold": 0.9,
+                "no_match_threshold": 0.1,
+                "margin_threshold": 0.08,
+                "max_conflicts": 2,
+            }), encoding="utf-8")
+            with patch(
+                "product_variant_resolver.service.load_neural_pointwise_reranker",
+                return_value=adapter,
+            ):
+                wrong_policy_client = TestClient(create_app(settings))
+            self.assertEqual(wrong_policy_client.get("/health").status_code, 503)
+
+            policy.write_text(json.dumps({
+                "version": "development-only-neural-pointwise-v1-policy-test",
+                "match_threshold": 0.9,
+                "no_match_threshold": 0.1,
+                "margin_threshold": 0.08,
+                "max_conflicts": 2,
+            }), encoding="utf-8")
+            with patch(
+                "product_variant_resolver.service.load_neural_pointwise_reranker",
+                return_value=adapter,
+            ):
+                client = TestClient(create_app(settings))
+
+            health = client.get("/health")
+            self.assertEqual(health.status_code, 200)
+            self.assertEqual(
+                health.json()["dependencies"]["reranker"]["version"],
+                _RuntimePointwiseScorer.version,
+            )
+            body = client.post(
+                "/resolve", json={"title": "2022 Chevy Nomad Red #101", "debug": True},
+            ).json()
+            self.assertEqual(
+                body["debug"]["model_versions"]["reranker"],
+                _RuntimePointwiseScorer.version,
+            )
 
     def test_validation_error_contracts(self):
         cases = [

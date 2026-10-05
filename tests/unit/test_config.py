@@ -52,6 +52,27 @@ class SettingsTests(unittest.TestCase):
             Path("/tmp/development-manifest.json"),
         )
 
+    def test_neural_reranker_requires_explicit_calibration_and_policy(self) -> None:
+        with self.assertRaisesRegex(ValueError, "requires explicit calibration"):
+            Settings(
+                reranker_enabled=True,
+                reranker_provider="neural-pointwise-v1",
+            ).validate()
+
+        settings = Settings(
+            reranker_enabled=True,
+            reranker_provider="neural-pointwise-v1",
+            calibration_artifact=Path("/tmp/neural-calibration.json"),
+            policy_artifact=Path("/tmp/neural-policy.json"),
+            reranker_config_path=Path("/tmp/pinned-config.json"),
+            reranker_model_path=Path("/tmp/pinned-model"),
+        )
+        settings.validate()
+
+    def test_reranker_provider_is_allowlisted_even_when_disabled(self) -> None:
+        with self.assertRaisesRegex(ValueError, "PVR_RERANKER_PROVIDER"):
+            Settings(reranker_provider="remote-unpinned-provider").validate()
+
 
 if __name__ == "__main__":
     unittest.main()

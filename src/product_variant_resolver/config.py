@@ -34,6 +34,8 @@ class Settings:
     dense_dimensions: int = 192
     reranker_provider: str = "heuristic-v1"
     reranker_enabled: bool = False
+    reranker_config_path: Path = Path("config/neural-reranker-comparison-v1.json")
+    reranker_model_path: Path = Path("model-cache/neural-reranker-comparison-v1/pointwise")
     calibration_artifact: Path | None = None
     policy_artifact: Path | None = None
     policy_version: str = "fixture-v1-rrf-trained-v2"
@@ -42,7 +44,7 @@ class Settings:
     tracing_enabled: bool = False
 
     @classmethod
-    def from_env(cls) -> "Settings":
+    def from_env(cls) -> Settings:
         artifact = os.getenv("PVR_CALIBRATION_ARTIFACT", "").strip()
         policy_artifact = os.getenv("PVR_POLICY_ARTIFACT", "").strip()
         human_knowledge_artifact = os.getenv(
@@ -93,6 +95,12 @@ class Settings:
             dense_dimensions=int(os.getenv("PVR_DENSE_DIMENSIONS", "192")),
             reranker_provider=os.getenv("PVR_RERANKER_PROVIDER", "heuristic-v1"),
             reranker_enabled=_bool("PVR_RERANKER_ENABLED", False),
+            reranker_config_path=Path(os.getenv(
+                "PVR_RERANKER_CONFIG_PATH", "config/neural-reranker-comparison-v1.json",
+            )),
+            reranker_model_path=Path(os.getenv(
+                "PVR_RERANKER_MODEL_PATH", "model-cache/neural-reranker-comparison-v1/pointwise",
+            )),
             calibration_artifact=Path(artifact) if artifact else None,
             policy_artifact=Path(policy_artifact) if policy_artifact else None,
             policy_version=os.getenv("PVR_POLICY_VERSION", "fixture-v1-rrf-trained-v2"),
@@ -108,6 +116,13 @@ class Settings:
             raise ValueError("v3 and v4 human knowledge artifacts cannot be configured together")
         if self.backend not in {"offline", "postgres"}:
             raise ValueError("PVR_BACKEND must be offline or postgres")
+        if self.reranker_provider not in {"heuristic-v1", "neural-pointwise-v1"}:
+            raise ValueError("PVR_RERANKER_PROVIDER must be heuristic-v1 or neural-pointwise-v1")
+        if (self.reranker_enabled and self.reranker_provider == "neural-pointwise-v1"
+                and (self.calibration_artifact is None or self.policy_artifact is None)):
+            raise ValueError(
+                "neural-pointwise-v1 requires explicit calibration and policy artifacts"
+            )
         if not 32 <= self.dense_dimensions <= 4096:
             raise ValueError("PVR_DENSE_DIMENSIONS must be between 32 and 4096")
         if not 1 <= self.candidate_limit <= 25:

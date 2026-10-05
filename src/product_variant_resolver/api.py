@@ -3,7 +3,7 @@ from __future__ import annotations
 import logging
 import re
 import uuid
-from collections.abc import Callable
+from collections.abc import Callable, Sequence
 
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
@@ -31,9 +31,12 @@ def _request_id(value: str | None) -> str:
     return value if value and REQUEST_ID_RE.fullmatch(value) else str(uuid.uuid4())
 
 
-def _error(status: int, code: str, message: str, request_id: str, details: list[object] | None = None) -> JSONResponse:
+def _error(
+    status: int, code: str, message: str, request_id: str,
+    details: Sequence[object] | None = None,
+) -> JSONResponse:
     body = ErrorResponse(error=ErrorBody(
-        code=code, message=message, request_id=request_id, details=details or [],
+        code=code, message=message, request_id=request_id, details=list(details or ()),
     ))
     return JSONResponse(status_code=status, content=body.model_dump(mode="json"))
 
@@ -49,7 +52,7 @@ def create_app(
     app.state.readiness_error = None
     try:
         app.state.service = service_factory(settings)
-    except Exception as error:
+    except Exception as error:  # noqa: BLE001 - application readiness boundary
         app.state.readiness_error = f"{type(error).__name__}: dependency unavailable"
 
     @app.middleware("http")
@@ -159,10 +162,13 @@ def create_app(
             ),
             "reranker": DependencyHealth(
                 ready=ready,
-                version=(settings.reranker_provider if settings.reranker_enabled else "disabled")
-                if ready else None,
-                detail=(None if settings.reranker_enabled
-                        else "heuristic-v1 is available for offline ablation but not the default path"),
+                version=(service.reranker.version if settings.reranker_enabled else "disabled")
+                if ready and service else None,
+                detail=(app.state.readiness_error if not ready else (
+                    "explicit opt-in with separately bound calibration and policy"
+                    if settings.reranker_enabled
+                    else "heuristic-v1 is available for offline ablation but not the default path"
+                )),
             ),
             "calibrator": DependencyHealth(
                 ready=ready,

@@ -1,5 +1,45 @@
 # Project Log
 
+## 2026-10-05 — Pointwise runtime integration：完成受控接線但不提前啟用決策路徑
+
+### 新執行了什麼，解決什麼問題
+
+本輪把已通過 development selection 與一次 final test 的 `neural_pointwise`，從實驗 runner 接到正式
+`ResolverService` 的可選 provider 邊界。新的 `neural-pointwise-v1` 只能由明確設定啟用；未設定時仍是
+`PVR_RERANKER_ENABLED=false`，既有 RRF 排名、calibration 與 policy 完全不變。這解決了「模型已證明有
+ranking value，但正式 API 尚無安全載入與觀測路徑」的問題。
+
+同時沒有把 67.92% exact Top-1 誤解成可以立即部署。CrossEncoder 輸出是相對 ranking logit，不是
+match probability；若直接沿用 heuristic 或 RRF 的 calibrator，API 可能以錯誤 confidence 回傳
+`matched`。因此 neural provider 在缺少明確 calibration 或 policy artifact、artifact version 未綁定
+`neural-pointwise-v1`、model bytes 缺失或 hash 不符時一律 fail closed，API readiness 會回報不可用。
+
+### 代碼修改了哪一部分、原因與決策
+
+`config.py` 新增 allowlisted provider、pinned config path 與 Git-ignored local model path；`.env.example`
+只展示設定方式，沒有把 neural 設成預設。`rerank.py` 新增 batch `NeuralPointwiseReranker`：使用與 frozen
+comparison 相同的 brand、casting、year、series、color、collector number、series position、edition、
+aliases、identifiers 渲染順序，一次送入最多 25 個 query/candidate pairs，按 neural logit 排序，分數相同
+時依 RRF rank 與 canonical UUID 穩定決勝。
+
+`service.py` 只在顯式 opt-in 時 lazy-load 本機 CrossEncoder，並沿用 manifest 對 model ID、revision、
+license、allowlist、檔案大小與 SHA-256 的驗證。Debug 顯示實際載入的
+`cross-encoder/ms-marco-MiniLM-L6-v2@233902d…0a`；`/health` 同樣回報實際版本，而不是只有抽象 provider
+名稱。缺模型或不相容 artifacts 的測試確認 `/health` 與 `/resolve` 都 fail closed。
+
+### 技術棧／方法選型、驗證與下一步
+
+這次重用既有 `sentence-transformers` CrossEncoder adapter 與 safetensors-only local snapshot，沒有再新增
+模型、網路 API 或下載流程。選擇 batch adapter 而不是把 neural 包裝成逐候選 heuristic `score()`，是因為
+逐筆呼叫會增加延遲，且既有 heuristic 還會混入 source-support／match bonus，導致 runtime 排序偏離已驗證
+的 Pointwise arm。模型仍位於 Git-ignored `model-cache/`，Git 只保存 config、程式與驗證證據。
+
+54 個相關 unit／API／integration／evaluation tests、Ruff、strict MyPy 與 diff check 通過；另以本機
+snapshot 實際載入固定 revision 成功。測試只讀取既有 final aggregate artifact 以確認 rerun guard，沒有再次
+執行 53-case final test，也沒有修改 153-row dataset。下一個必要工作是只用 frozen 100-case development
+建立 neural 專用 calibration 與 `matched / ambiguous / no_match` policy，完成前 neural runtime 保持不可
+啟用的 fail-closed 狀態。
+
 ## 2026-10-05 — Final release-ranking gate：Pointwise 在未見 test 上維持勝出
 
 ### 新執行了什麼，解決什麼問題

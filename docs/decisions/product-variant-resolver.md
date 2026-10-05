@@ -2406,3 +2406,23 @@ between immutable adjudication events and a replaceable public summary.
 The consequence is deliberately conservative: twenty cases have been reviewed, but only one is an
 approved label decision and none is matched. Nineteen held cases remain outside labels and scoring.
 Future evidence can reopen them without rewriting the historical reason they were withheld today.
+
+## D44 — Integrate Pointwise as a fail-closed provider before calibrating decisions
+
+- **Choice:** add the frozen neural Pointwise ranker behind an explicit local-only provider, while
+  keeping RRF as the default and requiring separately bound neural calibration and policy artifacts
+  before API readiness can pass.
+- **Reason:** the untouched 53-case test establishes ranking improvement, but CrossEncoder logits
+  are not match probabilities. Reusing RRF or heuristic thresholds would combine independently
+  validated components into an unvalidated decision system.
+- **Alternatives:** immediately make Pointwise the default; reuse the heuristic calibrator; keep the
+  model confined to experimental scripts until calibration is complete.
+- **10x alternative considered:** deploy ranking and policy together in one large change and report
+  only end-to-end accuracy. It is faster on paper but removes the ability to distinguish ranking
+  gains from calibration errors and makes rollback less precise.
+- **Most likely failure:** a user enables the neural provider with missing model bytes or stale
+  decision artifacts. The provider therefore validates local hashes, artifact version binding and
+  readiness before serving any request.
+- **Impact:** runtime wiring is now testable and observable without changing defaults. The remaining
+  work is narrow: select calibration and policy on the frozen development partition only. The final
+  test remains immutable and cannot be used for threshold selection.

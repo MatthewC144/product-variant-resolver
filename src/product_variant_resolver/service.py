@@ -27,7 +27,12 @@ from .human_knowledge_identity_artifact import load_human_knowledge_v4_config
 from .observability import Tracer, get_tracer, observed_stage
 from .policy import DecisionPolicy
 from .postgres_retrieval import SQLAlchemyPostgresRetrieverAdapter
-from .rerank import HeuristicPointwiseModel, PointwiseReranker
+from .rerank import (
+    CandidateReranker,
+    HeuristicPointwiseModel,
+    PointwiseReranker,
+    load_neural_pointwise_reranker,
+)
 from .retrieval import (
     Candidate,
     CandidateRetrievalService,
@@ -43,6 +48,8 @@ from .schemas import (
     CandidateDebug,
     DebugPayload,
     HumanKnowledgeCandidateDebug,
+    HumanKnowledgeCharacterIndexDebug,
+    HumanKnowledgeIdentityWorkDebug,
     HumanVariantKnowledgeCandidateDebug,
     ResolveRequest,
     ResolveResponse,
@@ -83,8 +90,6 @@ class ResolverService:
         }
         if settings.dense_provider != "hashing-v1":
             raise DependencyUnavailable("external dense provider is configured but not loaded")
-        if settings.reranker_enabled and settings.reranker_provider != "heuristic-v1":
-            raise DependencyUnavailable("external reranker provider is configured but not loaded")
         embedding = HashingEmbedding(settings.dense_dimensions)
         self.human_catalog = human_catalog
         self.human_knowledge = (
@@ -99,18 +104,43 @@ class ResolverService:
         self.retrieval = CandidateRetrievalService(
             [self.sparse_retriever, self.dense_retriever, structured], structured,
         )
-        self.reranker = PointwiseReranker(HeuristicPointwiseModel())
+        self.reranker_ablation = PointwiseReranker(HeuristicPointwiseModel())
+        self.reranker: CandidateReranker = self.reranker_ablation
+        if settings.reranker_enabled and settings.reranker_provider == "neural-pointwise-v1":
+            if settings.calibration_artifact is None or settings.policy_artifact is None:
+                raise DependencyUnavailable(
+                    "neural pointwise reranking requires calibration and policy artifacts"
+                )
+            try:
+                self.reranker = load_neural_pointwise_reranker(
+                    settings.reranker_config_path, settings.reranker_model_path,
+                )
+            except Exception as error:
+                raise DependencyUnavailable(
+                    "the pinned local neural pointwise reranker is unavailable"
+                ) from error
+        elif settings.reranker_enabled and settings.reranker_provider != "heuristic-v1":
+            raise DependencyUnavailable("unsupported reranker provider")
         artifact = (CalibrationArtifact.load(settings.calibration_artifact)
                     if settings.calibration_artifact else None)
+        if (settings.reranker_enabled and settings.reranker_provider == "neural-pointwise-v1"
+                and artifact is not None
+                and not artifact.model_version.endswith("+neural-pointwise-v1")):
+            raise DependencyUnavailable(
+                "calibration artifact is not bound to neural-pointwise-v1"
+            )
         default_artifact = (DEFAULT_HEURISTIC_ARTIFACT
                             if settings.reranker_enabled else DEFAULT_RRF_ARTIFACT)
         self.calibrator = LogisticCalibrator(artifact or default_artifact)
         self.policy = (DecisionPolicy.load(settings.policy_artifact) if settings.policy_artifact
                        else DecisionPolicy(version=settings.policy_version))
+        if (settings.reranker_enabled and settings.reranker_provider == "neural-pointwise-v1"
+                and "neural-pointwise-v1" not in self.policy.version):
+            raise DependencyUnavailable("policy artifact is not bound to neural-pointwise-v1")
         self.tracer = tracer or get_tracer(settings.tracing_enabled)
 
     @classmethod
-    def from_settings(cls, settings: Settings) -> "ResolverService":
+    def from_settings(cls, settings: Settings) -> ResolverService:
         settings.validate()
         catalog = load_catalog(settings.catalog_path)
         human_catalog = load_human_knowledge_catalog(
@@ -199,7 +229,7 @@ class ResolverService:
                             human_candidates = self.human_knowledge.retrieve(
                                 signals, self.settings.candidate_limit,
                             )
-                    except Exception as error:  # noqa: BLE001 - dependency boundary
+                    except Exception as error:
                         raise DependencyUnavailable(
                             "human knowledge retrieval is unavailable"
                         ) from error
@@ -226,7 +256,9 @@ class ResolverService:
 
                 with observed_stage(self.tracer, "rerank", timings) as rerank_span:
                     if self.settings.reranker_enabled:
-                        candidates = self.reranker.rerank(signals, candidates)
+                        candidates = self.reranker.rerank(
+                            signals, candidates, query=request.title,
+                        )
                     rerank_span.set_attribute("pvr.enabled", self.settings.reranker_enabled)
                     rerank_span.set_attribute("pvr.candidate_count", len(candidates))
 
@@ -271,17 +303,23 @@ class ResolverService:
                     self.human_knowledge.artifact_sha256
                 ),
                 human_knowledge_character_index=(
-                    self.human_knowledge.character_index_metadata
+                    HumanKnowledgeCharacterIndexDebug.model_validate(
+                        self.human_knowledge.character_index_metadata
+                    )
+                    if self.human_knowledge.character_index_metadata else None
                 ),
-                human_knowledge_identity_work=human_work.as_dict() if human_work else None,
+                human_knowledge_identity_work=(
+                    HumanKnowledgeIdentityWorkDebug.model_validate(human_work.as_dict())
+                    if human_work else None
+                ),
                 model_versions={
                     "sparse": self.sparse_retriever.version,
                     "dense": self.dense_retriever.version,
                     "reranker": (
-                        self.reranker.model.version
+                        self.reranker.version
                         if self.settings.reranker_enabled else "disabled"
                     ),
-                    "reranker_ablation": self.reranker.model.version,
+                    "reranker_ablation": self.reranker_ablation.version,
                     "calibrator": self.calibrator.artifact.artifact_version,
                     "human_knowledge": self.human_knowledge.version,
                     "human_knowledge_character_index": (

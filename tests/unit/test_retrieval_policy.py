@@ -1,16 +1,21 @@
 import math
 import tempfile
 import unittest
+from collections.abc import Sequence
 from pathlib import Path
 from uuid import UUID
 
 from product_variant_resolver.calibration import (
-    CalibrationArtifact, FEATURE_SCHEMA, LogisticCalibrator, train_logistic,
+    FEATURE_SCHEMA,
+    CalibrationArtifact,
+    LogisticCalibrator,
+    train_logistic,
 )
 from product_variant_resolver.catalog import CatalogProduct
 from product_variant_resolver.policy import DecisionPolicy, select_policy
+from product_variant_resolver.rerank import NeuralPointwiseReranker
 from product_variant_resolver.retrieval import Candidate, reciprocal_rank_fusion
-from product_variant_resolver.schemas import ProductView, ResolutionStatus
+from product_variant_resolver.schemas import ExtractedSignals, ProductView, ResolutionStatus
 
 
 def product(number: int) -> CatalogProduct:
@@ -18,6 +23,18 @@ def product(number: int) -> CatalogProduct:
         UUID(int=number), f"variant-{number}",
         ProductView(brand="Hot Wheels", casting=f"Car {number}"), (), (), ({"source": "test"},),
     )
+
+
+class _RecordingScorer:
+    version = "cross-encoder/test-revision"
+
+    def __init__(self, scores: tuple[float, ...]) -> None:
+        self.scores = scores
+        self.pairs: tuple[tuple[str, str], ...] = ()
+
+    def score_pairs(self, pairs: Sequence[tuple[str, str]]) -> tuple[float, ...]:
+        self.pairs = tuple(pairs)
+        return self.scores
 
 
 class RetrievalPolicyTests(unittest.TestCase):
@@ -58,6 +75,48 @@ class RetrievalPolicyTests(unittest.TestCase):
             path = Path(directory) / "artifact.json"
             artifact.save(path)
             self.assertEqual(CalibrationArtifact.load(path), artifact)
+
+    def test_neural_pointwise_adapter_batches_and_uses_frozen_ordering(self):
+        first = Candidate(product(1), rrf_score=.02, rrf_rank=1)
+        second_product = CatalogProduct(
+            UUID(int=2), "variant-2",
+            ProductView(brand="Hot Wheels", casting="Car 2", release_year=2025,
+                        series="Mainline", collector_number="002"),
+            ("Second Car",), ("HYX02",), ({"source": "test"},),
+        )
+        second = Candidate(second_product, rrf_score=.01, rrf_rank=2)
+        scorer = _RecordingScorer((.1, .9))
+        reranker = NeuralPointwiseReranker(scorer)
+        signals = ExtractedSignals(normalized_title="raw query", tokens=["raw", "query"])
+
+        ranked = reranker.rerank(signals, [first, second], query="Raw Query #002")
+
+        self.assertEqual(reranker.version, "cross-encoder/test-revision")
+        self.assertEqual([item.product.canonical_id for item in ranked], ["variant-2", "variant-1"])
+        self.assertEqual([item.reranker_rank for item in ranked], [1, 2])
+        self.assertEqual([item.reranker_score for item in ranked], [.9, .1])
+        self.assertTrue(all(pair[0] == "Raw Query #002" for pair in scorer.pairs))
+        self.assertIn("casting=car 2", scorer.pairs[1][1])
+        self.assertIn("year=2025", scorer.pairs[1][1])
+        self.assertIn("aliases=second car", scorer.pairs[1][1])
+        self.assertIn("identifiers=hyx02", scorer.pairs[1][1])
+
+    def test_neural_pointwise_adapter_uses_rrf_tie_break_and_fails_closed(self):
+        first = Candidate(product(1), rrf_score=.01, rrf_rank=2)
+        second = Candidate(product(2), rrf_score=.02, rrf_rank=1)
+        signals = ExtractedSignals(normalized_title="query", tokens=["query"])
+        ranked = NeuralPointwiseReranker(_RecordingScorer((.5, .5))).rerank(
+            signals, [first, second],
+        )
+        self.assertEqual([item.product.canonical_id for item in ranked], ["variant-2", "variant-1"])
+        with self.assertRaisesRegex(ValueError, "wrong score count"):
+            NeuralPointwiseReranker(_RecordingScorer((.5,))).rerank(
+                signals, [first, second],
+            )
+        with self.assertRaisesRegex(ValueError, "RRF rank"):
+            NeuralPointwiseReranker(_RecordingScorer((.5,))).rerank(
+                signals, [Candidate(product(3))],
+            )
 
 
 if __name__ == "__main__":

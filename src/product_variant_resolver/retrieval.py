@@ -120,6 +120,7 @@ class DenseRetriever:
 
 class StructuredRetriever:
     name = "structured"
+    version = "structured-v1"
 
     def __init__(self, catalog: Catalog) -> None:
         self.catalog = catalog
