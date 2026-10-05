@@ -105,9 +105,9 @@ allowed a separate RHB-T6 Label Review Gate, which the owner has now granted for
 The 60 evidence packets and staged proposals contain no approved labels: conservative evidence
 matching yields `0 matched`, `5 ambiguous`, `4 no_match` and `51 held`. This exposes a real data
 overlap gap—the query pack does not contain any uniquely identified allowlisted authority release—so
-the project does not force the intended 20/20/20 quota. Owner adjudication is now in progress: Batch
-1 reviewed ten cases, recording one approved catalog-relative `no_match` decision and nine holds;
-50 cases remain. No partial label artifact has been materialized. These are authority/provenance
+the project does not force the intended 20/20/20 quota. Owner adjudication is now in progress:
+Batches 1–2 reviewed twenty cases, recording one approved catalog-relative `no_match` decision and
+nineteen holds; 40 cases remain. No partial label artifact has been materialized. These are authority/provenance
 artifacts, not a real-marketplace accuracy result or manufacturer certification. See the
 [final CAR evidence](docs/evidence/canonical-authority-review-v1.md) and
 [RHB-T6 governance overlay](docs/evidence/representative-hard-benchmark-governance-overlay.md).

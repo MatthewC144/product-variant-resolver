@@ -20,7 +20,9 @@ from product_variant_resolver.representative_benchmark_label_review import (
     WORKSPACE_REFERENCE,
 )
 from product_variant_resolver.representative_benchmark_label_review_progress import (
+    APPROVED_BATCHES,
     BATCH_01_REFERENCE,
+    BATCH_02_REFERENCE,
     DECISIONS_DIRECTORY,
     PROGRESS_REFERENCE,
     build_review_progress,
@@ -64,6 +66,7 @@ PRIVATE_INPUTS = (
     EVIDENCE_REFERENCE,
     PROPOSALS_REFERENCE,
     BATCH_01_REFERENCE,
+    BATCH_02_REFERENCE,
 )
 
 
@@ -104,15 +107,16 @@ def test_real_progress_is_deterministic_aggregate_only_and_non_materializing() -
     second = build_review_progress(ROOT)
 
     assert first == second
-    assert first.decision_batch_count == first.latest_batch_number == 1
-    assert first.owner_reviewed_case_count == 10
+    assert first.decision_batch_count == first.latest_batch_number == 2
+    assert first.owner_reviewed_case_count == 20
     assert first.owner_approved_decision_count == 1
-    assert first.owner_held_decision_count == 9
-    assert first.remaining_staged_count == 50
+    assert first.owner_held_decision_count == 19
+    assert first.remaining_staged_count == 40
     assert first.approved_status_counts == {"ambiguous": 0, "matched": 0, "no_match": 1}
     assert first.verified_challenge_tag_count == first.matched_approved_count == 0
     assert not first.labels_materialized
     assert not first.row_level_data_public
+    assert first.next_allowed_action == "present_rhb_t6_review_batch_03"
 
 
 def test_materialization_is_canonical_and_replayable(isolated_root: Path) -> None:
@@ -121,6 +125,18 @@ def test_materialization_is_canonical_and_replayable(isolated_root: Path) -> Non
     assert stat.S_IMODE(path.stat().st_mode) == 0o644
     assert materialize_review_progress(isolated_root) == "unchanged"
     assert materialize_review_progress(isolated_root, check=True) == "unchanged"
+
+
+def test_materialization_only_append_updates_a_valid_prefix(
+    isolated_root: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    module = "product_variant_resolver.representative_benchmark_label_review_progress"
+    monkeypatch.setattr(f"{module}.APPROVED_BATCHES", APPROVED_BATCHES[:1])
+    assert materialize_review_progress(isolated_root) == "created"
+
+    monkeypatch.setattr(f"{module}.APPROVED_BATCHES", APPROVED_BATCHES)
+    assert materialize_review_progress(isolated_root) == "updated"
+    assert validate_materialized_review_progress(isolated_root).decision_batch_count == 2
 
 
 def test_materialized_real_progress_matches_private_events() -> None:

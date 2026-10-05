@@ -2391,3 +2391,18 @@ builder therefore verifies negative authorization flags and the absence of label
 the approved decision remains non-score-eligible until a separately authorized materialization
 stage. This preserves the owner's explicit prohibition on RHB-T7, split, scoring and resolver
 evaluation.
+
+## 2026-10-05 — Treat `held` as an evidence state, not a negative label
+
+**Decision:** keep all ten Batch 2 cases held because frozen evidence is insufficient. Catalog
+absence alone does not establish that a marketplace item has no valid product identity, so these
+cases must not be converted into `no_match` merely to increase benchmark coverage.
+
+The progress artifact may advance only by appending a private owner event to a previously valid
+history. Before replacing the aggregate snapshot, the builder recomputes its prior-batch prefix and
+requires exact equality. This is preferred over blind overwrite because it preserves the separation
+between immutable adjudication events and a replaceable public summary.
+
+The consequence is deliberately conservative: twenty cases have been reviewed, but only one is an
+approved label decision and none is matched. Nineteen held cases remain outside labels and scoring.
+Future evidence can reopen them without rewriting the historical reason they were withheld today.

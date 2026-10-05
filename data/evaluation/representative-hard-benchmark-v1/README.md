@@ -146,10 +146,10 @@ identifier plus casting evidence required even to suggest matched. This means th
 legal capacity for up to 20 matched labels, but the current query pack does not supply the evidence
 overlap needed to use that capacity. The 20/20/20 acceptance target remains unmet and is not padded.
 
-`rhb-t6-label-review-progress-v1.json` tracks owner review using aggregate-only event sourcing. Batch
-1 covers ten private cases: one approved catalog-relative `no_match` decision, nine holds, zero
-matched decisions and zero verified challenge tags. Fifty staged cases remain. Exact row decisions
-and owner text stay in a `0600` Git-ignored event file; no partial label artifact is created.
+`rhb-t6-label-review-progress-v1.json` tracks owner review using aggregate-only event sourcing.
+Batches 1–2 cover twenty private cases: one approved catalog-relative `no_match` decision, nineteen
+holds, zero matched decisions and zero verified challenge tags. Forty staged cases remain. Exact row
+decisions and owner text stay in `0600` Git-ignored event files; no partial label artifact is created.
 
 T3 passes only for the declared scopes. Human-name queries and `ambiguous`/`no_match` labels remain
 local-only; they can never produce a `matched` label. Workbook rows are local-only family context and

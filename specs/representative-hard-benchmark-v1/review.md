@@ -3,18 +3,19 @@
 Date: 2026-10-05. Mode: Lite / Lean Industrial. Scope:
 **RHB-T1/T2 history + RHB-T3/T4 final QA + RHB-T5 authoring + RHB-T6 governance/readiness/review staging**.
 
-## Current milestone verdict: LABEL REVIEW BATCH 1 PASS / 50 CASES REMAIN
+## Current milestone verdict: LABEL REVIEW BATCH 2 PASS / 40 CASES REMAIN
 
-The first private owner event covers ten non-overlapping staged cases. Aggregate progress records one
-approved catalog-relative `no_match` decision, nine held decisions, zero matched decisions and zero
-verified challenge tags. Fifty cases remain staged. The event is bound by exact private file and
-owner-response hashes; public progress exposes no case ID, query, row status, review reason or UUID.
+Two private owner events cover twenty non-overlapping staged cases. Aggregate progress records one
+approved catalog-relative `no_match` decision, nineteen held decisions, zero matched decisions and
+zero verified challenge tags. Forty cases remain staged. Both events are bound by exact private-file
+and owner-response hashes; public progress exposes no case ID, query, row status, review reason or UUID.
 
 Owner decisions remain separate from final label materialization. There is still no `labels.json`,
-held-label artifact, split, scoring or resolver result. The progress builder replays the original
-staging parents and private event as `unchanged`; the next allowed action is Batch 2 review.
+held-label artifact, split, scoring or resolver result. The progress builder accepted Batch 2 only as
+an append-only extension of the valid Batch 1 snapshot, then replays the result as `unchanged`; the
+next allowed action is Batch 3 review.
 
-All 146 representative-benchmark tests pass, including seven aggregate-progress tests. Ruff,
+All 147 representative-benchmark tests pass, including eight aggregate-progress tests. Ruff,
 format, strict MyPy, compile, Git-ignore, file modes, privacy scans and diff checks pass.
 
 ## Previous milestone verdict: LABEL REVIEW STAGING PASS / OWNER ADJUDICATION STARTED

@@ -27,7 +27,13 @@ PROGRESS_REFERENCE = RHB_DIRECTORY / "rhb-t6-label-review-progress-v1.json"
 BATCH_01_REFERENCE = DECISIONS_DIRECTORY / "rhb-t6-review-batch-01.json"
 BATCH_01_RAW_SHA256 = "278fe28661f490fa04268c0bfe5362f7466aa0cb1df0b79344ee5e990238cfa1"
 BATCH_01_RESPONSE_SHA256 = "2374e622008d81e69d97b2c06ce0065f4504db989168eedb3d803cac1bc7e42e"
-APPROVED_BATCHES = ((1, BATCH_01_REFERENCE, BATCH_01_RAW_SHA256, BATCH_01_RESPONSE_SHA256),)
+BATCH_02_REFERENCE = DECISIONS_DIRECTORY / "rhb-t6-review-batch-02.json"
+BATCH_02_RAW_SHA256 = "5e3606523f31e59b732216a2936b9396a850aa0bc783fe9ff132e2b602f53b5f"
+BATCH_02_RESPONSE_SHA256 = "f27dcc9c84729c96358ffa023cb7c511384658b9f134297f11d4534137d86d7d"
+APPROVED_BATCHES = (
+    (1, BATCH_01_REFERENCE, BATCH_01_RAW_SHA256, BATCH_01_RESPONSE_SHA256),
+    (2, BATCH_02_REFERENCE, BATCH_02_RAW_SHA256, BATCH_02_RESPONSE_SHA256),
+)
 
 Sha256 = Annotated[str, Field(pattern=r"^[0-9a-f]{64}$")]
 NonBlank = Annotated[str, Field(min_length=1)]
@@ -125,7 +131,14 @@ class LabelReviewProgress(StrictProgressModel):
     split_authorized: Literal[False]
     scoring_authorized: Literal[False]
     resolver_evaluation_authorized: Literal[False]
-    next_allowed_action: Literal["present_rhb_t6_review_batch_02"]
+    next_allowed_action: Literal[
+        "present_rhb_t6_review_batch_02",
+        "present_rhb_t6_review_batch_03",
+        "present_rhb_t6_review_batch_04",
+        "present_rhb_t6_review_batch_05",
+        "present_rhb_t6_review_batch_06",
+        "request_separate_label_materialization_gate",
+    ]
     progress_sha256: Sha256
 
     @model_validator(mode="after")
@@ -219,18 +232,20 @@ def _load_batches(root: Path, proposals: StagedProposalFile) -> list[OwnerReview
     return batches
 
 
-def build_review_progress(root: Path) -> LabelReviewProgress:
-    """Build the aggregate-only progress artifact from exact private owner events."""
-
+def _build_review_progress(root: Path, *, batch_limit: int | None = None) -> LabelReviewProgress:
     root = root.absolute()
     _evidence, proposals, staging_manifest = validate_materialized_label_review(root)
     batches = _load_batches(root, proposals)
+    private_hashes = [raw_sha256 for _, _, raw_sha256, _ in APPROVED_BATCHES]
+    if batch_limit is not None:
+        _expect(1 <= batch_limit <= len(batches), "review progress batch limit is invalid")
+        batches = batches[:batch_limit]
+        private_hashes = private_hashes[:batch_limit]
     decisions = [decision for batch in batches for decision in batch.case_decisions]
     approved = [decision for decision in decisions if decision.decision == "approved_label"]
     status_counts: Counter[str] = Counter(
         decision.expected_status for decision in approved if decision.expected_status is not None
     )
-    private_hashes = [raw_sha256 for _, _, raw_sha256, _ in APPROVED_BATCHES]
     ledger_sha256 = content_sha256(
         [
             {
@@ -269,9 +284,30 @@ def build_review_progress(root: Path) -> LabelReviewProgress:
         "split_authorized": False,
         "scoring_authorized": False,
         "resolver_evaluation_authorized": False,
-        "next_allowed_action": "present_rhb_t6_review_batch_02",
+        "next_allowed_action": (
+            f"present_rhb_t6_review_batch_{len(batches) + 1:02}"
+            if len(decisions) < 60
+            else "request_separate_label_materialization_gate"
+        ),
     }
     return LabelReviewProgress.model_validate({**body, "progress_sha256": content_sha256(body)})
+
+
+def build_review_progress(root: Path) -> LabelReviewProgress:
+    """Build the aggregate-only progress artifact from exact private owner events."""
+
+    return _build_review_progress(root)
+
+
+def _load_materialized_progress(path: Path) -> LabelReviewProgress:
+    _expect(path.is_file() and not path.is_symlink(), "review progress is absent or unsafe")
+    _expect(stat.S_IMODE(path.stat().st_mode) == 0o644, "review progress must use mode 0644")
+    actual = LabelReviewProgress.model_validate(_load_object(path))
+    _expect(
+        path.read_bytes() == stable_json_bytes(actual.model_dump(mode="json")),
+        "review progress bytes are non-canonical",
+    )
+    return actual
 
 
 def validate_materialized_review_progress(root: Path) -> LabelReviewProgress:
@@ -280,29 +316,34 @@ def validate_materialized_review_progress(root: Path) -> LabelReviewProgress:
     root = root.absolute()
     expected = build_review_progress(root)
     path = root / PROGRESS_REFERENCE
-    _expect(path.is_file() and not path.is_symlink(), "review progress is absent or unsafe")
-    _expect(stat.S_IMODE(path.stat().st_mode) == 0o644, "review progress must use mode 0644")
-    actual = LabelReviewProgress.model_validate(_load_object(path))
+    actual = _load_materialized_progress(path)
     _expect(actual == expected, "materialized review progress is stale or tampered")
-    _expect(
-        path.read_bytes() == stable_json_bytes(expected.model_dump(mode="json")),
-        "review progress bytes are non-canonical",
-    )
     return actual
 
 
 def materialize_review_progress(
     root: Path, *, check: bool = False
-) -> Literal["created", "unchanged"]:
-    """Create or validate aggregate progress without materializing labels."""
+) -> Literal["created", "updated", "unchanged"]:
+    """Create, append-update, or validate progress without materializing labels."""
 
     root = root.absolute()
     progress = build_review_progress(root)
     path = root / PROGRESS_REFERENCE
     expected = stable_json_bytes(progress.model_dump(mode="json"))
+    outcome: Literal["created", "updated"] = "created"
     if path.exists():
-        validate_materialized_review_progress(root)
-        return "unchanged"
+        actual = _load_materialized_progress(path)
+        if actual == progress:
+            return "unchanged"
+        if check:
+            raise ReviewProgressError("review progress is stale")
+        _expect(
+            actual.decision_batch_count < progress.decision_batch_count,
+            "review progress cannot be rewritten or reduced",
+        )
+        historical = _build_review_progress(root, batch_limit=actual.decision_batch_count)
+        _expect(actual == historical, "existing review progress is not an append-only prefix")
+        outcome = "updated"
     if check:
         raise ReviewProgressError("review progress is not materialized")
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -319,14 +360,13 @@ def materialize_review_progress(
         validate_materialized_review_progress(root)
     except BaseException:
         temp.unlink(missing_ok=True)
-        if path.exists() and not path.is_symlink():
-            path.unlink()
         raise
-    return "created"
+    return outcome
 
 
 __all__ = [
     "BATCH_01_REFERENCE",
+    "BATCH_02_REFERENCE",
     "DECISIONS_DIRECTORY",
     "PROGRESS_REFERENCE",
     "LabelReviewProgress",

@@ -207,7 +207,9 @@ Acceptance:
   row/batch decision; verify provisional challenge tags or keep the row held.
   - [x] Batch 1: 10 cases reviewed; aggregate result is one approved catalog-relative `no_match`
     decision and nine held decisions. No challenge tag or matched label was approved.
-  - [ ] Batches 2–6: 50 staged cases remain.
+  - [x] Batch 2: 10 additional cases reviewed; all remain held. No challenge tag or matched label was
+    approved.
+  - [ ] Batches 3–6: 40 staged cases remain.
 
 Files:
 

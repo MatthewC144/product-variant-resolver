@@ -1,5 +1,39 @@
 # Project Log
 
+## 2026-10-05 — RHB-T6 Review Batch 2：保留十筆證據不足資料，加入安全的 append update
+
+### 新執行了什麼，解決什麼問題
+
+Owner 確認第二批十個 staged cases 全部維持 `held`，且不驗證 provisional challenge tags、不批准
+matched，也不開放任何後續評分階段。逐筆決定與完整 owner 原文寫入第二個 Git-ignored、`0600` 的
+private event；公開 progress 只從「10 筆已審」更新為「20 筆已審」，累計一筆 approved
+catalog-relative `no_match`、十九筆 held、四十筆待審。
+
+這批資料維持 held 的原因不是已證明它們不存在，而是 frozen catalog 沒有足夠候選證據。把 catalog
+coverage gap 直接標成 `no_match` 會製造錯誤 ground truth；保留 held 可讓它們在 catalog 或獨立證據
+增加後重新審查，同時目前不會進入 labels 或 scoring。
+
+### 代碼修改了哪一部分、原因與決策
+
+Progress builder 新增 Batch 2 的 exact private-file SHA 與 owner-response SHA allowlist，並把下一個合法
+動作更新為 Batch 3。另加入安全的 append-update 路徑：既有 public progress 必須能由目前 private
+events 的歷史 prefix 完整重算，且新 batch 數只能增加，才允許 atomic replace。若既有檔被修改、batch
+倒退或不是有效 prefix，builder 會 fail closed。
+
+這項修改是必要的，因為 Batch 1 之後 public progress 已存在；只支援 create/unchanged 的 builder
+無法安全表達後續審閱。選擇驗證舊 snapshot 後 append，而不是直接覆寫 JSON，可保留 event-sourced
+審計鏈，並阻止舊 owner decision 被靜默改寫。
+
+### 技術棧／方法選型、驗證與下一步
+
+沿用 Pydantic strict schemas、canonical JSON、SHA-256、private `0600` events 與 public `0644`
+aggregate。新增 append-prefix 測試後，完整 representative benchmark suite 共 147 個 tests 通過；
+Ruff、strict MyPy、compile、builder replay、private mode、Git-ignore、public privacy 與 diff check 均通過。
+沒有建立 labels、held-labels、split、scoring 或 resolver output。
+
+下一步僅為 RHB-T6 Review Batch 3。RHB-T7、Pointwise/Listwise 與 resolver evaluation 仍需另外、明確
+的 Owner Gate。
+
 ## 2026-10-05 — RHB-T6 Review Batch 1：記錄首批 owner decision，但不提前建立 labels
 
 ### 新執行了什麼，解決什麼問題
