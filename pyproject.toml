@@ -29,6 +29,7 @@ dev = ["pytest>=8,<9", "ruff>=0.9,<1", "mypy>=1.14,<2"]
 
 [project.scripts]
 pvr-evaluate = "product_variant_resolver.evaluation:main"
+pvr-evaluate-image-search = "product_variant_resolver.image_search_evaluation:main"
 pvr-ingest = "product_variant_resolver.postgres_ingestion:main"
 pvr-stage-releases = "product_variant_resolver.release_staging:main"
 pvr-import-release-staging = "product_variant_resolver.postgres_release_staging:main"

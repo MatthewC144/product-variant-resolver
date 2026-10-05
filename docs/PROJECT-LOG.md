@@ -1,5 +1,45 @@
 # Project Log
 
+## 2026-10-05 — Image-search evaluation：以 1,763 筆 local corpus 驗證 153 筆真實搜尋文字
+
+### 新執行了什麼，解決什麼問題
+
+本輪把 `image-search-resolver-v1` 從靜態 JSON 接上真正的 resolver pipeline。執行前先做 catalog
+coverage gate，發現正式 `data/catalog.json` 只有 140 筆產品，新 benchmark 只有 2 個 casting 出現在
+其中；若直接計分，151 筆必然因 catalog 缺資料而失敗，不能代表 resolver 能力。因此新增 local-only
+evaluation projection：在記憶體中把 frozen 1,763-row release snapshot 轉成候選 catalog，執行完即消失，
+不修改 production catalog、PostgreSQL canonical tables 或 human-knowledge corpus。
+
+153 筆 expected identities 全部依 toy number 唯一綁定至來源 row，完整 release fields 全數一致。實際
+aggregate 結果為 casting Top-1 `130/153 = 84.97%`、exact release Top-1 `84/153 = 54.90%`、exact
+Recall@10 `151/153 = 98.69%`、Recall@25 `153/153 = 100%`。這表示 retrieval 幾乎都能找到正確 release，
+但同 casting 的跨年份／系列／編號版本仍需要更好的 release-level ranking。
+
+### 代碼修改了哪一部分、原因與決策
+
+新增 `image_search_evaluation.py` 與 CLI `pvr-evaluate-image-search`。Loader 使用 Pydantic strict schema
+拒絕多餘欄位、非連續 ID、重複 query／casting 與答案不一致；source binding 要求 toy number 唯一，
+並逐欄核對 brand、casting、year、series、collector number、series position、color 與 variant note。
+Candidate identity 使用 source record ID 衍生的 deterministic UUIDv5，但明確標為 evaluation surrogate，
+不是 canonical UUID。
+
+選擇 in-memory projection 而不是把 1,763 rows 寫入 `catalog.json`，是因為這批來源仍是第三方 frozen
+snapshot，沒有 manufacturer/global canonical authority。這個方法能測真正的 sparse／dense／structured
+retrieval、reranker switch、calibration 與 policy，同時不越過既有 canonical governance boundary。
+
+### 技術棧／方法選型、驗證與下一步
+
+沿用既有 Python 3.12、Pydantic、`CatalogProduct`、hashing embedding、RRF retrieval 與 ResolverService。
+CLI 必須顯式帶入 `--acknowledge-source-relative-evaluation`；stdout 只輸出 aggregate metrics，沒有保存
+row-level prediction。5 個 focused tests、Ruff、strict MyPy 與 compileall 通過；153 筆對 1,763 candidates
+的完整 run 約 4.9 秒完成，p50 15.72 ms、p95 17.95 ms。
+
+現有 policy 僅 `24/153` 回傳 matched，其中 `20` 筆 exact correct；policy coverage `15.69%`、precision
+`83.33%`、abstention `84.31%`（69 ambiguous、60 no_match）。所以下一個必要工作應先改善 release-level
+ranking，再用 development split 重新校準 decision policy；不能只降低門檻，否則會放大四筆已觀察到的
+wrong-release matches。這份結果是第三方 source-relative evaluation，不代表 manufacturer-certified
+或 production/global accuracy。
+
 ## 2026-10-05 — Repository hygiene：清除可重建產物，保留仍有依賴的早期資料
 
 ### 新執行了什麼，解決什麼問題
