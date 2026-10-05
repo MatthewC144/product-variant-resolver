@@ -11838,3 +11838,53 @@ AnyIO deprecation。Private projection SHA-256為
 下一步是建立獨立的offline retrieval benchmark。它必須包含非逐字query、alias變體與hard negatives，且
 expected family labels要與retrieval執行分離；不能用這5個文件中的exact casting文字當唯一queries，也不能
 在沒有評估證據前修改Dual RAG runtime。
+
+## 2026-10-05 — PPHR-T1–T5：確認Pointwise v2缺少獨立no-match holdout
+
+### 新執行了什麼、解決什麼問題
+
+前一步已在development selection上得到三態policy，但20筆no-match selection同時參與了threshold選擇，不能
+再被當成未看過的test。本輪沒有急著執行resolver，而是先盤點本機剩餘的真實查詢來源，回答一個更基本的
+問題：是否已存在可以誠實測試v2的獨立no-match資料。
+
+檢查結果為不存在。105-row人工queue包含已追蹤的101筆，以及4筆`excluded/ambiguous`且沒有任何human
+expected identity的資料；230-row comparison與1,640-row evidence檔分別只有91與79個unique case IDs，全部
+重疊既有101筆。換句話說，檔案列數看起來很多，但它們是相同query的模型比較或candidate evidence，不是
+新增人工答案。既有52筆catalog-relative no-match已全數用於v2 fit／selection，untouched eligibility為0。
+
+RHB公開進度另有1筆owner-approved `no_match`，但其labels尚未materialize，且split、scoring、resolver
+evaluation均明確為false。本輪把它記為potential-but-ineligible，而不是跨越原批准範圍拿來湊數。最終
+readiness因此是0/20，shortfall為20，Pointwise v2繼續保持development-only。
+
+### 代碼修改了哪一部分、為何這樣設計
+
+新增`pointwise_policy_holdout_readiness.py`與CLI `pvr-audit-pointwise-policy-holdout`。第一次audit需要顯式
+提供外部evidence root；builder只讀CSV的`case_id`與人工答案是否存在，輸出source hash、row／unique／overlap
+counts與分類。外部CSV、query、label與case ID均未複製進repo。之後的`--check`只驗證tracked aggregate與
+parent hashes，因此GitHub checkout不依賴使用者另一個private專案仍存在。
+
+Artifact同時綁定v2 calibration、policy、selection與RHB aggregate progress，並固定最低20筆新organic
+catalog-relative no-match契約：必須有人工作答、綁定同一catalog、在resolver access前freeze、不得重用52筆
+development資料、不得用synthetic/counterfactual negatives，也不得藉新holdout重調model/features/thresholds。
+這比直接保存外部rows更小、更容易公開審查，也符合使用者要求repo只保留必要最終資料。
+
+### 方法選型、替代方案與限制
+
+以case-ID overlap而不是檔案列數判斷independence，是因為comparison與evidence pipeline會為同一query產生多列；
+若用1,640作為樣本數會嚴重高估資料量。人工答案完整性則阻止4筆excluded row被無證據轉成negative。沒有採用
+counterfactual移除catalog family的方法，因為那只測人造absence，不能代表真實image-search文字中的no-match。
+
+最低20筆沿用目前negative threshold-selection的規模，目的是建立最小可審核gate，不宣稱20筆足以代表global
+traffic或manufacturer truth。較強方案是另外收集數百筆，但這會成為新的資料蒐集／人工標註工作，應由owner
+另行批准，不能由readiness audit自行擴權。
+
+### 驗證結果、既有baseline與下一步
+
+7個focused tests全部PASS；scoped Ruff check/format、strict MyPy、compileall、CLI `--check`與
+`git diff --check`均PASS。完整repo測試揭露13個既有`human_knowledge_storage_api` failures：舊v4 storage
+protocol仍綁定過期的`retrieval.py` hash，因此按設計fail closed為503。全repo Ruff／MyPy也有歷史問題；它們
+與本次新module無關，本輪依lite mode不擴張去重封存另一套protocol或重寫舊scripts，並在QA中如實保留。
+
+下一步不是runtime activation或繼續審RHB held rows，而是由owner決定是否批准新的最小資料任務：收集並獨立
+審核至少20筆、確定其expected family不在同一1,763-record frozen catalog中的真實查詢；membership與答案需在
+任何resolver/model access之前封存。完成該gate後，才可用固定v2 artifacts做一次不可retune的policy test。

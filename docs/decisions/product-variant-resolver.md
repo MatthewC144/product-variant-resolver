@@ -2518,3 +2518,25 @@ Future evidence can reopen them without rewriting the historical reason they wer
 - **Impact:** the resolver now has a reproducible three-state development policy with 7 matched,
   10 no-match and 33 ambiguous decisions on selection. Any runtime gate requires a new untouched
   negative holdout and must evaluate the frozen v2 artifacts without retuning.
+
+## D49 — Report a real holdout shortfall instead of relabeling derivative data
+
+- **Choice:** audit the remaining local real-query files by case-ID overlap and human-answer
+  completeness, then publish an aggregate `0/20` holdout-readiness result. Keep the one approved RHB
+  no-match ineligible while its split, scoring and resolver-evaluation permissions remain false.
+- **Reason:** all 52 useful catalog-relative no-match queries already participated in v2 fitting or
+  threshold selection. The other 230 comparison rows and 1,640 evidence rows are derivatives of the
+  same cases, while the four untracked rows in the 105-row queue have no human expected identity.
+  Renaming any of these as an untouched test would create leakage rather than evidence.
+- **Alternatives:** reuse the 52 development rows as test; treat the four ambiguous exclusions as
+  negatives; create counterfactual or synthetic unknowns; count the one RHB decision despite its
+  explicit permission boundary. All four options make the test larger by weakening its meaning.
+- **10x alternative considered:** immediately collect hundreds of independently adjudicated organic
+  no-match queries. That would improve statistical power, but the smallest honest next gate is 20;
+  collecting more should be a separately authorized data task with cost and privacy controls.
+- **Most likely failure:** a future maintainer sees multiple large CSVs and assumes they are new
+  labels. The artifact freezes each source hash, unique-ID overlap, answer completeness and
+  classification without copying row data, then fails closed if those aggregates change.
+- **Impact:** Pointwise v2 remains development-only and runtime activation is blocked. The next
+  eligible action is to collect and independently adjudicate at least 20 new organic queries,
+  freeze them before resolver access and evaluate without changing the model, features or thresholds.
