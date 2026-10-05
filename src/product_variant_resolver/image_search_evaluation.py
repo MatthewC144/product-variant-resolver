@@ -9,7 +9,7 @@ import statistics
 import time
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal, cast
 from uuid import NAMESPACE_URL, UUID, uuid5
 
 from pydantic import ConfigDict, Field, field_validator, model_validator
@@ -28,10 +28,18 @@ SOURCE = Path("data/external/hot-wheels-wiki/local-export-2023-2026/normalized.j
 SOURCE_COUNT = 1_763
 SOURCE_USAGE = "staging_only_not_evaluation_or_canonical"
 SOURCE_STATUS = "review_only_local_staging_snapshot"
+FROZEN_DATASET_SHA256 = "b0feeff8f1158ab67cfac2ae493eefc04a6aba1b90d4fce448724341315e095c"
+FROZEN_DATASET_COUNT = 153
+FROZEN_DEVELOPMENT_COUNT = 100
+FROZEN_SPLIT_VERSION = "image-search-release-ranking-split-v1"
+FROZEN_SPLIT_SALT = "pvr:image-search-release-ranking:development-test:v1"
+FROZEN_SPLIT_SHA256 = "10ed70cc347f1b548c156e033645d6b0e90f48ee66c95af631832e8d55aebdac"
 AUTHORITY_NOTE = (
     "Expected identities are relative to the frozen third-party release source; they are not "
     "Mattel/manufacturer-certified or global canonical truth."
 )
+
+SplitName = Literal["development", "test", "all"]
 
 
 class ExpectedFullIdentity(StrictModel):
@@ -113,10 +121,22 @@ class SourceBinding:
 
 
 @dataclass(frozen=True, slots=True)
+class FrozenSplit:
+    version: str
+    development_case_ids: tuple[str, ...]
+    test_case_ids: tuple[str, ...]
+    assignment_sha256: str
+
+
+@dataclass(frozen=True, slots=True)
 class ImageSearchEvaluationReport:
     schema_version: str
     dataset_version: str
     catalog_version: str
+    split: str
+    split_version: str
+    split_assignment_sha256: str
+    full_dataset_count: int
     sample_count: int
     candidate_count: int
     source_binding_count: int
@@ -144,6 +164,65 @@ def _read_object(path: Path) -> dict[str, Any]:
 
 def load_image_search_dataset(path: Path = DATASET) -> ImageSearchDataset:
     return ImageSearchDataset.model_validate(_read_object(path))
+
+
+def build_deterministic_split(
+    dataset: ImageSearchDataset,
+    *,
+    development_count: int,
+    salt: str,
+    version: str,
+) -> FrozenSplit:
+    if not 1 <= development_count < len(dataset.records):
+        raise ValueError("development_count must leave at least one test case")
+    if not salt.strip() or not version.strip():
+        raise ValueError("split salt and version must not be blank")
+    keyed = sorted(
+        dataset.records,
+        key=lambda case: hashlib.sha256(
+            f"{salt}\0{case.id}\0{normalize_text(case.expected_casting)}".encode()
+        ).hexdigest(),
+    )
+    development_ids = frozenset(case.id for case in keyed[:development_count])
+    test_ids = frozenset(case.id for case in keyed[development_count:])
+    if development_ids & test_ids or len(development_ids | test_ids) != len(dataset.records):
+        raise ValueError("split must be disjoint and exhaustive")
+    assignments = [
+        {
+            "case_id": case.id,
+            "split": "development" if case.id in development_ids else "test",
+        }
+        for case in dataset.records
+    ]
+    assignment_bytes = json.dumps(
+        assignments,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode()
+    return FrozenSplit(
+        version=version,
+        development_case_ids=tuple(
+            case.id for case in dataset.records if case.id in development_ids
+        ),
+        test_case_ids=tuple(case.id for case in dataset.records if case.id in test_ids),
+        assignment_sha256=hashlib.sha256(assignment_bytes).hexdigest(),
+    )
+
+
+def load_frozen_split(dataset: ImageSearchDataset, dataset_path: Path = DATASET) -> FrozenSplit:
+    dataset_sha256 = hashlib.sha256(dataset_path.read_bytes()).hexdigest()
+    if dataset_sha256 != FROZEN_DATASET_SHA256 or len(dataset.records) != FROZEN_DATASET_COUNT:
+        raise ValueError("dataset bytes or row count differ from the frozen split contract")
+    split = build_deterministic_split(
+        dataset,
+        development_count=FROZEN_DEVELOPMENT_COUNT,
+        salt=FROZEN_SPLIT_SALT,
+        version=FROZEN_SPLIT_VERSION,
+    )
+    if FROZEN_SPLIT_SHA256 and split.assignment_sha256 != FROZEN_SPLIT_SHA256:
+        raise ValueError("split assignment differs from the frozen checksum")
+    return split
 
 
 def load_source_records(
@@ -294,11 +373,23 @@ def evaluate_image_search_dataset(
     dataset_path: Path = DATASET,
     source_path: Path = SOURCE,
     source_expected_count: int = SOURCE_COUNT,
+    split: SplitName = "development",
 ) -> ImageSearchEvaluationReport:
     dataset = load_image_search_dataset(dataset_path)
     records = load_source_records(source_path, expected_count=source_expected_count)
     bindings = bind_dataset_to_source(dataset, records)
     target_by_case = {binding.case_id: binding.evaluation_uuid for binding in bindings}
+    frozen_split: FrozenSplit | None = None
+    if split == "all":
+        cases = dataset.records
+    else:
+        frozen_split = load_frozen_split(dataset, dataset_path)
+        selected_ids = set(
+            frozen_split.development_case_ids
+            if split == "development"
+            else frozen_split.test_case_ids
+        )
+        cases = [case for case in dataset.records if case.id in selected_ids]
     catalog = build_evaluation_catalog(records)
     human_catalog = load_human_knowledge_catalog(
         settings.human_catalog_path,
@@ -311,7 +402,7 @@ def evaluate_image_search_dataset(
     policy_exact = policy_matches = 0
     status_counts = {status.value: 0 for status in ResolutionStatus}
     latencies: list[float] = []
-    for case in dataset.records:
+    for case in cases:
         signals = extract_signals(case.query, service.color_vocabulary, service.series_vocabulary)
         candidates = service.retrieval.retrieve(signals, settings.candidate_limit)
         if settings.reranker_enabled:
@@ -341,11 +432,17 @@ def evaluate_image_search_dataset(
             policy_matches += 1
             policy_exact += response.canonical_uuid == target
 
-    sample_count = len(dataset.records)
+    sample_count = len(cases)
     return ImageSearchEvaluationReport(
         schema_version="pvr-image-search-evaluation-report-v1",
         dataset_version=dataset.dataset_version,
         catalog_version=catalog.version,
+        split=split,
+        split_version=(frozen_split.version if frozen_split else "unfrozen-all-test-helper"),
+        split_assignment_sha256=(
+            frozen_split.assignment_sha256 if frozen_split else "not-applicable"
+        ),
+        full_dataset_count=len(dataset.records),
         sample_count=sample_count,
         candidate_count=len(catalog.products),
         source_binding_count=len(bindings),
@@ -385,12 +482,16 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Evaluate the local image-search benchmark")
     parser.add_argument("--dataset", type=Path, default=DATASET)
     parser.add_argument("--source", type=Path, default=SOURCE)
+    parser.add_argument("--split", choices=("development", "test"), default="development")
     parser.add_argument("--acknowledge-source-relative-evaluation", action="store_true")
     arguments = parser.parse_args()
     if not arguments.acknowledge_source_relative_evaluation:
         parser.error("--acknowledge-source-relative-evaluation is required")
     report = evaluate_image_search_dataset(
-        Settings.from_env(), dataset_path=arguments.dataset, source_path=arguments.source
+        Settings.from_env(),
+        dataset_path=arguments.dataset,
+        source_path=arguments.source,
+        split=cast(SplitName, arguments.split),
     )
     print(json.dumps(asdict(report), ensure_ascii=False, sort_keys=True, indent=2))
 

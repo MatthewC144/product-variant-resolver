@@ -1,5 +1,39 @@
 # Project Log
 
+## 2026-10-05 — Release-ranking split freeze：凍結 100 development／53 test
+
+### 新執行了什麼，解決什麼問題
+
+在改善 exact-release ranking 前，本輪先把 153 筆 image-search benchmark 凍結為 100 筆 development
+與 53 筆 test。此前只看過全資料集 aggregate baseline，沒有保存或檢查 row-level predictions、case-level
+failures 或 split-specific test metrics；現在先固定 test，避免後續 Pointwise／Listwise 與 policy tuning
+反覆看同一批最終答案而形成資料洩漏。
+
+分割不修改 `dataset.json`，也沒有建立第二份 row-level split file。它使用固定 salt、case ID 與 normalized
+expected casting 產生 SHA-256 sorting key，前 100 筆為 development、後 53 筆為 test。完整 assignment
+checksum 為 `10ed70cc347f1b548c156e033645d6b0e90f48ee66c95af631832e8d55aebdac`；兩組零重疊，
+union 恰好為 153 筆。
+
+### 代碼修改了哪一部分、原因與決策
+
+`image_search_evaluation.py` 新增 frozen dataset SHA、split version/salt、deterministic partition 與 fail-closed
+checksum validation。CLI 現在預設只跑 `development`；若要碰最終 test，必須明確傳入 `--split test`。
+這比把 `split` 欄位寫回 dataset 更符合最小資料要求，也避免為同一批 query 維護兩個可能漂移的來源。
+
+Dataset SHA 固定為 `b0feeff8f1158ab67cfac2ae493eefc04a6aba1b90d4fce448724341315e095c`。
+任何內容或 row count 改變都會在分割前失敗，不能靜默產生另一個 test set。測試新增 deterministic、
+disjoint、exhaustive、salt sensitivity 與 frozen checksum 驗證。
+
+### 技術棧／方法選型、驗證與下一步
+
+100 筆 development-only baseline 為 casting Top-1 `84/100 = 84%`、exact release Top-1 `55/100 = 55%`、
+exact Recall@10 `99%`、Recall@25 `100%`。Policy matched `15/100`、exact correct `13/100`，coverage
+`15%`、precision `86.67%`、abstention `85%`。7 個 focused tests、Ruff 與 strict MyPy 通過；53 筆
+test 沒有在本輪重新計分。
+
+下一步只使用 development 建立 release-aware ranking baselines，重點比較 year、series、collector number、
+series position 與 toy identifier 訊號。只有 development 選型完成後，才允許一次明確的 final test。
+
 ## 2026-10-05 — Image-search evaluation：以 1,763 筆 local corpus 驗證 153 筆真實搜尋文字
 
 ### 新執行了什麼，解決什麼問題

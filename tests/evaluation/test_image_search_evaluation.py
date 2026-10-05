@@ -8,9 +8,12 @@ import pytest
 
 from product_variant_resolver.config import Settings
 from product_variant_resolver.image_search_evaluation import (
+    FROZEN_SPLIT_SHA256,
     bind_dataset_to_source,
+    build_deterministic_split,
     build_evaluation_catalog,
     evaluate_image_search_dataset,
+    load_frozen_split,
     load_image_search_dataset,
     load_source_records,
 )
@@ -134,6 +137,37 @@ def test_source_rejects_canonical_promotion(tmp_path: Path) -> None:
         load_source_records(path, expected_count=1)
 
 
+def test_frozen_split_is_disjoint_exhaustive_and_stable() -> None:
+    dataset = load_image_search_dataset(
+        ROOT / "data/evaluation/image-search-resolver-v1/dataset.json"
+    )
+    split = load_frozen_split(
+        dataset, ROOT / "data/evaluation/image-search-resolver-v1/dataset.json"
+    )
+    assert len(split.development_case_ids) == 100
+    assert len(split.test_case_ids) == 53
+    assert not set(split.development_case_ids) & set(split.test_case_ids)
+    assert len(set(split.development_case_ids) | set(split.test_case_ids)) == 153
+    assert split.assignment_sha256 == FROZEN_SPLIT_SHA256
+
+
+def test_split_changes_when_salt_changes(tmp_path: Path) -> None:
+    cases = [
+        _case(
+            f"isr-{index:04d}",
+            query=f"query {index}",
+            toy=f"T{index}",
+            casting=f"Car {index}",
+            collector=str(index),
+        )
+        for index in range(1, 7)
+    ]
+    dataset = load_image_search_dataset(_write(tmp_path / "dataset.json", _dataset(cases)))
+    first = build_deterministic_split(dataset, development_count=4, salt="one", version="v1")
+    second = build_deterministic_split(dataset, development_count=4, salt="two", version="v1")
+    assert first.assignment_sha256 != second.assignment_sha256
+
+
 def test_evaluation_emits_aggregate_only_metrics(tmp_path: Path) -> None:
     records = [
         _record(source_id="source-alpha", toy="AAA01", casting="Alpha", collector="1"),
@@ -169,7 +203,9 @@ def test_evaluation_emits_aggregate_only_metrics(tmp_path: Path) -> None:
         dataset_path=dataset_path,
         source_path=source_path,
         source_expected_count=2,
+        split="all",
     )
+    assert report.split == "all"
     assert report.sample_count == 2
     assert report.candidate_count == 2
     assert report.source_binding_count == 2
