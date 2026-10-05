@@ -2540,3 +2540,26 @@ Future evidence can reopen them without rewriting the historical reason they wer
 - **Impact:** Pointwise v2 remains development-only and runtime activation is blocked. The next
   eligible action is to collect and independently adjudicate at least 20 new organic queries,
   freeze them before resolver access and evaluate without changing the model, features or thresholds.
+
+## D50 — Freeze the owner-reviewed holdout before any resolver access
+
+- **Choice:** materialize Batch 1 as one minimal 20-row versioned dataset, bind it to the frozen
+  1,763-record catalog and its pre-review lineage hashes, then delete the entire untracked collection
+  workspace. Keep resolver scoring, model retuning, threshold retuning and runtime activation false.
+- **Reason:** test membership and expected truth must exist before outputs are visible. Separating the
+  data-freeze gate from the evaluation gate prevents a disappointing score from changing which rows
+  count, how they are labeled or which threshold is selected.
+- **Alternatives:** retain all raw Serper responses and images; publish source URLs and timestamps;
+  run the resolver in the same approval step; append the rows to the positive evaluation dataset.
+  These choices respectively increase privacy/repository noise, cross the owner's authorization, or
+  erase the distinction between catalog-present and catalog-relative no-match truth.
+- **10x alternative considered:** commission a large multi-source manufacturer-adjudicated negative
+  benchmark. It would give stronger external validity, but it is unnecessary for the next bounded
+  question: whether the already frozen development-only Pointwise v2 policy generalizes to 20 new
+  catalog-relative no-match queries.
+- **Most likely failure:** readers interpret a missing exact family in the 2023–2026 community
+  snapshot as proof that the product does not exist. The dataset therefore names its scope as
+  third-party-catalog-relative and tests the bound catalog hash before asserting absence.
+- **Impact:** the data-readiness shortfall moves from 0/20 to 20/20 without producing an evaluation
+  result. A separate owner gate is still required for one output-blind test, and that gate must not
+  permit retuning or runtime activation.

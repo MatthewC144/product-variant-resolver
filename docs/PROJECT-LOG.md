@@ -11888,3 +11888,53 @@ protocol仍綁定過期的`retrieval.py` hash，因此按設計fail closed為503
 下一步不是runtime activation或繼續審RHB held rows，而是由owner決定是否批准新的最小資料任務：收集並獨立
 審核至少20筆、確定其expected family不在同一1,763-record frozen catalog中的真實查詢；membership與答案需在
 任何resolver/model access之前封存。完成該gate後，才可用固定v2 artifacts做一次不可retune的policy test。
+
+## 2026-10-05 — PNMH-T1–T6：封存20筆owner-reviewed no-match holdout
+
+### 新執行了什麼、解決什麼問題
+
+前一步誠實揭露Pointwise v2沒有獨立negative holdout，readiness為0/20。本輪完成新的資料蒐集與owner gate：
+從2022 community catalog source解析447筆release rows，找出相對既有2023–2026 frozen catalog確切缺少的
+88個casting families，再以固定salt建立40筆候選池。蒐集流程依序嘗試28筆候選，透過image search與
+reverse-image文字結果建立query，最後得到20筆可由原始release fields回答的資料；owner已一次審閱並批准
+這20筆query和expected identity由`staged`轉為`owner_reviewed`。
+
+本輪解決的不是resolver準確率，而是測試治理問題：現在先把20筆測試輸入與答案封存，之後才可能在另一個
+gate查看resolver輸出。這樣可以證明未來的test不是看到結果後才換題、改答案或選threshold。資料層面的
+shortfall因此由0/20關閉為20/20，但尚未產生任何model score。
+
+### 代碼與資料修改了哪一部分、原因是什麼
+
+新增`data/evaluation/image-search-pointwise-no-match-holdout-v1/dataset.json`，其SHA-256為
+`b46367efb54c9ab2a74c23d0824d1da5f939ecdf74a63c612da37c0688c50a7e`。每筆只保留`id`、自然語言
+`query`、`expected_casting`與七個必要release identity fields：brand、casting、release year、series、
+collector number、series position及toy number。20筆query與20個casting皆唯一，且20/20 normalized exact
+brand/casting families都不存在於綁定SHA-256
+`b4e0747450a5447c2bf66b0838c91f3f723a19ac97c90c7ac3636cf3a9a709d4`的1,763筆catalog。
+
+資料集沒有color與edition，因為原始source未提供足以支持這兩欄的可靠答案；也沒有保存圖片、來源URL、圖片
+hash、搜尋時間或raw API response，因為它們不是未來resolver測試所需輸入。新增四項focused tests鎖定dataset
+與catalog hashes、20筆順序與唯一性、exact schema、full identity一致性、catalog-relative absence以及privacy
+forbidden fields。這些測試使日後catalog或test truth被改動時直接fail closed。
+
+### 方法與技術選型理由
+
+候選來源選擇2022，是因為resolver目前的frozen corpus是2023–2026：同一品牌、相同community資料結構可以
+提供真實產品文字，同時自然形成catalog-relative no-match，不需要捏造不存在的車名。先用固定salt凍結候選
+順序，再進行image／reverse-image查詢，避免依結果好壞挑選題目。正確答案直接沿用候選release row的casting
+與完整release fields，符合owner明示不需額外花時間重新驗證的範圍。
+
+最終選擇單一minimal JSON，而不是把蒐集程式、55個raw API JSON、圖片或review packet一起提交。後者只服務
+一次性資料建立，不是產品runtime或可重用benchmark input；保留它們會增加repo噪音、外部內容與隱私面積。
+Dataset只用candidate-pool與staged-review hashes保留必要lineage，既能重現批准邊界，也不公開無關collection
+metadata。依事先約定，`.local-image-search-collection-no-match-holdout-v1/`在最終驗證後完整刪除。
+
+### 驗證結果、限制與下一步
+
+Focused tests在暫存資料夾刪除前後都通過，證明正式dataset不依賴collection workspace。Scoped Ruff check／
+format與`git diff --check`也通過。整個步驟沒有載入resolver或neural model，沒有執行scoring，沒有修改model、
+features、match/no-match thresholds、catalog或runtime default。
+
+這20筆的no-match只代表expected family不在該1,763筆third-party frozen snapshot中，不是Mattel認證或global
+truth。下一個必要gate是owner另行批准一次output-blind frozen-policy evaluation；即使未來分數不理想，也不能
+使用這20筆重新選model／threshold或直接啟用runtime。

@@ -1,0 +1,298 @@
+{
+  "approval": {
+    "approved_by": "project_owner",
+    "approved_record_count": 20,
+    "model_retuning_authorized": false,
+    "resolver_scoring_authorized": false,
+    "runtime_activation_authorized": false,
+    "threshold_retuning_authorized": false
+  },
+  "authority_scope": "frozen_third_party_catalog_relative_not_manufacturer_or_global_truth",
+  "candidate_pool_sha256": "839a5318e071b84e3264f87e35cf15145533a72249ca08c8440afca263d50083",
+  "dataset_version": "image-search-pointwise-no-match-holdout-v1",
+  "frozen_catalog_sha256": "b4e0747450a5447c2bf66b0838c91f3f723a19ac97c90c7ac3636cf3a9a709d4",
+  "records": [
+    {
+      "expected_casting": "Range Rover Classic",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Range Rover Classic",
+        "collector_number": "159",
+        "release_year": "2022",
+        "series": "Mud Studs",
+        "series_position": "4/5",
+        "toy_number": "HCT76"
+      },
+      "id": "hnm-001",
+      "query": "HOT WHEELS RANGE ROVER CLASSIC GREEN MUD STUDS 4/5 MINT SHORT CARD 140"
+    },
+    {
+      "expected_casting": "The Nash",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "The Nash",
+        "collector_number": "019",
+        "release_year": "2022",
+        "series": "Compact Kings",
+        "series_position": "1/5",
+        "toy_number": "HCT61"
+      },
+      "id": "hnm-002",
+      "query": "NEW 2022 Hot Wheels The Nash Purple & White Compact Kings Series 1/5 Card 19/250"
+    },
+    {
+      "expected_casting": "Purrfect Speed",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Purrfect Speed",
+        "collector_number": "088",
+        "release_year": "2022",
+        "series": "Street Beasts",
+        "series_position": "3/5",
+        "toy_number": "HCV36"
+      },
+      "id": "hnm-003",
+      "query": "Hot Wheels Purrfect Speed 88/250 2022 Street Beasts 3/5"
+    },
+    {
+      "expected_casting": "Volkswagen Beetle",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Volkswagen Beetle",
+        "collector_number": "042",
+        "release_year": "2022",
+        "series": "Compact Kings",
+        "series_position": "2/5",
+        "toy_number": "HCV26"
+      },
+      "id": "hnm-004",
+      "query": "Hot Wheels Volkswagen Classic Beetle-blue With Wood Trim-compact Kings Long Card-hard to Find Collector Miniature Model 1/64 - Etsy"
+    },
+    {
+      "expected_casting": "'69 Chevy Pickup",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'69 Chevy Pickup",
+        "collector_number": "108",
+        "release_year": "2022",
+        "series": "HW Art Cars",
+        "series_position": "4/10",
+        "toy_number": "HCV74"
+      },
+      "id": "hnm-005",
+      "query": "2022 Hot Wheels - Art Cars - '69 Chevy Pickup - 108/250 - Lot Of 2! 🥵 🛻 🛻"
+    },
+    {
+      "expected_casting": "2009 Ford F-150",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "2009 Ford F-150",
+        "collector_number": "029",
+        "release_year": "2022",
+        "series": "HW Metro",
+        "series_position": "3/10",
+        "toy_number": "HCT48"
+      },
+      "id": "hnm-006",
+      "query": "HOT WHEELS - 2009 FORD F-150 (2022) - HW METRO 3/10"
+    },
+    {
+      "expected_casting": "Loco Motorin'",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Loco Motorin'",
+        "collector_number": "031",
+        "release_year": "2022",
+        "series": "HW Metro",
+        "series_position": "5/10",
+        "toy_number": "HCV73"
+      },
+      "id": "hnm-007",
+      "query": "2022 Hot Wheels LOCO MOTORIN\" #31/250 HW Metro 5/10 (Chrome)"
+    },
+    {
+      "expected_casting": "Armadillo",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Armadillo",
+        "collector_number": "179",
+        "release_year": "2022",
+        "series": "HW Screen Time",
+        "series_position": "9/10",
+        "toy_number": "HCT14"
+      },
+      "id": "hnm-008",
+      "query": "2022 Hot Wheels Lightyear ARMADILLO HW Screen Time (9/10) HCT14-M9C0K"
+    },
+    {
+      "expected_casting": "La Fasta",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "La Fasta",
+        "collector_number": "048",
+        "release_year": "2022",
+        "series": "HW Speed Team",
+        "series_position": "3/5",
+        "toy_number": "HCW46"
+      },
+      "id": "hnm-009",
+      "query": "2022 Hot Wheels Loose LA FASTA #48/250 HW Speed Team 3/5 (Brown)"
+    },
+    {
+      "expected_casting": "Custom '01 Acura Integra GSR",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Custom '01 Acura Integra GSR",
+        "collector_number": "098",
+        "release_year": "2022",
+        "series": "HW J-Imports",
+        "series_position": "2/10",
+        "toy_number": "HCV84"
+      },
+      "id": "hnm-010",
+      "query": "Hot Wheels - Custom ́01 Acura Integra GSR - HW J-Imports 2/10 - HCV84 - Short Card - HKS - AEM - Rays - Mattel 2022: Amazon.de: Toys"
+    },
+    {
+      "expected_casting": "'17 Jeep Wrangler",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'17 Jeep Wrangler",
+        "collector_number": "126",
+        "release_year": "2022",
+        "series": "Mud Studs",
+        "series_position": "3/5",
+        "toy_number": "HCY03"
+      },
+      "id": "hnm-011",
+      "query": "Hot Wheels '17 Jeep Wrangler Treasure Hunt Mudd Studs 3/5"
+    },
+    {
+      "expected_casting": "Cyber Speeder",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Cyber Speeder",
+        "collector_number": "137",
+        "release_year": "2022",
+        "series": "HW Turbo",
+        "series_position": "7/10",
+        "toy_number": "HCV48"
+      },
+      "id": "hnm-012",
+      "query": "Hot Wheels - Cyber Speeder - HW Turbo 7/10 - HCV48 - Short Card - Track Stars - Mattel 2022 : Amazon.pl: Zabawki"
+    },
+    {
+      "expected_casting": "2020 Corvette",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "2020 Corvette",
+        "collector_number": "106",
+        "release_year": "2022",
+        "series": "Factory Fresh",
+        "series_position": "3/10",
+        "toy_number": "HCW39"
+      },
+      "id": "hnm-013",
+      "query": "2022 Hot Wheels Super Treasure Hunt 2020 Corvette In ..."
+    },
+    {
+      "expected_casting": "Fast Gassin",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Fast Gassin",
+        "collector_number": "006",
+        "release_year": "2022",
+        "series": "HW Metro",
+        "series_position": "2/10",
+        "toy_number": "HCW57"
+      },
+      "id": "hnm-014",
+      "query": "Hot Wheels - 2022 HW Metro 2/10 Fast Gassin 6/250 (BBHCW57)"
+    },
+    {
+      "expected_casting": "'06 Pontiac GTO",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'06 Pontiac GTO",
+        "collector_number": "182",
+        "release_year": "2022",
+        "series": "HW Drag Strip",
+        "series_position": "2/10",
+        "toy_number": "HCT74"
+      },
+      "id": "hnm-015",
+      "query": "2022 Hot Wheels '06 PONTIAC GTO #182/250 HW Drag Strip 2/10 RED"
+    },
+    {
+      "expected_casting": "'68 El Camino",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'68 El Camino",
+        "collector_number": "196",
+        "release_year": "2022",
+        "series": "Rod Squad",
+        "series_position": "3/5",
+        "toy_number": "HCV94"
+      },
+      "id": "hnm-016",
+      "query": "2022 Hot Wheels Blue 1968 El Camino Rod Squad Series 3/5 Card # 196/250"
+    },
+    {
+      "expected_casting": "Lancia Delta Integrale",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Lancia Delta Integrale",
+        "collector_number": "210",
+        "release_year": "2022",
+        "series": "Rally Champs",
+        "series_position": "3/5",
+        "toy_number": "HCT88"
+      },
+      "id": "hnm-017",
+      "query": "Hot Wheels – Lancia Delta Integrale – Rally Champs 3/5 – HCT88 – Short Card – Eibach – Castrol – Sparco – Track Stars – Mattel 2022 - BigaMart"
+    },
+    {
+      "expected_casting": "Let's GO",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Let's GO",
+        "collector_number": "015",
+        "release_year": "2022",
+        "series": "HW Ride-Ons",
+        "series_position": "1/5",
+        "toy_number": "HCV40"
+      },
+      "id": "hnm-018",
+      "query": "2022 Hot Wheels Red Let's Go HW Ride-Ons Series 1/5 Card # 15/250"
+    },
+    {
+      "expected_casting": "Cosmic Coupe",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Cosmic Coupe",
+        "collector_number": "122",
+        "release_year": "2022",
+        "series": "X-Raycers",
+        "series_position": "1/5",
+        "toy_number": "HCT85"
+      },
+      "id": "hnm-019",
+      "query": "2022 Hot Wheels Cosmic Coupe Blue 122/250 HW X-Raycers 1/5"
+    },
+    {
+      "expected_casting": "Muscle and Blown",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Muscle and Blown",
+        "collector_number": "240",
+        "release_year": "2022",
+        "series": "HW Drift",
+        "series_position": "5/5",
+        "toy_number": "HCY00"
+      },
+      "id": "hnm-020",
+      "query": "Muscle and Blown 2022 Treasure Hunt"
+    }
+  ],
+  "staged_review_sha256": "dd848b71d0e88c546c011d2b247df0fd733fa984d76bf5662a263e4908720c83",
+  "status": "owner_reviewed_frozen_not_scored"
+}
