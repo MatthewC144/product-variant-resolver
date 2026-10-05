@@ -1,5 +1,41 @@
 # Project Log
 
+## 2026-10-05 — Pointwise development selection freeze：封存選型但保持 test 與 runtime 關閉
+
+### 新執行了什麼，解決什麼問題
+
+本輪把上一輪的 development comparison 封存為 aggregate-only selection manifest。Manifest 綁定正式
+dataset SHA、100/53 split assignment SHA、1,763 candidate corpus、25-candidate limit、四個 arms 的 raw
+development metric counts，以及 Pointwise／Listwise 模型 bytes。Selection rule 固定為 exact release
+Top-1、MRR@10、p95 latency 的優先順序；依此重新計算 winner 仍是 `neural_pointwise`。
+
+這一步解決「口頭說 Pointwise 勝出，但後續不知道用的是哪份資料、哪個 split 或哪組模型」的問題。
+封存後若 dataset、split、模型 revision、local model manifest、實際 Pointwise model files 或 Listwise
+checkpoint 任一漂移，selection check 會 fail closed，不能靜默使用另一組實驗條件。
+
+### 代碼修改了哪一部分、原因與決策
+
+新增 `data/evaluation/image-search-release-ranking-v1/development-selection.json`。它只保存 aggregate raw
+counts、selection rule、checksums 與 negative guardrails；不含 query、case ID、candidate、prediction、
+failure row 或 test metrics。`image_search_ranking_development.py` 新增 strict Pydantic contract 與
+`--check-selection`，驗證 exact arm set、winner 重算、dataset/split binding、authority note、模型 hash 與
+`test_cases_scored=0`。
+
+Manifest 明確記錄 `runtime_default_changed=false`、`calibration_or_policy_changed=false`、
+`models_refit_on_image_search_development=false`。選擇 Pointwise 只代表它取得 final-test candidate 資格，
+不是已部署、已校準或已證明 production winner。
+
+### 技術棧／方法選型、驗證與下一步
+
+Pointwise 綁定 `cross-encoder/ms-marco-MiniLM-L6-v2` revision `233902d…0a`，local manifest SHA 為
+`32f889…feb8`；Listwise safetensors SHA 為 `9386c059…8aead`。11 個 focused tests、Ruff、strict MyPy 與
+selection CLI integrity check 通過。資料集目錄仍只含最終 `dataset.json`；selection 位於獨立 evaluation
+governance 目錄，不是第二份 query dataset。
+
+下一步才是 ISRR-T4 final gate：在不再改模型、feature、selection rule 或 threshold 的前提下，明確執行
+一次 53-case test，比較 frozen RRF／heuristic／Pointwise／Listwise。Final 結果出來前，runtime default
+與 resolver policy 維持不變。
+
 ## 2026-10-05 — Development ranker comparison：Pointwise 提升 exact release Top-1 至 69%
 
 ### 新執行了什麼，解決什麼問題

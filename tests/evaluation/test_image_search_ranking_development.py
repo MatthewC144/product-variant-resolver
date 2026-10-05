@@ -10,7 +10,9 @@ from product_variant_resolver.image_search_evaluation import load_image_search_d
 from product_variant_resolver.image_search_ranking_development import (
     ARMS,
     RankingOutcome,
+    check_development_selection,
     compare_development_rankers,
+    load_development_selection,
     summarize_outcomes,
 )
 
@@ -82,6 +84,27 @@ def test_summary_preserves_raw_counts_and_latency() -> None:
     assert summary.exact_release_mrr_at_10 == (1 + 1 / 5) / 3
     assert summary.rerank_p50_latency_ms == 4.0
     assert summary.rerank_p95_latency_ms == 9.0
+
+
+def test_actual_development_selection_is_internally_valid() -> None:
+    selection = check_development_selection(ROOT, require_local_pointwise=False)
+    assert selection.winner == "neural_pointwise"
+    assert selection.guardrails.test_cases_scored == 0
+    assert selection.arms["neural_pointwise"].exact_release_top1_correct == 69
+
+
+def test_development_selection_rejects_tampered_winner(tmp_path: Path) -> None:
+    source = ROOT / "data/evaluation/image-search-release-ranking-v1/development-selection.json"
+    payload = json.loads(source.read_text(encoding="utf-8"))
+    payload["arms"]["neural_pointwise"]["exact_release_top1_correct"] = 40
+    path = tmp_path / "selection.json"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    try:
+        load_development_selection(path)
+    except ValueError as error:
+        assert "winner" in str(error)
+    else:  # pragma: no cover - fail-closed assertion
+        raise AssertionError("tampered selection was accepted")
 
 
 def test_comparison_scores_development_only_and_emits_no_rows(tmp_path: Path) -> None:
