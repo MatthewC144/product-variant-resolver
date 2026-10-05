@@ -1,5 +1,49 @@
 # Project Log
 
+## 2026-10-04 — CAR-T6 完成：versioned RHB-T4 通過，RHB-T5 仍關閉
+
+### 新執行了什麼，解決什麼問題
+
+在 owner 明確只批准 CAR-T6、並排除 RHB-T5/query pack/labels 後，本輪把 CAR-T5F frozen
+authority bundle 正式交給新的 versioned RHB-T4 re-audit。首次 materialization 回傳 `created`，
+之後兩次真實 check replay 都回傳 `unchanged`。新 authority 共有 20 筆 unique
+`approved_exact` UUID、7 個 qualifying multi-release families、0 exact/family shortfalls，因此 Gate
+結果為 `passed_exact_authority_gate`。
+
+這解決了 CAR-T5F 之後仍只有「可以重新稽核」、尚未有獨立 RHB 判定的問題。同時沒有改寫原本
+0-record、`blocked_insufficient_exact_authority` 的 RHB-T4 checkpoint；舊結果描述當時沒有 exact
+authority 的事實，新結果描述 CAR-T5F 之後的證據狀態，兩者都保留才有完整 audit trail。
+
+### 代碼與資料修改、決策原因
+
+本次沒有改 resolver、embedding、RAG、API 或 ranking code，而是由已驗證的 CAR-T6 builder 原子寫入
+三個狀態：ignored private owner authorization、public versioned authority、public versioned manifest。
+私密檔保存 exact response 並使用 `0600`；公開檔使用 `0644`，只保存不可逆 authorization hash、
+authority rows、輸入 hashes、composition 與 Gate boundary。這個設計讓 GitHub 可以展示可重現證據，
+又不把 owner verbatim 當成公開資料。
+
+新 public authority/manifest 的 raw SHA-256 分別為 `72c11aeb…3117` 與 `dfb71d8f…6862`。
+manifest 同時固定舊 authority/manifest 的 raw SHA-256 `f0a9fe00…1af` / `10c38740…f7d`，並記錄
+`preserved_without_overwrite=true`。選擇 versioned append 而不是覆寫的原因，是 audit 結果必須與
+產生它的證據時間點一起保存；直接修改舊 JSON 會讓履歷 reviewer 無法重現當時為何正確 blocked。
+
+### 技術驗證、邊界與下一步
+
+CAR-T6 建立後兩次 replay 均為 `unchanged`；舊 RHB-T4 builder 再跑兩次也都是 `unchanged`。
+CAR-T6、歷史 audit 與 CAR-T5F 的 post-materialization focused regression 為 21 tests 全數通過，
+其中包含不依賴 private owner text、直接驗證 checked-in public authority/manifest 的測試。
+完整 repository regression 為 1,379 tests 全數通過，只有既有的 Starlette/AnyIO deprecation
+warning。Privacy scan 另外發現測試 fixture 曾使用與本次真實批准相同的句子；已改成明確的
+`TEST-ONLY` 英文 response，之後在 final tree 重跑 CAR-T6 與 source-binding suites，48 tests
+全數通過。真實 owner verbatim 在 private directory 以外為 0 hits。
+權限確認為 private `0600`、public `0644`，exact response 不存在於兩個 public artifacts，private
+path 由專用 `.gitignore` 規則命中。整個 audit 的 resolver output、benchmark labels、network
+requests 都是零，color/edition 仍為 null。
+
+下一個可能的 benchmark 階段是 RHB-T5 output-blind query-pack authoring，但本次授權明確不包含它。
+因此目前只記錄 `next_allowed_step=owner_gate_rhb_t5_separate_authorization_required`；在新的 owner
+decision 前，不建立 query pack、labels，也不宣稱 resolver、RAG、embedding 或 ranking quality。
+
 ## 2026-10-04 — CAR-T6 readiness：保留舊 blocked audit，準備新的 versioned RHB-T4 re-audit
 
 ### 新執行了什麼，解決什麼問題
