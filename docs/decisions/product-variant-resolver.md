@@ -2426,3 +2426,29 @@ Future evidence can reopen them without rewriting the historical reason they wer
 - **Impact:** runtime wiring is now testable and observable without changing defaults. The remaining
   work is narrow: select calibration and policy on the frozen development partition only. The final
   test remains immutable and cannot be used for threshold selection.
+
+## D45 — Calibrate match acceptance on a nested development split without inventing no-match truth
+
+- **Choice:** split the frozen 100-case development partition deterministically into 70 calibration-fit
+  and 30 threshold-selection rows. Fit an exact-release correctness calibrator on the first group and
+  select the highest-coverage threshold meeting at least 90% empirical precision and five accepted
+  rows on the second. Mark all lower-confidence candidate-bearing cases ambiguous and publish the
+  resulting policy with `runtime_eligible=false`.
+- **Reason:** calibration fitting and threshold selection need separate evidence even within
+  development. The available benchmark contains only catalog-present positives, so it can support
+  matched-versus-ambiguous acceptance but cannot estimate a defensible no-match boundary.
+- **Alternatives:** fit and choose a threshold on all 100 development rows; reuse heuristic/RRF
+  calibration; treat low-confidence positive rows as synthetic no-match examples; inspect the frozen
+  final test to improve the threshold. Each alternative either leaks selection evidence or answers a
+  different question from real catalog absence.
+- **10x alternative considered:** collect and independently adjudicate a large set of genuine
+  catalog-absent queries before doing any calibration. That would support a complete production
+  policy, but it is a separate data-governance project and would block learning whether Pointwise
+  confidence has useful acceptance precision on the evidence already frozen.
+- **Most likely failure:** reporting 90.91% accepted-row precision as overall resolver accuracy, or
+  activating the policy despite zero no-match validation. The artifact therefore records 36.67%
+  coverage, zero no-match labels, `test_cases_scored=0` and `runtime_eligible=false`; the service
+  rejects it even under explicit neural-provider configuration.
+- **Impact:** Pointwise now has reproducible development-only confidence mapping and a conservative
+  abstention threshold. Runtime default remains RRF. A later runtime-eligible policy requires new,
+  independently governed no-match development evidence and must not retune on the 53-case final test.

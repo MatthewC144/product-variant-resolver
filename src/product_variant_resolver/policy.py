@@ -17,9 +17,11 @@ class DecisionPolicy:
     no_match_threshold: float = 0.32
     margin_threshold: float = 0.08
     max_conflicts: int = 2
+    require_positive_top_score: bool = True
+    runtime_eligible: bool = True
 
     @classmethod
-    def load(cls, path: Path) -> "DecisionPolicy":
+    def load(cls, path: Path) -> DecisionPolicy:
         payload = json.loads(path.read_text(encoding="utf-8"))
         values = {field: payload[field] for field in cls.__dataclass_fields__ if field in payload}
         policy = cls(**values)
@@ -27,6 +29,9 @@ class DecisionPolicy:
             raise ValueError("invalid policy thresholds")
         if not 0 <= policy.margin_threshold <= 1 or policy.max_conflicts < 0:
             raise ValueError("invalid policy margin/conflict limits")
+        if (not isinstance(policy.require_positive_top_score, bool)
+                or not isinstance(policy.runtime_eligible, bool)):
+            raise TypeError("policy boolean flags must be booleans")
         return policy
 
     def decide(self, candidates: list[Candidate], confidence: float) -> tuple[ResolutionStatus, str]:
@@ -37,7 +42,9 @@ class DecisionPolicy:
         top_score = decision_score(candidates[0])
         second = decision_score(candidates[1]) if len(candidates) > 1 else 0.0
         margin = top_score - second
-        if confidence < self.no_match_threshold or top_score <= 0:
+        if confidence < self.no_match_threshold or (
+            self.require_positive_top_score and top_score <= 0
+        ):
             return ResolutionStatus.no_match, "no_candidate_above_threshold"
         if len(candidates[0].conflicts) > self.max_conflicts:
             return ResolutionStatus.ambiguous, "too_many_attribute_conflicts"

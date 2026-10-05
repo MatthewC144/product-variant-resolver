@@ -1,5 +1,42 @@
 # Project Log
 
+## 2026-10-05 — Pointwise decision calibration：只用 development 選擇保守門檻
+
+### 新執行了什麼，解決什麼問題
+
+本輪完成 neural Pointwise 的 development-only decision calibration。Frozen 100 筆 development 被新的
+versioned salt 穩定切成 70 筆 calibration-fit 與 30 筆 threshold-selection；53 筆 final test 沒有讀入
+校準、沒有重新執行，`test_cases_scored` 固定為零。這解決了 CrossEncoder raw logit 只能排序、不能直接
+解讀為「答案正確機率」的問題，同時避免用 final test 選 threshold 造成資料洩漏。
+
+在 30 筆 selection 中，Pointwise exact-release Top-1 答對 21 筆。預先規定的門檻搜尋要求至少接受 5 筆，
+且 empirical precision 至少 90%；最終 threshold `0.641259466766539` 接受 11 筆，其中 10 筆正確，得到
+90.91% precision 與 36.67% coverage，其餘 19 筆回傳 ambiguous。這組 development 全是 catalog-present
+positive cases，沒有可用的真實 no-match 樣本，因此結果刻意不宣稱已完成三分類 policy。
+
+### 代碼修改了哪一部分、原因與決策
+
+新增 `image_search_pointwise_calibration.py`，負責 frozen inner split、記憶體內 feature/target 蒐集、純
+Python logistic calibration、保守 threshold selection、aggregate-only artifact 產生與 strict integrity
+check。輸出只包含 weights、threshold、hash 與總計，不保存 query、case ID、prediction 或逐筆 label。
+
+`policy.py` 新增 `require_positive_top_score`，使 neural negative logits 可以交由 calibrator 解讀，而不是
+被舊有 heuristic 規則直接拒絕；同時新增 `runtime_eligible`。`service.py` 在 neural provider 載入時檢查
+後者：本輪產生的 positive-only policy 明確為 `false`，即使使用者把檔案路徑接入設定，readiness 仍會
+fail closed。這個選擇讓研究結果可驗證，但不會把不完整的 no-match 能力誤部署到 API。
+
+### 技術棧／方法選型、驗證與下一步
+
+採用五個既有、可解釋的 ranking features 配合小型 logistic calibrator，而沒有新增外部服務或再次訓練
+CrossEncoder。70/30 nested split 的原因是同一批資料不能同時 fit probability mapping 又挑 threshold；
+在只有 100 筆的限制下，它保留足夠 fit 資料，也留下獨立 development selection 證據。相較加入複雜
+calibration library，純 Python 實作可固定演算法與輸出 bytes，較適合此履歷型專案的可重現要求。
+
+57 個相關 unit／API／integration／evaluation tests、Ruff、strict MyPy、artifact integrity check 與 diff
+check 全數通過；校準與 policy bytes 可重現。153-row dataset、1,763-row source 及 final aggregate 的
+SHA-256 均未改變。下一個必要缺口是建立不接觸 final test 的 catalog-absent/no-match development evidence，
+再版本化產生 runtime-eligible 的三分類 policy；在此之前 RRF 仍是預設，neural runtime 保持關閉。
+
 ## 2026-10-05 — Pointwise runtime integration：完成受控接線但不提前啟用決策路徑
 
 ### 新執行了什麼，解決什麼問題

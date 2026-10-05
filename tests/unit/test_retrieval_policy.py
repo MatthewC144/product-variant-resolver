@@ -60,6 +60,20 @@ class RetrievalPolicyTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             policy.decide([clear], math.nan)
 
+    def test_neural_policy_does_not_treat_negative_logit_as_no_match(self):
+        first = Candidate(product(1), reranker_score=-1.0)
+        second = Candidate(product(2), reranker_score=-2.0)
+        policy = DecisionPolicy(
+            match_threshold=.8, no_match_threshold=0.0, margin_threshold=0.0,
+            max_conflicts=5, require_positive_top_score=False, runtime_eligible=False,
+        )
+        self.assertEqual(
+            policy.decide([first, second], .9)[0], ResolutionStatus.matched,
+        )
+        self.assertEqual(
+            policy.decide([first, second], .5)[0], ResolutionStatus.ambiguous,
+        )
+
     def test_calibration_round_trip_and_split_guards(self):
         artifact = train_logistic([((1, .3, 1, 2, 0), 1), ((0, 0, 0, 0, 2), 0)], "v1", split="train")
         self.assertEqual(artifact.feature_schema, FEATURE_SCHEMA)

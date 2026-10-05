@@ -137,6 +137,9 @@ class ResolverService:
         if (settings.reranker_enabled and settings.reranker_provider == "neural-pointwise-v1"
                 and "neural-pointwise-v1" not in self.policy.version):
             raise DependencyUnavailable("policy artifact is not bound to neural-pointwise-v1")
+        if (settings.reranker_enabled and settings.reranker_provider == "neural-pointwise-v1"
+                and not self.policy.runtime_eligible):
+            raise DependencyUnavailable("neural pointwise policy is not runtime eligible")
         self.tracer = tracer or get_tracer(settings.tracing_enabled)
 
     @classmethod
