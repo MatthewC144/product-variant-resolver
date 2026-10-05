@@ -1,5 +1,44 @@
 # Project Log
 
+## 2026-10-05 — Pointwise 三分類 development calibration：通過雙門檻但保持 runtime 關閉
+
+### 新執行了什麼，解決什麼問題
+
+依 PNMR-G1 overlay，本輪把原有 100 筆 catalog-present development cases 與 52 筆真實、人工確認且相對
+frozen catalog 不存在的 cases 組成新的三分類 development calibration。Fit 嚴格使用 70 positive + 32
+no-match；threshold selection 使用互斥的 30 positive + 20 no-match。這解決前一版只能安全選擇
+matched/ambiguous、完全沒有 no-match evidence 的核心缺口。
+
+兩個預先固定的 gate 都通過。Match threshold `0.9424986749501544` 接受 7/50，7 筆 exact release 全對，
+precision 100%。No-match threshold `0.15503728534608827` 判定 10/50，其中 9 筆正確，precision 90%、
+no-match recall 45%；30 筆 catalog-present 中有 1 筆被錯拒，false-no-match rate 3.33%，低於 10% 上限。
+剩餘 33 筆保持 ambiguous，代表 policy 用 coverage 換取可靠性，而不是強迫每筆都回答。
+
+### 代碼修改了哪一部分、原因與決策
+
+`image_search_pointwise_calibration.py` 抽出可重用的 pinned scoring context，使 positive 與 negative rows
+共用同一 catalog、retrieval、candidate limit 與 CrossEncoder instance，避免兩組資料在不同 runtime 條件
+下評分。新增 `pointwise_three_class_calibration.py`，負責驗證 PNMR-G1、組合 frozen partitions、重新 fit
+五特徵 logistic calibrator，以及分別選擇 match/no-match thresholds。
+
+No-match selector 的條件是至少 5 筆、precision 至少 90%、catalog-present false rejection 不超過 10%；
+在合格 thresholds 中先最大化 no-match recall，再依 false count、precision 與較低 threshold 保守決勝。
+若任一 gate 不成立，程式會輸出 aggregate shortfall 且不產生 policy。新增 API 測試也確認，即使有人把
+v2 artifacts 接進 neural provider，`runtime_eligible=false` 仍使 `/health` 與 `/resolve` fail closed。
+
+### 技術棧／方法選型、驗證與下一步
+
+沿用純 Python logistic calibration 與 pinned local CrossEncoder，沒有新增模型、外部 API 或網路請求。
+Artifacts 只保存 weights、thresholds、parent hashes 與 aggregate metrics；query、case ID、row label、
+prediction 與 split membership 都未公開。Calibration SHA 為 `22990e…406d`，policy SHA 為
+`68969b…b418`，第二次完整 in-memory run 可 byte-for-byte 重現。
+
+67 個 relevant tests、Ruff、strict MyPy、v1/v2 CLI checks 與 diff check 通過；final test 完全未讀取或
+執行，runtime default 未改。這個結果可作為履歷中的「可治理三分類 abstention policy」development
+證據，但不是 production claim：20 筆 negative selection 已用於選 threshold，不能再當 untouched test。
+若未來要啟用 runtime，下一個必要證據是獨立治理的全新 no-match holdout，加上固定的 catalog-present
+policy test；不得再更動目前模型、feature 或 thresholds。
+
 ## 2026-10-05 — PNMR-G1：封存 owner 授權並建立窄範圍 development overlay
 
 ### 新執行了什麼，解決什麼問題

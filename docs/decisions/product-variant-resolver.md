@@ -2493,3 +2493,28 @@ Future evidence can reopen them without rewriting the historical reason they wer
   must require them before scoring.
 - **Impact:** the 52 rows may now be used only in the frozen 32/20 development partitions. Runtime,
   final test, public row data and global no-match claims remain prohibited.
+
+## D48 — Use two independent development gates and keep the resulting policy non-runtime
+
+- **Choice:** fit one correctness calibrator on 70 catalog-present plus 32 governed no-match rows,
+  then select match and no-match thresholds on the disjoint 30+20 partition. Require 90% precision
+  for both decisive states and cap catalog-present false no-match at 10%. Keep the resulting policy
+  `runtime_eligible=false` even when both development gates pass.
+- **Reason:** a single match threshold cannot distinguish low-confidence ambiguity from true catalog
+  absence. Separate gates make both error directions visible, while PNMR-G1 expressly withholds
+  runtime permission.
+- **Alternatives:** retain no-match threshold zero; classify every value below match threshold as
+  no-match; tune on the existing final ranking set; activate v2 immediately after development PASS.
+  These alternatives either eliminate ambiguity, lack negative truth or cross an authorization and
+  evaluation boundary.
+- **10x alternative considered:** train a dedicated out-of-distribution detector with a much larger
+  multi-source negative corpus. That may improve no-match recall, but the present five-feature
+  logistic layer is smaller, reproducible and sufficient to test whether governed negatives add
+  useful abstention behavior before investing in another model.
+- **Most likely failure:** presenting 100% match precision and 90% no-match precision as untouched
+  production accuracy. They are threshold-selection metrics on 50 development rows, with only 14%
+  matched coverage and 45% no-match recall. The artifacts and QA report state this limitation and
+  block runtime use.
+- **Impact:** the resolver now has a reproducible three-state development policy with 7 matched,
+  10 no-match and 33 ambiguous decisions on selection. Any runtime gate requires a new untouched
+  negative holdout and must evaluate the frozen v2 artifacts without retuning.

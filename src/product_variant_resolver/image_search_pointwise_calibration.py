@@ -42,6 +42,7 @@ from .image_search_ranking_development import (
 from .neural_reranking import LocalPointwiseScorer, load_pointwise_model_config
 from .policy import DecisionPolicy
 from .rerank import NeuralPointwiseReranker
+from .retrieval import Candidate
 from .service import ResolverService
 from .signals import extract_signals
 
@@ -79,6 +80,12 @@ class ThresholdSelection:
     accepted_correct: int
     precision: float
     coverage: float
+
+
+@dataclass(frozen=True, slots=True)
+class PointwiseScoringContext:
+    service: ResolverService
+    reranker: NeuralPointwiseReranker
 
 
 def _sha256(path: Path) -> str:
@@ -145,7 +152,43 @@ def select_threshold(
     raise ValueError("development selection cannot meet the frozen precision/coverage gate")
 
 
-def collect_development_rows(root: Path) -> tuple[list[CalibrationRow], str]:
+def load_pointwise_scoring_context(root: Path) -> PointwiseScoringContext:
+    source_path = root / SOURCE
+    if _sha256(source_path) != FROZEN_SOURCE_SHA256:
+        raise ValueError("calibration source bytes differ from the frozen source snapshot")
+    records = load_source_records(source_path, expected_count=SOURCE_COUNT)
+    catalog = build_evaluation_catalog(records)
+    settings = Settings(
+        human_catalog_path=root / "data/human_backed_catalog.json",
+        review_family_knowledge_path=root / "data/review_family_knowledge.json",
+        review_family_knowledge_manifest_path=(root / "data/review_family_knowledge_manifest.json"),
+        candidate_limit=CANDIDATE_LIMIT,
+    )
+    human_catalog = load_human_knowledge_catalog(
+        settings.human_catalog_path,
+        settings.review_family_knowledge_path,
+        settings.review_family_knowledge_manifest_path,
+    )
+    service = ResolverService(settings, catalog, human_catalog)
+    config = load_pointwise_model_config(root / POINTWISE_CONFIG)
+    scorer = LocalPointwiseScorer.load(config, root / POINTWISE_MODEL)
+    return PointwiseScoringContext(service, NeuralPointwiseReranker(scorer))
+
+
+def score_pointwise_query(context: PointwiseScoringContext, query: str) -> list[Candidate]:
+    signals = extract_signals(
+        query,
+        context.service.color_vocabulary,
+        context.service.series_vocabulary,
+    )
+    candidates = context.service.retrieval.retrieve(signals, CANDIDATE_LIMIT)
+    return context.reranker.rerank(signals, candidates, query=query)
+
+
+def collect_development_rows(
+    root: Path,
+    context: PointwiseScoringContext | None = None,
+) -> tuple[list[CalibrationRow], str]:
     dataset_path = root / DATASET
     source_path = root / SOURCE
     if _sha256(dataset_path) != FROZEN_DATASET_SHA256:
@@ -162,28 +205,11 @@ def collect_development_rows(root: Path) -> tuple[list[CalibrationRow], str]:
     records = load_source_records(source_path, expected_count=SOURCE_COUNT)
     bindings = bind_dataset_to_source(dataset, records)
     target_by_case = {binding.case_id: binding.evaluation_uuid for binding in bindings}
-    catalog = build_evaluation_catalog(records)
-    settings = Settings(
-        human_catalog_path=root / "data/human_backed_catalog.json",
-        review_family_knowledge_path=root / "data/review_family_knowledge.json",
-        review_family_knowledge_manifest_path=(root / "data/review_family_knowledge_manifest.json"),
-        candidate_limit=CANDIDATE_LIMIT,
-    )
-    human_catalog = load_human_knowledge_catalog(
-        settings.human_catalog_path,
-        settings.review_family_knowledge_path,
-        settings.review_family_knowledge_manifest_path,
-    )
-    service = ResolverService(settings, catalog, human_catalog)
-    config = load_pointwise_model_config(root / POINTWISE_CONFIG)
-    scorer = LocalPointwiseScorer.load(config, root / POINTWISE_MODEL)
-    reranker = NeuralPointwiseReranker(scorer)
+    context = context or load_pointwise_scoring_context(root)
 
     rows = []
     for case in cases:
-        signals = extract_signals(case.query, service.color_vocabulary, service.series_vocabulary)
-        candidates = service.retrieval.retrieve(signals, CANDIDATE_LIMIT)
-        candidates = reranker.rerank(signals, candidates, query=case.query)
+        candidates = score_pointwise_query(context, case.query)
         target: UUID = target_by_case[case.id]
         rows.append(
             CalibrationRow(

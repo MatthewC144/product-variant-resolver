@@ -280,6 +280,28 @@ class ApiTests(unittest.TestCase):
             client.post("/resolve", json={"title": "Chevy Nomad"}).status_code, 503,
         )
 
+    def test_three_class_development_policy_cannot_activate_runtime(self):
+        artifact_root = ROOT / "data/evaluation/image-search-pointwise-calibration-v2"
+        settings = Settings(
+            catalog_path=ROOT / "data/catalog.json",
+            benchmark_path=ROOT / "data/benchmark.json",
+            ui_path=ROOT / "ui",
+            reranker_enabled=True,
+            reranker_provider="neural-pointwise-v1",
+            calibration_artifact=artifact_root / "calibration.json",
+            policy_artifact=artifact_root / "policy.json",
+        )
+        adapter = NeuralPointwiseReranker(_RuntimePointwiseScorer())
+        with patch(
+            "product_variant_resolver.service.load_neural_pointwise_reranker",
+            return_value=adapter,
+        ):
+            client = TestClient(create_app(settings))
+        self.assertEqual(client.get("/health").status_code, 503)
+        self.assertEqual(
+            client.post("/resolve", json={"title": "Chevy Nomad"}).status_code, 503,
+        )
+
     def test_validation_error_contracts(self):
         cases = [
             ({"title": " "}, 422), ({"title": "x" * 501}, 422),
