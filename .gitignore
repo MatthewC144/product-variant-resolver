@@ -24,4 +24,5 @@ postgres-data/
 /data/authority-review/canonical-authority-review-v1/local-catalog-review-v1/
 /data/authority-review/canonical-authority-review-v1/local-authority-review-v1/
 /data/evaluation/representative-hard-benchmark-v1/local-query-authoring-v1/
+/.local-image-search-collection*/
 .DS_Store

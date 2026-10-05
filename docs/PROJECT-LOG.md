@@ -1,5 +1,35 @@
 # Project Log
 
+## 2026-10-05 — Repository hygiene：清除可重建產物，保留仍有依賴的早期資料
+
+### 新執行了什麼，解決什麼問題
+
+本輪在準備後續 GitHub push 前盤點整個專案，刪除 `.mypy_cache`、`.pytest_cache`、`.ruff_cache`、
+Python `__pycache__`、`build/`、egg-info 與 `.DS_Store`。這些內容只由本機工具產生，可在需要時重新建立，
+既不是產品程式碼，也不是評估證據；移除後能讓工作目錄保持清楚，不影響 resolver 行為。
+
+同時確認本次 image-search 收集使用的 crawler、圖片與 raw/intermediate responses 已不存在。`.gitignore`
+新增 `/.local-image-search-collection*/`，讓未來任何同類暫存資料夾預設無法被 Git 收錄；正式可提交內容
+仍只有 `data/evaluation/image-search-resolver-v1/dataset.json`，不會因這條規則被忽略。
+
+### 代碼／資料修改了哪一部分、原因與決策
+
+沒有刪除最早的 `data/benchmark.json`：它目前仍由 API 設定、Docker runtime、metrics、neural reranker、
+fixture validator 與測試直接使用。`data/human_labeled_names.json` 也仍是 human-backed catalog、source
+inventory 與 frozen human-knowledge snapshot 的上游；family-retrieval v1 則仍被 v2 builder 與 regression
+tests 引用。直接刪除任一檔案都不是整理，而是破壞現有 dependency contract。
+
+本機 `HW data/`、1,763-row local export、owner review workspaces、`.venv` 與 pointwise model cache 亦保留。
+前四類支援資料重建與治理審計；`.venv` 保持開發與測試可執行；model cache 支援重新執行 pointwise
+comparison。它們全部已被 Git ignore，不會隨後續 push 上傳。
+
+### 技術棧／方法選型與驗證
+
+整理採用「Git tracking 狀態 + 全 repo reference scan + 可重建性」三個條件，而不是看到舊版本名稱便
+刪除。驗證確認 image-search 正式目錄只含最終 `dataset.json`，暫存收集目錄與下載圖片不存在，Git
+沒有未追蹤的非 ignored 檔案。因為本輪沒有改產品碼或資料內容，不重跑完整測試；只執行資料結構、
+ignore boundary 與 diff integrity 檢查。
+
 ## 2026-10-05 — Image Search Resolver Dataset v1：建立 153 筆 source-grounded 查詢與完整 release 答案
 
 ### 新執行了什麼，解決什麼問題
