@@ -1,5 +1,49 @@
 # Project Log
 
+## 2026-10-04 — CAR-T6 readiness：保留舊 blocked audit，準備新的 versioned RHB-T4 re-audit
+
+### 新執行了什麼，解決什麼問題
+
+CAR-T5F 已經封存 20 筆 exact authority，但這不等於舊的 RHB-T4 可以直接改寫成 PASS。本輪新增
+CAR-T6 readiness：把 CAR-T5F bundle 當成新證據重新稽核，同時將 2026-09-27 的 RHB-T4
+`0 exact / 0 family / blocked` 結果視為不可覆寫的歷史 checkpoint。這解決了兩個衝突：專案需要讓
+新的 authority 進入 benchmark Gate，又不能抹掉「當時確實沒有 authority」的可追溯證據。
+
+readiness 在真實 repo 重新驗證 CAR-T5F private authorization、public bundle/manifest、140-row
+catalog-v2、40-event review chain、每筆六個 supported fields、null color/edition 與 20/4 composition。
+結果為 20 個 unique exact UUID、7 個 qualifying families、0 shortfalls；因此只在記憶體中提出新的
+`passed_exact_authority_gate`。本輪沒有寫入 CAR-T6 authorization、新 authority 或 manifest，也沒有
+建立 query pack、labels 或開始 RHB-T5。
+
+### 修改了哪一部分，為何這樣決定
+
+新增 `representative_benchmark_reaudit.py` 與對應 CLI，把 readiness、fresh owner authorization、
+versioned manifest、atomic three-file install、check replay 和 rollback 放在獨立模組，而不是改動舊
+RHB-T4 builder。輸出名稱刻意使用 `canonical-authority-reaudit-v1`：舊檔代表一個已完成且誠實的
+歷史判斷，新檔才代表 CAR-T5F 之後的新判斷。這比 in-place migration 更適合履歷專案，因為 reviewer
+可以同時看到資料不足時的 fail-closed 行為與後續取得證據後的可重現演進。
+
+授權設計延續兩份 exact-response binding：只有明確同時提到 CAR-T6、versioned RHB-T4 re-audit，
+並排除 RHB-T5、query pack 與 labels 的新 response 才能寫檔；「繼續下一步」會失敗。Owner verbatim
+只允許存在 ignored private artifact，public manifest 只保留不可逆 hash。三檔先寫 temp，再逐一
+replace；中途失敗會還原或刪除已安裝檔案，避免 authorization、authority、manifest 只出現其中一部分。
+
+### 技術驗證與選型結果
+
+測試先發現 manifest 在 hash 前保留 Python `datetime`，無法用穩定 JSON 序列化；已改為 whole-second
+UTC ISO-8601 字串後再計算 hash。Focused suite 6 tests 通過；連同歷史 RHB-T4、CAR-T5F freeze 與
+source binding 的 61-test regression 也通過；完整 repository regression 為 1,378 tests 全數通過，
+只有既有的 Starlette/AnyIO deprecation warning。舊 RHB-T4 builder 連續兩次 `--check` 都回傳
+`unchanged`。負向案例涵蓋 generic continuation、response mismatch、stale catalog、unsafe partial
+state 與第二次 replace 故障；隔離環境的 authorized path 則得到 `created / unchanged / unchanged`，
+並驗證舊 audit bytes 不變、私密文字未進 public artifacts。
+
+### 下一步
+
+下一步仍是獨立 Owner Gate：若 owner 明確批准 CAR-T6，才在真實 repo 建立 versioned RHB-T4
+authority 與 manifest。該批准不包含 RHB-T5；即使 re-audit 成功，query pack 與 labels 仍需下一個
+獨立決策。
+
 ## 2026-10-04 — CAR-T5F 完成：封存 20 筆 exact authority，停在 RHB-T4 re-audit 前
 
 ### 新執行了什麼，以及解決了什麼問題
