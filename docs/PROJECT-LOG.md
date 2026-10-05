@@ -1,5 +1,41 @@
 # Project Log
 
+## 2026-10-05 — 真實 no-match readiness：找到 52 筆證據，但不越過原始資料權限
+
+### 新執行了什麼，解決什麼問題
+
+本輪沒有為了補齊三分類而合成負例，也沒有重新爬取網站。Readiness audit 將既有 101 筆
+`human-labeled-real-noisy-v1` 與 frozen 1,763 筆第三方 catalog 做 brand/casting family 的精確正規化比對。
+91 筆具有非空的真實原始查詢且人工 confidence 為 confirmed；其中 39 筆 family 已存在 catalog，因此不能
+當 no-match，另外 52 筆 family 不存在，可作為 catalog-relative no-match 候選。52 筆中 46 筆仍是 Hot
+Wheels，6 筆來自其他品牌，能同時涵蓋同品牌未知 casting 與跨品牌 out-of-scope 情境。
+
+這一步解決的是「是否必須再收集一批 negative data」的問題：目前證據數量已足以保留 32 筆 fit、20 筆
+threshold-selection，因此不需要再啟動網路資料搜集。不過原資料合約明確把 calibration training 與
+threshold selection 列在 `excluded_from`；readiness 只證明候選存在，沒有擅自把它升格為可用校準資料。
+
+### 代碼修改了哪一部分、原因與決策
+
+新增 `pointwise_no_match_readiness.py`，以固定輸入 SHA-256、嚴格 JSON、唯一 case/query/identity、精確
+normalized brand/casting absence 等條件重建候選集合。公開 artifact 只保存總數、candidate-set digest 與
+prospective split digest，不保存 query、case ID、逐筆 label 或 partition membership。32/20 split 在模型
+評分前由 versioned salt 決定，避免未來看到結果後再挑容易的 negative rows。
+
+模組同時強制保留兩個 permission blockers，並記錄 resolver/model 未載入、development/final case 均未
+評分、final test 未讀取、calibration/policy 未寫入及 runtime default 未變。這些不是說明文字而已；CLI
+checker 會對 guardrail、counts、hash 與 row-level key 做 fail-closed 驗證。
+
+### 技術棧／方法選型、驗證與下一步
+
+採用 exact normalized family absence，而非 fuzzy similarity 或 resolver output，因為本階段只做 source
+alignment readiness；若先看模型輸出再挑 negative，會造成 selection bias。Exact absence 仍只代表相對
+frozen 2023–2026 third-party snapshot 不存在，不代表 Mattel/global truth，這個限制已寫入 artifact。
+
+60 個 relevant tests、Ruff、strict MyPy 與 CLI integrity check 通過。下一步只有一個必要 Owner Gate：是否
+允許 candidate-set SHA `08d08e…5c53` 在指定 catalog SHA `b4e074…09d4` 下，僅用於 Pointwise
+development calibration-fit 與 threshold-selection。批准後才能 materialize versioned overlay；仍不會授權
+final-test retuning、runtime activation 或 global no-match truth。
+
 ## 2026-10-05 — Pointwise decision calibration：只用 development 選擇保守門檻
 
 ### 新執行了什麼，解決什麼問題

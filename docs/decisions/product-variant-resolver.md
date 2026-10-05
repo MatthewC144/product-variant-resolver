@@ -2452,3 +2452,26 @@ Future evidence can reopen them without rewriting the historical reason they wer
 - **Impact:** Pointwise now has reproducible development-only confidence mapping and a conservative
   abstention threshold. Runtime default remains RRF. A later runtime-eligible policy requires new,
   independently governed no-match development evidence and must not retune on the 53-case final test.
+
+## D46 — Audit existing real queries before collecting or synthesizing no-match data
+
+- **Choice:** use the existing human-reviewed noisy-name corpus only for its currently permitted
+  future-catalog-alignment purpose. Count exact normalized brand/casting absences against the frozen
+  1,763-record catalog, freeze the 52-row candidate-set digest and prospective 32/20 development
+  split, but retain the original calibration and threshold-selection blockers.
+- **Reason:** 52 confirmed real queries already reference families absent from the catalog snapshot.
+  This is enough to support a later development experiment without more crawling, while the existing
+  `excluded_from` contract means readiness cannot silently become authorization.
+- **Alternatives:** synthesize unknown product names; reuse fixture no-match rows; reinterpret all 99
+  old fixture-unmapped alignments as negatives; immediately score the 52 rows. These choices would
+  either weaken realism, confuse different catalog snapshots or bypass an explicit data-use boundary.
+- **10x alternative considered:** launch a new independently sampled and adjudicated negative-data
+  collection with manufacturer-grade absence proof. It would provide stronger external validity,
+  but it is unnecessary before measuring whether the already reviewed 52-row candidate set closes
+  the development-only policy gap.
+- **Most likely failure:** exact spelling absence may be reported as global product absence, or rows
+  may be selected after viewing neural output. The artifact therefore says catalog-relative only,
+  freezes membership/split hashes before scoring, and records zero resolver/model/final-test work.
+- **Impact:** additional web collection is not currently required. One narrow owner authorization is
+  now the sole prerequisite for a versioned usage overlay; calibration, policy replacement, runtime
+  activation and final-test retuning remain unauthorized.
