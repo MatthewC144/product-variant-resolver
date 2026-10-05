@@ -2,9 +2,8 @@
 
 Date: 2026-09-26. Source-plan owner approval recorded: 2026-09-28. CAR-T3 owner approval recorded:
 2026-09-29. Catalog batch application owner approval recorded: 2026-09-30. Mode: Lite / Lean
-Industrial. Status: **CAR-T1–T6 complete; the versioned RHB-T4 re-audit independently passes with
-20 approved exact variants, seven qualifying families and zero shortfalls; RHB-T5 is not started or
-authorized**.
+Industrial. Status: **CAR-T1–T7 complete; engineering PASS and data Gate PASS with 20 approved exact
+variants, seven qualifying families and zero shortfalls; RHB-T5 is not started or authorized**.
 
 After owner approval, execute sequentially. Each task is one reviewable commit. A failed owner/data
 Gate stops later work without being treated as an engineering failure.
@@ -247,8 +246,9 @@ Commit: versioned re-audit and evidence only.
 
 ## CAR-T7 — Close Lean QA and documentation `[qa/doc_curator]`
 
-- [ ] Run requirement-mapped verification and publish technical evidence, AI eval and the narrative
-  Project Log. _(→CAR-R10,CAR-R11)_
+- [x] Run requirement-mapped verification and publish technical evidence, AI eval and the narrative
+  Project Log. _(Complete: CAR-R1–R11 mapped; 317 focused and 1,379 full tests passed; scoped strict
+  MyPy/Ruff/format/compileall/determinism/JSON/privacy checks passed. →CAR-R10,CAR-R11)_
 
 Files:
 
@@ -277,3 +277,6 @@ Commit: QA/evidence/documentation only.
 - **Engineering PASS / Data BLOCKED:** contracts/review evidence are sound but shortfalls remain.
 
 There is no path that invents evidence, silently promotes a candidate, or bypasses RHB-T4.
+
+Final result: **Engineering PASS / Data Gate PASS**. The result is exact only relative to the frozen
+community-reference revision; it is not manufacturer-certified and does not authorize RHB-T5.

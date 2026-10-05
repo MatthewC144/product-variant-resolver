@@ -1,5 +1,90 @@
 # Canonical Authority Review v1 — Lean QA Review
 
+## Current milestone verdict — PASS / DATA GATE PASS / RHB-T5 UNAUTHORIZED
+
+Date: 2026-10-04. Mode: Lite / Lean Industrial. Scope: **CAR-T1–T7 final closure**.
+
+### Outcome
+
+Canonical Authority Review v1 passes its engineering and data Gates. The completed workflow used
+only the approved frozen community snapshot, remained output-blind and offline, created 20 distinct
+`approved_exact` variants across seven qualifying multi-release families, and recorded zero
+shortfalls. The separately authorized CAR-T6 re-audit therefore reports
+`passed_exact_authority_gate`.
+
+This PASS is exact relative to `List of 2025 Hot Wheels` revision `790665`; it is not
+Mattel/manufacturer-certified truth. Color and edition remain null. The historical zero-record
+RHB-T4 blocked audit remains valid, byte-preserved history; the new PASS is a separate versioned
+result based on later evidence. RHB-T5, query-pack authoring and label authoring remain unauthorized.
+
+### Requirement coverage
+
+| Requirement | Primary implementation/evidence | Verification | Result |
+|---|---|---|---|
+| CAR-R1 | Source decision, frozen revision/row/license bindings, `canonical_authority_source_gate.py` | Source Gate CLI valid; 41 source-decision tests within focused suite | PASS |
+| CAR-R2 | Candidate, catalog proposal/application and exact field-evidence contracts | Catalog/application/review tests reject context-to-truth promotion; color/edition stay null | PASS |
+| CAR-R3 | Private output-blind packet plus safe manifest | Preparation/packet tests; resolver output flags false; private paths ignored | PASS |
+| CAR-R4 | Append-only T5-G1/T5-G2 events and owner attestations | Decision suites validate staged→reviewed→approved transitions and distinct owner Gates | PASS |
+| CAR-R5 | Held/conflicted/insufficient and stale/blindness rejection | Negative transition, evidence, stale-hash and output-consultation cases pass | PASS |
+| CAR-R6 | Git-safe public metadata and ignored `0600` private ledgers | Public owner-response scan zero; source/packet/publication/PII validators pass | PASS |
+| CAR-R7 | Canonical JSON, hashes, atomic writes, rollback and replay | CAR-T6 and historical audit checks return `unchanged`; injected-write tests pass | PASS |
+| CAR-R8 | Distinct exact count and multi-release family threshold | 20 unique UUIDs, seven qualifying families, zero shortfalls | PASS |
+| CAR-R9 | Versioned RHB-T4 handoff preserving old audit | New re-audit PASS beside unchanged historical blocked files; RHB-T5 false | PASS |
+| CAR-R10 | Positive and adversarial regression | 317 focused tests and 1,379 full-repository tests pass | PASS |
+| CAR-R11 | QA matrix, deterministic evidence, AI eval and narrative log | This review plus final evidence, AI rubric, Portfolio Guide and Project Log | PASS |
+
+### Verification evidence
+
+- Authority/CAR-T6/historical RHB-T4 focused suite: **317 passed**.
+- Full repository suite on the final code/data tree before documentation-only CAR-T7 edits:
+  **1,379 passed, 1 pre-existing Starlette/AnyIO deprecation warning**.
+- CAR-T1 Source Gate: `valid`.
+- CAR-T6 re-audit check: `unchanged`; historical RHB-T4 check: `unchanged`.
+- Ruff check: PASS; Ruff format check: 20 files already formatted.
+- Strict MyPy on the nine production/CLI modules plus the CAR-T6 test: **10 files, no issues**.
+- Python compileall, six critical JSON parses and `git diff --check`: PASS.
+- Private authorization remains Git-ignored; the actual owner response has zero hits outside the
+  private directory. Public authority/manifest modes are `0644`; private authorization is `0600`.
+- Resolver output consulted, benchmark labels consulted and network requests are all zero.
+
+An intentionally broader strict-MyPy diagnostic over all legacy authority tests found 22 existing
+test-only issues in three modules: internal-module attribute access and string indexing of
+enum-keyed dictionaries. Runtime behavior is covered by the 317 passing focused tests, and all
+production modules plus the newly added CAR-T6 test pass strict MyPy. This is recorded as test-type
+debt rather than misreported as a repository-wide strict pass.
+
+### Findings
+
+#### Blocker
+
+- None.
+
+#### Important
+
+- None for CAR v1 closure.
+
+#### Minor / carry-forward
+
+- Clean up the 22 legacy authority-test MyPy diagnostics if tests are later added to a repository-
+  wide static-type Gate. They do not affect production artifacts or runtime test results.
+- The authority claim is community-revision exact, not manufacturer-certified; unsupported color
+  and edition values must not be inferred later.
+- RHB-T5 needs a separate owner authorization and output-blind protocol. A passed authority Gate is
+  necessary input, not benchmark-readiness or resolver-quality evidence.
+
+### Engineering result versus data result
+
+- **Engineering:** PASS — contracts, state transitions, privacy, atomicity, determinism, historical
+  preservation and documentation meet CAR-R1–R11.
+- **Data:** PASS — 20 exact variants / seven qualifying families / zero shortfalls at the declared
+  community-reference claim tier.
+- **Downstream:** CLOSED — RHB-T5/query/label work remains unauthorized.
+
+The sections below retain the original CAR-T1 FAIL and repair PASS as audit history. They are no
+longer the current milestone verdict.
+
+---
+
 Date: 2026-09-28. Mode: Lite / Lean Industrial. Scope: **CAR-T1 only**.
 
 ## Verdict: FAIL (return to Phase 2)

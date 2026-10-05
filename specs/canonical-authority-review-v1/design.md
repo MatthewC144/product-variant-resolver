@@ -1,7 +1,7 @@
 # Canonical Authority Review v1 — Design
 
 Date: 2026-09-26. Owner approval recorded: 2026-09-28. Mode: Lite / Lean Industrial. Status:
-**OWNER-APPROVED FOR SEQUENTIAL IMPLEMENTATION**.
+**IMPLEMENTED AND VERIFIED — VERSIONED RHB-T4 RE-AUDIT PASSED; RHB-T5 UNAUTHORIZED**.
 
 This design defines a small upstream workflow. The owner approved only reuse and human review of the
 existing checked-in normalized text snapshot `fandom-hot-wheels-2025-pilot-r790665-v1`; existing RHB
@@ -10,8 +10,10 @@ page/image acquisition, or claim that the historical access method had Fandom pe
 
 ## 1. Overview
 
-RHB-T4 passed engineering QA but correctly blocked the data Gate: no real exact authority exists.
-This workflow fills that gap without turning provisional context or resolver output into truth.
+The historical RHB-T4 passed engineering QA but correctly blocked the data Gate because no real
+exact authority existed at that time. This workflow filled that gap without turning provisional
+context or resolver output into truth, then preserved the blocked checkpoint beside a new versioned
+RHB-T4 PASS.
 
 It separates four decisions:
 

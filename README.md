@@ -83,6 +83,21 @@ default.
   no ranking gain on the saturated fixture while adding substantial latency, so RRF remains the
   runtime default.
 
+## Human-reviewed authority milestone
+
+The repository now includes a separate, offline Canonical Authority Review pipeline. Using one
+frozen, attributed community-reference revision and two explicit owner-review Gates, it established
+20 distinct exact catalog-v2 variants across seven same-casting multi-release families, with zero
+composition shortfalls. Exactness is limited to the evidence-backed casting, year, series, collector
+number, series position and toy identifier fields; color and edition remain null.
+
+The original RHB-T4 audit honestly recorded `0` eligible exact variants and remains unchanged. A
+later CAR-T6 run published a separate versioned re-audit with `passed_exact_authority_gate`, rather
+than rewriting history. This is authority/provenance evidence, not a real-marketplace accuracy
+result, manufacturer certification or permission to begin RHB-T5. See the
+[final CAR evidence](docs/evidence/canonical-authority-review-v1.md) and
+[versioned RHB-T4 re-audit](docs/evidence/representative-hard-benchmark-authority-reaudit.md).
+
 ## Measured evaluation
 
 **Fixture evidence only:** the checked-in evaluation uses 100 synthetic/curated benchmark cases, a
@@ -185,6 +200,7 @@ was deleted; the checked-in sources below remain the authoritative evidence.
 | Human Knowledge, review-family authority, and retrieval evaluation | [family-level contract](specs/family-level-human-knowledge/requirements.md), [family QA](specs/family-level-human-knowledge/review.md), [v2 final evaluation](reports/family-retrieval-v2/evaluation.md), [final evidence](docs/evidence/family-retrieval-final-v2.md), [identity-bounded QA](specs/human-knowledge-identity-bounded-retrieval/review.md) |
 | Human Knowledge experiments and negative results | [retriever redesign evidence](docs/evidence/human-knowledge-retriever-v3-implementation.md), [v4 identity development](reports/human-knowledge-identity-development-v1/selection.md), [identity contradiction](reports/human-knowledge-identity-contradiction-development-v1/selection.md), [identity envelope](reports/human-knowledge-identity-envelope-development-v2/historical-calibration.md), [claim graph](reports/human-knowledge-identity-claim-graph-development-v3/historical-calibration.md), [identity certificate](reports/human-knowledge-identity-certificate-development-v4/historical-calibration.md) |
 | External Wiki pilot, adjudication, and review-family materialization | [source and license README](data/external/hot-wheels-wiki/README.md), [final family decisions](docs/evidence/fandom-priority-two-decisions-t44.md), [materialization evidence](docs/evidence/review-family-materialization-t46.md), [family projection evidence](docs/evidence/family-level-human-knowledge-t47.md) |
+| Canonical Authority Review and versioned RHB-T4 Gate | [CAR requirements](specs/canonical-authority-review-v1/requirements.md), [final QA](specs/canonical-authority-review-v1/review.md), [final evidence](docs/evidence/canonical-authority-review-v1.md), [RHB-T4 re-audit](docs/evidence/representative-hard-benchmark-authority-reaudit.md) |
 | Owner-supplied 2023–2026 staging and review | [staging report](reports/local-release-staging-v1/report.md), [casting review](reports/local-release-casting-review-v1/report.md), [owner-decision report](reports/local-release-casting-review-decisions-v1/report.md), [materialization report](reports/local-release-casting-review-family-materialization-v1/report.md), [knowledge projection](reports/local-release-casting-review-family-knowledge-v1/report.md), [shadow evaluation](reports/local-release-review-family-retrieval-evaluation-v1/report.md) |
 | PostgreSQL, pgvector, and Human Knowledge storage | [catalog ingestion](docs/evidence/postgres-ingestion-t07.md), [sparse retrieval](docs/evidence/postgres-sparse-retrieval-t09.md), [dense retrieval](docs/evidence/postgres-dense-retrieval-t10.md), [isolated Human Knowledge storage](docs/evidence/t49-2-human-knowledge-postgres.md), [storage-profile SQL](docs/evidence/t49-3-storage-profile-sql.md), [file-runtime runbook](docs/runbooks/human-storage-file-runtime.md) |
 | Runtime and Docker validation | [raw Docker loopback latency](reports/runtime-validation/docker-python312-http-latency.json), [runtime-package evidence](docs/evidence/t49-4-human-storage-runtime-package.md), [MVP evidence](docs/evidence/product-variant-resolver-mvp.md) |

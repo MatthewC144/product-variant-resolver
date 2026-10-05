@@ -1,5 +1,52 @@
 # Project Log
 
+## 2026-10-04 — CAR-T7 收尾：CAR-R1–R11 全數驗收，分開呈現工程與資料結果
+
+### 新執行了什麼，解決什麼問題
+
+CAR-T6 已讓 versioned RHB-T4 通過，但專案還缺最後一層「面試官可以直接核對」的總驗收。本輪
+完成 CAR-T7：把 CAR-R1～CAR-R11 逐條連到 source decision、catalog review、private packet、
+append-only events、CAR-T5F bundle、CAR-T6 re-audit、tests 與 evidence，並把 `review.md` 最上方從
+容易誤讀的早期 CAR-T1 FAIL 改成 current milestone verdict。早期 FAIL 與 repair PASS 沒有刪除，
+而是保留為後續修正確實發生過的 audit history。
+
+最終結論刻意分成三層：Engineering PASS 代表 contracts、權限、privacy、atomicity、determinism
+與文件通過；Data Gate PASS 代表 20 exact variants／7 qualifying families／0 shortfalls；Downstream
+CLOSED 則代表 RHB-T5/query/labels 仍未授權。這避免把「已有可靠 authority input」誇大成「已有
+real-marketplace accuracy 或 benchmark readiness」。
+
+### 代碼／文件修改與選型原因
+
+本輪沒有修改 resolver、RAG、embedding、API 或 authority product code。主要修改是 final QA
+matrix、technical evidence、AI-eval failure rubric、README/Portfolio Guide 的 scoped claims，以及
+requirements/design/tasks 的完成狀態。選擇在 `review.md` 新增 current section、而不是重寫舊內容，
+是因為 CAR-T1 初次 QA 曾真的找到 permissive schema 與 attribution bypass；保留 FAIL→repair→final
+PASS 比只留下漂亮結果更能展示規格驅動閉環。
+
+Portfolio claim 新增的是 20／7／0 與雙 Owner Gate、output-blind、versioned historical audit；沒有
+新增 accuracy 百分比，也沒有把 community-reference exact 說成 manufacturer truth。AI eval 明確
+把 invented evidence、model-derived truth、privacy leak、hidden conflict、false second reviewer 與
+exaggerated benchmark readiness 列為失敗條件。
+
+### 驗證結果、發現與決策
+
+Focused authority/CAR-T6/historical-RHB suite 為 317 tests 全數通過。前一步 final code/data tree 的
+完整 repository suite 為 1,379 tests 全數通過，只有既有 Starlette/AnyIO deprecation warning。
+Source Gate=`valid`，CAR-T6 與 historical RHB checks 都回傳 `unchanged`；Ruff、format、production
+strict MyPy、compileall、critical JSON parsing、privacy 與 diff checks 通過。
+
+QA 主動把 strict MyPy 範圍擴大到所有舊 authority tests 時，找到三個 test modules 共 22 個既有
+diagnostics，主要是測試存取 module internals 與用字串索引 enum-keyed dict。因 317 runtime tests
+全綠、九個 production/CLI modules 加 CAR-T6 test 的正式 strict scope 為 10 files／0 issues，這些
+被記為非阻斷 test-type debt，而沒有被誤報成 repository-wide strict PASS。這是未來若要把 tests
+納入全域 type Gate 時應先清理的項目。
+
+### 下一步
+
+CAR v1 在 Lite／Lean Industrial 範圍內完成。下一個產品資料里程碑是 RHB-T5 output-blind query
+pack，但它仍需要新的明確 owner authorization；在此之前不建立 queries/labels，也不執行或宣稱
+代表性 benchmark、resolver quality 或 production accuracy。
+
 ## 2026-10-04 — CAR-T6 完成：versioned RHB-T4 通過，RHB-T5 仍關閉
 
 ### 新執行了什麼，解決什麼問題

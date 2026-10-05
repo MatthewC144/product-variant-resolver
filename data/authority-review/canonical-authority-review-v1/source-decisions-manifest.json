@@ -18,12 +18,12 @@
     {
       "hash_encoding": "raw_file_bytes",
       "path": "specs/canonical-authority-review-v1/design.md",
-      "sha256": "83c330ef2ca0fa83def1a70c1f23857362c4bd2935f1e265bd0dd40780d6b536"
+      "sha256": "f75fb8bc2533473c1d3171027a450c958e84b4491d1885cd3a1145305bc89e3f"
     },
     {
       "hash_encoding": "raw_file_bytes",
       "path": "specs/canonical-authority-review-v1/requirements.md",
-      "sha256": "6c772c3b8a9530b0a978de78697c6f98c07f94910f7df9bdb016c2b9047f8c17"
+      "sha256": "230ebcd9bf365c2e68b820c6515db45ff6adf594ccb18601dfa74d403dfda93a"
     },
     {
       "hash_encoding": "raw_file_bytes",
@@ -33,7 +33,7 @@
     {
       "hash_encoding": "raw_file_bytes",
       "path": "specs/canonical-authority-review-v1/tasks.md",
-      "sha256": "0d87e100494c69d45778a89a2101209767575e9f3cca3fa291bf83f09622e7e7"
+      "sha256": "c09e41df9132a8b8026adf17abb2b6ef9b96dfa0a860901da903e4b768fd05fd"
     }
   ],
   "authority_state": {

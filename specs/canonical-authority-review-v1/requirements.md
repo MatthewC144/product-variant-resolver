@@ -1,7 +1,7 @@
 # Canonical Authority Review v1 — Requirements
 
 Date: 2026-09-26. Owner approval recorded: 2026-09-28. Mode: Lite / Lean Industrial. Status:
-**OWNER-APPROVED FOR SEQUENTIAL IMPLEMENTATION**.
+**IMPLEMENTED AND VERIFIED — 20 EXACT VARIANTS / 7 QUALIFYING FAMILIES; RHB-T5 UNAUTHORIZED**.
 
 This is an upstream plan for the blocked Representative Hard Benchmark v1. The owner approved reuse
 and human review of the existing checked-in 100-row text snapshot
@@ -15,8 +15,10 @@ The minimum successful result is at least 20 non-synthetic exact variants across
 same-casting, multi-release families. Each exact record must be independent of resolver/model output
 and traceable to an approved source, a frozen catalog UUID, and complete release-level evidence.
 
-This fills the evidence gap found by RHB-T4: the project currently has 0 eligible exact variants and
-0 eligible multi-release families. The approved claim tier is
+At planning time, this addressed the evidence gap found by the historical RHB-T4 audit: the project
+had 0 eligible exact variants and 0 eligible multi-release families. CAR v1 subsequently produced
+20 approved exact variants across seven qualifying families and a new versioned RHB-T4 PASS. The
+approved claim tier remains
 `community_reference_snapshot_exact`: a human-reviewed value may be exact relative to that frozen
 community-reference revision, but it is not Mattel/manufacturer-certified truth. Existing fixture
 and Human Knowledge data remain context only. The 1,763-row workbook remains `family_context` /
@@ -155,6 +157,7 @@ releases, and 85 rows within those families. `toy_number`, casting, year, series
 and series position each have zero missing values. These figures establish candidate feasibility
 only; they do not satisfy the 20-variant/four-family authority Gate.
 
-Later owner Gates still require approval of the proposed family/release queue and separate approval
-of any catalog-record creation/change. No later Gate may broaden the source or collection scope
-without a new source decision.
+The sequential family/release, catalog, review, exact-authority, freeze and CAR-T6 Gates are now
+complete. No later Gate may broaden the source or collection scope without a new source decision.
+RHB-T5, query-pack authoring and label authoring remain outside CAR v1 and require a separate owner
+authorization.
