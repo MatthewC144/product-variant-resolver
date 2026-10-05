@@ -1,5 +1,30 @@
 # Project Log
 
+## 2026-10-05 — PNMR-G1：封存 owner 授權並建立窄範圍 development overlay
+
+### 新執行了什麼，解決什麼問題
+
+本輪將 project owner 對 PNMR-G1 的完整批准文字封存為 checksum-bound authorization，並產生
+`pointwise-no-match-governance-overlay-v1`。Overlay 同時綁定 human dataset、52-row candidate set、
+1,763-row catalog、32/20 split assignment 與前一階段 readiness hashes。這解決了原資料明確禁止
+calibration/threshold selection、但 owner 已同意特定例外時，如何不改寫歷史檔案仍能留下可機器驗證
+permission 的問題。
+
+### 代碼修改了哪一部分、原因與決策
+
+新增 `pointwise_no_match_governance.py`，驗證批准文字不是概括授權、所有四組 parent hashes 與數量完全
+相符，再以 exclusive-create 方式寫入 owner authorization 與 overlay。允許動作只有 materialize overlay、
+Pointwise development calibration-fit 及 threshold-selection；final retuning、runtime activation、row-level
+publication 與 global truth claim 都是明文禁止。原始 `human_labeled_names.json` 的 `excluded_from` 沒有被
+修改，因為 overlay 是對指定 candidate set 的窄例外，不是 source-wide promotion。
+
+### 技術棧／方法選型、驗證與下一步
+
+採用 append-only versioned overlay，而不是直接刪除原始 exclusions，是為了同時保存「原始資料治理決策」
+與「後來由 owner 授權的例外」，讓 reviewer 能追出 permission 何時、對哪些 bytes 發生改變。六個 focused
+tests、Ruff、strict MyPy 與 overlay CLI check 通過。下一步可依同一授權執行 development-only 三分類
+calibration；若安全門檻無法成立，必須發布 shortfall，不能啟用 runtime。
+
 ## 2026-10-05 — 真實 no-match readiness：找到 52 筆證據，但不越過原始資料權限
 
 ### 新執行了什麼，解決什麼問題

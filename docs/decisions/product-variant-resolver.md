@@ -2475,3 +2475,21 @@ Future evidence can reopen them without rewriting the historical reason they wer
 - **Impact:** additional web collection is not currently required. One narrow owner authorization is
   now the sole prerequisite for a versioned usage overlay; calibration, policy replacement, runtime
   activation and final-test retuning remain unauthorized.
+
+## D47 — Preserve the original source contract and express PNMR-G1 as a bound overlay
+
+- **Choice:** record the exact owner response and materialize a versioned overlay bound to the human
+  dataset, 52-row candidate set, frozen catalog and 32/20 split hashes. Grant only Pointwise
+  development fit/selection permission; leave the original source exclusions untouched.
+- **Reason:** editing `human_labeled_names.json` would falsely imply all rows had always been eligible
+  for calibration. A narrow overlay preserves chronology and prevents the authorization from being
+  reused with a different candidate set, catalog or split.
+- **Alternatives:** remove the two source exclusions; rely on the chat message without an artifact;
+  create a source-wide calibration permission. Each loses either auditability or scope control.
+- **10x alternative considered:** implement a generic policy engine for arbitrary data-use grants.
+  One bounded use case does not justify that framework or its larger authorization surface.
+- **Most likely failure:** a later stage treats development permission as runtime or final-test
+  permission. Both authorization and overlay carry explicit false flags, and downstream validation
+  must require them before scoring.
+- **Impact:** the 52 rows may now be used only in the frozen 32/20 development partitions. Runtime,
+  final test, public row data and global no-match claims remain prohibited.

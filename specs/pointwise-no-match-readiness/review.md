@@ -21,8 +21,9 @@ The existing Pointwise calibration and policy files were not modified.
 
 ## Remaining gate
 
-This PASS does not authorize model scoring. The source dataset still excludes calibration training
-and threshold selection. The only next action is an owner decision accepting or rejecting a narrow,
-hash-bound development-use overlay for candidate-set SHA-256
+PNMR-G1 was approved by the project owner for candidate-set SHA-256
 `08d08e668dfd56f82e638fe27f876285af8dd5300da2b34103ffe636416b5c53` and catalog SHA-256
-`b4e0747450a5447c2bf66b0838c91f3f723a19ac97c90c7ac3636cf3a9a709d4`.
+`b4e0747450a5447c2bf66b0838c91f3f723a19ac97c90c7ac3636cf3a9a709d4`. The versioned overlay
+adds only Pointwise development calibration-fit and threshold-selection permissions to the bound
+32/20 split. It does not overwrite the source contract or authorize final-test retuning, runtime
+activation, row-level publication or manufacturer/global truth claims.
