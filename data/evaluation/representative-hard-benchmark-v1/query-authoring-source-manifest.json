@@ -1,0 +1,19 @@
+{
+  "non_sensitive_aggregate": {
+    "benchmark_labels_consulted": false,
+    "contains_failure_categories": false,
+    "contains_human_labels": false,
+    "contains_pipeline_outputs": false,
+    "duplicate_query_count": 0,
+    "excluded_blank_query_count": 10,
+    "network_requests": 0,
+    "projected_record_count": 91,
+    "publication_scope": "local_only",
+    "resolver_output_consulted": false,
+    "source_record_count": 101
+  },
+  "non_sensitive_summary": "Private query-only projection created; public Git contains no row-level query text.",
+  "record_count": 91,
+  "schema": "pvr-rhb-t5-output-blind-source-manifest-v1",
+  "sha256": "d5712684cf73c29dd9ea7f385f78c03eb1c8300ce35afd477c0d09ad0d9032dd"
+}

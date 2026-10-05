@@ -4,6 +4,11 @@ Date: 2026-10-04
 Mode: Lite / Lean Industrial
 Verdict: **BLOCKED — CAPACITY PASSES, AUTHORING BOUNDARY DOES NOT YET PASS**
 
+Historical note: this document records the initial readiness result. The projection, publication and
+split-contract blockers were later repaired; see
+`docs/evidence/representative-hard-benchmark-query-pre-authoring-repair.md`. The original hash and
+findings remain unchanged as an audit checkpoint.
+
 ## What was validated
 
 The new read-only validator rechecks the frozen T1 inventory and manifest, the exact T3 source

@@ -185,10 +185,11 @@ challenge_tags[]
 authored_by
 authored_at
 resolver_output_viewed         false before freeze
-split                          development | test
 ```
 
-The query artifact deliberately contains no expected status, UUID, correctness flag, or target rank.
+The query artifact deliberately contains no expected status, UUID, correctness flag, target rank, or
+Development/Test assignment. RHB-T7 owns the separate `SplitArtifact`; keeping `split` out of the
+query prevents authoring from preselecting Test cases before labels and connected groups exist.
 
 ### 6.4 `BenchmarkLabel`
 
@@ -366,9 +367,15 @@ data/evaluation/representative-hard-benchmark-v1/
   source-inventory.json
   source-inventory-manifest.json
   canonical-authority.json
-  query-pack.json
-  labels.json
+  query-authoring-source-manifest.json
+  query-pack-manifest.json
+  labels-manifest.json
   benchmark-manifest.json
+  local-query-authoring-v1/        # Git-ignored, directory mode 0700
+    output-blind-source.json       # query + opaque reference only, mode 0600
+    query-pack.json                # local-only raw rows after RHB-T5 authorization
+    labels.json                    # local-only owner labels after RHB-T6
+    held-labels.json
 
 reports/representative-hard-benchmark-v1/
   test-raw.json
@@ -408,7 +415,10 @@ must be treated as data in reports, never executable markup. Public artifacts re
 contact details, order IDs, or other personal information and retain required attribution. Source
 licenses and platform access terms are independent Gates. Review records use a stable reviewer label,
 not private account data. Local-only evidence paths, if any, stay ignored and are represented publicly
-only by approved metadata and SHA-256 digests.
+only by approved metadata and SHA-256 digests. A mixed source containing query text beside prior
+pipeline output or labels is never opened by the authoring context; a deterministic pre-authoring
+step writes only `source_record_ref` and `query` into the private projection. The public projection
+manifest is constrained to the T3 aggregate-only field allowlist.
 
 ## 13. Testing strategy
 
@@ -451,6 +461,15 @@ than a hidden benchmark side effect.
 The 100-case fixture remains useful for deterministic CI and backward compatibility. Mixing it into
 the 60-case representative denominator would make the result easier without increasing real evidence,
 so it is excluded from the pilot quota and reported separately.
+
+### Separate query projection, authoring, and split assignment
+
+The local source mixes raw query text with historical outputs and human annotations. A mechanical
+projection therefore runs before any authoring context and exposes only the two allowlisted fields.
+Raw rows stay ignored; Git receives only an aggregate manifest and hash. `BenchmarkQuery` also omits
+`split`, because connected-family allocation needs frozen labels and belongs to RHB-T7. This adds one
+private intermediate artifact but removes two leakage paths: output-informed query construction and
+author-selected Test composition.
 
 ### Publish a null or failed result
 

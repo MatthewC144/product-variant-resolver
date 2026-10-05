@@ -3,20 +3,21 @@
 Date: 2026-10-04. Mode: Lite / Lean Industrial. Scope:
 **RHB-T1/T2 history + RHB-T3/T4 final QA + RHB-T5 readiness**.
 
-## Current milestone verdict: RHB-T4 RE-AUDIT PASS / RHB-T5 READINESS BLOCKED
+## Current milestone verdict: RHB-T4 RE-AUDIT PASS / RHB-T5 READY FOR OWNER GATE
 
 RHB-T1 through RHB-T3 remain PASS, and the historical zero-authority RHB-T4 blocked checkpoint is
 preserved below. The separately authorized CAR-T6 versioned re-audit now passes the exact-authority
 Gate with 20 exact variants, seven qualifying families and zero shortfalls. That PASS still does not
 authorize RHB-T5.
 
-The new RHB-T5 readiness check finds 91 unique nonblank real query candidates for the 60-case target,
-so source capacity passes. Authoring remains blocked because the raw rows colocate query text with
-historical pipeline outputs/labels, raw publication is local-only, the query schema requires an
-RHB-T7 split too early, this inspection context is not a fresh output-blind authoring context, and no
-separate RHB-T5 Owner Gate exists. Earlier T1/T2/T3/T4 QA history remains below.
+The original RHB-T5 readiness check found 91 unique nonblank real query candidates for the 60-case
+target but correctly blocked on projection, publication and split-contract gaps. Those engineering
+gaps are now repaired: the source is projected into a private query-only artifact, Git receives only
+an aggregate manifest, and `BenchmarkQuery` no longer preassigns the RHB-T7 split. Readiness v2 is
+`ready_for_separate_owner_authorization`; authoring still requires a fresh output-blind context and a
+separate RHB-T5 Owner Gate. Earlier T1/T2/T3/T4 QA history remains below.
 
-## RHB-T5 readiness verdict: PASS (validator) / BLOCKED (authoring Gate)
+## Historical RHB-T5 readiness v1: PASS (validator) / BLOCKED (authoring Gate)
 
 The deterministic validator rechecks T1/T3, CAR-T6, historical T4 hashes, real-query capacity,
 artifact absence and the current query schema without writing any file or importing the resolver.
@@ -30,10 +31,30 @@ authority tampering and premature query/label artifacts. A full-repository run r
 failure before being manually stopped due to unrelated long-running evaluation tests; no new
 full-suite PASS is claimed.
 
-Required next action: implement a Git-ignored query-only projection, separate local raw rows from the
-public aggregate manifest, defer split allocation to RHB-T7, rerun readiness, and then request a
-fresh explicit RHB-T5 Owner Gate. No query selection, challenge-coverage decision, labels, resolver
-run or benchmark-quality claim is accepted by this review.
+Historical required action, now completed: implement a Git-ignored query-only projection, separate
+local raw rows from the public aggregate manifest, defer split allocation to RHB-T7, and rerun
+readiness. The fresh explicit RHB-T5 Owner Gate remains outstanding. No query selection,
+challenge-coverage decision, labels, resolver run or benchmark-quality claim is accepted by this
+review.
+
+## RHB-T5 pre-authoring repair verdict: PASS / OWNER GATE STILL CLOSED
+
+The deterministic projection contains 91 unique rows and exactly two row fields:
+`source_record_ref` and `query`. The private directory/file use `0700/0600`, the exact `.gitignore`
+rule is verified, and creation plus check replay returns `created / unchanged`. The tracked public
+manifest contains only the T3-approved aggregate fields and binds private bytes at SHA-256
+`d5712684cf73c29dd9ea7f385f78c03eb1c8300ce35afd477c0d09ad0d9032dd`.
+
+The query contract now rejects `split` as an unknown authoring field. The separate RHB-T7 split
+validator still requires every case exactly once and rejects family/evidence groups crossing
+Development/Test. Readiness v2 validates the materialized projection, ignore rule, permissions,
+CAR-T6 20/7/0 authority and absence of query/label artifacts; its report hash is
+`5b2582049420406f0acf5577bcca17f22f0834e598e87838c294625cdf300d30`.
+
+This PASS authorizes no dataset construction. The only remaining readiness blockers are
+`fresh_output_blind_authoring_context_required` and `rhb_t5_owner_gate_required`. The current
+inspection/build session must not author the 60 rows, and an ordinary continuation cannot substitute
+for the exact Owner Gate.
 
 ## RHB-T1 historical verdict: PASS
 

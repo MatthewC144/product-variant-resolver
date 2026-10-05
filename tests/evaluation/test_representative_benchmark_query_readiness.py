@@ -46,7 +46,7 @@ def test_real_readiness_is_deterministic_read_only_and_honestly_blocked() -> Non
     second = build_rhb_t5_query_readiness(ROOT)
 
     assert first == second
-    assert first.status == "blocked_pending_pre_authoring_repairs_and_owner_gate"
+    assert first.status == "ready_for_separate_owner_authorization"
     assert first.source_record_count == 101
     assert first.nonblank_query_count == 91
     assert first.unique_nonblank_query_count == 91
@@ -59,8 +59,15 @@ def test_real_readiness_is_deterministic_read_only_and_honestly_blocked() -> Non
     assert first.qualifying_family_count == 7
     assert not first.public_raw_query_pack_authorized
     assert first.public_aggregate_metadata_authorized
+    assert first.output_blind_projection_present
+    assert first.output_blind_projection_valid
+    assert first.output_blind_projection_record_count == 91
     assert first.output_blind_projection_required
-    assert first.query_contract_split_phase_alignment_required
+    assert first.private_authoring_path_ignored
+    assert not first.query_contract_requires_split
+    assert not first.query_contract_split_phase_alignment_required
+    assert not first.public_query_pack_present
+    assert not first.private_query_pack_present
     assert not first.current_session_eligible_for_authoring
     assert not first.rhb_t5_authorized
     assert {path: path.exists() for path in watched} == before
@@ -79,6 +86,14 @@ def test_human_source_checksum_drift_fails_closed(isolated_root: Path) -> None:
 def test_existing_query_or_label_artifact_fails_closed(isolated_root: Path) -> None:
     query_path = isolated_root / RHB / "query-pack.json"
     query_path.write_text("{}\n", encoding="utf-8")
+
+    with pytest.raises(QueryReadinessError, match="artifacts already exist"):
+        build_rhb_t5_query_readiness(isolated_root)
+
+
+def test_existing_private_label_artifact_fails_closed(isolated_root: Path) -> None:
+    label_path = isolated_root / RHB / "local-query-authoring-v1/labels.json"
+    label_path.write_text("{}\n", encoding="utf-8")
 
     with pytest.raises(QueryReadinessError, match="artifacts already exist"):
         build_rhb_t5_query_readiness(isolated_root)

@@ -215,7 +215,6 @@ def _query_pack_payload(*, second_case: bool = False) -> dict[str, Any]:
             "authored_by": "project_owner",
             "authored_at": "2026-09-26T12:00:00Z",
             "resolver_output_viewed": False,
-            "split": "test",
         }
     ]
     if second_case:
@@ -225,7 +224,6 @@ def _query_pack_payload(*, second_case: bool = False) -> dict[str, Any]:
                 "case_id": "case-002",
                 "query": "Nomad release unknown",
                 "evidence_event_group_key": "event-002",
-                "split": "test",
             }
         )
     return {
@@ -745,11 +743,18 @@ def test_split_rejects_missing_cases_and_cross_family_leakage() -> None:
 
     leaking = _split_payload(second_case=True)
     leaking["records"][1]["split"] = "development"
-    queries_payload = _query_pack_payload(second_case=True)
-    queries_payload["cases"][1]["split"] = "development"
-    queries = validate_query_pack(queries_payload, inventory=inventory, source_decisions=decisions)
     with pytest.raises(ContractError, match="family group crosses"):
         validate_split(leaking, query_pack=queries)
+
+
+def test_query_pack_rejects_premature_split_assignment() -> None:
+    inventory = validate_source_inventory(_approved_inventory_payload())
+    decisions = _decisions_for_inventory(inventory)
+    payload = _query_pack_payload()
+    payload["cases"][0]["split"] = "test"
+
+    with pytest.raises(ValidationError, match="Extra inputs are not permitted"):
+        validate_query_pack(payload, inventory=inventory, source_decisions=decisions)
 
 
 @pytest.mark.parametrize(

@@ -717,7 +717,6 @@ class BenchmarkQuery(StrictContract):
     authored_by: NonBlank
     authored_at: AwareDatetime
     resolver_output_viewed: Literal[False]
-    split: SplitName
 
     @model_validator(mode="after")
     def public_query_has_no_obvious_pii(self) -> BenchmarkQuery:
@@ -1936,7 +1935,6 @@ def validate_split(payload: Mapping[str, Any], *, query_pack: QueryPack) -> Spli
         if (
             record.family_group_key != query.family_group_key
             or record.evidence_event_group_key != query.evidence_event_group_key
-            or record.split != query.split
         ):
             _raise(f"split record {record.case_id!r} disagrees with its query")
         family_splits[record.family_group_key].add(record.split)

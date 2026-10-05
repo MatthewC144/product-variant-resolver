@@ -131,8 +131,10 @@ WHEN the pilot is split, THE SYSTEM SHALL group every related query and every ca
 the same casting family into exactly one split. The split SHALL be deterministic and approximately
 one-third Development and two-thirds Test while preserving status and challenge coverage where
 grouping permits. Source duplicates, aliases of one listing, and near-duplicate evidence events SHALL
-stay in the same group. Test labels SHALL NOT be used to fit, tune, select thresholds, rewrite
-queries, choose retrievers, or select a model.
+stay in the same group. The output-blind query pack SHALL NOT contain a preassigned split; RHB-T7
+SHALL bind each query to Development or Test only through the separate frozen split artifact after
+labels and connected groups are available. Test labels SHALL NOT be used to fit, tune, select
+thresholds, rewrite queries, choose retrievers, or select a model.
 
 ### RHB-R14 — Label-blind Test lifecycle
 
@@ -198,7 +200,11 @@ WHEN artifacts are written to the repository, THE SYSTEM SHALL include only data
 is authorized, strip seller/account/contact and other personal information, and preserve required
 attribution. Local-only evidence MAY be referenced by non-reversible digest and aggregate counts but
 SHALL NOT be copied into Git. Missing publication rights SHALL fail public-artifact generation rather
-than silently redact labels in a way that changes evaluation meaning.
+than silently redact labels in a way that changes evaluation meaning. IF an approved local-only
+source colocates query text with historical resolver output, labels, or failure annotations, THEN
+THE SYSTEM SHALL create a deterministic Git-ignored projection containing only opaque source
+references and query text, SHALL store it with private filesystem permissions, and SHALL publish
+only an aggregate manifest that contains no row-level query text.
 
 ### RHB-R22 — Scope and model-change boundary
 

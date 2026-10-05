@@ -1,5 +1,48 @@
 # Project Log
 
+## 2026-10-04 — RHB-T5 pre-authoring repair：安全投影完成，readiness 升級為可送 Owner Gate
+
+### 新執行了什麼，解決什麼問題
+
+前一步 readiness 證明有 91 筆可用 query，卻同時發現原始列混放 pipeline output、human labels 與
+failure categories，且 local-only 資料的預定輸出路徑會進 Git；此外 `BenchmarkQuery` 在 RHB-T5
+就要求填入應由 RHB-T7 決定的 split。本輪完成三項修復，但沒有開始 60-case authoring。
+
+新增 deterministic query projection：由程式只讀 `case_id` 與非空 `initial_name`，輸出 91 筆
+`source_record_ref + query`，10 筆空 query 排除，重複數為 0。真實 materialization 回傳 `created`，
+接著 check replay 回傳 `unchanged`。Private directory/file 權限為 `0700/0600` 且確實被 Git ignore；
+public manifest 只含 schema、SHA-256、筆數、安全 aggregate 與 summary，沒有 row-level query。
+
+### 代碼修改哪一部分、原因與選型
+
+新增 `representative_benchmark_query_projection.py` 與 CLI，把「清除欄位」從人工操作改成 strict
+Pydantic contract。Row model 採 `extra=forbid`，所以即使未來有人誤塞 `pipeline_outputs` 或
+`human_label_*` 也無法通過。兩個輸出先寫 temp、fsync，再 atomic replace；第二次 replace 故障會
+移除第一個已安裝檔，避免 private/public 只有一半完成。
+
+同時從 `BenchmarkQuery` 移除 `split`，並修改 `validate_split`：T5 query 只保存 family/evidence group，
+RHB-T7 的 `SplitArtifact` 才保存 Development/Test。這個選擇比把 split 設為 optional 更嚴格，因為
+authoring artifact 若提前帶 split 會直接因 unknown field 被拒絕，而不是默默接受可能的人為 Test
+selection。Requirements、design、tasks 與資料契約 README 一併回寫 local/private 路徑。
+
+### 驗證結果與仍保留的邊界
+
+Projection SHA-256 為 `d5712684cf73c29dd9ea7f385f78c03eb1c8300ce35afd477c0d09ad0d9032dd`。
+Readiness v2 重新驗證投影、manifest、權限、ignore rule、CAR-T6 20/7/0、91/60 容量與 artifact
+absence，結果為 `ready_for_separate_owner_authorization`，hash 是
+`5b2582049420406f0acf5577bcca17f22f0834e598e87838c294625cdf300d30`。
+
+Projection/readiness/RHB/CAR 全套 representative regression 共 99 tests 全數通過；四個 benchmark
+核心模組的 Strict MyPy 為 0 issues，Ruff、format、compile 與 diff check 通過。Projection 連續兩次 check 都是
+`unchanged`，readiness v2 連續兩次輸出 byte-identical；private projection 不在 `git ls-files`，且
+由 dedicated ignore rule 命中。Public manifest 只保留核准的五個 aggregate 頂層欄位；模擬 fresh
+clone 只有 tracked manifest、沒有 private projection 時，builder 只重建私有檔且不改 public bytes。
+
+這個狀態不是 RHB-T5 authorization。仍有兩個 blocker：必須取得 fresh explicit Owner Gate，以及
+必須在新的 output-blind context 中 author。現在這個檢查／建置 context 已接觸過來源 schema，不得
+用來挑選 60 筆或寫 challenge tags；query pack、labels、resolver/RAG/embedding、Pointwise/Listwise
+評估都仍未執行。
+
 ## 2026-10-04 — RHB-T5 readiness：60 筆容量足夠，但 output-blind 邊界尚未通過
 
 ### 新執行了什麼，解決什麼問題

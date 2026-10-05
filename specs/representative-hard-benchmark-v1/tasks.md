@@ -2,7 +2,8 @@
 
 Date: 2026-09-26. Mode: Lite / Lean Industrial. Status:
 **RHB-T1–T4 COMPLETE; HISTORICAL RHB-T4 BLOCKED CHECKPOINT PRESERVED; VERSIONED RHB-T4 RE-AUDIT
-PASSES THE EXACT-AUTHORITY GATE; RHB-T5+ NOT STARTED OR AUTHORIZED**.
+PASSES THE EXACT-AUTHORITY GATE; RHB-T5 PRE-AUTHORING REPAIR COMPLETE; RHB-T5+ NOT STARTED OR
+AUTHORIZED**.
 
 Each task is intended to be one independently reviewable commit. Tasks that require an owner decision
 are explicit Gates, not implementation steps that an agent may infer or bypass.
@@ -130,6 +131,30 @@ Acceptance:
   blocked pending an output-blind local projection, publication-path repair, split-contract
   alignment, a fresh authoring context, and a separate Owner Gate.
 
+### RHB-T5 pre-authoring repair — Close projection/publication/split gaps `[backend/qa/doc_curator]`
+
+- [x] Materialize a deterministic private query-only projection, publish only its aggregate
+  manifest, and remove split assignment from the T5 query contract. _(→RHB-R2,RHB-R13,RHB-R19,RHB-R21)_
+
+Files:
+
+- `src/product_variant_resolver/representative_benchmark_query_projection.py`
+- `scripts/build_representative_hard_benchmark_query_projection.py`
+- `data/evaluation/representative-hard-benchmark-v1/query-authoring-source-manifest.json`
+- `data/evaluation/representative-hard-benchmark-v1/local-query-authoring-v1/` _(Git-ignored)_
+- `tests/evaluation/test_representative_benchmark_query_projection.py`
+
+Acceptance:
+
+- The private artifact contains exactly 91 unique rows and only `source_record_ref` + `query`; it is
+  ignored, stored under a `0700` directory as `0600`, and reproduces as `unchanged`.
+- The tracked manifest contains only the approved aggregate fields, record count and irreversible
+  projection hash; it contains no row-level query, output, label or failure-category content.
+- `BenchmarkQuery` rejects a premature `split`; RHB-T7 remains the sole split owner through the
+  separate `SplitArtifact`, and cross-family/evidence leakage checks still pass.
+- Readiness v2 is `ready_for_separate_owner_authorization`, not `rhb_t5_authorized`; a fresh
+  output-blind context and exact RHB-T5 Owner Gate are still mandatory.
+
 ### RHB-T5 — Author the output-blind 60-case pilot query pack `[qa/doc_curator]`
 
 - [ ] After Gates T3/T4 pass, author exactly 60 non-synthetic cases without viewing resolver output,
@@ -137,14 +162,14 @@ Acceptance:
 
 Files:
 
-- `data/evaluation/representative-hard-benchmark-v1/query-pack.json`
+- `data/evaluation/representative-hard-benchmark-v1/local-query-authoring-v1/query-pack.json`
 - `data/evaluation/representative-hard-benchmark-v1/query-pack-manifest.json`
 - `docs/evidence/representative-hard-benchmark-query-authoring.md`
 
 Acceptance:
 
 - Query pack contains no expected status/UUID/correctness/rank and declares
-  `resolver_output_viewed=false` for every row.
+  `resolver_output_viewed=false` for every row; it contains no Development/Test split.
 - Duplicate, synthetic-quota, challenge-coverage, publication and privacy checks pass before labels.
 
 ### RHB-T6 — Record owner labels and held cases `[qa/doc_curator]`
@@ -154,8 +179,8 @@ Acceptance:
 
 Files:
 
-- `data/evaluation/representative-hard-benchmark-v1/labels.json`
-- `data/evaluation/representative-hard-benchmark-v1/held-labels.json`
+- `data/evaluation/representative-hard-benchmark-v1/local-query-authoring-v1/labels.json`
+- `data/evaluation/representative-hard-benchmark-v1/local-query-authoring-v1/held-labels.json`
 - `data/evaluation/representative-hard-benchmark-v1/labels-manifest.json`
 
 Acceptance:

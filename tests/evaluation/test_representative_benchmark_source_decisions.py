@@ -85,7 +85,6 @@ def _query_payload(
                 "authored_by": authored_by,
                 "authored_at": "2026-09-27T01:44:16Z",
                 "resolver_output_viewed": False,
-                "split": "development",
             }
         ],
     }
@@ -393,7 +392,6 @@ def test_downstream_query_use_requires_owner_approved_decision() -> None:
                 "authored_by": "project_owner",
                 "authored_at": "2026-09-27T01:44:16Z",
                 "resolver_output_viewed": False,
-                "split": "development",
             }
         ],
     }
@@ -473,7 +471,6 @@ def test_public_human_labels_cannot_bypass_aggregate_only_git_scope() -> None:
                 "authored_by": "project_owner",
                 "authored_at": "2026-09-27T01:44:16Z",
                 "resolver_output_viewed": False,
-                "split": "development",
             }
         ],
     }

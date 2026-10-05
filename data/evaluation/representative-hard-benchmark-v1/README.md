@@ -52,6 +52,8 @@ untrusted input and rejects unknown fields. In particular:
 | T1 source manifest | `pvr-representative-hard-benchmark-source-inventory-manifest-v1` | `validate_source_inventory_manifest` |
 | T3 source decisions | `pvr-representative-hard-benchmark-source-decisions-v1` | `validate_source_decisions` |
 | Canonical authority | `pvr-representative-hard-benchmark-canonical-authority-v1` | `validate_canonical_authority` |
+| Private output-blind source | `pvr-rhb-t5-output-blind-source-v1` | `validate_materialized_projection` |
+| Public projection manifest | `pvr-rhb-t5-output-blind-source-manifest-v1` | `validate_materialized_projection` |
 | Output-blind query pack | `pvr-representative-hard-benchmark-query-pack-v1` | `validate_query_pack` |
 | Owner labels | `pvr-representative-hard-benchmark-labels-v1` | `validate_labels` |
 | Family-safe split | `pvr-representative-hard-benchmark-split-v1` | `validate_split` |
@@ -90,13 +92,15 @@ artifact/version. It must never overwrite v1 while retaining an old checksum.
 - `canonical-authority-reaudit-v1.json` and `canonical-authority-reaudit-manifest-v1.json`: the
   separately authorized CAR-T6 re-audit with 20 approved exact records, seven qualifying families,
   zero shortfalls and `passed_exact_authority_gate`.
+- `query-authoring-source-manifest.json`: aggregate-only proof that a 91-row private query-only
+  projection was reproduced from the frozen 101-row source. It contains no row-level query text.
 
-The read-only RHB-T5 readiness validator reports 91 unique nonblank human queries for the 60-case
-target, but it intentionally returns `blocked_pending_pre_authoring_repairs_and_owner_gate`. The raw
-human rows are local-only and colocate query text with historical pipeline output, human labels and
-failure categories; they must first be projected into a private output-blind view. The current
-`BenchmarkQuery` contract also requires `split` even though family-safe allocation belongs to
-RHB-T7. Neither issue may be bypassed by writing the planned public `query-pack.json` path.
+The pre-authoring repair now writes the 91-row projection only to the exact Git-ignored
+`local-query-authoring-v1/` directory with `0700/0600` permissions. Each private row contains only an
+opaque `source_record_ref` and `query`; public Git receives only its irreversible hash and safe
+aggregate counts. `BenchmarkQuery` no longer contains `split`; RHB-T7 remains the sole owner of the
+separate family-safe `SplitArtifact`. Readiness v2 therefore returns
+`ready_for_separate_owner_authorization`, while `rhb_t5_authorized=false` remains unchanged.
 
 T3 passes only for the declared scopes. Human-name queries and `ambiguous`/`no_match` labels remain
 local-only; they can never produce a `matched` label. Workbook rows are local-only family context and
@@ -115,14 +119,18 @@ authorization explicitly excludes RHB-T5, query-pack authoring and label authori
 ```bash
 .venv/bin/pytest tests/evaluation/test_representative_benchmark_contract.py \
   tests/evaluation/test_representative_benchmark_source_decisions.py \
+  tests/evaluation/test_representative_benchmark_query_projection.py \
   tests/evaluation/test_representative_benchmark_query_readiness.py -q
+.venv/bin/python scripts/build_representative_hard_benchmark_query_projection.py --check
 .venv/bin/python scripts/validate_representative_hard_benchmark_query_readiness.py
 .venv/bin/ruff check src/product_variant_resolver/representative_benchmark.py \
+  src/product_variant_resolver/representative_benchmark_query_projection.py \
   src/product_variant_resolver/representative_benchmark_query_readiness.py \
   tests/evaluation/test_representative_benchmark_contract.py \
   tests/evaluation/test_representative_benchmark_source_decisions.py \
   tests/evaluation/test_representative_benchmark_query_readiness.py --select F,I
 .venv/bin/mypy --strict src/product_variant_resolver/representative_benchmark.py \
+  src/product_variant_resolver/representative_benchmark_query_projection.py \
   src/product_variant_resolver/representative_benchmark_query_readiness.py \
   src/product_variant_resolver/representative_benchmark_reaudit.py
 ```

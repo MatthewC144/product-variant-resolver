@@ -27,6 +27,17 @@ from product_variant_resolver.representative_benchmark import (
     validate_source_decisions,
     validate_t1_inventory_files,
 )
+from product_variant_resolver.representative_benchmark_query_projection import (
+    IGNORE_RULE,
+    PRIVATE_AUTHORING_DIRECTORY,
+    validate_materialized_projection,
+)
+from product_variant_resolver.representative_benchmark_query_projection import (
+    MANIFEST_REFERENCE as PROJECTION_MANIFEST_REFERENCE,
+)
+from product_variant_resolver.representative_benchmark_query_projection import (
+    PROJECTION_REFERENCE as OUTPUT_BLIND_PROJECTION_REFERENCE,
+)
 from product_variant_resolver.representative_benchmark_reaudit import CarT6ReauditManifest
 
 RHB_DIRECTORY = Path("data/evaluation/representative-hard-benchmark-v1")
@@ -39,25 +50,23 @@ HISTORICAL_AUTHORITY_REFERENCE = RHB_DIRECTORY / "canonical-authority.json"
 HISTORICAL_MANIFEST_REFERENCE = RHB_DIRECTORY / "canonical-authority-manifest.json"
 REAUDIT_AUTHORITY_REFERENCE = RHB_DIRECTORY / "canonical-authority-reaudit-v1.json"
 REAUDIT_MANIFEST_REFERENCE = RHB_DIRECTORY / "canonical-authority-reaudit-manifest-v1.json"
-QUERY_PACK_REFERENCE = RHB_DIRECTORY / "query-pack.json"
+PUBLIC_QUERY_PACK_REFERENCE = RHB_DIRECTORY / "query-pack.json"
+PRIVATE_QUERY_PACK_REFERENCE = PRIVATE_AUTHORING_DIRECTORY / "query-pack.json"
 QUERY_PACK_MANIFEST_REFERENCE = RHB_DIRECTORY / "query-pack-manifest.json"
 LABEL_REFERENCES = (
+    PRIVATE_AUTHORING_DIRECTORY / "labels.json",
+    PRIVATE_AUTHORING_DIRECTORY / "held-labels.json",
     RHB_DIRECTORY / "labels.json",
     RHB_DIRECTORY / "held-labels.json",
     RHB_DIRECTORY / "labels-manifest.json",
 )
-PRIVATE_AUTHORING_DIRECTORY = RHB_DIRECTORY / "local-query-authoring-v1"
-OUTPUT_BLIND_PROJECTION_REFERENCE = PRIVATE_AUTHORING_DIRECTORY / "output-blind-source.json"
 OWNER_AUTHORIZATION_REFERENCE = PRIVATE_AUTHORING_DIRECTORY / "rhb-t5-owner-authorization.json"
 
 HUMAN_SOURCE_ID = "human-labeled-real-noisy-v1"
 TARGET_CASE_COUNT = 60
 REQUIRED_BLOCKERS = [
     "fresh_output_blind_authoring_context_required",
-    "output_blind_projection_required",
-    "query_contract_split_phase_alignment_required",
     "rhb_t5_owner_gate_required",
-    "tracked_raw_query_pack_prohibited_for_local_only_source",
 ]
 
 
@@ -70,9 +79,9 @@ class QueryAuthoringReadiness(BaseModel):
 
     model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
 
-    schema_version: Literal["pvr-rhb-t5-query-authoring-readiness-v1"]
+    schema_version: Literal["pvr-rhb-t5-query-authoring-readiness-v2"]
     gate: Literal["RHB-T5"]
-    status: Literal["blocked_pending_pre_authoring_repairs_and_owner_gate"]
+    status: Literal["ready_for_separate_owner_authorization"]
     target_case_count: Literal[60]
     source_id: Literal["human-labeled-real-noisy-v1"]
     source_record_count: int = Field(ge=0)
@@ -86,17 +95,21 @@ class QueryAuthoringReadiness(BaseModel):
     source_query_scope: Literal["local_only"]
     public_raw_query_pack_authorized: Literal[False]
     public_aggregate_metadata_authorized: Literal[True]
-    output_blind_projection_present: bool
+    output_blind_projection_present: Literal[True]
+    output_blind_projection_valid: Literal[True]
+    output_blind_projection_record_count: Literal[91]
     output_blind_projection_required: Literal[True]
-    query_contract_requires_split: Literal[True]
+    private_authoring_path_ignored: Literal[True]
+    query_contract_requires_split: Literal[False]
     family_safe_split_phase: Literal["RHB-T7"]
-    query_contract_split_phase_alignment_required: Literal[True]
+    query_contract_split_phase_alignment_required: Literal[False]
     car_t6_gate_result: Literal["passed_exact_authority_gate"]
     approved_exact_variant_count: Literal[20]
     qualifying_family_count: int = Field(ge=4)
     exact_variant_shortfall: Literal[0]
     qualifying_family_shortfall: Literal[0]
-    query_pack_present: bool
+    public_query_pack_present: bool
+    private_query_pack_present: bool
     query_pack_manifest_present: bool
     label_artifact_count: int = Field(ge=0)
     owner_gate_present: bool
@@ -108,7 +121,7 @@ class QueryAuthoringReadiness(BaseModel):
     rhb_t5_authorized: Literal[False]
     blockers: list[str]
     next_allowed_action: Literal[
-        "repair_projection_publication_and_split_contract_then_request_separate_owner_gate"
+        "request_separate_owner_gate_then_author_in_fresh_output_blind_context"
     ]
     readiness_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
 
@@ -309,27 +322,40 @@ def build_rhb_t5_query_readiness(root: Path) -> QueryAuthoringReadiness:
         "readiness expected adjacent output/label fields requiring a blind projection",
     )
 
+    projection, projection_manifest = validate_materialized_projection(root)
     output_blind_projection_present = (root / OUTPUT_BLIND_PROJECTION_REFERENCE).exists()
     owner_gate_present = (root / OWNER_AUTHORIZATION_REFERENCE).exists()
-    query_pack_present = (rhb_directory / QUERY_PACK_REFERENCE.name).exists()
+    public_query_pack_present = (root / PUBLIC_QUERY_PACK_REFERENCE).exists()
+    private_query_pack_present = (root / PRIVATE_QUERY_PACK_REFERENCE).exists()
     query_pack_manifest_present = (rhb_directory / QUERY_PACK_MANIFEST_REFERENCE.name).exists()
     label_artifact_count = sum((root / reference).exists() for reference in LABEL_REFERENCES)
     _expect(
-        not output_blind_projection_present,
-        "an unvalidated output-blind projection already exists",
+        output_blind_projection_present
+        and (root / PROJECTION_MANIFEST_REFERENCE).exists()
+        and len(projection.records) == projection_manifest.record_count == 91,
+        "validated output-blind projection is incomplete",
     )
     _expect(not owner_gate_present, "an unvalidated RHB-T5 owner authorization already exists")
     _expect(
-        not query_pack_present and not query_pack_manifest_present and label_artifact_count == 0,
+        not public_query_pack_present
+        and not private_query_pack_present
+        and not query_pack_manifest_present
+        and label_artifact_count == 0,
         "RHB-T5/T6 artifacts already exist despite the closed owner Gate",
     )
-    split_required = BenchmarkQuery.model_fields["split"].is_required()
-    _expect(split_required, "BenchmarkQuery split contract changed; update readiness evidence")
+    split_field = BenchmarkQuery.model_fields.get("split")
+    split_required = split_field is not None and split_field.is_required()
+    _expect(not split_required, "BenchmarkQuery must defer split assignment to RHB-T7")
+    try:
+        ignore_rules = root.joinpath(".gitignore").read_text(encoding="utf-8").splitlines()
+    except OSError as error:
+        raise QueryReadinessError("could not read .gitignore") from error
+    _expect(IGNORE_RULE in ignore_rules, "private authoring path is not ignored")
 
     body: dict[str, Any] = {
-        "schema_version": "pvr-rhb-t5-query-authoring-readiness-v1",
+        "schema_version": "pvr-rhb-t5-query-authoring-readiness-v2",
         "gate": "RHB-T5",
-        "status": "blocked_pending_pre_authoring_repairs_and_owner_gate",
+        "status": "ready_for_separate_owner_authorization",
         "target_case_count": TARGET_CASE_COUNT,
         "source_id": HUMAN_SOURCE_ID,
         "source_record_count": len(records),
@@ -344,16 +370,20 @@ def build_rhb_t5_query_readiness(root: Path) -> QueryAuthoringReadiness:
         "public_raw_query_pack_authorized": False,
         "public_aggregate_metadata_authorized": True,
         "output_blind_projection_present": output_blind_projection_present,
+        "output_blind_projection_valid": True,
+        "output_blind_projection_record_count": len(projection.records),
         "output_blind_projection_required": True,
+        "private_authoring_path_ignored": True,
         "query_contract_requires_split": split_required,
         "family_safe_split_phase": "RHB-T7",
-        "query_contract_split_phase_alignment_required": True,
+        "query_contract_split_phase_alignment_required": False,
         "car_t6_gate_result": manifest.gate_result,
         "approved_exact_variant_count": manifest.approved_exact_variant_count,
         "qualifying_family_count": manifest.qualifying_family_count,
         "exact_variant_shortfall": manifest.thresholds.exact_variant_shortfall,
         "qualifying_family_shortfall": manifest.thresholds.qualifying_family_shortfall,
-        "query_pack_present": query_pack_present,
+        "public_query_pack_present": public_query_pack_present,
+        "private_query_pack_present": private_query_pack_present,
         "query_pack_manifest_present": query_pack_manifest_present,
         "label_artifact_count": label_artifact_count,
         "owner_gate_present": owner_gate_present,
@@ -365,7 +395,7 @@ def build_rhb_t5_query_readiness(root: Path) -> QueryAuthoringReadiness:
         "rhb_t5_authorized": False,
         "blockers": REQUIRED_BLOCKERS,
         "next_allowed_action": (
-            "repair_projection_publication_and_split_contract_then_request_separate_owner_gate"
+            "request_separate_owner_gate_then_author_in_fresh_output_blind_context"
         ),
     }
     return QueryAuthoringReadiness.model_validate(
