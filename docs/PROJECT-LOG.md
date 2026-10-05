@@ -1,5 +1,50 @@
 # Project Log
 
+## 2026-10-05 — Image Search Resolver Dataset v1：建立 153 筆 source-grounded 查詢與完整 release 答案
+
+### 新執行了什麼，解決什麼問題
+
+本輪從 owner 提供、Git-ignored 的 1,763 筆 release dataset 中，以固定 seed `20261005` 隨機抽取
+180 個不重複 casting，為每個 casting 取得一張 Google Images 搜尋結果圖片，再依 Resume Project
+既有 Serper Lens adapter 的候選整理方式產生一筆文字 query。最後將文字 query 與原始 release row
+的 casting-level 答案及完整 release identity 配對，形成 `image-search-resolver-v1`。這解決了原本
+benchmark query 與目前 catalog coverage 不一定相交、因而大量只能 held 的問題：新資料的每一筆
+答案都直接來自抽樣時使用的 1,763 筆來源，而不是事後猜測。
+
+第一次收集雖然得到 180 筆，但必要品質檢查只發現 132 筆 query 與預期 casting 有嚴格文字重疊；
+例如搜尋頁第一張可下載圖片可能是相似車款或頁面推薦圖。這批結果沒有直接採用，而是加入 seed image
+title 驗證：圖片結果必須包含 toy number、完整 normalized casting，或至少 80% casting token overlap。
+保留 139 筆自洽資料並重收／替換 41 筆後，180 張 seed images 均通過來源標題檢查；第二道 query
+檢查再排除 27 筆 Lens 文字不足以支持正確答案的結果。這 27 筆包含合法別名，也混有明顯錯車，因此
+沒有逐筆主觀挑選，而是整批依同一門檻剔除。最終保留 153 個 unique castings 與 153 個 unique
+queries，仍落在預定的 150–200 筆範圍，且每筆都回連同一筆 source-defined identity。
+
+### 代碼修改了哪一部分、原因與決策
+
+永久新增的資料只有 `data/evaluation/image-search-resolver-v1/dataset.json`。每筆只保留 `id`、
+`query`、`expected_casting` 與 `expected_full_identity`；完整 identity 使用來源現有的 brand、casting、
+release_year、series、collector_number、series_position、toy_number，以及來源實際存在時才保留的
+variant_note／color。這樣同時支援 casting-level 與 release-level 評估，又不把 image URL、圖片 hash、
+搜尋時間、raw response、候選清單或 adapter metadata 混入最終 benchmark。
+
+所有收集腳本、圖片、raw/progress 檔與 API 中間結果都只存在獨立、Git-ignored 的暫存資料夾；正式
+dataset 通過結構與隱私檢查後，該資料夾整體刪除。沒有把 Resume Project 的 `.env` 或 Serper key
+複製到本專案。這個選擇符合資料最小化要求，也避免把一次性的收集器誤當成 Product Variant Resolver
+的產品程式碼。
+
+### 技術棧／方法選型、驗證與限制
+
+抽樣採 Python fixed-seed shuffle，使 180 筆候選可由相同私有來源重現；圖片搜尋使用 Google Images，
+反向圖片文字結果沿用 Resume Project 的 Serper Lens response parsing、文字清理、候選聚類與品質排序，
+因此 `query` 是既有 adapter 選出的 Top-1 `display_name`，不是未處理的第一個搜尋片段。永久 JSON 已
+驗證為 153 個連續 ID、153 個 unique queries、153 個 unique castings、完整 identity linkage、精確
+schema，且不含 URL、hash、timestamp、API key、historical human label、failure category 或 split。
+
+這份答案代表 1,763 筆第三方 release source 所定義的正確身份，不代表 Mattel/manufacturer-certified
+global truth，也不是 canonical UUID。由於 seed 圖片是用答案 casting 主動搜尋取得，此資料適合驗證
+「圖片搜尋文字 → resolver」流程與 release-level discrimination；它不是衡量自然使用者查詢分布的
+無偏樣本，後續報告必須保留這項限制。
+
 ## 2026-10-05 — RHB-T6 Review Batch 2：保留十筆證據不足資料，加入安全的 append update
 
 ### 新執行了什麼，解決什麼問題
