@@ -1,0 +1,159 @@
+{
+  "approved_exact_variant_count": 20,
+  "audit_version": "representative-hard-benchmark-car-t6-reaudit-v1",
+  "authority_file": "canonical-authority-reaudit-v1.json",
+  "authority_record_order": [
+    "car-t6-car-t3-fandom-row-0b280377b913e854",
+    "car-t6-car-t3-fandom-row-20f16ad2c5417006",
+    "car-t6-car-t3-fandom-row-26b0ba519bca3a01",
+    "car-t6-car-t3-fandom-row-27fe2c9ab41942b8",
+    "car-t6-car-t3-fandom-row-2a5c961e0bb57c99",
+    "car-t6-car-t3-fandom-row-38aa30ce0eed34ca",
+    "car-t6-car-t3-fandom-row-3a6c7c2b9a6429fa",
+    "car-t6-car-t3-fandom-row-3aa2e8967b2f55bf",
+    "car-t6-car-t3-fandom-row-53333b0feb531ebc",
+    "car-t6-car-t3-fandom-row-592082e49745a19f",
+    "car-t6-car-t3-fandom-row-710c84b99e8c2e48",
+    "car-t6-car-t3-fandom-row-75cd82288d943dce",
+    "car-t6-car-t3-fandom-row-77ecedc5e3db3f77",
+    "car-t6-car-t3-fandom-row-78748248e56441f5",
+    "car-t6-car-t3-fandom-row-7e1a3b3ad2244c80",
+    "car-t6-car-t3-fandom-row-a69d24d7e300d639",
+    "car-t6-car-t3-fandom-row-d9d82c60489c0456",
+    "car-t6-car-t3-fandom-row-e5b00b0411a6187d",
+    "car-t6-car-t3-fandom-row-eb74e3eebcc4dcf4",
+    "car-t6-car-t3-fandom-row-ebf5fc720ec1d06d"
+  ],
+  "authority_sha256": "72c11aeb8db03267a8deca4f50eb09d89c2c423a7e9ca983f498f76e80553117",
+  "authority_version": "representative-hard-benchmark-canonical-authority-car-t6-v1",
+  "benchmark_labels_consulted": false,
+  "car_t6_authorization_sha256": "bfd7c0a9aae2df86a28d875700714fd9c89a1c000f0dc41eab8684c8a80c6fe6",
+  "catalog_sha256": "e763c8739a76ab4cc9b66169aecd4aea241ee810d8a27cdfb7d05bcacd98562e",
+  "catalog_version": "catalog-v2",
+  "family_composition": [
+    {
+      "approved_variant_count": 3,
+      "family_group_key": "car-t3-family-21-ford-bronco",
+      "release_keys": [
+        "release-2025-hyw73",
+        "release-2025-hyx50",
+        "release-2025-hyy32"
+      ]
+    },
+    {
+      "approved_variant_count": 3,
+      "family_group_key": "car-t3-family-draftnator",
+      "release_keys": [
+        "release-2025-hyw70",
+        "release-2025-hyx67",
+        "release-2025-hyy31"
+      ]
+    },
+    {
+      "approved_variant_count": 3,
+      "family_group_key": "car-t3-family-mazda-autozam",
+      "release_keys": [
+        "release-2025-hyw66",
+        "release-2025-hyx45",
+        "release-2025-hyy10"
+      ]
+    },
+    {
+      "approved_variant_count": 2,
+      "family_group_key": "car-t3-family-mazda-mx-5-miata",
+      "release_keys": [
+        "release-2025-hyw18",
+        "release-2025-hyx57"
+      ]
+    },
+    {
+      "approved_variant_count": 3,
+      "family_group_key": "car-t3-family-morgan-super-3",
+      "release_keys": [
+        "release-2025-hyw13",
+        "release-2025-hyx48",
+        "release-2025-hyy33"
+      ]
+    },
+    {
+      "approved_variant_count": 3,
+      "family_group_key": "car-t3-family-nissan-skyline-2000gt-r-lbwk",
+      "release_keys": [
+        "release-2025-hyw79",
+        "release-2025-hyx54",
+        "release-2025-hyy30"
+      ]
+    },
+    {
+      "approved_variant_count": 3,
+      "family_group_key": "car-t3-family-subaru-brz",
+      "release_keys": [
+        "release-2025-hyw99",
+        "release-2025-hyy12",
+        "release-2025-jbb55"
+      ]
+    }
+  ],
+  "gate_result": "passed_exact_authority_gate",
+  "generated_at": "2026-10-05T00:38:19Z",
+  "generated_by": "scripts/build_representative_hard_benchmark_authority_reaudit.py",
+  "historical_rhb_t4": {
+    "authority_record_count": 0,
+    "authority_sha256": "f0a9fe00f8f48cd81eb603170847f6485db6940c8c6e421bbb601789446ce1af",
+    "gate_result": "blocked_insufficient_exact_authority",
+    "manifest_sha256": "10c38740b94f43d5ebba4932d0c946bcd2997eac59f0e52ba71c0d4bc5b44f7d",
+    "preserved_without_overwrite": true
+  },
+  "manifest_sha256": "d27d4b0f38efbb26d7ce69c544bf5e93b2280a6788b872920eeb4ba5662ec15f",
+  "network_requests": 0,
+  "next_allowed_step": "owner_gate_rhb_t5_separate_authorization_required",
+  "ordered_input_artifacts": [
+    {
+      "reference": "car-t5f-approved-authority.json",
+      "sha256": "9922ff037fd79c61677008951a5de2fc2bfca52441c7f4d5b70d50c174dfa5ae"
+    },
+    {
+      "reference": "car-t5f-authority-manifest.json",
+      "sha256": "a02a200207de229c88978eaf2469db485bc29f63a89a2fbd788d6c63b4a03467"
+    },
+    {
+      "reference": "catalog.json",
+      "sha256": "e763c8739a76ab4cc9b66169aecd4aea241ee810d8a27cdfb7d05bcacd98562e"
+    },
+    {
+      "reference": "historical-rhb-t4-authority.json",
+      "sha256": "f0a9fe00f8f48cd81eb603170847f6485db6940c8c6e421bbb601789446ce1af"
+    },
+    {
+      "reference": "historical-rhb-t4-manifest.json",
+      "sha256": "10c38740b94f43d5ebba4932d0c946bcd2997eac59f0e52ba71c0d4bc5b44f7d"
+    },
+    {
+      "reference": "private-car-t6-owner-authorization.json",
+      "sha256": "bfd7c0a9aae2df86a28d875700714fd9c89a1c000f0dc41eab8684c8a80c6fe6"
+    },
+    {
+      "reference": "review-events.json",
+      "sha256": "6bc25e5057af6d7e583208678f56143b69a990a4ea0b00a0d7c5d4d54d9f4186"
+    }
+  ],
+  "prohibited_next_steps": [
+    "RHB_T5",
+    "query_pack_authoring",
+    "label_authoring"
+  ],
+  "publication_scope": "safe_metadata_and_authority_records",
+  "qualifying_family_count": 7,
+  "resolver_output_consulted": false,
+  "rhb_t5_authorized": false,
+  "schema_version": "pvr-representative-hard-benchmark-car-t6-reaudit-manifest-v1",
+  "status": "complete",
+  "thresholds": {
+    "exact_variant_shortfall": 0,
+    "minimum_exact_variants": 20,
+    "minimum_qualifying_families": 4,
+    "observed_exact_variants": 20,
+    "observed_qualifying_families": 7,
+    "qualifying_family_shortfall": 0
+  }
+}

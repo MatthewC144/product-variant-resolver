@@ -1,0 +1,607 @@
+{
+  "authority_version": "representative-hard-benchmark-canonical-authority-car-t6-v1",
+  "publication_scope": "public",
+  "records": [
+    {
+      "authority_id": "car-t6-car-t3-fandom-row-0b280377b913e854",
+      "canonical_catalog_version": "catalog-v2",
+      "canonical_uuid": "d20977aa-09a2-55e7-8d77-c8fa54f5479d",
+      "catalog_record_sha256": "3cf9f09e065bcd3f5d78e0930390cac3393df8f77daa1f7d402884ab0b212112",
+      "evidence_source_ids": [
+        "fandom-hot-wheels-2025-pilot-r790665-v1"
+      ],
+      "independent_evidence_refs": [
+        "sha256:11c10878a3763a7ab43b17ddf863c82eb405e90069de09eceff6e92f556834ce",
+        "sha256:24b33867947ca554162d763dd9fdecc635d6cebcae58795dbbc67173cb565ebe",
+        "sha256:4e9cb0d39ef183b0aa70201e67738f0c8208c087ec4452ec0adef913c38311c0",
+        "sha256:735b3e30f5f3a07125fa1fdef085cf8b0c10d17b444466af96d01ce3d5dff6a6",
+        "sha256:76b8dfea7c7eea215469203db8f6b72f7c69834f8ad93394b8a35b933fdc917e",
+        "sha256:ed07704d6e1a61e351d8b5df47f5de50945b496d6cec5e7ab5e3fdab6d8d3ca2"
+      ],
+      "resolver_output_consulted": false,
+      "review_reason": "Project owner explicitly approved the exact bound T5-G2 family batch relative to the frozen community snapshot; color and edition remain null; later Gates remain unauthorized.",
+      "reviewed_at": "2026-10-02T03:11:35Z",
+      "reviewed_by": "project_owner",
+      "status": "approved_exact",
+      "variant_fields_verified": [
+        "casting",
+        "release_year",
+        "series",
+        "collector_number",
+        "series_position",
+        "identifiers"
+      ]
+    },
+    {
+      "authority_id": "car-t6-car-t3-fandom-row-20f16ad2c5417006",
+      "canonical_catalog_version": "catalog-v2",
+      "canonical_uuid": "50b358f9-cdf0-56d7-be81-f0b75ea000d7",
+      "catalog_record_sha256": "753083d8538a73cab14299c7669154cf24c82fc7d2e76e65da838508654e52b9",
+      "evidence_source_ids": [
+        "fandom-hot-wheels-2025-pilot-r790665-v1"
+      ],
+      "independent_evidence_refs": [
+        "sha256:1631eb2f88f78bd3873573e778e1200db602de708660f978236aa1e5d7828ed3",
+        "sha256:2794ffe5171b1eb182227955959f536ab1e33fe1b38005434ce1eb7ff94b4739",
+        "sha256:3d5389917f84f4fa680b142f7893ac8a5d83a213e3f1569cd5b10d5700c61fb7",
+        "sha256:af19cfb56ca4e773255ebb1523857cc932942522f69e00ee2037dc6c05308110",
+        "sha256:c95a69eba10b486fa11e59b5062fedf6b26494d36a5f8cdaf95c7ffbc5a67185",
+        "sha256:ed81525324b46e4c66defd2c435674467797392628ab53e85709f04ce9a92242"
+      ],
+      "resolver_output_consulted": false,
+      "review_reason": "Project owner explicitly approved the exact bound T5-G2 family batch relative to the frozen community snapshot; color and edition remain null; later Gates remain unauthorized.",
+      "reviewed_at": "2026-10-02T17:26:22Z",
+      "reviewed_by": "project_owner",
+      "status": "approved_exact",
+      "variant_fields_verified": [
+        "casting",
+        "release_year",
+        "series",
+        "collector_number",
+        "series_position",
+        "identifiers"
+      ]
+    },
+    {
+      "authority_id": "car-t6-car-t3-fandom-row-26b0ba519bca3a01",
+      "canonical_catalog_version": "catalog-v2",
+      "canonical_uuid": "76188645-6430-559e-96a2-73a844524763",
+      "catalog_record_sha256": "fd0504ef7b109d34509648dd9489feb76227c18879b30d3e73a1d6500fe1ee14",
+      "evidence_source_ids": [
+        "fandom-hot-wheels-2025-pilot-r790665-v1"
+      ],
+      "independent_evidence_refs": [
+        "sha256:10b3aed5e3cecdb1cc6dd758e17ff877c6dad8b986cf01da557b147b06124a33",
+        "sha256:1a0ce5a382f724b95e935a94a09b7cf6b7cce30fed916e645833abfbc45af57f",
+        "sha256:473f25294a6162f7b1e0f72957e8f2f750c5780575e57b387eb1d54f2887dbba",
+        "sha256:6923765165c16b8143c8b23d1a0e7e6668bb5fe2df8d74a7abd5554a7ef07495",
+        "sha256:b51a2d5e5f89915170c640368070aeaf3807c04f2cf4d3928111a81a94192eb3",
+        "sha256:e9f4494dd83d1d618ce9a82afe456ffc20b9676797092d887f92a7bbd3f286ab"
+      ],
+      "resolver_output_consulted": false,
+      "review_reason": "Project owner explicitly approved the exact bound T5-G2 family batch relative to the frozen community snapshot; color and edition remain null; later Gates remain unauthorized.",
+      "reviewed_at": "2026-10-02T18:18:03Z",
+      "reviewed_by": "project_owner",
+      "status": "approved_exact",
+      "variant_fields_verified": [
+        "casting",
+        "release_year",
+        "series",
+        "collector_number",
+        "series_position",
+        "identifiers"
+      ]
+    },
+    {
+      "authority_id": "car-t6-car-t3-fandom-row-27fe2c9ab41942b8",
+      "canonical_catalog_version": "catalog-v2",
+      "canonical_uuid": "d2ee5fd2-006e-5758-bdc3-9cfd7f29bcc9",
+      "catalog_record_sha256": "4719466714687da1f90be551a9c4c971d07e1997b828625ae2af449c2e019065",
+      "evidence_source_ids": [
+        "fandom-hot-wheels-2025-pilot-r790665-v1"
+      ],
+      "independent_evidence_refs": [
+        "sha256:0a5d22053a3649a7a1cf7e59f8d2c7d659874540112c052e35b731278dc309c0",
+        "sha256:2ff977eea6fb3c0af65c9537a1101bee8d3a5a5790ff834ea8da12810d7338ca",
+        "sha256:3050fab5d5148fa05c1ba0be27f2825e4d3932ec76232f4071b25d227cd7d8f3",
+        "sha256:832dcad5a1a6e9c907421e3a8c24d4687c13fa4b7512600941fa00c6a171cb95",
+        "sha256:c134de08ba4effd36fb6a78b7e87c8932f6eb7bdb52955fed56a3244fef64468",
+        "sha256:f3c4f63aeaef1382755668dd754836d86b9924d9cd750f24b8a81346698027c7"
+      ],
+      "resolver_output_consulted": false,
+      "review_reason": "Project owner explicitly approved the exact bound T5-G2 family batch relative to the frozen community snapshot; color and edition remain null; later Gates remain unauthorized.",
+      "reviewed_at": "2026-10-02T19:10:59Z",
+      "reviewed_by": "project_owner",
+      "status": "approved_exact",
+      "variant_fields_verified": [
+        "casting",
+        "release_year",
+        "series",
+        "collector_number",
+        "series_position",
+        "identifiers"
+      ]
+    },
+    {
+      "authority_id": "car-t6-car-t3-fandom-row-2a5c961e0bb57c99",
+      "canonical_catalog_version": "catalog-v2",
+      "canonical_uuid": "4d4e2f22-2970-5fc6-9262-1891953ec5d3",
+      "catalog_record_sha256": "a1674122ed8223904c27df23074d4f283a4288caf2e580b97821d6430bd1d92b",
+      "evidence_source_ids": [
+        "fandom-hot-wheels-2025-pilot-r790665-v1"
+      ],
+      "independent_evidence_refs": [
+        "sha256:4692a52e6cee9cf221e47d58d38066a9fc2dc9e4b94bba6d6f25eacfba106704",
+        "sha256:51563ce74daf6e4e9a1d3c9aad49c766b074ab7a3101eb1e43647bd56a52763c",
+        "sha256:545798f81042f7f626d619453541982fbe47be1c19b907d2fe96439cbd4d91b1",
+        "sha256:7a0b483890b271d547163e5cc26c0be0520a8caf88586c0e7dfc45212128e4a8",
+        "sha256:87438ba5f7f654ccde0cf488971b6147fbfa53493bd0a6009773e288a43bdaa3",
+        "sha256:cfcecfa915b71931af6493126740784a9a1b5fd51f501ac1d98c08cf6baca971"
+      ],
+      "resolver_output_consulted": false,
+      "review_reason": "Project owner explicitly approved the exact bound T5-G2 family batch relative to the frozen community snapshot; color and edition remain null; later Gates remain unauthorized.",
+      "reviewed_at": "2026-10-03T16:57:30Z",
+      "reviewed_by": "project_owner",
+      "status": "approved_exact",
+      "variant_fields_verified": [
+        "casting",
+        "release_year",
+        "series",
+        "collector_number",
+        "series_position",
+        "identifiers"
+      ]
+    },
+    {
+      "authority_id": "car-t6-car-t3-fandom-row-38aa30ce0eed34ca",
+      "canonical_catalog_version": "catalog-v2",
+      "canonical_uuid": "83f72d7b-7a6e-5b12-aaef-2a1a4e8cd850",
+      "catalog_record_sha256": "e979185de94b2a7e71fa92dbe73defd86f6cf8cba604b1b8173be228eeeaea84",
+      "evidence_source_ids": [
+        "fandom-hot-wheels-2025-pilot-r790665-v1"
+      ],
+      "independent_evidence_refs": [
+        "sha256:1139a8b04458f46112d643d01d2b8a4f103d8cfb754779634a05f1533d68fe5c",
+        "sha256:a04f803753249987341b16af304ab8a2ff6426b92495358fe7e9f63e3a1ce49a",
+        "sha256:b615baf5143f24d4f59023beca2347c41c0f14c0839e8239cc482b7d875e455c",
+        "sha256:e3c231f410a6cc9b8fa0a9c5df071f4c573331e225ded4762cab0a2918d17a95",
+        "sha256:f061bc09f3fb4ac097c2e3cc55dab7dcd2949f10125bc84e5249138e2a86d875",
+        "sha256:fdb0fdd35c685b61ff17a69c47e292d17c254afe806b47a37944270b332cd5c8"
+      ],
+      "resolver_output_consulted": false,
+      "review_reason": "Project owner explicitly approved the exact bound T5-G2 family batch relative to the frozen community snapshot; color and edition remain null; later Gates remain unauthorized.",
+      "reviewed_at": "2026-10-03T19:37:17Z",
+      "reviewed_by": "project_owner",
+      "status": "approved_exact",
+      "variant_fields_verified": [
+        "casting",
+        "release_year",
+        "series",
+        "collector_number",
+        "series_position",
+        "identifiers"
+      ]
+    },
+    {
+      "authority_id": "car-t6-car-t3-fandom-row-3a6c7c2b9a6429fa",
+      "canonical_catalog_version": "catalog-v2",
+      "canonical_uuid": "3bdc5a02-281d-5364-9f32-6a0da46bce93",
+      "catalog_record_sha256": "6807071e6830d38bd990b2774a876294385d8c8c065b3dd238a8c350cbeb6db4",
+      "evidence_source_ids": [
+        "fandom-hot-wheels-2025-pilot-r790665-v1"
+      ],
+      "independent_evidence_refs": [
+        "sha256:26644cce1cbe5eeee094a9775b79c208e501e9336a34e3aba6e3ad02cc28cc02",
+        "sha256:972627f314ffb59198b7fbef7b99b18dd69c3bed8973fbced93ae69a8fdc59d0",
+        "sha256:b1a62673c694530089a68f0ec0ec2e5e8ab4b286e7e023f64db4738bf9e4962d",
+        "sha256:b42467395196f935ce7aba85749b6eecd50f6c94e1677068870d2046c54ebb0f",
+        "sha256:e8a04c898485ce218154ad75abf225469913eb6d3e7923c6440bf7993a32e3ac",
+        "sha256:ec16fc54d5e4912136c0ea9b5fcf627f92bd1b45150607a8887148533d5d0f14"
+      ],
+      "resolver_output_consulted": false,
+      "review_reason": "Project owner explicitly approved the exact bound T5-G2 family batch relative to the frozen community snapshot; color and edition remain null; later Gates remain unauthorized.",
+      "reviewed_at": "2026-10-03T16:57:30Z",
+      "reviewed_by": "project_owner",
+      "status": "approved_exact",
+      "variant_fields_verified": [
+        "casting",
+        "release_year",
+        "series",
+        "collector_number",
+        "series_position",
+        "identifiers"
+      ]
+    },
+    {
+      "authority_id": "car-t6-car-t3-fandom-row-3aa2e8967b2f55bf",
+      "canonical_catalog_version": "catalog-v2",
+      "canonical_uuid": "3c5b6cf4-1bd9-502a-8eac-63d865b4fc91",
+      "catalog_record_sha256": "f87212bfbd142a56a80f95b5a1121dc53153aa57317c3572131d133b16ac68eb",
+      "evidence_source_ids": [
+        "fandom-hot-wheels-2025-pilot-r790665-v1"
+      ],
+      "independent_evidence_refs": [
+        "sha256:07b64762288932c6c41836d7aedf90aee226bb421af68762aedd8f4c91d9745c",
+        "sha256:19c70b449335c8277ab362002b8d0232018b7df87fd70527953bec2a23bca4bd",
+        "sha256:42a8bde56cc24a9a9a0997e671e53c773c2588074060ef3e5d55258f7636de20",
+        "sha256:6f18bfad36bb6791fdeefc77ba895f072e053a66c3c295bb68cbed30ad492011",
+        "sha256:72191307187b26a226f619f22cf46e8ba9efa48d85a05af7280e9b77d4d4174f",
+        "sha256:cdf036a5a528aeaf7d20e038e3dfc1de45849e7c7af329a493cf294e14d1f3c5"
+      ],
+      "resolver_output_consulted": false,
+      "review_reason": "Project owner explicitly approved the exact bound T5-G2 family batch relative to the frozen community snapshot; color and edition remain null; later Gates remain unauthorized.",
+      "reviewed_at": "2026-10-02T18:18:03Z",
+      "reviewed_by": "project_owner",
+      "status": "approved_exact",
+      "variant_fields_verified": [
+        "casting",
+        "release_year",
+        "series",
+        "collector_number",
+        "series_position",
+        "identifiers"
+      ]
+    },
+    {
+      "authority_id": "car-t6-car-t3-fandom-row-53333b0feb531ebc",
+      "canonical_catalog_version": "catalog-v2",
+      "canonical_uuid": "7b089c66-fa6e-5f9f-8aaf-7ff2ae6a296c",
+      "catalog_record_sha256": "86dd3f8d0d29e42ac767698d05bbddf0a5fc51210ae5492c7736dee9bfe4a7a6",
+      "evidence_source_ids": [
+        "fandom-hot-wheels-2025-pilot-r790665-v1"
+      ],
+      "independent_evidence_refs": [
+        "sha256:14fb13849464814029a273ffde86f0cb0b2cdaa0e61a7112dfa05d41e9661914",
+        "sha256:4907f0798f9100b9516dd9cba408a4deaa6a5fe8d81af14f3f526665b336ffd5",
+        "sha256:76269ed1306afa7efe1f695b866c50fdace5a196c716ca038f47c61a4d4c22a5",
+        "sha256:be1d72304735e7c0cb0a150fd422cd805ef51060df67d3d8b4a82c3058f59bde",
+        "sha256:c7e172283c8a2679809092610b9403ea83db7fe93486c1c45fc6b89c23466319",
+        "sha256:da3fe24e65909a0814a52bfe9db029a66e4bca96c0e0bf7b55391a2101fe6fd4"
+      ],
+      "resolver_output_consulted": false,
+      "review_reason": "Project owner explicitly approved the exact bound T5-G2 family batch relative to the frozen community snapshot; color and edition remain null; later Gates remain unauthorized.",
+      "reviewed_at": "2026-10-03T19:56:37Z",
+      "reviewed_by": "project_owner",
+      "status": "approved_exact",
+      "variant_fields_verified": [
+        "casting",
+        "release_year",
+        "series",
+        "collector_number",
+        "series_position",
+        "identifiers"
+      ]
+    },
+    {
+      "authority_id": "car-t6-car-t3-fandom-row-592082e49745a19f",
+      "canonical_catalog_version": "catalog-v2",
+      "canonical_uuid": "97dee015-29b9-564e-b529-a51c151edd6d",
+      "catalog_record_sha256": "4a779382615f824436c8e36abd4ecaeab1c2953862b3825030b9127d7dabc0cb",
+      "evidence_source_ids": [
+        "fandom-hot-wheels-2025-pilot-r790665-v1"
+      ],
+      "independent_evidence_refs": [
+        "sha256:02a1ea353667ebfed8fe9dc29aee97184ca8910c73bd675fb1eb02057a2e5d35",
+        "sha256:2423d1e183600ac4f4574fa30851cd8caf9f0c29c554d94d8a39fa0afad32b40",
+        "sha256:28a0fe03349cd7e36575aae75405907f3f34a99396286906ba36b33ed5498077",
+        "sha256:3b8228859dbedc394087d986e42d967faa6a888107fc0e78dc362892143e7942",
+        "sha256:6fca8322ef25166d855fc73f38ed8a77b9992f6efad2a3fc1befd5c83230e0c1",
+        "sha256:ca00f2927ba84bcc4f2a63bd8fd338126c5f134d2beb37d856b237a7f3e58803"
+      ],
+      "resolver_output_consulted": false,
+      "review_reason": "Project owner explicitly approved the exact bound T5-G2 family batch relative to the frozen community snapshot; color and edition remain null; later Gates remain unauthorized.",
+      "reviewed_at": "2026-10-02T03:11:35Z",
+      "reviewed_by": "project_owner",
+      "status": "approved_exact",
+      "variant_fields_verified": [
+        "casting",
+        "release_year",
+        "series",
+        "collector_number",
+        "series_position",
+        "identifiers"
+      ]
+    },
+    {
+      "authority_id": "car-t6-car-t3-fandom-row-710c84b99e8c2e48",
+      "canonical_catalog_version": "catalog-v2",
+      "canonical_uuid": "75ddc979-dc29-51b8-8e24-543243af74bd",
+      "catalog_record_sha256": "40c128d0bb8e643912fb6c86feb48b40f0f1661aa96ad7ce98bc2ea711ba0756",
+      "evidence_source_ids": [
+        "fandom-hot-wheels-2025-pilot-r790665-v1"
+      ],
+      "independent_evidence_refs": [
+        "sha256:124e80fb7456f37c9e56d8548463f5c8b6c2b1d2b5db4404d114f99c3d6e9e99",
+        "sha256:299686c8297f8e10092d5d7334b1a44d102241a1052b0fa6a454b55be784e8a0",
+        "sha256:3c06f75a52dc544839708051ff933817244de19fa17e8abaaef4d79349001131",
+        "sha256:aa553a1e1ae6727c1e544658a53f19447ee962d16579503ff5e2072f2630f161",
+        "sha256:db7fa3f324b41b4e9da26a6f98cb76bd99964808dae7faf7ba089e7b5b2a8362",
+        "sha256:f4dc07a8f3238698d836116c8566cff3ab1313a6dfe8d79e289a78c7f17eaf3a"
+      ],
+      "resolver_output_consulted": false,
+      "review_reason": "Project owner explicitly approved the exact bound T5-G2 family batch relative to the frozen community snapshot; color and edition remain null; later Gates remain unauthorized.",
+      "reviewed_at": "2026-10-02T17:26:22Z",
+      "reviewed_by": "project_owner",
+      "status": "approved_exact",
+      "variant_fields_verified": [
+        "casting",
+        "release_year",
+        "series",
+        "collector_number",
+        "series_position",
+        "identifiers"
+      ]
+    },
+    {
+      "authority_id": "car-t6-car-t3-fandom-row-75cd82288d943dce",
+      "canonical_catalog_version": "catalog-v2",
+      "canonical_uuid": "b56c19bc-8806-5285-85eb-fe6944a2d267",
+      "catalog_record_sha256": "6e66b5909396753f07df3117d4c4f91900b4a409968d78f7764d98fd672027d1",
+      "evidence_source_ids": [
+        "fandom-hot-wheels-2025-pilot-r790665-v1"
+      ],
+      "independent_evidence_refs": [
+        "sha256:02589464a9ef45ffbe9a27697b271ef92fdff5b5a5a6537986fa82812d46cab4",
+        "sha256:16b86bbe030147cf54632cca86415859576f1b7efcf3d905ace2e26b38c48ded",
+        "sha256:38eb4cc89bcca370be204d22ff1ecebec878c66391d2bf9c6a90b4f6d760a45b",
+        "sha256:b26a5fa7bae41f54bb668d1ad4af500c5aae042202ecbe22280d493f45ca79cb",
+        "sha256:bc22fd9527a032ff0804a484150d1a6af6bf1c72f8ad933adfd4f0081123bcf8",
+        "sha256:d5eb9c6dc812c18517a661408e242e8e8219059610f27d40b4f078cce686ce59"
+      ],
+      "resolver_output_consulted": false,
+      "review_reason": "Project owner explicitly approved the exact bound T5-G2 family batch relative to the frozen community snapshot; color and edition remain null; later Gates remain unauthorized.",
+      "reviewed_at": "2026-10-03T19:37:17Z",
+      "reviewed_by": "project_owner",
+      "status": "approved_exact",
+      "variant_fields_verified": [
+        "casting",
+        "release_year",
+        "series",
+        "collector_number",
+        "series_position",
+        "identifiers"
+      ]
+    },
+    {
+      "authority_id": "car-t6-car-t3-fandom-row-77ecedc5e3db3f77",
+      "canonical_catalog_version": "catalog-v2",
+      "canonical_uuid": "4930354f-a9fe-5928-8358-4c96bfb1907e",
+      "catalog_record_sha256": "5b9b3974d899b93ad545f35b3ea90f45add80e89fbf11cbd26952d2e95fae0df",
+      "evidence_source_ids": [
+        "fandom-hot-wheels-2025-pilot-r790665-v1"
+      ],
+      "independent_evidence_refs": [
+        "sha256:25c6e039a289799d7ece7e4a16e1603dc6c0b8863f68389e20891bb068d2f368",
+        "sha256:5693f408de6d6b79158dc255c45db9d91fcef45f6fbec6ca55b272e4c07d0353",
+        "sha256:803646558b31dc3a8525bffc9f53c186cdbe6d8e5f804cb2f6d98663d7ebfda1",
+        "sha256:8713770cd15171f5ea8f1d6090d45ef46f46da50c9bb2b71517381ade2d3ece7",
+        "sha256:ad8c18ca59a191cddff3df4bade08b578fd3e67917b0e64821d3470cc6cf1798",
+        "sha256:d79c42628af04c1c6e53dc1f2f853cf5de9aa7b3e0e5304798924b42b39d7e75"
+      ],
+      "resolver_output_consulted": false,
+      "review_reason": "Project owner explicitly approved the exact bound T5-G2 family batch relative to the frozen community snapshot; color and edition remain null; later Gates remain unauthorized.",
+      "reviewed_at": "2026-10-02T19:10:59Z",
+      "reviewed_by": "project_owner",
+      "status": "approved_exact",
+      "variant_fields_verified": [
+        "casting",
+        "release_year",
+        "series",
+        "collector_number",
+        "series_position",
+        "identifiers"
+      ]
+    },
+    {
+      "authority_id": "car-t6-car-t3-fandom-row-78748248e56441f5",
+      "canonical_catalog_version": "catalog-v2",
+      "canonical_uuid": "7719b74b-ede7-5eab-8256-ce92b2a26618",
+      "catalog_record_sha256": "13924839ca20b4a9c04924e1d1a1f63ed5c5c9b4a59528a785c2f4e4172b5b45",
+      "evidence_source_ids": [
+        "fandom-hot-wheels-2025-pilot-r790665-v1"
+      ],
+      "independent_evidence_refs": [
+        "sha256:0ab3f53089ff2fbcfe5061773018c7675e9b58fedf90ee0a9a3d000313729cd1",
+        "sha256:0b627954bc5b07ac72fe88ecfd564f813f46ea71035e722491e483d1b8c73d2e",
+        "sha256:6a9a9969fb711ab9cae65821380ed367cee038a85b7c382e3d89e4b9561eb634",
+        "sha256:ab6612e4937ed590e9ce4155234385587ad66aea00da9ace285e1481c22b8d47",
+        "sha256:b28e69abe7bd1d5702a727e845849ba88b4e7db297d201dc90f8a579e7e5f87a",
+        "sha256:ea7bdc4ae7d735e5f7ed45a0b576e5d62b051584022fe5691eb133f1c37878fa"
+      ],
+      "resolver_output_consulted": false,
+      "review_reason": "Project owner explicitly approved the exact bound T5-G2 family batch relative to the frozen community snapshot; color and edition remain null; later Gates remain unauthorized.",
+      "reviewed_at": "2026-10-02T18:18:03Z",
+      "reviewed_by": "project_owner",
+      "status": "approved_exact",
+      "variant_fields_verified": [
+        "casting",
+        "release_year",
+        "series",
+        "collector_number",
+        "series_position",
+        "identifiers"
+      ]
+    },
+    {
+      "authority_id": "car-t6-car-t3-fandom-row-7e1a3b3ad2244c80",
+      "canonical_catalog_version": "catalog-v2",
+      "canonical_uuid": "2a0fc7fb-896f-53fd-b8f9-3dd3b49568a8",
+      "catalog_record_sha256": "51c01e8fe2f4c59ddb36842122f8c238a818dd5c3349ce1f2e7a360b4b6dcdb3",
+      "evidence_source_ids": [
+        "fandom-hot-wheels-2025-pilot-r790665-v1"
+      ],
+      "independent_evidence_refs": [
+        "sha256:0d8bea0bdb77df36e6e8d503d944681a29a0ad2336548e9e5e99b897036c845a",
+        "sha256:47e5c6d46c10e3e7905fbace5a23946bc69d1a77e11203a62f22e3f5b5ee929d",
+        "sha256:68de61a2f7987e06c96fba5054838a8183b75792f1723007acd24609e54e0eff",
+        "sha256:6a692af01d08b21be10281eb4a719d3bd1cbf342fdd98cdd5e499a9c811eb913",
+        "sha256:7b34a898de9d19e7702aa54a947ab4dbadd178d012c78ad24a79bbf0b41ccdd7",
+        "sha256:ee3d59099627e01334b613d34ce9314bcd8d15d242d13f53afbb5f87c9da721f"
+      ],
+      "resolver_output_consulted": false,
+      "review_reason": "Project owner explicitly approved the exact bound T5-G2 family batch relative to the frozen community snapshot; color and edition remain null; later Gates remain unauthorized.",
+      "reviewed_at": "2026-10-03T19:56:37Z",
+      "reviewed_by": "project_owner",
+      "status": "approved_exact",
+      "variant_fields_verified": [
+        "casting",
+        "release_year",
+        "series",
+        "collector_number",
+        "series_position",
+        "identifiers"
+      ]
+    },
+    {
+      "authority_id": "car-t6-car-t3-fandom-row-a69d24d7e300d639",
+      "canonical_catalog_version": "catalog-v2",
+      "canonical_uuid": "7f017730-d2c7-5928-983c-fd90408f95a5",
+      "catalog_record_sha256": "d03ec32cc013cc71aee1fc6e078d3389b61ebe966f2a920ebefa523a548c56d4",
+      "evidence_source_ids": [
+        "fandom-hot-wheels-2025-pilot-r790665-v1"
+      ],
+      "independent_evidence_refs": [
+        "sha256:3dfcb742a8c3ff0159e68cdc26fcc6b2cb87fac02fa063f1d09b30b3df6836fe",
+        "sha256:42acbf6fec8f3ebf4f73cfbb83c8ece0e5ac5e9250ea7ddd819d3268e1ed7ea7",
+        "sha256:4c17c287733cfc91e56b9a1054a1cb04cdb4df4b200fb435abed9978e46b7df4",
+        "sha256:8b5156ba2f5502d8305c9a0c95270a76d0e87859ebaa78c2b60a10efb443e42f",
+        "sha256:db7ebc85c21c4ae40cfa30ed3b6b0268f467a1d7d22153ed6fa78a5c53f3096e",
+        "sha256:e89477c0eabf6341844639827151bad2293c6e32e789e8645cf739fd823f8261"
+      ],
+      "resolver_output_consulted": false,
+      "review_reason": "Project owner explicitly approved the exact bound T5-G2 family batch relative to the frozen community snapshot; color and edition remain null; later Gates remain unauthorized.",
+      "reviewed_at": "2026-10-02T03:11:35Z",
+      "reviewed_by": "project_owner",
+      "status": "approved_exact",
+      "variant_fields_verified": [
+        "casting",
+        "release_year",
+        "series",
+        "collector_number",
+        "series_position",
+        "identifiers"
+      ]
+    },
+    {
+      "authority_id": "car-t6-car-t3-fandom-row-d9d82c60489c0456",
+      "canonical_catalog_version": "catalog-v2",
+      "canonical_uuid": "bd252c2f-042d-51b3-a735-cf7561509675",
+      "catalog_record_sha256": "6356f7e25c411de574ec215ed769752b3c196dcdf24b38ed34d71cc84c0c881f",
+      "evidence_source_ids": [
+        "fandom-hot-wheels-2025-pilot-r790665-v1"
+      ],
+      "independent_evidence_refs": [
+        "sha256:1191dbf8a061e8ce7cff5914659cd8c6e562ff42d2d8a42c3af38aebf12ab1b1",
+        "sha256:133bee02a72d58cf06b8fb4cab7da0737b27e515bca0d6c0933342bac9e1e80d",
+        "sha256:2b207c956abed5fad92b9a41d76d1334fb9b48004292ec13c70f4ba384505c81",
+        "sha256:4ae049fb5939ca610a24a1023b81c8ed4cc6a01a929e2f39feba8bde48871ab1",
+        "sha256:934f9a8ffe2c2fae972d8fa32f4ae2c35ec97deecf6b59a348c050d42b49be13",
+        "sha256:b533d711b1b2b9500386f542f2fc1c1ea936f6d1a7e89eb6036ac9997a47bbab"
+      ],
+      "resolver_output_consulted": false,
+      "review_reason": "Project owner explicitly approved the exact bound T5-G2 family batch relative to the frozen community snapshot; color and edition remain null; later Gates remain unauthorized.",
+      "reviewed_at": "2026-10-03T16:57:30Z",
+      "reviewed_by": "project_owner",
+      "status": "approved_exact",
+      "variant_fields_verified": [
+        "casting",
+        "release_year",
+        "series",
+        "collector_number",
+        "series_position",
+        "identifiers"
+      ]
+    },
+    {
+      "authority_id": "car-t6-car-t3-fandom-row-e5b00b0411a6187d",
+      "canonical_catalog_version": "catalog-v2",
+      "canonical_uuid": "04639476-4feb-5788-97ef-89e32af3f408",
+      "catalog_record_sha256": "e3fabdbed5ef68909099e5b551f59384ff04449fe260ca4bbd4d8365c9f2f180",
+      "evidence_source_ids": [
+        "fandom-hot-wheels-2025-pilot-r790665-v1"
+      ],
+      "independent_evidence_refs": [
+        "sha256:1381bfc584bc797ddafb95bb39a64933b6b2491f72870396c533e1da91a64d7d",
+        "sha256:1f822d0bff53fc08e14b8bfcc92c81d268a2188b3d080c5bbab874554bf7ffcf",
+        "sha256:87bc489b4411d62c3c19a60e504dfff79c87291fe14345fffbbbe95018affe6a",
+        "sha256:8c7f53859d670c0b5bcd1e3c28c19345a0e5a406a25060341d5b223ead5277c4",
+        "sha256:a5530aa6089c45c31f0ce2bab6c1c3c8807971894c334341e20e1b3dbb4ebed5",
+        "sha256:bba774387dca6f0bf9fe77cad208dd076f6d7f76a8fb349696685efb864b16f5"
+      ],
+      "resolver_output_consulted": false,
+      "review_reason": "Project owner explicitly approved the exact bound T5-G2 family batch relative to the frozen community snapshot; color and edition remain null; later Gates remain unauthorized.",
+      "reviewed_at": "2026-10-02T17:26:22Z",
+      "reviewed_by": "project_owner",
+      "status": "approved_exact",
+      "variant_fields_verified": [
+        "casting",
+        "release_year",
+        "series",
+        "collector_number",
+        "series_position",
+        "identifiers"
+      ]
+    },
+    {
+      "authority_id": "car-t6-car-t3-fandom-row-eb74e3eebcc4dcf4",
+      "canonical_catalog_version": "catalog-v2",
+      "canonical_uuid": "02168928-7106-5066-bacf-a760443020c2",
+      "catalog_record_sha256": "3605c035e6c35fdb2bdc087c2daff1a8b83677d1c7acfc9bfd62dcb9786edf98",
+      "evidence_source_ids": [
+        "fandom-hot-wheels-2025-pilot-r790665-v1"
+      ],
+      "independent_evidence_refs": [
+        "sha256:0a74f0e3fc65a4a37eaf0daa607a0af9bbd130194cfaa38a8a132a3b1d06859f",
+        "sha256:36d289b7e100667e6c4dfdfdd176c813f0fac45a955b09c0bda14e908884d930",
+        "sha256:403ca3af8ccab1c0a6904e38ada31ccd2d5263385c7dffa5b23b8e8a5ade6495",
+        "sha256:56d862a8c559a9d40e940d21d3f4191e698a5c3363deab325be75d03712fd127",
+        "sha256:6370e2e7c28b91872f3b7ec220d3d604914752b72bc86fca72f85e788b5e7151",
+        "sha256:8b13b98edef8ba6ca77757dfbd94f9aaded2d37cd3c4d6bfccf0546401912680"
+      ],
+      "resolver_output_consulted": false,
+      "review_reason": "Project owner explicitly approved the exact bound T5-G2 family batch relative to the frozen community snapshot; color and edition remain null; later Gates remain unauthorized.",
+      "reviewed_at": "2026-10-03T19:37:17Z",
+      "reviewed_by": "project_owner",
+      "status": "approved_exact",
+      "variant_fields_verified": [
+        "casting",
+        "release_year",
+        "series",
+        "collector_number",
+        "series_position",
+        "identifiers"
+      ]
+    },
+    {
+      "authority_id": "car-t6-car-t3-fandom-row-ebf5fc720ec1d06d",
+      "canonical_catalog_version": "catalog-v2",
+      "canonical_uuid": "7d451d55-950c-59c0-8b43-a65c60c93557",
+      "catalog_record_sha256": "c7e072b3d5aeaa4059a7b99d531aded814f6f44e445a2d1e40005982d6259930",
+      "evidence_source_ids": [
+        "fandom-hot-wheels-2025-pilot-r790665-v1"
+      ],
+      "independent_evidence_refs": [
+        "sha256:1384a05d6beae1c30fda6c2eb094d546b4537fea4b58702c8329c84c77b32e34",
+        "sha256:4163da145617d7909088eb68855d1e28a53126ad9fd2f7c78167a80f3ef9ec16",
+        "sha256:44bc4b398b97ff216269c8e44c659815282012dab96c3f558a1a519a16da0e47",
+        "sha256:73d585d8098d2aa524012ae76a2bb63f10a03dcf706f92a5e3a680cfa7537de8",
+        "sha256:af98491791372797a18a066e345c9e1a6773af2eb004b34a0186b4ec3eaaa238",
+        "sha256:e84c298d2d74c3e24b229895209fb0ac4610f4784dee09e9dfb602fa441658f6"
+      ],
+      "resolver_output_consulted": false,
+      "review_reason": "Project owner explicitly approved the exact bound T5-G2 family batch relative to the frozen community snapshot; color and edition remain null; later Gates remain unauthorized.",
+      "reviewed_at": "2026-10-02T19:10:59Z",
+      "reviewed_by": "project_owner",
+      "status": "approved_exact",
+      "variant_fields_verified": [
+        "casting",
+        "release_year",
+        "series",
+        "collector_number",
+        "series_position",
+        "identifiers"
+      ]
+    }
+  ],
+  "schema_version": "pvr-representative-hard-benchmark-canonical-authority-v1"
+}

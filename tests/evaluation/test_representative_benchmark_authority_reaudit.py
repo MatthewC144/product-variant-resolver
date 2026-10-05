@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import shutil
@@ -14,6 +15,7 @@ import pytest
 import product_variant_resolver.representative_benchmark_reaudit as reaudit
 from product_variant_resolver.canonical_authority_review import (
     AuthorityContractError,
+    content_sha256,
     stable_json_bytes,
 )
 from product_variant_resolver.representative_benchmark import CanonicalAuthorityArtifact
@@ -32,8 +34,8 @@ from product_variant_resolver.representative_benchmark_reaudit import (
 ROOT = Path(__file__).resolve().parents[2]
 CLI = ROOT / "scripts" / "build_representative_hard_benchmark_authority_reaudit.py"
 AUTHORIZED_RESPONSE = (
-    "我批准執行 CAR-T6：使用 CAR-T5F frozen authority bundle 執行新的 versioned "
-    "RHB-T4 re-audit；此批准不授權 RHB-T5，也不建立 query pack 或 labels。"
+    "TEST-ONLY authorization for CAR-T6 versioned RHB-T4 re-audit; this does not authorize "
+    "RHB-T5 and does not create query pack or labels."
 )
 AUTHORIZED_AT = datetime(2026, 10, 4, 16, 0, tzinfo=UTC)
 
@@ -82,6 +84,33 @@ def _outputs_absent(root: Path) -> bool:
             REAUDIT_MANIFEST_REFERENCE,
         )
     )
+
+
+def test_checked_in_reaudit_is_publicly_verifiable_without_private_owner_text() -> None:
+    authority_raw = (ROOT / REAUDIT_AUTHORITY_REFERENCE).read_bytes()
+    manifest_raw = (ROOT / REAUDIT_MANIFEST_REFERENCE).read_bytes()
+    authority = CanonicalAuthorityArtifact.model_validate(_read(ROOT, REAUDIT_AUTHORITY_REFERENCE))
+    manifest = CarT6ReauditManifest.model_validate(_read(ROOT, REAUDIT_MANIFEST_REFERENCE))
+
+    assert len(authority.records) == 20
+    assert len({record.canonical_uuid for record in authority.records}) == 20
+    assert manifest.authority_sha256 == content_sha256(authority.model_dump(mode="json"))
+    assert manifest.approved_exact_variant_count == 20
+    assert manifest.qualifying_family_count == 7
+    assert manifest.thresholds.exact_variant_shortfall == 0
+    assert manifest.thresholds.qualifying_family_shortfall == 0
+    assert (
+        manifest.historical_rhb_t4.authority_sha256
+        == hashlib.sha256((ROOT / HISTORICAL_AUTHORITY_REFERENCE).read_bytes()).hexdigest()
+    )
+    assert (
+        manifest.historical_rhb_t4.manifest_sha256
+        == hashlib.sha256((ROOT / HISTORICAL_MANIFEST_REFERENCE).read_bytes()).hexdigest()
+    )
+    assert manifest.historical_rhb_t4.preserved_without_overwrite
+    assert manifest.next_allowed_step == "owner_gate_rhb_t5_separate_authorization_required"
+    assert not manifest.rhb_t5_authorized
+    assert AUTHORIZED_RESPONSE.encode() not in authority_raw + manifest_raw
 
 
 def test_readiness_reaudits_car_t5f_without_writing_or_changing_history(

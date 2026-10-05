@@ -85,6 +85,11 @@ artifact/version. It must never overwrite v1 while retaining an old checksum.
 - `source-decisions.json`: 66 owner-confirmed source/use cells bound to the exact inventory checksum;
   23 are approved for narrow scopes, 43 are rejected, and none are held. The approved scopes are
   10 `local_only`, 3 `aggregate_only`, and 10 `public_rows`; all 43 rejected cells are `prohibited`.
+- `canonical-authority.json` and `canonical-authority-manifest.json`: the immutable historical
+  zero-record RHB-T4 audit and its honest `blocked_insufficient_exact_authority` result.
+- `canonical-authority-reaudit-v1.json` and `canonical-authority-reaudit-manifest-v1.json`: the
+  separately authorized CAR-T6 re-audit with 20 approved exact records, seven qualifying families,
+  zero shortfalls and `passed_exact_authority_gate`.
 
 T3 passes only for the declared scopes. Human-name queries and `ambiguous`/`no_match` labels remain
 local-only; they can never produce a `matched` label. Workbook rows are local-only family context and
@@ -92,8 +97,11 @@ cannot enter query packs or scored labels. Git receives only schema/hash/count/a
 summaries for those private sources. The checked-in 100-row Wiki derivative may provide public
 query/context only for its exact revision with attribution and no new collection, and cannot provide
 scored labels. Every live external source remains rejected, `network_collection_authorized=false`,
-and all current sources remain rejected for exact authority. T4 must therefore independently audit
-the zero-real-exact starting point before any matched pilot can proceed.
+and all sources in that original RHB decision remain rejected for exact authority. The historical
+T4 therefore correctly audited the zero-real-exact starting point and stopped. A later, separately
+governed CAR source/review path produced the frozen CAR-T5F bundle; CAR-T6 then published a new
+versioned RHB-T4 re-audit instead of rewriting that historical result. The new Gate passes, but its
+authorization explicitly excludes RHB-T5, query-pack authoring and label authoring.
 
 ## Local verification
 
