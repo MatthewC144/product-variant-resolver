@@ -186,6 +186,11 @@ def build_rhb_t5_query_readiness(root: Path) -> QueryAuthoringReadiness:
 
     root = root.absolute()
     rhb_directory = root / RHB_DIRECTORY
+    owner_gate_present = (root / OWNER_AUTHORIZATION_REFERENCE).exists()
+    _expect(
+        not owner_gate_present,
+        "RHB-T5 owner authorization already exists; pre-authoring readiness is closed",
+    )
     inventory_payload = _load_object(root / INVENTORY_REFERENCE)
     inventory_manifest_payload = _load_object(root / INVENTORY_MANIFEST_REFERENCE)
     decisions_payload = _load_object(root / SOURCE_DECISIONS_REFERENCE)
@@ -324,7 +329,6 @@ def build_rhb_t5_query_readiness(root: Path) -> QueryAuthoringReadiness:
 
     projection, projection_manifest = validate_materialized_projection(root)
     output_blind_projection_present = (root / OUTPUT_BLIND_PROJECTION_REFERENCE).exists()
-    owner_gate_present = (root / OWNER_AUTHORIZATION_REFERENCE).exists()
     public_query_pack_present = (root / PUBLIC_QUERY_PACK_REFERENCE).exists()
     private_query_pack_present = (root / PRIVATE_QUERY_PACK_REFERENCE).exists()
     query_pack_manifest_present = (rhb_directory / QUERY_PACK_MANIFEST_REFERENCE.name).exists()
@@ -335,7 +339,6 @@ def build_rhb_t5_query_readiness(root: Path) -> QueryAuthoringReadiness:
         and len(projection.records) == projection_manifest.record_count == 91,
         "validated output-blind projection is incomplete",
     )
-    _expect(not owner_gate_present, "an unvalidated RHB-T5 owner authorization already exists")
     _expect(
         not public_query_pack_present
         and not private_query_pack_present

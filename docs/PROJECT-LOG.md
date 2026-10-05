@@ -1,5 +1,51 @@
 # Project Log
 
+## 2026-10-04 — RHB-T5：完成 60 筆 output-blind authoring artifact，但如實保留 coverage blocker
+
+### 新執行了什麼，解決什麼問題
+
+本輪依 owner 的精確批准，在一個新的獨立 agent 中執行 RHB-T5。該 agent 只能讀取 Git-ignored 的
+query-only projection，不能讀 mixed raw source、resolver output、human labels、failure categories 或
+split。它建立 60 筆 non-synthetic query pack：query、opaque source reference 與 evidence event 都是
+60/60 unique，並形成 53 個 provisional family groups。Raw pack、owner authorization 與 authoring
+input 都留在 local-only；Git 只保存 aggregate manifest。
+
+這解決了「如何使用真實 noisy query，又不讓既有 pipeline output 或 human answer 汙染測試題目」的
+核心問題。不過它也發現資料本身尚不足以完成所有 hard-case coverage：year、color、series、identifier
+與 unknown-to-catalog 分別仍短缺 3、3、4、2、4 筆。因此本輪交付是有效的 provenance/authoring
+artifact，不是已完成的 representative benchmark；RHB-T6、RHB-T7 與 resolver evaluation 都沒有開始。
+
+### 代碼修改了哪一部分、原因與決策
+
+新增 `representative_benchmark_query_authoring.py` 與 CLI，把 owner authorization、T1/T3 permission、
+projection hash、authoring timestamp、60 筆唯一性、evidence grouping、private permissions、public
+aggregate schema 和 atomic write 都變成 executable contract。選擇 Pydantic `extra=forbid` 與
+checksum binding，是因為僅靠文件提醒無法阻止未知欄位、舊授權或來源 drift；選擇 temp file + fsync +
+atomic replace，是為了避免 private pack 已更新、public manifest 卻仍是舊版的半完成狀態。
+
+QA 首輪另外抓到兩個重要問題：query text 無法證明 `unknown_to_catalog`，而
+`same_casting_different_release` 不能只靠單一 family row 宣稱；tracked code 也不應保存 verbatim owner
+response。最終重新選擇「provisional surface tags + explicit shortfalls」方法：禁止 T5 推論
+unknown-to-catalog、same-casting tag 必須至少有兩筆同 family、public side 只留 owner authorization
+hash。這比為了湊四筆而猜標籤更符合 benchmark 的可信度目的。
+
+同時調整 pre-authoring readiness lifecycle：一旦偵測 private Owner Gate，readiness 會在載入 mixed
+source 前立即關閉，避免已完成授權後仍把舊 readiness 當作可重複啟動 authoring 的通行證。歷史
+pre-authorization 測試則在隔離 fixture 中重建，保留 fail-closed regression coverage。
+
+### 技術棧／方法選型與驗證結果
+
+沿用 Python 3.12、Pydantic strict models、canonical JSON SHA-256 與 pytest，因為這與既有 RHB/CAR
+artifact contract 相容，也能讓本機 private workflow 完全 offline、可重播。Private directory/file
+權限為 `0700/0600`，public manifest 為 `0644`；private pack SHA-256 為
+`97f7f0dd61cf619bb16b198778356d8ef53c7a504086f11542922f90706a858a`，public manifest file SHA-256
+為 `8f2927a8f4f318d073793d161c310e319b6ac656c63e2cb20ef60565c1b31949`。
+
+全部 112 個 representative-benchmark tests 通過；Ruff、format、strict MyPy、compile 與 diff check
+通過，builder 連續兩次回傳 `unchanged`。Git-ignore 正向命中三個 private RHB-T5 檔案，且 Git 明確
+拒絕把 private query pack 視為 tracked file。這些結果只證明 authoring pipeline 的工程與隱私品質；
+因 challenge data Gate 尚未通過，沒有宣稱 real-marketplace accuracy 或代表性 benchmark 完成。
+
 ## 2026-10-04 — RHB-T5 pre-authoring repair：安全投影完成，readiness 升級為可送 Owner Gate
 
 ### 新執行了什麼，解決什麼問題

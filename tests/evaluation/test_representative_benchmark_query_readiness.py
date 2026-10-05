@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hashlib
 import json
 import shutil
 import subprocess
@@ -25,6 +24,14 @@ def isolated_root(tmp_path: Path) -> Path:
     root = tmp_path / "repo"
     root.mkdir()
     shutil.copytree(ROOT / "data", root / "data")
+    private_directory = root / RHB / "local-query-authoring-v1"
+    for filename in (
+        "rhb-t5-owner-authorization.json",
+        "query-pack-authoring-input.json",
+        "query-pack.json",
+    ):
+        (private_directory / filename).unlink(missing_ok=True)
+    (root / RHB / "query-pack-manifest.json").unlink(missing_ok=True)
     return root
 
 
@@ -32,7 +39,7 @@ def _read(path: Path) -> dict[str, Any]:
     return cast(dict[str, Any], json.loads(path.read_text(encoding="utf-8")))
 
 
-def test_real_readiness_is_deterministic_read_only_and_honestly_blocked() -> None:
+def test_real_readiness_closes_after_owner_gate_without_writing() -> None:
     watched = [
         ROOT / RHB / "query-pack.json",
         ROOT / RHB / "query-pack-manifest.json",
@@ -42,34 +49,12 @@ def test_real_readiness_is_deterministic_read_only_and_honestly_blocked() -> Non
     ]
     before = {path: path.exists() for path in watched}
 
-    first = build_rhb_t5_query_readiness(ROOT)
-    second = build_rhb_t5_query_readiness(ROOT)
-
-    assert first == second
-    assert first.status == "ready_for_separate_owner_authorization"
-    assert first.source_record_count == 101
-    assert first.nonblank_query_count == 91
-    assert first.unique_nonblank_query_count == 91
-    assert first.duplicate_nonblank_query_count == 0
-    assert first.candidate_shortfall == 0
-    assert first.source_rows_with_pipeline_outputs == 101
-    assert first.source_rows_with_human_labels == 101
-    assert first.source_rows_with_failure_categories == 99
-    assert first.approved_exact_variant_count == 20
-    assert first.qualifying_family_count == 7
-    assert not first.public_raw_query_pack_authorized
-    assert first.public_aggregate_metadata_authorized
-    assert first.output_blind_projection_present
-    assert first.output_blind_projection_valid
-    assert first.output_blind_projection_record_count == 91
-    assert first.output_blind_projection_required
-    assert first.private_authoring_path_ignored
-    assert not first.query_contract_requires_split
-    assert not first.query_contract_split_phase_alignment_required
-    assert not first.public_query_pack_present
-    assert not first.private_query_pack_present
-    assert not first.current_session_eligible_for_authoring
-    assert not first.rhb_t5_authorized
+    for _ in range(2):
+        with pytest.raises(
+            QueryReadinessError,
+            match="owner authorization already exists; pre-authoring readiness is closed",
+        ):
+            build_rhb_t5_query_readiness(ROOT)
     assert {path: path.exists() for path in watched} == before
 
 
@@ -109,7 +94,7 @@ def test_car_t6_authority_tamper_fails_closed(isolated_root: Path) -> None:
         build_rhb_t5_query_readiness(isolated_root)
 
 
-def test_cli_emits_the_same_hash_bound_report() -> None:
+def test_cli_closes_after_owner_gate() -> None:
     result = subprocess.run(
         [sys.executable, str(CLI), "--root", str(ROOT)],
         cwd=ROOT,
@@ -117,16 +102,9 @@ def test_cli_emits_the_same_hash_bound_report() -> None:
         capture_output=True,
         check=False,
     )
-    assert result.returncode == 0, result.stderr
-    payload = json.loads(result.stdout)
-    expected = build_rhb_t5_query_readiness(ROOT)
-    assert payload == expected.model_dump(mode="json")
-    unhashed = dict(payload)
-    digest = unhashed.pop("readiness_sha256")
-    canonical = json.dumps(
-        unhashed, ensure_ascii=False, indent=2, sort_keys=True, separators=(",", ": ")
-    )
-    assert digest == hashlib.sha256(f"{canonical}\n".encode()).hexdigest()
+    assert result.returncode == 1
+    assert result.stdout == ""
+    assert "owner authorization already exists; pre-authoring readiness is closed" in result.stderr
 
 
 def test_readiness_module_has_no_runtime_or_network_dependency() -> None:

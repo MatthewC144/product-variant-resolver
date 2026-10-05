@@ -159,18 +159,28 @@ Acceptance:
 
 - [ ] After Gates T3/T4 pass, author exactly 60 non-synthetic cases without viewing resolver output,
   group duplicate evidence events, and cover every required challenge class. _(→RHB-R8,RHB-R10–R11)_
+- [x] In a fresh independent output-blind agent, create the private 60-case non-synthetic authoring
+  artifact and aggregate-only public manifest without labels, split or resolver access.
+- [ ] Close the published provisional challenge shortfalls before accepting the query pack as the
+  representative v1 pilot: year `3`, color `3`, series `4`, identifier `2`, and
+  unknown-to-catalog `4`.
 
 Files:
 
+- `src/product_variant_resolver/representative_benchmark_query_authoring.py`
+- `scripts/build_representative_hard_benchmark_query_pack.py`
 - `data/evaluation/representative-hard-benchmark-v1/local-query-authoring-v1/query-pack.json`
 - `data/evaluation/representative-hard-benchmark-v1/query-pack-manifest.json`
+- `tests/evaluation/test_representative_benchmark_query_authoring.py`
 - `docs/evidence/representative-hard-benchmark-query-authoring.md`
 
 Acceptance:
 
 - Query pack contains no expected status/UUID/correctness/rank and declares
   `resolver_output_viewed=false` for every row; it contains no Development/Test split.
-- Duplicate, synthetic-quota, challenge-coverage, publication and privacy checks pass before labels.
+- Duplicate, synthetic-quota, publication and privacy checks pass. Challenge coverage remains a
+  blocking data Gate: T5 annotations are provisional, and catalog-relative classes require later
+  owner evidence rather than query-only inference.
 
 ### RHB-T6 — Record owner labels and held cases `[qa/doc_curator]`
 

@@ -1,21 +1,45 @@
 # Representative Hard Benchmark v1 — Lean QA Review
 
 Date: 2026-10-04. Mode: Lite / Lean Industrial. Scope:
-**RHB-T1/T2 history + RHB-T3/T4 final QA + RHB-T5 readiness**.
+**RHB-T1/T2 history + RHB-T3/T4 final QA + RHB-T5 output-blind authoring**.
 
-## Current milestone verdict: RHB-T4 RE-AUDIT PASS / RHB-T5 READY FOR OWNER GATE
+## Current milestone verdict: RHB-T5 AUTHORING ARTIFACT PASS / COVERAGE GATE BLOCKED
 
 RHB-T1 through RHB-T3 remain PASS, and the historical zero-authority RHB-T4 blocked checkpoint is
 preserved below. The separately authorized CAR-T6 versioned re-audit now passes the exact-authority
-Gate with 20 exact variants, seven qualifying families and zero shortfalls. That PASS still does not
-authorize RHB-T5.
+Gate with 20 exact variants, seven qualifying families and zero shortfalls.
 
-The original RHB-T5 readiness check found 91 unique nonblank real query candidates for the 60-case
-target but correctly blocked on projection, publication and split-contract gaps. Those engineering
-gaps are now repaired: the source is projected into a private query-only artifact, Git receives only
-an aggregate manifest, and `BenchmarkQuery` no longer preassigns the RHB-T7 split. Readiness v2 is
-`ready_for_separate_owner_authorization`; authoring still requires a fresh output-blind context and a
-separate RHB-T5 Owner Gate. Earlier T1/T2/T3/T4 QA history remains below.
+The owner then authorized RHB-T5 with an exact local-only boundary. A fresh independent agent used
+only the Git-ignored query projection and produced 60 unique non-synthetic query/source/evidence
+rows across 53 provisional family groups. The private pack contains no expected outcome, UUID,
+correctness, rank or split; the public manifest contains aggregates and hashes only. RHB-T6,
+RHB-T7 and resolver evaluation remain unauthorized.
+
+The 60-row artifact is valid, deterministic and private, but is not an accepted representative
+pilot. Provisional query-surface shortfalls remain for conflicting year `3`, color `3`, series `4`,
+identifier `2`, and unknown-to-catalog `4`. Catalog-relative absence is intentionally not guessed
+from query text. The overall RHB-T5 checkbox therefore remains open under RHB-R10/R11. Earlier
+T1/T2/T3/T4 and pre-authoring QA history remains below.
+
+## RHB-T5 output-blind authoring verdict: ENGINEERING PASS / DATA GATE BLOCKED
+
+The materialized private query pack contains exactly 60 case IDs, 60 case-insensitive unique queries,
+60 unique opaque source references and 60 unique evidence-event groups. It uses a `0700` directory
+and `0600` files, is positively Git-ignored, and reproduces as `unchanged / unchanged`. The public
+manifest is `0644`, contains no row-level content, and binds the private bytes at SHA-256
+`97f7f0dd61cf619bb16b198778356d8ef53c7a504086f11542922f90706a858a`.
+
+The authoring contract validates the exact Owner Gate hash, ensures the authoring time does not
+predate authorization, revalidates T1/T3 scope and projection checksums, rejects duplicate query or
+evidence rows, rejects singleton-family same-casting tags, and prohibits query-only inference of
+`unknown_to_catalog`. It sets `representative_pilot=false`, `challenge_coverage_verified=false`, and
+publishes exact provisional shortfalls instead of padding them or overstating completion.
+
+All 112 representative-benchmark tests pass. Ruff and format checks pass, strict MyPy reports no
+issues in the three touched source/CLI modules, compile succeeds, `git diff --check` passes, and the
+authoring check replay is deterministic. An initial QA pass caught overclaimed challenge semantics
+and public owner-text coupling; the fresh authoring agent corrected both before this verdict. No
+label, split, resolver, RAG, embedding, Pointwise or Listwise evaluation occurred.
 
 ## Historical RHB-T5 readiness v1: PASS (validator) / BLOCKED (authoring Gate)
 

@@ -190,6 +190,10 @@ resolver_output_viewed         false before freeze
 The query artifact deliberately contains no expected status, UUID, correctness flag, target rank, or
 Development/Test assignment. RHB-T7 owns the separate `SplitArtifact`; keeping `split` out of the
 query prevents authoring from preselecting Test cases before labels and connected groups exist.
+RHB-T5 challenge tags are provisional query-surface annotations only. Catalog-relative properties,
+especially `unknown_to_catalog`, require RHB-T6 evidence review and cannot be inferred in the
+output-blind authoring session. A 60-row pack with declared tag shortfalls remains a provenance
+artifact, not an accepted representative benchmark.
 
 ### 6.4 `BenchmarkLabel`
 
@@ -400,9 +404,11 @@ authorized review environment.
 - A matched row without a valid existing canonical UUID and approved authority record fails closed.
 - A held row, family-only label, Human Knowledge UUID, staged-row identifier, or guessed candidate
   cannot enter scored matched data.
-- Duplicate queries/evidence events, cross-split family leakage, status/count imbalance, inadequate
-  challenge coverage, stale hashes, label fields inside Test raw, or labels loaded during collection
-  fail before output replacement.
+- Duplicate queries/evidence events, cross-split family leakage, status/count imbalance, stale
+  hashes, label fields inside Test raw, or labels loaded during collection fail before output
+  replacement. Inadequate provisional T5 challenge coverage is materialized only as an explicitly
+  non-representative provenance artifact with exact public shortfalls; it blocks benchmark
+  acceptance and later freeze.
 - A valid model-quality failure still writes a complete report; engineering success never converts
   it into a quality PASS.
 - Zero denominators produce `not_applicable` with raw counts, never a fabricated `0` or `1`.

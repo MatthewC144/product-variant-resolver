@@ -109,6 +109,11 @@ conflicting year/color/series/identifier metadata, distractor quantity or lot nu
 unknown to the frozen catalog. Every case SHALL have one primary `failure_type`; additional
 challenge tags MAY be recorded separately.
 
+Query-only RHB-T5 authoring MAY record provisional surface tags, but those tags SHALL NOT satisfy
+this acceptance requirement until RHB-T6 owner review verifies them against the permitted evidence.
+In particular, `unknown_to_catalog` and catalog-relative conflicts SHALL NOT be inferred from query
+text alone.
+
 ### RHB-R11 — Executable v1 pilot tranche
 
 WHEN the v1 pilot becomes score-eligible, THE SYSTEM SHALL contain exactly 60 non-synthetic,

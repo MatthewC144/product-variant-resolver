@@ -93,10 +93,13 @@ number, series position and toy identifier fields; color and edition remain null
 
 The original RHB-T4 audit honestly recorded `0` eligible exact variants and remains unchanged. A
 later CAR-T6 run published a separate versioned re-audit with `passed_exact_authority_gate`, rather
-than rewriting history. This is authority/provenance evidence, not a real-marketplace accuracy
-result, manufacturer certification or permission to begin RHB-T5. See the
+than rewriting history. A separately authorized RHB-T5 session has since created a private,
+output-blind 60-query authoring artifact and aggregate-only public manifest. It remains
+`representative_pilot=false` because five provisional challenge classes have declared shortfalls;
+labels, split and resolver evaluation have not begun. These are authority/provenance artifacts, not
+a real-marketplace accuracy result or manufacturer certification. See the
 [final CAR evidence](docs/evidence/canonical-authority-review-v1.md) and
-[versioned RHB-T4 re-audit](docs/evidence/representative-hard-benchmark-authority-reaudit.md).
+[RHB-T5 authoring evidence](docs/evidence/representative-hard-benchmark-query-authoring.md).
 
 ## Measured evaluation
 

@@ -2,8 +2,9 @@
 
 This directory is the versioned, provenance-controlled home of the representative benchmark. The
 T1 source baseline, T3 source-decision overlay and historical T4 blocked audit remain frozen beside
-the later CAR-T6 versioned T4 PASS. It is not yet an approved benchmark dataset: RHB-T5 query
-authoring and labeling have not happened or been authorized.
+the later CAR-T6 versioned T4 PASS. It is not yet an approved benchmark dataset: the separately
+authorized RHB-T5 session created a private 60-case output-blind authoring artifact, but its
+provisional challenge coverage has declared shortfalls and labeling remains unauthorized.
 
 ## Authority boundary
 
@@ -94,13 +95,23 @@ artifact/version. It must never overwrite v1 while retaining an old checksum.
   zero shortfalls and `passed_exact_authority_gate`.
 - `query-authoring-source-manifest.json`: aggregate-only proof that a 91-row private query-only
   projection was reproduced from the frozen 101-row source. It contains no row-level query text.
+- `query-pack-manifest.json`: aggregate-only proof of the private 60-case RHB-T5 artifact. It
+  contains no query, source-row reference, owner text, label, split, resolver output or rank, and it
+  publishes the unresolved provisional challenge shortfalls.
 
 The pre-authoring repair now writes the 91-row projection only to the exact Git-ignored
 `local-query-authoring-v1/` directory with `0700/0600` permissions. Each private row contains only an
 opaque `source_record_ref` and `query`; public Git receives only its irreversible hash and safe
 aggregate counts. `BenchmarkQuery` no longer contains `split`; RHB-T7 remains the sole owner of the
-separate family-safe `SplitArtifact`. Readiness v2 therefore returns
-`ready_for_separate_owner_authorization`, while `rhb_t5_authorized=false` remains unchanged.
+separate family-safe `SplitArtifact`. The pre-authoring readiness command now closes immediately
+after detecting the private Owner Gate ledger; it cannot be reused to inspect or restart the phase.
+
+RHB-T5 selected 60 unique query/source/evidence-event rows across 53 provisional family groups. The
+private pack remains `representative_pilot=false`. Query-surface coverage reaches the minimum for
+same-casting/different-release, alias, missing-metadata and distractor-quantity classes, but publishes
+shortfalls of year `3`, color `3`, series `4`, identifier `2` and unknown-to-catalog `4`. The last
+class is intentionally zero because output-blind query text cannot establish catalog-relative
+absence. Therefore this is a provenance/authoring artifact, not an accepted representative pilot.
 
 T3 passes only for the declared scopes. Human-name queries and `ambiguous`/`no_match` labels remain
 local-only; they can never produce a `matched` label. Workbook rows are local-only family context and
@@ -120,18 +131,22 @@ authorization explicitly excludes RHB-T5, query-pack authoring and label authori
 .venv/bin/pytest tests/evaluation/test_representative_benchmark_contract.py \
   tests/evaluation/test_representative_benchmark_source_decisions.py \
   tests/evaluation/test_representative_benchmark_query_projection.py \
-  tests/evaluation/test_representative_benchmark_query_readiness.py -q
+  tests/evaluation/test_representative_benchmark_query_readiness.py \
+  tests/evaluation/test_representative_benchmark_query_authoring.py -q
 .venv/bin/python scripts/build_representative_hard_benchmark_query_projection.py --check
-.venv/bin/python scripts/validate_representative_hard_benchmark_query_readiness.py
+.venv/bin/python scripts/build_representative_hard_benchmark_query_pack.py --check
 .venv/bin/ruff check src/product_variant_resolver/representative_benchmark.py \
   src/product_variant_resolver/representative_benchmark_query_projection.py \
   src/product_variant_resolver/representative_benchmark_query_readiness.py \
+  src/product_variant_resolver/representative_benchmark_query_authoring.py \
   tests/evaluation/test_representative_benchmark_contract.py \
   tests/evaluation/test_representative_benchmark_source_decisions.py \
-  tests/evaluation/test_representative_benchmark_query_readiness.py --select F,I
+  tests/evaluation/test_representative_benchmark_query_readiness.py \
+  tests/evaluation/test_representative_benchmark_query_authoring.py
 .venv/bin/mypy --strict src/product_variant_resolver/representative_benchmark.py \
   src/product_variant_resolver/representative_benchmark_query_projection.py \
   src/product_variant_resolver/representative_benchmark_query_readiness.py \
+  src/product_variant_resolver/representative_benchmark_query_authoring.py \
   src/product_variant_resolver/representative_benchmark_reaudit.py
 ```
 
