@@ -1,5 +1,44 @@
 # Project Log
 
+## 2026-10-05 — Development ranker comparison：Pointwise 提升 exact release Top-1 至 69%
+
+### 新執行了什麼，解決什麼問題
+
+本輪只在 frozen 100-case development split 比較四個相同候選池的 ranking arms：原始 RRF、既有
+release-aware heuristic、固定 CrossEncoder Pointwise，以及以同一 Pointwise logit 加 20 個 retrieval／
+structured features 的 frozen Listwise head。所有 arm 都先讀取相同的 25 candidates；53-case test 沒有
+執行，也沒有保存任何 row-level prediction。
+
+結果顯示 Pointwise 是明確的 development winner：casting Top-1 `96/100`、exact release Top-1
+`69/100`、exact MRR@10 `80.87%`、Recall@10/25 都是 `100%`。相較原始 RRF 的 casting `84%`、
+exact Top-1 `55%`，Pointwise 分別提升 12 與 14 percentage points，證明 query/candidate pair 的語意
+比單靠來源 rank fusion 更能區分同 casting 的 release identity。
+
+### 代碼修改了哪一部分、原因與決策
+
+新增 `image_search_ranking_development.py` 與 CLI `pvr-compare-image-search-rankers`。Runner 只取得 frozen
+development IDs，重用相同 in-memory 1,763-row catalog 與 25-candidate retrieval，再對四個 arms 計算
+casting Top-1、exact Top-1、MRR@10、Recall@10/25 與 rerank p50/p95。輸出只有 aggregate report，並
+明示 `test_cases_scored=0`、`row_level_output_persisted=false`。
+
+Pointwise 使用既有固定 revision `cross-encoder/ms-marco-MiniLM-L6-v2@233902d…0a`；Listwise 使用既有
+safetensors checkpoint `9386c059…8aead`。兩者是在先前 fixture benchmark 訓練／選型，本輪對新的
+image-search development 做 zero-shot comparison，沒有以這 100 筆 label 重新 fit，因此結果不是
+training-set accuracy。
+
+### 技術棧／方法選型、驗證與下一步
+
+RRF exact Top-1/MRR@10 為 `55%/72.88%`；release heuristic 為 `55%/68.97%`；neural Pointwise 為
+`69%/80.87%`；neural Listwise 為 `54%/70.46%`。Listwise 雖將 casting Top-1 提升到 `90%`，但 exact
+release 低於 RRF 與 Pointwise，表示舊 fixture 上學到的 candidate-set feature weighting無法轉移到目前
+的真實 release distribution，因此不應因架構較複雜而選它。
+
+Pointwise rerank p95 約 `127.45 ms`，Listwise（含 Pointwise）約 `127.87 ms`，release heuristic 約
+`0.20 ms`；Pointwise 仍低於既有 1,500 ms resolver budget。9 個 focused tests、Ruff 與 strict MyPy
+通過；模型完全本機載入，沒有網路請求。下一步是在不重訓、不調參的前提下封存 Pointwise
+development selection，然後經明確 final gate 只跑一次 53-case test；在 final 結果前不修改 runtime
+default 或 calibration policy。
+
 ## 2026-10-05 — Release-ranking split freeze：凍結 100 development／53 test
 
 ### 新執行了什麼，解決什麼問題

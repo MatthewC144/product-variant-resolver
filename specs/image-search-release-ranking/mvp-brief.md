@@ -35,7 +35,7 @@ canonical aggregate checksum in code/report metadata, not by a second data file.
 
 - [x] **ISRR-T1** Implement and verify the frozen 100/53 deterministic split. _(→ISRR-R1–R4)_
 - [x] **ISRR-T2** Run and record development-only baseline metrics. _(→ISRR-R5–R6)_
-- [ ] **ISRR-T3** Develop release-aware pointwise and listwise ranking candidates using development
+- [x] **ISRR-T3** Develop release-aware pointwise and listwise ranking candidates using development
   only. Final test remains closed. _(future; →ISRR-R5)_
 - [ ] **ISRR-T4** Select on development, then run one explicit final test and document tradeoffs.
   _(future; →ISRR-R5–R6)_
