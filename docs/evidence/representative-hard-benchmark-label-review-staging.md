@@ -48,8 +48,8 @@ output and Development/Test split are not read. No failure type or hard-negative
 
 The most important finding is the distinction between **permission capacity** and **data overlap**.
 The governance overlay legally permits up to 20 matched labels, but it cannot create query evidence.
-Only one query surfaces an admitted family—Subaru BRZ—and it corresponds to three approved 2025
-releases with different toy identifiers, none present in the query. It is therefore staged as
+Only one private query surfaces an admitted family, and it corresponds to three approved releases
+with different toy identifiers, none present in the query. It is therefore staged as
 ambiguous, not matched.
 
 The current 60-query pack cannot satisfy the intended 20 matched cases without new owner evidence or

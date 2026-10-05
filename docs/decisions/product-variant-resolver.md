@@ -2360,7 +2360,7 @@ truth. The selected method leaves uncertain rows held and publishes the shortfal
 
 The first staging run finds zero uniquely matchable authority rows. Governance allows up to 20
 matched labels, but the selected 60 real noisy queries barely overlap the seven admitted authority
-families. One Subaru BRZ row hits three releases and cannot identify which UUID is correct. This
+families. One private row hits three releases and cannot identify which UUID is correct. This
 distinction is now explicit: authority admission answers “may this identity be used?”, while evidence
 overlap answers “does this query justify that identity?”. Both must pass.
 
@@ -2369,3 +2369,25 @@ denominator inside the same Gate. Prevent that by keeping every proposal non-sco
 requiring an owner event before materialization. If owner review confirms insufficient matched
 coverage, the correct next design is a separately versioned source/query-pack expansion, not a
 silent RHB-T5 rewrite or synthetic padding.
+
+## 2026-10-05 — Preserve owner review as private append-only events
+
+**Decision:** record each RHB-T6 owner-review batch as an immutable private event and publish only a
+hash-bound aggregate progress artifact. Do not mutate AI-generated staged proposals and do not
+materialize a partial label set while review is incomplete.
+
+The first batch covers ten staged cases: one approved catalog-relative `no_match` decision and nine
+holds. All provisional challenge tags remain unverified, matched approvals remain zero and fifty
+cases remain. The public record deliberately omits row identifiers, queries, per-row decisions,
+review reasons, owner text and canonical UUIDs.
+
+The alternative was to update proposal rows in place. That is smaller in file count but destroys the
+distinction between model suggestion and human adjudication, weakens replay evidence and makes a
+partially reviewed workspace look like a completed label set. Append-only events keep those trust
+layers separate and allow every new batch to prove non-overlap with prior decisions.
+
+The most likely failure is accidental downstream use of partial owner decisions. The progress
+builder therefore verifies negative authorization flags and the absence of label/split artifacts;
+the approved decision remains non-score-eligible until a separately authorized materialization
+stage. This preserves the owner's explicit prohibition on RHB-T7, split, scoring and resolver
+evaluation.

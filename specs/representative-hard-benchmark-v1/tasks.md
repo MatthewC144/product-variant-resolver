@@ -205,6 +205,9 @@ Acceptance:
   ambiguous / 4 no_match / 51 held`; all remain pending owner review.
 - [ ] Present the staged proposals in owner-review batches. Record a label only after an explicit
   row/batch decision; verify provisional challenge tags or keep the row held.
+  - [x] Batch 1: 10 cases reviewed; aggregate result is one approved catalog-relative `no_match`
+    decision and nine held decisions. No challenge tag or matched label was approved.
+  - [ ] Batches 2–6: 50 staged cases remain.
 
 Files:
 
@@ -223,6 +226,7 @@ Files:
 - `data/evaluation/representative-hard-benchmark-v1/rhb-t6-governance-repair-proposal.json`
 - `data/evaluation/representative-hard-benchmark-v1/rhb-t6-governance-overlay-v1.json`
 - `data/evaluation/representative-hard-benchmark-v1/rhb-t6-label-review-manifest-v1.json`
+- `data/evaluation/representative-hard-benchmark-v1/rhb-t6-label-review-progress-v1.json`
 - `data/evaluation/representative-hard-benchmark-v1/local-query-authoring-v1/labels.json`
 - `data/evaluation/representative-hard-benchmark-v1/local-query-authoring-v1/held-labels.json`
 - `data/evaluation/representative-hard-benchmark-v1/labels-manifest.json`

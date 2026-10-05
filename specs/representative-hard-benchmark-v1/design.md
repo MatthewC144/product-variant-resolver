@@ -272,8 +272,8 @@ suggests `ambiguous`; an explicit non-Hot-Wheels brand absent from the catalog m
 catalog-relative `no_match`; all other cases remain held.
 
 The current pack produces zero matched suggestions because none of its 60 queries contains the
-required unique authority identifier plus casting evidence. One Subaru BRZ query maps to three
-admitted 2025 releases and is therefore ambiguous. This is a data-overlap result, not permission to
+required unique authority identifier plus casting evidence. One private query maps to three
+admitted releases and is therefore ambiguous. This is a data-overlap result, not permission to
 relax authority or force the target composition. A public aggregate manifest may disclose counts and
 hashes, but row-level queries, evidence and proposals remain local-only.
 

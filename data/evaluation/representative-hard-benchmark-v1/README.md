@@ -146,6 +146,11 @@ identifier plus casting evidence required even to suggest matched. This means th
 legal capacity for up to 20 matched labels, but the current query pack does not supply the evidence
 overlap needed to use that capacity. The 20/20/20 acceptance target remains unmet and is not padded.
 
+`rhb-t6-label-review-progress-v1.json` tracks owner review using aggregate-only event sourcing. Batch
+1 covers ten private cases: one approved catalog-relative `no_match` decision, nine holds, zero
+matched decisions and zero verified challenge tags. Fifty staged cases remain. Exact row decisions
+and owner text stay in a `0600` Git-ignored event file; no partial label artifact is created.
+
 T3 passes only for the declared scopes. Human-name queries and `ambiguous`/`no_match` labels remain
 local-only; they can never produce a `matched` label. Workbook rows are local-only family context and
 cannot enter query packs or scored labels. Git receives only schema/hash/count/aggregate/non-sensitive
@@ -175,6 +180,7 @@ authorization explicitly excludes RHB-T5, query-pack authoring and label authori
 .venv/bin/python scripts/build_representative_hard_benchmark_governance_repair_proposal.py --check
 .venv/bin/python scripts/build_representative_hard_benchmark_governance_overlay.py --check
 .venv/bin/python scripts/build_representative_hard_benchmark_label_review.py --check
+.venv/bin/python scripts/build_representative_hard_benchmark_review_progress.py --check
 .venv/bin/ruff check src/product_variant_resolver/representative_benchmark.py \
   src/product_variant_resolver/representative_benchmark_query_projection.py \
   src/product_variant_resolver/representative_benchmark_query_readiness.py \

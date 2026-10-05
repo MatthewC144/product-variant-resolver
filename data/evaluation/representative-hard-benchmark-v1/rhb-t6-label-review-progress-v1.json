@@ -1,0 +1,35 @@
+{
+  "approved_status_counts": {
+    "ambiguous": 0,
+    "matched": 0,
+    "no_match": 1
+  },
+  "decision_batch_count": 1,
+  "generated_by": "scripts/build_representative_hard_benchmark_review_progress.py",
+  "labels_materialized": false,
+  "latest_batch_number": 1,
+  "matched_approved_count": 0,
+  "next_allowed_action": "present_rhb_t6_review_batch_02",
+  "owner_approved_decision_count": 1,
+  "owner_held_decision_count": 9,
+  "owner_reviewed_case_count": 10,
+  "private_batch_file_sha256s": [
+    "278fe28661f490fa04268c0bfe5362f7466aa0cb1df0b79344ee5e990238cfa1"
+  ],
+  "private_decision_ledger_sha256": "93eb6b90f25efc036c649dfd34d23f3ac5d1c19a3c8c633d00a5f6b3fb41627d",
+  "progress_date": "2026-10-05",
+  "progress_sha256": "284617138462d07bff65c5dabf4a8071f87d1fe8ee5bafd2eb14c7514cd6b74e",
+  "publication_scope": "aggregate_only",
+  "remaining_staged_count": 50,
+  "resolver_evaluation_authorized": false,
+  "review_version": "representative-hard-benchmark-rhb-t6-review-v1",
+  "rhb_t7_authorized": false,
+  "row_level_data_public": false,
+  "schema_version": "pvr-rhb-t6-label-review-progress-v1",
+  "scoring_authorized": false,
+  "split_authorized": false,
+  "staging_manifest_sha256": "457f3c9a986b4d18a4cff0dfb494868279b7f32a27e0093ce1d4f86fdd22bb10",
+  "status": "owner_review_in_progress",
+  "total_record_count": 60,
+  "verified_challenge_tag_count": 0
+}

@@ -129,15 +129,18 @@ def test_materialized_real_review_matches_the_builder() -> None:
     assert validate_materialized_label_review(ROOT) == expected
 
 
-def test_subaru_case_is_ambiguous_across_three_admitted_releases() -> None:
+def test_one_private_case_is_ambiguous_across_three_admitted_releases() -> None:
     evidence, proposals, _manifest = build_label_review_artifacts(ROOT)
-    packet = next(packet for packet in evidence.packets if packet.case_id == "rhb-t5-q037")
+    packets = [
+        packet for packet in evidence.packets if packet.admitted_authority_candidate_count > 0
+    ]
+    assert len(packets) == 1
+    packet = packets[0]
     proposal = next(
-        proposal for proposal in proposals.proposals if proposal.case_id == "rhb-t5-q037"
+        proposal for proposal in proposals.proposals if proposal.case_id == packet.case_id
     )
 
     assert packet.catalog_candidate_count == packet.admitted_authority_candidate_count == 3
-    assert {candidate.casting for candidate in packet.catalog_candidates} == {"Subaru BRZ"}
     assert all(candidate.authority_admitted for candidate in packet.catalog_candidates)
     assert proposal.suggested_expected_status == "ambiguous"
     assert proposal.suggested_canonical_uuid is None

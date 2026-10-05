@@ -1,5 +1,44 @@
 # Project Log
 
+## 2026-10-05 — RHB-T6 Review Batch 1：記錄首批 owner decision，但不提前建立 labels
+
+### 新執行了什麼，解決什麼問題
+
+本輪依 owner 的明確決定處理第一批十個 staged cases：一筆被確認為 frozen-catalog-relative
+`no_match`，其餘九筆維持 `held`；所有 provisional challenge tags 仍為未驗證。精確的逐筆決定與
+owner 原文只寫入 Git-ignored、`0600` 的 private event，Git 端新增的 progress artifact 只公開總數與
+完整性 hash。因此專案現在可以證明「哪些 staged proposals 已被人審過」，又不會公開 row-level query
+或 label 資料。
+
+這一步解決 staging suggestion 與 owner decision 容易混淆的問題。原本的 60 筆 proposal 保持不可變，
+owner 決定以 append-only event 另外記錄；目前累計十筆已審、一筆 approved decision、九筆 held、五十筆
+待審，matched 與 verified challenge tags 都是零。部分審閱不會建立 `labels.json`，也不會讓任何資料
+進入 split、scoring 或 resolver evaluation。
+
+### 代碼修改了哪一部分、原因與決策
+
+新增 `representative_benchmark_label_review_progress.py` 與對應 CLI，負責重播 staging parents、驗證
+private batch 的 exact file SHA、owner-response SHA、decision content hash、case 不重疊與檔案權限，再
+產出 aggregate-only progress。選擇 event sourcing 而不是直接修改 staged proposals，是因為 proposal
+是 AI 產生的待審建議，owner decision 是不同信任層級；分開保存才能保留審計軌跡，也能避免未完成的
+批次被誤認為最終 labels。
+
+公開 progress 不保存 case ID、query、逐筆狀態、理由、owner 原文或 canonical UUID。它只記錄 batch
+數量、已審／待審總數、批准狀態總數、negative authorization flags 與 private file hashes。這種設計
+比把逐筆內容提交 Git 更適合目前的資料治理要求，也讓後續 batch 能以 hash chain 驗證前序決定沒有
+被改寫。
+
+### 技術棧／方法選型、驗證與下一步
+
+沿用 Python 3.12、Pydantic strict schemas、canonical JSON、SHA-256 與 fail-closed validation。Batch 1
+private file SHA 為 `278fe2…cfa1`，public progress hash 為 `284617…b74e`。新增七個 progress tests，
+涵蓋 aggregate、replay、private event binding、privacy、tamper、downstream absence 與 dependency
+guard；完整 representative benchmark suite 共 146 個 tests 通過。Ruff、strict MyPy、compile、兩個
+builder replay、private mode、Git-ignore、public privacy 與 diff check 亦通過。
+
+下一步只允許提出 RHB-T6 Review Batch 2 給 owner 審閱。這次決定沒有批准 matched，也沒有授權
+RHB-T7、Development/Test split、Pointwise/Listwise、scoring 或 resolver evaluation。
+
 ## 2026-10-05 — RHB-T6 Label Review v1：建立 60 筆私有 staging，揭露 query/authority overlap 缺口
 
 ### 新執行了什麼，解決什麼問題
@@ -12,9 +51,8 @@ proposal 或 owner 原文。所有 proposal 都還是 `owner_decision_recorded=f
 
 這個步驟解決的是「治理 overlay 已允許最多 20 個 matched，但實際 60 個 query 是否真的有足夠 exact
 evidence」的問題。結果是沒有：staging 為 `0 matched / 5 ambiguous / 4 no_match / 51 held`。唯一命中
-admitted family 的 Subaru BRZ query 同時對應三個 2025 release，而且 query 沒有 JBB55、HYY12 或
-HYW99 其中任何 toy identifier，因此不能挑一個 UUID。Overlay 提供的是 permission capacity，不會
-自動創造資料 overlap。
+admitted family 的 private query 同時對應三個 release，而且沒有其中任何 toy identifier，因此不能
+挑一個 UUID。Overlay 提供的是 permission capacity，不會自動創造資料 overlap。
 
 ### 代碼修改了哪一部分、原因與決策
 
