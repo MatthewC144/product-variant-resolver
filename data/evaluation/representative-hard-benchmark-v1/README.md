@@ -1,9 +1,9 @@
 # Representative Hard Benchmark v1 data contract
 
-This directory is the versioned, provenance-controlled home of the representative benchmark. At
-RHB-T3 it contains strict contracts, the read-only T1 source baseline, and the checksum-bound,
-owner-confirmed source-decision overlay. It is not yet an approved benchmark dataset: the canonical
-authority audit (T4), query authoring, and labeling have not happened.
+This directory is the versioned, provenance-controlled home of the representative benchmark. The
+T1 source baseline, T3 source-decision overlay and historical T4 blocked audit remain frozen beside
+the later CAR-T6 versioned T4 PASS. It is not yet an approved benchmark dataset: RHB-T5 query
+authoring and labeling have not happened or been authorized.
 
 ## Authority boundary
 
@@ -91,6 +91,13 @@ artifact/version. It must never overwrite v1 while retaining an old checksum.
   separately authorized CAR-T6 re-audit with 20 approved exact records, seven qualifying families,
   zero shortfalls and `passed_exact_authority_gate`.
 
+The read-only RHB-T5 readiness validator reports 91 unique nonblank human queries for the 60-case
+target, but it intentionally returns `blocked_pending_pre_authoring_repairs_and_owner_gate`. The raw
+human rows are local-only and colocate query text with historical pipeline output, human labels and
+failure categories; they must first be projected into a private output-blind view. The current
+`BenchmarkQuery` contract also requires `split` even though family-safe allocation belongs to
+RHB-T7. Neither issue may be bypassed by writing the planned public `query-pack.json` path.
+
 T3 passes only for the declared scopes. Human-name queries and `ambiguous`/`no_match` labels remain
 local-only; they can never produce a `matched` label. Workbook rows are local-only family context and
 cannot enter query packs or scored labels. Git receives only schema/hash/count/aggregate/non-sensitive
@@ -107,11 +114,17 @@ authorization explicitly excludes RHB-T5, query-pack authoring and label authori
 
 ```bash
 .venv/bin/pytest tests/evaluation/test_representative_benchmark_contract.py \
-  tests/evaluation/test_representative_benchmark_source_decisions.py -q
+  tests/evaluation/test_representative_benchmark_source_decisions.py \
+  tests/evaluation/test_representative_benchmark_query_readiness.py -q
+.venv/bin/python scripts/validate_representative_hard_benchmark_query_readiness.py
 .venv/bin/ruff check src/product_variant_resolver/representative_benchmark.py \
+  src/product_variant_resolver/representative_benchmark_query_readiness.py \
   tests/evaluation/test_representative_benchmark_contract.py \
-  tests/evaluation/test_representative_benchmark_source_decisions.py --select F,I
-.venv/bin/mypy --strict src/product_variant_resolver/representative_benchmark.py
+  tests/evaluation/test_representative_benchmark_source_decisions.py \
+  tests/evaluation/test_representative_benchmark_query_readiness.py --select F,I
+.venv/bin/mypy --strict src/product_variant_resolver/representative_benchmark.py \
+  src/product_variant_resolver/representative_benchmark_query_readiness.py \
+  src/product_variant_resolver/representative_benchmark_reaudit.py
 ```
 
 The contract module has no network, browser, FastAPI, resolver-service, or catalog-mutation

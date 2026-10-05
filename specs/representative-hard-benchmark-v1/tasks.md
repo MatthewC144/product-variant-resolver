@@ -103,6 +103,33 @@ Gate despite the new RHB-T4 PASS.
 
 ## Phase B — Owner-reviewed pilot tranche
 
+### RHB-T5 readiness — Validate the authoring boundary `[qa/doc_curator]`
+
+- [x] Revalidate the T1/T3 source boundary and versioned RHB-T4 PASS, count usable real query
+  candidates, confirm that no T5/T6 artifact exists, and identify every prerequisite that must be
+  repaired before a separate RHB-T5 Owner Gate.
+
+Files:
+
+- `src/product_variant_resolver/representative_benchmark_query_readiness.py`
+- `scripts/validate_representative_hard_benchmark_query_readiness.py`
+- `tests/evaluation/test_representative_benchmark_query_readiness.py`
+- `docs/evidence/representative-hard-benchmark-query-readiness.md`
+
+Acceptance:
+
+- The check is deterministic and read-only; it does not import the resolver, view live output, make
+  network requests, create a query pack, create labels, or grant RHB-T5 authorization.
+- It proves whether 60 unique non-synthetic query candidates exist and fails closed on source,
+  authority, historical-checkpoint, permission, checksum, or premature-artifact drift.
+- It explicitly detects that the raw human source contains adjacent pipeline outputs/labels, that
+  its raw rows are local-only, and that `BenchmarkQuery.split` currently precedes the RHB-T7 split
+  phase.
+- Result: source capacity passes (`91` unique nonblank candidates for a `60`-case target), CAR-T6
+  passes (`20` exact variants / `7` qualifying families / `0` shortfalls), but RHB-T5 remains
+  blocked pending an output-blind local projection, publication-path repair, split-contract
+  alignment, a fresh authoring context, and a separate Owner Gate.
+
 ### RHB-T5 — Author the output-blind 60-case pilot query pack `[qa/doc_curator]`
 
 - [ ] After Gates T3/T4 pass, author exactly 60 non-synthetic cases without viewing resolver output,

@@ -1,15 +1,39 @@
 # Representative Hard Benchmark v1 — Lean QA Review
 
-Date: 2026-09-26. Mode: Lite / Lean Industrial. Scope:
-**RHB-T1/T2 history + RHB-T3/T4 final QA**.
+Date: 2026-10-04. Mode: Lite / Lean Industrial. Scope:
+**RHB-T1/T2 history + RHB-T3/T4 final QA + RHB-T5 readiness**.
 
-## Current milestone verdict: PASS (RHB-T4 engineering) / DATA GATE BLOCKED
+## Current milestone verdict: RHB-T4 RE-AUDIT PASS / RHB-T5 READINESS BLOCKED
 
-RHB-T1 through RHB-T3 remain PASS. RHB-T4's deterministic authority-audit implementation passes
-Lean QA, but its data Gate correctly returns `blocked_insufficient_exact_authority`: the repository
-contains zero independently supported, pilot-usable exact variants and zero eligible
-same-casting/multi-release families. This is an honest successful engineering result, not permission
-to start RHB-T5. Earlier T1/T2/T3 QA history remains below.
+RHB-T1 through RHB-T3 remain PASS, and the historical zero-authority RHB-T4 blocked checkpoint is
+preserved below. The separately authorized CAR-T6 versioned re-audit now passes the exact-authority
+Gate with 20 exact variants, seven qualifying families and zero shortfalls. That PASS still does not
+authorize RHB-T5.
+
+The new RHB-T5 readiness check finds 91 unique nonblank real query candidates for the 60-case target,
+so source capacity passes. Authoring remains blocked because the raw rows colocate query text with
+historical pipeline outputs/labels, raw publication is local-only, the query schema requires an
+RHB-T7 split too early, this inspection context is not a fresh output-blind authoring context, and no
+separate RHB-T5 Owner Gate exists. Earlier T1/T2/T3/T4 QA history remains below.
+
+## RHB-T5 readiness verdict: PASS (validator) / BLOCKED (authoring Gate)
+
+The deterministic validator rechecks T1/T3, CAR-T6, historical T4 hashes, real-query capacity,
+artifact absence and the current query schema without writing any file or importing the resolver.
+Its real report is hash-bound at
+`9a2f5491a6c22c097eaf8bd913c53a46dab71068b1484906f91c48f7b030c840`.
+
+Focused verification passes 82 tests: six direct readiness tests plus 76 related RHB/CAR contract
+tests. Ruff/format/diff checks pass, and strict MyPy reports zero issues for the benchmark contract,
+readiness and CAR-T6 re-audit modules. The negative suite rejects source checksum drift, CAR-T6
+authority tampering and premature query/label artifacts. A full-repository run reached 10% with no
+failure before being manually stopped due to unrelated long-running evaluation tests; no new
+full-suite PASS is claimed.
+
+Required next action: implement a Git-ignored query-only projection, separate local raw rows from the
+public aggregate manifest, defer split allocation to RHB-T7, rerun readiness, and then request a
+fresh explicit RHB-T5 Owner Gate. No query selection, challenge-coverage decision, labels, resolver
+run or benchmark-quality claim is accepted by this review.
 
 ## RHB-T1 historical verdict: PASS
 

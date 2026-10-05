@@ -1,5 +1,53 @@
 # Project Log
 
+## 2026-10-04 — RHB-T5 readiness：60 筆容量足夠，但 output-blind 邊界尚未通過
+
+### 新執行了什麼，解決什麼問題
+
+本輪在不建立 query pack、不建立 labels、也不執行 resolver 的前提下，完成 RHB-T5 authoring
+readiness 驗證。新的 read-only validator 重新驗證 T1 inventory／manifest、T3 source decisions、
+Wiki revision binding、CAR-T6 versioned authority PASS 與歷史 RHB-T4 blocked checkpoint，並確認
+目前沒有任何提前產生的 T5/T6 artifact。這解決了「CAR-T6 已通過後，是否可以直接開始寫 60 筆
+query」這個問題：答案是資料數量可以，但流程安全邊界還不可以。
+
+實測 101 筆人工資料中有 91 筆 nonblank 且 case-insensitive unique 的真實 query，對 60 筆目標的
+shortfall 為 0；CAR-T6 仍是 20 exact variants、7 qualifying families、0 shortfalls。因此阻礙不是
+資料不足，而是 output blindness、publication scope、phase sequencing 與獨立 Owner Gate。
+
+### 代碼修改了哪一部分，以及為何這樣決定
+
+新增 `representative_benchmark_query_readiness.py` 與獨立 CLI，把 readiness 做成可重跑、hash-bound
+且完全 read-only 的檢查，而不是用文件人工宣稱「看起來可行」。Validator 會對 human source raw
+SHA-256、source permission、CAR-T6 authority hash、historical checkpoint hash、20/4 composition、
+query/label absence 與 `BenchmarkQuery.split` 是否仍為 required 逐項 fail closed。這種做法讓未來
+任何 source drift、authority tamper 或提前寫入 query/label 都會直接讓 readiness 失敗。
+
+沒有在本輪直接修改 query schema 或生成乾淨資料，是因為驗證先找到了三個相互關聯的 contract
+問題，需要作為下一個明確 implementation slice 一起修：原始人工列把 query 與 pipeline output、
+human label、failure category 放在同一物件；T3 只允許 raw query local-only，但既有 task 卻規劃
+tracked `query-pack.json`；而 query model 在 T5 就要求 `split`，與 RHB-T7 才做 family-safe split 的
+規格衝突。先留下可重現 blocker，比填入假 split 或把 local-only rows 推上 Git 更正確。
+
+### 技術棧／方法選型與驗證結果
+
+延續專案既有 Python 3.12 + Pydantic strict-contract 方法，readiness report 拒絕 unknown fields、固定
+blocker ordering 並以 canonical JSON SHA-256 綁定。來源解析額外拒絕 duplicate JSON keys；程式只依賴
+既有 benchmark contracts 和 filesystem read，不依賴 FastAPI、resolver、network/browser 或模型。
+Focused tests 共 6 個全數通過，覆蓋 deterministic/read-only replay、human source hash tamper、CAR-T6
+authority tamper、premature query artifact、CLI hash reproduction 與 runtime/network dependency guard。
+連同 76 個相關 RHB/CAR contract regression 為 `82 passed`。Strict MyPy 對三個 benchmark 核心模組
+為 0 issues，Ruff/format/diff check 通過；完整 repo 回歸執行至 10% 未出現 failure，但因無關的既有
+長時間 evaluation tests 而手動停止，因此本輪不宣稱新的 full-suite PASS。真實 readiness hash 是
+`9a2f5491a6c22c097eaf8bd913c53a46dab71068b1484906f91c48f7b030c840`。
+
+### 下一步與未授權範圍
+
+下一步只做 pre-authoring safety repair：建立只含 opaque reference + raw query 的 Git-ignored
+projection contract、把 raw local-only query pack 與 public aggregate manifest 分離，並把 split 從
+T5 query contract 延後到 RHB-T7 `SplitArtifact`。完成並重跑 readiness 後，才向 owner 提出獨立
+RHB-T5 Gate。本輪沒有批准 RHB-T5；challenge coverage、duplicate evidence grouping、60-case selection、
+labels、resolver output、RAG/embedding/listwise/pointwise 評估全部仍未開始。
+
 ## 2026-10-04 — CAR-T7 收尾：CAR-R1–R11 全數驗收，分開呈現工程與資料結果
 
 ### 新執行了什麼，解決什麼問題
