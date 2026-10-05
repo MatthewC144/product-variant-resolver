@@ -746,6 +746,88 @@ class QueryPack(StrictContract):
         return self
 
 
+class RhbT6QueryLabelAdmission(StrictContract):
+    query_source_id: Literal["human-labeled-real-noisy-v1"]
+    query_pack_sha256: Sha256
+    query_pack_record_count: Literal[60]
+    additional_allowed_status: Literal["matched"]
+    maximum_matched_labels: Literal[20]
+    publication_scope: Literal["local_only"]
+    admission_scope: Literal["bound_query_pack_only"]
+    human_source_remains_ineligible_for_exact_authority: Literal[True]
+    exact_admitted_authority_required_for_every_matched_label: Literal[True]
+    owner_review_required_for_every_label: Literal[True]
+    public_row_publication_authorized: Literal[False]
+
+
+class RhbT6AuthorityBundleAdmission(StrictContract):
+    authority_sha256: Sha256
+    authority_record_count: Literal[20]
+    authority_record_ids: list[NonBlank] = Field(min_length=20, max_length=20)
+    evidence_source_id: Literal["fandom-hot-wheels-2025-pilot-r790665-v1"]
+    evidence_source_revision_id: Literal[790665]
+    admission_scope: Literal["exact_records_in_bound_car_bundle_only"]
+    source_wide_exact_authority_promotion: Literal[False]
+    manufacturer_certification_claimed: Literal[False]
+    color_or_edition_newly_verified: Literal[False]
+    resolver_output_consulted: Literal[False]
+    benchmark_labels_consulted: Literal[False]
+
+    @model_validator(mode="after")
+    def record_ids_are_unique_and_ordered(self) -> RhbT6AuthorityBundleAdmission:
+        if self.authority_record_ids != sorted(set(self.authority_record_ids)):
+            raise ValueError("authority admission IDs must be unique and ordered")
+        return self
+
+
+class RhbT6ChallengeReviewCarryForward(StrictContract):
+    provisional_shortfalls: dict[str, int]
+    provisional_shortfall_total: Literal[16]
+    owner_label_review_must_verify_or_hold: Literal[True]
+    representative_pilot_preapproved: Literal[False]
+
+    @model_validator(mode="after")
+    def shortfalls_are_recomputable(self) -> RhbT6ChallengeReviewCarryForward:
+        if sum(self.provisional_shortfalls.values()) != self.provisional_shortfall_total:
+            raise ValueError("challenge shortfall total is inconsistent")
+        return self
+
+
+class RhbT6GovernanceOverlay(StrictContract):
+    schema_version: Literal["pvr-rhb-t6-governance-overlay-v1"]
+    overlay_version: Literal["rhb-t6-governance-overlay-v1"]
+    materialization_date: Literal["2026-10-05"]
+    status: Literal["active_for_bound_artifacts"]
+    materialized_by: Literal["scripts/build_representative_hard_benchmark_governance_overlay.py"]
+    proposal_sha256: Sha256
+    owner_response_sha256: Sha256
+    owner_authorization_sha256: Sha256
+    input_artifacts: list[ArtifactDigest] = Field(min_length=5)
+    frozen_t1_t3_preserved_without_overwrite: Literal[True]
+    query_label_admission: RhbT6QueryLabelAdmission
+    authority_bundle_admission: RhbT6AuthorityBundleAdmission
+    challenge_review_carry_forward: RhbT6ChallengeReviewCarryForward
+    governance_overlay_materialized: Literal[True]
+    rhb_t6_label_authoring_authorized: Literal[False]
+    rhb_t7_authorized: Literal[False]
+    resolver_evaluation_authorized: Literal[False]
+    network_requests: Literal[0]
+    next_allowed_action: Literal[
+        "rerun_rhb_t6_readiness_then_request_separate_label_authoring_gate"
+    ]
+    overlay_sha256: Sha256
+
+    @model_validator(mode="after")
+    def overlay_is_ordered_narrow_and_hash_bound(self) -> RhbT6GovernanceOverlay:
+        paths = [item.path for item in self.input_artifacts]
+        if paths != sorted(set(paths)):
+            raise ValueError("governance overlay inputs must be unique and ordered")
+        expected = content_sha256(self.model_dump(mode="json", exclude={"overlay_sha256"}))
+        if self.overlay_sha256 != expected:
+            raise ValueError("governance overlay checksum is stale")
+        return self
+
+
 class ExpectedStatus(str, Enum):
     matched = "matched"
     ambiguous = "ambiguous"
@@ -1552,20 +1634,77 @@ def _catalog_index(
     return version, indexed
 
 
+def _overlay_input_sha256(overlay: RhbT6GovernanceOverlay, path: str) -> str | None:
+    return next(
+        (item.sha256 for item in overlay.input_artifacts if item.path == path),
+        None,
+    )
+
+
+def _validate_overlay_authority_binding(
+    overlay: RhbT6GovernanceOverlay,
+    authority: CanonicalAuthorityArtifact,
+    source_decisions: SourceDecisionArtifact,
+) -> None:
+    authority_sha256 = content_sha256(authority.model_dump(mode="json"))
+    if overlay.authority_bundle_admission.authority_sha256 != authority_sha256:
+        _raise("governance overlay references a different authority bundle")
+    authority_ids = [record.authority_id for record in authority.records]
+    if overlay.authority_bundle_admission.authority_record_ids != authority_ids:
+        _raise("governance overlay authority IDs differ from the bound bundle")
+    bound_decision_sha256 = _overlay_input_sha256(
+        overlay,
+        "data/evaluation/representative-hard-benchmark-v1/source-decisions.json",
+    )
+    if bound_decision_sha256 is None:
+        _raise("governance overlay omits the frozen source-decisions parent")
+
+
+def validate_rhb_t6_governance_overlay(
+    payload: Mapping[str, Any],
+    *,
+    query_pack: QueryPack,
+    authority: CanonicalAuthorityArtifact,
+    source_decisions: SourceDecisionArtifact,
+) -> RhbT6GovernanceOverlay:
+    """Validate the narrow RHB-T6 overlay against its exact query/authority parents."""
+
+    overlay = RhbT6GovernanceOverlay.model_validate(payload)
+    query_sha256 = content_sha256(query_pack.model_dump(mode="json"))
+    if overlay.query_label_admission.query_pack_sha256 != query_sha256:
+        _raise("governance overlay references a different query pack")
+    if overlay.query_label_admission.query_pack_record_count != len(query_pack.cases):
+        _raise("governance overlay query count differs from the bound pack")
+    if any(
+        case.source_id != overlay.query_label_admission.query_source_id for case in query_pack.cases
+    ):
+        _raise("governance overlay query source differs from the bound pack")
+    _validate_overlay_authority_binding(overlay, authority, source_decisions)
+    return overlay
+
+
 def validate_canonical_authority(
     payload: Mapping[str, Any],
     *,
     inventory: SourceInventory,
     catalog_payload: Mapping[str, Any],
     source_decisions: SourceDecisionArtifact,
+    governance_overlay: RhbT6GovernanceOverlay | None = None,
 ) -> CanonicalAuthorityArtifact:
     """Validate exact-variant authority against approved sources and the frozen catalog."""
 
     artifact = CanonicalAuthorityArtifact.model_validate(payload)
     _assert_decisions_match_inventory(source_decisions, inventory)
+    if governance_overlay is not None:
+        _validate_overlay_authority_binding(
+            governance_overlay,
+            artifact,
+            source_decisions,
+        )
     if (
         catalog_payload.get("catalog_version") == "catalog-v2"
         and "catalog_lineage" in catalog_payload
+        and all(record.canonical_catalog_version != "catalog-v2" for record in artifact.records)
     ):
         try:
             catalog_payload = frozen_parent_catalog_from_payload(catalog_payload).model_dump(
@@ -1581,10 +1720,8 @@ def validate_canonical_authority(
         if artifact.publication_scope == RowPublicationScope.public:
             _reject_obvious_pii(
                 [
-                    record.authority_id,
                     record.reviewed_by,
                     record.review_reason,
-                    *record.independent_evidence_refs,
                 ],
                 context=f"authority {record.authority_id!r}",
             )
@@ -1601,7 +1738,13 @@ def validate_canonical_authority(
             source = sources.get(source_id)
             if source is None:
                 _raise(f"authority {record.authority_id!r} references unknown source {source_id!r}")
-            if record.status == AuthorityStatus.approved_exact:
+            admitted_by_overlay = (
+                governance_overlay is not None
+                and record.authority_id
+                in governance_overlay.authority_bundle_admission.authority_record_ids
+                and source_id == governance_overlay.authority_bundle_admission.evidence_source_id
+            )
+            if record.status == AuthorityStatus.approved_exact and not admitted_by_overlay:
                 _require_downstream_permission(
                     source_decisions,
                     source.source_id,
@@ -1837,6 +1980,7 @@ def validate_labels(
     catalog_payload: Mapping[str, Any],
     inventory: SourceInventory,
     source_decisions: SourceDecisionArtifact,
+    governance_overlay: RhbT6GovernanceOverlay | None = None,
 ) -> LabelArtifact:
     """Validate label semantics and prohibit non-canonical identities from becoming truth."""
 
@@ -1846,16 +1990,31 @@ def validate_labels(
         inventory=inventory,
         source_decisions=source_decisions,
     )
+    validated_overlay = None
+    if governance_overlay is not None:
+        validated_overlay = validate_rhb_t6_governance_overlay(
+            governance_overlay.model_dump(mode="json"),
+            query_pack=validated_query_pack,
+            authority=authority,
+            source_decisions=source_decisions,
+        )
     validated_authority = validate_canonical_authority(
         authority.model_dump(mode="json"),
         inventory=inventory,
         catalog_payload=catalog_payload,
         source_decisions=source_decisions,
+        governance_overlay=validated_overlay,
     )
     _assert_decisions_match_inventory(source_decisions, inventory)
     queries = {case.case_id: case for case in validated_query_pack.cases}
     authorities = {record.authority_id: record for record in validated_authority.records}
     _, catalog = _catalog_index(catalog_payload)
+    if validated_overlay is not None:
+        matched_count = sum(
+            label.expected_status == ExpectedStatus.matched for label in artifact.records
+        )
+        if matched_count > validated_overlay.query_label_admission.maximum_matched_labels:
+            _raise("labels exceed the governance overlay matched-label maximum")
     for label in artifact.records:
         if artifact.publication_scope == RowPublicationScope.public:
             _reject_obvious_pii(
@@ -1877,9 +2036,15 @@ def validate_labels(
             label.source_id,
             SourceDownstreamPermission.scored_labels,
         )
+        admitted_matched_label = (
+            validated_overlay is not None
+            and label.expected_status == ExpectedStatus.matched
+            and label.source_id == validated_overlay.query_label_admission.query_source_id
+        )
         if (
             SourceAllowedLabelStatus(label.expected_status.value)
             not in decision_source.allowed_label_statuses
+            and not admitted_matched_label
         ):
             _raise(
                 f"source {label.source_id!r} cannot produce {label.expected_status.value} labels"
@@ -2066,6 +2231,7 @@ __all__ = [
     "LabelArtifact",
     "LabelBlindRawArtifact",
     "QueryPack",
+    "RhbT6GovernanceOverlay",
     "ScoredResultsArtifact",
     "SourceDecisionArtifact",
     "SourceDecisionCell",
@@ -2082,6 +2248,7 @@ __all__ = [
     "validate_label_blind_raw",
     "validate_labels",
     "validate_query_pack",
+    "validate_rhb_t6_governance_overlay",
     "validate_scored_results",
     "validate_source_decisions",
     "validate_source_inventory",

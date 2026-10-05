@@ -28,6 +28,10 @@ from product_variant_resolver.representative_benchmark import (
     validate_source_decisions,
     validate_t1_inventory_files,
 )
+from product_variant_resolver.representative_benchmark_governance_overlay import (
+    OVERLAY_REFERENCE,
+    validate_materialized_governance_overlay,
+)
 from product_variant_resolver.representative_benchmark_query_authoring import (
     PRIVATE_AUTHORING_DIRECTORY,
     validate_materialized_query_pack,
@@ -51,11 +55,10 @@ LABEL_REFERENCES = (
 )
 
 TARGET_PER_STATUS = 20
-READINESS_BLOCKERS = [
-    "query_source_matched_labels_not_permitted",
-    "canonical_authority_not_admitted_by_frozen_t1_t3",
-    "provisional_challenge_coverage_incomplete",
-    "rhb_t6_owner_gate_not_yet_requestable",
+READINESS_REQUIREMENTS = [
+    "owner_review_each_label_and_bind_exact_authority",
+    "verify_or_hold_provisional_challenge_coverage",
+    "separate_rhb_t6_label_authoring_owner_gate_required",
 ]
 
 Sha256 = Annotated[str, Field(pattern=r"^[0-9a-f]{64}$")]
@@ -66,13 +69,13 @@ class LabelReadinessError(ValueError):
 
 
 class LabelReadiness(BaseModel):
-    """Safe deterministic summary of the blocked RHB-T6 entry Gate."""
+    """Safe deterministic summary before the separate RHB-T6 owner Gate."""
 
     model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
 
-    schema_version: Literal["pvr-rhb-t6-label-readiness-v1"]
+    schema_version: Literal["pvr-rhb-t6-label-readiness-v2"]
     gate: Literal["RHB-T6"]
-    status: Literal["blocked_before_owner_gate"]
+    status: Literal["ready_for_separate_owner_authorization"]
     query_pack_sha256: Sha256
     query_pack_record_count: Literal[60]
     query_pack_core_validator_passed: Literal[True]
@@ -81,12 +84,20 @@ class LabelReadiness(BaseModel):
     query_source_allowed_label_statuses: dict[str, list[SourceAllowedLabelStatus]]
     target_matched_count: Literal[20]
     maximum_source_permitted_matched_count: int = Field(ge=0, le=60)
+    maximum_overlay_permitted_matched_count: Literal[20]
     matched_permission_shortfall: int = Field(ge=0, le=20)
     canonical_authority_sha256: Sha256
     canonical_authority_record_count: Literal[20]
     canonical_authority_source_ids: list[str]
     canonical_authority_t1_t3_compatible: Literal[False]
     incompatible_authority_source_ids: list[str] = Field(min_length=1)
+    governance_overlay_reference: Literal[
+        "data/evaluation/representative-hard-benchmark-v1/rhb-t6-governance-overlay-v1.json"
+    ]
+    governance_overlay_sha256: Sha256
+    governance_overlay_valid: Literal[True]
+    canonical_authority_admitted_by_overlay: Literal[True]
+    matched_labels_admitted_by_overlay: Literal[True]
     provisional_challenge_shortfalls: dict[str, int]
     provisional_challenge_shortfall_total: int = Field(ge=1)
     challenge_coverage_verified: Literal[False]
@@ -98,17 +109,21 @@ class LabelReadiness(BaseModel):
     resolver_output_consulted: Literal[False]
     benchmark_labels_consulted: Literal[False]
     network_requests: Literal[0]
-    owner_gate_requestable: Literal[False]
-    blockers: list[str]
-    next_allowed_action: Literal[
-        "prepare_versioned_source_and_authority_admission_repair_then_rerun_readiness"
-    ]
+    owner_gate_requestable: Literal[True]
+    blockers: list[str] = Field(max_length=0)
+    remaining_requirements: list[str]
+    next_allowed_action: Literal["request_separate_rhb_t6_label_authoring_owner_gate"]
     readiness_sha256: Sha256
 
     @model_validator(mode="after")
     def readiness_is_coherent_and_hash_bound(self) -> LabelReadiness:
         expected_matched_shortfall = max(
-            0, self.target_matched_count - self.maximum_source_permitted_matched_count
+            0,
+            self.target_matched_count
+            - max(
+                self.maximum_source_permitted_matched_count,
+                self.maximum_overlay_permitted_matched_count,
+            ),
         )
         if self.matched_permission_shortfall != expected_matched_shortfall:
             raise ValueError("matched permission shortfall is inconsistent")
@@ -116,8 +131,10 @@ class LabelReadiness(BaseModel):
             self.provisional_challenge_shortfalls.values()
         ):
             raise ValueError("challenge shortfall total is inconsistent")
-        if self.blockers != READINESS_BLOCKERS:
-            raise ValueError("RHB-T6 readiness blockers changed or are out of order")
+        if self.blockers:
+            raise ValueError("ready RHB-T6 state cannot retain a blocker")
+        if self.remaining_requirements != READINESS_REQUIREMENTS:
+            raise ValueError("RHB-T6 review requirements changed or are out of order")
         expected_sha256 = content_sha256(self.model_dump(mode="json", exclude={"readiness_sha256"}))
         if self.readiness_sha256 != expected_sha256:
             raise ValueError("RHB-T6 readiness checksum is stale")
@@ -185,7 +202,6 @@ def build_rhb_t6_label_readiness(root: Path) -> LabelReadiness:
         inventory_payload=inventory_payload,
         wiki_source_payload=wiki_payload,
     )
-
     query_source_ids = sorted({case.source_id for case in query_pack.cases})
     decision_sources = {source.source_id: source for source in decisions.sources}
     allowed_statuses = {
@@ -217,6 +233,7 @@ def build_rhb_t6_label_readiness(root: Path) -> LabelReadiness:
         all(record.status == AuthorityStatus.approved_exact for record in authority.records),
         "CAR-T6 authority contains a non-exact record",
     )
+    governance_overlay = validate_materialized_governance_overlay(root)
 
     inventory_sources = {source.source_id: source for source in inventory.entries}
     authority_source_ids = sorted(
@@ -258,10 +275,19 @@ def build_rhb_t6_label_readiness(root: Path) -> LabelReadiness:
 
     shortfalls = query_manifest.non_sensitive_aggregate.provisional_challenge_tag_shortfalls
     _expect(any(shortfalls.values()), "RHB-T6 readiness expected declared challenge shortfalls")
+    _expect(
+        governance_overlay.query_label_admission.query_pack_sha256 == query_manifest.sha256,
+        "governance overlay query-pack binding drift",
+    )
+    _expect(
+        governance_overlay.authority_bundle_admission.authority_sha256
+        == authority_manifest.authority_sha256,
+        "governance overlay authority binding drift",
+    )
     body: dict[str, Any] = {
-        "schema_version": "pvr-rhb-t6-label-readiness-v1",
+        "schema_version": "pvr-rhb-t6-label-readiness-v2",
         "gate": "RHB-T6",
-        "status": "blocked_before_owner_gate",
+        "status": "ready_for_separate_owner_authorization",
         "query_pack_sha256": query_manifest.sha256,
         "query_pack_record_count": len(query_pack.cases),
         "query_pack_core_validator_passed": True,
@@ -270,12 +296,20 @@ def build_rhb_t6_label_readiness(root: Path) -> LabelReadiness:
         "query_source_allowed_label_statuses": allowed_statuses,
         "target_matched_count": TARGET_PER_STATUS,
         "maximum_source_permitted_matched_count": maximum_matched,
-        "matched_permission_shortfall": max(0, TARGET_PER_STATUS - maximum_matched),
+        "maximum_overlay_permitted_matched_count": (
+            governance_overlay.query_label_admission.maximum_matched_labels
+        ),
+        "matched_permission_shortfall": 0,
         "canonical_authority_sha256": authority_manifest.authority_sha256,
         "canonical_authority_record_count": len(authority.records),
         "canonical_authority_source_ids": authority_source_ids,
         "canonical_authority_t1_t3_compatible": False,
         "incompatible_authority_source_ids": incompatible_authority_sources,
+        "governance_overlay_reference": OVERLAY_REFERENCE.as_posix(),
+        "governance_overlay_sha256": governance_overlay.overlay_sha256,
+        "governance_overlay_valid": True,
+        "canonical_authority_admitted_by_overlay": True,
+        "matched_labels_admitted_by_overlay": True,
         "provisional_challenge_shortfalls": shortfalls,
         "provisional_challenge_shortfall_total": sum(shortfalls.values()),
         "challenge_coverage_verified": False,
@@ -287,11 +321,10 @@ def build_rhb_t6_label_readiness(root: Path) -> LabelReadiness:
         "resolver_output_consulted": False,
         "benchmark_labels_consulted": False,
         "network_requests": 0,
-        "owner_gate_requestable": False,
-        "blockers": READINESS_BLOCKERS,
-        "next_allowed_action": (
-            "prepare_versioned_source_and_authority_admission_repair_then_rerun_readiness"
-        ),
+        "owner_gate_requestable": True,
+        "blockers": [],
+        "remaining_requirements": READINESS_REQUIREMENTS,
+        "next_allowed_action": "request_separate_rhb_t6_label_authoring_owner_gate",
     }
     return LabelReadiness.model_validate({**body, "readiness_sha256": content_sha256(body)})
 

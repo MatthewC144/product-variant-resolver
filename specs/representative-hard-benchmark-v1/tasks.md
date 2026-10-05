@@ -191,18 +191,29 @@ Acceptance:
   authority is not admitted by frozen T1/T3, and provisional challenge shortfalls total `16`.
 - [x] Prepare a deterministic non-authorizing governance-repair proposal that binds the exact
   60-row query-pack SHA and 20-record CAR authority SHA while preserving frozen T1/T3.
-- [ ] Obtain explicit owner approval to materialize the versioned governance overlay. This approval
-  remains separate from RHB-T6 label authoring.
+- [x] Obtain the exact owner approval and materialize the versioned governance overlay. The overlay
+  binds only query pack SHA `97f7…858a` and CAR authority SHA `72c1…3117`; it preserves frozen
+  T1/T3, grants no source-wide authority, and leaves label authoring unauthorized.
+- [x] Rerun RHB-T6 readiness against the materialized overlay. The result is
+  `ready_for_separate_owner_authorization`: matched capacity is 20 through the overlay, the exact
+  20-record authority bundle is admitted, no labels exist, and challenge shortfalls remain subject
+  to owner review.
+- [ ] Obtain a separate explicit RHB-T6 label-authoring Owner Gate before writing any label or held
+  record.
 
 Files:
 
 - `src/product_variant_resolver/representative_benchmark_label_readiness.py`
 - `src/product_variant_resolver/representative_benchmark_governance_repair.py`
+- `src/product_variant_resolver/representative_benchmark_governance_overlay.py`
 - `scripts/validate_representative_hard_benchmark_label_readiness.py`
 - `scripts/build_representative_hard_benchmark_governance_repair_proposal.py`
+- `scripts/build_representative_hard_benchmark_governance_overlay.py`
 - `tests/evaluation/test_representative_benchmark_label_readiness.py`
 - `tests/evaluation/test_representative_benchmark_governance_repair.py`
+- `tests/evaluation/test_representative_benchmark_governance_overlay.py`
 - `data/evaluation/representative-hard-benchmark-v1/rhb-t6-governance-repair-proposal.json`
+- `data/evaluation/representative-hard-benchmark-v1/rhb-t6-governance-overlay-v1.json`
 - `data/evaluation/representative-hard-benchmark-v1/local-query-authoring-v1/labels.json`
 - `data/evaluation/representative-hard-benchmark-v1/local-query-authoring-v1/held-labels.json`
 - `data/evaluation/representative-hard-benchmark-v1/labels-manifest.json`

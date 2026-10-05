@@ -12,6 +12,9 @@ from typing import Any, cast
 
 import pytest
 
+from product_variant_resolver.representative_benchmark_governance_overlay import (
+    OWNER_AUTHORIZATION_REFERENCE as GOVERNANCE_AUTHORIZATION_REFERENCE,
+)
 from product_variant_resolver.representative_benchmark_label_readiness import (
     LABEL_REFERENCES,
     LabelReadinessError,
@@ -36,6 +39,8 @@ PUBLIC_INPUTS = (
     RHB / "query-pack-manifest.json",
     RHB / "canonical-authority-reaudit-v1.json",
     RHB / "canonical-authority-reaudit-manifest-v1.json",
+    RHB / "rhb-t6-governance-repair-proposal.json",
+    RHB / "rhb-t6-governance-overlay-v1.json",
     Path("data/external/hot-wheels-wiki/pilot-2025/normalized.json"),
 )
 PRIVATE_INPUTS = (
@@ -43,6 +48,7 @@ PRIVATE_INPUTS = (
     OWNER_AUTHORIZATION_REFERENCE,
     AUTHORING_INPUT_REFERENCE,
     QUERY_PACK_REFERENCE,
+    GOVERNANCE_AUTHORIZATION_REFERENCE,
 )
 
 
@@ -67,7 +73,7 @@ def _read(path: Path) -> dict[str, Any]:
     return cast(dict[str, Any], json.loads(path.read_text(encoding="utf-8")))
 
 
-def test_real_readiness_is_deterministic_read_only_and_honestly_blocked() -> None:
+def test_real_readiness_is_deterministic_read_only_and_ready_for_separate_gate() -> None:
     watched = [ROOT / reference for reference in LABEL_REFERENCES]
     before = {path: path.exists() for path in watched}
 
@@ -75,7 +81,7 @@ def test_real_readiness_is_deterministic_read_only_and_honestly_blocked() -> Non
     second = build_rhb_t6_label_readiness(ROOT)
 
     assert first == second
-    assert first.status == "blocked_before_owner_gate"
+    assert first.status == "ready_for_separate_owner_authorization"
     assert first.query_pack_record_count == 60
     assert first.query_pack_core_validator_passed
     assert not first.query_pack_representative_pilot
@@ -84,12 +90,17 @@ def test_real_readiness_is_deterministic_read_only_and_honestly_blocked() -> Non
         "human-labeled-real-noisy-v1": ["ambiguous", "no_match"]
     }
     assert first.maximum_source_permitted_matched_count == 0
-    assert first.matched_permission_shortfall == 20
+    assert first.maximum_overlay_permitted_matched_count == 20
+    assert first.matched_permission_shortfall == 0
     assert first.canonical_authority_record_count == 20
     assert not first.canonical_authority_t1_t3_compatible
+    assert first.canonical_authority_admitted_by_overlay
+    assert first.matched_labels_admitted_by_overlay
     assert first.incompatible_authority_source_ids == ["fandom-hot-wheels-2025-pilot-r790665-v1"]
     assert first.provisional_challenge_shortfall_total == 16
-    assert not first.owner_gate_requestable
+    assert first.owner_gate_requestable
+    assert first.blockers == []
+    assert first.next_allowed_action == "request_separate_rhb_t6_label_authoring_owner_gate"
     assert not first.rhb_t6_authorized
     assert {path: path.exists() for path in watched} == before
 

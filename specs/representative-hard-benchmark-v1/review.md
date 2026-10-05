@@ -1,9 +1,32 @@
 # Representative Hard Benchmark v1 — Lean QA Review
 
 Date: 2026-10-05. Mode: Lite / Lean Industrial. Scope:
-**RHB-T1/T2 history + RHB-T3/T4 final QA + RHB-T5 authoring + RHB-T6 readiness**.
+**RHB-T1/T2 history + RHB-T3/T4 final QA + RHB-T5 authoring + RHB-T6 governance overlay/readiness**.
 
-## Current milestone verdict: GOVERNANCE REPAIR PROPOSAL READY / AWAITING OWNER DECISION
+## Current milestone verdict: GOVERNANCE OVERLAY PASS / LABEL OWNER GATE REQUESTABLE
+
+The project owner approved only the versioned governance overlay. The implementation binds the
+Human-source `matched` exception to query pack SHA-256
+`97f7f0dd61cf619bb16b198778356d8ef53c7a504086f11542922f90706a858a` and binds exact authority to
+the 20-record CAR bundle SHA-256
+`72c11aeb8db03267a8deca4f50eb09d89c2c423a7e9ca983f498f76e80553117`. The overlay contains the
+complete sorted authority-ID allowlist and admits neither Human labels nor the Wiki source as
+source-wide canonical authority. It claims no manufacturer/global truth and adds no color/edition
+verification.
+
+The repaired readiness is `ready_for_separate_owner_authorization`, with effective matched capacity
+`20/20`, exact bundle admission valid, zero label artifacts and readiness SHA-256
+`0de13006b7d18d4a6afc6c1a74997589e6870f0137dfe40bb58d484fada2767b`. The frozen T1/T3 baseline
+still shows source-permitted matched capacity `0` and source-wide authority incompatibility; the
+overlay is the only narrow exception. Provisional challenge shortfalls remain `16` and must be
+verified or held during owner review. RHB-T6 label authoring, RHB-T7 and resolver evaluation remain
+unauthorized.
+
+All 128 representative-benchmark tests pass, including nine overlay tests and six repaired-readiness
+tests. Overlay create/check replay, proposal replay, Ruff, format, strict MyPy, compile, privacy and
+Git-ignore checks pass.
+
+## Previous milestone verdict: GOVERNANCE REPAIR PROPOSAL READY / OWNER DECISION RECEIVED
 
 The exact readiness blockers are now represented by a deterministic, public-safe, non-authorizing
 proposal. It binds query pack SHA-256
@@ -15,8 +38,8 @@ The proposal does not rewrite T1/T3. It would permit matched labels only inside 
 and only when an owner-reviewed label references an exact record in the bound CAR bundle. It admits
 the 20 exact authority records, not the entire Wiki source, and explicitly denies manufacturer/global
 truth, new color/edition verification, RHB-T6 labels, RHB-T7 and resolver evaluation. Its status is
-`awaiting_owner_decision`, `proposal_only=true`, and `rhb_t6_authorized=false`; implementation must
-not begin before a separate exact Owner Gate.
+`awaiting_owner_decision`, `proposal_only=true`, and `rhb_t6_authorized=false`; its required exact
+Owner Gate was subsequently received and is implemented only in the separate versioned overlay.
 
 All 126 representative-benchmark tests pass. Proposal replay is `unchanged / unchanged`; Ruff,
 format, strict MyPy, compile, public-field privacy and diff checks pass. The public proposal file

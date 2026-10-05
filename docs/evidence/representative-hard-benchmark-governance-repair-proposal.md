@@ -2,7 +2,13 @@
 
 Date: 2026-10-05
 Mode: Lite / Lean Industrial
-Verdict: **PROPOSAL PASS — AWAITING OWNER DECISION; NOT MATERIALIZED**
+Verdict: **PROPOSAL PASS — OWNER DECISION RECEIVED; MATERIALIZED IN SEPARATE OVERLAY**
+
+Current status: the exact Gate below was received and recorded in a private Git-ignored ledger. The
+proposal itself remains immutable and non-authorizing; implementation lives in
+`rhb-t6-governance-overlay-v1.json`. See
+[governance overlay evidence](representative-hard-benchmark-governance-overlay.md). RHB-T6 label
+authoring still requires a separate Owner Gate.
 
 ## Problem and selected repair
 

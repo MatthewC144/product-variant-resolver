@@ -231,7 +231,7 @@ composition permitted by T1/T3, verifies that authority evidence sources are adm
 authority, reports provisional challenge shortfalls, and rejects premature authorization or label
 artifacts. It never opens a labeling session or imports resolver code.
 
-The first readiness result is intentionally blocked. The Human query source permits only
+The first readiness result was intentionally blocked. The Human query source permits only
 `ambiguous` and `no_match`, so it can legally support zero of the required 20 matched labels. The
 CAR authority evidence source also remains `prohibited/staging_only` in the frozen T1/T3 contract,
 despite the later CAR workflow accepting it under its own governance. A versioned source-decision
@@ -245,6 +245,15 @@ CAR bundle SHA and revision 790665, not the Wiki source generally. Human labels 
 create identity, the full Wiki source remains staging context, unsupported color/edition stay
 unverified, and manufacturer/global truth is not claimed. Proposal materialization and RHB-T6 label
 authoring require two separate Owner Gates.
+
+The first Gate has now been exercised. A public, self-hashed
+`rhb-t6-governance-overlay-v1.json` records only the exact query-pack hash, exact CAR authority
+bundle hash/IDs, frozen parent hashes, safe aggregates and negative authorization flags. The exact
+owner response remains in a Git-ignored `0600` ledger. Core authority and label validation accept
+the exception only when the supplied query pack and complete 20-record authority bundle match the
+overlay; the original T1/T3 source-wide prohibitions remain unchanged. Post-overlay readiness is
+therefore requestable, but it still returns `rhb_t6_authorized=false`, creates no label, and requires
+a second explicit Owner Gate before authoring.
 
 ### 6.5 `BenchmarkManifest`
 

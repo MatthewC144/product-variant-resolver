@@ -113,11 +113,11 @@ shortfalls of year `3`, color `3`, series `4`, identifier `2` and unknown-to-cat
 class is intentionally zero because output-blind query text cannot establish catalog-relative
 absence. Therefore this is a provenance/authoring artifact, not an accepted representative pilot.
 
-RHB-T6 readiness revalidates that pack through the core query contract and stops before an Owner
-Gate. The query source permits only `ambiguous/no_match`, leaving a matched-label permission
-shortfall of `20`; the CAR authority's Wiki evidence source is also not admitted for exact authority
-by frozen T1/T3. No label, held-label or labels manifest exists. A new versioned governance repair
-must be owner-approved before label authoring can be requested.
+Initial RHB-T6 readiness revalidated that pack through the core query contract and stopped before an
+Owner Gate. The query source permits only `ambiguous/no_match`, leaving a frozen-baseline
+matched-label permission shortfall of `20`; the CAR authority's Wiki evidence source is also not
+admitted as source-wide exact authority by frozen T1/T3. No label, held-label or labels manifest
+exists.
 
 `rhb-t6-governance-repair-proposal.json` is the non-authorizing repair proposal. It binds the exact
 query pack, CAR authority bundle, source inventory/decisions and readiness hash. The proposed
@@ -125,6 +125,14 @@ admission is bundle-specific: Human queries remain non-authoritative, the whole 
 promoted, and every future matched label would require an owner-reviewed exact authority reference.
 The file contains no raw query, source-row reference, owner response or label and reports
 `rhb_t6_authorized=false`.
+
+`rhb-t6-governance-overlay-v1.json` is the owner-approved, versioned repair. It applies only to query
+pack SHA `97f7…858a` and the 20 exact records in authority SHA `72c1…3117`; the sorted authority ID
+allowlist is explicit. It does not rewrite T1/T3, expose the private approval/query rows, promote the
+whole Wiki source, claim manufacturer truth, verify color/edition, or authorize RHB-T6 labels.
+Post-overlay readiness reports effective matched capacity `20`, zero permission shortfall, and
+`ready_for_separate_owner_authorization`. The separate label-authoring Owner Gate is still required,
+and provisional challenge shortfalls remain subject to per-row owner verification or hold.
 
 T3 passes only for the declared scopes. Human-name queries and `ambiguous`/`no_match` labels remain
 local-only; they can never produce a `matched` label. Workbook rows are local-only family context and
@@ -146,11 +154,14 @@ authorization explicitly excludes RHB-T5, query-pack authoring and label authori
   tests/evaluation/test_representative_benchmark_query_projection.py \
   tests/evaluation/test_representative_benchmark_query_readiness.py \
   tests/evaluation/test_representative_benchmark_query_authoring.py \
+  tests/evaluation/test_representative_benchmark_governance_repair.py \
+  tests/evaluation/test_representative_benchmark_governance_overlay.py \
   tests/evaluation/test_representative_benchmark_label_readiness.py -q
 .venv/bin/python scripts/build_representative_hard_benchmark_query_projection.py --check
 .venv/bin/python scripts/build_representative_hard_benchmark_query_pack.py --check
 .venv/bin/python scripts/validate_representative_hard_benchmark_label_readiness.py
 .venv/bin/python scripts/build_representative_hard_benchmark_governance_repair_proposal.py --check
+.venv/bin/python scripts/build_representative_hard_benchmark_governance_overlay.py --check
 .venv/bin/ruff check src/product_variant_resolver/representative_benchmark.py \
   src/product_variant_resolver/representative_benchmark_query_projection.py \
   src/product_variant_resolver/representative_benchmark_query_readiness.py \

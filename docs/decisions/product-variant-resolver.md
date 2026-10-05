@@ -2322,3 +2322,26 @@ security/privacy (no row-level query/label), maintainability (one strict schema)
 clarity (demonstrates governed evidence evolution instead of silent permission changes). Its cost is
 one extra Owner Gate before labeling; that is acceptable because owner review is the scarce and
 irreversible resource being protected.
+
+## 2026-10-05 — Materialize a two-hash governance overlay without rewriting T1/T3
+
+**Decision:** accept the owner's RHB-T6 Governance Repair v1 authorization only as permission to
+materialize a versioned overlay. Bind matched-label permission to query pack SHA `97f7…858a`; bind
+canonical authority to the 20 sorted IDs in CAR bundle SHA `72c1…3117`. Keep label authoring, split
+assignment and resolver evaluation behind separate future Gates.
+
+The alternative of editing frozen T1/T3 was rejected because it would make the earlier audit look as
+though the later evidence had always existed. Promoting all Wiki rows was also rejected: CAR review
+established 20 exact records, not source-wide manufacturer-grade reliability. The overlay preserves
+both facts by leaving old files unchanged and carrying the exception as a new, hash-bound artifact.
+
+The 10x alternative would be a generic policy engine for arbitrary source/record overrides. That is
+unnecessary for this portfolio-sized pilot and would enlarge the trust surface before a second use
+case exists. A strict Pydantic model with fixed parent hashes, fixed count, sorted allowlist and
+negative authorization flags is smaller, auditable and fail-closed.
+
+The most likely failure is scope creep during downstream validation—for example, accepting another
+query pack because it shares a source ID, or any record from the same Wiki revision. Core validation
+therefore checks the exact query-pack content hash, full authority-bundle hash and allowlisted IDs.
+Post-overlay readiness separately reports that frozen source-wide compatibility remains false. This
+makes the distinction between a narrow exception and global promotion visible in both code and QA.

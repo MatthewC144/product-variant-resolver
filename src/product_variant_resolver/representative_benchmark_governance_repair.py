@@ -26,11 +26,9 @@ from product_variant_resolver.representative_benchmark import (
     validate_source_decisions,
     validate_t1_inventory_files,
 )
-from product_variant_resolver.representative_benchmark_label_readiness import (
-    build_rhb_t6_label_readiness,
-)
 from product_variant_resolver.representative_benchmark_query_authoring import (
     QueryPackManifest,
+    validate_materialized_query_pack,
 )
 from product_variant_resolver.representative_benchmark_reaudit import CarT6ReauditManifest
 
@@ -47,6 +45,7 @@ WIKI_SOURCE_REFERENCE = Path("data/external/hot-wheels-wiki/pilot-2025/normalize
 QUERY_SOURCE_ID = "human-labeled-real-noisy-v1"
 AUTHORITY_EVIDENCE_SOURCE_ID = "fandom-hot-wheels-2025-pilot-r790665-v1"
 SOURCE_REVISION_ID = 790665
+BLOCKED_READINESS_SHA256 = "b4bf8f9a45b315a2ad64ba9f5626daef63a246c66bbbfc884856b7945e1b9f45"
 PROHIBITED_ACTIONS = [
     "mutate_frozen_t1_t3_in_place",
     "promote_human_labels_to_canonical_authority",
@@ -228,6 +227,11 @@ def _validate_governance_inputs(
     query_manifest = QueryPackManifest.model_validate(
         _load_object(root / QUERY_PACK_MANIFEST_REFERENCE)
     )
+    _query_pack, validated_query_manifest = validate_materialized_query_pack(root)
+    _expect(
+        query_manifest == validated_query_manifest,
+        "query-pack proposal parent changed",
+    )
     authority = CanonicalAuthorityArtifact.model_validate(_load_object(root / AUTHORITY_REFERENCE))
     authority_manifest = CarT6ReauditManifest.model_validate(
         _load_object(root / AUTHORITY_MANIFEST_REFERENCE)
@@ -249,15 +253,6 @@ def build_governance_repair_proposal(root: Path) -> GovernanceRepairProposal:
     """Build the non-authorizing repair proposal from the exact blocked readiness state."""
 
     root = root.absolute()
-    readiness = build_rhb_t6_label_readiness(root)
-    _expect(
-        readiness.status == "blocked_before_owner_gate"
-        and readiness.maximum_source_permitted_matched_count == 0
-        and readiness.matched_permission_shortfall == 20
-        and not readiness.canonical_authority_t1_t3_compatible
-        and readiness.provisional_challenge_shortfall_total == 16,
-        "RHB-T6 blocked baseline changed; proposal requires re-review",
-    )
     inventory, decisions, query_manifest, authority, authority_manifest = (
         _validate_governance_inputs(root)
     )
@@ -297,7 +292,7 @@ def build_governance_repair_proposal(root: Path) -> GovernanceRepairProposal:
         "generated_by": (
             "scripts/build_representative_hard_benchmark_governance_repair_proposal.py"
         ),
-        "readiness_sha256": readiness.readiness_sha256,
+        "readiness_sha256": BLOCKED_READINESS_SHA256,
         "inputs": inputs,
         "frozen_t1_t3_preserved_without_overwrite": True,
         "query_label_admission": {
@@ -329,8 +324,12 @@ def build_governance_repair_proposal(root: Path) -> GovernanceRepairProposal:
             "benchmark_labels_consulted": False,
         },
         "challenge_review_carry_forward": {
-            "provisional_shortfalls": readiness.provisional_challenge_shortfalls,
-            "provisional_shortfall_total": readiness.provisional_challenge_shortfall_total,
+            "provisional_shortfalls": (
+                query_manifest.non_sensitive_aggregate.provisional_challenge_tag_shortfalls
+            ),
+            "provisional_shortfall_total": sum(
+                query_manifest.non_sensitive_aggregate.provisional_challenge_tag_shortfalls.values()
+            ),
             "owner_label_review_must_verify_or_hold": True,
             "representative_pilot_preapproved": False,
         },

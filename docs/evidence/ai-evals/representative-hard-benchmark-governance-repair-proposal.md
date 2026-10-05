@@ -2,7 +2,7 @@
 
 Date: 2026-10-05
 Scope: non-authorizing query-label and authority-bundle admission proposal
-Verdict: **PASS — NARROW, HASH-BOUND AND OWNER-GATED**
+Verdict: **PASS — NARROW, HASH-BOUND AND SUBSEQUENTLY APPROVED FOR OVERLAY ONLY**
 
 | Rubric | Result | Evidence and boundary |
 |---|---|---|

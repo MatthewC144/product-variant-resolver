@@ -96,15 +96,17 @@ later CAR-T6 run published a separate versioned re-audit with `passed_exact_auth
 than rewriting history. A separately authorized RHB-T5 session has since created a private,
 output-blind 60-query authoring artifact and aggregate-only public manifest. It remains
 `representative_pilot=false` because five provisional challenge classes have declared shortfalls;
-labels, split and resolver evaluation have not begun. RHB-T6 readiness also found that frozen T3
-permits zero matched labels from the current Human query source and does not yet admit the CAR Wiki
-evidence as exact authority. A bundle-specific governance-repair proposal now binds the exact
-60-row query pack and 20-record CAR authority without promoting Human labels or the full Wiki source;
-it is awaiting owner approval and does not authorize labeling. These are authority/provenance
+labels, split and resolver evaluation have not begun. Initial RHB-T6 readiness found that frozen T3
+permits zero matched labels from the current Human query source and does not admit the CAR Wiki
+evidence as source-wide exact authority. The owner has now approved a bundle-specific governance
+overlay bound to the exact 60-row query pack and 20-record CAR authority. It does not modify frozen
+T1/T3, promote Human labels or the full Wiki source, or authorize labeling. Repaired readiness now
+allows a separate RHB-T6 label-authoring Gate to be requested; that second approval has not been
+granted. These are authority/provenance
 artifacts, not a real-marketplace accuracy result or
 manufacturer certification. See the
 [final CAR evidence](docs/evidence/canonical-authority-review-v1.md) and
-[RHB-T6 governance proposal](docs/evidence/representative-hard-benchmark-governance-repair-proposal.md).
+[RHB-T6 governance overlay](docs/evidence/representative-hard-benchmark-governance-overlay.md).
 
 ## Measured evaluation
 

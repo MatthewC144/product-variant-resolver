@@ -1,5 +1,52 @@
 # Project Log
 
+## 2026-10-05 — RHB-T6 Governance Repair v1：實作精確綁定的 overlay，重新開放獨立 Label Owner Gate
+
+### 新執行了什麼，解決什麼問題
+
+本輪收到的批准只允許 materialize versioned governance overlay，因此沒有開始 RHB-T6 label
+authoring。系統把批准寫入 Git-ignored、`0600` 的 private ledger，再產出可追蹤的 public overlay。
+這個 overlay 僅對 query pack SHA `97f7…858a` 開放最多 20 筆 `matched`，且每筆日後都必須由
+`project_owner` 審閱，綁定 CAR authority SHA `72c1…3117` 內明列的 authority ID 與 canonical UUID。
+
+它解決的是前一輪 readiness 發現的兩個 contract 衝突：Human query source 在 frozen T3 中只能產生
+`ambiguous/no_match`，CAR 後來審核通過的 20 筆 authority 也仍使用被舊 T1/T3 視為 staging-only 的
+Wiki evidence。修復後，有效 matched capacity 從 0 變成 20，完整 20-record bundle 可被 label
+validator 使用；但是原始 source-wide 規則沒有改寫，因此這不是把 Human labels 或 Wiki 全部升格。
+
+### 代碼修改了哪一部分、原因與決策
+
+`representative_benchmark_governance_overlay.py` 負責讀取私有批准、重播 proposal/query/authority
+parents、建立 canonical JSON 並以 atomic replace 寫入 public overlay。`representative_benchmark.py`
+新增 strict overlay schema，也讓 authority/label validators 只有在 overlay、query pack、完整 authority
+bundle 與 source decisions 全部吻合時才接受例外；缺少 overlay 時，既有 T1/T3 prohibition 仍會
+fail closed。這個選擇比直接修改 `source-decisions.json` 更能保留歷史，也比 source-wide promotion
+精確，因為 owner 實際審過的是 20 筆而不是整個 Wiki。
+
+核心 authority validator 同時修正兩個整合問題。第一，CAR authority 指向完整 `catalog-v2`，所以
+只有歷史 authority 才還原到 parent fixture catalog，新 authority 保留在 v2 驗證。第二，public PII
+scanner 不再把 machine authority ID 與 `sha256:` evidence ref 的長數字誤判為電話；reviewer 與
+review reason 仍維持掃描。這些修改沒有降低 identity 或 provenance Gate。
+
+`representative_benchmark_label_readiness.py` 升級為 v2：它同時呈現 frozen baseline matched capacity
+0 與 overlay capacity 20，明確標示 `canonical_authority_t1_t3_compatible=false`、
+`canonical_authority_admitted_by_overlay=true`，並將狀態改成
+`ready_for_separate_owner_authorization`。這只是允許提出下一個 Owner Gate；`rhb_t6_authorized` 仍是
+false，16 個 provisional challenge shortfalls 也沒有被治理修復自動消除。
+
+### 技術棧／方法選型、驗證與未授權範圍
+
+沿用 Python 3.12、Pydantic `extra=forbid`、canonical JSON、SHA-256、typed Literals 與原子寫入。私有
+批准檔維持 `0700/0600` 且被 Git ignore；public overlay 只含 hashes、20 個 public authority IDs、
+safe aggregates 與 negative authorization flags，不含 raw query、label、source-row reference 或 owner
+原文。Overlay content SHA 為 `7f3a87…7cbe`，file SHA 為 `9b8a79…9311`；post-overlay readiness SHA
+為 `0de130…767b`。
+
+九個 overlay tests 與六個 readiness tests 通過；全部 128 個 representative-benchmark regression
+tests 也通過。Ruff、format、strict MyPy、compile、proposal/overlay deterministic replay、private file
+mode、Git-ignore 與 public privacy 檢查都通過。RHB-T6 label authoring、RHB-T7、resolver evaluation、
+manufacturer/global truth、color/edition 新驗證都沒有被授權或執行。
+
 ## 2026-10-05 — RHB-T6 governance repair proposal：用 bundle-specific overlay 避免過度升格來源
 
 ### 新執行了什麼，解決什麼問題
@@ -18,9 +65,11 @@ canonical truth」的問題。Query side 只對目前 query-pack SHA 提議新�
 ### 代碼修改了哪一部分、原因與決策
 
 新增 `representative_benchmark_governance_repair.py`、builder CLI、strict proposal schema 與專用測試。
-Builder 先重跑 RHB-T6 readiness，只有 0/20 matched、authority incompatible、shortfall 16 的精確 baseline
-仍成立才會建立 proposal；任一 parent hash、authority ID ordering、permission baseline 或 readiness 狀態
-改變都會 fail closed。JSON 採 canonical bytes 與 self SHA-256，首次建立後 replay 必須是 `unchanged`。
+Builder 會重驗 private query pack、T1/T3 與 CAR authority parents，並綁定當時 0/20 matched、authority
+incompatible、shortfall 16 的 historical readiness SHA；任一 parent hash、authority ID ordering 或
+permission baseline 改變都會 fail closed。JSON 採 canonical bytes 與 self SHA-256，首次建立後 replay
+必須是 `unchanged`。Overlay 上線後 readiness 已合法演進，因此 proposal replay 不依賴「目前 readiness
+仍 blocked」這個會隨生命週期改變的條件。
 
 方法選型上沒有修改 frozen `source-decisions.json`，也沒有把 Wiki entry 改成全域
 `authorized_export`。改用 bundle-specific overlay proposal，是因為原始 source-wide decision 描述當時
