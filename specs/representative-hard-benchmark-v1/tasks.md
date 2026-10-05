@@ -1,7 +1,8 @@
 # Representative Hard Benchmark v1 — Tasks
 
 Date: 2026-09-26. Mode: Lite / Lean Industrial. Status:
-**RHB-T1–T4 COMPLETE; RHB-T4 GATE BLOCKED; RHB-T5+ NOT STARTED**.
+**RHB-T1–T4 COMPLETE; HISTORICAL RHB-T4 GATE BLOCKED; VERSIONED RHB-T4 RE-AUDIT READY BUT NOT
+AUTHORIZED OR MATERIALIZED; RHB-T5+ NOT STARTED**.
 
 Each task is intended to be one independently reviewable commit. Tasks that require an owner decision
 are explicit Gates, not implementation steps that an agent may infer or bypass.
@@ -83,6 +84,19 @@ Acceptance:
 - Audit result: `0` pilot-usable exact variants and `0` eligible multi-release families; shortfall is
   `20` variants and `4` families. T5 remains prohibited until new authorized exact-variant evidence
   passes a new source decision and authority audit.
+
+### RHB-T4 re-audit readiness — Preserve history and evaluate CAR-T5F `[qa/doc_curator]`
+
+- [x] Add a fail-closed, versioned adapter that independently revalidates the 20-record CAR-T5F
+  authority bundle, recomputes seven qualifying families and zero shortfalls, and proposes
+  `passed_exact_authority_gate` without writing a new authority artifact or changing the historical
+  blocked checkpoint.
+- [ ] After a separate CAR-T6 owner authorization, materialize the new re-audit authority artifact
+  and manifest. This is a new versioned result, not an edit to the historical RHB-T4 files.
+
+The readiness result does not authorize RHB-T5, query-pack authoring or label authoring. The old
+`canonical-authority.json` and `canonical-authority-manifest.json` remain the immutable evidence of
+the earlier honest blocked result.
 
 ## Phase B — Owner-reviewed pilot tranche
 

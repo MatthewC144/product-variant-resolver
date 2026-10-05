@@ -312,6 +312,20 @@ seven qualifying families and zero shortfalls, so its Gate result is
 `eligible_for_rhb_t4_reaudit`. This is permission to present the bundle to a new CAR-T6 RHB-T4
 re-audit only; it is not an RHB-T4 PASS and does not authorize RHB-T5.
 
+### CAR-T6 readiness — Versioned RHB-T4 re-audit boundary `[qa/doc_curator]`
+
+The readiness implementation now revalidates the private CAR-T5F authorization, public bundle and
+manifest, 140-row catalog-v2, 40-event review chain, six field-evidence bindings per approved row,
+and the historical RHB-T4 blocked checkpoint. It reconstructs 20 canonical authority records in
+memory and independently recomputes seven qualifying families with zero shortfalls. The proposed
+new Gate result is `passed_exact_authority_gate`.
+
+This does not rewrite the historical `0 exact / 0 family` checkpoint and does not create the new
+versioned authority file, re-audit manifest or CAR-T6 authorization. Materialization requires a
+fresh response explicitly authorizing CAR-T6 and the versioned RHB-T4 re-audit while keeping
+RHB-T5, query-pack authoring and label authoring unauthorized. A generic continuation, mismatched
+response, stale parent, partial artifact state or interrupted atomic write fails closed.
+
 ## 7. QA acceptance
 
 CAR-T5P passes only when:
@@ -337,7 +351,8 @@ Preparation is recoverable by discarding only temporary files; frozen CAR-T4 and
 remain unchanged. Review corrections are new append-only events, never edits. An erroneous exact
 approval is revoked by a new event; dependent counts and manifests become invalid until rebuilt.
 
-No T5-G2 or CAR-T5F outcome remains pending. The following decision remains exclusively with the
-owner:
+No T5-G2 or CAR-T5F outcome remains pending. CAR-T6 readiness is complete, but the following
+decision remains exclusively with the owner:
 
-1. any later authorization to run CAR-T6; RHB-T5 remains a still later, separate Gate.
+1. whether to authorize CAR-T6 materialization of the versioned RHB-T4 re-audit; RHB-T5 remains a
+   still later, separate Gate.

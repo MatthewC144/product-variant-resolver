@@ -2,9 +2,9 @@
 
 Date: 2026-09-26. Source-plan owner approval recorded: 2026-09-28. CAR-T3 owner approval recorded:
 2026-09-29. Catalog batch application owner approval recorded: 2026-09-30. Mode: Lite / Lean
-Industrial. Status: **CAR-T1–T5F complete; the frozen authority bundle contains 20 approved exact
-variants across seven qualifying families and is eligible for a fresh RHB-T4 re-audit; CAR-T6 and
-RHB-T5 are not started or authorized**.
+Industrial. Status: **CAR-T1–T5F complete; CAR-T6 readiness is implemented and independently
+recomputes a possible 20-variant / 7-family RHB-T4 PASS, but the versioned re-audit is not
+materialized or authorized; RHB-T5 is not started or authorized**.
 
 After owner approval, execute sequentially. Each task is one reviewable commit. A failed owner/data
 Gate stops later work without being treated as an engineering failure.
@@ -221,12 +221,17 @@ Commit: review event chain, frozen bundle, builder/tests and safe aggregate evid
 
 ## CAR-T6 — Run a fresh RHB-T4 audit `[qa/doc_curator]`
 
+- [x] CAR-T6 readiness: implement the versioned RHB-T4 adapter, revalidate the CAR-T5F bundle and
+  immutable historical blocked checkpoint, compute the proposed Gate result without writing an
+  authorization or re-audit artifact, and reject generic continuation as authorization.
 - [ ] Feed the frozen CAR bundle into a versioned RHB-T4 re-audit without overwriting prior history.
   _(→CAR-R8,CAR-R9)_
 
 Files:
 
-- versioned RHB-T4 input adapter/tests only if required
+- `src/product_variant_resolver/representative_benchmark_reaudit.py`
+- `scripts/build_representative_hard_benchmark_authority_reaudit.py`
+- `tests/evaluation/test_representative_benchmark_authority_reaudit.py`
 - new versioned RHB authority artifact/manifest
 - `docs/evidence/representative-hard-benchmark-authority-reaudit.md`
 
