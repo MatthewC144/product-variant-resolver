@@ -11987,3 +11987,57 @@ one-run refusal及no-runtime/no-adaptation flags。Scoped Ruff、strict MyPy、c
 它無法測catalog-present query的exact-match或false-no-match率，也不是manufacturer/global truth。結果PASS只支持
 目前policy在此範圍內的保守拒絕行為。Model、features、兩個threshold、dataset answers與runtime defaults皆未
 變更，runtime activation仍未獲批准。
+
+## 2026-10-05 — PBHE-T1–T6：完成53+20 aggregate balanced policy evaluation
+
+### 新執行了什麼、解決什麼問題
+
+前一輪只驗證20筆catalog-relative negatives，無法回答系統遇到catalog-present query時會正確匹配、錯誤拒絕
+或大量abstain。本輪依PBHE-G1使用固定153-row positive dataset中從未參與v2 calibration／threshold selection的
+53-case test split，執行唯一一次policy-layer positive evaluation；20筆negative沒有重新score，而是只讀取
+先前SHA-256固定的aggregate result。
+
+Positive結果為5筆`matched`、45筆`ambiguous`、3筆錯誤`no_match`。五筆matched在casting與exact release兩層
+全部正確，因此accepted precision皆為100%，但positive exact recall只有9.43%，false-no-match rate為5.66%。
+搭配既有negative的11 no-match／9 ambiguous／0 matched後，73筆共有54筆ambiguous，combined abstention為
+73.97%；19筆decisive中16筆end-to-end正確，decisive exact precision為84.21%，end-to-end exact accuracy為
+21.92%，balanced identity recall為32.22%。
+
+### 代碼修改了哪一部分、原因是什麼
+
+新增`pointwise_balanced_holdout_evaluation.py`與CLI
+`pvr-evaluate-pointwise-balanced-holdout`。Evaluator驗證positive dataset/split、catalog、calibration、policy、
+selection、model config/manifest、既有ranking final comparison、negative result和owner authorization bindings，
+只挑出53個frozen test IDs載入相同Pointwise scoring context。每筆結果只在記憶體存在，最後轉成positive、
+negative-reused與combined三組aggregate metrics。
+
+Casting與exact release分開計算，是因為這個專案的第一層任務是辨識車型，但最終目標是完整release identity。
+若只報casting正確會掩蓋同車型不同年份／series／toy number的錯誤。本次恰好兩層都是5筆正確，但schema與測試
+仍強制exact count不得大於casting count，並讓兩層precision／recall保持獨立。
+
+結果檔`data/evaluation/image-search-pointwise-balanced-holdout-v1/results.json`的SHA-256為
+`8764f2642208b7cfddf63402fb18f487514af1b38a2d183afbc4da41b72a9566`。結果存在後任何`--run`會在model load前
+拒絕，`--check`只驗證artifact、算術和guardrails。沒有逐筆query、ID、expected identity、candidate、confidence
+或prediction進入tracked output。
+
+### 技術棧與方法選型理由
+
+Gate在輸出可見前固定為至少5筆exact-correct matched、matched exact precision至少90%、positive false-no-match
+不超過10%，並要求negative aggregate gate繼續PASS。Minimum 5沿用development selection的accepted-count下限；
+10%沿用既有false-no-match safety ceiling。結果剛好只有5筆accepted，雖然形式上PASS，文件仍明確標示沒有裕度。
+
+沒有把53筆稱為全新的end-to-end untouched benchmark：它們過去已用於底層ranker final comparison，但沒有參與
+v2 calibration／threshold selection，也沒有看過v2 policy status，因此只宣稱為固定的policy-layer positive test。
+這種說明比重新包裝成“全新資料”更適合可被面試官追問的履歷專案。
+
+### 驗證結果、技術判斷與下一步
+
+Focused tests鎖定result hash、所有transitive bindings、one-run refusal、negative non-rerun、casting/exact層級、
+combined arithmetic、recursive privacy與no-adaptation/no-runtime guardrails。Scoped Ruff、strict MyPy、compile、
+artifact `--check`和diff checks亦完成；唯一訊息是既有transformer `torch_dtype` deprecation warning。
+
+本輪的技術判斷是「evidence gate PASS，runtime HOLD」。100% accepted precision不能脫離9.43% positive recall與
+73.97% combined abstention單獨展示。若後續要提升coverage，不得用這53或20筆重新選threshold；應使用新的
+development資料改善model／calibration，再建立新的fresh final test。就目前履歷展示而言，這份結果已能呈現
+Dual RAG之外的neural reranking、calibration、三態decision policy、data governance與output-blind evaluation，
+同時誠實揭露prototype尚未production-ready。

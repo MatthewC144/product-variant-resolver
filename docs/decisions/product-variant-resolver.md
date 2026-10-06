@@ -2586,3 +2586,26 @@ Future evidence can reopen them without rewriting the historical reason they wer
 - **Impact:** the frozen policy passes its bounded negative gate with 11 no-match, 9 ambiguous and
   zero matched outcomes. This supports conservative rejection behavior only; it neither retunes nor
   activates the resolver and cannot authorize runtime on its own.
+
+## D52 — Accept the balanced evidence gate but hold runtime for low coverage
+
+- **Choice:** evaluate the frozen v2 policy once on the fixed 53-case catalog-present test, reuse the
+  existing 20-negative aggregate without rescoring, and publish casting, exact-release and combined
+  metrics separately. Mark the preregistered gate PASS but keep runtime held.
+- **Reason:** five accepted positives are all exact-release correct, false no-match is below 10% and
+  the negative side has zero false matches. However, 54/73 combined cases abstain and positive exact
+  recall is only 9.43%; high accepted precision alone is not sufficient product utility.
+- **Alternatives:** lower the 0.9425 match threshold after seeing the holdout; count casting-correct
+  rows as exact-release success; merge ambiguous into a success class; activate only because all
+  formal minimums passed. Each option either leaks the test into tuning or hides the resolver's
+  final-identity and coverage limitations.
+- **10x alternative considered:** collect a new, larger, class-balanced production-like benchmark
+  and train a stronger calibrated model on a separate development corpus. That is the correct future
+  route to better coverage, but it requires new development data and a fresh final test rather than
+  recycling these 73 cases.
+- **Most likely failure:** market 100% matched precision without mentioning that only 5/53 positives
+  were accepted. QA therefore pairs precision with recall, abstention and end-to-end exact accuracy,
+  and describes the system as a high-precision abstaining prototype.
+- **Impact:** the portfolio now has honest aggregate generalization evidence for both catalog-present
+  and catalog-relative no-match inputs. It does not have runtime authority; any improvement cycle
+  must avoid both frozen holdouts and later earn a new evaluation gate.
