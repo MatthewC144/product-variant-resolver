@@ -12091,3 +12091,44 @@ source未被寫成Mattel/global truth，`git diff --check`通過且diff只含doc
 下一個履歷必要工作不是再改模型，而是由owner決定是否把目前65個local commits推送GitHub，並在GitHub頁面
 實際檢查README rendering。若未來追求runtime coverage，必須另開使用新development data與fresh final test的
 產品迭代，不能回頭使用已封存的53+20 holdouts調整threshold。
+
+## 2026-10-06 — GPM-T1：補齊 GitHub repository 公開展示資訊
+
+### 新執行了什麼、解決什麼問題
+
+在最新 portfolio evidence commit 推送後，GitHub repository 首頁已能正確呈現新版 README，但 repository
+description 與 topics 仍完全空白。這會使招聘者在個人首頁或 GitHub 搜尋結果中只能看到 repository 名稱，無法在
+打開 README 前辨識這是一個 entity-resolution、retrieval 與 calibrated-abstention 專案。
+
+本輪將公開 description 設為「Confidence-aware product entity resolution with Dual-RAG retrieval, neural
+reranking, calibrated abstention, and governed evaluation.」，並新增 `python`、`fastapi`、
+`entity-resolution`、`information-retrieval`、`rag`、`postgresql`、`pgvector`、`machine-learning`、
+`cross-encoder` 與 `human-in-the-loop` 十個 topics。更新後重新讀取 GitHub metadata，確認 description 與
+topics 已保存。
+
+### 代碼修改了哪一部分、原因是什麼
+
+沒有修改產品程式碼、資料集、模型、threshold、API、runtime 或 evaluation artifact。GitHub metadata 是
+repository-level 的公開展示設定，不存在於產品 source tree；本地唯一變更是追加這段 Project Log，讓公開展示
+決策仍有可追溯紀錄。
+
+Description 沒有使用「production-ready」、「deployed」或「100% accurate」等字眼，因為 frozen policy 仍是
+runtime HOLD。它以問題與架構能力為主：confidence-aware entity resolution 是核心產品問題，Dual-RAG、neural
+reranking、calibrated abstention 與 governed evaluation 則是可被現有 evidence 支持的技術特色。
+
+### 技術棧或方法選型原因
+
+Topics 同時涵蓋語言／API（Python、FastAPI）、問題領域（entity resolution、information retrieval）、AI 方法
+（RAG、machine learning、cross-encoder、human-in-the-loop）與可選 storage backend（PostgreSQL、pgvector）。
+沒有加入 LLM、generative-ai、production 或 computer-vision：最終答案不是由 LLM 生成，圖片只用於建立測試
+query，且 production readiness 尚未成立。這樣能提高搜尋可見度，同時維持 README 的 claim boundary。
+
+### 驗證結果與下一步
+
+GitHub API 回讀顯示 repository 仍為 public、default branch 為 `main`，description 完整一致，十個 topics 全部
+存在。README 的 GitHub rendered page 亦顯示最新 commit `a1e70e6`、1,763-release scope、Pointwise/Listwise
+比較、`5/53` positive recall、`54/73` abstention與 runtime HOLD。
+
+下一個必要步驟是從面試官閱讀順序執行一次完整 code review rehearsal：由 API contract 開始，沿 signal
+extraction、candidate retrieval、RRF／optional Pointwise、calibration policy走到 authority boundary與 frozen
+evaluation，整理每一站應該解釋的問題、程式入口和證據，而不是再新增功能。
