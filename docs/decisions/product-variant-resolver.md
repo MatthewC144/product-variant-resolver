@@ -2563,3 +2563,26 @@ Future evidence can reopen them without rewriting the historical reason they wer
 - **Impact:** the data-readiness shortfall moves from 0/20 to 20/20 without producing an evaluation
   result. A separate owner gate is still required for one output-blind test, and that gate must not
   permit retuning or runtime activation.
+
+## D51 — Evaluate rejection once and keep abstention visible
+
+- **Choice:** execute PNMH-G2 once with the frozen Pointwise v2 calibration/policy/model and reduce
+  20 in-memory outcomes to aggregate counts, rates, reason counts and confidence min/mean/max. Set
+  the pre-score gate at at least five no-match decisions and at most two incorrect matches; keep
+  ambiguous outcomes separate and keep runtime authorization false.
+- **Reason:** the holdout contains only catalog-relative negatives, so the useful questions are how
+  often the policy rejects, abstains or falsely matches. Row-level storage would make these final
+  test cases tempting tuning material and would violate the owner's publication boundary.
+- **Alternatives:** save per-query predictions for error analysis; turn ambiguous into no-match;
+  change thresholds after seeing the result; report only a single accuracy number. Each option would
+  either leak the holdout into development, overstate rejection quality or hide an important safety
+  behavior.
+- **10x alternative considered:** run a large balanced, manufacturer-adjudicated production-traffic
+  benchmark with confidence intervals. That remains the stronger runtime gate, but it is a separate
+  data and authority project; it cannot be substituted for the approved 20-row negative test.
+- **Most likely failure:** present 0% false matches as complete resolver accuracy. This dataset has no
+  catalog-present examples, so it cannot measure exact-match quality or false-no-match behavior on
+  positives. QA and AI-eval evidence state that limitation explicitly.
+- **Impact:** the frozen policy passes its bounded negative gate with 11 no-match, 9 ambiguous and
+  zero matched outcomes. This supports conservative rejection behavior only; it neither retunes nor
+  activates the resolver and cannot authorize runtime on its own.

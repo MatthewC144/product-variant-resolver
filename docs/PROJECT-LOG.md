@@ -11938,3 +11938,52 @@ features、match/no-match thresholds、catalog或runtime default。
 這20筆的no-match只代表expected family不在該1,763筆third-party frozen snapshot中，不是Mattel認證或global
 truth。下一個必要gate是owner另行批准一次output-blind frozen-policy evaluation；即使未來分數不理想，也不能
 使用這20筆重新選model／threshold或直接啟用runtime。
+
+## 2026-10-05 — PNMHE-T1–T5：完成一次output-blind no-match holdout evaluation
+
+### 新執行了什麼、解決什麼問題
+
+Owner以PNMH-G2明確批准使用SHA-256
+`b46367efb54c9ab2a74c23d0824d1da5f939ecdf74a63c612da37c0688c50a7e`的20筆holdout與
+SHA-256 `68969b386a05002fca8f48826f37f5a00c24128672fbfbf3befb748b881ab418`的Pointwise v2
+policy進行一次output-blind evaluation。本輪在任何輸出可見前先固定protocol與成功條件，再載入一次local
+Pointwise scorer逐筆運算，最後只保存aggregate result。
+
+結果為11筆`no_match`、9筆`ambiguous`、0筆`matched`。No-match recall為55%，ambiguous rate為45%，
+false-match rate為0%。預先登記的gate要求至少5筆明確no-match且最多2筆錯誤matched，兩項都通過。這解決了
+前面只知道development threshold表現、卻不知道它在全新catalog-relative negatives上能否泛化的問題。
+
+### 代碼修改了哪一部分、原因是什麼
+
+新增`pointwise_no_match_holdout_evaluation.py`與CLI
+`pvr-evaluate-pointwise-no-match-holdout`。Evaluator在讀query前先驗證dataset、catalog、calibration、policy、
+development selection、model config與model manifest七項content hashes，再重用既有五feature calibrator及
+雙threshold decision policy。全部20筆decision只存在記憶體，方法立即把它們reduce成counts/rates、aggregate
+reason counts及confidence min/mean/max，沒有建立可被寫出的row-level result物件。
+
+正式結果位於`data/evaluation/image-search-pointwise-no-match-holdout-evaluation-v1/results.json`，SHA-256為
+`937eabc88164532ce686d5c1d4521d0ffef58efc2691d8836cba723fd68b05c6`。Validator用exact schema拒絕query、ID、
+expected identity、candidate或prediction等row-level keys，並重新計算count/rate/gate一致性。結果檔存在時
+`--run`會在載入model前拒絕第二次執行，`--check`則只檢查既有aggregate，不重新score。
+
+### 技術與方法選型理由
+
+Minimum no-match count選5，是沿用development gate原本的minimum accepted count；maximum matched count選2，
+等於20筆negative上10%的false-match上限。這兩個數字在執行前寫入spec與程式，避免看到結果後移動門檻。
+Ambiguous沒有合併到no-match，因為它代表系統知道自己不確定，和明確拒絕具有不同產品意義；但相較錯誤匹配，
+保守abstention仍是較安全的結果。
+
+沒有保存逐筆錯誤分析，雖然那會方便debug，原因是這20筆現在是final holdout；一旦用單筆結果改model或
+threshold，它就不再是untouched test。只保存aggregate使專案能展示generalization evidence，又能實際執行
+owner要求的output-blind與no-retuning契約。
+
+### 驗證、限制與下一步
+
+Focused tests鎖定結果hash、所有parent bindings、aggregate算術、pre-registered gates、recursive privacy guard、
+one-run refusal及no-runtime/no-adaptation flags。Scoped Ruff、strict MyPy、compile與`git diff --check`亦納入驗證。
+唯一runtime訊息是transformer dependency既有的`torch_dtype` deprecation warning，不影響結果。
+
+這是20筆negative-only、third-party-catalog-relative測試，因此0% false-match不能被描述成整體resolver accuracy；
+它無法測catalog-present query的exact-match或false-no-match率，也不是manufacturer/global truth。結果PASS只支持
+目前policy在此範圍內的保守拒絕行為。Model、features、兩個threshold、dataset answers與runtime defaults皆未
+變更，runtime activation仍未獲批准。

@@ -36,6 +36,7 @@ pvr-audit-pointwise-no-match-readiness = "product_variant_resolver.pointwise_no_
 pvr-materialize-pointwise-no-match-governance = "product_variant_resolver.pointwise_no_match_governance:main"
 pvr-calibrate-pointwise-three-class = "product_variant_resolver.pointwise_three_class_calibration:main"
 pvr-audit-pointwise-policy-holdout = "product_variant_resolver.pointwise_policy_holdout_readiness:main"
+pvr-evaluate-pointwise-no-match-holdout = "product_variant_resolver.pointwise_no_match_holdout_evaluation:main"
 pvr-ingest = "product_variant_resolver.postgres_ingestion:main"
 pvr-stage-releases = "product_variant_resolver.release_staging:main"
 pvr-import-release-staging = "product_variant_resolver.postgres_release_staging:main"
