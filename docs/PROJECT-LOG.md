@@ -12041,3 +12041,53 @@ artifact `--check`和diff checks亦完成；唯一訊息是既有transformer `to
 development資料改善model／calibration，再建立新的fresh final test。就目前履歷展示而言，這份結果已能呈現
 Dual RAG之外的neural reranking、calibration、三態decision policy、data governance與output-blind evaluation，
 同時誠實揭露prototype尚未production-ready。
+
+## 2026-10-05 — PER-T1–T5：把履歷首頁更新到最新ranking與policy證據
+
+### 新執行了什麼、解決什麼問題
+
+原README的架構與entity-resolution定位正確，但首頁仍把120-product／100-case synthetic fixture與早期
+`winner: null`當作headline evidence。那是2026-09-26時的真實狀態，卻沒有包含後來完成的1,763-release
+third-party snapshot、153筆image-search-derived positive queries、Pointwise final ranking與73-case balanced
+policy evaluation。對第一次打開GitHub的面試官而言，最強證據被埋在Project Log與深層artifact中。
+
+本輪只更新公開敘事：README先展示53-case frozen ranking test，再展示53 positive + 20 negative calibrated policy
+結果；Portfolio Guide同步改寫成三個可直接用於履歷的current-evidence bullets與一段60–90秒pitch。舊fixture沒有
+刪除，而是被重新定位成「baseline飽和、因此需要更難benchmark」的研究歷史。
+
+### 修改了哪些部分、為何這樣修改
+
+`README.md`的opening scope改為1,763 releases、153 positives與20 negatives，Architecture圖加入optional local
+Pointwise與frozen calibration/policy，同時保留RRF為default runtime及Human Knowledge不得產生UUID的Dual-RAG
+authority boundary。原本過長且已過期的RHB進度敘事縮成Data and authority boundaries，詳細review歷史仍由
+Deep evidence連結保存。
+
+Measured evaluation現在分成release ranking與calibrated policy兩部分。Ranking table並列RRF、release heuristic、
+Pointwise與Listwise：Pointwise casting Top-1為52/53、exact release Top-1為36/53，相較RRF exact 29/53提升
+13.21 percentage points。Policy table則把5/5 accepted precision和5/53 recall、3/53 false no-match、11/20
+negative recall、0/20 negative false match及54/73 abstention放在同一視野，防止單獨引用漂亮數字。
+
+`docs/PORTFOLIO-GUIDE.md`改成三個bullets：核心ranking gain、output-blind calibrated evaluation，以及Dual-RAG／
+provenance／PostgreSQL boundary；另新增四步code-review walkthrough、claim guardrails與tech-stack rationale。
+`specs/portfolio-evidence-refresh-v2/`保存這次新的要求與QA，而不覆寫2026-09-26已完成的v1 positioning spec。
+
+### 方法與內容選型理由
+
+首頁仍以confidence-aware entity resolution而不是「RAG專案」作headline，因為使用者可觀測成果是把noisy title
+解析為canonical release或安全abstain；Dual RAG的重要性在於兩個retrieval corpora的authority不同，而不是由LLM
+生成文字。這種定位能讓AI Engineer／SWE面試官先理解問題，再看到RAG、reranking與database技術如何服務它。
+
+沒有建立新的dashboard或live hosted demo，因為目前policy coverage不足且runtime未獲批准。GitHub Markdown
+landing page直接連結immutable JSON、QA與AI-eval evidence，可以展示技術深度又不暗示production deployment。
+同理，舊null experiment保留：它證明專案不是預設neural一定較好，而是資料變難後才由量測選出Pointwise。
+
+### 驗證結果與下一步
+
+Static QA核對README 66個、Portfolio Guide 14個repository-relative links，缺失為0；Portfolio Guide resume section
+正好三個bullets。JSON metric comparison確認29/53、36/53、5/5、5/53、3/53、11/20、0/20與54/73皆和frozen
+artifacts一致。Terminology scan確認`hashing-v1`仍標為non-neural、Pointwise未被寫成runtime default、community
+source未被寫成Mattel/global truth，`git diff --check`通過且diff只含documentation/spec。
+
+下一個履歷必要工作不是再改模型，而是由owner決定是否把目前65個local commits推送GitHub，並在GitHub頁面
+實際檢查README rendering。若未來追求runtime coverage，必須另開使用新development data與fresh final test的
+產品迭代，不能回頭使用已封存的53+20 holdouts調整threshold。

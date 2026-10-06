@@ -2609,3 +2609,28 @@ Future evidence can reopen them without rewriting the historical reason they wer
 - **Impact:** the portfolio now has honest aggregate generalization evidence for both catalog-present
   and catalog-relative no-match inputs. It does not have runtime authority; any improvement cycle
   must avoid both frozen holdouts and later earn a new evaluation gate.
+
+## D53 — Lead the portfolio with current evidence, not the saturated fixture
+
+- **Choice:** retain confidence-aware entity resolution as the headline and Dual RAG as the internal
+  authority architecture, but promote the 1,763-release/153-query ranking experiment and 73-case
+  calibrated policy evaluation to the primary README evidence. Keep the old fixture null result as
+  research history and rewrite the Portfolio Guide around three current claims.
+- **Reason:** the old README accurately described an earlier milestone but now understated the
+  project by leading with a 120-product saturated fixture. The later evidence demonstrates both a
+  real Pointwise ranking gain and the discipline to withhold runtime when calibration coverage is
+  poor.
+- **Alternatives:** delete the fixture result; present only the 100% accepted precision; market
+  Pointwise as deployed; leave the chronological homepage unchanged. These options respectively
+  erase learning history, hide 73.97% abstention, misstate runtime or make the strongest evidence
+  difficult for a reviewer to find.
+- **10x alternative considered:** build a hosted interactive portfolio dashboard with live model
+  inference and charts. It would be more visual, but it would introduce deployment claims and
+  operational scope before the policy is runtime-ready. A concise GitHub landing page is the safer
+  current artifact.
+- **Most likely failure:** recruiters remember “100% precision” but miss that only five positives
+  were accepted. README and the interview pitch therefore pair precision with `5/53` recall,
+  `54/73` abstention and an explicit runtime HOLD every time the policy result is summarized.
+- **Impact:** the repository now presents an evidence-driven progression—saturated fixture, harder
+  benchmark, selected Pointwise ranker, calibrated abstention and deployment restraint—without
+  changing code, data, models, thresholds or runtime behavior.
