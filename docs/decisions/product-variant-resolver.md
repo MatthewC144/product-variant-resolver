@@ -2634,3 +2634,57 @@ Future evidence can reopen them without rewriting the historical reason they wer
 - **Impact:** the repository now presents an evidence-driven progression—saturated fixture, harder
   benchmark, selected Pointwise ranker, calibrated abstention and deployment restraint—without
   changing code, data, models, thresholds or runtime behavior.
+
+## D54 — Treat mining, domain ranking and calibration as one gated ML loop
+
+- **Choice:** plan hard-negative mining, domain MiniLM fine-tuning and selective-prediction
+  calibration as one ordered development milestone. Require purpose-specific data permission and a
+  permanent denylist for the opened 53-positive and 20-negative holdouts before any adaptive work.
+  Keep all outputs development-only and `runtime_eligible=false`.
+- **Reason:** these stages are statistically dependent. Mined negatives define the ranker; the
+  frozen ranker defines the score distribution; calibration and thresholds are meaningful only
+  after that distribution stops changing. Implementing them independently would invite leakage,
+  stale calibration and post-result threshold tuning.
+- **Alternatives:** fine-tune immediately on the existing 153-row dataset; reuse the 53/20 results
+  as a new final test; tune calibration first; launch Pointwise after a development improvement.
+  Each alternative crosses an existing authorization/evaluation boundary or turns development
+  evidence into an unsupported runtime claim.
+- **10x alternative considered:** acquire a large rights-cleared marketplace corpus with independent
+  exact-release adjudication, physically isolated final labels and production-shaped serving
+  telemetry. That remains the stronger long-term program, but it is a separate data acquisition and
+  authority project; this v1 milestone first proves a bounded local ML loop.
+- **Most likely failure:** treat every high-ranking non-target release as a hard negative even when
+  the query lacks year, series or identifier evidence. The design therefore holds ambiguous siblings,
+  mines only train rows and requires explicit source-relative authority rather than learning forced
+  distinctions.
+- **Impact:** implementation may begin only with the governance/data Gate. Existing Pointwise,
+  Listwise and balanced holdout evidence remain immutable historical baselines; success or failure
+  of the new development model cannot alter FastAPI defaults without separate fresh-final and
+  runtime owner Gates.
+
+## D55 — Accept Path B only as owner-attested, local-only ML development
+
+- **Choice:** accept the owner's Path B decision for the hash-bound 100-row positive development
+  partition and the existing 52-row no-match development partition. Allow the positives to support
+  family-safe splitting, one-shot hard-negative mining, local domain fine-tuning and ranker
+  selection; restrict the no-match rows to their existing 32-row calibration-fit and 20-row
+  threshold-selection uses. Keep raw rows, mined pairs and checkpoints local and Git-ignored.
+- **Reason:** this unlocks a bounded AI-engineering experiment without silently expanding evaluation
+  data into public training assets. The owner states that the sources were acquired through Google,
+  but the catalog record still says access/republishing rights were not provided; the artifact must
+  preserve both facts instead of converting an acquisition statement into a verified license claim.
+- **Alternatives:** block all work until independent license evidence exists; treat all 153 positives
+  and all 72 negatives as trainable; publish the fine-tuned weights. The first would prevent the
+  requested local experiment, while the latter two would reuse opened tests and exceed the stated
+  evidence/publication boundary.
+- **10x alternative considered:** obtain a first-party or explicitly licensed corpus with documented
+  ML-training and derived-weight redistribution rights, independent exact-release adjudication and
+  a physically isolated final split. That remains the proper route for public weights or stronger
+  external-validity claims, but it is outside this local development Gate.
+- **Most likely failure:** describe `owner_attested_not_independently_verified` as rights-cleared or
+  assume Google discoverability grants unrestricted reuse. The validator therefore records the
+  unresolved source-rights state, prohibits public rows/weights and binds all permissions to exact
+  hashes and counts.
+- **Impact:** DRSP-T1 may pass, but it starts no training. The 53 positive test rows and 20 negative
+  holdout rows are permanently denied from every adaptive phase. DRSP-T2 and later tasks still need
+  their own owner Gate, and fresh final evaluation/runtime activation remain unauthorized.

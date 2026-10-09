@@ -12132,3 +12132,107 @@ GitHub API 回讀顯示 repository 仍為 public、default branch 為 `main`，d
 下一個必要步驟是從面試官閱讀順序執行一次完整 code review rehearsal：由 API contract 開始，沿 signal
 extraction、candidate retrieval、RRF／optional Pointwise、calibration policy走到 authority boundary與 frozen
 evaluation，整理每一站應該解釋的問題、程式入口和證據，而不是再新增功能。
+
+## 2026-10-09 — DRSP planning：規劃 domain ranking、hard negatives 與 calibration 閉環
+
+### 新執行了什麼、解決什麼問題
+
+使用者希望專案更能呈現 AI Engineer 能力，因此要求完善 domain cross-encoder fine-tuning、hard-negative
+mining 與 calibration。這三項先前並非同一個可執行 milestone：目前 Pointwise 只是 pinned generic MiniLM 的
+zero-shot evaluation，Listwise 是較早 fixture 上訓練的 candidate-set head，五特徵 logistic calibration 雖已
+完成，但尚未建立 domain ranker 後的 ECE、reliability 與 risk/coverage 閉環。
+
+本輪建立 `specs/domain-ranker-selective-prediction-development-v1/` 的 requirements、design、tasks，將三部分
+重新排成一條 development-only ML lifecycle：先過資料權利與 label-authority Gate，再做 family-safe split、
+train-only one-shot mining、domain MiniLM fine-tuning、generic/domain selection，最後才對 frozen winner 做
+calibration與三態 selective policy。這解決了「先訓練再補評估規則」會導致 holdout reuse、stale calibration與
+threshold leakage 的問題。
+
+### 代碼修改了哪一部分、原因是什麼
+
+本輪沒有修改產品程式、資料、模型、threshold或runtime，只新增三份 Lite／Lean 規格文件，並追加 decision與
+Project Log。Requirements用可觀測行為鎖定 purpose-specific permission、53/20 permanent denylist、split-before-
+mining、hard-negative semantics、safetensors lineage、ranker freeze、calibration isolation、risk/coverage及
+aggregate-only公開邊界。Design則定義資料的兩條安全路徑：取得現有 development rows 的明確 training-use／
+derived-checkpoint權利，或改用 owner-authored／project-controlled synthetic data並降低外部泛化 claim。
+
+Tasks拆成十個有序 Gate。T1只建立 training-use／authority contract；未通過前，T2以後不能 scoring、mining或
+training。53 positive ranking test和20 negative holdout已開封，因此永久排除所有 adaptive phase；未來新的
+fresh final要在ranker、calibrator與policy全部凍結後另案建立。
+
+### 技術棧與方法選型理由
+
+沿用同一個 revision-pinned MiniLM CrossEncoder與candidate renderer，能把變因限制在domain training資料，而非
+同時更換模型架構。v1只採一個binary relevance objective和two-seed stability check；Pairwise/Listwise objective
+search延後，避免小樣本model zoo。Hard negatives以same-casting wrong release、adjacent year、series、identifier
+與explicit color conflict為主，但缺少排他證據的siblings標held，不強迫二元負標。
+
+Calibration必須在ranker hash freeze後才開始。主方案仍是現有五特徵logistic correctness model；single-score
+Platt與temperature可作ablation，isotonic只有calibration-fit至少200個獨立groups時才允許參選。低
+`P(exact-correct)`不等於高`P(no_match)`，因此只有存在rights-cleared no-match rows時才建立獨立absence head；
+否則policy只能可靠地選matched／ambiguous，不能假裝已校準catalog absence。
+
+### 驗證與下一步
+
+規格已寫入ranker quality、latency、Brier、NLL、ECE、precision/risk-coverage、AURC、coverage與false-decision
+門檻，也明確接受`winner: null`與calibration shortfall作為有效負結果。所有checkpoint預設local-only，Git只保存
+manifest、hash與aggregate；FastAPI保持RRF default，任何development policy都是`runtime_eligible=false`。
+
+下一步是Owner Gate DRSP-T1，不是直接fine-tune。Owner需先決定：現有100 positive development rows與1,763
+parent source是否具備可證明的ML-training／derived-checkpoint權利；既有52 development no-match是否可擴張到
+新calibration用途；若不具備，則採owner-authored／synthetic development route。門檻也必須在看到新結果前確認。
+
+## 2026-10-09 — DRSP-T1：封存 B 路徑的本機 ML 資料使用 Gate
+
+### 新執行了什麼、解決什麼問題
+
+Owner 選擇 B 路徑，允許現有 development data 支援後續 AI Engineer milestone。本輪沒有把這句同意直接當作
+所有資料都可任意使用，而是建立 checksum-bound governance Gate：100 筆 positive development rows 可做
+family-safe partition、one-shot hard-negative mining、本機 domain cross-encoder fine-tuning 與 ranker selection；
+52 筆 no-match development rows 僅保留既有 32 筆 calibration-fit／20 筆 threshold-selection 用途，不可拿來
+訓練 ranker。
+
+這解決了先前「資料已存在 repo，所以是否能直接訓練」的不清楚狀態。Gate 同時把已開封的 53 筆 positive test
+與 20 筆 negative holdout 寫成永久 denylist，涵蓋 partition adaptation、candidate-pool adaptation、mining、
+fine-tuning、model selection、calibration、threshold selection 與 future-final manifest；後續程式不能只靠人工
+記得避開它們。
+
+### 代碼修改了哪一部分、原因是什麼
+
+新增 `domain_ranker_governance.py` 與 CLI `pvr-materialize-domain-ranker-governance`。Validator 會重算並核對
+positive dataset 的 153／100／53 結構與 split hash、human no-match 的 52／32／20 結構與 overlay、1,763 筆
+catalog 的檔案 hash／rights state，以及 20-row negative holdout 的 hash 與禁止調參欄位。任何檔案漂移、權限
+擴張或 artifact tampering 都會 fail closed；它不載入 resolver、neural model，不做 scoring、mining 或 training。
+
+新增兩份 aggregate-only artifacts：`owner-authorization.json` 與 `governance.json`。公開 authorization 不保存
+Owner 的逐字訊息，只保存 reviewer role、正規化後的核准範圍與訊息 SHA-256；這避免把對話內容不必要地寫入
+Git。兩個檔案的 SHA-256 分別為
+`cd4d04e12923aec65a9e46d7a46154ed3ce14435979c7eec9248e38619c10097` 與
+`dee18eb3725804611827921f90202e7c43a78203758b47b78e02e0ba096378a0`。
+
+`.gitignore` 新增 milestone 專用的 `local-*` 與 checkpoint artifact 路徑；測試則涵蓋 exact materialization、
+row-level key／URL privacy、所有 frozen bindings、四種 input drift、authorization tamper 與無本機 catalog 時的
+public-checkout validation。Specs 狀態更新為 T1 complete，但沒有把 T2–T10 或 acceptance thresholds 誤標為已批准。
+
+### 技術棧或方法選型原因
+
+採 deterministic Python validator 與 canonical JSON，而不是只寫一段政策文字，是為了讓資料用途成為可測試的
+build precondition。內容 hash 與檔案 SHA 分開保存：前者偵測 schema/content tampering，後者讓後續 artifact 能
+綁定實際 bytes。Public checkout 可用 tracked manifests 重驗證；嚴格模式則要求 Git-ignored 的 1,763-row local
+catalog 實際存在並重算 hash。
+
+權利狀態刻意寫成 `owner_attested_not_independently_verified`。Google 可搜尋／取得描述的是 acquisition route，
+不等同於已獨立驗證第三方 license 或 public redistribution rights；因此本輪允許的是本機 bounded development，
+不是 rights-cleared/public-model claim。這也是為何 raw training projection、mined pairs、row labels/predictions 與
+checkpoints 全部 local-only，而 Git 只保存 hashes、counts、limitations 與 aggregate evidence。
+
+### 驗證結果與下一步
+
+獨立 Lite QA 驗證 9 項新 governance tests 與 22 項 FastAPI regression tests 全部通過；Ruff、strict MyPy、
+strict CLI `--check --require-local-catalog` 與 `git diff --check` 亦通過。唯一訊息是既有 Starlette／AnyIO
+第三方 deprecation warning，不影響本次 Gate。Gate 的 guardrails 顯示 neural model 未載入、queries scored
+為 0、hard negatives mined 為 0、training runs 為 0，FastAPI runtime default 未改動。
+
+下一步是 DRSP-T2：只建立 family/evidence-safe development partitions 與 frozen candidate-pool contract。它需要
+獨立 Owner Gate；在那之前不可 mining 或 fine-tune。新 fresh final dataset、公開 checkpoint／weights 與 runtime
+activation 仍是另外的未授權事項。

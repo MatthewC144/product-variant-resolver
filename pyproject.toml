@@ -34,6 +34,7 @@ pvr-compare-image-search-rankers = "product_variant_resolver.image_search_rankin
 pvr-calibrate-image-search-pointwise = "product_variant_resolver.image_search_pointwise_calibration:main"
 pvr-audit-pointwise-no-match-readiness = "product_variant_resolver.pointwise_no_match_readiness:main"
 pvr-materialize-pointwise-no-match-governance = "product_variant_resolver.pointwise_no_match_governance:main"
+pvr-materialize-domain-ranker-governance = "product_variant_resolver.domain_ranker_governance:main"
 pvr-calibrate-pointwise-three-class = "product_variant_resolver.pointwise_three_class_calibration:main"
 pvr-audit-pointwise-policy-holdout = "product_variant_resolver.pointwise_policy_holdout_readiness:main"
 pvr-evaluate-pointwise-no-match-holdout = "product_variant_resolver.pointwise_no_match_holdout_evaluation:main"
