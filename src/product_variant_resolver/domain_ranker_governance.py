@@ -36,6 +36,15 @@ VERSION = "domain-ranker-selective-prediction-development-v1"
 DIRECTORY = Path("data/evaluation/domain-ranker-selective-prediction-development-v1")
 AUTHORIZATION_PATH = DIRECTORY / "owner-authorization.json"
 GOVERNANCE_PATH = DIRECTORY / "governance.json"
+PUBLICATION_AMENDMENT_PATH = DIRECTORY / "publication-amendment.json"
+GOVERNANCE_V2_PATH = DIRECTORY / "governance-v2.json"
+
+PUBLICATION_AMENDMENT_SCHEMA_VERSION = "pvr-drsp-t1a-publication-amendment-v1"
+EFFECTIVE_GOVERNANCE_SCHEMA_VERSION = "pvr-domain-ranker-governance-v2"
+FROZEN_AUTHORIZATION_FILE_SHA256 = (
+    "cd4d04e12923aec65a9e46d7a46154ed3ce14435979c7eec9248e38619c10097"
+)
+FROZEN_GOVERNANCE_FILE_SHA256 = "dee18eb3725804611827921f90202e7c43a78203758b47b78e02e0ba096378a0"
 
 POSITIVE_DATASET_PATH = Path("data/evaluation/image-search-resolver-v1/dataset.json")
 HUMAN_DATASET_PATH = Path("data/human_labeled_names.json")
@@ -74,6 +83,11 @@ POSITIVE_SPLIT_SALT = "pvr:image-search-release-ranking:development-test:v1"
 # The verbatim owner response stays in the private conversation record.  Public
 # artifacts retain only this digest plus the normalized, bounded interpretation.
 OWNER_STATEMENT_SHA256 = "573456b91b18191e2fbf87048ff1fe4dea4cdddef0be0ae1294e44e20446ab86"
+# The publication correction remains in the private conversation record.  Only
+# its digest and the bounded interpretation below are stored in Git.
+PUBLICATION_OWNER_STATEMENT_SHA256 = (
+    "45600e802674a33adcd32c4c4e51be1a5c1310039e47ce62ff045752b41f7738"
+)
 
 _ROW_LEVEL_KEYS = {
     "assignment",
@@ -600,12 +614,288 @@ def check(root: Path, *, require_local_catalog: bool = False) -> dict[str, Any]:
     return governance
 
 
+def _validate_frozen_t1_artifacts(
+    root: Path, *, require_local_catalog: bool = True
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Verify that T1A amends the exact, still-valid T1 byte artifacts."""
+    _require_file(
+        root / AUTHORIZATION_PATH,
+        FROZEN_AUTHORIZATION_FILE_SHA256,
+        "frozen DRSP-T1 owner authorization",
+    )
+    _require_file(
+        root / GOVERNANCE_PATH,
+        FROZEN_GOVERNANCE_FILE_SHA256,
+        "frozen DRSP-T1 governance",
+    )
+    authorization = _load_object(root / AUTHORIZATION_PATH)
+    governance = check(root, require_local_catalog=require_local_catalog)
+    return authorization, governance
+
+
+def build_publication_amendment(
+    root: Path, *, require_local_catalog: bool = True
+) -> dict[str, Any]:
+    """Build the owner-authorized publication amendment without releasing artifacts."""
+    authorization, governance = _validate_frozen_t1_artifacts(
+        root, require_local_catalog=require_local_catalog
+    )
+    body: dict[str, Any] = {
+        "schema_version": PUBLICATION_AMENDMENT_SCHEMA_VERSION,
+        "gate": "DRSP-T1A",
+        "authorization_date": "2026-10-09",
+        "authorized_by": "project_owner",
+        "owner_statement_sha256": PUBLICATION_OWNER_STATEMENT_SHA256,
+        "decision": "allow_future_gated_publication_without_authorizing_execution",
+        "amends": {
+            "owner_authorization_path": str(AUTHORIZATION_PATH),
+            "owner_authorization_file_sha256": FROZEN_AUTHORIZATION_FILE_SHA256,
+            "owner_authorization_content_sha256": authorization["authorization_sha256"],
+            "governance_path": str(GOVERNANCE_PATH),
+            "governance_file_sha256": FROZEN_GOVERNANCE_FILE_SHA256,
+            "governance_content_sha256": governance["governance_sha256"],
+        },
+        "rights_interpretation": {
+            "state": "owner_attested_not_independently_verified",
+            "owner_authorized_publication_is_not_independent_rights_verification": True,
+            "rights_cleared_claim_allowed": False,
+            "manufacturer_or_global_truth_claim_allowed": False,
+        },
+        "publication_permissions": {
+            "hard_negative_pair_package": {
+                "row_level_package": True,
+                "owner_authorized": True,
+                "release_gate_passed": False,
+                "published": False,
+            },
+            "fine_tuned_checkpoint": {
+                "format": "safetensors",
+                "owner_authorized": True,
+                "release_gate_passed": False,
+                "published": False,
+            },
+            "fresh_final_aggregate_report": {
+                "publication_allowed": True,
+                "evaluation_authorized": False,
+                "executed": False,
+                "published": False,
+            },
+            "fresh_final_row_level_queries_or_predictions": {
+                "publication_allowed": False,
+                "published": False,
+            },
+            "runtime_code_config_and_model_manifest": {
+                "publication_allowed": True,
+                "activation_authorized": False,
+                "activated": False,
+                "published": False,
+            },
+            "public_endpoint": {
+                "authorized": False,
+                "activated": False,
+            },
+        },
+        "release_gates": {
+            "common": [
+                "artifact_license_and_notice_present",
+                "base_model_revision_and_license_evidence_present",
+                "training_rights_limitations_disclosed",
+                "source_lineage_and_sha256_manifest_complete",
+                "secret_pii_and_local_path_scan_passed",
+                "permanent_denylist_intersection_is_zero",
+            ],
+            "hard_negative_pair_package": [
+                "non_executable_data_format",
+                "schema_and_field_minimization_review_passed",
+                "row_count_and_package_digest_recorded",
+            ],
+            "fine_tuned_checkpoint": [
+                "safetensors_only_no_pickle_payload",
+                "model_card_and_intended_use_limitations_present",
+                "checkpoint_digest_recorded",
+            ],
+            "large_checkpoint_transport": (
+                "use_git_lfs_or_release_asset_when_above_normal_git_host_blob_limit"
+            ),
+            "ordinary_git_large_blob_commit_allowed": False,
+        },
+        "permanent_denylist": governance["permanent_denylist"],
+        "authorization_boundary": {
+            "publication_policy_amendment_only": True,
+            "drsp_t2_or_later_authorized": False,
+            "hard_negative_mining_executed": False,
+            "model_training_executed": False,
+            "fresh_final_evaluation_authorized": False,
+            "runtime_activation_authorized": False,
+        },
+    }
+    return {**body, "amendment_sha256": _content_sha256(body)}
+
+
+def _validate_publication_amendment(
+    payload: dict[str, Any],
+    root: Path,
+    *,
+    require_local_catalog: bool = True,
+) -> None:
+    expected = build_publication_amendment(root, require_local_catalog=require_local_catalog)
+    if payload != expected:
+        raise ValueError("DRSP-T1A publication amendment is stale, tampered, or out of scope")
+    body = {key: value for key, value in payload.items() if key != "amendment_sha256"}
+    if payload.get("amendment_sha256") != _content_sha256(body):
+        raise ValueError("DRSP-T1A publication amendment checksum is stale")
+
+
+def build_effective_governance(
+    root: Path,
+    amendment: dict[str, Any],
+    *,
+    require_local_catalog: bool = True,
+) -> dict[str, Any]:
+    """Build effective v2 policy while preserving all T1 data restrictions."""
+    _validate_publication_amendment(amendment, root, require_local_catalog=require_local_catalog)
+    _authorization, governance = _validate_frozen_t1_artifacts(
+        root, require_local_catalog=require_local_catalog
+    )
+    permissions = amendment["publication_permissions"]
+    body: dict[str, Any] = {
+        "schema_version": EFFECTIVE_GOVERNANCE_SCHEMA_VERSION,
+        "version": VERSION,
+        "status": "active_for_owner_attested_development_with_gated_publication",
+        "materialization_date": "2026-10-09",
+        "materialized_by": "product_variant_resolver.domain_ranker_governance",
+        "supersedes_for_effective_policy": {
+            "governance_file_sha256": FROZEN_GOVERNANCE_FILE_SHA256,
+            "governance_content_sha256": governance["governance_sha256"],
+        },
+        "publication_amendment_sha256": amendment["amendment_sha256"],
+        "rights_state": "owner_attested_not_independently_verified",
+        "authority_scope": governance["authority_scope"],
+        "bindings": governance["bindings"],
+        "admitted_aggregate_counts": governance["admitted_aggregate_counts"],
+        "permanent_denylist": governance["permanent_denylist"],
+        "publication_state": permissions,
+        "artifact_boundary": {
+            "local_git_ignored": [
+                "raw_training_projections",
+                "development_split_membership",
+                "candidate_text_scratch",
+                "unreviewed_mining_scratch",
+                "optimizer_state",
+                "training_cache",
+                "row_level_final_queries",
+                "row_level_final_predictions",
+            ],
+            "conditionally_git_trackable_after_release_gate": [
+                "public_hard_negative_pair_package",
+                "public_safetensors_checkpoint",
+            ],
+            "future_git_trackable_when_separately_executed": [
+                "fresh_final_aggregate_report",
+                "runtime_code",
+                "runtime_config",
+                "runtime_model_manifest",
+            ],
+        },
+        "release_gate_requirements": amendment["release_gates"],
+        "guardrails": {
+            **governance["guardrails"],
+            "publication_releases_completed": 0,
+            "fresh_final_evaluations_executed": 0,
+            "runtime_activations_completed": 0,
+            "public_endpoints_enabled": 0,
+        },
+        "permissions": {
+            "positive_local_hard_negative_mining": True,
+            "positive_local_domain_fine_tuning": True,
+            "positive_local_ranker_selection": True,
+            "no_match_calibration_fit": True,
+            "no_match_threshold_selection": True,
+            "no_match_ranker_fine_tuning": False,
+            "public_hard_negative_pairs_after_release_gate": True,
+            "public_safetensors_checkpoint_after_release_gate": True,
+            "fresh_final_aggregate_report_publication": True,
+            "fresh_final_evaluation_execution": False,
+            "fresh_final_row_level_data_publication": False,
+            "runtime_artifact_publication": True,
+            "runtime_activation": False,
+            "public_endpoint": False,
+            "manufacturer_or_global_truth_claim": False,
+        },
+        "next_allowed_action": "separate_owner_authorization_for_drsp_t2",
+    }
+    effective = {**body, "effective_governance_sha256": _content_sha256(body)}
+    if _contains_row_level_key(effective):
+        raise ValueError("DRSP-T1A effective governance contains forbidden row-level output")
+    return effective
+
+
+def _validate_effective_governance(
+    payload: dict[str, Any],
+    root: Path,
+    amendment: dict[str, Any],
+    *,
+    require_local_catalog: bool = True,
+) -> None:
+    expected = build_effective_governance(
+        root, amendment, require_local_catalog=require_local_catalog
+    )
+    if payload != expected:
+        raise ValueError("DRSP-T1A effective governance is stale, tampered, or out of scope")
+    body = {key: value for key, value in payload.items() if key != "effective_governance_sha256"}
+    if payload.get("effective_governance_sha256") != _content_sha256(body):
+        raise ValueError("DRSP-T1A effective governance checksum is stale")
+    if _contains_row_level_key(payload):
+        raise ValueError("DRSP-T1A effective governance contains forbidden row-level output")
+
+
+def materialize_publication_amendment(
+    root: Path,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    amendment_path = root / PUBLICATION_AMENDMENT_PATH
+    effective_path = root / GOVERNANCE_V2_PATH
+    if amendment_path.exists() or effective_path.exists():
+        raise FileExistsError("DRSP-T1A amendment or effective governance already exists")
+    amendment = build_publication_amendment(root)
+    effective = build_effective_governance(root, amendment)
+    amendment_path.write_bytes(_canonical_bytes(amendment))
+    effective_path.write_bytes(_canonical_bytes(effective))
+    amendment_path.chmod(0o644)
+    effective_path.chmod(0o644)
+    return amendment, effective
+
+
+def check_publication_amendment(
+    root: Path, *, require_local_catalog: bool = False
+) -> dict[str, Any]:
+    amendment_path = root / PUBLICATION_AMENDMENT_PATH
+    effective_path = root / GOVERNANCE_V2_PATH
+    if stat.S_IMODE(amendment_path.stat().st_mode) != 0o644:
+        raise ValueError("DRSP-T1A publication amendment must use mode 0644")
+    if stat.S_IMODE(effective_path.stat().st_mode) != 0o644:
+        raise ValueError("DRSP-T1A effective governance must use mode 0644")
+    amendment = _load_object(amendment_path)
+    effective = _load_object(effective_path)
+    _validate_publication_amendment(amendment, root, require_local_catalog=require_local_catalog)
+    _validate_effective_governance(
+        effective,
+        root,
+        amendment,
+        require_local_catalog=require_local_catalog,
+    )
+    return effective
+
+
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Materialize or validate the DRSP-T1 gate")
+    parser = argparse.ArgumentParser(
+        description="Materialize or validate the DRSP-T1 and T1A governance gates"
+    )
     parser.add_argument("--run", action="store_true")
     parser.add_argument("--check", action="store_true")
     parser.add_argument("--require-local-catalog", action="store_true")
     parser.add_argument("--acknowledge-owner-authorization", action="store_true")
+    parser.add_argument("--amend-publication", action="store_true")
+    parser.add_argument("--check-publication-amendment", action="store_true")
     arguments = parser.parse_args()
     root = Path.cwd()
     if arguments.run:
@@ -618,7 +908,17 @@ def main() -> None:
         check(root, require_local_catalog=arguments.require_local_catalog)
         print("valid")
         return
-    parser.error("choose --run or --check")
+    if arguments.amend_publication:
+        if not arguments.acknowledge_owner_authorization:
+            parser.error("--amend-publication requires --acknowledge-owner-authorization")
+        _amendment, effective = materialize_publication_amendment(root)
+        print(json.dumps(effective, indent=2, sort_keys=True))
+        return
+    if arguments.check_publication_amendment:
+        check_publication_amendment(root, require_local_catalog=arguments.require_local_catalog)
+        print("valid")
+        return
+    parser.error("choose --run, --check, --amend-publication, or --check-publication-amendment")
 
 
 if __name__ == "__main__":

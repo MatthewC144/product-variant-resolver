@@ -24,7 +24,17 @@ postgres-data/
 /data/authority-review/canonical-authority-review-v1/local-catalog-review-v1/
 /data/authority-review/canonical-authority-review-v1/local-authority-review-v1/
 /data/evaluation/representative-hard-benchmark-v1/local-query-authoring-v1/
-/data/evaluation/domain-ranker-selective-prediction-development-v1/local-*/
-/artifacts/domain-ranker-selective-prediction-development-v1/
+# DRSP-T1A permits only these named, release-gated public packages. Training
+# scratch, optimizer state, caches, and arbitrary run directories stay ignored.
+/data/evaluation/domain-ranker-selective-prediction-development-v1/*
+!/data/evaluation/domain-ranker-selective-prediction-development-v1/owner-authorization.json
+!/data/evaluation/domain-ranker-selective-prediction-development-v1/governance.json
+!/data/evaluation/domain-ranker-selective-prediction-development-v1/publication-amendment.json
+!/data/evaluation/domain-ranker-selective-prediction-development-v1/governance-v2.json
+!/data/evaluation/domain-ranker-selective-prediction-development-v1/public-hard-negative-pairs-v1/
+!/data/evaluation/domain-ranker-selective-prediction-development-v1/public-hard-negative-pairs-v1/**
+/artifacts/domain-ranker-selective-prediction-development-v1/*
+!/artifacts/domain-ranker-selective-prediction-development-v1/public-checkpoint-v1/
+!/artifacts/domain-ranker-selective-prediction-development-v1/public-checkpoint-v1/**
 /.local-image-search-collection*/
 .DS_Store

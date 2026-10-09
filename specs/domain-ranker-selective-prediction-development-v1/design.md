@@ -1,6 +1,6 @@
 # Domain ranker and selective prediction development v1 — Design
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T1 approved; T2+ pending owner Gates**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T1 and T1A complete; T2+ pending owner Gates**.
 
 ## Overview
 
@@ -18,7 +18,7 @@ frozen generic MiniLM/RRF Top-25 pools
         |
 train-only one-shot hard-negative mining
         |
-domain MiniLM fine-tuning (local safetensors)
+domain MiniLM fine-tuning (safetensors; public only after release Gate)
         |
 generic vs domain ranker selection
         |
@@ -28,7 +28,7 @@ disjoint calibration fit / threshold selection
         |
 reliability + risk/coverage + three-state development policy
         |
-aggregate-only report; runtime HOLD; no final test
+aggregate report only after a final-execution Gate; runtime HOLD
 ```
 
 ## Data strategy
@@ -37,10 +37,11 @@ aggregate-only report; runtime HOLD; no final test
 
 No current row-level source is implicitly admitted for all three ML uses. A versioned governance
 artifact must bind dataset hashes and separately permit `mine_negatives`, `fine_tune`,
-`calibration_fit`, `threshold_select` and, later, `fresh_final_score`. For T1, the owner selected a
-local-only, owner-attested exception: this permits bounded local development but does not establish
-independently verified third-party license or redistribution rights. Raw rows, pairs and checkpoints
-therefore remain Git-ignored, and public weights remain prohibited.
+`calibration_fit`, `threshold_select` and, later, `fresh_final_score`. For T1, the owner selected an
+owner-attested exception: this permits bounded development but does not establish independently
+verified third-party license or redistribution rights. T1A separately allows release-gated public
+hard-negative pairs and safetensors checkpoints; every public package must retain the rights
+limitation and pass artifact-specific privacy, license, lineage and integrity checks.
 
 Two safe routes are supported:
 
@@ -72,8 +73,10 @@ in this order:
 5. high RRF rank.
 
 The positive is never injected when retrieval misses. Ambiguous siblings are held rather than
-forced into binary labels. Row-level pools remain local; Git receives miner version, input hashes,
-category counts, held counts and retrieval-miss counts only.
+forced into binary labels. Candidate-pool scratch, split membership and unrelated source fields
+remain local. A minimized versioned hard-negative pair projection may enter Git only through the
+named public package path after its pair-release Gate passes; before that Gate, Git receives only
+miner version, input hashes, category counts, held counts and retrieval-miss counts.
 
 ## Domain Pointwise training
 
@@ -82,10 +85,11 @@ uses one binary relevance objective and one fixed recipe; Pairwise/Listwise obje
 deferred to avoid a small-data model zoo. Early stopping uses ranker-selection MRR@10, never
 calibration or holdout metrics. Two fixed seeds test directional stability.
 
-The local checkpoint package contains safetensors weights plus a manifest. It is Git-ignored. A
-public manifest can be committed only if it contains no row-level content and model/data rights
-allow disclosure of hashes and aggregates. Public weights require a separate redistribution and
-memorization Gate.
+The checkpoint package contains safetensors weights plus a manifest. T1A permits a future public
+package only after its model-release Gate verifies license/NOTICE, base revision, training-rights
+limitation, secrets/PII scan, lineage, offline loading and denylist isolation. Optimizer state,
+pickle-style weights, caches and local scratch remain private. A checkpoint too large for ordinary
+Git must use Git LFS or a release asset while the manifest preserves the actual weight SHA-256.
 
 ## Calibration and policy
 
@@ -117,11 +121,29 @@ It remains development-only and `runtime_eligible=false`.
 - `governance.json`: allowed dataset hashes, uses, authority wording, publication scope and denylist.
 - `split-manifest.json`: non-reversible group/partition hashes and leakage-scan aggregates.
 - `candidate-pool-manifest.json`: catalog/retriever/renderer/model/Top-K hashes.
-- local `hard-negative-pool.json`: approved train rows and negative categories.
-- local checkpoint plus public `ranker-manifest.json`: base/data/config/checkpoint lineage.
+- release-gated `hard-negative-pairs.jsonl`: minimum training projection, positive/negative identity
+  and text, negative category, label and miner/config/pool hashes; no unrelated raw source fields.
+- release-gated safetensors checkpoint package plus `ranker-manifest.json`, model card,
+  license/NOTICE and base/data/config/checkpoint lineage.
 - `calibration-manifest.json`: frozen ranker, features, methods and fit/selection hashes.
 - `policy.json`: thresholds, parent hashes and `runtime_eligible=false`.
 - `development-report.json` and Markdown evidence: aggregates, gates, shortfalls and limitations.
+
+### Publication matrix
+
+| Artifact | Publicability | Required Gate |
+|---|---|---|
+| Versioned row-level hard-negative pairs | Allowed in future | T3 pair-release Gate |
+| Actual `model.safetensors` package | Allowed in future | T4 model-release Gate |
+| Split membership and calibration rows | Private | No public route in this milestone |
+| Fresh-final aggregate report | Allowed in future | Separate final-execution Gate |
+| Fresh-final row-level queries/predictions | Private by default | Separate disclosure Gate |
+| Runtime code/config/model manifest | Allowed in future | Separate runtime-activation Gate |
+| Public inference endpoint | Not authorized | Separate security/deployment Gate |
+
+Publication permission, release-Gate success, execution and activation are separate booleans. T1A
+changes only future publication eligibility; it does not create a final dataset, run final scoring,
+activate runtime or change the FastAPI default.
 
 ## Error handling and safety
 
@@ -139,7 +161,8 @@ normalized and length-bounded, and never interpreted as code, paths or instructi
 - safetensors, offline-load and manifest-tamper tests;
 - metric tests for Top-1, MRR, Brier, NLL, ECE bins, reliability, AURC and risk/coverage;
 - regression tests proving FastAPI defaults, catalog and opened holdout artifacts do not change;
-- privacy tests recursively rejecting row-level query/candidate/prediction content from public JSON.
+- privacy tests enforcing the artifact allowlist, scanning released pairs/checkpoints for forbidden
+  fields and rejecting row-level calibration/final content from public artifacts.
 
 ## Stop conditions
 

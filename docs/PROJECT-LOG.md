@@ -12236,3 +12236,58 @@ strict CLI `--check --require-local-catalog` 與 `git diff --check` 亦通過。
 下一步是 DRSP-T2：只建立 family/evidence-safe development partitions 與 frozen candidate-pool contract。它需要
 獨立 Owner Gate；在那之前不可 mining 或 fine-tune。新 fresh final dataset、公開 checkpoint／weights 與 runtime
 activation 仍是另外的未授權事項。
+
+## 2026-10-09 — DRSP-T1A：把公開資格與執行／啟用權拆開，完成 governance v2
+
+### 新執行了什麼、解決什麼問題
+
+Owner 修正 T1 的公開邊界：hard-negative row-level pair package 與實際的 safetensors fine-tuned checkpoint 不需要
+永久 Git-ignored；它們可以在各自的 release Gate 通過後進入 Git 或公開發布。Fresh-final 的 aggregate report，
+以及 runtime code、config、model manifest 也可在未來公開。這項修正解決了「公開一份經過最小化與掃描的訓練
+artifact」被原本 local-only 規則一併禁止的問題，但沒有把「可以公開」錯寫成「已建立、已驗證或已部署」。
+
+本輪新增 `publication-amendment.json` 與 `governance-v2.json`，將四種狀態分開記錄：Owner publication
+permission、artifact release-Gate、evaluation execution、runtime activation。現況仍是 hard-negative pairs 與
+checkpoint 均未發布；fresh-final 明確為 `evaluation_authorized=false`、`executed=false`；runtime 明確為
+`activation_authorized=false`、`activated=false`。Row-level final query／prediction 與 public endpoint 仍未授權，
+53 筆 positive test 和 20 筆 negative holdout 的永久 denylist 也沒有改變。
+
+### 代碼修改了哪一部分、原因是什麼
+
+`domain_ranker_governance.py` 增加 T1A amendment、effective governance v2 的 materialize／check 流程，並把原始
+T1 JSON 的 file SHA 與 content SHA 納入 amendment binding。選擇新增 amendment/v2，而不是覆寫 T1，是因為原
+T1 代表當時真實批准的 local-only 邊界；直接改寫會讓 Git 歷史看似一開始就允許公開，也會破壞已被後續流程
+引用的 hash。實作後兩份舊 T1 檔案仍維持
+`cd4d04e12923aec65a9e46d7a46154ed3ce14435979c7eec9248e38619c10097` 與
+`dee18eb3725804611827921f90202e7c43a78203758b47b78e02e0ba096378a0`，沒有被重寫。
+
+`.gitignore` 的第一次 QA 發現一個 blocker：只忽略 `local-*` 和 checkpoint 目錄並不是 default-deny，未命名的
+row-level 檔案仍可能被 Git 追蹤。修正後改為預設忽略整個 milestone data tree 與 artifact tree，再只 allowlist
+四份 governance JSON、`public-hard-negative-pairs-v1/` 與 `public-checkpoint-v1/`。這表示路徑本身只提供未來
+release 的窄入口，不代表內容自動安全；public pairs 仍須通過 schema／field minimization、PII／secret／local
+path、lineage、license 和 denylist intersection 檢查，checkpoint 另須 safetensors-only、model card、NOTICE、
+offline-load 與 digest Gate。Optimizer state、pickle、cache、scratch 和任意 run directory 繼續被忽略。
+
+測試同步加入 frozen-T1 byte identity、permission／release／execution／activation 分離、tamper fail-closed、公開
+checkout、預設忽略／窄 allowlist 與 forbidden-field 掃描。Specs、decision 與本 log 只描述已驗證狀態；沒有把
+尚不存在的 pairs、weights、fresh-final report 或 runtime 當成完成成果。
+
+### 技術棧或方法選型原因
+
+採 canonical JSON + SHA-256 chaining，是為了讓「T1 原始決策 → T1A amendment → v2 effective policy」能被機器
+重算，而不是靠文件覆蓋舊語意。Pair package 使用 non-executable、最小欄位的版本化資料格式；模型只允許
+safetensors，因為這比 pickle 類 payload 更適合公開供應鏈檢查。大型 checkpoint 不直接塞進一般 Git blob，
+而是保留 Git LFS／release asset 路徑，manifest 仍固定實際 weight SHA-256。權利文字繼續保留
+`owner_attested_not_independently_verified`，表示 Owner 已授權專案公開，不等於第三方權利已被獨立驗證，也不
+得升格為 manufacturer/global truth。
+
+### 驗證、技術債與下一步
+
+修正 default-deny blocker 後，QA 證據為 18 項 governance/focused tests 與 22 項 FastAPI regressions 全綠；
+Ruff、strict MyPy、strict CLI、public-checkout CLI 與 `git diff --check` 也通過。舊 T1 file/content hashes 不變，
+FastAPI default、模型載入、query scoring、mining、training、final evaluation、runtime activation 和 endpoint 都
+沒有發生。
+
+尚未完成的是 artifact-specific release Gate 本身：T3 未產生 public pair package，T4 未產生或發布 checkpoint，
+fresh-final dataset／evaluation 與 runtime activation 也都沒有得到批准。下一個必要步驟仍是 DRSP-T2 的
+family/evidence-safe partitions 與 frozen candidate pools；它需要獨立 Owner Gate，不能由 T1A 的公開資格推導。

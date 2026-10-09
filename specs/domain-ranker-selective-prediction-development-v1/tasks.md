@@ -1,21 +1,28 @@
 # Domain ranker and selective prediction development v1 — Tasks
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRSP-T1 complete; T2+ not authorized**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRSP-T1 and T1A complete; T2+ not authorized**.
 
 Tasks are ordered Gates. A checked task may unlock only the next listed task; it never authorizes
-runtime activation, public weights or final evaluation.
+an unchecked downstream task. T1A grants only future publication eligibility: it does not mark a
+pair package or checkpoint as released, authorize final evaluation, or activate runtime.
 
 - [x] **DRSP-T1 — Materialize the training-use and authority Gate.** Bind permitted source hashes,
   uses, fields, authority wording, retention/publication scope and permanent 53/20 denylist. Reject
   unresolved third-party rights instead of inferring permission. _(→DRSP-R1–R3, R14–R16)_
+- [x] **DRSP-T1A — Materialize the publication amendment and effective governance v2.** Preserve
+  the frozen T1 artifacts; authorize future release-gated row-level hard-negative pairs and actual
+  safetensors weights, and separate future publicability from final execution/runtime activation.
+  _(→DRSP-R14–R16)_
 - [ ] **DRSP-T2 — Freeze family/evidence-safe development partitions and candidate pools.** Produce
   non-reversible split/candidate manifests, prove zero leakage and report retrieval misses without
   injecting targets. _(→DRSP-R2–R4)_
 - [ ] **DRSP-T3 — Implement deterministic one-shot hard-negative mining.** Mine only train rows,
-  preserve near-duplicate categories, hold ambiguous siblings and publish safe aggregate taxonomy.
+  preserve near-duplicate categories, hold ambiguous siblings and produce an allowlisted, scanned,
+  versioned public pair package only after its release Gate passes.
   _(→DRSP-R5–R6, R14)_
 - [ ] **DRSP-T4 — Fine-tune the pinned domain MiniLM.** Use one frozen binary objective, two seeds,
-  fixed early stopping and local safetensors/checkpoint lineage. _(→DRSP-R7, R15)_
+  fixed early stopping and safetensors/checkpoint lineage; publish actual weights only after the
+  model-package license/privacy/reproducibility Gate passes. _(→DRSP-R7, R15)_
 - [ ] **DRSP-T5 — Compare and freeze the ranker.** Evaluate generic/domain Pointwise on identical
   selection pools, apply quality/latency/stability gates and publish either a selected ranker or
   `winner: null`. _(→DRSP-R8–R9)_
@@ -35,21 +42,25 @@ runtime activation, public weights or final evaluation.
   technical trade-offs, model/data lineage, limitations and the separate prerequisites for a fresh
   final test. _(→DRSP-R8, R13–R16)_
 
-## Owner Gates before T1 can pass
+## Owner Gates recorded by T1 and T1A
 
-1. **Resolved for local-only development:** owner selected Path B. The 100 positive development rows
-   may be used for local partitioning, mining, fine-tuning and selection. This is recorded as owner
-   attestation, not independently verified third-party rights; public weights remain prohibited.
+1. **Resolved for development:** owner selected Path B. The 100 positive development rows may be
+   used for partitioning, mining, fine-tuning and selection. This remains owner attestation, not
+   independently verified third-party rights. T1A permits only a release-gated minimized pair
+   package and safetensors checkpoint to become public; neither has been created or published.
 2. **Resolved:** the existing 52 development no-match rows may be reused only for calibration fit and
    threshold selection. They may not train the ranker; the 20-row holdout remains permanently excluded.
 3. Choose the source for new ranker/calibration rows when existing permissions are insufficient:
    owner-authored/synthetic (safer, weaker external-validity claim) or a newly rights-cleared source.
 4. Approve or revise the proposed ranker, calibration and selective-prediction acceptance gates
    before any result is visible.
-5. **Resolved:** checkpoint scope is local-only; Git may contain only manifest/hash/count/limitations
-   and aggregate evidence.
-6. **Resolved:** this milestone is development-only. Fresh final evaluation and runtime promotion
-   require separate future Gates.
+5. **Resolved by T1A amendment:** an actual safetensors checkpoint may be Git-tracked or released
+   after the model-package Gate passes; optimizer state, pickle payloads, caches and scratch remain
+   private. Large weights must use Git LFS or a release asset.
+6. **Resolved by T1A amendment:** fresh-final aggregate reports and runtime code/config/model
+   manifests may be public in the future. Final execution and runtime activation still require
+   separate checksum-bound Owner Gates; row-level final data and a public endpoint remain
+   unauthorized.
 
 Items 3–4 remain future decisions for T2+; completing T1 does not imply their approval.
 
@@ -57,4 +68,5 @@ Items 3–4 remain future decisions for T2+; completing T1 does not imply their 
 
 Requirements, design and tasks are approved together; every adaptive phase is separated; legacy
 holdouts are permanently denied; public/private artifact contracts are explicit; metrics and stop
-conditions are frozen; and unresolved source rights remain a blocking Gate rather than a warning.
+conditions are frozen; and owner-attested rights limitations remain explicit rather than being
+silently upgraded to independently verified rights.

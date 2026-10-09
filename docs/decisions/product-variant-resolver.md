@@ -2688,3 +2688,37 @@ Future evidence can reopen them without rewriting the historical reason they wer
 - **Impact:** DRSP-T1 may pass, but it starts no training. The 53 positive test rows and 20 negative
   holdout rows are permanently denied from every adaptive phase. DRSP-T2 and later tasks still need
   their own owner Gate, and fresh final evaluation/runtime activation remain unauthorized.
+
+## D56 — Amend T1 with artifact-specific public release Gates
+
+- **Choice:** preserve the byte-identical T1 authorization and governance as the historical
+  decision, then add a T1A publication amendment plus effective governance v2. A minimized,
+  versioned row-level hard-negative pair package and the actual safetensors checkpoint may be
+  Git-tracked or publicly released only after their respective release Gates pass. Fresh-final
+  aggregate reports and runtime code/config/model manifests may also be public in later phases,
+  while final execution, runtime activation, a public endpoint and row-level final data remain
+  separately gated. The rights state remains `owner_attested_not_independently_verified`.
+- **Reason:** publication eligibility is different from artifact creation, evaluation execution and
+  runtime activation. A versioned amendment records the Owner's correction without rewriting T1 as
+  though the broader permission had existed originally. The v2 effective view gives downstream
+  validators one current policy while retaining both T1 hashes as an auditable chain of custody.
+- **Alternatives:** overwrite the T1 JSON; stop ignoring the whole milestone tree; commit every run
+  output; or keep every pair/checkpoint private. Overwriting would erase decision history, broad
+  unignore rules could leak scratch or final rows, committing all outputs would bypass release
+  review, and permanent privacy would contradict the Owner's corrected publication intent.
+- **10x alternative considered:** publish a complete model package through a registry with signed
+  provenance, SBOM attestations, reproducible training infrastructure, automated privacy/license
+  scans and staged endpoint deployment. That is stronger supply-chain evidence, but it depends on
+  artifacts and evaluations that do not yet exist; T1A establishes the smaller enforceable contract
+  first.
+- **Most likely failure:** interpret an allowlisted path as proof that its contents are already safe
+  or released. The first QA pass also found that ignoring only named local directories was not
+  default-deny: arbitrary files under the milestone data directory could become trackable. The
+  correction ignores the entire milestone data and artifact trees, then allowlists only the four
+  governance JSON files, the named public pair package and the named public checkpoint package.
+  Their release-state fields still begin false and must fail closed on unexpected content.
+- **Impact:** DRSP-T1A is complete, but no pair package or checkpoint has been published. Fresh-final
+  state remains `evaluation_authorized=false` and `executed=false`; runtime state remains
+  `activation_authorized=false` and `activated=false`. The 53/20 denylist, T1 file/content hashes,
+  runtime default and public endpoint status remain unchanged. DRSP-T2 still requires its own Owner
+  Gate.

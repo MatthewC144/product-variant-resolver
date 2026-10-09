@@ -1,6 +1,6 @@
 # Domain ranker and selective prediction development v1 — Requirements
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T1 approved; T2+ pending owner Gates**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T1 and T1A complete; T2+ pending owner Gates**.
 
 ## Goal
 
@@ -10,9 +10,12 @@ Build one governed ML development loop for three related improvements:
 2. domain fine-tuning of the pinned MiniLM cross-encoder;
 3. calibration and selective prediction after the ranker is frozen.
 
-The milestone is offline development evidence only. It does not authorize a new final-test run,
-FastAPI activation, public model weights, or reuse of the already-opened 53-positive and 20-negative
-holdouts.
+The milestone remains offline development until later Gates authorize execution or activation.
+T1A makes a minimized hard-negative pair package and an actual safetensors checkpoint eligible for
+future public release after artifact-specific release Gates; it does not publish either artifact,
+authorize a new final-test run, activate FastAPI, or permit reuse of the already-opened 53-positive
+and 20-negative holdouts. A future fresh-final aggregate report and runtime code/config/model
+manifest may also be public, but only after their separate execution or activation Gates pass.
 
 ## Observable requirements
 
@@ -61,17 +64,25 @@ holdouts.
 - **DRSP-R13 — Reliability evidence.** Development reports SHALL include Brier score, negative log
   likelihood, fixed-bin ECE with bin counts, reliability rows, precision/risk-coverage curves and
   AURC. Small-sample uncertainty and not-applicable slices SHALL remain visible.
-- **DRSP-R14 — Artifact and privacy boundary.** Raw queries, candidate text, mined pairs, row labels,
-  split membership, case IDs and row-level predictions SHALL remain Git-ignored. Git SHALL contain
-  only non-reversible hashes, safe counts, aggregate metrics, manifests and limitations.
-- **DRSP-R15 — Model lineage and supply chain.** Every checkpoint SHALL bind the base model ID and
-  revision, file hashes, license evidence, dependency/SBOM hashes, data/manifests, code commit,
-  seed, hyperparameters, selected epoch and checkpoint SHA-256. Loading SHALL be offline with
-  `trust_remote_code=false`; pickle-style weights and model-hub pushes SHALL be rejected.
-- **DRSP-R16 — Runtime and final isolation.** Every resulting policy SHALL set
-  `runtime_eligible=false`, leave the default RRF FastAPI path unchanged and report zero reads of
-  legacy holdouts and fresh-final data. Training authorization SHALL NOT authorize runtime or a
-  final-test run.
+- **DRSP-R14 — Artifact-specific publication boundary.** WHEN an artifact is prepared for release,
+  THE SYSTEM SHALL apply an explicit publication allowlist. Versioned row-level hard-negative pair
+  packages and actual safetensors checkpoint weights MAY be Git-tracked and publicly released only
+  after their artifact-specific release Gates pass. This exception SHALL NOT publish split
+  membership, calibration rows, final-test rows, row-level final predictions, secrets, PII, local
+  paths or unrelated raw source data; all non-allowlisted row-level artifacts remain private.
+- **DRSP-R15 — Model lineage and public package Gate.** Every checkpoint SHALL bind the base model
+  ID and revision, file hashes, license evidence, dependency/SBOM hashes, data/manifests, code
+  commit, seed, hyperparameters, selected epoch and checkpoint SHA-256. A public package SHALL
+  contain safetensors weights, a model card, artifact license/NOTICE, training-rights limitation and
+  reproducibility manifest; it SHALL reject pickle weights, optimizer state, secrets and unscanned
+  metadata. Loading SHALL remain offline with `trust_remote_code=false`. Oversized weights SHALL use
+  Git LFS or a release asset rather than an ordinary Git blob.
+- **DRSP-R16 — Publicability, execution and activation isolation.** Fresh-final aggregate reports
+  and runtime code/config/model artifacts MAY be public, but publication eligibility SHALL NOT
+  authorize creation or reading of a final dataset, execution or post-result tuning, runtime
+  activation, a public endpoint, or a default FastAPI change. Each action SHALL require a separate
+  checksum-bound Owner Gate and QA evidence. Until those Gates pass, the policy SHALL remain
+  `runtime_eligible=false`, final evaluation SHALL remain unexecuted and runtime SHALL remain inactive.
 
 ## Scope exclusions
 
@@ -79,7 +90,8 @@ holdouts.
 - No LLM, Agent, GraphRAG or generative identity decision.
 - No live Fandom, marketplace or image collection without a separate source-specific permission.
 - No reuse of the opened 53-positive or 20-negative holdouts.
-- No public row-level training data or public fine-tuned checkpoint by default.
+- No public row-level artifact except a release-gated hard-negative pair package; no public
+  checkpoint except a release-gated safetensors package.
 - No claim of manufacturer/global truth, production accuracy or runtime readiness.
 
 ## Acceptance gates proposed for owner confirmation
