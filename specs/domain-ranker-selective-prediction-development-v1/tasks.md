@@ -1,6 +1,6 @@
 # Domain ranker and selective prediction development v1 — Tasks
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRSP-T1 and T1A complete; T2+ not authorized**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRSP-T1, T1A and T2 complete; T3+ not authorized**.
 
 Tasks are ordered Gates. A checked task may unlock only the next listed task; it never authorizes
 an unchecked downstream task. T1A grants only future publication eligibility: it does not mark a
@@ -13,7 +13,7 @@ pair package or checkpoint as released, authorize final evaluation, or activate 
   the frozen T1 artifacts; authorize future release-gated row-level hard-negative pairs and actual
   safetensors weights, and separate future publicability from final execution/runtime activation.
   _(→DRSP-R14–R16)_
-- [ ] **DRSP-T2 — Freeze family/evidence-safe development partitions and candidate pools.** Produce
+- [x] **DRSP-T2 — Freeze family/evidence-safe development partitions and candidate pools.** Produce
   non-reversible split/candidate manifests, prove zero leakage and report retrieval misses without
   injecting targets. _(→DRSP-R2–R4)_
 - [ ] **DRSP-T3 — Implement deterministic one-shot hard-negative mining.** Mine only train rows,
@@ -61,8 +61,13 @@ pair package or checkpoint as released, authorize final evaluation, or activate 
    manifests may be public in the future. Final execution and runtime activation still require
    separate checksum-bound Owner Gates; row-level final data and a public endpoint remain
    unauthorized.
+7. **Resolved for T2 only:** freeze the 100 admitted positive development rows into a deterministic
+   70/30 family/evidence-safe split and query-only Top-25 pools. The resulting public artifacts are
+   aggregate-only; private row-level membership and scores remain Git-ignored. This Gate does not
+   authorize mining, training, model selection, calibration, final evaluation or runtime changes.
 
-Items 3–4 remain future decisions for T2+; completing T1 does not imply their approval.
+Items 3–4 remain future decisions. T2 is complete, but T3 train-only mining still requires its own
+execution Gate; no unchecked downstream task is authorized by T2.
 
 ## G1 acceptance
 

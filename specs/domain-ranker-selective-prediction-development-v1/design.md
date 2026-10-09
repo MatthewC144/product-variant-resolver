@@ -1,6 +1,6 @@
 # Domain ranker and selective prediction development v1 — Design
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T1 and T1A complete; T2+ pending owner Gates**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T1, T1A and T2 complete; T3+ not authorized**.
 
 ## Overview
 
@@ -60,6 +60,34 @@ Connected components are formed from normalized query duplicates, source/evidenc
 families, aliases and exact release identities. Components, rather than individual rows, are placed
 into ranker train/selection and calibration fit/selection. The future final partition lives outside
 the trainer-readable tree and is not created or mounted in this milestone.
+
+### T2 frozen partition and candidate-pool result
+
+T2 admitted only the frozen 100-row positive development subset and formed 100 singleton connected
+components. Deterministic salted component ordering assigned 70 rows to `ranker_train` and 30 rows
+to `ranker_selection`. The audit found zero cross-partition overlap for normalized query, alias,
+evidence event, casting family and exact identity. Although the source file contains all 153 positive
+rows and is parsed before filtering, the opened 53-row test subset received zero adaptive use and
+zero scoring; the 20-row negative holdout and 52 no-match development rows likewise received zero
+ranker scoring.
+
+Candidate retrieval is query-only: sparse, hashing-dense and structured retrievers feed RRF, then
+the pinned generic MiniLM scores the returned candidates. Expected identity is observed only after
+retrieval to measure a miss and is never passed into or injected into the retriever. All 100 pools
+contain exactly 25 candidates; retrieval misses and target injections are both zero. The public
+manifest binds catalog, retriever, renderer, implementation code, generic model revision, config and
+manifest hashes so the same frozen pools can later support a fair generic/domain comparison.
+
+Row-level partitions and scored pools remain in Git-ignored `local-t2/` artifacts with mode `0600`.
+The owner authorization, split manifest and candidate-pool manifest are aggregate-only tracked files
+with mode `0644`. Their strict local check can rederive the private and public artifacts; the
+public-only check currently validates schema and self-checksums but cannot independently rederive
+row-level claims without the private inputs, an explicit deferred assurance gap.
+
+T2 also exposes a later T6 shortfall: after reserving all 100 positive rows for family-disjoint
+ranker train/selection, zero catalog-present family-disjoint rows remain for exact-correctness
+calibration. This does not block a separately authorized T3 train-only mining run, but T6 must obtain
+new admissible calibration positives rather than reuse ranker rows.
 
 ## Hard-negative miner
 

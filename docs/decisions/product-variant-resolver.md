@@ -2722,3 +2722,39 @@ Future evidence can reopen them without rewriting the historical reason they wer
   `activation_authorized=false` and `activated=false`. The 53/20 denylist, T1 file/content hashes,
   runtime default and public endpoint status remain unchanged. DRSP-T2 still requires its own Owner
   Gate.
+
+## D57 — Freeze query-only Top-25 pools before mining and expose the calibration shortfall
+
+- **Choice:** complete DRSP-T2 by grouping the 100 admitted positive development rows with connected
+  components over normalized query, alias, evidence event, casting family and exact identity, then
+  assigning whole components through deterministic salted ordering to a 70-row ranker-train and
+  30-row ranker-selection split. Freeze one query-only RRF Top-25 pool per row and score each pool
+  once with the revision-pinned generic MiniLM. Keep row-level assignments and scored candidates in
+  Git-ignored mode-`0600` local artifacts; publish only three mode-`0644` aggregate manifests.
+- **Reason:** mining must not choose its own split or see expected targets during retrieval. Connected
+  components make every declared leakage relationship an indivisible unit; salted ordering makes the
+  result reproducible without exposing membership. Query-only retrieval followed by target
+  observation measures real retrieval misses, while target injection would convert Recall@25 into a
+  guaranteed result. Binding catalog, retriever, renderer, code, model revision, config and manifest
+  hashes keeps the future generic/domain comparison on identical inputs.
+- **Alternatives:** random row splitting; stratify or inject by expected identity; rebuild pools after
+  fine-tuning; include the 53 opened test rows to increase sample size; publish row-level split and
+  scores. These alternatives respectively permit family leakage, inflate retrieval recall, make the
+  baseline incomparable, reuse opened final evidence or disclose private development data.
+- **10x alternative considered:** build a larger independently collected, rights-cleared and
+  family-balanced corpus with physically isolated ranker, calibration and fresh-final partitions,
+  then publish signed provenance for every pool. That would remove the present small-data and
+  calibration-capacity constraints, but it is a separate acquisition program rather than the
+  smallest honest gate before one-shot mining.
+- **Most likely failure:** the expected identity leaks into retrieval indirectly, making every pool
+  look successful. The first QA pass therefore required both an exact 70/30 assertion and a retrieval
+  spy plus mutated-target invariance test. After the fix, changing the expected target cannot change
+  the retrieved candidate sequence; all 100 pools contain 25 candidates, with zero target injections
+  and zero retrieval misses. A smaller deferred risk remains: public-only validation checks artifact
+  schema and self-checksums but cannot rederive row-level aggregate claims without the private files.
+- **Impact:** T2 is PASS with 100 singleton components and zero family, exact-identity, normalized-
+  query, alias or evidence overlap. The 53-row positive test file bytes are parsed as part of the
+  153-row source before filtering, but test adaptive use/scoring and 20-row negative-holdout/no-match
+  ranker scoring remain zero. Mining, training, calibration, final evaluation and runtime actions
+  remain zero. T6 now has an explicit shortfall of zero available family-disjoint catalog-present
+  calibration rows; that shortfall does not block a separately authorized T3 train-only mining run.

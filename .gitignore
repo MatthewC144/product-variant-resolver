@@ -31,6 +31,9 @@ postgres-data/
 !/data/evaluation/domain-ranker-selective-prediction-development-v1/governance.json
 !/data/evaluation/domain-ranker-selective-prediction-development-v1/publication-amendment.json
 !/data/evaluation/domain-ranker-selective-prediction-development-v1/governance-v2.json
+!/data/evaluation/domain-ranker-selective-prediction-development-v1/t2-owner-authorization.json
+!/data/evaluation/domain-ranker-selective-prediction-development-v1/split-manifest.json
+!/data/evaluation/domain-ranker-selective-prediction-development-v1/candidate-pool-manifest.json
 !/data/evaluation/domain-ranker-selective-prediction-development-v1/public-hard-negative-pairs-v1/
 !/data/evaluation/domain-ranker-selective-prediction-development-v1/public-hard-negative-pairs-v1/**
 /artifacts/domain-ranker-selective-prediction-development-v1/*

@@ -1,6 +1,6 @@
 # Domain ranker and selective prediction development v1 — Requirements
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T1 and T1A complete; T2+ pending owner Gates**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T1, T1A and T2 complete; T3+ not authorized**.
 
 ## Goal
 
@@ -16,6 +16,10 @@ future public release after artifact-specific release Gates; it does not publish
 authorize a new final-test run, activate FastAPI, or permit reuse of the already-opened 53-positive
 and 20-negative holdouts. A future fresh-final aggregate report and runtime code/config/model
 manifest may also be public, but only after their separate execution or activation Gates pass.
+
+T2 has now frozen the admitted 100 positive development rows into 70 ranker-training and 30
+ranker-selection rows, together with query-only Top-25 candidate pools. This completion authorizes
+neither T3 mining nor any training, selection, calibration, final evaluation or runtime action.
 
 ## Observable requirements
 

@@ -12291,3 +12291,81 @@ FastAPI default、模型載入、query scoring、mining、training、final evalu
 尚未完成的是 artifact-specific release Gate 本身：T3 未產生 public pair package，T4 未產生或發布 checkpoint，
 fresh-final dataset／evaluation 與 runtime activation 也都沒有得到批准。下一個必要步驟仍是 DRSP-T2 的
 family/evidence-safe partitions 與 frozen candidate pools；它需要獨立 Owner Gate，不能由 T1A 的公開資格推導。
+
+## 2026-10-09 — DRSP-T2：封存 family-safe 70/30 分區與 query-only Top-25 候選池
+
+### 新執行了什麼、解決什麼問題
+
+本輪在獨立 Owner Gate 下完成 DRSP-T2，將已准入的 100 筆 positive development rows 先分區、再建候選池，
+避免後續 hard-negative mining 自己挑資料或根據答案改寫 retrieval。Connected-component audit 得到 100 個
+singleton components；deterministic salted ordering 將它們固定為 70 筆 `ranker_train` 與 30 筆
+`ranker_selection`。Normalized query、alias、evidence event、casting family 與 exact identity 五種
+cross-partition overlap 均為 0。
+
+每筆 query 都建立一個 query-only Top-25 pool，因此共有 100 個 pools、每池固定 25 個 candidates。Retrieval miss
+為 0，target injection 也為 0。這解決了「expected identity 是否暗中幫助檢索」的核心可信度問題：正確答案只在
+retrieval 完成後用來觀察 target 是否出現在 pool，不能作為 retriever input，也不能補入 pool。
+
+53-row positive test 並未用於 adaptive decision 或 scoring；不過實作會先 parse 包含完整 153 rows 的 source JSON，
+再篩出 100-row development subset，因此文件不宣稱完全沒有讀取該檔案 bytes。20-row negative holdout 與 52-row
+no-match development data 的 ranker scoring 也都是 0。Hard-negative mining、training、model selection、
+calibration fit、fresh-final evaluation 與 runtime change 全部仍為 0。
+
+### 代碼修改了哪一部分、原因是什麼
+
+新增 `domain_ranker_partitions.py` 與 CLI `pvr-freeze-domain-ranker-partitions`，負責驗證 T1/T1A chain、建立
+connected components、產生 deterministic 70/30 assignment、執行 query-only retrieval、以 pinned generic
+MiniLM score frozen pools，以及嚴格重驗 artifact digests、檔案 mode 與禁止動作。`freeze_domain_ranker_partitions.py`
+提供薄 script entry；`test_domain_ranker_partitions.py` 覆蓋 deterministic split、五種 leakage、Top-25、holdout
+隔離、target-injection boundary、tamper、privacy、檔案權限及 calibration shortfall。
+
+私有 `local-t2/partitions.json` 與 `local-t2/candidate-pools.json` 包含 row-level membership／query／candidate／score，
+維持 Git ignored 且 mode `0600`。公開的 `t2-owner-authorization.json`、`split-manifest.json` 與
+`candidate-pool-manifest.json` 僅保存 aggregate counts、不可逆 digests 與 lineage，mode 為 `0644`。`.gitignore`
+只 allowlist 這三份 public artifacts，避免私有 rows 被誤提交。
+
+Candidate manifest 綁定 catalog SHA-256
+`b4e0747450a5447c2bf66b0838c91f3f723a19ac97c90c7ac3636cf3a9a709d4`、generic MiniLM revision
+`233902d25c440f23af6f7d6e94d2946bac0bee0a`、config SHA-256
+`3a88163cc7abc84468024f5e6410e0ca489a80a710b67b4c2474c4b4f7d7fad6` 與 manifest SHA-256
+`32f889bb415ef5a56760a299da0635e8e1704d46fe0b11ded06c563de896feb8`。同一 manifest 也固定 retriever contract、
+renderer hash與七個相關 source-code hashes；後續若 catalog、retriever、renderer、model config／manifest 或實作
+漂移，就不能把新 pool 當成這次 frozen baseline。
+
+### 技術棧或方法選型原因
+
+分區採 connected components，而非單純 random row split，是因為不同 query 仍可能透過 family、alias、evidence
+或 exact release 指向同一知識單位；把 whole component 放進單一 partition 才能避免跨分區洩漏。排序使用固定
+salt 與 component digest，兼顧 deterministic reproduction 與不公開 row membership。當前資料剛好形成 100 個
+singleton components，但演算法仍能處理未來非 singleton 關係。
+
+Retrieval 採既有 `token-index-v1` sparse、`hashing-v1:192` dense、`structured-v1` 與 `RRF k=60`，再以 revision-
+pinned `cross-encoder/ms-marco-MiniLM-L6-v2` 做 generic Pointwise scoring。沿用既有 retriever、candidate renderer
+與 generic scorer，能把未來 T4 比較的變因限制在 domain fine-tuning；generic 與 domain 必須使用同一 frozen
+pool。禁止 target injection 則讓 Recall@25 保持真正可失敗的 retrieval 指標，而不是設計上保證 100%。
+
+### 驗證方式與 QA 修正
+
+第一次 QA 判定有兩項 Important 必須補強：測試雖驗了最低數量，尚未精確 assert 70/30；同時只看
+`target_injection_count=0` 不足以證明 expected target 沒傳入 retriever。修正後加入 exact 70/30 assertion，以及
+retrieval spy／mutated-target invariance：捕捉所有 100 次 retriever inputs，確認沒有 target／expected 欄位；再
+改變 private expected target，候選 UUID sequence 仍必須完全不變。
+
+修正後 focused T1/T1A/T2 suite 為 `28 passed`，FastAPI regression 為 `22 passed`；Ruff、strict MyPy、使用真實
+pinned MiniLM 的 strict CLI check 與 `git diff --check` 亦通過。Starlette／AnyIO deprecation warning 是既有第三方
+警告，並非本輪產生。Public artifacts 本身不含 query、label、candidate identity、score、URL 或 local path。
+
+### 留下什麼債、下一步是什麼
+
+T2 明確發現 T6 calibration capacity shortfall：100 筆 catalog-present positives 全部已屬於 family-disjoint
+ranker train／selection，因此可供 exact-correctness calibration 的新 family-disjoint catalog-present rows 為 0。
+既有 52 筆 no-match 只能提供 catalog-absence calibration；未來 T6 必須另取得 admissible positive calibration rows，
+不能回收 ranker rows。這個 shortfall 不阻塞 T3，因為 T3 只會在 70-row train partition 做 one-shot mining。
+
+另一項 deferred assurance gap 是 `--public-only` 可驗 public artifact schema 與 self-checksum，卻無法在缺少 Git-
+ignored row-level inputs 時獨立重算 70/30、overlap 或 pool claims；目前完整 strict check 仍須 local artifacts。後續
+可考慮 signed attestation 或可驗證 aggregate certificate，但不得為此公開 private membership。
+
+下一步是 DRSP-T3 deterministic train-only hard-negative mining。T2 的 PASS 只表示 split 與 pool 可供下一階段引用；
+T3 仍需獨立 execution Gate。未取得該 Gate 前，不得 mining、產生 public pair package、fine-tune、calibrate、執行
+fresh final 或改動 runtime。
