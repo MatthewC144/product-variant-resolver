@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation — Design
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T0–T2 complete; T3 authorized and in progress; T4+ not authorized**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T0–T3 executed; latency Gate failed; T3R required; T4+ blocked**.
 
 ## Overview
 
@@ -84,6 +84,13 @@ expected identity is joined afterward solely to count misses and is never insert
 pinned generic `cross-encoder/ms-marco-MiniLM-L6-v2` revision scores all frozen candidates once.
 Latency is measured separately on validation only, with one CPU thread, batch size 25, three warm-up
 runs and 90 timed pool calls. No selection quality metric is computed.
+
+T3 produced all 180 pools and the query-only retrieval contract had zero misses, but the pinned
+generic PyTorch/Sentence Transformers execution path measured p95 `217.699834 ms`. The failure is
+about inference readiness, not retrieval correctness or domain-model quality. A repair iteration may
+evaluate one preregistered CPU inference implementation while keeping model weights, tokenizer,
+max-length, batch, inputs and score ordering unchanged. It must not lower the 200 ms budget or use
+selection quality to choose an optimization.
 
 ## Training design
 

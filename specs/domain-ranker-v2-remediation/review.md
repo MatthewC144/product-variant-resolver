@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation — Lite QA review
 
-Date: 2026-10-09. Scope: **DRV2-T1–T2**. Verdict: **PASS; T3+ not authorized**.
+Date: 2026-10-09. Scope: **DRV2-T1–T3**. Verdict: **T3 DATA/INTEGRITY PASS; LATENCY FAIL; T4 BLOCKED**.
 
 ## Coverage
 
@@ -10,10 +10,12 @@ Date: 2026-10-09. Scope: **DRV2-T1–T2**. Verdict: **PASS; T3+ not authorized**
 | DRV2-R2 | 153 positive identities and 173 combined query hashes denied | PASS |
 | DRV2-R3 | 180 unique queries/identities/families frozen as 120/30/30 | PASS |
 | DRV2-R6 | Validation and untouched selection are distinct family-disjoint partitions | PASS |
-| DRV2-R11 | Three aggregate JSON files; no row-level query, identity, label, URL or local path | PASS |
+| DRV2-R7 | 180 query-only Top-25 pools, 4,500 candidates, zero misses/injections | PASS |
+| DRV2-R8 | Generic CPU p95 `217.699834 ms` against `≤200 ms` | FAIL |
+| DRV2-R11 | Public artifacts contain aggregate data only; row-level packs remain ignored/mode `0600` | PASS |
 | DRV2-R12 | Owner-attested and community-catalog-relative limitations retained | PASS |
 
-Seventeen focused T1/T2 tests, Ruff, strict MyPy, CLI check mode and `git diff --check` pass.
+Sixteen focused T1–T3 tests, Ruff, strict MyPy, CLI check mode and `git diff --check` pass.
 The authoring protocol fixes field projection, deterministic templates/order, 120/30/30 minima,
 same-family density requirements and output isolation. It explicitly prohibits resolver output and
 T5-error access during authoring.
@@ -34,5 +36,10 @@ and families are unique; cross-partition query, identity and family overlap are 
 train rows belongs to a family with at least two other eligible releases, but T2 created zero
 candidate labels. Public manifests contain aggregate counts and hashes only.
 
-DRV2-T3 requires a separate Owner Gate. Candidate pools, scoring, negative triples, model training,
-calibration, final evaluation and runtime activation remain prohibited.
+T3's 90 validation samples measured p50 `183.735 ms` and p95 `217.699834 ms`. The 200 ms ceiling
+was frozen before execution, so the readiness result is FAIL even though pools and integrity checks
+passed. No selection quality metric, hard-negative label, training run, calibration, final evaluation
+or runtime change occurred.
+
+T3R requires a separate Owner Gate and must optimize only the generic inference implementation while
+proving equivalent scores/order. T4 remains blocked until an identical-protocol rerun passes.

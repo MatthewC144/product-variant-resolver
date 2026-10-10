@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation — Requirements
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T2 complete; T3 authorized and in progress; T4+ not authorized**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T3 executed; latency Gate failed; T3R required; T4+ blocked**.
 
 ## Goal
 
@@ -111,3 +111,12 @@ generic MiniLM and measure CPU latency on the 30 validation rows only. The bench
 CPU thread, batch size 25, three warm-ups, three rounds and nearest-rank p95 over 90 samples. If p95
 exceeds 200 ms, T3 SHALL publish a failed readiness status and stop before T4. This Gate does not
 authorize hard-negative labels, model training, selection evaluation, calibration or runtime.
+
+## T3 result
+
+T3 froze 180 query-only Top-25 pools containing 4,500 candidates. Retrieval found every expected
+identity without target injection: train, validation and selection retrieval-miss counts are all
+zero. The fixed 90-sample validation benchmark measured generic CPU p50 `183.735 ms` and p95
+`217.699834 ms`. Because p95 exceeds the unchanged `200 ms` budget, DRV2-R8 failed and T4 is blocked.
+A separately authorized T3R may change only the inference implementation; it must prove score/order
+equivalence and rerun the identical benchmark before any labels or training are created.

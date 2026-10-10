@@ -173,6 +173,12 @@ aggregate manifests are public; row-level queries and answers remain local and G
 [v2 split manifest](data/evaluation/domain-ranker-v2-remediation/split-manifest.json) and
 [Lite QA review](specs/domain-ranker-v2-remediation/review.md).
 
+The next readiness check froze 180 query-only Top-25 pools with zero retrieval misses and zero target
+injection. However, the unchanged generic CPU benchmark measured p95 `217.70 ms`, above the `200 ms`
+budget. V2 therefore stops before hard-negative labels or pairwise training; this is a latency Gate
+failure, not evidence about domain-model quality. See the
+[latency readiness report](data/evaluation/domain-ranker-v2-remediation/latency-readiness.json).
+
 ## Limitations
 
 - The 1,763-release source is an attributed third-party community snapshot, not Mattel or global

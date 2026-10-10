@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation readiness
 
-Date: 2026-10-09. Scope: DRV2-T0–T2. Verdict: **QUERY/SPLIT READINESS PASS; T3+ NOT AUTHORIZED**.
+Date: 2026-10-09. Scope: DRV2-T0–T3. Verdict: **POOL READINESS PASS; GENERIC LATENCY FAIL; T4 BLOCKED**.
 
 ## Why a new version is required
 
@@ -69,3 +69,27 @@ created in T2.
 The private pack is Git-ignored and mode `0600`; public artifacts contain aggregate counts and hashes
 only. Model scoring, mining, training, calibration, final evaluation and runtime actions remain zero.
 DRV2-T3 requires a separate Owner Gate.
+
+## T3 candidate-pool and latency result
+
+The query-only retrieval run froze 180 Top-25 pools and 4,500 candidates. It found every target in
+the unmodified retrieval output: train, validation and selection miss counts are all zero, and target
+injection count is zero. The generic model is the unchanged revision-pinned
+`cross-encoder/ms-marco-MiniLM-L6-v2`; no domain checkpoint was loaded.
+
+On Darwin arm64 with CPython 3.12.13, Torch 2.7.1, Transformers 4.57.6 and Sentence Transformers
+3.4.1, the frozen one-thread CPU protocol measured 90 validation samples: p50 `183.735 ms`, p95
+`217.699834 ms`. The unchanged gate is p95 `≤200 ms`, so readiness failed and T4 remains blocked.
+
+- T3 authorization content SHA-256:
+  `ef8a7215f336443f58162b0f66138a5e449bda3245e2af5a43e88d2f045195c3`.
+- Candidate-pool manifest content SHA-256:
+  `da419555a6e364063a288a7ece691a330f849d361b7735809e616af4d4310777`.
+- Private pool artifact SHA-256:
+  `0c889bfc06755a49ba779f2df64a4e4d87d3de676bf47063fcfcdec454022b24`.
+- Latency readiness content SHA-256:
+  `7b396578d36e8c6a76fd79e447770713014716aa911661f4055898f2f0c76d86`.
+
+Public artifacts contain only bindings, aggregate counts, environment and latency metrics. The
+row-level pools remain Git-ignored and mode `0600`. T3R must be separately authorized and may not
+change weights, inputs, ranking semantics or the 200 ms threshold.

@@ -12657,3 +12657,42 @@ Ruff、strict MyPy、deterministic CLI check、ignore/mode check 與 whitespace 
 本輪沒有產生 candidate pools、scores、negative triples、checkpoint、calibration 或 evaluation，也沒有修改 FastAPI runtime。
 下一步只有 DRV2-T3：在獨立 Owner Gate 後凍結 query-only Top-25 pools 與 generic CPU latency readiness；若 generic p95
 仍超過 200 ms，必須先停下修正環境／procedure，不得直接訓練。
+
+## 2026-10-09 — DRV2-T3：封存 Top-25 pools，generic latency Gate 以 217.70 ms 擋下 T4
+
+### 新執行了什麼、解決什麼問題
+
+本輪把 Owner 的「幾續下一步」限定為 DRV2-T3 Gate。系統對 T2 的 180 筆 query 全部執行 query-only retrieval，
+每筆凍結 25 candidates，共 4,500 candidates；train 120、validation 30、selection 30 的 expected target 都自然存在於
+retrieval output，三區 miss count 都是 0，target injection 也是 0。這解決了進入 mining 前最重要的資料問題：候選池
+確實能靠 query 本身找回正確 release，而不是因為系統偷看答案後補進去。
+
+同一批 frozen pools 由 revision-pinned generic MiniLM 計分，但沒有計算 selection accuracy 或比較 domain model。
+Latency 只用 validation 30 筆，固定 CPU one thread、batch 25、max length 128、3 warm-ups、3 rounds，共 90 samples。
+結果 p50 為 `183.735 ms`、p95 為 `217.699834 ms`，高於預先固定的 `200 ms` 上限。因此 T3 的 pool/integrity 部分
+PASS，但 latency readiness FAIL，流程依設計停在 T4 之前。
+
+### 代碼修改了哪一部分、原因與技術選型
+
+新增 `domain_ranker_v2_candidate_pools.py` 與 CLI `pvr-freeze-domain-ranker-v2-candidate-pools`。模組重驗 T1/T2 hash
+chain、catalog、generic model config／manifest／safetensors，再使用既有 sparse、192 維 hashing dense、structured retrieval
+與 RRF `k=60`。Target UUID 是 retrieval 完成後才由 frozen identity 對回 catalog，用來計算 aggregate miss；它從未傳給
+retriever。這個介面隔離使「zero misses」可以被驗證，又不會發生 target injection。
+
+Pool scorer 沿用相同 generic model、tokenizer、max length 與 Top-25 batch，不另換較快但語意不同的模型。Latency manifest
+同時凍結 OS、CPU architecture、Python、Torch、Transformers、Sentence Transformers 與測量 protocol。之所以不把 200 ms
+門檻調高到 220 ms，是因為 v1 已發現相同問題；再次放寬只會讓效能預算失去意義。下一個修復必須針對 inference
+implementation 並證明 score/order 等價，不能利用 selection quality 選方案。
+
+### 驗證結果、限制與下一步
+
+Candidate-pool manifest content SHA-256 是
+`da419555a6e364063a288a7ece691a330f849d361b7735809e616af4d4310777`，local pool artifact SHA-256 是
+`0c889bfc06755a49ba779f2df64a4e4d87d3de676bf47063fcfcdec454022b24`，latency readiness content SHA-256 是
+`7b396578d36e8c6a76fd79e447770713014716aa911661f4055898f2f0c76d86`。16 項 T1–T3 focused tests、Ruff、strict
+MyPy、CLI integrity check、private mode／Git-ignore 與 whitespace gate 全部通過。逐筆 pools 保持 mode `0600` 且不進 Git；
+Git 只保存 authorization、aggregate candidate manifest 與 latency report。
+
+本輪沒有產生 hard-negative labels、沒有 training run、沒有 selection quality evaluation、沒有 calibration/final evaluation，
+也沒有修改 FastAPI runtime。下一個必要工作是 DRV2-T3R：先選定一個 CPU inference repair，對相同 4,500 pairs 證明
+generic score／ordering 等價，再用完全相同 90-sample protocol 重測。T3R 未經獨立 Owner Gate 前不得執行；T4 維持 blocked。

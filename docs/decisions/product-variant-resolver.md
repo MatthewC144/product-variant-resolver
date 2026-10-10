@@ -2936,3 +2936,27 @@ Future evidence can reopen them without rewriting the historical reason they wer
   `149d7d867b9e270ffb805906aec64685d6823f11efcd68a59e9e74ba60134e6f`; all query, identity and
   family overlap counts are zero. Candidate scoring, mining, training, calibration, final evaluation
   and runtime activation remain unauthorized; T3 needs a separate Owner Gate.
+
+## D64 — Preserve the 200 ms latency failure instead of lowering the v2 Gate
+
+- **Choice:** complete DRV2-T3 by freezing all 180 query-only Top-25 pools and recording the generic
+  CPU latency result as FAIL. Do not start T4 because p95 `217.699834 ms` exceeds the preregistered
+  `200 ms` ceiling.
+- **Reason:** retrieval itself is ready—4,500 candidates, zero misses and zero target injections—but
+  the generic baseline still misses the product latency budget. Lowering the budget or proceeding to
+  model training would hide an environment/runtime problem behind a modeling experiment.
+- **Alternatives:** relax the SLO; benchmark fewer/easier queries; use selection metrics to justify
+  proceeding; or train first and optimize later. These move the goalpost, bias the measurement,
+  contaminate untouched selection or spend compute before the common baseline is deployable.
+- **10x alternative considered:** build and benchmark a production inference service across multiple
+  hardware classes with ONNX/CoreML/quantized backends, concurrency load and statistical confidence
+  intervals. That is valuable later; the smallest honest next step is one frozen CPU implementation
+  repair with exact score/order equivalence on these pools.
+- **Most likely failure:** optimize latency by changing logits or candidate ordering, making the
+  later generic/domain comparison incomparable. T3R must therefore bind unchanged weights,
+  tokenizer, inputs and Top-25 pools and prove equivalent ordering before accepting timing results.
+- **Impact:** candidate-pool and latency content hashes are
+  `da419555a6e364063a288a7ece691a330f849d361b7735809e616af4d4310777` and
+  `7b396578d36e8c6a76fd79e447770713014716aa911661f4055898f2f0c76d86`.
+  No labels, training, calibration, selection evaluation or runtime activation occurred. T4 is
+  blocked; T3R needs a separate Owner Gate.
