@@ -1,6 +1,6 @@
 # Domain ranker and selective prediction development v1 — Requirements
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T1, T1A and T2 complete; T3+ not authorized**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T1, T1A, T2 and T3 complete; T4+ not authorized**.
 
 ## Goal
 
@@ -19,7 +19,17 @@ manifest may also be public, but only after their separate execution or activati
 
 T2 has now frozen the admitted 100 positive development rows into 70 ranker-training and 30
 ranker-selection rows, together with query-only Top-25 candidate pools. This completion authorizes
-neither T3 mining nor any training, selection, calibration, final evaluation or runtime action.
+neither training, selection, calibration, final evaluation nor runtime action.
+
+T3 has now executed one deterministic mining pass over only the 70 `ranker_train` rows and their
+byte-unchanged frozen T2 pools. Its release Gate accepted a fixed five-file public package containing
+345 binary pairs: 207 adjacent-year/wrong-series-or-identifier, 67 same-casting wrong-exact,
+67 high-generic-score and 4 high-RRF negatives. Sixty-nine of 70 queries have at least two negatives,
+exceeding the preregistered 36-query minimum, and no query has more than five. The package deliberately
+reveals that its rows belong to the training partition; it does not reveal selection membership,
+opened holdout rows or no-match development rows. Rights remain
+`owner_attested_not_independently_verified`, and the data remains frozen-community-catalog-relative,
+not manufacturer/global truth. T3 authorizes neither T4 training nor any later phase.
 
 ## Observable requirements
 

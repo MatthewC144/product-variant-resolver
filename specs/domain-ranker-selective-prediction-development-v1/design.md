@@ -1,6 +1,6 @@
 # Domain ranker and selective prediction development v1 — Design
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T1, T1A and T2 complete; T3+ not authorized**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T1, T1A, T2 and T3 complete; T4+ not authorized**.
 
 ## Overview
 
@@ -106,6 +106,42 @@ remain local. A minimized versioned hard-negative pair projection may enter Git 
 named public package path after its pair-release Gate passes; before that Gate, Git receives only
 miner version, input hashes, category counts, held counts and retrieval-miss counts.
 
+### T3 frozen mining and release result
+
+T3 ran exactly once over the 70 `ranker_train` queries and the byte-identical T2 Top-25 pool file.
+It released 345 binary pairs: 207 adjacent-year/wrong-series-or-identifier, 67 same-casting
+wrong-exact, 67 high-generic-score and 4 high-RRF negatives. Sixty-nine queries contributed at
+least two defensible negatives against a preregistered minimum of 36, and the per-query maximum is
+five. The remaining ambiguity was not converted into convenient labels: 65 same-family candidates
+were held, while 45 permanent-holdout identities, 34 ranker-selection identities and 20 candidates
+whose target casting was not explicit were excluded or held by the applicable boundary.
+
+The release surface is exactly five files—`pairs.jsonl`, `manifest.json`, `owner-authorization.json`,
+`DATA_CARD.md` and `NOTICE.md`—with recursive rejection of every other nested file. The pair bytes
+hash to `50f88e73889b31e8f314e93b2cca9e4871934662b5218c6659a72fe06c0ca2ba`; the package hashes to
+`89bc430289c36e75c6302e7aa4ecca1889f32df95e5199f61aba1f676b18022a`; and the manifest content
+hash is `da5422568c9b0bae6e3d152d66318e251329ca966dbdff078a78029c77a04392`.
+
+The pair projection intentionally reveals training membership because that fact is necessary to
+interpret the training artifact. It still excludes selection/final membership, queries from the
+opened 53-positive test and 20-negative holdout, and all 52 no-match development rows. Mining and
+scoring counts for those four groups are zero. Rights remain
+`owner_attested_not_independently_verified`; the labels are relative to the frozen community
+catalog and must not be presented as manufacturer/global truth.
+
+The pair-release scanner covers AWS-style credentials, Bearer tokens, `.env` names, path traversal,
+local paths, URLs, email/contact material and other PII/secrets. Its numeric detector is scoped to
+avoid treating valid 11-digit product barcodes as contact numbers. It scans the final manifest a
+second time, applies the legacy-holdout denylist to sanitized content and rejects unexpected files
+recursively. These checks close the two issues found during QA/security review: strict MyPy and
+rematerialization coverage were added, then the broad nested Git allowlist was replaced by the exact
+five-file contract and expanded content scanning.
+
+T3 did not load a trainer or create a checkpoint. Training runs, calibration, final evaluation and
+runtime activation remain zero. T4 needs a separate Gate; before it may release a checkpoint, its
+Git allowlist must likewise become an exact package-file contract, and every untrusted text field
+must remain data rather than being passed to `eval`, a shell or prompt interpolation.
+
 ## Domain Pointwise training
 
 The base architecture and tokenizer remain the pinned MiniLM CrossEncoder. The first experiment
@@ -161,7 +197,7 @@ It remains development-only and `runtime_eligible=false`.
 
 | Artifact | Publicability | Required Gate |
 |---|---|---|
-| Versioned row-level hard-negative pairs | Allowed in future | T3 pair-release Gate |
+| Versioned row-level hard-negative pairs | Released for frozen v1 package only | T3 pair-release Gate passed |
 | Actual `model.safetensors` package | Allowed in future | T4 model-release Gate |
 | Split membership and calibration rows | Private | No public route in this milestone |
 | Fresh-final aggregate report | Allowed in future | Separate final-execution Gate |
@@ -172,6 +208,10 @@ It remains development-only and `runtime_eligible=false`.
 Publication permission, release-Gate success, execution and activation are separate booleans. T1A
 changes only future publication eligibility; it does not create a final dataset, run final scoring,
 activate runtime or change the FastAPI default.
+
+The T3 pair-release Gate has now passed for the single hash-bound five-file package above. This
+changes the first matrix row from eligible to released for that version only; it does not authorize
+regeneration with different inputs or any T4+ action.
 
 ## Error handling and safety
 

@@ -12369,3 +12369,74 @@ ignored row-level inputs 時獨立重算 70/30、overlap 或 pool claims；目�
 下一步是 DRSP-T3 deterministic train-only hard-negative mining。T2 的 PASS 只表示 split 與 pool 可供下一階段引用；
 T3 仍需獨立 execution Gate。未取得該 Gate 前，不得 mining、產生 public pair package、fine-tune、calibrate、執行
 fresh final 或改動 runtime。
+
+## 2026-10-09 — DRSP-T3：完成 one-shot hard-negative mining 與固定五檔公開封裝
+
+### 新執行了什麼、解決什麼問題
+
+本輪在獨立 T3 Gate 下，只對 T2 已凍結的 70 筆 `ranker_train` queries 與原封不動的 Top-25 candidate pools 執行
+一次 deterministic hard-negative mining。結果產生 345 筆可用於 binary relevance training 的公開 pairs，其中
+207 筆是 adjacent-year／wrong-series-or-identifier、67 筆是 same-casting wrong-exact、67 筆是 high generic-score，
+另 4 筆是 high RRF。69/70 queries 各有至少兩筆可辯護 negative，超過預先設定的 36-query Gate；每筆 query 最多
+五個 negatives，避免少數 query 支配訓練分布。
+
+這一步解決的不是「盡量產生更多負例」，而是「怎樣只留下有證據的困難負例」。65 個 same-family candidates 因
+證據不足被標為 ambiguous held，沒有為了湊數強迫標負；45 個 permanent-holdout identities、34 個
+ranker-selection identities，以及 20 個 target casting 未明示的候選也依邊界排除或保留。如此能讓後續 domain
+fine-tuning 學到年份、series、identifier 與 exact release 差異，而不是把同 family 的合理 sibling 誤學成錯誤。
+
+30 筆 selection、53 筆 positive test、20 筆 negative holdout 與 52 筆 no-match development rows 的 mining／scoring
+均為 0；T2 pool 檔案 bytes 未改變。Training run、checkpoint、calibration、fresh-final evaluation 和 runtime
+activation 也全為 0，因此 T3 完成不代表模型已微調或系統已啟用。
+
+### 代碼修改了哪一部分、原因是什麼
+
+新增 `domain_ranker_hard_negatives.py` 與對應 CLI／test，負責重新驗證 T1–T2 lineage、只讀取 train membership、
+套用 frozen miner 規則、建立 hold／exclude audit，並在發布前驗證 package schema、digests、denylist 與內容安全。
+`.gitignore` 與 package release contract 改成 default-deny，公開入口不再允許任意 nested files；唯一可追蹤內容固定
+為 `pairs.jsonl`、`manifest.json`、`owner-authorization.json`、`DATA_CARD.md`、`NOTICE.md` 五檔。這項修改是因為
+第一輪 security review 將原本的 nested allowlist 判為 High：即使頂層檔案安全，未來任意子目錄仍可能把 scratch、
+secrets 或私有 row-level 資料帶入 Git。
+
+公開 pair projection 刻意只保留訓練必要欄位，因此會揭示這些 records 屬於 training membership；它不公開
+selection／test membership、原始未最小化 source fields 或 no-match rows。`pairs.jsonl` SHA-256 為
+`50f88e73889b31e8f314e93b2cca9e4871934662b5218c6659a72fe06c0ca2ba`，固定五檔 package SHA-256 為
+`89bc430289c36e75c6302e7aa4ecca1889f32df95e5199f61aba1f676b18022a`，manifest content SHA-256 為
+`da5422568c9b0bae6e3d152d66318e251329ca966dbdff078a78029c77a04392`。Owner authority 仍是
+`owner_attested_not_independently_verified`；資料只代表 frozen community catalog-relative labels，不是
+manufacturer/global truth。
+
+### 技術棧或方法選型原因
+
+Miner 採 one-shot deterministic 規則，而不是 fine-tuned model 的 iterative remine。原因是小資料下反覆用自己的
+錯誤選負例，容易形成 feedback loop，亦會讓 generic/domain 比較失去共同 baseline。沿用 T2 frozen pools 則能把
+T4 唯一主要變因限制在 domain fine-tuning，而非同時改變 retriever、候選集合與訓練標籤。
+
+公開 artifact 使用 JSONL pairs 加 canonical JSON manifest，而不是 pickle 或任意訓練 dump，便於逐列掃描、hash
+binding 與跨工具重驗。Security scanner 擴充 AWS-style credentials、Bearer tokens、`.env` 名稱、path traversal、
+local paths、URL、email/contact 與其他 PII／secret；電話數字判斷同時避開合法 11-digit product barcode 的 false
+positive。Final manifest 會再做 secondary scan，sanitized內容仍須過 permanent denylist，避免清理字串後反而
+繞過 identity boundary。
+
+### 驗證方式、QA／security 修正
+
+本輪經過兩輪 QA／security 修正。第一輪補上 strict MyPy 問題與 rematerialize validation，確保重新生成與 check
+模式都能重現相同 hashes。第二輪關閉 nested allowlist High，改為固定五檔加 recursive unexpected-file rejection，
+並擴大 secret／PII／traversal／contact scan、加入 barcode 誤判防護、final-manifest secondary scan 和 sanitized
+denylist check。
+
+最終驗證為 50 項 focused tests 加 22 項 FastAPI regressions 全綠；Ruff、strict MyPy 的 materialize／check 兩種
+模式、T1／T1A／T2／T3 CLI chain 與 `git diff --check` 都通過。Security review 沒有殘留 High／Critical。
+FastAPI default與既有runtime行為未改變。
+
+### 留下什麼債、下一步是什麼
+
+T3 的公開 pairs 已通過本版本 release Gate，但這不授權 T4。下一個必要步驟是 DRSP-T4 的獨立 Owner Gate：用同一個
+pinned MiniLM、固定 binary objective 與兩個 seeds 進行 domain fine-tuning，再依 selection gate 判定是否存在
+winner。開始前必須把 checkpoint Git allowlist 收緊為固定 package files，而不是可接受任意 nested contents；所有
+來自資料、model card 或 metadata 的 untrusted text 只能當資料，禁止進入 `eval`、shell command 或 prompt
+interpolation。
+
+後續仍存在 T6 的 positive calibration-row shortfall；T4 不能為了解決它而重用 ranker train／selection 或已開封
+53/20 holdouts。Fresh-final evaluation 和 runtime activation 也必須等待各自 Gate，不能由公開 pairs 或未來 checkpoint
+的發布資格推導。

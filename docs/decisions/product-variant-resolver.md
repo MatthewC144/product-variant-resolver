@@ -2758,3 +2758,44 @@ Future evidence can reopen them without rewriting the historical reason they wer
   ranker scoring remain zero. Mining, training, calibration, final evaluation and runtime actions
   remain zero. T6 now has an explicit shortfall of zero available family-disjoint catalog-present
   calibration rows; that shortfall does not block a separately authorized T3 train-only mining run.
+
+## D58 — Release one fixed hard-negative package and keep ambiguous siblings out of binary truth
+
+- **Choice:** complete DRSP-T3 with one deterministic mining pass over only the 70 `ranker_train`
+  queries and their byte-unchanged T2 Top-25 pools. Release exactly five files containing 345 binary
+  pairs: 207 adjacent-year/wrong-series-or-identifier, 67 same-casting wrong-exact, 67 high-generic-
+  score and 4 high-RRF negatives. Require at least two negatives for 36 queries and at most five per
+  query; the result reaches 69/70. Hold 65 ambiguous same-family candidates rather than force them
+  negative, and exclude or hold 45 permanent-holdout identities, 34 selection identities and 20
+  candidates without explicit target-casting evidence.
+- **Reason:** the training artifact must teach difficult distinctions without converting proximity
+  into false certainty. A one-shot pass against frozen generic pools isolates mining from future
+  domain-model errors; explicit evidence rules and holds preserve label semantics. The fixed
+  five-file release contract makes the publication exception auditable instead of allowing an
+  arbitrary directory tree into Git.
+- **Alternatives:** label every non-target Top-25 candidate negative; iteratively remine after each
+  fine-tuning run; include selection, opened test, no-match or permanent-holdout rows; keep the pairs
+  private despite Owner permission; or allow any nested file below the public package path. These
+  choices respectively introduce false negatives, adaptive feedback, leakage, contradict the
+  release decision or create an uncontrolled disclosure surface.
+- **10x alternative considered:** build a much larger independently licensed catalog-query corpus
+  with expert graded-relevance labels, multiple negatives per evidence dimension, signed provenance
+  and reproducible secure-build attestations. That would improve label coverage and external validity,
+  but it is a separate acquisition program; the current package is the smallest honest artifact for
+  testing whether domain fine-tuning adds value over the pinned generic cross-encoder.
+- **Most likely failure:** treat same-family siblings as automatically wrong, or interpret the
+  released package as manufacturer-certified truth. The miner therefore holds ambiguous siblings,
+  retains the `owner_attested_not_independently_verified` limitation and states that training
+  membership is intentionally revealed. Two QA/security rounds also replaced a broad nested
+  allowlist with exact recursive five-file enforcement, expanded AWS/Bearer/`.env`/path-traversal/
+  contact scans, avoided false-positive rejection of valid 11-digit barcodes, rescanned the final
+  manifest and applied the denylist to sanitized content.
+- **Impact:** `pairs.jsonl` SHA-256 is
+  `50f88e73889b31e8f314e93b2cca9e4871934662b5218c6659a72fe06c0ca2ba`, package SHA-256 is
+  `89bc430289c36e75c6302e7aa4ecca1889f32df95e5199f61aba1f676b18022a`, and manifest content
+  SHA-256 is `da5422568c9b0bae6e3d152d66318e251329ca966dbdff078a78029c77a04392`.
+  The 30 selection, 53 positive-test, 20 negative-holdout and 52 no-match rows received zero mining
+  and zero scoring; the T2 pool bytes did not change. Training, checkpoint creation, calibration,
+  final evaluation and runtime activation remain zero. T4 requires a separate Gate plus an exact
+  checkpoint-package allowlist, and untrusted text must never reach `eval`, a shell or prompt
+  interpolation.

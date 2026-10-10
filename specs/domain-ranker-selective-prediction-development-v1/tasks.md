@@ -1,9 +1,9 @@
 # Domain ranker and selective prediction development v1 — Tasks
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRSP-T1, T1A and T2 complete; T3+ not authorized**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRSP-T1, T1A, T2 and T3 complete; T4+ not authorized**.
 
 Tasks are ordered Gates. A checked task may unlock only the next listed task; it never authorizes
-an unchecked downstream task. T1A grants only future publication eligibility: it does not mark a
+an unchecked downstream task. T1A by itself grants only future publication eligibility: it does not mark a
 pair package or checkpoint as released, authorize final evaluation, or activate runtime.
 
 - [x] **DRSP-T1 — Materialize the training-use and authority Gate.** Bind permitted source hashes,
@@ -16,7 +16,7 @@ pair package or checkpoint as released, authorize final evaluation, or activate 
 - [x] **DRSP-T2 — Freeze family/evidence-safe development partitions and candidate pools.** Produce
   non-reversible split/candidate manifests, prove zero leakage and report retrieval misses without
   injecting targets. _(→DRSP-R2–R4)_
-- [ ] **DRSP-T3 — Implement deterministic one-shot hard-negative mining.** Mine only train rows,
+- [x] **DRSP-T3 — Implement deterministic one-shot hard-negative mining.** Mine only train rows,
   preserve near-duplicate categories, hold ambiguous siblings and produce an allowlisted, scanned,
   versioned public pair package only after its release Gate passes.
   _(→DRSP-R5–R6, R14)_
@@ -65,9 +65,15 @@ pair package or checkpoint as released, authorize final evaluation, or activate 
    70/30 family/evidence-safe split and query-only Top-25 pools. The resulting public artifacts are
    aggregate-only; private row-level membership and scores remain Git-ignored. This Gate does not
    authorize mining, training, model selection, calibration, final evaluation or runtime changes.
+8. **Resolved for T3 only:** execute one deterministic pass over the 70 training rows and frozen T2
+   pools, then release only the scanned five-file package whose pair/package hashes are
+   `50f88e73889b31e8f314e93b2cca9e4871934662b5218c6659a72fe06c0ca2ba` and
+   `89bc430289c36e75c6302e7aa4ecca1889f32df95e5199f61aba1f676b18022a`.
+   This Gate discloses training membership for those pairs but authorizes no model training,
+   checkpoint, calibration, final evaluation or runtime action.
 
-Items 3–4 remain future decisions. T2 is complete, but T3 train-only mining still requires its own
-execution Gate; no unchecked downstream task is authorized by T2.
+Items 3–4 remain future decisions. T3 is complete, but T4 domain fine-tuning still requires its own
+execution and checkpoint-release Gate; no unchecked downstream task is authorized by T3.
 
 ## G1 acceptance
 

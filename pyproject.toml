@@ -36,6 +36,7 @@ pvr-audit-pointwise-no-match-readiness = "product_variant_resolver.pointwise_no_
 pvr-materialize-pointwise-no-match-governance = "product_variant_resolver.pointwise_no_match_governance:main"
 pvr-materialize-domain-ranker-governance = "product_variant_resolver.domain_ranker_governance:main"
 pvr-freeze-domain-ranker-partitions = "product_variant_resolver.domain_ranker_partitions:main"
+pvr-mine-domain-ranker-hard-negatives = "product_variant_resolver.domain_ranker_hard_negatives:main"
 pvr-calibrate-pointwise-three-class = "product_variant_resolver.pointwise_three_class_calibration:main"
 pvr-audit-pointwise-policy-holdout = "product_variant_resolver.pointwise_policy_holdout_readiness:main"
 pvr-evaluate-pointwise-no-match-holdout = "product_variant_resolver.pointwise_no_match_holdout_evaluation:main"

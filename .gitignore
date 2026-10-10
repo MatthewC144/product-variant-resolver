@@ -35,7 +35,12 @@ postgres-data/
 !/data/evaluation/domain-ranker-selective-prediction-development-v1/split-manifest.json
 !/data/evaluation/domain-ranker-selective-prediction-development-v1/candidate-pool-manifest.json
 !/data/evaluation/domain-ranker-selective-prediction-development-v1/public-hard-negative-pairs-v1/
-!/data/evaluation/domain-ranker-selective-prediction-development-v1/public-hard-negative-pairs-v1/**
+/data/evaluation/domain-ranker-selective-prediction-development-v1/public-hard-negative-pairs-v1/*
+!/data/evaluation/domain-ranker-selective-prediction-development-v1/public-hard-negative-pairs-v1/owner-authorization.json
+!/data/evaluation/domain-ranker-selective-prediction-development-v1/public-hard-negative-pairs-v1/pairs.jsonl
+!/data/evaluation/domain-ranker-selective-prediction-development-v1/public-hard-negative-pairs-v1/manifest.json
+!/data/evaluation/domain-ranker-selective-prediction-development-v1/public-hard-negative-pairs-v1/DATA_CARD.md
+!/data/evaluation/domain-ranker-selective-prediction-development-v1/public-hard-negative-pairs-v1/NOTICE.md
 /artifacts/domain-ranker-selective-prediction-development-v1/*
 !/artifacts/domain-ranker-selective-prediction-development-v1/public-checkpoint-v1/
 !/artifacts/domain-ranker-selective-prediction-development-v1/public-checkpoint-v1/**
