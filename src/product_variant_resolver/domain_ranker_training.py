@@ -776,7 +776,8 @@ def _validate_safetensors(path: Path) -> dict[str, list[int]]:
         raise TypeError("installed safetensors API is incompatible")
     shapes: dict[str, list[int]] = {}
     with safe_open(str(path), framework="pt", device="cpu") as handle:
-        for key in handle:
+        # ``safe_open`` exposes keys() but is not a Mapping or iterable.
+        for key in handle.keys():  # noqa: SIM118
             tensor = handle.get_tensor(key)
             shapes[key] = list(tensor.shape)
     if not shapes or not any(key.endswith("classifier.weight") for key in shapes):

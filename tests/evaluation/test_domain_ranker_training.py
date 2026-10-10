@@ -8,6 +8,7 @@ import pytest
 from product_variant_resolver.domain_ranker_training import (
     EARLY_STOPPING_PATIENCE,
     EpochMetric,
+    _validate_safetensors,
     load_selection_pools,
     load_training_examples,
     mrr_at_10_from_scores,
@@ -93,3 +94,21 @@ def test_t3_public_manifest_is_still_the_authorized_input() -> None:
     )
     assert manifest["release_gate_passed"] is True
     assert manifest["guardrails"]["model_training_runs"] == 0
+
+
+def test_real_safetensors_file_is_inspected_through_safe_open(tmp_path: Path) -> None:
+    import torch
+    from safetensors.torch import save_file
+
+    checkpoint = tmp_path / "model.safetensors"
+    save_file(
+        {
+            "classifier.weight": torch.zeros((1, 4), dtype=torch.float16),
+            "classifier.bias": torch.zeros((1,), dtype=torch.float16),
+        },
+        checkpoint,
+    )
+    assert _validate_safetensors(checkpoint) == {
+        "classifier.bias": [1],
+        "classifier.weight": [1, 4],
+    }
