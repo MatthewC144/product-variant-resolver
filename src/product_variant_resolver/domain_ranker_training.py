@@ -542,15 +542,10 @@ def _save_half_checkpoint(model: Any, destination: Path, save_file: Any) -> None
             value = value.to(dtype=importlib.import_module("torch").float16)
         state[name] = value
     destination.parent.mkdir(parents=True, exist_ok=True)
-    save_file(
-        state,
-        str(destination),
-        metadata={
-            "format": "pt",
-            "pvr_schema": "pvr-drsp-t4-domain-minilm-checkpoint-v1",
-            "base_model_revision": BASE_MODEL_REVISION,
-        },
-    )
+    # Keep the tensor file free of unordered metadata maps. Complete model and
+    # provenance metadata lives in the canonical package manifest, making the
+    # safetensors bytes reproducible rather than merely behaviorally equivalent.
+    save_file(state, str(destination))
 
 
 def _train_seed(
