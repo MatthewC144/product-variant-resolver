@@ -1,13 +1,14 @@
 # Domain ranker v2 remediation — Tasks
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **Only DRV2-T0 complete; T1+ require Owner
-Gate**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRV2-T0 complete; T1 authorized and in
+progress; T2+ not authorized**.
 
 - [x] **DRV2-T0 — Preserve the v1 negative result and draft the remediation hypothesis.** Record
   observed failures, distinguish hypotheses from proven causes, retain all holdout boundaries and
   define the next Owner decisions. _(→DRV2-R1, R2, R10, R12)_
-- [ ] **DRV2-T1 — Materialize v2 governance.** Bind an approved new dataset, exact permitted uses,
-  rights/authority, publication scope and all v1/legacy denylist hashes. _(→DRV2-R1, R2, R11)_
+- [ ] **DRV2-T1 — Materialize v2 governance.** Bind the approved frozen source, owner-authored query
+  protocol, exact permitted uses, rights/authority, publication scope and all v1/legacy denylist
+  hashes. _(→DRV2-R1, R2, R11)_
 - [ ] **DRV2-T2 — Build family/evidence-safe v2 partitions.** Produce at least 120/30/30 train,
   validation and selection rows from at least 180 new queries. _(→DRV2-R3, R6)_
 - [ ] **DRV2-T3 — Freeze latency-ready generic candidate pools.** Bind the environment and
@@ -23,6 +24,6 @@ Gate**.
 
 ## Current Gate
 
-No T1+ action is authorized. The owner must first approve the data target/source, 120/30/30 split,
-single pairwise objective, preregistered gates and publication boundary listed in `requirements.md`.
-This draft does not authorize reuse of the 53/20 holdouts, 52 no-match rows or T2 selection errors.
+T1 is authorized by the owner's next-step instruction after the five-item handoff. It may materialize
+only aggregate governance and an authoring protocol. T2 still needs a separate Gate and this decision
+does not authorize reuse of the 53/20 holdouts, 52 no-match rows or T2 selection errors.

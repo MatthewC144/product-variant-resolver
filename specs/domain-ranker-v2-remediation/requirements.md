@@ -1,7 +1,7 @@
 # Domain ranker v2 remediation — Requirements
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **Draft readiness plan; no execution
-authorized**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRV2-T1 authorized; source/authoring
+governance implementation in progress; T2+ not authorized**.
 
 ## Goal
 
@@ -68,3 +68,9 @@ test that hypothesis on new development evidence rather than inspect or relabel 
 4. Approve the v2 quality gates before selection scores are visible.
 5. Confirm that v2 may publish minimized training triples and safetensors only after new release
    Gates; no permission is inferred from v1 packages.
+
+The owner's next-step instruction after this five-item handoff authorizes DRV2-T1 to bind the frozen
+catalog source and an owner-authored synthetic query protocol. It does not authorize query
+materialization, partitioning, scoring, mining, training or publication. Source rights and authority
+remain owner-attested and community-catalog-relative, not independently verified or manufacturer
+truth.

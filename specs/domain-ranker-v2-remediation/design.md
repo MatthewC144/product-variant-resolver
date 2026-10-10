@@ -1,6 +1,7 @@
 # Domain ranker v2 remediation — Design
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **Draft; planning only**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T1 authorized; protocol frozen before
+materialization**.
 
 ## Overview
 
@@ -52,6 +53,13 @@ The miner prioritizes same-casting wrong-exact candidates whose year, series, co
 series position or toy identifier conflicts with a query-supported target field. Each of at least 60
 qualifying train queries needs two such negatives. Ambiguous siblings remain held. Color and edition
 remain unavailable unless separately authoritative; missing values cannot create labels.
+
+T1 selects an owner-authored synthetic route over reusing observed marketplace queries. The source
+is the frozen 1,763-row community Wiki snapshot, but all 153 identities from the existing positive
+dataset are denied before selection. The capacity audit leaves 1,610 rows; 1,041 rows across 269
+casting families have at least three exact fields and at least three family releases. Query templates
+project only casting, year, series, series position, collector number and toy number. URLs, filenames,
+raw fields and collection metadata are excluded. Row-level output remains local-only.
 
 ## Training design
 

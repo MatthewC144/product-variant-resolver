@@ -44,5 +44,9 @@ postgres-data/
 /artifacts/domain-ranker-selective-prediction-development-v1/*
 !/artifacts/domain-ranker-selective-prediction-development-v1/public-checkpoint-v1/
 !/artifacts/domain-ranker-selective-prediction-development-v1/public-checkpoint-v1/**
+/data/evaluation/domain-ranker-v2-remediation/*
+!/data/evaluation/domain-ranker-v2-remediation/owner-authorization.json
+!/data/evaluation/domain-ranker-v2-remediation/authoring-protocol.json
+!/data/evaluation/domain-ranker-v2-remediation/governance.json
 /.local-image-search-collection*/
 .DS_Store
