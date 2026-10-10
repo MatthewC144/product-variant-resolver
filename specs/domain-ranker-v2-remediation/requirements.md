@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation — Requirements
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T3 executed; latency Gate failed; T3R required; T4+ blocked**.
+Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T3 executed; T3R authorized and in progress; T4+ blocked**.
 
 ## Goal
 
@@ -120,3 +120,13 @@ zero. The fixed 90-sample validation benchmark measured generic CPU p50 `183.735
 `217.699834 ms`. Because p95 exceeds the unchanged `200 ms` budget, DRV2-R8 failed and T4 is blocked.
 A separately authorized T3R may change only the inference implementation; it must prove score/order
 equivalence and rerun the identical benchmark before any labels or training are created.
+
+## T3R Owner Gate
+
+The owner's next-step instruction authorizes a latency-only T3R. The repair SHALL export the pinned
+generic safetensors checkpoint to float32 ONNX opset 17 without quantization. Before timing is
+accepted, all 4,500 frozen logits SHALL differ from the PyTorch baseline by at most `2e-5` and all
+180 complete Top-25 orderings SHALL be identical under the frozen UUID tie-break. T3R SHALL then run
+the unchanged 90-sample validation benchmark with the same `≤200 ms` p95 gate. The ONNX graph stays
+local-only; Git retains exact dependencies, export code, artifact hash and aggregate results. T4
+still requires separate authorization even if T3R passes.

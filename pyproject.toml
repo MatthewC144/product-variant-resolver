@@ -20,6 +20,8 @@ dependencies = [
 postgres = ["sqlalchemy>=2.0,<3", "alembic>=1.14,<2", "psycopg[binary]>=3.2,<4", "pgvector>=0.3,<1"]
 ml = ["numpy>=2,<3", "scikit-learn>=1.6,<2", "sentence-transformers>=3.4,<4"]
 reranking = [
+  "onnx==1.23.2",
+  "onnxruntime==1.31.0",
   "sentence-transformers==3.4.1",
   "torch==2.7.1",
   "safetensors>=0.5,<1",
@@ -42,6 +44,7 @@ pvr-compare-domain-rankers = "product_variant_resolver.domain_ranker_comparison:
 pvr-materialize-domain-ranker-v2-governance = "product_variant_resolver.domain_ranker_v2_governance:main"
 pvr-author-domain-ranker-v2-queries = "product_variant_resolver.domain_ranker_v2_authoring:main"
 pvr-freeze-domain-ranker-v2-candidate-pools = "product_variant_resolver.domain_ranker_v2_candidate_pools:main"
+pvr-repair-domain-ranker-v2-latency = "product_variant_resolver.domain_ranker_v2_latency_repair:main"
 pvr-calibrate-pointwise-three-class = "product_variant_resolver.pointwise_three_class_calibration:main"
 pvr-audit-pointwise-policy-holdout = "product_variant_resolver.pointwise_policy_holdout_readiness:main"
 pvr-evaluate-pointwise-no-match-holdout = "product_variant_resolver.pointwise_no_match_holdout_evaluation:main"

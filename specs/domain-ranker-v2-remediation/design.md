@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation — Design
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T0–T3 executed; latency Gate failed; T3R required; T4+ blocked**.
+Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **T0–T3 executed; T3R authorized and in progress; T4+ blocked**.
 
 ## Overview
 
@@ -91,6 +91,14 @@ about inference readiness, not retrieval correctness or domain-model quality. A 
 evaluate one preregistered CPU inference implementation while keeping model weights, tokenizer,
 max-length, batch, inputs and score ordering unchanged. It must not lower the 200 ms budget or use
 selection quality to choose an optimization.
+
+T3R uses ONNX Runtime `CPUExecutionProvider` with a float32 opset-17 graph, one intra-op thread, one
+inter-op thread, sequential execution and all graph optimizations. Diagnostic validation rejected
+direct Transformers and SDPA because neither materially improved latency. It also rejected dynamic
+INT8: although smaller and faster, only 3/180 complete candidate orderings remained identical. The
+float32 ONNX route preserved 180/180 ordering with a diagnostic maximum logit delta around `1.5e-5`
+and crossed the latency budget. Formal output must reproduce those preregistered equivalence gates.
+The 91 MB graph remains reconstructible local state rather than adding a large binary to Git.
 
 ## Training design
 

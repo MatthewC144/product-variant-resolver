@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation — Tasks
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T3 executed; latency Gate failed; T3R required; T4+ blocked**.
+Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T3 executed; T3R authorized and in progress; T4+ blocked**.
 
 - [x] **DRV2-T0 — Preserve the v1 negative result and draft the remediation hypothesis.** Record
   observed failures, distinguish hypotheses from proven causes, retain all holdout boundaries and
@@ -35,4 +35,5 @@ with 120/30/30 rows and zero cross-partition family overlap. T3 still requires a
 The owner's latest next-step instruction opened T3 only. T3 froze 180 query-only Top-25 pools with
 zero retrieval misses and zero target injections, but generic CPU p95 was `217.699834 ms`, above the
 fixed `200 ms` ceiling. T3 is therefore execution-complete with a failed readiness result. T3R needs
-a separate Owner Gate; T4 mining and every training/evaluation task remain blocked.
+a separate Owner Gate; the owner's latest next-step instruction now opens T3R only. T4 mining and
+every training/evaluation task remain blocked until T3R passes and another Gate is granted.
