@@ -659,7 +659,10 @@ def _copy_tokenizer_and_config(root: Path, staging: Path) -> None:
         "vocab.txt",
     )
     for name in shared:
-        shutil.copyfile(root / BASE_MODEL_DIRECTORY / name, staging / name)
+        # Normalize text assets to LF so public package bytes are platform-stable
+        # and pass Git's whitespace gate even when the frozen cache uses CRLF.
+        text = (root / BASE_MODEL_DIRECTORY / name).read_text(encoding="utf-8")
+        (staging / name).write_text(text, encoding="utf-8", newline="\n")
     base_config = _load_object(root / BASE_MODEL_DIRECTORY / "config.json")
     base_config["torch_dtype"] = "float16"
     for seed in SEEDS:
