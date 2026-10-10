@@ -153,6 +153,18 @@ still withholding runtime activation when calibration produced inadequate covera
 See the [fixture null-result report](reports/neural-reranker-comparison-v1/comparison.md) and the
 [real-catalog final comparison](data/evaluation/image-search-release-ranking-v1/final-comparison.json).
 
+### Domain fine-tuning experiment
+
+The project also completed a governed domain-adaptation loop: deterministic one-shot hard-negative
+mining produced 345 binary pairs, and two fixed-seed MiniLM checkpoints were trained and packaged as
+safetensors. On the preregistered 30-query selection comparison, however, the generic model scored
+`24/30` exact Top-1 and `0.8778` MRR@10, while both domain checkpoints scored `23/30` and `0.8611`.
+Same-family accuracy also moved from `41/52` to `40/52`, and measured CPU p95 exceeded the 200 ms
+budget. The honest result is therefore `winner: null`: the checkpoints remain reproducible training
+artifacts, but neither is selected for calibration or runtime. See the
+[aggregate selection result](config/domain-ranker-selection-v1.json) and
+[AI-eval evidence](docs/evidence/ai-evals/domain-ranker-selection-v1.md).
+
 ## Limitations
 
 - The 1,763-release source is an attributed third-party community snapshot, not Mattel or global

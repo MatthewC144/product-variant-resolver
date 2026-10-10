@@ -1,6 +1,6 @@
 # Domain ranker and selective prediction development v1 — Requirements
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T1 through T4 complete; T5 authorized and protocol-frozen; T6+ not authorized**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T1 through T5 complete with `winner: null`; T6 blocked and not authorized**.
 
 ## Goal
 
@@ -38,6 +38,14 @@ offline tokenizer/config files, authorization, manifest, model card, license, NO
 default-deny Git allowlist. Package SHA-256 is
 `1cc26cc8aea072d02cb5fd25909b0adfcdbdfd2a7f642433945cf00211b002e1`.
 T4 authorizes neither T5 winner selection nor calibration, final evaluation or runtime activation.
+
+T5 has now re-scored the identical frozen 30-query/25-candidate selection pools with the generic
+model and both domain checkpoints. Generic exact Top-1 was `24/30`, MRR@10 `0.87777778` and
+same-family hard-negative accuracy `41/52`; each domain seed produced `23/30`, `0.86111111` and
+`40/52`. Casting Top-1 and Recall@25 remained `30/30` for all arms. Both domain p95 latencies also
+exceeded the frozen 200 ms ceiling on the measured CPU. The preregistered ranker Gate therefore
+returned `winner: null`. DRSP-R9 prevents calibration without an immutable selected-ranker manifest,
+so T6 is blocked rather than permitted to choose a losing checkpoint.
 
 ## Observable requirements
 

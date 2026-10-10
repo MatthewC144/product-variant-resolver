@@ -2829,3 +2829,32 @@ Future evidence can reopen them without rewriting the historical reason they wer
   `1cc26cc8aea072d02cb5fd25909b0adfcdbdfd2a7f642433945cf00211b002e1`. Two clean rebuilds match
   byte-for-byte. The 53/20 holdouts and 52
   no-match rows remain unused, runtime unchanged, and T5+ unauthorized.
+
+## D60 — Reject both domain checkpoints when the frozen selection gate fails
+
+- **Choice:** run DRSP-T5 once on the identical 30×25 T2 selection pools with the pinned generic
+  MiniLM and both released T4 checkpoints, then publish `winner: null`. Do not calibrate either
+  domain checkpoint or reinterpret the common seed result as stability success because neither seed
+  improves in the required direction.
+- **Reason:** the value of domain fine-tuning must be established against the generic baseline, not
+  inferred from falling training loss or early-stopping scores. Generic reaches exact Top-1 `24/30`,
+  MRR@10 `0.87777778` and same-family accuracy `41/52`; both domain seeds reach `23/30`,
+  `0.86111111` and `40/52`. Both also exceed the absolute 200 ms CPU p95 budget. The preregistered
+  all-or-nothing gate therefore has no eligible checkpoint.
+- **Alternatives:** choose seed 17 because its measured p95 is slightly lower; treat equal two-seed
+  metrics as sufficient stability; relax the exact/MRR/hard-negative thresholds; or move directly
+  to calibration. Those choices optimize after seeing the result, confuse consistent regression
+  with positive stability, or attempt to hide ranking failure behind probability calibration.
+- **10x alternative considered:** obtain a materially larger, independently rights-cleared and
+  family-balanced query corpus, mine graded same-family negatives, pretrain on broader catalog
+  language and run nested development/model-selection partitions before a fresh final test. That is
+  a new experiment and data program, not a repair that may be applied to this frozen result.
+- **Most likely failure:** present the existence of fine-tuned checkpoints as evidence that they are
+  better. README and AI-eval evidence therefore separate pipeline capability from model quality and
+  explicitly state that no domain ranker is selected.
+- **Impact:** T5 result content SHA-256 is
+  `d9665b151c4c3263afd8e24345024985904f1a407d93ce6c9173ed37d8444e2b`; public file SHA-256 is
+  `219789db3f1e6f7e3e114656d165ca3ebe733225139e294787dc64beaa3e25c3`. Casting Top-1 and Recall@25
+  remain `30/30` for all arms, but exact, MRR and same-family metrics regress. Positive test,
+  negative holdout and no-match development reads/scores remain zero. R9 blocks T6 because there is
+  no selected checkpoint hash; final evaluation and runtime remain unauthorized.

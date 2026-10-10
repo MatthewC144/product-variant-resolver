@@ -1,6 +1,6 @@
 # Domain ranker and selective prediction development v1 — Tasks
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRSP-T1 through T4 complete; T5 authorized and protocol-frozen; T6+ not authorized**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRSP-T1 through T5 complete with `winner: null`; T6 blocked and not authorized**.
 
 Tasks are ordered Gates. A checked task may unlock only the next listed task; it never authorizes
 an unchecked downstream task. T1A by itself grants only future publication eligibility: it does not mark a
@@ -23,7 +23,7 @@ pair package or checkpoint as released, authorize final evaluation, or activate 
 - [x] **DRSP-T4 — Fine-tune the pinned domain MiniLM.** Use one frozen binary objective, two seeds,
   fixed early stopping and safetensors/checkpoint lineage; publish actual weights only after the
   model-package license/privacy/reproducibility Gate passes. _(→DRSP-R7, R15)_
-- [ ] **DRSP-T5 — Compare and freeze the ranker.** Evaluate generic/domain Pointwise on identical
+- [x] **DRSP-T5 — Compare and freeze the ranker.** Evaluate generic/domain Pointwise on identical
   selection pools, apply quality/latency/stability gates and publish either a selected ranker or
   `winner: null`. _(→DRSP-R8–R9)_
 - [ ] **DRSP-T6 — Build disjoint calibration fit/selection artifacts.** Score only admitted
@@ -85,8 +85,14 @@ T4 released the exact package SHA-256
 `1cc26cc8aea072d02cb5fd25909b0adfcdbdfd2a7f642433945cf00211b002e1`; both seeds selected epoch 1
 at selection MRR@10 `0.86111111`. This is early-stopping evidence only, not a T5 winner decision.
 
-Items 3–4 remain future decisions. T5 is authorized under item 10; T6 still needs a separate Gate
-and new admissible family-disjoint calibration positives if T5 produces a winner.
+T5 result SHA-256 is `d9665b151c4c3263afd8e24345024985904f1a407d93ce6c9173ed37d8444e2b`.
+Both domain seeds regressed from generic exact Top-1 `24/30` to `23/30`, MRR@10 from `0.87777778`
+to `0.86111111`, and same-family accuracy from `41/52` to `40/52`; both also exceeded the absolute
+200 ms p95 ceiling. The frozen decision is `winner: null`.
+
+Items 3–4 remain future decisions. Because T5 produced no selected-ranker hash, DRSP-R9 blocks T6;
+a future revised experiment requires a new spec and Owner Gate rather than reusing this failed Gate
+or calibrating either losing checkpoint.
 
 ## G1 acceptance
 

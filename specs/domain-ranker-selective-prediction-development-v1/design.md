@@ -1,6 +1,6 @@
 # Domain ranker and selective prediction development v1 — Design
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T1 through T4 complete; T5 authorized and protocol-frozen; T6+ not authorized**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T1 through T5 complete with `winner: null`; T6 blocked and not authorized**.
 
 ## Overview
 
@@ -210,6 +210,19 @@ If no seed qualifies, T5 publishes `winner: null` and stops rather than weakenin
 Row-level ranks and latency samples remain under Git-ignored `local-t5/`; public files contain only
 authorization, hashes, aggregate metrics and decisions. T5 does not read calibration/final rows and
 cannot authorize T6 or alter runtime.
+
+### T5 comparison result
+
+The generic arm achieved exact Top-1 `24/30`, casting Top-1 `30/30`, MRR@10 `0.87777778`,
+Recall@25 `30/30`, same-family accuracy `41/52` and CPU p95 `243.924917 ms`. Seed 17 achieved
+`23/30`, `30/30`, `0.86111111`, `30/30`, `40/52` and `243.6395 ms`; seed 29 produced the same
+quality values with p95 `244.865875 ms`.
+
+Both seeds therefore regressed by one exact case, `0.01666667` MRR and one of 52 same-family
+comparisons. They preserved casting and retrieval recall and stayed within the relative 1.25×
+latency gate, but neither met the absolute 200 ms ceiling. Both seeds failed the exact, MRR,
+same-family, absolute-latency and two-seed improvement-direction checks. The frozen result is
+`winner: null`; no checkpoint hash is selected, so R9 makes T6 unavailable under this milestone.
 
 ## Calibration and policy
 

@@ -12493,3 +12493,51 @@ evaluations 與 runtime changes 全部是 0。本輪證明 domain training 與 m
 checkpoint 已經勝過 generic model。DRSP-T5 必須另外在 identical frozen pools 上比較 generic 與兩個 seeds，測量
 exact/casting Top-1、MRR@10、hard-negative accuracy 與 CPU latency；若 frozen gate 未通過，就必須發布
 `winner: null`。T5 尚未授權。
+
+## 2026-10-09 — DRSP-T5：完成 generic/domain 公平比較並凍結 `winner: null`
+
+### 新執行了什麼、解決什麼問題
+
+本輪先在任何比較結果可見前，凍結三個模型共用的評估協議，再提交 comparison code commit
+`a23b1b27073ea16c93c1eda9d814824638ccee58`。正式執行只讀 T2 的 30 筆 ranker-selection queries，且每筆使用原封
+不動的 25 個候選；generic、domain seed 17 與 seed 29 都重新執行相同的 float32 CPU inference。這一步解決的是
+「domain fine-tuning 是否真的比原始 generic cross-encoder 好」，而不是再次證明 checkpoint 可以被訓練或載入。
+
+結果沒有通過。Generic 的 exact Top-1 是 `24/30`、MRR@10 `0.87777778`、same-family hard-negative accuracy
+`41/52`；兩個 domain seeds 都是 `23/30`、`0.86111111`、`40/52`。三個模型的 casting Top-1 與 Recall@25 都是
+`30/30`，顯示候選集合與 casting 層沒有退化，但 domain fine-tuning 在 exact release 區分上反而少一筆正確。Seed 17
+與 29 的 CPU p95 分別是 `243.6395 ms` 與 `244.865875 ms`，雖都在 generic 的 1.25 倍以內，仍超過預設 200 ms
+上限。因此兩個 seed 都未通過 exact、MRR、same-family、absolute latency 與正向 seed-stability gates，正式結果是
+`winner: null`。
+
+### 代碼修改了哪一部分，為何做出這樣的決定
+
+新增 `domain_ranker_comparison.py` 與 `pvr-compare-domain-rankers` CLI，負責重新驗證 T2/T4 hashes、離線載入三個
+模型、對同一 candidate pool 計分、計算六組核心指標、套用 all-or-nothing gate，最後輸出 checksum-bound aggregate
+result。測試新增 UUID tie-break、casting parser、nearest-rank percentile、嚴格 hard-negative 勝負、完整 gate 與 winner
+tie-break。Public config 只有 aggregates、hashes 與 gate decisions；逐 query ranks／latencies 放在 Git-ignored
+`local-t5/diagnostics.json`，權限為 `0600`。
+
+Same-family accuracy 採 `target_score > negative_score`，而不是大於等於，原因是相同分數並不能證明模型已學會分辨
+exact release。Latency 先做三次 warm-up，再用三輪共 90 個 query batches 的 nearest-rank p95，避免用單次最佳值美化
+結果。兩個 seed 若都通過時，才依 exact Top-1、MRR、same-family accuracy、latency、seed 做 deterministic tie-break；
+本次沒有 seed 合格，因此沒有進入挑選步驟。
+
+### 驗證、技術判斷與下一步
+
+重新計算的 generic ordering 與 T2 frozen ordering 完全一致，證明評估沒有悄悄換 baseline。Result content SHA-256
+為 `d9665b151c4c3263afd8e24345024985904f1a407d93ce6c9173ed37d8444e2b`，public result file SHA-256 為
+`219789db3f1e6f7e3e114656d165ca3ebe733225139e294787dc64beaa3e25c3`。53 筆 positive test、20 筆 negative holdout、
+52 筆 no-match development rows 的 reads/scores 仍全部是 0；calibration、fresh-final evaluation、runtime activation
+也全為 0。
+
+這個 negative result 對履歷項目仍有價值：它展示完整的 hard-negative mining、domain training、artifact lineage、
+公平 model selection 與「不因已投入訓練成本就宣稱模型變好」的 ML 判斷。依 DRSP-R9，calibration 必須先有 immutable
+selected-ranker hash；本次 winner 是 null，所以 T6 不是下一個可直接執行的步驟。若要繼續 domain fine-tuning，必須
+另開新版本，提出新的資料或 objective 假設並取得新 Owner Gate，不能修改本次 thresholds 或拿 holdout 回頭調參。
+
+Lean QA 中，16 項 T4/T5 focused tests、22 項 canonical FastAPI regressions、Ruff、strict MyPy、artifact check mode 與
+whitespace gate 均通過。擴大執行整個 `tests/api` 時另發現 13 項既有 Human Knowledge storage app failures；只讀診斷
+確認原因是其 v4 protocol 對 `retrieval.py` 的 source hash 已過期，experimental service 因而依設計 fail closed 為 503。
+T5 沒有修改該 service、profile 或 runtime code，本輪不越界重建另一條已 gated 的 storage artifact；這項既有 QA 債已
+明列在 T5 review，而不是隱藏或誤算成 domain-ranker regression。

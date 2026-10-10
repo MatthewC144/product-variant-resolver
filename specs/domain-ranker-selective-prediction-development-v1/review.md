@@ -1,42 +1,56 @@
 # Domain ranker and selective prediction development v1 — Lite QA review
 
-Date: 2026-10-09. Reviewed scope: **DRSP-T4 only**. Verdict: **PASS**.
+Date: 2026-10-09. Reviewed scope: **DRSP-T5**. Verdict: **PASS for faithful comparison;
+ranker qualification FAIL with `winner: null`**.
 
 ## Coverage
 
 | Requirement | Evidence | Result |
 |---|---|---|
-| DRSP-R1/R2 | Checksum-bound T4 authorization, permanent holdout/no-match guardrails | PASS |
-| DRSP-R7 | Frozen base revision, binary recipe, two seeds, deterministic early stopping | PASS |
-| DRSP-R14 | Recursive exact 14-file package allowlist and nested default-deny Git rules | PASS |
-| DRSP-R15 | Safetensors-only weights, hashes, code/data lineage, license/NOTICE/model card, offline load | PASS |
-| DRSP-R16 | No final evaluation, runtime activation, endpoint or FastAPI default change | PASS |
+| DRSP-R1/R2 | Checksum-bound T5 authorization; 53/20 holdouts and 52 no-match rows at zero reads/scores | PASS |
+| DRSP-R8 | Identical 30×25 pools; exact/casting Top-1, MRR@10, Recall@25, same-family accuracy and CPU latency | PASS |
+| DRSP-R9 | No selected checkpoint after gate failure; T6 stops | PASS |
+| DRSP-R14 | Public output contains aggregates only; row diagnostics are ignored and mode `0600` | PASS |
+| DRSP-R16 | No calibration, final evaluation, runtime activation or FastAPI default change | PASS |
 
-The focused T1–T4 and FastAPI regression suites pass. Ruff, strict MyPy, `git diff --check` and
-`python -m product_variant_resolver.domain_ranker_training --check` pass. Both checkpoint files load
-offline with `trust_remote_code=false`; each is below 50 MiB. Unexpected nested files and optimizer
-state are rejected by both the package validator and Git ignore contract. Two consecutive clean
-rebuilds produced identical checkpoint and package SHA-256 values; public text assets contain no
-CRLF whitespace findings.
+The evaluator reloaded the frozen generic weights and both T4 safetensors packages offline with
+`trust_remote_code=false`. The re-scored generic order matched the T2 frozen order exactly. Every arm
+used the same 30 selection queries, 25 candidates, tokenizer, maximum length and one-thread CPU
+procedure. Unit tests cover tie order, strict hard-negative comparisons, percentile calculation,
+all-or-nothing gates and deterministic winner ordering.
 
-## Findings and corrections
+## Result and gate audit
 
-1. The first launch failed before training because AdamW requires `lr`, not `learning_rate`.
-2. The first completed training attempt was not released because the safetensors validator used an
-   incompatible iteration assumption. Scratch weights were deleted, the validator received a real
-   safetensors regression test, and training was rerun from the pinned base model.
-3. The legacy governance test expected one root checkpoint; it now validates the two exact seed
-   paths and confirms every unexpected checkpoint/optimizer path stays ignored.
-4. A Git whitespace check exposed CRLF tokenizer metadata, and a subsequent rebuild exposed
-   nonessential safetensors-header byte variance. Text output is now LF-normalized; tensor metadata
-   lives only in the canonical manifest, making the final package byte-reproducible.
+| Metric | Generic | Seed 17 | Seed 29 | Required domain delta |
+|---|---:|---:|---:|---:|
+| Exact Top-1 | `24/30` | `23/30` | `23/30` | at least `+3` cases |
+| Casting Top-1 | `30/30` | `30/30` | `30/30` | at least `-1` case |
+| MRR@10 | `0.87777778` | `0.86111111` | `0.86111111` | at least `+0.02` |
+| Recall@25 | `30/30` | `30/30` | `30/30` | no regression |
+| Same-family accuracy | `41/52` | `40/52` | `40/52` | at least `+0.10` |
+| CPU p95 | `243.924917 ms` | `243.6395 ms` | `244.865875 ms` | ≤`1.25×` and ≤`200 ms` |
 
-No High/Critical finding remains in the T4 scope. The existing Starlette/AnyIO deprecation warning
-is third-party and unrelated to the checkpoint path.
+Both seeds pass casting preservation, Recall@25 and relative latency. Both fail exact Top-1, MRR,
+same-family improvement, absolute latency and two-seed positive-direction gates. Because every gate
+is mandatory, `winner: null` is correct. The model-training pipeline is valid, but this fine-tuning
+recipe did not add measured ranking value.
 
-## Carry-forward
+## Validation and boundaries
 
-T4 selection MRR is early-stopping evidence, not proof of value over the generic ranker. DRSP-T5
-must use the identical T2 pools, compare generic plus both seeds, enforce the frozen ranker and
-latency gates, and return `winner: null` on failure. T5, calibration, final evaluation and runtime
-activation remain unauthorized.
+Focused comparison/training tests, Ruff, strict MyPy, artifact check mode, the 22-test canonical
+FastAPI regression suite and `git diff --check` pass. Public result content SHA-256 is
+`d9665b151c4c3263afd8e24345024985904f1a407d93ce6c9173ed37d8444e2b`; its file SHA-256 is
+`219789db3f1e6f7e3e114656d165ca3ebe733225139e294787dc64beaa3e25c3`. Private diagnostics file
+SHA-256 is `12a2892137cffc9ef08e9fbfe49fcba351ae14b3c1bf0b95fa5491caa3675845` and remains Git-ignored
+with mode `0600`.
+
+No High/Critical issue remains in the T5 implementation scope. Calibration cannot begin because R9
+requires an immutable selected-ranker checkpoint hash and T5 selected none. A future retry must be a
+new versioned experiment with new data/model hypotheses and a new Owner Gate; thresholds or metrics
+must not be revised after this result.
+
+The broader `tests/api` run also surfaced 13 pre-existing failures in the separately gated Human
+Knowledge storage app: its v4 protocol rejects a stale hash for `retrieval.py`, leaving that
+experimental service unavailable with the intended fail-closed 503. T5 did not modify that module,
+profile or runtime path. This is recorded rather than silently counted as a T5 regression or repaired
+outside scope.
