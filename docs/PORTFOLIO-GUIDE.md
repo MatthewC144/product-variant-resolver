@@ -23,6 +23,12 @@ the final answer.
 - Designed a hash-bound, output-blind evaluation pipeline for a calibrated `matched` / `ambiguous` / `no_match` policy; across 53 catalog-present and 20 catalog-relative negative cases, accepted positive precision was `5/5`, negative false matches were `0/20`, and the system honestly retained 73.97% abstention and a runtime HOLD instead of tuning on final holdouts.
 - Implemented a Dual-RAG trust boundary and provenance workflow that keeps canonical UUID authority separate from Human Knowledge, stages 1,763 third-party release observations through optional PostgreSQL/pgvector infrastructure, and uses explicit owner Gates to freeze 20 evidence-backed exact variants while leaving unsupported color/edition null.
 
+**Optional AI-engineering bullet:** Built a governed domain-adaptation pipeline around MiniLM with
+query-supported hard-negative mining (332 RankNet triples), two-seed pairwise fine-tuning,
+safetensors packaging and float32 ONNX equivalence/latency checks; a pre-registered 30-query
+selection Gate rejected both checkpoints (`winner: null`) because the best gain was only +1 exact
+case, preventing calibration or deployment of an insufficient improvement.
+
 ## 3. 60–90 second interview pitch
 
 Marketplace titles are noisy: sellers abbreviate model names, omit years, mix collector numbers with
@@ -49,7 +55,10 @@ lowering thresholds on the test. That governance decision is as important as the
    and compare RRF, release heuristic, Pointwise and Listwise under identical Top-25 candidates.
 3. Open the [balanced policy QA review](../specs/pointwise-balanced-holdout-evaluation-v1/review.md)
    and discuss precision, recall, abstention, output blindness and why runtime remains held.
-4. Show [api.py](../src/product_variant_resolver/api.py) and [service.py](../src/product_variant_resolver/service.py)
+4. Open the [domain ranker v2 selection evidence](evidence/domain-ranker-v2-selection.md) and explain
+   how hard-negative mining, validation-only early stopping, ONNX equivalence and frozen selection
+   gates can legitimately end in `winner: null`.
+5. Show [api.py](../src/product_variant_resolver/api.py) and [service.py](../src/product_variant_resolver/service.py)
    to connect the experiment architecture to the fail-closed FastAPI runtime.
 
 ## 5. Claim guardrails
@@ -61,6 +70,7 @@ lowering thresholds on the test. That governance decision is as important as the
 | Positive query data | 153 unique image-search-derived, catalog-bound queries; 100 development and 53 test | Representative live-marketplace traffic | [dataset](../data/evaluation/image-search-resolver-v1/dataset.json) |
 | Ranking result | Pointwise exact Top-1 `36/53` vs RRF `29/53` on the frozen test | Production accuracy or universal superiority | [final comparison](../data/evaluation/image-search-release-ranking-v1/final-comparison.json) |
 | Pointwise/Listwise | Local offline reranking arms over identical frozen Top-25 candidates | Active default FastAPI neural reranking | [ranking spec](../specs/image-search-release-ranking/mvp-brief.md) |
+| Domain fine-tuning | Reproducible 332-triple/two-seed experiment; neither v2 checkpoint qualified | Fine-tuning improved or is deployed in the resolver | [v2 selection evidence](evidence/domain-ranker-v2-selection.md) |
 | Calibrated policy | Accepted positives `5/5`, negative false matches `0/20`, combined abstention 73.97% | “100% accurate,” high-coverage, or runtime-ready | [balanced QA](../specs/pointwise-balanced-holdout-evaluation-v1/review.md) |
 | Similarity baseline | `hashing-v1` is deterministic, hashing-based and non-neural | Learned embedding model or semantic foundation model | [fixture report](../reports/fixture-v1/evaluation-fixture-v1-test.md) |
 | Canonical authority | 20 owner-reviewed variants are exact relative to one frozen community revision; color/edition remain null | Manufacturer/global truth or source-wide canonical promotion | [CAR evidence](evidence/canonical-authority-review-v1.md) |
@@ -75,6 +85,8 @@ lowering thresholds on the test. That governance decision is as important as the
 | Sparse + hashing similarity + structured signals | Dependency-light canonical candidate generation |
 | Reciprocal Rank Fusion | Combines heterogeneous rankings without equating raw scores |
 | MiniLM Pointwise cross-encoder | Local query/candidate reranking selected by measured development evidence |
+| RankNet pairwise fine-tuning | Domain-adaptation experiment over query-supported same-casting wrong releases |
+| ONNX Runtime | Float32 equivalence and fair one-thread CPU latency substrate for model selection |
 | Project-trained Listwise head | Candidate-set comparison arm; measured but not selected |
 | Logistic calibration + three-state policy | Turns ranking evidence into match, abstain or reject decisions |
 | PostgreSQL + pgvector | Optional catalog/Human Knowledge persistence and retrieval profile |

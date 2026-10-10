@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation — Lite QA review
 
-Date: 2026-10-10. Scope: **DRV2-T1–T6**. Verdict: **T6 PROCESS PASS; MODEL QUALIFICATION FAIL (`winner: null`)**.
+Date: 2026-10-10. Scope: **DRV2-T1–T7**. Verdict: **LITE QA PASS; MODEL QUALIFICATION FAIL (`winner: null`)**.
 
 ## Coverage
 
@@ -19,16 +19,17 @@ Date: 2026-10-10. Scope: **DRV2-T1–T6**. Verdict: **T6 PROCESS PASS; MODEL QUA
 | DRV2-R11 | Public artifacts contain aggregate data only; row-level packs remain ignored/mode `0600` | PASS |
 | DRV2-R12 | Owner-attested and community-catalog-relative limitations retained | PASS |
 
-Forty focused T1–T6 tests, Ruff, strict MyPy, CLI check mode and `git diff --check` pass.
+Forty-four focused T1–T7 tests pass. The closure plus config/API scope totals 70 passing tests;
+Ruff, strict target-local MyPy, CLI check mode and `git diff --check` also pass.
 The authoring protocol fixes field projection, deterministic templates/order, 120/30/30 minima,
 same-family density requirements and output isolation. It explicitly prohibits resolver output and
 T5-error access during authoring.
 
-A whole-repository smoke run was also attempted, but was stopped after 13 failures and 105 passes
+A whole-repository smoke run was also attempted, but was stopped after 13 failures and 102 passes
 because the committed T49.3 experimental human-storage app cannot initialize: its independent v4
-protocol reports `src/product_variant_resolver/retrieval.py` as stale. T4 does not modify that file,
+protocol reports `src/product_variant_resolver/retrieval.py` as stale. DRV2 does not modify that file,
 the v4 protocol or the storage app, and its focused lineage remains green. This is disclosed as
-pre-existing repository baseline debt rather than being silently counted as a T4 pass.
+pre-existing repository baseline debt rather than being silently counted as a full-suite T7 pass.
 
 ## Findings and carry-forward
 
@@ -78,4 +79,12 @@ applied the frozen selection rules once. Generic reached 23/30 exact Top-1, MRR@
 `0.8722` and 78/87. Neither reached the +3 exact, `+0.02` MRR and `+0.10` same-family minima, and
 the two-seed direction check failed. Both domain arms passed 30/30 ONNX ordering equivalence,
 30/30 casting, Recall@25 and the 200 ms/1.25x latency checks. The correct governed result is
-`winner: null`, not a selectively promoted checkpoint. T7 remains a separate Lite QA Gate.
+`winner: null`, not a selectively promoted checkpoint.
+
+T7 replayed the complete T6 artifact chain and added explicit runtime regressions. Default settings
+remain offline, `heuristic-v1` and `reranker_enabled=false`; `api.py`, `config.py` and `service.py`
+import no v2 module and contain neither candidate checkpoint hash. Public T6 files contain no query,
+target UUID, case ID, candidate or prediction, while local diagnostics and ONNX graphs remain ignored
+and mode `0600`. README, portfolio guidance, decision D69, closure evidence and AI-eval evidence all
+state that the pipeline is reproducible but neither fine-tuned model qualified. DRV2-T7 therefore
+passes and closes v2 without calibration, final evaluation or runtime activation.

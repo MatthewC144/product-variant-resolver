@@ -203,6 +203,6 @@ FastAPI defaults.
 
 ## Non-goals
 
-T5 does not regenerate v1/T2 sources, inspect v2 selection quality, compare generic/domain winners,
-calibrate scores, run a fresh final test, change FastAPI, or activate runtime. Calibration remains
-downstream of a future non-null selected checkpoint.
+The closed v2 branch does not regenerate v1/T2 sources, calibrate scores, run a fresh final test,
+change FastAPI, or activate runtime. Because T6 produced no selected checkpoint, calibration and
+runtime promotion are not downstream actions for this version.

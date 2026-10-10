@@ -209,3 +209,11 @@ Seed 17 improved exact Top-1 by 1 case, MRR@10 by `0.0166667` and same-family ac
 passed ONNX equivalence, casting, Recall@25 and latency checks but failed the frozen minimum quality
 improvements and two-seed direction requirement. Calibration, final evaluation and runtime remain
 closed. DRV2-T7 is a separate Lite QA Gate and may verify this negative result without changing it.
+
+## T7 closure
+
+T7 SHALL validate the complete T1–T6 hash chain, aggregate-only publication, local artifact
+isolation, unchanged FastAPI/config/service defaults, and bounded README/portfolio language. It
+SHALL publish QA and AI-eval evidence that distinguishes a valid experiment from a failed model
+qualification. It SHALL NOT rerun selection, alter any metric or Gate, create a winner, calibrate,
+evaluate a final holdout, or activate runtime. After PASS, the v2 experiment is closed.

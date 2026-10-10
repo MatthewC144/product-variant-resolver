@@ -3063,3 +3063,27 @@ Future evidence can reopen them without rewriting the historical reason they wer
   `5a4f2ea21b93a864f1e1ddb54523f68a0ae2766db555535c0f35721588b6e297`; seed 29 selected epoch 3
   with SHA-256 `83db9ab75c1c431ce2c6f3e4c717bae821c187a060f0864e45204ee8a4056e99`.
   Package SHA-256 is `28977b447a3ec7b7fa970d7c5eec8ce3b0a2c5f33b4c50c3dbd6dfca7dbb7663`.
+
+## D69 — Keep the v2 domain ranker result null when fine-tuning gains miss product gates
+
+- **Choice:** commit the T6 metrics, gates, ONNX equivalence protocol and tie rules before reading
+  selection; execute the 30-row partition once; retain `winner: null` because neither seed passes
+  every frozen quality Gate. Close v2 after Lite QA without calibration or runtime activation.
+- **Reason:** seed 17 improves exact Top-1 by only one case, MRR by `0.0167`, and same-family
+  accuracy by `0.0115`, below the predeclared +3, `+0.02`, and `+0.10` requirements. Seed 29 does
+  not improve exact Top-1 and regresses both other measures. Selecting seed 17 merely because it is
+  numerically best would replace the product decision rule with a post-hoc leaderboard decision.
+- **Alternatives:** lower the thresholds after seeing T6; choose seed 17 by relative ordering;
+  average the two checkpoints; reuse selection for another training round; or proceed to calibration
+  hoping it repairs rank order. Each alternative leaks selection or promotes an unqualified model.
+- **10x alternative considered:** collect a substantially larger independently licensed set of
+  real marketplace queries with expert graded relevance, then run nested family-disjoint model
+  development and a new final holdout. This would provide stronger generalization evidence, but it
+  is a new version and dataset—not a valid reinterpretation of T6.
+- **Most likely failure:** present successful training and ONNX packaging as successful model
+  improvement. README, portfolio guidance and AI-eval evidence therefore state both facts: the
+  engineering pipeline passes, while model qualification fails.
+- **Impact:** T6 result SHA-256 is
+  `2f4a32fbb0383bcd934af48734d6e60ab6603bc03093a084d5cdb552194dbefc`.
+  Both domain arms pass casting, Recall@25, ONNX equivalence and latency; neither is selected.
+  FastAPI remains offline-first with `heuristic-v1` and `reranker_enabled=false` by default.

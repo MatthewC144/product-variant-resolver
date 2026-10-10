@@ -1,5 +1,42 @@
 # Project Log
 
+## 2026-10-10 — DRV2-T7：完成 Lite QA，將 fine-tuning 成果與模型失敗分開陳述
+
+### 新執行了什麼，解決什麼問題
+
+本輪完成 domain ranker v2 的最後驗收與文件封版。核心問題不是再找一個模型，而是確認 T6 的
+`winner: null` 能否被完整重播、公開資料是否只含 aggregate、私有資料是否仍被隔離，以及 FastAPI
+是否真的沒有因為產生了 checkpoint 就改變預設行為。T7 將 T1–T6 hash chain、selection result、
+privacy guardrails 與 runtime boundary 整合為一份 closure evidence 和一份 AI-eval rubric。這讓面試時
+可以同時說明「hard-negative mining 與 fine-tuning pipeline 完成」和「模型沒有達到上線門檻」，不會把
+工程交付成功誤寫成模型效果成功。
+
+### 代碼修改了哪一部分、原因與決策
+
+新增 closure regression，直接驗證 T6 仍是 `ranker_gate_failed`、winner/checkpoint hash 均為 null，並
+檢查 `Settings()` 仍是 offline、`heuristic-v1`、`reranker_enabled=false`。測試也掃描 `api.py`、
+`config.py`、`service.py`，拒絕 v2 module 或兩個 checkpoint hash 被接入 runtime；公開 authorization/result
+則不得含 query、target UUID、case ID、candidates 或 prediction。
+
+README 原先只寫到 T5 且說 selection 尚未執行，本輪改成真正的 T6 指標與 rejection 原因；Portfolio
+Guide 新增一條可選 AI-engineering 履歷 bullet、code-review 路線與 claim guardrail。新增
+`domain-ranker-v2-selection.md`、對應 AI-eval evidence，以及 D69 決策，說明為什麼不能事後降低 Gate
+或只挑 seed 17。Specifications 的 T7 也改為 completed，v2 branch 正式關閉。
+
+### 技術棧／方法選型、驗證與下一步
+
+驗收沿用 Pytest、Ruff、MyPy、strict artifact checksum、Git ignore/mode 檢查與文件 claim review；沒有
+再次執行 selection、沒有載入新的資料、沒有訓練或修改模型。這種 closure-first 方法比繼續調參更適合
+履歷專案，因為它留下可被追問的完整 ML lifecycle：資料治理、hard-negative mining、pairwise objective、
+two-seed validation、safe serialization、ONNX equivalence、latency budget、untouched selection 與誠實的
+null decision。V2 已沒有必要的 downstream 任務；若未來要再改善，只能以新的真實 marketplace query、
+新版本 governance 與新 holdout 開啟 v3，不能重用本次 selection 做調參。
+
+實際驗證為 T1–T7 focused 44 tests 全綠，加入 config/FastAPI regressions 後為 70 tests 全綠；Ruff、
+target-local strict MyPy、T6 CLI replay 與 diff check 皆通過。Repository-wide smoke 跑到 102 passed／
+13 failed 後停止；13 個失敗全部是既有 T49.3 experimental human-storage API 因 stale v4 protocol 無法
+初始化，並非本輪回歸。這項 baseline debt 保留在 review，不以修 unrelated module 的方式掩蓋。
+
 ## 2026-10-10 — DRV2-T6：一次性 untouched selection 保留誠實的 `winner: null`
 
 ### 新執行了什麼，解決什麼問題

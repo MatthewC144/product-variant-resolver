@@ -198,9 +198,17 @@ The preregistered T5 run then trained exactly two RankNet-style pairwise MiniLM 
 selected epoch 2 and seed 29 selected epoch 3; both reached validation MRR@10 `0.95`. The two 43.3
 MiB float16 safetensors checkpoints, tokenizer/configs, license, model card and aggregate manifest
 are published in the [v2 checkpoint package](artifacts/domain-ranker-v2-remediation/checkpoint-v1/).
-Selection, holdouts, calibration, final evaluation and runtime were not accessed. These results
-demonstrate a reproducible pairwise fine-tuning pipeline, not superiority over the generic model;
-the one-shot untouched selection comparison remains separately gated.
+Selection, holdouts, calibration, final evaluation and runtime were not accessed during T5.
+
+The V2 selection result is also `winner: null`. Under gates committed before the sole evaluation,
+generic reached 23/30 exact Top-1 and `0.8778` MRR@10. Seed 17 improved exact Top-1 from `23/30` to
+`24/30`, MRR by `0.0167`, and same-family accuracy by `0.0115`, but missed the required +3 cases,
+`+0.02`, and `+0.10`; seed 29 did not improve exact Top-1 and regressed the other two measures.
+Both checkpoints passed ONNX equivalence and the 200 ms/1.25x CPU latency gates. No v2 checkpoint
+is selected for calibration, final evaluation, or runtime. See the
+[aggregate v2 selection](data/evaluation/domain-ranker-v2-remediation/ranker-selection.json),
+[closure evidence](docs/evidence/domain-ranker-v2-selection.md), and
+[AI-eval rubric](docs/evidence/ai-evals/domain-ranker-v2-selection.md).
 
 ## Limitations
 

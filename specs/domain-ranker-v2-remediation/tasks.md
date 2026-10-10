@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation — Tasks
 
-Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T6 complete; T7 not authorized**.
+Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T7 complete; experiment closed**.
 
 - [x] **DRV2-T0 — Preserve the v1 negative result and draft the remediation hypothesis.** Record
   observed failures, distinguish hypotheses from proven causes, retain all holdout boundaries and
@@ -21,7 +21,7 @@ Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T6 complete;
   stopping and safetensors-only release artifacts. _(→DRV2-R5, R6)_
 - [x] **DRV2-T6 — Execute untouched selection once.** Apply frozen metrics, gates and tie rules and
   emit a selected checkpoint hash or `winner: null`. _(→DRV2-R9, R10)_
-- [ ] **DRV2-T7 — Complete Lite QA and evidence.** Verify integrity, isolation, aggregate-only
+- [x] **DRV2-T7 — Complete Lite QA and evidence.** Verify integrity, isolation, aggregate-only
   publication, unchanged runtime and claim boundaries. _(→DRV2-R11, R12)_
 
 ## Current Gate
@@ -53,3 +53,8 @@ and same-family accuracy by `0.0115`, while seed 29 did not improve exact Top-1 
 MRR/same-family. Both passed casting, Recall@25, ONNX equivalence and latency, but neither passed
 every quality Gate. T7 Lite QA remains separately gated; calibration, final evaluation and runtime
 activation remain closed.
+
+T7 closes the branch without promoting a model. It adds measured selection and AI-eval evidence,
+updates README/portfolio claims, verifies that API/config/service import no v2 checkpoint, and keeps
+the default offline `heuristic-v1` path with reranking disabled. Public output remains aggregate-only;
+private diagnostics and ONNX graphs remain ignored and mode `0600`.
