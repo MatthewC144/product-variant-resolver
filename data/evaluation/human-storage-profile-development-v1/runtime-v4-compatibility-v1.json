@@ -1,0 +1,47 @@
+{
+  "allowed_current_wrapper_sources": {
+    "src/product_variant_resolver/api.py": "1b206098d8a2adec3ddbfa8cc05be1eec66c819a0f0556a409ae31cd0b7e25da",
+    "src/product_variant_resolver/config.py": "7f4a1c945368ef6bf111c338a99b55d54dc3bde32015029e220b4399ac24470c",
+    "src/product_variant_resolver/service.py": "aafd416b0fd0dd72367a23c0a56fd9bd66d9ed807df44130594a68f7252c7bea"
+  },
+  "artifact_version": "human-storage-v4-runtime-compatibility-v1",
+  "bindings": {
+    "math_artifact_file": "config/human-knowledge-retrieval-v4.json",
+    "math_artifact_sha256": "82c94a2629da6936bec3e4a2983e67c70d69e94cb94a9817375f891d59b1ae6b",
+    "protocol_file_sha256": "31802be99f02698423c4526bbd8752e6f517fcbef8ca8080926d019f55083fde",
+    "protocol_manifest_file_sha256": "b7634f7f3d52277c4ee4d92489b656fcf1a6c446d56085c5affb7cb7a12c6ea7",
+    "selection_report_file": "reports/human-knowledge-identity-development-v1/selection.json",
+    "selection_report_sha256": "f52f85f775806d43a57c11e5fa9f7f965da980f54cc58a814d727fdfe7876f42"
+  },
+  "historical_selection_sources": {
+    "src/product_variant_resolver/api.py": "a847d72a95eb6e7f68b8ca1db46b47c32dde5b463986a0201b0b068a2c223bdb",
+    "src/product_variant_resolver/config.py": "bfdc81228683fd534f9b4ff6fd62f747a174af70ba62bac045789c5d23318e14",
+    "src/product_variant_resolver/human_knowledge_identity.py": "21507f19034ea740c12251746ed761a359b81668d23094ab6d66271fdf91d5fa",
+    "src/product_variant_resolver/human_knowledge_identity_artifact.py": "717c1493585fa4b56a7f5a8bbf0bdb3df273a7369b5e791aee4388ddfbd6d7a9",
+    "src/product_variant_resolver/schemas.py": "0458392b02a1aca8b5eafded233e2d9b41a6ffec97772163a2ac59a1133f40f0",
+    "src/product_variant_resolver/service.py": "9fa745b386435799c6a5d5f62826570d48ca4b68a13f6aabba5b30b62f8e662c",
+    "ui/app.js": "0104a1d7182803a830110c89bdd68f9f8dbd4672dbbf1431d0fe04de8adc9173"
+  },
+  "preserved_claims": [
+    "historical_selection_evidence_is_byte_identical",
+    "identity_math_sources_are_byte_identical",
+    "canonical_response_parity_requires_current_tests",
+    "compatibility_is_exact_hash_and_storage_app_only"
+  ],
+  "prohibited_actions": [
+    "rewrite_or_refreeze_historical_selection_evidence",
+    "claim_historical_evaluation_used_current_wrappers",
+    "change_v4_identity_parameters_or_candidate_math",
+    "enable_human_storage_as_default_runtime",
+    "admit_unlisted_future_source_versions"
+  ],
+  "schema_version": "pvr-human-storage-v4-runtime-compatibility-v1",
+  "status": "exact_wrapper_compatibility_only",
+  "unchanged_runtime_sources": {
+    "src/product_variant_resolver/human_knowledge_identity.py": "21507f19034ea740c12251746ed761a359b81668d23094ab6d66271fdf91d5fa",
+    "src/product_variant_resolver/human_knowledge_identity_artifact.py": "717c1493585fa4b56a7f5a8bbf0bdb3df273a7369b5e791aee4388ddfbd6d7a9",
+    "src/product_variant_resolver/retrieval.py": "2ef9737d319b7d3ca6bdfd540e58147365eba4e2b6b4d47f1484fab3025f06c1",
+    "src/product_variant_resolver/schemas.py": "0458392b02a1aca8b5eafded233e2d9b41a6ffec97772163a2ac59a1133f40f0",
+    "ui/app.js": "0104a1d7182803a830110c89bdd68f9f8dbd4672dbbf1431d0fe04de8adc9173"
+  }
+}

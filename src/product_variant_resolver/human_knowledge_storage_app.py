@@ -14,7 +14,6 @@ from fastapi.responses import JSONResponse
 from .api import create_app as create_base_app
 from .catalog import load_catalog
 from .config import Settings
-from .human_knowledge_identity_artifact import load_human_knowledge_v4_config
 from .human_knowledge_storage_profile import (
     HumanStorageHydration,
     HumanStorageProfile,
@@ -23,6 +22,7 @@ from .human_knowledge_storage_profile import (
     default_repository_factory,
     load_profile,
 )
+from .human_storage_v4_compatibility import load_human_storage_v4_config
 from .schemas import ResolveRequest, ResolveResponse
 from .service import DependencyUnavailable, ResolverService
 
@@ -54,7 +54,7 @@ def _absolute_settings(settings: Settings, root: Path) -> Settings:
     )
 
 
-class HumanStorageResolverService(ResolverService):  # type: ignore[misc]
+class HumanStorageResolverService(ResolverService):
     def __init__(self, *args: Any, storage: HumanStorageHydration,
                  profile: HumanStorageProfile, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
@@ -103,7 +103,7 @@ def build_service(settings: Settings, *, profile_path: Path, root: Path = ROOT,
                            allow_private_mock=allow_private_mock)
     storage = HumanStorageHydration(profile, environ=environ,
                                     repository_factory=repository_factory)
-    math = load_human_knowledge_v4_config(profile.math_artifact_path,
+    math = load_human_storage_v4_config(profile.math_artifact_path,
         human_catalog_path=absolute.human_catalog_path,
         review_family_path=absolute.review_family_knowledge_path,
         development_pack_path=absolute.human_knowledge_development_path,
@@ -139,7 +139,7 @@ def create_app(settings: Settings | None = None, *, profile_path: Path | None = 
     if isinstance(service, HumanStorageResolverService):
         service.bind_unavailable_callback(unavailable)
 
-    @app.middleware("http")  # type: ignore[untyped-decorator]
+    @app.middleware("http")
     async def storage_health_guard(request: Request, call_next):  # type: ignore[no-untyped-def]
         current = app.state.service
         if request.method == "GET" and request.url.path == "/health" \

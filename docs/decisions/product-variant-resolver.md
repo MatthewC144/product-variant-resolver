@@ -3087,3 +3087,27 @@ Future evidence can reopen them without rewriting the historical reason they wer
   `2f4a32fbb0383bcd934af48734d6e60ab6603bc03093a084d5cdb552194dbefc`.
   Both domain arms pass casting, Recall@25, ONNX equivalence and latency; neither is selected.
   FastAPI remains offline-first with `heuristic-v1` and `reranker_enabled=false` by default.
+
+## D70 — Bridge frozen v4 evidence to one exact storage-wrapper revision
+
+- **Choice:** preserve the historical v4 protocol, artifact and selection report byte-for-byte;
+  restore `retrieval.py` to its frozen bytes; and add a storage-only compatibility artifact that
+  admits exactly the current `api.py`, `config.py` and `service.py` hashes. Keep the original strict
+  v4 loader unchanged and failing on those unevaluated wrapper revisions.
+- **Reason:** the old report proves parameter selection under its historical implementation, while
+  current API parity tests prove the wrapper revision preserves canonical responses. Reverting the
+  wrappers would remove valid Pointwise runtime work; rewriting the report would falsely imply that
+  its metrics came from current code.
+- **Alternatives:** regenerate the old evaluation, weaken source validation globally, monkeypatch
+  hash checks, reconstruct historical files at runtime, or ignore the 13 storage failures. These
+  respectively create a new experiment, erase provenance, introduce unsafe process-global behavior,
+  depend on Git/temporary files, or leave the optional app unusable.
+- **10x alternative considered:** rebuild and requalify the entire human-storage image/profile with
+  a fresh benchmark, signed provenance and deployment attestation. That is appropriate before a new
+  real runtime run, but unnecessary for repairing the private-mock/API contract in Lite mode.
+- **Most likely failure:** let an exact one-time bridge become a permanent wildcard. The artifact
+  therefore pins every admitted SHA-256, is itself checksum-bound, and is included in the storage
+  profile's mandatory source set; the next code edit fails closed.
+- **Impact:** all 18 expanded human-storage API cases and 168 scoped regressions pass. Default
+  runtime, v4 math, catalog data and historical evidence remain unchanged. A new real runtime still
+  requires a separately frozen profile/package.

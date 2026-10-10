@@ -1,5 +1,43 @@
 # Project Log
 
+## 2026-10-10 — HSPR-T1：修復 human-storage 的 13 個 stale-protocol failures
+
+### 新執行了什麼，解決什麼問題
+
+DRV2 封版時，整庫 smoke 在約 100 tests 後出現 13 個 T49.3 human-storage API failures。本輪先
+重播啟動鏈，確認不是 resolver 答案、資料庫或 Pointwise 模型錯誤，而是 app 在建立 service 前被舊版
+v4 source integrity gate 擋下，因此所有請求才一致變成 503。第一層問題是 `retrieval.py` 後來多了一個
+完全沒有 consumer 的 `StructuredRetriever.version`；移除後檔案精確恢復 frozen SHA，protocol loader
+通過。接著找到第二層：歷史 selection report 固定了 Pointwise runtime 尚未加入前的 `api.py`、
+`config.py`、`service.py` hashes。
+
+### 代碼修改了哪一部分、原因與決策
+
+沒有回退這三個共用檔案，也沒有重寫舊報告。回退會破壞已完成的 neural Pointwise integration；重寫
+則會錯誤聲稱歷史指標由現有 wrapper 產生。新增 `human_storage_v4_compatibility.py` 與一份 exact-hash
+JSON allowlist，僅供顯式 human-storage app 使用。它先驗證舊 protocol、manifest、math artifact、
+selection report 仍是原始 bytes，再確認 identity math／retrieval／schema 未改，最後只接受目前三個
+wrapper 的精確 SHA。一般 v4 strict loader 完全未改，仍會拒絕這些未被舊實驗評估的 wrapper。
+
+Storage profile 的 required sources 同時加入 compatibility module 與 artifact，避免未來 profile 漏掉
+新的信任邊界。新增四個專用測試，覆蓋正常載入、profile pin、compatibility checksum drift、未列入的
+wrapper drift；既有 API 測試則驗證 non-debug response byte-equivalent、debug provenance、每次 request
+integrity probe、錯誤請求不 probe，以及 backend fault 後 sticky 503/no fallback。
+
+### 技術棧／方法選型、驗證與下一步
+
+選用靜態 JSON + SHA-256 allowlist，而不是 semantic diff、Git runtime lookup 或 monkeypatch，因為 runtime
+可以在無 `.git`、無網路、唯讀檔案系統下重播，而且任何未審版本都會 fail closed。這也清楚區分兩種
+證據：歷史 report 證明 v4 參數如何被選出；現在的 FastAPI parity tests 證明新版 wrapper 沒改 canonical
+response。後者不能倒過來改寫前者。
+
+原本失敗的 API 檔案現為 18/18 passed；storage/profile/package focused set 66/66，合併 v4、retrieval、
+PostgreSQL adapter、config、API 與 neural-reranker regression 為 168/168。Ruff、strict MyPy、
+`git diff --check` 全通過。全 repository smoke 越過原失敗點且未見 failure，但因昂貴 offline eval 約八
+分鐘只到 4%，依 Lite mode 中止並誠實記為 interrupted，不宣稱 full-suite PASS。下一個真正的 runtime
+動作若要執行，必須另建新的 source/profile/package freeze；本輪沒有 rebuild image、啟用 PostgreSQL
+或改 default FastAPI。
+
 ## 2026-10-10 — DRV2-T7：完成 Lite QA，將 fine-tuning 成果與模型失敗分開陳述
 
 ### 新執行了什麼，解決什麼問題
