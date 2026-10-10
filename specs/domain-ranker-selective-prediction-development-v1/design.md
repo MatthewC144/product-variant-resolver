@@ -1,6 +1,6 @@
 # Domain ranker and selective prediction development v1 — Design
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T1 through T4 complete; T5+ not authorized**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T1 through T4 complete; T5 authorized and protocol-frozen; T6+ not authorized**.
 
 ## Overview
 
@@ -188,6 +188,28 @@ The final serializer keeps unordered metadata out of the tensor files and stores
 canonical manifest. Two consecutive clean training/materialization runs produced identical losses,
 selection ranks, both checkpoint hashes and the complete package hash. Public tokenizer text is LF-
 normalized, so `git diff --check` is independent of the CRLF format used by the frozen local cache.
+
+## T5 frozen generic/domain comparison
+
+T5 re-scores the exact same 30 T2 `ranker_selection` queries and their 25-candidate pools with the
+pinned generic model and both released T4 checkpoints. All arms use float32 CPU inference, maximum
+length 128, batch size 25 and one Torch thread. Ranking is score descending then canonical UUID
+ascending. The evaluator confirms that the newly scored generic ordering exactly matches the frozen
+T2 ordering before it may publish a result.
+
+Exact Top-1, casting Top-1, MRR@10 and Recall@25 are query aggregates. Same-family hard-negative
+accuracy includes every non-target candidate whose normalized `casting=` field equals the target;
+only a strict `target_score > negative_score` is correct, so ties cannot flatter the result. CPU
+latency uses three unmeasured warm-ups followed by three complete 30-query rounds; p95 is the
+nearest-rank percentile across the resulting 90 per-query samples.
+
+Each domain seed must independently pass every R8 gate. Directional stability means both seeds have
+strictly positive exact Top-1 and MRR@10 deltas. If both seeds qualify, the deterministic winner
+order is exact Top-1, MRR@10 and same-family accuracy descending, then p95 latency and seed ascending.
+If no seed qualifies, T5 publishes `winner: null` and stops rather than weakening a threshold.
+Row-level ranks and latency samples remain under Git-ignored `local-t5/`; public files contain only
+authorization, hashes, aggregate metrics and decisions. T5 does not read calibration/final rows and
+cannot authorize T6 or alter runtime.
 
 ## Calibration and policy
 

@@ -1,6 +1,6 @@
 # Domain ranker and selective prediction development v1 — Tasks
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRSP-T1 through T4 complete; T5+ not authorized**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRSP-T1 through T4 complete; T5 authorized and protocol-frozen; T6+ not authorized**.
 
 Tasks are ordered Gates. A checked task may unlock only the next listed task; it never authorizes
 an unchecked downstream task. T1A by itself grants only future publication eligibility: it does not mark a
@@ -75,12 +75,18 @@ pair package or checkpoint as released, authorize final evaluation, or activate 
    the frozen two-seed binary recipe, selection-only early stopping, and publication of the exact
    safetensors package only if its release Gate passes. It does not authorize T5 winner selection,
    calibration, final evaluation or runtime activation.
+10. **Resolved for T5 only:** the owner's next-step instruction after the explicit T5 handoff permits
+   one generic-versus-two-domain comparison on the frozen 30-query T2 selection pools, public
+   aggregate metrics and either one frozen winner or `winner: null`. The Gate preserves the 53
+   positive test rows, 20 negative holdout rows and 52 no-match development rows at zero reads and
+   scores. It does not authorize calibration, final evaluation or runtime activation.
 
 T4 released the exact package SHA-256
 `1cc26cc8aea072d02cb5fd25909b0adfcdbdfd2a7f642433945cf00211b002e1`; both seeds selected epoch 1
 at selection MRR@10 `0.86111111`. This is early-stopping evidence only, not a T5 winner decision.
 
-Items 3–4 remain future decisions. T4 is complete under item 9; T5 still needs a separate Gate.
+Items 3–4 remain future decisions. T5 is authorized under item 10; T6 still needs a separate Gate
+and new admissible family-disjoint calibration positives if T5 produces a winner.
 
 ## G1 acceptance
 
