@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation — Design
 
-Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **T0–T3R complete; T4+ not authorized**.
+Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **T0–T4 complete; T5+ not authorized**.
 
 ## Overview
 
@@ -106,6 +106,23 @@ budget therefore passes without changing model weights, pool membership or order
 the inference substrate for the experiment only—it does not activate ONNX in FastAPI or authorize
 T4 labels/training.
 
+T4 parses only the 120 train rows. For each row, it first verifies that the target UUID is uniquely
+present and that the rendered target exactly matches the frozen casting, year, series, series
+position, collector number and toy number. It then considers only same-normalized-casting siblings.
+The frozen query template determines which exact fields are allowed to establish a conflict: year,
+toy number and collector number for the two identifier templates; year, series, series position and
+collector number for the series template. Missing values do not conflict, and score/rank is never
+label authority. A row enters training only with at least two defensible siblings; all defensible
+siblings for an admitted row become triples, while ambiguous siblings and one-negative rows are
+retained as held audit records.
+
+This yields 112 admitted train queries and 332 triples. Eight train queries have only one defensible
+sibling; their eight candidates remain held. Nineteen additional same-casting siblings have no
+query-supported exact conflict and also remain held. This is intentionally stricter than treating
+every different UUID as negative: a UUID difference proves a different catalog row, not that the
+query contains enough information to prefer one release. Validation and selection rows are not used
+for mining.
+
 ## Training design
 
 The primary arm remains the pinned MiniLM cross-encoder architecture, but it scores a positive and a
@@ -129,7 +146,8 @@ benchmark/runtime setup without consuming new labels or training a checkpoint.
 - `governance.json`: exact new-data hashes, rights, authority, uses and denylist.
 - `split-manifest.json`: aggregate connected-component and leakage evidence.
 - `candidate-pool-manifest.json`: frozen catalog/retrieval/render/model bindings.
-- private `local-v2/`: row membership, pools, scores and diagnostics; default-deny in Git.
+- private `local-t2/`, `local-t3/` and `local-t4/`: row membership, pools, triples and held audit
+  records; default-deny in Git and mode `0600`.
 - release-gated minimized pairwise triples and safetensors packages.
 - aggregate `ranker-selection.json`: generic/domain metrics, gates and winner or null.
 
@@ -143,6 +161,6 @@ FastAPI defaults.
 
 ## Non-goals
 
-This draft does not collect data, regenerate T2/T5 artifacts, train a model, calibrate scores, run a
-fresh final test, change FastAPI, or activate runtime. Calibration remains downstream of a future
-non-null selected checkpoint.
+T4 does not regenerate v1/T2 sources, train a model, inspect v2 selection quality, calibrate scores,
+run a fresh final test, change FastAPI, or activate runtime. Calibration remains downstream of a
+future non-null selected checkpoint.

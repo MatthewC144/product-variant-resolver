@@ -45,6 +45,7 @@ pvr-materialize-domain-ranker-v2-governance = "product_variant_resolver.domain_r
 pvr-author-domain-ranker-v2-queries = "product_variant_resolver.domain_ranker_v2_authoring:main"
 pvr-freeze-domain-ranker-v2-candidate-pools = "product_variant_resolver.domain_ranker_v2_candidate_pools:main"
 pvr-repair-domain-ranker-v2-latency = "product_variant_resolver.domain_ranker_v2_latency_repair:main"
+pvr-mine-domain-ranker-v2-hard-negatives = "product_variant_resolver.domain_ranker_v2_hard_negatives:main"
 pvr-calibrate-pointwise-three-class = "product_variant_resolver.pointwise_three_class_calibration:main"
 pvr-audit-pointwise-policy-holdout = "product_variant_resolver.pointwise_policy_holdout_readiness:main"
 pvr-evaluate-pointwise-no-match-holdout = "product_variant_resolver.pointwise_no_match_holdout_evaluation:main"

@@ -2986,3 +2986,30 @@ Future evidence can reopen them without rewriting the historical reason they wer
   `114.045792 ms` (`52.39%`) to `103.654042 ms`. Result content SHA-256 is
   `f95095a1f710fedc5c8d98a2d1e72b7fda25b2d3a3c3edeaa3f5b469850b47f7`. T4 is now eligible for a
   separate Owner Gate, but no mining, training or runtime activation occurred.
+
+## D66 — Require query-supported conflicts before a sibling becomes a v2 negative
+
+- **Choice:** interpret the Owner's next-step instruction as DRV2-T4 approval only. Mine only the
+  120 train pools. Admit a sibling only when it shares the normalized casting and conflicts with an
+  exact-release field supported by that row's frozen query template; require two admitted siblings
+  per query and hold everything ambiguous or below density.
+- **Reason:** a different UUID proves only that two catalog rows differ. It does not prove the query
+  contains enough evidence to prefer one release. Template-specific conflicts connect each binary
+  preference to information actually visible to the ranker, while the two-negative threshold
+  prevents nominally large but shallow training coverage.
+- **Alternatives:** label every same-casting UUID as negative; use generic score/rank as pseudo-label
+  authority; include one-negative queries; or inspect validation/selection to increase yield. These
+  create unsupported labels, train the model to reproduce its own baseline, weaken the preregistered
+  density rule or leak protected partitions.
+- **10x alternative considered:** have independent experts adjudicate graded relevance for every
+  release in each train pool using manufacturer records and inter-rater agreement. That would give
+  stronger truth and richer listwise supervision, but it exceeds the bounded portfolio experiment;
+  the present evidence rule is reproducible and honest about community-catalog limits.
+- **Most likely failure:** call 332 generated triples a model improvement. The public manifest and
+  AI-eval evidence therefore report training runs and selection evaluations as zero and keep T5
+  separately gated.
+- **Impact:** 112/120 train queries qualify and produce 332 triples. Nineteen ambiguous siblings and
+  eight siblings from one-negative queries remain held. The local content SHA-256 is
+  `5855d753b5567f0659f32ab685d68bf01277a3f4d99c62dbfd83024f2ef32411`; public manifest content
+  SHA-256 is `2c4334db61f1d448290f36ab657909f66e6ee3ace263a92a075d8101434fca6b`.
+  No validation/selection labels, training, calibration, final evaluation or runtime were used.

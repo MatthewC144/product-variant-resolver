@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation — Requirements
 
-Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T3R complete; T4+ not authorized**.
+Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T4 complete; T5+ not authorized**.
 
 ## Goal
 
@@ -138,4 +138,25 @@ The formal float32 ONNX export passed both equivalence gates: all 4,500 logits s
 frozen PyTorch baseline. The identical 90-sample validation protocol measured p50 `88.765583 ms`
 and p95 `103.654042 ms`, a p95 reduction of `114.045792 ms` (`52.39%`) from T3. DRV2-R8 now passes.
 The graph remains local-only and mode `0600`; public output contains its SHA, reconstruction
-dependencies and aggregate results. T4 remains separately gated.
+dependencies and aggregate results. At this T3R checkpoint, T4 remained separately gated.
+
+## T4 Owner Gate
+
+The owner's next-step instruction authorizes DRV2-T4 only. T4 SHALL use only the 120 train queries
+and their frozen Top-25 pools. A sibling may become a negative only when it has the same normalized
+casting and conflicts with at least one exact-release field explicitly present in that query's
+frozen template. Generic score or rank may order evidence-qualified rows for audit, but SHALL NOT
+create a label. A query is admitted only when it has at least two defensible siblings; ambiguous or
+insufficient-density siblings remain held. This Gate does not authorize model training, validation
+early stopping, selection scoring, calibration, final evaluation or runtime activation.
+
+## T4 result
+
+Of 120 train queries, 112 have at least two defensible same-casting wrong-release siblings, exceeding
+the DRV2-R4 minimum of 60. These qualifying queries produce 332 pairwise triples from 340 defensible
+siblings; the eight otherwise defensible siblings belonging to eight one-negative queries remain
+held because their query does not meet the two-negative density rule. Another 19 same-casting
+siblings remain held because no query-supported exact field distinguishes them. The resulting 27
+held records are not forced into binary labels. Validation and selection label reads, training runs
+and selection evaluations are all zero. Row-level triples remain Git-ignored and mode `0600`; the
+public manifest contains hashes and aggregate counts only. T5 requires a separate Owner Gate.

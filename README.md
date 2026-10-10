@@ -165,11 +165,10 @@ artifacts, but neither is selected for calibration or runtime. See the
 [aggregate selection result](config/domain-ranker-selection-v1.json) and
 [AI-eval evidence](docs/evidence/ai-evals/domain-ranker-selection-v1.md).
 
-The separately governed v2 remediation has completed its data-readiness stage: 180 new synthetic,
-catalog-present queries from 180 distinct casting families are frozen as 120 train, 30 validation
-and 30 untouched selection rows, with zero cross-partition family overlap. This is not a model result:
-candidate scoring, pairwise hard-negative labels, training and evaluation have not started. Only
-aggregate manifests are public; row-level queries and answers remain local and Git-ignored. See the
+The separately governed v2 remediation first froze 180 new synthetic,
+catalog-present queries from 180 distinct casting families as 120 train, 30 validation
+and 30 untouched selection rows, with zero cross-partition family overlap. Only aggregate manifests
+are public; row-level queries and answers remain local and Git-ignored. See the
 [v2 split manifest](data/evaluation/domain-ranker-v2-remediation/split-manifest.json) and
 [Lite QA review](specs/domain-ranker-v2-remediation/review.md).
 
@@ -184,7 +183,16 @@ A bounded inference repair then exported the unchanged generic weights to float3
 The repeated validation benchmark reduced CPU p95 to `103.65 ms`, passing the same 200 ms budget.
 The ONNX graph stays local/reconstructible; Git stores its manifest and aggregate
 [repair result](data/evaluation/domain-ranker-v2-remediation/latency-repair.json). This does not
-activate ONNX in FastAPI or authorize training.
+activate ONNX in FastAPI.
+
+The next bounded stage mined only the 120 train pools. A negative must share the casting and conflict
+on an exact-release field actually present in the frozen query template; generic rank alone cannot
+create a label. The gate admitted 112 train queries and produced 332 pairwise triples, while 27
+sibling records remained held instead of being forced into binary labels. Validation/selection
+label reads and training runs remain zero. Git retains only the aggregate
+[hard-negative manifest](data/evaluation/domain-ranker-v2-remediation/hard-negative-manifest.json);
+row-level triples remain local, ignored and mode `0600`. This is training-data readiness, not a
+fine-tuning quality result; pairwise training remains separately gated.
 
 ## Limitations
 

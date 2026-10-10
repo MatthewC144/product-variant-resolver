@@ -12735,3 +12735,48 @@ T3R authorization、ONNX manifest、repair result content SHA-256 分別為
 
 本輪沒有讀取 selection quality、沒有 hard-negative label、training、calibration、final evaluation 或 FastAPI runtime activation。
 T3R PASS 只讓下一步 DRV2-T4 具備被 Owner 獨立授權的資格；它不自動開啟 mining，更不代表 domain fine-tuning 已改善。
+
+## 2026-10-10 — DRV2-T4：完成 train-only exact-release hard-negative mining
+
+### 新執行了什麼、解決什麼問題
+
+本輪把 Owner 的「繼續下一步」限定為 DRV2-T4，只處理 120 筆 train query 與既有 frozen Top-25 pools。容量稽核先確認
+112 筆 query 各有至少兩個可辯護的同 casting、錯誤 exact release sibling，超過 DRV2-R4 要求的 60 筆。正式 builder 最終
+封存 332 個 query／positive／negative triples。這解決了 v1 hard negatives 中同 casting wrong-exact 只有 67/345、模型容易
+學到跨車型粗粒度差異而不一定學會 release 排序的問題。
+
+本輪沒有為了增加數量而把所有不同 UUID 都標為 negative。十九個 sibling 雖然同 casting，但在該 query template 實際提供的
+欄位上沒有明確衝突；另有八個 sibling 本身有衝突，但所屬 query 只有一個 defensible negative，未達每題至少兩個的密度規則。
+兩類合計 27 筆都保持 held。Validation 與 selection label read count 都是 0，training run 與 selection evaluation 也都是 0。
+
+### 代碼修改了哪一部分、原因與技術／方法選型
+
+新增 `domain_ranker_v2_hard_negatives.py` 與 CLI `pvr-mine-domain-ranker-v2-hard-negatives`。模組先重驗 T2 query pack、T3
+candidate pools 與 T3R latency PASS 的完整 SHA chain，再逐題確認 target UUID 在 pool 中只出現一次，且 rendered target 的
+casting、year、series、series position、collector number、toy number 全部等於 frozen expected identity。Negative 必須先通過
+normalized casting 相同，再依 authoring template 檢查 query-supported exact fields：兩個 identifier templates 使用 year、toy
+number、collector number；series template 使用 year、series、series position、collector number。缺失值不產生衝突。
+
+Generic Pointwise rank 只在證據已成立後提供 deterministic audit order，不是 label authority。這個選型比 pseudo-labeling 更保守，
+也比把所有 UUID 差異當 ground truth 更符合 resolver 的實際問題：模型應依 query 中可見的 release 線索排序，而不是記住 catalog
+row identity。所有合格 query 的 defensible siblings 都保留為 triples；低於兩個的 query 整題不進 training，避免弱密度 case
+混入。逐筆 triples 與 held audit records 存在 `local-t4/pairwise-triples.json`，維持 Git-ignored 與 mode `0600`；Git 只放行
+Owner authorization 與 aggregate manifest。
+
+### 驗證結果、限制與下一步
+
+T4 authorization file SHA-256 是 `6673ee5d58108020631ee57f892cbbbacc21cc2dc3dab2f99d21324ca541dadf`，public manifest file
+SHA-256 是 `d036834ec4751d3231aa9847ff3f0dadc513aac2004d62f58a4206ea42e11ec9`；private pack content SHA-256
+是 `5855d753b5567f0659f32ab685d68bf01277a3f4d99c62dbfd83024f2ef32411`。T1–T4 focused suite 共 27 tests 通過，
+Ruff、format check、strict MyPy、deterministic CLI replay、file mode／Git-ignore 與 whitespace gate 全綠。
+
+另有啟動 whole-repository smoke，但在 105 passed／13 failed 時停止，因為失敗全部集中於既有 T49.3 experimental
+human-storage API；直接呼叫其 `build_service` 顯示 frozen v4 protocol 認定
+`src/product_variant_resolver/retrieval.py` 已 stale，導致 service 為 `None` 並回 503。T4 diff 沒有修改 retrieval、v4
+protocol 或 storage app，因此此問題記為既有 baseline debt，不把未跑完的 full suite 說成通過，也不在 T4 越界修正另一個
+governed feature。
+
+這 332 筆只代表 community-catalog-relative、可稽核的 pairwise training evidence，不是 Mattel/global truth，也不是 model quality
+結果。T4 沒有訓練 checkpoint、沒有看 selection metrics、沒有改 FastAPI 或啟用 ONNX runtime。下一步 DRV2-T5 必須先在獨立
+Owner Gate 凍結唯一 pairwise loss、hyperparameters、兩個 seeds、validation-only early stopping 與 safetensors release contract，
+之後才可開始 fine-tuning；不能從本輪的資料數量直接宣稱 AI 已改善。
