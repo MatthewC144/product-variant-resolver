@@ -1,7 +1,7 @@
 # Domain ranker v2 remediation — Design
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T1 complete; protocol frozen before
-materialization; T2+ not authorized**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T1 complete; T2 authorized and in
+progress; T3+ not authorized**.
 
 ## Overview
 
@@ -66,6 +66,13 @@ effective governance. The governance code is bound to commit
 `819666fad6756e06d695af2dadfab833fa7f17fc`; source and denylist inputs are hash-bound. The effective
 permissions allow only a future local authoring step after a separate T2 Gate. Candidate scoring,
 mining, training, calibration, final evaluation, row-level publication and runtime all remain false.
+
+T2 uses one deterministic target per selected casting family. Families are ordered by the T1 salted
+SHA-256 rule; a second fixed salt chooses one release inside each family, and a third fixed salt
+chooses one of the three frozen query templates. The first 120 families become train, the next 30
+validation and the final 30 untouched selection. This deliberately stronger one-family-per-query
+rule makes cross-partition casting leakage impossible and preserves at least two unused same-family
+siblings for every row, without yet assigning any negative label.
 
 ## Training design
 

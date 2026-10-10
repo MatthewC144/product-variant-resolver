@@ -40,6 +40,7 @@ pvr-mine-domain-ranker-hard-negatives = "product_variant_resolver.domain_ranker_
 pvr-train-domain-ranker = "product_variant_resolver.domain_ranker_training:main"
 pvr-compare-domain-rankers = "product_variant_resolver.domain_ranker_comparison:main"
 pvr-materialize-domain-ranker-v2-governance = "product_variant_resolver.domain_ranker_v2_governance:main"
+pvr-author-domain-ranker-v2-queries = "product_variant_resolver.domain_ranker_v2_authoring:main"
 pvr-calibrate-pointwise-three-class = "product_variant_resolver.pointwise_three_class_calibration:main"
 pvr-audit-pointwise-policy-holdout = "product_variant_resolver.pointwise_policy_holdout_readiness:main"
 pvr-evaluate-pointwise-no-match-holdout = "product_variant_resolver.pointwise_no_match_holdout_evaluation:main"

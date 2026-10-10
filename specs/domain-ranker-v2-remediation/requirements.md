@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation — Requirements
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRV2-T1 complete; T2+ not authorized**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRV2-T1 complete; T2 authorized and in progress; T3+ not authorized**.
 
 ## Goal
 
@@ -85,3 +85,11 @@ or T5-error access and keeps every future row-level query local-only.
 Governance content SHA-256 is
 `5b981e79df16510210b529a299932dc52c54b3b776808f792433f002eb7d03f8`.
 T1 performed no query materialization, partitioning, candidate scoring, mining or training.
+
+## T2 Owner Gate
+
+The owner's next-step instruction authorizes DRV2-T2 only. T2 SHALL deterministically author exactly
+180 new local-only queries from 180 distinct eligible casting families and freeze them as 120 train,
+30 validation and 30 untouched selection rows. Git may retain authorization, hashes and aggregate
+counts only. This Gate does not authorize candidate pools, scoring, hard-negative labels, training,
+calibration, final evaluation or runtime activation.

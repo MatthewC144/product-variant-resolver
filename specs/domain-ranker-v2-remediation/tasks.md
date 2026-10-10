@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation — Tasks
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T1 complete; T2+ not authorized**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T1 complete; T2 authorized and in progress; T3+ not authorized**.
 
 - [x] **DRV2-T0 — Preserve the v1 negative result and draft the remediation hypothesis.** Record
   observed failures, distinguish hypotheses from proven causes, retain all holdout boundaries and
@@ -24,6 +24,6 @@ Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T1 complete;
 ## Current Gate
 
 T1 completed under the owner's next-step instruction after the five-item handoff. Governance SHA-256
-is `5b981e79df16510210b529a299932dc52c54b3b776808f792433f002eb7d03f8`. T2 still needs a separate
-Gate; this decision does not authorize reuse of the 53/20 holdouts, 52 no-match rows or T2 selection
-errors.
+is `5b981e79df16510210b529a299932dc52c54b3b776808f792433f002eb7d03f8`. The owner's following
+next-step instruction opens T2 only. This decision does not authorize reuse of the 53/20 holdouts,
+52 no-match rows or T2 selection errors, and it does not open T3 scoring.
