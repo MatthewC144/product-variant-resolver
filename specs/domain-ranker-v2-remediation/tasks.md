@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation — Tasks
 
-Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T5 complete; T6+ not authorized**.
+Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T5 complete; T6 protocol frozen before execution**.
 
 - [x] **DRV2-T0 — Preserve the v1 negative result and draft the remediation hypothesis.** Record
   observed failures, distinguish hypotheses from proven causes, retain all holdout boundaries and
@@ -44,5 +44,8 @@ trained. The owner's latest next-step instruction opens T5 only. Its fixed RankN
 recipe, two seeds, validation-only early stopping and safetensors release contract are now frozen
 before training. The completed run selected seed-17 epoch 2 and seed-29 epoch 3, both at validation
 MRR@10 `0.95`, and released two strictly validated float16 safetensors files. Selection reads and
-model-selection runs remain zero. T6 selection, calibration, final evaluation and runtime remain
-unauthorized.
+model-selection runs remain zero. The owner's latest next-step instruction opens T6 only. Before
+its one permitted selection run, T6 freezes the v1 quality thresholds unchanged and requires all
+three arms to use the same float32 ONNX/CPU latency substrate. Domain ONNX exports must reproduce
+their source PyTorch Top-25 order for all 30 pools within `2e-5` maximum logit delta. T6 still
+excludes calibration, final evaluation and runtime activation.

@@ -187,3 +187,15 @@ The public package includes only an exact 14-file allowlist and aggregate epoch 
 optimizer/pickle state or row-level query/triple/prediction data is present. Selection, positive
 test, negative holdout and no-match development reads are all zero. This proves a reproducible
 pairwise training pipeline, not generic-vs-domain improvement. T6 remains separately gated.
+
+## T6 Owner Gate and frozen qualification
+
+The owner's next-step instruction authorizes DRV2-T6 only. Before any selection score is visible,
+T6 SHALL freeze exact Top-1, casting Top-1, MRR@10, Recall@25, same-family accuracy, CPU latency,
+two-seed direction and deterministic winner tie handling. The v1 numeric qualification thresholds
+remain unchanged. Generic and domain latency SHALL be measured through equivalent float32 ONNX
+CPU sessions; each domain export SHALL preserve all 30 Top-25 PyTorch orderings with maximum
+absolute logit delta at most `2e-5`. T6 SHALL score exactly 30 untouched selection rows once and
+publish only aggregate results. A checkpoint that fails any Gate is ineligible; if neither passes,
+the system SHALL emit `winner: null`. This Gate does not authorize calibration, fresh final
+evaluation, runtime activation or row-level publication.

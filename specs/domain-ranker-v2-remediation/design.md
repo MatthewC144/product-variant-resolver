@@ -167,6 +167,22 @@ benchmark/runtime setup without consuming new labels or training a checkpoint.
   safetensors checkpoints, tokenizer/configs, lineage, license, notice and model card.
 - aggregate `ranker-selection.json`: generic/domain metrics, gates and winner or null.
 
+## T6 frozen selection protocol
+
+T6 reuses the v1 product gates without relaxing them after observing v2 output: exact-release
+Top-1 must improve by at least 3/30, MRR@10 by `0.02`, and same-family accuracy by `0.10`; casting
+Top-1 may lose at most one case, Recall@25 may not fall, CPU p95 must remain at most `1.25x` generic
+and at most `200 ms`, and both seeds must move exact Top-1 and MRR in the positive direction. A
+checkpoint must pass every check. Eligible ties resolve by exact Top-1, MRR@10, same-family
+accuracy, lower p95 and then lower seed. Otherwise the output is `winner: null`.
+
+Latency is compared on one inference substrate: generic uses the already verified float32 ONNX
+graph; each immutable T5 checkpoint is converted to a local-only float32 ONNX graph. Before its
+quality metrics are accepted, every domain graph must stay within `2e-5` of PyTorch logits and
+preserve the complete Top-25 ordering on all 30 selection pools. Each arm then uses one CPU thread,
+batch 25, three warm-ups and 90 timed pool calls. This prevents framework overhead from deciding
+the model winner. The one-shot runner refuses to overwrite any existing T6 artifact.
+
 ## Error handling and testing
 
 Every stage fails closed on hash drift, legacy-holdout intersection, family/evidence leakage,
