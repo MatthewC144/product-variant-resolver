@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation — Design
 
-Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **T0–T4 complete; T5+ not authorized**.
+Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **T0–T4 complete; T5 recipe frozen before execution**.
 
 ## Overview
 
@@ -125,10 +125,18 @@ for mining.
 
 ## Training design
 
-The primary arm remains the pinned MiniLM cross-encoder architecture, but it scores a positive and a
-negative for the same query and optimizes their score difference with one fixed pairwise logistic or
-margin-ranking loss selected before execution. V2 does not conduct an objective tournament. Two
-fixed seeds measure optimization stability; early stopping uses validation MRR@10 only.
+The primary arm remains the pinned MiniLM cross-encoder architecture. For each batch, it scores the
+positive and negative for the same query in one forward input and minimizes
+`mean(softplus(-(positive_logit-negative_logit)))`. This RankNet-style logistic objective directly
+penalizes an incorrect within-query ordering without imposing an arbitrary fixed margin. V2 does not
+conduct an objective tournament.
+
+The preregistered recipe uses seeds 17/29, triple batch size 8 (16 query/candidate forwards),
+learning rate `1e-5`, AdamW weight decay `0.01`, 10% linear warm-up then linear decay, maximum length
+128, gradient clip 1.0, at most four epochs and patience two. After every epoch, only validation
+MRR@10 is computed; ties retain the earliest epoch. Training state stays float32 and the best
+checkpoint per seed is released as float16 safetensors. Optimizer/scheduler state and pickle formats
+are never published.
 
 The generic checkpoint is never trained. It is rescored on identical v2 selection pools only after
 all checkpoints, tie rules and gates are frozen. If no domain seed passes, the output is null.
@@ -161,6 +169,6 @@ FastAPI defaults.
 
 ## Non-goals
 
-T4 does not regenerate v1/T2 sources, train a model, inspect v2 selection quality, calibrate scores,
-run a fresh final test, change FastAPI, or activate runtime. Calibration remains downstream of a
-future non-null selected checkpoint.
+T5 does not regenerate v1/T2 sources, inspect v2 selection quality, compare generic/domain winners,
+calibrate scores, run a fresh final test, change FastAPI, or activate runtime. Calibration remains
+downstream of a future non-null selected checkpoint.

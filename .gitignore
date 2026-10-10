@@ -59,5 +59,8 @@ postgres-data/
 !/data/evaluation/domain-ranker-v2-remediation/latency-repair.json
 !/data/evaluation/domain-ranker-v2-remediation/t4-owner-authorization.json
 !/data/evaluation/domain-ranker-v2-remediation/hard-negative-manifest.json
+/artifacts/domain-ranker-v2-remediation/*
+!/artifacts/domain-ranker-v2-remediation/checkpoint-v1/
+!/artifacts/domain-ranker-v2-remediation/checkpoint-v1/**
 /.local-image-search-collection*/
 .DS_Store

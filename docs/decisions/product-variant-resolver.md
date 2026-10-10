@@ -3013,3 +3013,29 @@ Future evidence can reopen them without rewriting the historical reason they wer
   `5855d753b5567f0659f32ab685d68bf01277a3f4d99c62dbfd83024f2ef32411`; public manifest content
   SHA-256 is `2c4334db61f1d448290f36ab657909f66e6ee3ace263a92a075d8101434fca6b`.
   No validation/selection labels, training, calibration, final evaluation or runtime were used.
+
+## D67 — Freeze one RankNet-style recipe before v2 validation is visible
+
+- **Choice:** interpret the Owner's next-step instruction as DRV2-T5 approval only. Use
+  `mean(softplus(-(positive_logit-negative_logit)))` with fixed seeds 17/29, learning rate `1e-5`,
+  at most four epochs and validation-MRR@10 early stopping. Publish only float16 safetensors and an
+  allowlisted support package; keep selection completely unread until T6.
+- **Reason:** T4's supervision expresses an ordering—one release should rank above a sibling for the
+  same query—so optimizing the score difference is closer to the resolver objective than two
+  independent binary losses. Logistic loss avoids adding an ungrounded margin hyperparameter, and
+  the lower learning rate responds prospectively to v1's epoch-one overfitting without consulting
+  any v2 validation result.
+- **Alternatives:** reuse BCE pointwise training; search pairwise margin values; compare Pointwise,
+  Pairwise and Listwise objectives; or use selection for early stopping. These either repeat the v1
+  mismatch, add a small-data hyperparameter search, create a model zoo or leak the final v2 choice
+  partition.
+- **10x alternative considered:** pretrain a larger domain encoder on independently licensed product
+  text, then run nested cross-validation across multiple ranking objectives with expert graded
+  relevance. That could improve generalization, but it answers a broader research question than the
+  fixed pairwise remediation hypothesis.
+- **Most likely failure:** validation improves for one seed but untouched selection does not. T5
+  therefore releases both reproducible checkpoints without a winner claim; T6 alone may compare
+  them with generic under frozen qualification gates.
+- **Impact:** code, recipe and package contract are committed before training. T5 may read only 332
+  train triples and 30 validation pools. Selection, holdouts, calibration, final evaluation and
+  runtime remain prohibited.

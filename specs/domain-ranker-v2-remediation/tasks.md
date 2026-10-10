@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation — Tasks
 
-Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T4 complete; T5+ not authorized**.
+Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T4 complete; T5 authorized and recipe frozen; execution pending**.
 
 - [x] **DRV2-T0 — Preserve the v1 negative result and draft the remediation hypothesis.** Record
   observed failures, distinguish hypotheses from proven causes, retain all holdout boundaries and
@@ -40,5 +40,6 @@ preserved all 180 Top-25 orderings with maximum logit delta `1.4781951904296875e
 validation CPU p95 to `103.654042 ms`, so the latency Gate passes. The owner's latest next-step
 instruction opened T4 only. Evidence-gated mining admitted 112/120 train queries and produced 332
 triples; 27 sibling records remain held, validation/selection label reads are zero and no model was
-trained. T5 requires a separate Owner Gate and a frozen pairwise recipe; T4 does not imply training
-or checkpoint publication permission.
+trained. The owner's latest next-step instruction opens T5 only. Its fixed RankNet-style logistic
+recipe, two seeds, validation-only early stopping and safetensors release contract are now frozen
+before training. T6 selection, calibration, final evaluation and runtime remain unauthorized.

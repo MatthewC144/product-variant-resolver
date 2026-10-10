@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation — Requirements
 
-Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T4 complete; T5+ not authorized**.
+Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T4 complete; T5 authorized and preregistered, execution pending**.
 
 ## Goal
 
@@ -160,3 +160,16 @@ siblings remain held because no query-supported exact field distinguishes them. 
 held records are not forced into binary labels. Validation and selection label reads, training runs
 and selection evaluations are all zero. Row-level triples remain Git-ignored and mode `0600`; the
 public manifest contains hashes and aggregate counts only. T5 requires a separate Owner Gate.
+
+## T5 Owner Gate and fixed recipe
+
+The owner's next-step instruction authorizes DRV2-T5 only. Before any validation metric is visible,
+T5 SHALL freeze one RankNet-style pairwise logistic objective:
+`mean(softplus(-(positive_logit-negative_logit)))`. It SHALL use the pinned MiniLM base, seeds 17
+and 29, learning rate `1e-5`, weight decay `0.01`, triple batch size 8, maximum length 128, linear
+10% warm-up/decay, gradient clipping 1.0 and at most four epochs. Early stopping SHALL use only the
+30-row validation partition's MRR@10 with patience two and earliest-epoch tie handling. The 30-row
+selection partition SHALL remain unread and unscored. Release output is limited to two float16
+safetensors checkpoints plus configs, tokenizer, license, notice, model card, authorization and
+aggregate manifest; optimizer/pickle state and row-level data are prohibited. T5 does not authorize
+T6 winner selection, calibration, final evaluation or runtime activation.
