@@ -149,6 +149,14 @@ uses one binary relevance objective and one fixed recipe; Pairwise/Listwise obje
 deferred to avoid a small-data model zoo. Early stopping uses ranker-selection MRR@10, never
 calibration or holdout metrics. Two fixed seeds test directional stability.
 
+T4 freezes that recipe before execution: seeds `17` and `29`, binary BCE-with-logits, maximum four
+epochs, patience two, batch size 16, learning rate `2e-5`, weight decay `0.01`, warmup ratio `0.1`,
+maximum sequence length 128 and gradient clipping at `1.0`. Training remains CPU/float32; each
+selected checkpoint is exported as float16 safetensors so each ordinary Git blob remains below
+50 MiB. The 345 T3 pairs produce 690 balanced examples. The 30 T2 selection queries choose only the
+earliest best epoch for each seed; T4 does not compare the domain checkpoints with the generic model
+or declare a winner. That decision remains T5.
+
 The checkpoint package contains safetensors weights plus a manifest. T1A permits a future public
 package only after its model-release Gate verifies license/NOTICE, base revision, training-rights
 limitation, secrets/PII scan, lineage, offline loading and denylist isolation. Optimizer state,

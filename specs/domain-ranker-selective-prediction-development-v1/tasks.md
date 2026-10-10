@@ -71,9 +71,13 @@ pair package or checkpoint as released, authorize final evaluation, or activate 
    `89bc430289c36e75c6302e7aa4ecca1889f32df95e5199f61aba1f676b18022a`.
    This Gate discloses training membership for those pairs but authorizes no model training,
    checkpoint, calibration, final evaluation or runtime action.
+9. **Resolved for T4 only:** the owner's next-step instruction after the explicit T4 handoff permits
+   the frozen two-seed binary recipe, selection-only early stopping, and publication of the exact
+   safetensors package only if its release Gate passes. It does not authorize T5 winner selection,
+   calibration, final evaluation or runtime activation.
 
-Items 3–4 remain future decisions. T3 is complete, but T4 domain fine-tuning still requires its own
-execution and checkpoint-release Gate; no unchecked downstream task is authorized by T3.
+Items 3–4 remain future decisions. T4 is now authorized under item 9; no unchecked downstream task
+is authorized by that Gate.
 
 ## G1 acceptance
 
