@@ -12440,3 +12440,56 @@ interpolation。
 後續仍存在 T6 的 positive calibration-row shortfall；T4 不能為了解決它而重用 ranker train／selection 或已開封
 53/20 holdouts。Fresh-final evaluation 和 runtime activation 也必須等待各自 Gate，不能由公開 pairs 或未來 checkpoint
 的發布資格推導。
+
+## 2026-10-09 — DRSP-T4：完成兩個 seed 的 domain MiniLM fine-tuning 與 checkpoint release
+
+### 新執行了什麼、解決什麼問題
+
+本輪完成第一個真正的 domain fine-tuning 階段。345 筆 T3 hard-negative pairs 被 deterministic 投影成 690 筆平衡
+binary examples，涵蓋 69 個 training queries。Pinned MiniLM revision 分別以 seed 17 與 29 訓練；兩次都只用 frozen
+30-query ranker-selection MRR@10 做 early stopping，最後選中 epoch 1，並在連續兩個 epoch 未改善後停於 epoch 3。
+兩個 checkpoint 的 selected MRR@10 都是 `0.86111111`。這解決了「是否真的產生 domain-adapted cross-encoder」的
+問題，同時保留 T5 才能做 generic/domain 公平比較的邊界。
+
+第一次啟動在任何 optimizer step 前失敗，原因是 PyTorch AdamW 的參數名稱是 `lr`，程式卻傳入
+`learning_rate`。修正後兩次 training 都完成，但 release Gate 因 validator 把 `safe_open` 當成可直接迭代物件而
+拒絕 package。該批暫存 checkpoint 被刪除而未被信任。之後 validator 改用實際 `.keys()` API，新增真實
+safetensors regression test，再從 pinned base model 以相同 recipe 重跑。兩次執行的 epoch metrics 完全一致，形成
+直接的 reproducibility evidence，而不是沿用未通過 Gate 的 scratch output。
+
+### 代碼修改了哪一部分、原因是什麼、為何這樣選型
+
+新增 `domain_ranker_training.py`，統一負責驗證 T1A/T2/T3 hash chain、建立 checksum-bound Owner Gate、只載入 T3
+pairs 與 T2 selection pools、設定 deterministic CPU training、執行 binary BCE-with-logits、逐 epoch 計算 MRR@10、
+保留 earliest best epoch、輸出 float16 safetensors，最後用 `trust_remote_code=false` 做 offline reload。CLI 名稱是
+`pvr-train-domain-ranker`。測試覆蓋 recipe freeze、pair projection、partition isolation、手算 MRR、tie/early-stop、
+真實 safetensors 解析、完整 package validation 以及 unexpected nested file rejection。
+
+固定 recipe 是 seeds 17/29、最多 4 epochs、patience 2、batch 16、learning rate `2e-5`、weight decay `0.01`、10%
+warmup、max length 128、gradient clipping `1.0`。選擇單一 binary objective，而不做 Pointwise/Pairwise/Listwise 搜尋，
+是因為 69 個 training queries 不足以支撐可信的架構競賽。Checkpoint 由 selection MRR 而不是 training loss 決定：
+seed 17 loss 從 `0.52359351` 降至 `0.21914327`，seed 29 從 `0.47575115` 降至 `0.20618327`，但 MRR 都在 epoch 1 後
+下降；這就是 early stopping 要阻止的小資料 overfitting。
+
+Release package 同時保存兩個 seed，而沒有提早挑一個。每個 checkpoint 以 float16 safetensors 輸出，大小
+45,439,178 bytes，使單一 Git blob 低於 50 MiB，也避免 pickle execution risk 與 optimizer-state disclosure。Package
+使用 nested `.gitignore` 建立 exact 14-file allowlist，因此不必修改已被 T3 hash 綁定的 root `.gitignore`。Package
+還包含 offline config/tokenizer、authorization、manifest、model card、Apache-2.0 license 與 NOTICE。Text metadata 會
+掃描 credentials、secrets、`.env`、traversal、local path 與 email；weights 則必須能被 safetensors parser 解析並
+離線載入，才允許發布。
+
+### 結果、驗證邊界與下一步
+
+Seed 17 checkpoint SHA-256 是
+`652f1e900bfeefd1536603e2d7e3b9c783df7b93273eb0a83a3bb0dce4360417`；seed 29 是
+`315df109e64798108cb06fb249cb43f85f625e8224f34b51559b8d4c74cecb2d`；14-file package SHA-256 是
+`1cc26cc8aea072d02cb5fd25909b0adfcdbdfd2a7f642433945cf00211b002e1`。Training code lineage 綁定 commit
+`14bcf2866becc4b1215155010157cdf5f4f63ee2`。移除 safetensors header 的 unordered metadata、把 tokenizer
+文字正規化成 LF 後，連續兩次 clean rebuild 的兩個 checkpoint 與完整 package hashes 完全相同，正式補足
+byte-level reproducibility，而不只是 metrics 相同。
+
+Positive-test reads/scores、negative-holdout reads/scores、no-match development reads/scores、calibration fits、fresh-final
+evaluations 與 runtime changes 全部是 0。本輪證明 domain training 與 model supply-chain pipeline 可運作，不代表
+checkpoint 已經勝過 generic model。DRSP-T5 必須另外在 identical frozen pools 上比較 generic 與兩個 seeds，測量
+exact/casting Top-1、MRR@10、hard-negative accuracy 與 CPU latency；若 frozen gate 未通過，就必須發布
+`winner: null`。T5 尚未授權。

@@ -7,8 +7,13 @@ import pytest
 
 from product_variant_resolver.domain_ranker_training import (
     EARLY_STOPPING_PATIENCE,
+    PACKAGE_DIRECTORY,
+    PACKAGE_FILES,
+    TEXT_FILES,
     EpochMetric,
+    _validate_exact_package_files,
     _validate_safetensors,
+    check,
     load_selection_pools,
     load_training_examples,
     mrr_at_10_from_scores,
@@ -112,3 +117,28 @@ def test_real_safetensors_file_is_inspected_through_safe_open(tmp_path: Path) ->
         "classifier.bias": [1],
         "classifier.weight": [1, 4],
     }
+
+
+def test_published_checkpoint_package_passes_strict_offline_validation() -> None:
+    manifest = check(ROOT)
+    assert manifest["release_gate_passed"] is True
+    assert manifest["training"]["generic_vs_domain_winner_selected"] is False
+    assert manifest["guardrails"]["positive_test_rows_read_or_scored"] == 0
+    assert manifest["guardrails"]["negative_holdout_rows_read_or_scored"] == 0
+    assert manifest["guardrails"]["no_match_development_rows_read_or_scored"] == 0
+    assert manifest["guardrails"]["runtime_default_changed"] is False
+    assert all(
+        b"\r" not in (ROOT / PACKAGE_DIRECTORY / name).read_bytes() for name in TEXT_FILES
+    )
+
+
+def test_checkpoint_allowlist_rejects_nested_unexpected_file(tmp_path: Path) -> None:
+    for name in PACKAGE_FILES:
+        path = tmp_path / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(b"")
+    _validate_exact_package_files(tmp_path)
+    unexpected = tmp_path / "seed-17" / "optimizer.pt"
+    unexpected.write_bytes(b"pickle-like state is forbidden")
+    with pytest.raises(ValueError, match="allowlist mismatch"):
+        _validate_exact_package_files(tmp_path)

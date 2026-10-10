@@ -2799,3 +2799,33 @@ Future evidence can reopen them without rewriting the historical reason they wer
   final evaluation and runtime activation remain zero. T4 requires a separate Gate plus an exact
   checkpoint-package allowlist, and untrusted text must never reach `eval`, a shell or prompt
   interpolation.
+
+## D59 — Publish two early-stopped domain MiniLM checkpoints without selecting a winner
+
+- **Choice:** execute DRSP-T4 with one frozen binary Pointwise recipe and seeds 17/29, use only the
+  30-query T2 selection partition for per-seed early stopping, and publish both epoch-1 checkpoints
+  as float16 safetensors after the exact package Gate passes. Keep generic/domain comparison and all
+  winner logic in T5.
+- **Reason:** two seeds test whether the optimization direction is stable, while selection-only
+  early stopping limits small-data overfitting. Both runs reduced training loss through epoch 3 but
+  achieved their best MRR@10 at epoch 1, so retaining the lower-loss later epochs would optimize the
+  wrong signal. Publishing both checkpoints preserves T5's fair comparison rather than choosing the
+  more favorable seed after seeing downstream metrics.
+- **Alternatives:** train one seed; search objectives/hyperparameters; retain the lowest-loss epoch;
+  use opened holdouts for early stopping; publish float32 90 MB blobs; or declare the common MRR a
+  winner now. These respectively weaken stability evidence, create a small-data model zoo, overfit
+  train loss, leak final evidence, create oversized Git blobs, or collapse T4/T5 Gates.
+- **10x alternative considered:** use a larger independently licensed and family-balanced corpus,
+  distributed reproducible training, signed SBOM/provenance and an external model registry with
+  independent final evaluation. That would support stronger public-model claims, but it is outside
+  the bounded portfolio experiment and does not justify weakening the current holdout boundary.
+- **Most likely failure:** confuse early-stopping MRR with proof that the domain model beats the
+  generic model. The model card and AI-eval therefore label winner quality `not evaluated`; T5 must
+  score generic and both domain seeds on identical frozen pools with preregistered quality, latency
+  and stability gates.
+- **Impact:** both seeds select epoch 1 at MRR@10 `0.86111111` and stop at epoch 3. Checkpoint hashes
+  are `652f1e900bfeefd1536603e2d7e3b9c783df7b93273eb0a83a3bb0dce4360417` and
+  `315df109e64798108cb06fb249cb43f85f625e8224f34b51559b8d4c74cecb2d`; package SHA-256 is
+  `1cc26cc8aea072d02cb5fd25909b0adfcdbdfd2a7f642433945cf00211b002e1`. Two clean rebuilds match
+  byte-for-byte. The 53/20 holdouts and 52
+  no-match rows remain unused, runtime unchanged, and T5+ unauthorized.

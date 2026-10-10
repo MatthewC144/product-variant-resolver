@@ -1,6 +1,6 @@
 # Domain ranker and selective prediction development v1 — Requirements
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T1, T1A, T2 and T3 complete; T4+ not authorized**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T1 through T4 complete; T5+ not authorized**.
 
 ## Goal
 
@@ -29,7 +29,15 @@ exceeding the preregistered 36-query minimum, and no query has more than five. T
 reveals that its rows belong to the training partition; it does not reveal selection membership,
 opened holdout rows or no-match development rows. Rights remain
 `owner_attested_not_independently_verified`, and the data remains frozen-community-catalog-relative,
-not manufacturer/global truth. T3 authorizes neither T4 training nor any later phase.
+not manufacturer/global truth.
+
+T4 has now fine-tuned the pinned MiniLM with one frozen binary recipe and seeds 17/29. Both seeds
+selected epoch 1 and reached selection MRR@10 `0.86111111`; neither number is a final metric or a
+generic-baseline comparison. The exact 14-file package contains two float16 safetensors checkpoints,
+offline tokenizer/config files, authorization, manifest, model card, license, NOTICE and a nested
+default-deny Git allowlist. Package SHA-256 is
+`1cc26cc8aea072d02cb5fd25909b0adfcdbdfd2a7f642433945cf00211b002e1`.
+T4 authorizes neither T5 winner selection nor calibration, final evaluation or runtime activation.
 
 ## Observable requirements
 

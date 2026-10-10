@@ -1,6 +1,6 @@
 # Domain ranker and selective prediction development v1 — Tasks
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRSP-T1, T1A, T2 and T3 complete; T4+ not authorized**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRSP-T1 through T4 complete; T5+ not authorized**.
 
 Tasks are ordered Gates. A checked task may unlock only the next listed task; it never authorizes
 an unchecked downstream task. T1A by itself grants only future publication eligibility: it does not mark a
@@ -20,7 +20,7 @@ pair package or checkpoint as released, authorize final evaluation, or activate 
   preserve near-duplicate categories, hold ambiguous siblings and produce an allowlisted, scanned,
   versioned public pair package only after its release Gate passes.
   _(→DRSP-R5–R6, R14)_
-- [ ] **DRSP-T4 — Fine-tune the pinned domain MiniLM.** Use one frozen binary objective, two seeds,
+- [x] **DRSP-T4 — Fine-tune the pinned domain MiniLM.** Use one frozen binary objective, two seeds,
   fixed early stopping and safetensors/checkpoint lineage; publish actual weights only after the
   model-package license/privacy/reproducibility Gate passes. _(→DRSP-R7, R15)_
 - [ ] **DRSP-T5 — Compare and freeze the ranker.** Evaluate generic/domain Pointwise on identical
@@ -46,8 +46,8 @@ pair package or checkpoint as released, authorize final evaluation, or activate 
 
 1. **Resolved for development:** owner selected Path B. The 100 positive development rows may be
    used for partitioning, mining, fine-tuning and selection. This remains owner attestation, not
-   independently verified third-party rights. T1A permits only a release-gated minimized pair
-   package and safetensors checkpoint to become public; neither has been created or published.
+   independently verified third-party rights. T1A permits only release-gated minimized pair and
+   safetensors packages; the hash-bound T3 pairs and T4 checkpoints have now passed those Gates.
 2. **Resolved:** the existing 52 development no-match rows may be reused only for calibration fit and
    threshold selection. They may not train the ranker; the 20-row holdout remains permanently excluded.
 3. Choose the source for new ranker/calibration rows when existing permissions are insufficient:
@@ -76,8 +76,11 @@ pair package or checkpoint as released, authorize final evaluation, or activate 
    safetensors package only if its release Gate passes. It does not authorize T5 winner selection,
    calibration, final evaluation or runtime activation.
 
-Items 3–4 remain future decisions. T4 is now authorized under item 9; no unchecked downstream task
-is authorized by that Gate.
+T4 released the exact package SHA-256
+`1cc26cc8aea072d02cb5fd25909b0adfcdbdfd2a7f642433945cf00211b002e1`; both seeds selected epoch 1
+at selection MRR@10 `0.86111111`. This is early-stopping evidence only, not a T5 winner decision.
+
+Items 3–4 remain future decisions. T4 is complete under item 9; T5 still needs a separate Gate.
 
 ## G1 acceptance
 

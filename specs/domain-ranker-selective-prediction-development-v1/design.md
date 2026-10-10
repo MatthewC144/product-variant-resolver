@@ -1,6 +1,6 @@
 # Domain ranker and selective prediction development v1 — Design
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T1, T1A, T2 and T3 complete; T4+ not authorized**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T1 through T4 complete; T5+ not authorized**.
 
 ## Overview
 
@@ -162,6 +162,32 @@ package only after its model-release Gate verifies license/NOTICE, base revision
 limitation, secrets/PII scan, lineage, offline loading and denylist isolation. Optimizer state,
 pickle-style weights, caches and local scratch remain private. A checkpoint too large for ordinary
 Git must use Git LFS or a release asset while the manifest preserves the actual weight SHA-256.
+
+### T4 frozen training and checkpoint result
+
+T4 converted 345 released pairs into 690 balanced examples from 69 train queries. Both fixed seeds
+stopped after epoch 3 and selected the earliest best epoch, epoch 1. Seed 17 recorded losses
+`0.52359351`, `0.27747287`, `0.21914327` with selection MRR@10 `0.86111111`, `0.84444444`,
+`0.84444444`; seed 29 recorded losses `0.47575115`, `0.27359297`, `0.20618327` with MRR@10
+`0.86111111`, `0.84444444`, `0.82222222`. The later loss reduction did not justify selecting a later
+epoch because ranking quality on the frozen selection pool declined.
+
+Each selected float16 checkpoint is 45,439,178 bytes, below the 50 MiB ordinary-Git threshold. Seed
+17 SHA-256 is `652f1e900bfeefd1536603e2d7e3b9c783df7b93273eb0a83a3bb0dce4360417`; seed 29 SHA-256 is
+`315df109e64798108cb06fb249cb43f85f625e8224f34b51559b8d4c74cecb2d`. The 14-file package SHA-256
+is `1cc26cc8aea072d02cb5fd25909b0adfcdbdfd2a7f642433945cf00211b002e1`; both seed directories load
+offline with `trust_remote_code=false` after safetensors tensor-schema validation.
+
+The nested package `.gitignore` fixes the exact file allowlist without changing the root
+`.gitignore` hash already bound by T3. No optimizer state, pickle payload, scratch, selection rows or
+row-level scores enter the package. The 53 positive-test, 20 negative-holdout and 52 no-match rows
+were neither read nor scored by T4. Generic/domain comparison, winner selection, calibration, final
+evaluation and runtime activation remain zero and require later Gates.
+
+The final serializer keeps unordered metadata out of the tensor files and stores all lineage in the
+canonical manifest. Two consecutive clean training/materialization runs produced identical losses,
+selection ranks, both checkpoint hashes and the complete package hash. Public tokenizer text is LF-
+normalized, so `git diff --check` is independent of the CRLF format used by the frozen local cache.
 
 ## Calibration and policy
 

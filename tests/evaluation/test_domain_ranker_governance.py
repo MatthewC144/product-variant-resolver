@@ -280,6 +280,14 @@ def test_gitignore_allows_only_named_publication_packages() -> None:
         f"{data_root}/fresh-final-row-predictions.jsonl",
         "artifacts/domain-ranker-selective-prediction-development-v1/local-run/optimizer.pt",
         "artifacts/domain-ranker-selective-prediction-development-v1/cache/model.tmp",
+        (
+            "artifacts/domain-ranker-selective-prediction-development-v1/"
+            "public-checkpoint-v1/model.safetensors"
+        ),
+        (
+            "artifacts/domain-ranker-selective-prediction-development-v1/"
+            "public-checkpoint-v1/seed-17/optimizer.pt"
+        ),
     )
     public_paths = (
         f"{data_root}/owner-authorization.json",
@@ -289,7 +297,11 @@ def test_gitignore_allows_only_named_publication_packages() -> None:
         f"{data_root}/public-hard-negative-pairs-v1/pairs.jsonl",
         (
             "artifacts/domain-ranker-selective-prediction-development-v1/"
-            "public-checkpoint-v1/model.safetensors"
+            "public-checkpoint-v1/seed-17/model.safetensors"
+        ),
+        (
+            "artifacts/domain-ranker-selective-prediction-development-v1/"
+            "public-checkpoint-v1/seed-29/model.safetensors"
         ),
     )
 
