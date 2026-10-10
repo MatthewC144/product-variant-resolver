@@ -572,11 +572,11 @@ def _train_seed(
         local_files_only=True,
         trust_remote_code=False,
         use_safetensors=True,
-        torch_dtype=torch.float32,
+        dtype=torch.float32,
     )
     model.train()
     optimizer = torch.optim.AdamW(
-        model.parameters(), learning_rate=LEARNING_RATE, weight_decay=WEIGHT_DECAY
+        model.parameters(), lr=LEARNING_RATE, weight_decay=WEIGHT_DECAY
     )
     total_steps = MAX_EPOCHS * math.ceil(len(examples) / BATCH_SIZE)
     warmup_steps = max(1, round(total_steps * WARMUP_RATIO))
@@ -797,7 +797,7 @@ def _validate_offline_load(directory: Path) -> None:
             local_files_only=True,
             trust_remote_code=False,
             use_safetensors=True,
-            torch_dtype=torch.float32,
+            dtype=torch.float32,
         )
 
 
