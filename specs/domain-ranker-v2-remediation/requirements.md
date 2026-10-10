@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation — Requirements
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T2 complete; T3+ not authorized**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T2 complete; T3 authorized and in progress; T4+ not authorized**.
 
 ## Goal
 
@@ -102,3 +102,12 @@ all zero. All 120 train families retain at least two eligible same-family siblin
 future density gate has sufficient candidates without yet treating any sibling as a labeled
 negative. Row-level data is mode-0600 and Git-ignored; three public files contain authorization,
 hashes and aggregate counts only. T3 and all scoring remain separately gated.
+
+## T3 Owner Gate
+
+The owner's next-step instruction authorizes DRV2-T3 only. T3 SHALL retrieve and freeze exactly one
+query-only Top-25 pool for each of the 180 T2 rows, score those fixed pools once with the pinned
+generic MiniLM and measure CPU latency on the 30 validation rows only. The benchmark SHALL use one
+CPU thread, batch size 25, three warm-ups, three rounds and nearest-rank p95 over 90 samples. If p95
+exceeds 200 ms, T3 SHALL publish a failed readiness status and stop before T4. This Gate does not
+authorize hard-negative labels, model training, selection evaluation, calibration or runtime.

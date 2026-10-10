@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation — Tasks
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T2 complete; T3+ not authorized**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T2 complete; T3 authorized and in progress; T4+ not authorized**.
 
 - [x] **DRV2-T0 — Preserve the v1 negative result and draft the remediation hypothesis.** Record
   observed failures, distinguish hypotheses from proven causes, retain all holdout boundaries and
@@ -29,3 +29,5 @@ next-step instruction opens T2 only. This decision does not authorize reuse of t
 52 no-match rows or T2 selection errors, and it does not open T3 scoring. T2 is now frozen at query
 pack content SHA-256 `149d7d867b9e270ffb805906aec64685d6823f11efcd68a59e9e74ba60134e6f`
 with 120/30/30 rows and zero cross-partition family overlap. T3 still requires a separate Gate.
+The owner's latest next-step instruction opens T3 only. T4 mining and every training/evaluation task
+remain closed unless the generic latency Gate passes and the Owner provides another authorization.

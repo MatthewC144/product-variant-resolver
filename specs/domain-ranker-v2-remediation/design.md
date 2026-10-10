@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation — Design
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T0–T2 complete; T3+ not authorized**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T0–T2 complete; T3 authorized and in progress; T4+ not authorized**.
 
 ## Overview
 
@@ -77,6 +77,13 @@ The resulting local query pack is content-addressed and stored with mode `0600`.
 split manifests expose only totals, template distribution, lineage hashes and overlap counts. They
 do not contain queries, expected identities, case IDs or split membership. T2 does not build the
 Top-25 pools; retrieval and latency readiness belong to T3.
+
+T3 rebuilds the frozen 1,763-release evaluation catalog and runs sparse, 192-dimensional hashing
+dense and structured retrieval with RRF `k=60`. Retrieval receives only query-derived signals;
+expected identity is joined afterward solely to count misses and is never inserted into a pool. The
+pinned generic `cross-encoder/ms-marco-MiniLM-L6-v2` revision scores all frozen candidates once.
+Latency is measured separately on validation only, with one CPU thread, batch size 25, three warm-up
+runs and 90 timed pool calls. No selection quality metric is computed.
 
 ## Training design
 

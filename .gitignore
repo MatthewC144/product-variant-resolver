@@ -51,5 +51,8 @@ postgres-data/
 !/data/evaluation/domain-ranker-v2-remediation/t2-owner-authorization.json
 !/data/evaluation/domain-ranker-v2-remediation/query-pack-manifest.json
 !/data/evaluation/domain-ranker-v2-remediation/split-manifest.json
+!/data/evaluation/domain-ranker-v2-remediation/t3-owner-authorization.json
+!/data/evaluation/domain-ranker-v2-remediation/candidate-pool-manifest.json
+!/data/evaluation/domain-ranker-v2-remediation/latency-readiness.json
 /.local-image-search-collection*/
 .DS_Store
