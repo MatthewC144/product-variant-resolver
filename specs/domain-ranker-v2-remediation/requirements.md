@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation — Requirements
 
-Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T4 complete; T5 authorized and preregistered, execution pending**.
+Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T5 complete; T6+ not authorized**.
 
 ## Goal
 
@@ -173,3 +173,17 @@ selection partition SHALL remain unread and unscored. Release output is limited 
 safetensors checkpoints plus configs, tokenizer, license, notice, model card, authorization and
 aggregate manifest; optimizer/pickle state and row-level data are prohibited. T5 does not authorize
 T6 winner selection, calibration, final evaluation or runtime activation.
+
+## T5 result
+
+Both fixed-seed runs completed without changing the preregistered recipe. Seed 17 selected epoch 2
+and seed 29 selected epoch 3; both best validation MRR@10 values are `0.95`. Later equal values did
+not replace earlier checkpoints. The two float16 safetensors files are each 45,439,178 bytes and
+pass strict tensor inspection plus offline `trust_remote_code=False` loading. Their SHA-256 values
+are `5a4f2ea21b93a864f1e1ddb54523f68a0ae2766db555535c0f35721588b6e297` and
+`83db9ab75c1c431ce2c6f3e4c717bae821c187a060f0864e45204ee8a4056e99`.
+
+The public package includes only an exact 14-file allowlist and aggregate epoch history; no
+optimizer/pickle state or row-level query/triple/prediction data is present. Selection, positive
+test, negative holdout and no-match development reads are all zero. This proves a reproducible
+pairwise training pipeline, not generic-vs-domain improvement. T6 remains separately gated.

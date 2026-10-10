@@ -12780,3 +12780,43 @@ governed feature。
 結果。T4 沒有訓練 checkpoint、沒有看 selection metrics、沒有改 FastAPI 或啟用 ONNX runtime。下一步 DRV2-T5 必須先在獨立
 Owner Gate 凍結唯一 pairwise loss、hyperparameters、兩個 seeds、validation-only early stopping 與 safetensors release contract，
 之後才可開始 fine-tuning；不能從本輪的資料數量直接宣稱 AI 已改善。
+
+## 2026-10-10 — DRV2-T5：完成 preregistered Pairwise fine-tuning 與 safetensors release
+
+### 新執行了什麼、解決什麼問題
+
+本輪把 Owner 的「繼續下一步」限定為 DRV2-T5。為避免看完 validation 後才調整方法，先將 RankNet-style loss、全部
+hyperparameters、兩個 seeds、early-stopping 規則與 release contract 提交為 commit `44eee2e`，才開始正式訓練。訓練只讀取
+T4 的 332 筆 triples／112 個 train queries；每個 epoch 只在 30 筆 validation pools 計算 MRR@10。Untouched selection、53
+positive test、20 negative holdout 與 52 no-match development rows 都沒有讀取或計分。
+
+Seed 17 的 validation MRR@10 依序為 `0.9333、0.95、0.95、0.95`，按 earliest-best 規則選 epoch 2；seed 29 為
+`0.9333、0.9333、0.95、0.95`，選 epoch 3。兩者最佳值都是 `0.95`。這解決的是「專案雖宣稱 Pairwise remediation，但尚未
+真正產生可重現 checkpoint」的缺口；它仍沒有回答 checkpoints 是否優於 generic，該問題保留給 T6。
+
+### 代碼修改了哪一部分、原因與技術／方法選型
+
+新增 `domain_ranker_v2_training.py` 與 CLI `pvr-train-domain-ranker-v2`。每個 triple 在同一 batch 對相同 query 的 positive 與
+negative 做 forward，loss 固定為 `mean(softplus(-(positive_logit-negative_logit)))`。選擇此 RankNet-style logistic loss，
+是因 supervision 本身是相對排序；相較獨立 BCE，它直接最佳化 positive 高於 sibling negative，也不需要像 margin ranking
+另外選擇任意 margin。Learning rate 預先固定為 `1e-5`，低於 v1 的 `2e-5`，理由是 v1 在 epoch 1 後 validation 已退化；
+這個決策在任何 v2 validation metric 出現前完成。
+
+其餘 recipe 固定為 seeds 17/29、triple batch 8（每個完整 batch 共 16 pairs）、max length 128、AdamW weight decay 0.01、
+10% linear warm-up/decay、gradient clip 1.0、最多 4 epochs、patience 2。Checkpoint 以 float32 訓練，只將各 seed 最早的最佳
+epoch 轉成 float16 safetensors；沒有保存 optimizer、scheduler 或 pickle。Public package 採 14-file exact allowlist，包含兩份
+weights、tokenizer/config、authorization、manifest、license、notice 與 model card，並執行 secret/local-path text scan、tensor
+schema 檢查及 `trust_remote_code=False` offline load。
+
+### 驗證結果、限制與下一步
+
+Seed 17 checkpoint SHA-256 是 `5a4f2ea21b93a864f1e1ddb54523f68a0ae2766db555535c0f35721588b6e297`，seed 29 是
+`83db9ab75c1c431ce2c6f3e4c717bae821c187a060f0864e45204ee8a4056e99`；每個檔案 45,439,178 bytes，低於普通 Git
+blob 的 50 MiB release gate。Package SHA-256 為 `28977b447a3ec7b7fa970d7c5eec8ce3b0a2c5f33b4c50c3dbd6dfca7dbb7663`，manifest
+content SHA-256 為 `70df0fb9cb4700e4d34619471c8a582343093d0569a95b3af94d214d859cf5ee`。T1–T5 focused suite
+34 tests 全綠，Ruff、format、strict MyPy、CLI package replay、safetensors/offline-load、file allowlist 與 whitespace checks 通過。
+
+Validation 同值只顯示兩個固定 seeds 的最佳 checkpoint 在這一區表現一致，不能替代 untouched selection。Manifest 明確保留
+`generic_vs_domain_winner_selected=false`，selection rows read/scored、model-selection runs、calibration、fresh final evaluation 與
+runtime activation 全是 0。下一步 DRV2-T6 必須另經 Owner Gate，先凍結 exact Top-1、casting Top-1、MRR@10、Recall@25、
+same-family accuracy、latency 與 two-seed qualification/tie rules，再一次性打開 30 筆 selection；T5 不自動授權該比較。

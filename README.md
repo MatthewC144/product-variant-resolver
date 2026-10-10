@@ -192,7 +192,15 @@ sibling records remained held instead of being forced into binary labels. Valida
 label reads and training runs remain zero. Git retains only the aggregate
 [hard-negative manifest](data/evaluation/domain-ranker-v2-remediation/hard-negative-manifest.json);
 row-level triples remain local, ignored and mode `0600`. This is training-data readiness, not a
-fine-tuning quality result; pairwise training remains separately gated.
+fine-tuning quality result.
+
+The preregistered T5 run then trained exactly two RankNet-style pairwise MiniLM checkpoints. Seed 17
+selected epoch 2 and seed 29 selected epoch 3; both reached validation MRR@10 `0.95`. The two 43.3
+MiB float16 safetensors checkpoints, tokenizer/configs, license, model card and aggregate manifest
+are published in the [v2 checkpoint package](artifacts/domain-ranker-v2-remediation/checkpoint-v1/).
+Selection, holdouts, calibration, final evaluation and runtime were not accessed. These results
+demonstrate a reproducible pairwise fine-tuning pipeline, not superiority over the generic model;
+the one-shot untouched selection comparison remains separately gated.
 
 ## Limitations
 

@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation — Lite QA review
 
-Date: 2026-10-10. Scope: **DRV2-T1–T4**. Verdict: **T4 EVIDENCE-DENSITY PASS; T5 NOT AUTHORIZED**.
+Date: 2026-10-10. Scope: **DRV2-T1–T5**. Verdict: **T5 TRAINING/RELEASE PASS; T6 NOT AUTHORIZED**.
 
 ## Coverage
 
@@ -10,13 +10,14 @@ Date: 2026-10-10. Scope: **DRV2-T1–T4**. Verdict: **T4 EVIDENCE-DENSITY PASS; 
 | DRV2-R2 | 153 positive identities and 173 combined query hashes denied | PASS |
 | DRV2-R3 | 180 unique queries/identities/families frozen as 120/30/30 | PASS |
 | DRV2-R4 | 112 train queries have at least two query-supported same-casting wrong-release siblings | PASS |
+| DRV2-R5 | One preregistered RankNet-style objective, fixed recipe and two seeds | PASS |
 | DRV2-R6 | Validation and untouched selection are distinct family-disjoint partitions | PASS |
 | DRV2-R7 | 180 query-only Top-25 pools, 4,500 candidates, zero misses/injections | PASS |
 | DRV2-R8 | T3 p95 `217.699834 ms` failed; equivalent ONNX T3R p95 `103.654042 ms` | PASS after repair |
 | DRV2-R11 | Public artifacts contain aggregate data only; row-level packs remain ignored/mode `0600` | PASS |
 | DRV2-R12 | Owner-attested and community-catalog-relative limitations retained | PASS |
 
-Twenty-seven focused T1–T4 tests, Ruff, strict MyPy, CLI check mode and `git diff --check` pass.
+Thirty-four focused T1–T5 tests, Ruff, strict MyPy, CLI check mode and `git diff --check` pass.
 The authoring protocol fixes field projection, deterministic templates/order, 120/30/30 minima,
 same-family density requirements and output isolation. It explicitly prohibits resolver output and
 T5-error access during authoring.
@@ -59,6 +60,16 @@ template; eight other defensible siblings belong to one-negative queries. All 27
 than being forced into binary labels. The local artifact is mode `0600` and ignored; public files
 contain only the Owner Gate, hashes, policy and aggregate counts.
 
-This PASS establishes exact-release training-data readiness, not model improvement. Model training,
-validation early stopping, selection evaluation, checkpoint release, calibration, final evaluation
-and runtime activation remain unauthorized.
+T4 established exact-release training-data readiness without a model-quality claim. At that
+checkpoint, training and checkpoint release were still unauthorized; the separately gated T5 run
+below supersedes only those two pending items.
+
+T5 trained exactly two seeds with the preregistered recipe. Seed 17 selected epoch 2 and seed 29
+selected epoch 3; both best validation MRR@10 values are `0.95`. The package contains only two
+float16 safetensors files and an exact support-file allowlist, passes strict tensor inspection and
+offline loading, and excludes optimizer/pickle state. Selection, test, no-match, calibration, final
+evaluation and runtime counters remain zero.
+
+This PASS establishes reproducible pairwise fine-tuning and safe checkpoint release. It does not
+establish that either domain checkpoint beats generic. T6 must apply the still-unseen selection
+partition and frozen qualification rules in one separately authorized run.

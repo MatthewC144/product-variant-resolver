@@ -1,0 +1,17 @@
+*
+!/.gitignore
+!/seed-17/
+!/seed-29/
+!/LICENSE.txt
+!/MODEL_CARD.md
+!/NOTICE.md
+!/manifest.json
+!/owner-authorization.json
+!/seed-17/config.json
+!/seed-17/model.safetensors
+!/seed-29/config.json
+!/seed-29/model.safetensors
+!/special_tokens_map.json
+!/tokenizer.json
+!/tokenizer_config.json
+!/vocab.txt

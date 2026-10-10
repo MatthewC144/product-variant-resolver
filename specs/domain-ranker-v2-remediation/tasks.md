@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation — Tasks
 
-Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T4 complete; T5 authorized and recipe frozen; execution pending**.
+Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T5 complete; T6+ not authorized**.
 
 - [x] **DRV2-T0 — Preserve the v1 negative result and draft the remediation hypothesis.** Record
   observed failures, distinguish hypotheses from proven causes, retain all holdout boundaries and
@@ -17,7 +17,7 @@ Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T4 complete;
   validation benchmark before T4. _(→DRV2-R8)_
 - [x] **DRV2-T4 — Mine exact-release pairwise triples.** Require at least 60 train queries with two
   defensible same-casting negatives; hold ambiguous siblings. _(→DRV2-R4)_
-- [ ] **DRV2-T5 — Train the single fixed pairwise recipe.** Use two seeds, validation-only early
+- [x] **DRV2-T5 — Train the single fixed pairwise recipe.** Use two seeds, validation-only early
   stopping and safetensors-only release artifacts. _(→DRV2-R5, R6)_
 - [ ] **DRV2-T6 — Execute untouched selection once.** Apply frozen metrics, gates and tie rules and
   emit a selected checkpoint hash or `winner: null`. _(→DRV2-R9, R10)_
@@ -42,4 +42,7 @@ instruction opened T4 only. Evidence-gated mining admitted 112/120 train queries
 triples; 27 sibling records remain held, validation/selection label reads are zero and no model was
 trained. The owner's latest next-step instruction opens T5 only. Its fixed RankNet-style logistic
 recipe, two seeds, validation-only early stopping and safetensors release contract are now frozen
-before training. T6 selection, calibration, final evaluation and runtime remain unauthorized.
+before training. The completed run selected seed-17 epoch 2 and seed-29 epoch 3, both at validation
+MRR@10 `0.95`, and released two strictly validated float16 safetensors files. Selection reads and
+model-selection runs remain zero. T6 selection, calibration, final evaluation and runtime remain
+unauthorized.

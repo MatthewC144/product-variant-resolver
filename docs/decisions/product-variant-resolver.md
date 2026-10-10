@@ -3039,3 +3039,27 @@ Future evidence can reopen them without rewriting the historical reason they wer
 - **Impact:** code, recipe and package contract are committed before training. T5 may read only 332
   train triples and 30 validation pools. Selection, holdouts, calibration, final evaluation and
   runtime remain prohibited.
+
+## D68 — Release both T5 checkpoints without naming a winner
+
+- **Choice:** publish the two successfully trained float16 safetensors checkpoints and their
+  aggregate validation histories, but leave `generic_vs_domain_winner_selected=false`. Keep T6 as a
+  separate one-shot selection Gate.
+- **Reason:** both seeds reach validation MRR@10 `0.95`, but validation is an early-stopping signal,
+  not independent evidence that either domain model beats generic. Publishing both preserves
+  reproducibility and lets T6 apply predeclared qualification without retroactively choosing the
+  nicer validation trajectory.
+- **Alternatives:** select seed 17 because it reaches `0.95` one epoch earlier; select seed 29 because
+  its final loss is lower; average weights; or run selection immediately. These confuse validation
+  efficiency or training loss with final ranking quality, introduce a new unregistered model, or
+  bypass the T6 Gate.
+- **10x alternative considered:** repeat training across many seeds and nested folds, then ensemble
+  only models with stable out-of-fold gains. That is statistically stronger but would change the
+  preregistered two-seed experiment and consume substantially more compute.
+- **Most likely failure:** both seeds look stable on validation but regress on untouched selection,
+  as v1 did. The release manifest therefore makes no improvement claim and records selection reads
+  and model-selection runs as zero.
+- **Impact:** seed 17 selected epoch 2 with checkpoint SHA-256
+  `5a4f2ea21b93a864f1e1ddb54523f68a0ae2766db555535c0f35721588b6e297`; seed 29 selected epoch 3
+  with SHA-256 `83db9ab75c1c431ce2c6f3e4c717bae821c187a060f0864e45204ee8a4056e99`.
+  Package SHA-256 is `28977b447a3ec7b7fa970d7c5eec8ce3b0a2c5f33b4c50c3dbd6dfca7dbb7663`.

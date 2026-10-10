@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation — Design
 
-Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **T0–T4 complete; T5 recipe frozen before execution**.
+Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **T0–T5 complete; T6+ not authorized**.
 
 ## Overview
 
@@ -141,6 +141,12 @@ are never published.
 The generic checkpoint is never trained. It is rescored on identical v2 selection pools only after
 all checkpoints, tie rules and gates are frozen. If no domain seed passes, the output is null.
 
+The formal T5 run preserved that boundary. Seed 17 validation MRR@10 moved `0.9333 → 0.95 → 0.95
+→ 0.95`, selecting epoch 2; seed 29 moved `0.9333 → 0.9333 → 0.95 → 0.95`, selecting epoch 3.
+Pairwise loss continued falling after the selected epochs, but ties retained the earlier checkpoint.
+This prevents lower training loss from being mistaken for better validation ranking. Both artifacts
+remain candidates only; the generic/domain comparison belongs exclusively to T6.
+
 ## Latency and environment readiness
 
 V1 measured nearly identical p95 for generic and domain models, around 244 ms, so fine-tuning did not
@@ -157,6 +163,8 @@ benchmark/runtime setup without consuming new labels or training a checkpoint.
 - private `local-t2/`, `local-t3/` and `local-t4/`: row membership, pools, triples and held audit
   records; default-deny in Git and mode `0600`.
 - release-gated minimized pairwise triples and safetensors packages.
+- public `artifacts/domain-ranker-v2-remediation/checkpoint-v1/`: two allowlisted float16
+  safetensors checkpoints, tokenizer/configs, lineage, license, notice and model card.
 - aggregate `ranker-selection.json`: generic/domain metrics, gates and winner or null.
 
 ## Error handling and testing
