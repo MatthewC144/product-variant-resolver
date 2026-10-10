@@ -2858,3 +2858,30 @@ Future evidence can reopen them without rewriting the historical reason they wer
   remain `30/30` for all arms, but exact, MRR and same-family metrics regress. Positive test,
   negative holdout and no-match development reads/scores remain zero. R9 blocks T6 because there is
   no selected checkpoint hash; final evaluation and runtime remain unauthorized.
+
+## D61 — Start a new pairwise remediation spec instead of calibrating the failed v1 ranker
+
+- **Choice:** close the v1 feedback loop at `winner: null` and draft a separately governed v2 that
+  requires at least 180 new queries, independent train/validation/selection partitions, denser
+  same-casting evidence and one fixed pairwise ranking objective. Keep the 200 ms latency budget, but
+  require generic environment readiness before spending labels or training compute.
+- **Reason:** both seeds regress in the same way, both peak at epoch 1, and later lower training loss
+  corresponds to worse MRR. Only 67/345 v1 negatives are same-casting wrong-exact, while 65
+  same-family candidates were held. This makes data density and objective alignment defensible
+  hypotheses. Calibration cannot repair ranking, and reusing observed T2 errors would be adaptive
+  leakage.
+- **Alternatives:** calibrate seed 17; lower the v1 gates; add more epochs; remine from T5 errors; or
+  start a Pointwise/Pairwise/Listwise sweep. These respectively promote a failed ranker, move the
+  goalposts, intensify observed overfitting, leak selection evidence or create an underpowered model
+  zoo.
+- **10x alternative considered:** collect a large independently licensed marketplace-query corpus
+  with graded multi-release relevance, expert adjudication, nested cross-validation and external
+  final evaluation. That is the strongest route, but the proposed 180-query minimum is the smallest
+  new experiment that separates early stopping from model selection and can test the pairwise
+  hypothesis honestly.
+- **Most likely failure:** synthesize many nominal rows without enough query-supported exact-release
+  information. V2 therefore gates on at least 60 train queries with two defensible same-casting
+  negatives each; row count alone cannot pass readiness.
+- **Impact:** only planning task DRV2-T0 is complete. No data was collected, no v1 artifact changed,
+  no model was scored or trained, and no downstream Gate was authorized. Owner approval of source,
+  rights, split, objective, gates and publication remains mandatory.

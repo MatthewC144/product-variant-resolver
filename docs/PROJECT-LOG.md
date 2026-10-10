@@ -12541,3 +12541,40 @@ whitespace gate 均通過。擴大執行整個 `tests/api` 時另發現 13 項�
 確認原因是其 v4 protocol 對 `retrieval.py` 的 source hash 已過期，experimental service 因而依設計 fail closed 為 503。
 T5 沒有修改該 service、profile 或 runtime code，本輪不越界重建另一條已 gated 的 storage artifact；這項既有 QA 債已
 明列在 T5 review，而不是隱藏或誤算成 domain-ranker regression。
+
+## 2026-10-09 — DRV2-T0：建立 domain-ranker v2 remediation readiness
+
+### 新執行了什麼、解決什麼問題
+
+T5 產生 `winner: null` 後，本輪沒有把「繼續下一步」解讀成繞過 Gate 執行 calibration。相反地，先建立獨立的
+`domain-ranker-v2-remediation` Lite 規格，把 v1 的負面結果接回新的資料與模型假設。這解決了兩個問題：第一，避免
+因為已經完成 fine-tuning 就勉強挑一個失敗 checkpoint；第二，讓下一次實驗能真正測試新假設，而不是回頭利用已
+看過的 30 筆 T2 selection errors 調參。
+
+唯讀證據顯示，v1 的 345 筆 pairs 中有 207 筆（60%）是 adjacent-year／wrong-series-or-identifier，same-casting
+wrong-exact 只有 67 筆（19.4%），另有 65 個 same-family candidates 因 query 證據不足被 held。兩個 seed 都在 epoch 1
+達到最好 MRR，後續 training loss 繼續下降時 MRR 反而下降。這些現象支持「資料太小、exact-release ordering 密度
+不足、binary Pointwise objective 與 sibling ranking 不完全對齊」的假設；文件刻意沒有把它寫成已證實根因。
+
+### 規格修改了哪一部分，為何這樣選型
+
+新增 requirements、design、tasks 與 readiness evidence。V2 最低資料門檻設為 180 筆全新的 catalog-present queries，
+以 connected components 分成至少 120 train、30 validation、30 untouched selection；validation 只做 early stopping，
+selection 只做一次 generic/domain winner qualification。至少 60 個 train queries 必須各有兩個 query-supported、
+same-casting wrong-release negatives，防止只增加容易區分的跨 casting 數量。
+
+主要訓練假設改成單一 pairwise ranking objective，而不是再次用獨立 binary relevance 或同時搜尋 Pointwise、Pairwise、
+Listwise。原因是本次要回答的問題是「同一 query 下，正確 release 是否高於相似 sibling」，pairwise score difference 與
+這個排序目標更直接；同時固定單一 objective 可避免小資料 model zoo。這只是待 Owner 審核的設計，loss、hyperparameters、
+data hash 與 gates 尚未授權。
+
+V1 三個模型的 CPU p95 都約 244 ms，代表 200 ms 失敗是共同 benchmark readiness 問題，不能歸因於 fine-tuning
+overhead。V2 不因結果難看就調高 SLO，而是在任何 training 前先凍結 hardware/runtime manifest 並要求 generic 通過
+200 ms；若 generic 仍失敗，先修正 benchmark 環境或 inference procedure，不消耗新 labels 或訓練 checkpoint。
+
+### 目前邊界與下一個 Gate
+
+本輪只有 DRV2-T0 planning 完成。沒有收集資料、重跑 T5、讀取 53/20 holdouts 或 52 no-match rows、建立 candidate
+pools、訓練、calibrate、final evaluate 或改 runtime。下一步是 Owner 審核五項決策：180-query 目標與 120/30/30
+split、新資料來源與 rights、單一 pairwise objective、selection gates、以及新 training triples/checkpoint 的 publication
+boundary。未取得該 Gate 前，DRV2-T1 及後續任務全部維持未授權。
