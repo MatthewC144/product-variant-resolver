@@ -1,7 +1,6 @@
 # Domain ranker v2 remediation — Requirements
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRV2-T1 authorized; source/authoring
-governance implementation in progress; T2+ not authorized**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRV2-T1 complete; T2+ not authorized**.
 
 ## Goal
 
@@ -74,3 +73,15 @@ catalog source and an owner-authored synthetic query protocol. It does not autho
 materialization, partitioning, scoring, mining, training or publication. Source rights and authority
 remain owner-attested and community-catalog-relative, not independently verified or manufacturer
 truth.
+
+## T1 governance result
+
+The frozen capacity audit excludes all 153 existing positive identities and binds 173 existing
+positive/negative query hashes as a permanent denylist. It leaves 1,610 catalog rows, of which 1,041
+rows across 269 casting families meet the preregistered authoring-capacity rule. The public protocol
+projects only casting and exact-release fields, keeps color/edition unauthorized, prohibits resolver
+or T5-error access and keeps every future row-level query local-only.
+
+Governance content SHA-256 is
+`5b981e79df16510210b529a299932dc52c54b3b776808f792433f002eb7d03f8`.
+T1 performed no query materialization, partitioning, candidate scoring, mining or training.

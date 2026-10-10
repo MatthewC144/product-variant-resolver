@@ -29,3 +29,23 @@ because all v1 arms—not only domain checkpoints—missed the 200 ms budget.
 No existing holdout or T2 selection error may be used to author v2 labels, mine negatives or tune the
 objective. This readiness document does not authorize collection, scoring, training, checkpoint
 publication, calibration, final evaluation or runtime activation.
+
+## T1 governance result
+
+The source-capacity audit and authoring protocol are now materialized. All 153 existing positive
+identities are excluded, and query hashes from the 153-positive dataset plus 20-negative holdout form
+a 173-query denylist. After identity exclusion, 1,610 catalog rows remain; 1,041 rows in 269
+multi-release casting families meet the field-density rule. This is capacity evidence, not a query
+dataset or training label package.
+
+- Authorization file SHA-256:
+  `d42ab9415c66c24b986731292ff9a9d02f4dd46a974b57c9cd0a4b3bfa8e3fab`.
+- Authoring protocol file SHA-256:
+  `9d56b2d2ad524159b5334b9b1a3aab321954e6153a3ae5afe5ca9935806be4fc`.
+- Governance file SHA-256:
+  `66bbe6f660492a372e2a7dce70ba126b849913efd25c952e389886dbc73ca3d6`.
+- Governance content SHA-256:
+  `5b981e79df16510210b529a299932dc52c54b3b776808f792433f002eb7d03f8`.
+
+T2 query materialization/partitioning remains separately gated. Model scoring, mining, training,
+calibration, final evaluation and runtime actions remain zero.

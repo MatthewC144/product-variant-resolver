@@ -1,7 +1,7 @@
 # Domain ranker v2 remediation — Design
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T1 authorized; protocol frozen before
-materialization**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T1 complete; protocol frozen before
+materialization; T2+ not authorized**.
 
 ## Overview
 
@@ -60,6 +60,12 @@ dataset are denied before selection. The capacity audit leaves 1,610 rows; 1,041
 casting families have at least three exact fields and at least three family releases. Query templates
 project only casting, year, series, series position, collector number and toy number. URLs, filenames,
 raw fields and collection metadata are excluded. Row-level output remains local-only.
+
+T1 materialized three aggregate-only public artifacts: Owner authorization, authoring protocol and
+effective governance. The governance code is bound to commit
+`819666fad6756e06d695af2dadfab833fa7f17fc`; source and denylist inputs are hash-bound. The effective
+permissions allow only a future local authoring step after a separate T2 Gate. Candidate scoring,
+mining, training, calibration, final evaluation, row-level publication and runtime all remain false.
 
 ## Training design
 

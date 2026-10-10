@@ -2885,3 +2885,30 @@ Future evidence can reopen them without rewriting the historical reason they wer
 - **Impact:** only planning task DRV2-T0 is complete. No data was collected, no v1 artifact changed,
   no model was scored or trained, and no downstream Gate was authorized. Owner approval of source,
   rights, split, objective, gates and publication remains mandatory.
+
+## D62 — Govern owner-authored v2 queries from the frozen catalog without promoting source authority
+
+- **Choice:** interpret the Owner's next-step instruction as DRV2-T1 approval only. Bind the frozen
+  1,763-row community snapshot, exclude every identity from the existing 153-positive dataset and
+  every query hash from the positive/negative holdouts, and freeze deterministic owner-authored
+  templates. Publish only three aggregate governance files; defer row materialization to T2.
+- **Reason:** the catalog has sufficient unused capacity—1,041 eligible rows across 269 multi-release
+  families—without reusing observed selection errors. A protocol overlay can grant bounded project
+  use while preserving the source's recorded staging status and the fact that rights were not
+  independently verified.
+- **Alternatives:** reuse the 100 v1 development queries; use the 53 opened positives; scrape another
+  live source immediately; publish all authored rows; or silently treat staging data as canonical.
+  These introduce adaptive reuse, holdout leakage, uncontrolled acquisition, unnecessary row-level
+  disclosure or false authority.
+- **10x alternative considered:** independently license and expert-review a new marketplace-query
+  corpus with signed per-record provenance and exact-release adjudication. That remains the strongest
+  route, but the bounded synthetic protocol is sufficient to test pipeline and pairwise-learning
+  mechanics while preserving honest limitations.
+- **Most likely failure:** confuse catalog capacity with valid training data. T1 therefore reports
+  capacity only; T2 must still materialize, validate and partition 180 rows, and later density/mining
+  Gates can fail even when source capacity is large.
+- **Impact:** authorization, protocol and governance file SHA-256 values are respectively
+  `d42ab9415c66c24b986731292ff9a9d02f4dd46a974b57c9cd0a4b3bfa8e3fab`,
+  `9d56b2d2ad524159b5334b9b1a3aab321954e6153a3ae5afe5ca9935806be4fc` and
+  `66bbe6f660492a372e2a7dce70ba126b849913efd25c952e389886dbc73ca3d6`.
+  No queries, partitions, scores or models were created; T2 remains separately gated.

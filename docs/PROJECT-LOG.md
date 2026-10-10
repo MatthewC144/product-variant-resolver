@@ -12578,3 +12578,44 @@ overhead。V2 不因結果難看就調高 SLO，而是在任何 training 前先�
 pools、訓練、calibrate、final evaluate 或改 runtime。下一步是 Owner 審核五項決策：180-query 目標與 120/30/30
 split、新資料來源與 rights、單一 pairwise objective、selection gates、以及新 training triples/checkpoint 的 publication
 boundary。未取得該 Gate 前，DRV2-T1 及後續任務全部維持未授權。
+
+## 2026-10-09 — DRV2-T1：完成 source 與 owner-authored query governance
+
+### 新執行了什麼、解決什麼問題
+
+本輪把 Owner 的「下一步」限定解讀為 DRV2-T1，建立 v2 source／authoring governance，而沒有直接產生 180 筆資料或
+啟動 training。容量 audit 對 frozen 1,763-row catalog、153-positive dataset、20-negative holdout 與 T5 null result 逐一
+驗證 SHA-256。全部 153 個既有 positive identities 都先排除，positive 與 negative queries 合計 173 個 hashes 進入
+denylist。剩餘 1,610 catalog rows 中，1,041 筆分布於 269 個至少有三個 releases 的 casting families，超過未來 180 筆
+authoring 的最低容量。
+
+這一步解決「新資料從哪裡來、會不會偷看 v1 selection／holdout、哪些欄位可以形成 label」三個問題。V2 選擇
+owner-authored synthetic route：查詢只由 frozen catalog 的 casting、year、series、series position、collector number 與
+toy number 投影；source URL、filename、raw fields、collection metadata 不進入 query dataset。Color 與 edition 沒有
+新增 authority，仍不得用來造 label。
+
+### 代碼修改了哪一部分、原因與方法選型
+
+新增 `domain_ranker_v2_governance.py` 與 CLI `pvr-materialize-domain-ranker-v2-governance`，負責 strict JSON、input hash、
+T5 null lineage、identity/query denylist、multi-release family capacity、aggregate-only schema 與 permissions 檢查。
+`.gitignore` 對 v2 evaluation directory 採 default-deny，只允許 authorization、authoring protocol、governance 三個 JSON；
+未來 local row-level query/split 資料預設不能進 Git。
+
+Authoring protocol 使用 salted SHA-256 identity ordering 與三個固定模板，而不是人工挑「看起來容易成功」的車款；
+partition unit 固定為 casting／alias／evidence／exact-identity connected component，避免同 family 跨 train、validation、
+selection。初次快速 audit 用 casefold 得到 1,040 eligible rows；正式程式改用專案 `normalize_text` 後得到 1,041，並在
+materialization 前修正文檔與測試。這個差異被保留在 QA findings，沒有為了貼合先前數字而改 normalizer。
+
+### 結果、驗證與下一步
+
+Governance code lineage 綁定 commit `819666fad6756e06d695af2dadfab833fa7f17fc`。Authorization、protocol、governance
+file SHA-256 分別為 `d42ab9415c66c24b986731292ff9a9d02f4dd46a974b57c9cd0a4b3bfa8e3fab`、
+`9d56b2d2ad524159b5334b9b1a3aab321954e6153a3ae5afe5ca9935806be4fc`、
+`66bbe6f660492a372e2a7dce70ba126b849913efd25c952e389886dbc73ca3d6`；governance content hash 是
+`5b981e79df16510210b529a299932dc52c54b3b776808f792433f002eb7d03f8`。10 項 focused tests、Ruff、strict MyPy、CLI
+check 與 whitespace gate 全綠。
+
+Source 原始狀態仍是 `staging_only_not_evaluation_or_canonical`，rights 仍是 owner-attested、not independently verified；
+governance overlay 沒有把它升格為 manufacturer truth。T1 沒有產生 queries、labels、split membership、candidate scores、
+hard negatives 或 checkpoint。下一步 DRV2-T2 才能 materialize 180 筆 local-only queries 並建立 120/30/30 family-safe
+partitions，而且仍需獨立 Owner Gate。

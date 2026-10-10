@@ -1,12 +1,11 @@
 # Domain ranker v2 remediation — Tasks
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRV2-T0 complete; T1 authorized and in
-progress; T2+ not authorized**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T1 complete; T2+ not authorized**.
 
 - [x] **DRV2-T0 — Preserve the v1 negative result and draft the remediation hypothesis.** Record
   observed failures, distinguish hypotheses from proven causes, retain all holdout boundaries and
   define the next Owner decisions. _(→DRV2-R1, R2, R10, R12)_
-- [ ] **DRV2-T1 — Materialize v2 governance.** Bind the approved frozen source, owner-authored query
+- [x] **DRV2-T1 — Materialize v2 governance.** Bind the approved frozen source, owner-authored query
   protocol, exact permitted uses, rights/authority, publication scope and all v1/legacy denylist
   hashes. _(→DRV2-R1, R2, R11)_
 - [ ] **DRV2-T2 — Build family/evidence-safe v2 partitions.** Produce at least 120/30/30 train,
@@ -24,6 +23,7 @@ progress; T2+ not authorized**.
 
 ## Current Gate
 
-T1 is authorized by the owner's next-step instruction after the five-item handoff. It may materialize
-only aggregate governance and an authoring protocol. T2 still needs a separate Gate and this decision
-does not authorize reuse of the 53/20 holdouts, 52 no-match rows or T2 selection errors.
+T1 completed under the owner's next-step instruction after the five-item handoff. Governance SHA-256
+is `5b981e79df16510210b529a299932dc52c54b3b776808f792433f002eb7d03f8`. T2 still needs a separate
+Gate; this decision does not authorize reuse of the 53/20 holdouts, 52 no-match rows or T2 selection
+errors.
