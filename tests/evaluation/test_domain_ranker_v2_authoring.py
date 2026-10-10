@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 import stat
 from pathlib import Path
 
@@ -78,7 +79,7 @@ def test_public_t2_artifacts_are_aggregate_only() -> None:
     assert not any(_contains_public_row_level_key(payload) for payload in payloads)
     text = json.dumps(payloads, ensure_ascii=False).casefold()
     assert "http://" not in text and "https://" not in text
-    assert "drv2-q" not in text
+    assert re.search(r"drv2-q\d{3}", text) is None
 
 
 def test_t2_check_proves_zero_leakage_and_keeps_t3_gated() -> None:

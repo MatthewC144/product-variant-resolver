@@ -165,6 +165,14 @@ artifacts, but neither is selected for calibration or runtime. See the
 [aggregate selection result](config/domain-ranker-selection-v1.json) and
 [AI-eval evidence](docs/evidence/ai-evals/domain-ranker-selection-v1.md).
 
+The separately governed v2 remediation has completed its data-readiness stage: 180 new synthetic,
+catalog-present queries from 180 distinct casting families are frozen as 120 train, 30 validation
+and 30 untouched selection rows, with zero cross-partition family overlap. This is not a model result:
+candidate scoring, pairwise hard-negative labels, training and evaluation have not started. Only
+aggregate manifests are public; row-level queries and answers remain local and Git-ignored. See the
+[v2 split manifest](data/evaluation/domain-ranker-v2-remediation/split-manifest.json) and
+[Lite QA review](specs/domain-ranker-v2-remediation/review.md).
+
 ## Limitations
 
 - The 1,763-release source is an attributed third-party community snapshot, not Mattel or global

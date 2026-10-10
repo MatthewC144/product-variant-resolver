@@ -12619,3 +12619,41 @@ Source 原始狀態仍是 `staging_only_not_evaluation_or_canonical`，rights �
 governance overlay 沒有把它升格為 manufacturer truth。T1 沒有產生 queries、labels、split membership、candidate scores、
 hard negatives 或 checkpoint。下一步 DRV2-T2 才能 materialize 180 筆 local-only queries 並建立 120/30/30 family-safe
 partitions，而且仍需獨立 Owner Gate。
+
+## 2026-10-09 — DRV2-T2：封存 180 筆 family-safe v2 queries 與 120/30/30 分區
+
+### 新執行了什麼、解決什麼問題
+
+本輪把 Owner 的「繼續下一步」限定為 DRV2-T2 Gate，從 T1 已批准的 1,041 筆容量中 deterministic 建立 180 筆
+新 query。每筆選自不同 casting family，並封存為 120 train、30 validation、30 untouched selection。實際結果是
+180 個 unique queries、180 個 unique exact identities、180 個 unique casting families；跨 partition 的 normalized query、
+exact identity 與 casting family overlap 都是 0。這解決了 v1 將 early stopping 與 selection 混在同一小集合、以及
+相同車系可能跨 split 洩漏的問題。
+
+每個 train family 至少保留兩個符合欄位密度的 sibling releases，因此 120 筆都具備未來 exact-release negative mining
+的候選容量，超過最低 60 筆要求。但本輪沒有把「存在 sibling」誤當成「已驗證 negative」：candidate labels 仍是 0，
+hard-negative evidence review 保留給後續獨立任務。
+
+### 代碼修改了哪一部分、原因與技術選型
+
+新增 `domain_ranker_v2_authoring.py` 與 CLI `pvr-author-domain-ranker-v2-queries`。程式會重驗 T1 三份 artifact hashes、
+catalog 與 153 identity／173 query denylist，再用三個固定 salted SHA-256 步驟依序選 family、family 內 target release
+與 query template。選 salted deterministic ordering，而不是 Python random 或人工挑選，是為了讓同一 frozen input 必定
+得到相同 pack，又不把字母順序或「看起來容易」變成 selection bias。
+
+分區刻意採 one family per query，而不是實作更複雜的 graph splitter；因為本批資料正好能用更強約束直接保證 family
+disjoint。逐筆 pack 存於 `local-t2/query-pack.json`，Git-ignored 且 mode `0600`。`.gitignore` 只額外放行 T2 authorization、
+query manifest 與 split manifest；三份 public files 不含 query、expected identity、case ID 或 membership。README、spec、
+decision、readiness evidence 與 Lite QA 同步更新，避免把「data readiness」描述成模型已改善。
+
+### 驗證結果、限制與下一步
+
+Query-pack content SHA-256 為 `149d7d867b9e270ffb805906aec64685d6823f11efcd68a59e9e74ba60134e6f`，本機檔案
+SHA-256 為 `8f52043d615c1422018e5abe01670ba867c1908a6b268ce85754c71a9528d1fa`；split manifest content
+SHA-256 為 `bebcaa059212081fe465d102b5a0ae1626508ea3104471bbd8311703d099b73d`。Focused T1/T2 tests、
+Ruff、strict MyPy、deterministic CLI check、ignore/mode check 與 whitespace gate 全部通過。
+
+資料仍是 owner-attested、community-catalog-relative，而不是 manufacturer/global truth；color 與 edition 沒有新增 authority。
+本輪沒有產生 candidate pools、scores、negative triples、checkpoint、calibration 或 evaluation，也沒有修改 FastAPI runtime。
+下一步只有 DRV2-T3：在獨立 Owner Gate 後凍結 query-only Top-25 pools 與 generic CPU latency readiness；若 generic p95
+仍超過 200 ms，必須先停下修正環境／procedure，不得直接訓練。

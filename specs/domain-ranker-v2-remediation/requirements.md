@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation — Requirements
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRV2-T1 complete; T2 authorized and in progress; T3+ not authorized**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T2 complete; T3+ not authorized**.
 
 ## Goal
 
@@ -93,3 +93,12 @@ The owner's next-step instruction authorizes DRV2-T2 only. T2 SHALL deterministi
 30 validation and 30 untouched selection rows. Git may retain authorization, hashes and aggregate
 counts only. This Gate does not authorize candidate pools, scoring, hard-negative labels, training,
 calibration, final evaluation or runtime activation.
+
+## T2 result
+
+T2 froze 180 unique queries, exact identities and casting families as 120 train, 30 validation and
+30 untouched selection rows. Query, exact-identity and casting-family overlap across partitions are
+all zero. All 120 train families retain at least two eligible same-family sibling releases, so the
+future density gate has sufficient candidates without yet treating any sibling as a labeled
+negative. Row-level data is mode-0600 and Git-ignored; three public files contain authorization,
+hashes and aggregate counts only. T3 and all scoring remain separately gated.

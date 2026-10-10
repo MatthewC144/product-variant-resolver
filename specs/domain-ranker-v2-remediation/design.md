@@ -1,7 +1,6 @@
 # Domain ranker v2 remediation — Design
 
-Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T1 complete; T2 authorized and in
-progress; T3+ not authorized**.
+Date: 2026-10-09. Mode: Lite / Lean Industrial. Status: **T0–T2 complete; T3+ not authorized**.
 
 ## Overview
 
@@ -73,6 +72,11 @@ chooses one of the three frozen query templates. The first 120 families become t
 validation and the final 30 untouched selection. This deliberately stronger one-family-per-query
 rule makes cross-partition casting leakage impossible and preserves at least two unused same-family
 siblings for every row, without yet assigning any negative label.
+
+The resulting local query pack is content-addressed and stored with mode `0600`. Public query and
+split manifests expose only totals, template distribution, lineage hashes and overlap counts. They
+do not contain queries, expected identities, case IDs or split membership. T2 does not build the
+Top-25 pools; retrieval and latency readiness belong to T3.
 
 ## Training design
 

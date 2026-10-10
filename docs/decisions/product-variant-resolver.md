@@ -2912,3 +2912,27 @@ Future evidence can reopen them without rewriting the historical reason they wer
   `9d56b2d2ad524159b5334b9b1a3aab321954e6153a3ae5afe5ca9935806be4fc` and
   `66bbe6f660492a372e2a7dce70ba126b849913efd25c952e389886dbc73ca3d6`.
   No queries, partitions, scores or models were created; T2 remains separately gated.
+
+## D63 — Freeze one query per casting family before any v2 model access
+
+- **Choice:** interpret the Owner's next-step instruction as DRV2-T2 approval only. Deterministically
+  select 180 distinct eligible casting families, one exact release per family and one frozen query
+  template per row; assign the ordered families to 120 train, 30 validation and 30 untouched
+  selection rows. Keep the row-level pack local-only and publish aggregate manifests only.
+- **Reason:** one-family-per-query is stricter and simpler than a general connected-component
+  splitter for this corpus. It guarantees zero family leakage across partitions and leaves at least
+  two eligible sibling releases for every train query without deciding yet which siblings are valid
+  negatives.
+- **Alternatives:** randomly split individual releases; put multiple releases of a family in
+  different partitions; manually choose easy rows; or publish all authored data. Those options risk
+  family leakage, selection bias or unnecessary disclosure.
+- **10x alternative considered:** collect independently licensed real marketplace queries with
+  expert exact-release adjudication and grouped nested cross-validation. That remains stronger
+  external-validity evidence, but it is unnecessary for the current bounded pipeline experiment.
+- **Most likely failure:** mistake sibling availability for a defensible hard-negative label. T2
+  records 120 density-ready train families but creates zero candidate labels; evidence-gated mining
+  remains a separate task after candidate-pool readiness.
+- **Impact:** the local query-pack content SHA-256 is
+  `149d7d867b9e270ffb805906aec64685d6823f11efcd68a59e9e74ba60134e6f`; all query, identity and
+  family overlap counts are zero. Candidate scoring, mining, training, calibration, final evaluation
+  and runtime activation remain unauthorized; T3 needs a separate Owner Gate.

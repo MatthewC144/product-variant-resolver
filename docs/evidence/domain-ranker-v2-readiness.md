@@ -1,7 +1,6 @@
 # Domain ranker v2 remediation readiness
 
-Date: 2026-10-09. Scope: planning evidence only. Verdict: **READY FOR OWNER REVIEW; NOT AUTHORIZED
-FOR EXECUTION**.
+Date: 2026-10-09. Scope: DRV2-T0–T2. Verdict: **QUERY/SPLIT READINESS PASS; T3+ NOT AUTHORIZED**.
 
 ## Why a new version is required
 
@@ -47,5 +46,26 @@ dataset or training label package.
 - Governance content SHA-256:
   `5b981e79df16510210b529a299932dc52c54b3b776808f792433f002eb7d03f8`.
 
-T2 query materialization/partitioning remains separately gated. Model scoring, mining, training,
-calibration, final evaluation and runtime actions remain zero.
+## T2 query and partition result
+
+The approved deterministic authoring run selected one release from each of 180 different eligible
+casting families and generated 180 unique local-only queries. It froze 120 train, 30 validation and
+30 untouched selection rows. Cross-partition normalized-query, exact-identity and casting-family
+overlap counts are all zero. All 120 train rows retain at least two other eligible same-family
+releases, exceeding the 60-query capacity minimum for the later density gate; no negative label was
+created in T2.
+
+- Query-pack content SHA-256:
+  `149d7d867b9e270ffb805906aec64685d6823f11efcd68a59e9e74ba60134e6f`.
+- Private query-pack file SHA-256:
+  `8f52043d615c1422018e5abe01670ba867c1908a6b268ce85754c71a9528d1fa`.
+- T2 authorization content SHA-256:
+  `c888605084e0f596a135bb13b62b72c12b614f246677b467b4754f35e8f40099`.
+- Query manifest content SHA-256:
+  `26babd4c925e341e72f3bb297c9824eb4ed9d647263f84fae4a5351094faf825`.
+- Split manifest content SHA-256:
+  `bebcaa059212081fe465d102b5a0ae1626508ea3104471bbd8311703d099b73d`.
+
+The private pack is Git-ignored and mode `0600`; public artifacts contain aggregate counts and hashes
+only. Model scoring, mining, training, calibration, final evaluation and runtime actions remain zero.
+DRV2-T3 requires a separate Owner Gate.
