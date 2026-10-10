@@ -6,7 +6,10 @@ from typing import Any
 
 from product_variant_resolver.domain_ranker_comparison import AggregateMetrics
 from product_variant_resolver.domain_ranker_v2_selection import (
+    AUTHORIZATION_PATH,
+    RESULT_PATH,
     build_authorization,
+    check,
     compare_equivalence,
     comparison_protocol,
     evaluate_gate,
@@ -110,3 +113,17 @@ def test_authorization_freezes_protocol_before_selection() -> None:
         "calibration_threshold_selection_or_fresh_final_evaluation"
         in authorization["prohibited_actions"]
     )
+
+
+def test_materialized_t6_result_is_integral_aggregate_only_and_runtime_closed() -> None:
+    result = check(ROOT)
+    assert result["winner"] is None
+    assert result["selected_checkpoint_sha256"] is None
+    assert result["guardrails"]["selection_quality_evaluations"] == 1
+    assert result["guardrails"]["runtime_activations"] == 0
+    assert result["guardrails"]["public_row_level_records"] == 0
+    assert result["next_allowed_action"] == "DRV2-T7_Lite_QA_requires_separate_owner_authorization"
+    public_text = (ROOT / AUTHORIZATION_PATH).read_text() + (ROOT / RESULT_PATH).read_text()
+    assert "drv2-q" not in public_text.casefold()
+    assert '"query"' not in public_text
+    assert '"target_uuid"' not in public_text

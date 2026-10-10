@@ -199,3 +199,13 @@ absolute logit delta at most `2e-5`. T6 SHALL score exactly 30 untouched selecti
 publish only aggregate results. A checkpoint that fails any Gate is ineligible; if neither passes,
 the system SHALL emit `winner: null`. This Gate does not authorize calibration, fresh final
 evaluation, runtime activation or row-level publication.
+
+## T6 result
+
+The sole authorized selection evaluation produced result SHA-256
+`2f4a32fbb0383bcd934af48734d6e60ab6603bc03093a084d5cdb552194dbefc` and `winner: null`.
+Seed 17 improved exact Top-1 by 1 case, MRR@10 by `0.0166667` and same-family accuracy by
+`0.0114943`; seed 29 produced 0 exact gain and negative MRR/same-family deltas. Both domain arms
+passed ONNX equivalence, casting, Recall@25 and latency checks but failed the frozen minimum quality
+improvements and two-seed direction requirement. Calibration, final evaluation and runtime remain
+closed. DRV2-T7 is a separate Lite QA Gate and may verify this negative result without changing it.

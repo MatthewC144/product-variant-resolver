@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation — Tasks
 
-Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T5 complete; T6 protocol frozen before execution**.
+Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T6 complete; T7 not authorized**.
 
 - [x] **DRV2-T0 — Preserve the v1 negative result and draft the remediation hypothesis.** Record
   observed failures, distinguish hypotheses from proven causes, retain all holdout boundaries and
@@ -19,7 +19,7 @@ Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T5 complete;
   defensible same-casting negatives; hold ambiguous siblings. _(→DRV2-R4)_
 - [x] **DRV2-T5 — Train the single fixed pairwise recipe.** Use two seeds, validation-only early
   stopping and safetensors-only release artifacts. _(→DRV2-R5, R6)_
-- [ ] **DRV2-T6 — Execute untouched selection once.** Apply frozen metrics, gates and tie rules and
+- [x] **DRV2-T6 — Execute untouched selection once.** Apply frozen metrics, gates and tie rules and
   emit a selected checkpoint hash or `winner: null`. _(→DRV2-R9, R10)_
 - [ ] **DRV2-T7 — Complete Lite QA and evidence.** Verify integrity, isolation, aggregate-only
   publication, unchanged runtime and claim boundaries. _(→DRV2-R11, R12)_
@@ -47,5 +47,9 @@ MRR@10 `0.95`, and released two strictly validated float16 safetensors files. Se
 model-selection runs remain zero. The owner's latest next-step instruction opens T6 only. Before
 its one permitted selection run, T6 freezes the v1 quality thresholds unchanged and requires all
 three arms to use the same float32 ONNX/CPU latency substrate. Domain ONNX exports must reproduce
-their source PyTorch Top-25 order for all 30 pools within `2e-5` maximum logit delta. T6 still
-excludes calibration, final evaluation and runtime activation.
+their source PyTorch Top-25 order for all 30 pools within `2e-5` maximum logit delta. The single run
+completed with `winner: null`: seed 17 improved exact Top-1 by only one case, MRR@10 by `0.0167`
+and same-family accuracy by `0.0115`, while seed 29 did not improve exact Top-1 and regressed
+MRR/same-family. Both passed casting, Recall@25, ONNX equivalence and latency, but neither passed
+every quality Gate. T7 Lite QA remains separately gated; calibration, final evaluation and runtime
+activation remain closed.

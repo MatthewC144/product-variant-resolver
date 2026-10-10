@@ -183,6 +183,16 @@ preserve the complete Top-25 ordering on all 30 selection pools. Each arm then u
 batch 25, three warm-ups and 90 timed pool calls. This prevents framework overhead from deciding
 the model winner. The one-shot runner refuses to overwrite any existing T6 artifact.
 
+## T6 result
+
+The one-shot result is `winner: null`. Generic scored 23/30 exact Top-1, MRR@10 `0.8778` and
+79/87 same-family pair accuracy. Seed 17 reached 24/30, `0.8944` and 80/87; its deltas of +1 case,
+`+0.0167` and `+0.0115` are real but smaller than the frozen +3, `+0.02` and `+0.10` requirements.
+Seed 29 remained at 23/30 and regressed MRR@10 and same-family accuracy. All arms retained 30/30
+casting Top-1 and Recall@25. Domain p95 values of `121.251 ms` and `114.842 ms` passed both latency
+checks. Therefore the failure is insufficient selection-quality improvement, not export drift or
+runtime cost, and no checkpoint may advance to calibration or activation.
+
 ## Error handling and testing
 
 Every stage fails closed on hash drift, legacy-holdout intersection, family/evidence leakage,

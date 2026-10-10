@@ -1,5 +1,41 @@
 # Project Log
 
+## 2026-10-10 — DRV2-T6：一次性 untouched selection 保留誠實的 `winner: null`
+
+### 新執行了什麼，解決什麼問題
+
+本輪先在看不到 selection 分數的狀態下，將 exact/casting Top-1、MRR@10、Recall@25、same-family、
+two-seed direction、CPU latency 與 deterministic tie-break 規則提交為 commit `5e67fbb`，之後才執行
+唯一一次 30 筆 untouched selection。這解決了「模型已 fine-tune，是否真的比 generic 好」以及「會不會
+看到結果後降低門檻」兩個問題。結果不是挑一個看起來最好的模型，而是依完整 Gate 得到
+`winner: null`：seed 17 雖由 generic 的 23/30 提升為 24/30，但 +1 未達 +3；MRR 只提升 `0.0167`、
+same-family 只提升 `0.0115`，也未達 `0.02` 與 `0.10`。Seed 29 exact 沒提升，MRR 與 same-family 反而
+下降。因此 domain fine-tuning 已成功產生模型，卻沒有足夠證據取代 generic。
+
+### 代碼修改了哪一部分、原因與決策
+
+新增 `domain_ranker_v2_selection.py` 與 CLI `pvr-select-domain-ranker-v2`，負責驗證 T5 package/hash、
+一次性載入 selection、計算 aggregate metrics、套用 all-or-nothing Gate，並封存 checkpoint hash 或 null。
+公開檔案只有 authorization 與 aggregate result；逐筆 rank、case hash、latency samples 和兩個 ONNX graph
+留在 Git-ignored、mode `0600` 的 `local-t6/`。Runner 若看到既有輸出會拒絕覆寫，避免第二次試驗被包裝
+成第一次；結果也明確記錄 calibration、final evaluation、runtime activation 都是零。
+
+延遲沒有直接混用 generic ONNX 與 domain PyTorch，因為 framework overhead 會污染模型比較。兩個 frozen
+safetensors checkpoint 先轉成 local-only float32 ONNX；seed 17/29 分別在 750 logits 內維持最大差異
+`1.1921e-05`／`1.0490e-05`，且 30/30 完整 Top-25 排序一致。三個 arms 才在相同 ONNX Runtime、
+單 CPU thread、batch 25、三次 warm-up、90 次量測下比較。Domain p95 為 `121.251 ms` 與
+`114.842 ms`，均低於 200 ms 且低於 generic 的 1.25 倍，所以失敗原因確實是品質增益不足，不是部署速度。
+
+### 技術棧／方法選型、驗證與下一步
+
+方法沿用 PyTorch/Transformers 作為 checkpoint 語義基準，使用 ONNX opset 17 與 ONNX Runtime 做公平的
+CPU inference 比較，再以 Python deterministic aggregation 封存結果。這個設計選擇保留完整可重現性，
+也避免為了得到 winner 而量化、改模型、改候選或改門檻。Result SHA-256 是
+`2f4a32fbb0383bcd934af48734d6e60ab6603bc03093a084d5cdb552194dbefc`；公開逐筆資料為零，runtime
+仍使用原設定。下一個且唯一必要步驟是 DRV2-T7 Lite QA：核對 integrity、隱私隔離、FastAPI 未變與
+README/履歷 claim 邊界。因為 winner 為 null，後續不應執行 calibration、fresh final evaluation 或
+runtime activation。
+
 ## 2026-10-05 — Pointwise 三分類 development calibration：通過雙門檻但保持 runtime 關閉
 
 ### 新執行了什麼，解決什麼問題

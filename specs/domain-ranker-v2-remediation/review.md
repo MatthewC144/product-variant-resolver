@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation — Lite QA review
 
-Date: 2026-10-10. Scope: **DRV2-T1–T5**. Verdict: **T5 TRAINING/RELEASE PASS; T6 NOT AUTHORIZED**.
+Date: 2026-10-10. Scope: **DRV2-T1–T6**. Verdict: **T6 PROCESS PASS; MODEL QUALIFICATION FAIL (`winner: null`)**.
 
 ## Coverage
 
@@ -14,10 +14,12 @@ Date: 2026-10-10. Scope: **DRV2-T1–T5**. Verdict: **T5 TRAINING/RELEASE PASS; 
 | DRV2-R6 | Validation and untouched selection are distinct family-disjoint partitions | PASS |
 | DRV2-R7 | 180 query-only Top-25 pools, 4,500 candidates, zero misses/injections | PASS |
 | DRV2-R8 | T3 p95 `217.699834 ms` failed; equivalent ONNX T3R p95 `103.654042 ms` | PASS after repair |
+| DRV2-R9 | Metrics, gates, ONNX protocol and tie rules committed before the sole selection run | PASS |
+| DRV2-R10 | Neither seed passed all frozen quality gates; winner and checkpoint hash are null | PASS (negative outcome) |
 | DRV2-R11 | Public artifacts contain aggregate data only; row-level packs remain ignored/mode `0600` | PASS |
 | DRV2-R12 | Owner-attested and community-catalog-relative limitations retained | PASS |
 
-Thirty-four focused T1–T5 tests, Ruff, strict MyPy, CLI check mode and `git diff --check` pass.
+Forty focused T1–T6 tests, Ruff, strict MyPy, CLI check mode and `git diff --check` pass.
 The authoring protocol fixes field projection, deterministic templates/order, 120/30/30 minima,
 same-family density requirements and output isolation. It explicitly prohibits resolver output and
 T5-error access during authoring.
@@ -70,6 +72,10 @@ float16 safetensors files and an exact support-file allowlist, passes strict ten
 offline loading, and excludes optimizer/pickle state. Selection, test, no-match, calibration, final
 evaluation and runtime counters remain zero.
 
-This PASS establishes reproducible pairwise fine-tuning and safe checkpoint release. It does not
-establish that either domain checkpoint beats generic. T6 must apply the still-unseen selection
-partition and frozen qualification rules in one separately authorized run.
+This PASS establishes reproducible pairwise fine-tuning and safe checkpoint release. T6 subsequently
+applied the frozen selection rules once. Generic reached 23/30 exact Top-1, MRR@10 `0.8778` and
+79/87 same-family accuracy. Seed 17 reached 24/30, `0.8944` and 80/87, while seed 29 reached 23/30,
+`0.8722` and 78/87. Neither reached the +3 exact, `+0.02` MRR and `+0.10` same-family minima, and
+the two-seed direction check failed. Both domain arms passed 30/30 ONNX ordering equivalence,
+30/30 casting, Recall@25 and the 200 ms/1.25x latency checks. The correct governed result is
+`winner: null`, not a selectively promoted checkpoint. T7 remains a separate Lite QA Gate.
