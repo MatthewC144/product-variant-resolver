@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation — Tasks
 
-Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T3 executed; T3R authorized and in progress; T4+ blocked**.
+Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T3R complete; T4+ not authorized**.
 
 - [x] **DRV2-T0 — Preserve the v1 negative result and draft the remediation hypothesis.** Record
   observed failures, distinguish hypotheses from proven causes, retain all holdout boundaries and
@@ -12,7 +12,7 @@ Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T3 executed;
   validation and selection rows from at least 180 new queries. _(→DRV2-R3, R6)_
 - [x] **DRV2-T3 — Freeze generic candidate pools and execute latency readiness.** Bind the environment and
   query-only Top-25 pools; stop before training if generic p95 exceeds 200 ms. _(→DRV2-R7, R8)_
-- [ ] **DRV2-T3R — Repair generic CPU inference latency without changing ranking semantics.** Freeze
+- [x] **DRV2-T3R — Repair generic CPU inference latency without changing ranking semantics.** Freeze
   one implementation approach, prove generic-score/order equivalence and rerun the identical
   validation benchmark before T4. _(→DRV2-R8)_
 - [ ] **DRV2-T4 — Mine exact-release pairwise triples.** Require at least 60 train queries with two
@@ -35,5 +35,7 @@ with 120/30/30 rows and zero cross-partition family overlap. T3 still requires a
 The owner's latest next-step instruction opened T3 only. T3 froze 180 query-only Top-25 pools with
 zero retrieval misses and zero target injections, but generic CPU p95 was `217.699834 ms`, above the
 fixed `200 ms` ceiling. T3 is therefore execution-complete with a failed readiness result. T3R needs
-a separate Owner Gate; the owner's latest next-step instruction now opens T3R only. T4 mining and
-every training/evaluation task remain blocked until T3R passes and another Gate is granted.
+a separate Owner Gate; the owner's latest next-step instruction opened T3R only. Float32 ONNX
+preserved all 180 Top-25 orderings with maximum logit delta `1.4781951904296875e-05` and reduced
+validation CPU p95 to `103.654042 ms`, so the latency Gate now passes. T4 still requires a separate
+Owner Gate; no mining or training permission is inferred from the T3R result.

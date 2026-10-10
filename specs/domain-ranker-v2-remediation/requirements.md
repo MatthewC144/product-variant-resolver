@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation — Requirements
 
-Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T3 executed; T3R authorized and in progress; T4+ blocked**.
+Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **DRV2-T0–T3R complete; T4+ not authorized**.
 
 ## Goal
 
@@ -130,3 +130,12 @@ accepted, all 4,500 frozen logits SHALL differ from the PyTorch baseline by at m
 the unchanged 90-sample validation benchmark with the same `≤200 ms` p95 gate. The ONNX graph stays
 local-only; Git retains exact dependencies, export code, artifact hash and aggregate results. T4
 still requires separate authorization even if T3R passes.
+
+## T3R result
+
+The formal float32 ONNX export passed both equivalence gates: all 4,500 logits stayed within
+`1.4781951904296875e-05` maximum absolute delta and all 180 complete Top-25 orderings matched the
+frozen PyTorch baseline. The identical 90-sample validation protocol measured p50 `88.765583 ms`
+and p95 `103.654042 ms`, a p95 reduction of `114.045792 ms` (`52.39%`) from T3. DRV2-R8 now passes.
+The graph remains local-only and mode `0600`; public output contains its SHA, reconstruction
+dependencies and aggregate results. T4 remains separately gated.

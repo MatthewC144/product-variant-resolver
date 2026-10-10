@@ -2960,3 +2960,29 @@ Future evidence can reopen them without rewriting the historical reason they wer
   `7b396578d36e8c6a76fd79e447770713014716aa911661f4055898f2f0c76d86`.
   No labels, training, calibration, selection evaluation or runtime activation occurred. T4 is
   blocked; T3R needs a separate Owner Gate.
+
+## D65 — Use float32 ONNX only after full-pool ordering equivalence
+
+- **Choice:** repair DRV2-R8 by exporting the pinned generic safetensors checkpoint to float32 ONNX
+  opset 17, then require `≤2e-5` maximum logit delta and identical complete Top-25 ordering on all
+  180 pools before accepting the repeated latency benchmark. Keep the 91 MB graph local-only and
+  publish its exact hash plus reconstruction dependencies.
+- **Reason:** direct Transformers and SDPA diagnostics remained around the failed latency range, and
+  `torch.compile` was not portable in the workspace path. Float32 ONNX preserves the model decision
+  while applying inference-graph optimization; the formal run achieved 180/180 ordering identity
+  and p95 `103.654042 ms` without changing weights or the 200 ms Gate.
+- **Alternatives:** raise the latency budget; accept another PyTorch rerun; use dynamic INT8; commit
+  the 91 MB graph; or activate ONNX directly in FastAPI. INT8 was specifically rejected because a
+  diagnostic preserved only 3/180 complete orderings despite a smaller graph and passing latency.
+  The other alternatives hide the failure, bloat the repo or expand runtime scope.
+- **10x alternative considered:** benchmark signed ONNX/CoreML/TensorRT packages across several CPU
+  classes under concurrent service load, with reproducible containers and confidence intervals.
+  That belongs to productionization; the present repair answers the narrower experiment-readiness
+  question.
+- **Most likely failure:** call a faster but numerically different backend “the same model.” T3R
+  therefore evaluates every one of the 4,500 frozen logits and complete within-pool order, rather
+  than comparing only aggregate accuracy or a few smoke cases.
+- **Impact:** maximum absolute logit delta is `1.4781951904296875e-05`; p95 improved by
+  `114.045792 ms` (`52.39%`) to `103.654042 ms`. Result content SHA-256 is
+  `f95095a1f710fedc5c8d98a2d1e72b7fda25b2d3a3c3edeaa3f5b469850b47f7`. T4 is now eligible for a
+  separate Owner Gate, but no mining, training or runtime activation occurred.

@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation readiness
 
-Date: 2026-10-09. Scope: DRV2-T0–T3. Verdict: **POOL READINESS PASS; GENERIC LATENCY FAIL; T4 BLOCKED**.
+Date: 2026-10-10. Scope: DRV2-T0–T3R. Verdict: **POOL AND GENERIC LATENCY READINESS PASS; T4 NOT AUTHORIZED**.
 
 ## Why a new version is required
 
@@ -93,3 +93,27 @@ On Darwin arm64 with CPython 3.12.13, Torch 2.7.1, Transformers 4.57.6 and Sente
 Public artifacts contain only bindings, aggregate counts, environment and latency metrics. The
 row-level pools remain Git-ignored and mode `0600`. T3R must be separately authorized and may not
 change weights, inputs, ranking semantics or the 200 ms threshold.
+
+## T3R equivalent inference repair
+
+The separately authorized repair exported the same safetensors weights to a float32 ONNX opset-17
+graph and used ONNX Runtime `CPUExecutionProvider` with one intra-op thread, one inter-op thread,
+sequential execution and full graph optimization. Quantization was prohibited in the formal run.
+
+Equivalence was checked before timing against every frozen pair. All 4,500 logits stayed within
+`1.4781951904296875e-05` maximum absolute delta, below the preregistered `2e-5` ceiling, and all
+180 complete Top-25 orderings were identical. The repeated 90-sample validation benchmark measured
+p50 `88.765583 ms` and p95 `103.654042 ms`; p95 improved by `114.045792 ms` (`52.39%`) and passed
+the unchanged 200 ms Gate.
+
+- T3R authorization content SHA-256:
+  `cd19616fc9414d200e34ebd485bd43a8e8db1efae36a96371884bdb2154e3f57`.
+- ONNX manifest content SHA-256:
+  `245d9bc88182f662f4d2b18135989305fe8d7eb9be2c4197173271329b001146`.
+- Local ONNX graph SHA-256:
+  `2c668e0e1bb772e0a9ba4b14e08875ec750a58e39b3ca9790e166eb927fbc42f`.
+- Latency-repair result content SHA-256:
+  `f95095a1f710fedc5c8d98a2d1e72b7fda25b2d3a3c3edeaa3f5b469850b47f7`.
+
+The 90,978,308-byte graph remains local-only, mode `0600`, and reproducible from the pinned source
+weights and exporter. FastAPI remains unchanged. T4 requires a separate Owner Gate.

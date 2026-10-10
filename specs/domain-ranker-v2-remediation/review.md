@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation — Lite QA review
 
-Date: 2026-10-09. Scope: **DRV2-T1–T3**. Verdict: **T3 DATA/INTEGRITY PASS; LATENCY FAIL; T4 BLOCKED**.
+Date: 2026-10-10. Scope: **DRV2-T1–T3R**. Verdict: **T3R PASS; T4 NOT AUTHORIZED**.
 
 ## Coverage
 
@@ -11,11 +11,11 @@ Date: 2026-10-09. Scope: **DRV2-T1–T3**. Verdict: **T3 DATA/INTEGRITY PASS; LA
 | DRV2-R3 | 180 unique queries/identities/families frozen as 120/30/30 | PASS |
 | DRV2-R6 | Validation and untouched selection are distinct family-disjoint partitions | PASS |
 | DRV2-R7 | 180 query-only Top-25 pools, 4,500 candidates, zero misses/injections | PASS |
-| DRV2-R8 | Generic CPU p95 `217.699834 ms` against `≤200 ms` | FAIL |
+| DRV2-R8 | T3 p95 `217.699834 ms` failed; equivalent ONNX T3R p95 `103.654042 ms` | PASS after repair |
 | DRV2-R11 | Public artifacts contain aggregate data only; row-level packs remain ignored/mode `0600` | PASS |
 | DRV2-R12 | Owner-attested and community-catalog-relative limitations retained | PASS |
 
-Sixteen focused T1–T3 tests, Ruff, strict MyPy, CLI check mode and `git diff --check` pass.
+Twenty-one focused T1–T3R tests, Ruff, strict MyPy, CLI check mode and `git diff --check` pass.
 The authoring protocol fixes field projection, deterministic templates/order, 120/30/30 minima,
 same-family density requirements and output isolation. It explicitly prohibits resolver output and
 T5-error access during authoring.
@@ -41,5 +41,10 @@ was frozen before execution, so the readiness result is FAIL even though pools a
 passed. No selection quality metric, hard-negative label, training run, calibration, final evaluation
 or runtime change occurred.
 
-T3R requires a separate Owner Gate and must optimize only the generic inference implementation while
-proving equivalent scores/order. T4 remains blocked until an identical-protocol rerun passes.
+T3R preserved all 180 complete Top-25 orderings; maximum absolute logit delta was
+`1.4781951904296875e-05`, below the frozen `2e-5` tolerance. The identical 90-sample protocol then
+measured p50 `88.765583 ms` and p95 `103.654042 ms`, passing the unchanged 200 ms budget. The 91 MB
+float32 ONNX graph is reproducible but remains local-only to avoid repository bloat.
+
+This PASS repairs generic inference readiness only. T4 hard-negative mining, model training,
+selection evaluation, calibration, final evaluation and runtime activation remain unauthorized.

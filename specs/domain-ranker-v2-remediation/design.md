@@ -1,6 +1,6 @@
 # Domain ranker v2 remediation — Design
 
-Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **T0–T3 executed; T3R authorized and in progress; T4+ blocked**.
+Date: 2026-10-10. Mode: Lite / Lean Industrial. Status: **T0–T3R complete; T4+ not authorized**.
 
 ## Overview
 
@@ -99,6 +99,12 @@ INT8: although smaller and faster, only 3/180 complete candidate orderings remai
 float32 ONNX route preserved 180/180 ordering with a diagnostic maximum logit delta around `1.5e-5`
 and crossed the latency budget. Formal output must reproduce those preregistered equivalence gates.
 The 91 MB graph remains reconstructible local state rather than adding a large binary to Git.
+
+The formal run reproduced deterministic graph bytes and passed equivalence before timing. ONNX
+Runtime p95 was `103.654042 ms`, compared with T3 PyTorch p95 `217.699834 ms`; the frozen 200 ms
+budget therefore passes without changing model weights, pool membership or ordering. This approves
+the inference substrate for the experiment only—it does not activate ONNX in FastAPI or authorize
+T4 labels/training.
 
 ## Training design
 

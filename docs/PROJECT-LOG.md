@@ -12696,3 +12696,42 @@ Git 只保存 authorization、aggregate candidate manifest 與 latency report。
 本輪沒有產生 hard-negative labels、沒有 training run、沒有 selection quality evaluation、沒有 calibration/final evaluation，
 也沒有修改 FastAPI runtime。下一個必要工作是 DRV2-T3R：先選定一個 CPU inference repair，對相同 4,500 pairs 證明
 generic score／ordering 等價，再用完全相同 90-sample protocol 重測。T3R 未經獨立 Owner Gate 前不得執行；T4 維持 blocked。
+
+## 2026-10-10 — DRV2-T3R：以全池等價驗證完成 float32 ONNX latency repair
+
+### 新執行了什麼、解決什麼問題
+
+T3 的 PyTorch generic p95 為 `217.699834 ms`，所以本輪依 Owner 的「繼續下一步」只執行 T3R，沒有跳到 mining。
+正式流程先把完全相同的 generic safetensors 權重匯出成 float32 ONNX opset 17，再對 T3 frozen pools 的全部 4,500 pairs
+逐一比較 logits 與排序。最大 absolute logit delta 是 `1.4781951904296875e-05`，低於預先固定的 `2e-5`；180/180 個
+Top-25 complete ordering 全部一致。只有等價 Gate 通過後，才執行相同 validation 30 queries、3 rounds、90 samples 的
+latency 測試。
+
+正式 ONNX Runtime 結果為 p50 `88.765583 ms`、p95 `103.654042 ms`，相較 T3 p95 減少 `114.045792 ms`，改善
+`52.39%`，並通過未改動的 200 ms budget。這解決的是「共同 generic inference backend 還沒達到產品預算」，不是
+domain model quality；T3R 沒有改變任何 ranker weights，也沒有建立新的學習結果。
+
+### 代碼修改了哪一部分、原因與技術選型
+
+新增 `domain_ranker_v2_latency_repair.py` 與 CLI `pvr-repair-domain-ranker-v2-latency`，負責 strict T3 hash chain、float32
+ONNX export、全池 logit/order equivalence、ONNX Runtime CPU session、90-sample benchmark、aggregate-only public result 與
+local graph integrity。`pyproject.toml` 與 `constraints/reranking-python312.txt` 加入 exact `onnx==1.23.2`、
+`onnxruntime==1.31.0` 及其 transitive pins，避免未來 backend 漂移。
+
+選型不是只看最快數字。Validation-only diagnostics 顯示 direct Transformers 與 SDPA 沒有實質改善；`torch.compile`
+則因目前含空白的 workspace 路徑在 PyTorch/clang include path 上解析失敗，不具可移植性。Dynamic INT8 雖將 graph 縮到
+約 23 MB 且 latency 通過，但只保留 3/180 個完整 Top-25 orderings、Top-1 也只有 175/180 相同，因此明確拒絕。
+Float32 ONNX 約 91 MB，保留 180/180 ordering；graph 保持 Git-ignored/mode `0600`，Git 只保存 deterministic exporter、
+exact dependencies、artifact SHA 與 aggregate evidence，避免讓履歷 repo 再增加大型 binary。
+
+### 驗證結果、限制與下一步
+
+T3R authorization、ONNX manifest、repair result content SHA-256 分別為
+`cd19616fc9414d200e34ebd485bd43a8e8db1efae36a96371884bdb2154e3f57`、
+`245d9bc88182f662f4d2b18135989305fe8d7eb9be2c4197173271329b001146`、
+`f95095a1f710fedc5c8d98a2d1e72b7fda25b2d3a3c3edeaa3f5b469850b47f7`。Local ONNX SHA-256 是
+`2c668e0e1bb772e0a9ba4b14e08875ec750a58e39b3ca9790e166eb927fbc42f`，重新 export 得到相同 bytes。
+21 項 T1–T3R focused tests、Ruff、strict MyPy、CLI check、dependency pins、private mode/ignore 與 whitespace gate 通過。
+
+本輪沒有讀取 selection quality、沒有 hard-negative label、training、calibration、final evaluation 或 FastAPI runtime activation。
+T3R PASS 只讓下一步 DRV2-T4 具備被 Owner 獨立授權的資格；它不自動開啟 mining，更不代表 domain fine-tuning 已改善。

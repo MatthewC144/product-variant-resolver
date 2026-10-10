@@ -179,6 +179,13 @@ budget. V2 therefore stops before hard-negative labels or pairwise training; thi
 failure, not evidence about domain-model quality. See the
 [latency readiness report](data/evaluation/domain-ranker-v2-remediation/latency-readiness.json).
 
+A bounded inference repair then exported the unchanged generic weights to float32 ONNX. Across all
+4,500 frozen pairs, maximum logit delta was `1.48e-05` and all 180 Top-25 orderings were identical.
+The repeated validation benchmark reduced CPU p95 to `103.65 ms`, passing the same 200 ms budget.
+The ONNX graph stays local/reconstructible; Git stores its manifest and aggregate
+[repair result](data/evaluation/domain-ranker-v2-remediation/latency-repair.json). This does not
+activate ONNX in FastAPI or authorize training.
+
 ## Limitations
 
 - The 1,763-release source is an attributed third-party community snapshot, not Mattel or global
