@@ -1,5 +1,240 @@
 # Project Log
 
+## 2026-10-10 — SDSE-T4：完成唯一一次 50-target final test，Pointwise 優勢獲得確認
+
+### 新執行了什麼，解決什麼問題
+
+Owner 在看過 SDSE-T4 的完整邊界後以「繼續下一步」批准唯一一次 final evaluation。本輪才第一次開啟
+先前完全未評分的 50 個 grouped test targets，對 Image raw 與 Shopping raw 各執行 RRF 與已在
+development 選定的 Pointwise 排序。測試設定、模型、Top-25 candidates、query representation 與 metrics
+都在開啟答案前固定，完成後立即封存 aggregate 結果並關閉 rerun。
+
+結果確認 development 趨勢能泛化：Image 的 casting Top-1 從 80% 提升到 92%，exact-release Top-1
+從 50% 提升到 56%；Shopping 的 casting Top-1 從 92% 提升到 98%，exact-release Top-1 從 60%
+提升到 72%。兩來源合併後，casting Top-1 為 86%→95%，exact-release Top-1 為 55%→64%，MRR@10
+為 0.722→0.792。需要同時揭露的 tradeoff 是合併 Recall@10 由 99% 降至 98%，原因是 Image 的
+Recall@10 由 98% 降至 96%；Recall@25 維持 99%。
+
+### 代碼修改了哪一部分、原因與決策
+
+新增 SDSE-T4 owner authorization，將批准綁定 dataset SHA、100/50 split、T3A development winner、
+raw query、50 targets 和兩個來源。`serper_dual_source_evaluation.py` 增加 final-test evaluator、授權驗證、
+aggregate artifact loader 與 one-shot guard。若 final artifact 已存在，程式會在讀取 dataset 或載入模型前
+直接拒絕執行，避免看過 final 結果後重跑或調整。
+
+正式結果保存於 `raw-pointwise-final-test.json`，SHA-256 為
+`ba06ef6db36e86d436205af82b7d96f2af902c4f082194acfe006af470ba37e2`。Loader 會由四組 raw counts
+重新計算所有 accuracy、Recall、MRR、兩來源差值和 combined metrics，並驗證 owner、dataset、split、
+catalog、model 與 development selection bindings。Artifact 不含任何 row-level query、答案、候選或預測。
+
+### 技術棧／方法選型、驗證與下一步
+
+Final test 嚴格沿用凍結的 `cross-encoder/ms-marco-MiniLM-L6-v2` revision 和 RRF Top-25，沒有 fine-tune、
+model selection、calibration、threshold tuning 或 policy evaluation。這讓結果衡量的是已選 ranking design
+對新資料的泛化，而不是 final-set adaptation。Pointwise rerank p95 為 Image 157.321 ms、Shopping
+124.916 ms；這仍只是本機 sequential CPU rerank 階段，不代表完整 API 或 production latency。
+
+20 個 focused tests、Ruff、strict MyPy、artifact hash／回算與 secret scan 均通過。SDSE-T1–T4 至此完成，
+且 final test 不再允許執行。Pointwise 現在具有可用於履歷展示的 final ranking evidence，但 runtime 仍未
+切換；若要上線，下一個獨立工作必須針對這批 raw marketplace/image-search distribution 重新評估
+calibration、abstention policy、延遲與 operational gate，而不能再使用本次 final test 調參。
+
+## 2026-10-10 — SDSE-T3A：raw queries 的凍結 Pointwise ranker 明顯優於 RRF
+
+### 新執行了什麼，解決什麼問題
+
+上一輪已證明 raw query 比 cleaned query 更適合作為 resolver 輸入，本輪進一步回答「真正的 neural
+Pointwise reranker 是否能比目前 RRF 排序更準」。實驗只使用同一批 100 個 development targets，分別對
+Image raw 與 Shopping raw 先取 RRF Top-25，再讓已凍結的 MiniLM cross-encoder 只重排這 25 筆候選。
+沒有重新搜尋候選，因此差異可以歸因於 reranking，而不是候選集合改變。
+
+Image raw 的 casting Top-1 從 88% 提升至 98%，exact-release Top-1 從 39% 提升至 48%，MRR@10
+從 0.586 提升至 0.676。Shopping raw 的 casting Top-1 從 95% 提升至 99%，exact-release Top-1 從
+57% 提升至 74%，MRR@10 從 0.750 提升至 0.848。兩個來源的 Recall@25 都沒有下降。這解決了先前
+「Pointwise 只在舊 benchmark 有效，還是也能改善新 marketplace/image-search 資料」的不確定性。
+
+### 代碼修改了哪一部分、原因與決策
+
+擴充 `serper_dual_source_evaluation.py`，新增 raw-only RRF／Pointwise 對稱 evaluator、候選 membership
+不變檢查、RRF baseline 重現檢查，以及凍結結果 loader。若新的 RRF counts 與 T3 baseline 任一數值不同，
+或 Pointwise 增刪任何候選，評估就會 fail closed。這避免把 retrieval drift 誤認為 reranker gain。
+
+正式新增 `raw-pointwise-development.json`，SHA-256 為
+`f760d733ecc6cbee2124d42ad539d81b2f810bff2842ee26b2a2e6b2946df362`。Artifact 只保存 aggregate
+counts、metrics、模型／資料／split bindings、差值與 guardrails；沒有 query、target、答案、候選或逐筆
+prediction。Loader 會重算所有 accuracy、Recall、MRR 與 Pointwise-minus-RRF 差值，並拒絕 byte drift。
+
+### 技術棧／方法選型、驗證與下一步
+
+使用先前 development selection 勝出的本機 `cross-encoder/ms-marco-MiniLM-L6-v2` 固定 revision，模型
+manifest 與 config 都先驗 hash，且 `local_files_only=true`；本輪沒有 fine-tune 或下載模型。選擇沿用此
+checkpoint 是因為它已有可追溯的 prior selection，同時能直接回答跨新資料來源的 zero-shot ranking
+效果，不引入新的 model-selection 自由度。Pointwise rerank p95 約為 Image 130.205 ms、Shopping
+124.224 ms，僅代表本機 sequential CPU 的 rerank 階段，不是完整 API 或 production latency。
+
+15 個 focused tests、Ruff、strict MyPy 與 artifact loader 均通過。Pointwise 現在被選為兩個 raw 來源的
+development ranking winner，但這不是 runtime 上線決策：沒有評估 calibration／三態 policy、沒有調整
+threshold，50 個 test targets 仍為 0 scored。下一個必要 gate 是 SDSE-T4；只有 owner 明確批准後，才會
+對未開封 test 執行一次 aggregate-only final evaluation。
+
+## 2026-10-10 — SDSE-T3：封存四臂 development baseline，確認 raw 優於 cleaned
+
+### 新執行了什麼，解決什麼問題
+
+本輪第一次在凍結的 100 個 development targets 上執行真實四臂比較，每一臂都使用同一批 targets、
+同一個 1,763 筆 catalog、同一個 resolver/config 和相同 metrics。Image raw／cleaned 的 casting Top-1
+分別為 88%／80%，exact-release Top-1 為 39%／33%；Shopping raw／cleaned 的 casting Top-1 為
+95%／84%，exact-release Top-1 為 57%／51%。Shopping raw 同時達到 Recall@10=100%、Recall@25=100%
+及 MRR@10=0.750，是目前 development leader。
+
+這次結果解決了「清理 provider 文字是否真的會改善 resolver」的核心疑問：在兩種來源上，cleaned 都比
+raw 差。Image 清理後 casting Top-1 下降 8 個百分點、exact Top-1 下降 6 點；Shopping 分別下降 11 點
+與 6 點。因此正式凍結 raw 為兩個來源的 primary representation，cleaned 只保留作為 ablation 對照，
+避免在沒有證據時把看似整齊但資訊較少的文字送進模型。
+
+### 代碼修改了哪一部分、原因與決策
+
+新增 `data/evaluation/serper-dual-source-evaluation-v1/development-baseline.json`，只保存四臂 aggregate
+metrics、可回算的 raw counts、dataset／split／catalog／config bindings、比較差值與決策，不保存逐筆
+query、答案、prediction 或 candidates。artifact SHA-256 是
+`8ffb7758fd344bc632747432be1232efed49cbf8155721867bb747086481932c`。
+
+`serper_dual_source_evaluation.py` 新增 fail-closed baseline loader：先驗整檔 hash，再驗證 schema、100/50
+split、1,763 candidates、四臂設定、所有 metrics 是否能由 counts 回算、差值是否與 arm metrics 一致，並
+拒絕 row-level 欄位。這樣履歷展示中的數字不是手動抄寫的孤立結果，而是能由程式驗證來源與完整性的
+versioned evidence。測試也新增正常載入與單 byte 漂移拒絕案例。
+
+### 技術棧／方法選型、驗證與下一步
+
+本輪固定使用 production default offline RRF、192 維 hashing embedding、candidate limit 25，且關閉
+reranker。這個選擇讓 T3 先量到來源與清理本身的影響，避免同時更換模型後無法判斷差異從哪裡來；它不
+代表 hashing embedding 是最終最佳模型。11 個 focused tests、Ruff 與 strict MyPy 全部通過。
+
+50 個 test targets 仍為 0 scored；本輪沒有模型、features、thresholds 或 runtime 變更。依 development
+結果，下一個合理實驗是在兩個 raw arms 上比較已凍結的 Pointwise reranker，cleaned arms 不再作為主要
+輸入。只有完成 development 決策並取得 owner 的 SDSE-T4 明確授權後，才能對 final test 做一次 aggregate
+evaluation。
+
+## 2026-10-10 — SDSE-T2：完成四臂 development-only aggregate evaluator
+
+### 新執行了什麼，解決什麼問題
+
+本輪把已凍結的 paired split 接上真正的 resolver evaluation contract，但沒有執行真實 100-target
+development baseline。新增的 evaluator 能以完全相同的 100 個 development target 建立四個 arms：
+`image_search_raw`、`image_search_cleaned`、`shopping_raw`、`shopping_cleaned`。四組共用同一份 1,763
+candidate catalog、candidate limit、ResolverService、reranker 設定與 metrics；唯一允許改變的是來源及
+raw/cleaned query text。這解決了未來比較時因 membership、模型或候選集合不同而無法歸因的問題。
+
+### 代碼修改了哪一部分、原因與決策
+
+擴充 `serper_dual_source_evaluation.py`，新增 arm projection、source-row exact binding、ranking/policy
+metrics 與 aggregate report。每個 arm 都獨立驗證 100 個 expected identities 能以 toy number 回綁
+frozen source row，再計算 casting Top-1、exact-release Top-1、Recall@10/25、MRR@10、policy exact
+accuracy、precision、coverage、abstention、status counts 與 pipeline p50/p95 latency。
+
+CLI 預設仍只執行 split readiness；只有明確加入 `--evaluate-development` 和
+`--acknowledge-source-relative-evaluation` 才能評分，而且沒有 `--test` 選項。Report 只保存 aggregate
+counts/metrics 與 dataset/split/catalog/config bindings，不含 query、target ID、expected label、候選或
+prediction。這個介面設計把「程式已可評估」與「已打開 development output」分開，避免實作測試被誤寫
+成真實 benchmark 結果。
+
+### 技術棧／方法選型、驗證與下一步
+
+實作重用 production `extract_signals`、retrieval、optional reranker 與 `ResolverService.resolve`，也重用
+既有 source binding 和 in-memory 1,763-row catalog projection，因此不是另寫一個簡化 evaluator。四臂
+都在同一 service/config 下依序執行，sample-count symmetry 不符就 fail closed；test membership 僅用來
+驗證 disjoint/exhaustive，scored count 固定為 0。
+
+新增 synthetic two-target evaluation fixture，證明四 arms 都只評分一個 development target、test target
+不進入結果、正確 casting 可命中，且 serialized report 不含任何 row-level 欄位。9 個 SDSE focused
+tests、Ruff 與 strict MyPy 全部通過。本輪沒有執行真實 100-target scoring、沒有產生 baseline artifact、
+沒有選 winner、沒有修改模型／feature／threshold 或 runtime。下一步 SDSE-T3 才會執行一次
+development-only baseline，解讀 raw/cleaned 差異並凍結後續決策；50-target test 仍保持未開封。
+
+## 2026-10-10 — SDSE-T1：凍結 paired、year-stratified 的 100/50 benchmark split
+
+### 新執行了什麼，解決什麼問題
+
+新的 Serper dataset 同時有 Image/Lens 與 Shopping 兩筆來源，若用 row-level 隨機切分，同一車款可能
+一筆進 development、另一筆進 test，造成答案洩漏；若只做全域隨機，也可能讓 2023–2026 某一年過度
+集中。本輪新增 dual-source benchmark loader，先嚴格驗證 150 個 `target_id` 都各有且只有一筆
+`image_search` 和一筆 `shopping`，再把同一 target 當成不可拆 group，依 release year 分層並凍結
+100-target development／50-target untouched test。對應 row counts 是 200/100，pair leakage 為 0。
+
+### 代碼修改了哪一部分、原因與決策
+
+新增 `serper_dual_source_evaluation.py`，固定 dataset、catalog、split version、salt 與 assignment hashes，
+並用 Pydantic strict models 拒絕額外欄位、非連續 IDs、缺一個來源、pair labels 不一致、重複 casting、
+同來源重複 raw/cleaned query 與任何 URL。`load_frozen_grouped_split` 先驗 dataset bytes 和 150/300
+metadata，再重建 split；任何資料或演算法漂移都 fail closed。
+
+沒有把 split 欄位塞回 300-row dataset，也沒有新增 row-level assignment manifest。membership 只存在於
+可重現的 deterministic function 與 frozen assignment SHA-256，readiness CLI 僅輸出 aggregate counts。
+這維持 owner 要求的最小正式資料夾：`serper-dual-source-query-v1/` 仍只有 `dataset.json`。
+
+### 技術棧／方法選型、驗證與下一步
+
+分層先依各年份占比計算 development quota，再以 versioned salt、`target_id` 與 normalized casting 的
+SHA-256 在每個年份內排序。相較一般 PRNG，這不依 Python random implementation 或隱藏 state，任何 clone
+都能重建；相較純 hash 全域切分，年份比例精確保持 2:1。development 年份分布為
+2023/2024/2025/2026=`26/22/30/22`，test=`13/11/15/11`，assignment SHA-256 為
+`4831d72b8b5ced2550e1dc1c35498781279d6e1ea866c4b3669638035b73ef13`。
+
+7 個 focused tests、Ruff、strict MyPy、readiness CLI 與 diff check 全部通過。CLI 明確回報
+`resolver_evaluation_executed=false`、`row_level_assignment_persisted=false`。本輪沒有讀取 prediction、
+沒有評分、沒有調整模型或 threshold，也沒有開啟 50-target test。下一個必要任務是 SDSE-T2：以完全
+相同 catalog、candidate limit、model 和 metrics 實作四個 development-only arms，唯一變因只能是
+source type 與 raw/cleaned query text。
+
+## 2026-10-10 — Serper dual-source dataset v1：建立 150 組／300 筆 raw 與 cleaned 查詢
+
+### 新執行了什麼，解決什麼問題
+
+本輪依照新的 marketplace benchmark 需求，從 Git-ignored 的 1,763 筆 frozen community catalog
+中用固定 seed 抽取與既有 153 筆 v1 casting 完全不重疊的目標。每個目標都執行兩條真實資料路徑：
+Serper Images 找到目標圖片後交給 Serper Lens 取得圖片搜尋文字，以及 Serper Google Shopping 取得
+marketplace listing title。最終保留 150 個 unique castings、每個 casting 各一筆 image-search 與
+shopping query，共 300 筆 paired records；每筆同時保留 `query_raw` 與 deterministic
+`query_cleaned`，並綁定 catalog 來源的 casting-level 與完整 release identity。
+
+第一次批次沿用了 sibling Resume Project `.env` 的舊 `X_API_KEY`。該 key 在完成前 10 組後回覆
+HTTP 400 `Not enough credits`；舊 collector 把 provider HTTP error 誤當成單筆資料品質失敗，因而產生
+241 次沒有資料的失敗嘗試。發現成功數停止成長後立即中止，修成 400/401/402/403/429 fail-fast，並改用
+owner 本輪提供、只存在暫存 `0600` `.env` 的 key。收集最終在 834 次 endpoint attempts 內完成，低於
+900 次安全上限；這個 attempts 數包含上述 241 次無 credit HTTP failures，不能解讀成 834 筆有效資料。
+
+### 代碼修改了哪一部分、原因與決策
+
+正式新增 `data/evaluation/serper-dual-source-query-v1/dataset.json`，頂層只保留 dataset version、
+catalog SHA-256、authority scope 與 150/300 aggregate counts。row-level schema 僅含 `id`、
+`target_id`、`source_type`、raw/cleaned query、`expected_casting` 與 `expected_full_identity`；沒有 URL、
+圖片、價格、商店、timestamp、raw response、provider metadata 或 API key。完整 identity 直接複製同一
+source row 的 brand、casting、release year、series、collector number、series position、toy number，
+以及來源實際存在時的 variant note；沒有推測缺失 color 或 edition。
+
+兩個來源必須同時通過才保留整組。Images seed title 必須含 toy number、完整 casting 或至少 80% 的
+casting tokens；Lens 使用 Resume Project 既有 title sanitation、quality scoring、clustering 與
+representative-title 邏輯選出最高品質 provider title，再做相同 evidence gate；Shopping 依 provider
+順序選第一個能支持目標的真實 title。Gate 只決定接受或淘汰，不能把 expected answer 改寫成 query。
+其中一個已收齊的 Lens title 含完整 URL，被 privacy gate 整組剔除並補收另一個目標，而不是竄改 raw
+文字。收集器、local `.env`、checkpoint、provider schemas 與所有中間資訊均留在
+`.local-image-search-collection-v2/`，驗證後整個目錄刪除，不成為產品程式或 Git 內容。
+
+### 技術棧／方法選型、驗證與限制
+
+網路層沿用 Resume Project 的 Python/httpx 與 Serper endpoints；文字清理複用
+`DeterministicIdentityNormalizer`，讓 image-search 與 Shopping 使用同一 deterministic cleaning
+contract。選擇 paired target design，而不是分別抽 150 個不同目標，是為了未來可以做 source 與
+raw/cleaned 的公平四臂比較，且 split 時只要按 `target_id` 分組即可避免同一答案跨 development/test
+洩漏。
+
+最終檔 SHA-256 為 `05213c4c8d101d844b179359aef63264b8579c2f728b14f5adbe7a3a75a56034`。
+獨立驗證確認 150 target pairs、300 rows、150 unique castings、與 v1 casting overlap 為 0；300 筆答案
+逐欄回綁唯一 toy number 的 frozen source row。image-search 有 149/150 筆在 cleaning 後改變，Shopping
+為 124/150；兩個來源的 raw 與 cleaned 各自都是 150 個 unique values。JSON/schema、pair、source
+binding、secret/URL/privacy gates 全部通過。本輪只建立資料，不執行 resolver scoring、不調整模型或
+threshold，也不啟用 runtime。答案仍是 frozen community catalog-relative，並非 Mattel 或 global truth。
+
 ## 2026-10-10 — HSPR-T1：修復 human-storage 的 13 個 stale-protocol failures
 
 ### 新執行了什麼，解決什麼問題

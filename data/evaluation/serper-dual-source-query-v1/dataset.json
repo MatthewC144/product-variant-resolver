@@ -1,0 +1,5239 @@
+{
+  "dataset_version": "serper-dual-source-query-v1",
+  "catalog_sha256": "b4e0747450a5447c2bf66b0838c91f3f723a19ac97c90c7ac3636cf3a9a709d4",
+  "authority_scope": "frozen-community-catalog-relative-not-manufacturer-truth",
+  "target_count": 150,
+  "record_count": 300,
+  "records": [
+    {
+      "id": "sds-0001",
+      "target_id": "sds-target-0001",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels Monster Dairy Delivery HYX93 HW Designed by 5/5 Short Card Blue Van Mattel 2025 1:64: Buy Online at Best Price in UAE - Amazon.ae",
+      "query_cleaned": "hot wheels monster dairy delivery hyx93 hw designed by short mattel 2025 64 buy",
+      "expected_casting": "Monster Dairy Delivery",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Monster Dairy Delivery",
+        "release_year": 2025,
+        "series": "HW Designed By",
+        "collector_number": "133",
+        "series_position": "5/5",
+        "toy_number": "HYX93",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0002",
+      "target_id": "sds-target-0001",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Monster Dairy Delivery Diecast Car",
+      "query_cleaned": "hot wheels monster dairy delivery",
+      "expected_casting": "Monster Dairy Delivery",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Monster Dairy Delivery",
+        "release_year": 2025,
+        "series": "HW Designed By",
+        "collector_number": "133",
+        "series_position": "5/5",
+        "toy_number": "HYX93",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0003",
+      "target_id": "sds-target-0002",
+      "source_type": "image_search",
+      "query_raw": "2023 Hot Wheels Group C Fantasy HW Track Champs #3/5 Yellow Diecast 1:64 Scale | eBay",
+      "query_cleaned": "2023 hot wheels group c fantasy hw track champs 64",
+      "expected_casting": "Group C Fantasy",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Group C Fantasy",
+        "release_year": 2023,
+        "series": "HW Track Champs New for 2023!",
+        "collector_number": "089",
+        "series_position": "3/5",
+        "toy_number": "HKK39",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0004",
+      "target_id": "sds-target-0002",
+      "source_type": "shopping",
+      "query_raw": "Mainline Hot Wheels 2023 Group C Fantasy Track Champ Series Hkk39",
+      "query_cleaned": "hot wheels 2023 group c fantasy track champ hkk39",
+      "expected_casting": "Group C Fantasy",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Group C Fantasy",
+        "release_year": 2023,
+        "series": "HW Track Champs New for 2023!",
+        "collector_number": "089",
+        "series_position": "3/5",
+        "toy_number": "HKK39",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0005",
+      "target_id": "sds-target-0003",
+      "source_type": "image_search",
+      "query_raw": "2025 HOT WHEELS 22 FORD MAVERICK CUSTOM Yellow HW MODIFIED 1/5 USA Seller | eBay",
+      "query_cleaned": "2025 hot wheels 22 ford maverick custom hw modified usa seller",
+      "expected_casting": "'22 Ford Maverick Custom",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'22 Ford Maverick Custom",
+        "release_year": 2025,
+        "series": "HW Modified",
+        "collector_number": "049",
+        "series_position": "1/5",
+        "toy_number": "HYX00"
+      }
+    },
+    {
+      "id": "sds-0006",
+      "target_id": "sds-target-0003",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels - 22 Ford Maverick Custom Hyx00-n9c0b",
+      "query_cleaned": "hot wheels 22 ford maverick custom hyx00 n9c0b",
+      "expected_casting": "'22 Ford Maverick Custom",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'22 Ford Maverick Custom",
+        "release_year": 2025,
+        "series": "HW Modified",
+        "collector_number": "049",
+        "series_position": "1/5",
+        "toy_number": "HYX00"
+      }
+    },
+    {
+      "id": "sds-0007",
+      "target_id": "sds-target-0004",
+      "source_type": "image_search",
+      "query_raw": "2025 Hot Wheels Case E Williams Racing Formula 1 SHORT Card | eBay",
+      "query_cleaned": "2025 hot wheels case e williams racing formula short",
+      "expected_casting": "Williams Racing",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Williams Racing",
+        "release_year": 2025,
+        "series": "Track Aces New for 2025!",
+        "collector_number": "059",
+        "series_position": "1/5",
+        "toy_number": "JBC07"
+      }
+    },
+    {
+      "id": "sds-0008",
+      "target_id": "sds-target-0004",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels 2025 Williams Racing Jbc07 Track Aces",
+      "query_cleaned": "hot wheels 2025 williams racing jbc07 track aces",
+      "expected_casting": "Williams Racing",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Williams Racing",
+        "release_year": 2025,
+        "series": "Track Aces New for 2025!",
+        "collector_number": "059",
+        "series_position": "1/5",
+        "toy_number": "JBC07"
+      }
+    },
+    {
+      "id": "sds-0009",
+      "target_id": "sds-target-0005",
+      "source_type": "image_search",
+      "query_raw": "Super Treasure Hunt Custom Otto Sth Hot Wheels 2026 ? Custom Otto STH Super Treasure Hunt With",
+      "query_cleaned": "hot wheels 2026 custom otto sth super treasure hunt with",
+      "expected_casting": "Custom Otto",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Custom Otto",
+        "release_year": 2026,
+        "series": "Mattel",
+        "collector_number": "156",
+        "series_position": "5/5",
+        "toy_number": "JJK03"
+      }
+    },
+    {
+      "id": "sds-0010",
+      "target_id": "sds-target-0005",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels 2026 Mainline Hot Wheels Mattel Series Cars (US Card) - Custom Otto 5/5 156/250 JJK03",
+      "query_cleaned": "hot wheels 2026 hot wheels mattel custom otto jjk03",
+      "expected_casting": "Custom Otto",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Custom Otto",
+        "release_year": 2026,
+        "series": "Mattel",
+        "collector_number": "156",
+        "series_position": "5/5",
+        "toy_number": "JJK03"
+      }
+    },
+    {
+      "id": "sds-0011",
+      "target_id": "sds-target-0006",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels HW METRO Dragtor | Tractor Car Collector Kids Toys Vehicle Transportation, Toys & Collectibles, Figurines & Models, Vehicle & Diecast Models on Carousell",
+      "query_cleaned": "hot wheels hw metro dragtor",
+      "expected_casting": "Dragtor",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Dragtor",
+        "release_year": 2024,
+        "series": "HW Metro",
+        "collector_number": "176",
+        "series_position": "9/10",
+        "toy_number": "HTB20"
+      }
+    },
+    {
+      "id": "sds-0012",
+      "target_id": "sds-target-0006",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels - 2024 Hw Metro 9/10 Dragtor 176/250 (bbhtb20)",
+      "query_cleaned": "hot wheels 2024 hw metro dragtor",
+      "expected_casting": "Dragtor",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Dragtor",
+        "release_year": 2024,
+        "series": "HW Metro",
+        "collector_number": "176",
+        "series_position": "9/10",
+        "toy_number": "HTB20"
+      }
+    },
+    {
+      "id": "sds-0013",
+      "target_id": "sds-target-0007",
+      "source_type": "image_search",
+      "query_raw": "2023 Hot Wheels G Case 4/4! Follow me at @tandphwguide! 33/250 Baja Hauler (2nd Color) / HW Haulers 3/5 / HKJ98 37/250 Tesla Model Y (3rd Color) / HW Green Speed 1/10 /",
+      "query_cleaned": "2023 hot wheels g case follow me at tandphwguide baja hauler hw haulers hkj98",
+      "expected_casting": "Baja Hauler",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Baja Hauler",
+        "release_year": 2023,
+        "series": "HW Haulers",
+        "collector_number": "033",
+        "series_position": "3/5",
+        "toy_number": "HKJ98",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0014",
+      "target_id": "sds-target-0007",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels HW Haulers Baja Hauler Diecast Car",
+      "query_cleaned": "hot wheels hw haulers baja hauler",
+      "expected_casting": "Baja Hauler",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Baja Hauler",
+        "release_year": 2023,
+        "series": "HW Haulers",
+        "collector_number": "033",
+        "series_position": "3/5",
+        "toy_number": "HKJ98",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0015",
+      "target_id": "sds-target-0008",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels HW SHORT CARD 2023 RESCUE MAD MANGA POLICE BLACK 10/10 248/250 | eBay",
+      "query_cleaned": "hot wheels hw short 2023 rescue mad manga police black",
+      "expected_casting": "Mad Manga",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Mad Manga",
+        "release_year": 2023,
+        "series": "HW Rescue",
+        "collector_number": "248",
+        "series_position": "10/10",
+        "toy_number": "HKJ25"
+      }
+    },
+    {
+      "id": "sds-0016",
+      "target_id": "sds-target-0008",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Die-Cast Vehicle Rescue Mad Manga",
+      "query_cleaned": "hot wheels die cast rescue mad manga",
+      "expected_casting": "Mad Manga",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Mad Manga",
+        "release_year": 2023,
+        "series": "HW Rescue",
+        "collector_number": "248",
+        "series_position": "10/10",
+        "toy_number": "HKJ25"
+      }
+    },
+    {
+      "id": "sds-0017",
+      "target_id": "sds-target-0009",
+      "source_type": "image_search",
+      "query_raw": "2022 Hot Wheels Pixel Shaker Treasure Hunt 66/250 HW Ride-Ons 4/5 | eBay",
+      "query_cleaned": "2022 hot wheels pixel shaker treasure hunt hw ride ons",
+      "expected_casting": "Pixel Shaker",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Pixel Shaker",
+        "release_year": 2025,
+        "series": "HW Ride-Ons",
+        "collector_number": "138",
+        "series_position": "5/5",
+        "toy_number": "JBB54",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0018",
+      "target_id": "sds-target-0009",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels 2025 Pixel Shaker - New Toys & Collectibles",
+      "query_cleaned": "hot wheels 2025 pixel shaker collectibles",
+      "expected_casting": "Pixel Shaker",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Pixel Shaker",
+        "release_year": 2025,
+        "series": "HW Ride-Ons",
+        "collector_number": "138",
+        "series_position": "5/5",
+        "toy_number": "JBB54",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0019",
+      "target_id": "sds-target-0010",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels '70 Dodge Hemi Challenger Muscle Mania [2023] - YouTube",
+      "query_cleaned": "hot wheels 70 dodge hemi challenger muscle mania youtube",
+      "expected_casting": "'70 Dodge Hemi Challenger",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'70 Dodge Hemi Challenger",
+        "release_year": 2023,
+        "series": "Muscle Mania",
+        "collector_number": "123",
+        "series_position": "4/10",
+        "toy_number": "HKJ55"
+      }
+    },
+    {
+      "id": "sds-0020",
+      "target_id": "sds-target-0010",
+      "source_type": "shopping",
+      "query_raw": "Hot wheels 2023 Muscle Mania 4 of 10 - 1970 Dodge Hemi Challenger green HKJ55",
+      "query_cleaned": "hot wheels 2023 muscle mania of 10 1970 dodge hemi challenger green hkj55",
+      "expected_casting": "'70 Dodge Hemi Challenger",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'70 Dodge Hemi Challenger",
+        "release_year": 2023,
+        "series": "Muscle Mania",
+        "collector_number": "123",
+        "series_position": "4/10",
+        "toy_number": "HKJ55"
+      }
+    },
+    {
+      "id": "sds-0021",
+      "target_id": "sds-target-0011",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels Donut Drifter Treasure Hunt 2023 Case F Sweet Rides 5/5 #129 NEW | eBay",
+      "query_cleaned": "hot wheels donut drifter treasure hunt 2023 case f sweet rides 129",
+      "expected_casting": "Donut Drifter",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Donut Drifter",
+        "release_year": 2023,
+        "series": "Sweet Rides Treasure Hunt",
+        "collector_number": "129",
+        "series_position": "5/5",
+        "toy_number": "HKK97"
+      }
+    },
+    {
+      "id": "sds-0022",
+      "target_id": "sds-target-0011",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Donut Drifter Sweet Rides 2023 Series",
+      "query_cleaned": "hot wheels donut drifter sweet rides 2023",
+      "expected_casting": "Donut Drifter",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Donut Drifter",
+        "release_year": 2023,
+        "series": "Sweet Rides Treasure Hunt",
+        "collector_number": "129",
+        "series_position": "5/5",
+        "toy_number": "HKK97"
+      }
+    },
+    {
+      "id": "sds-0023",
+      "target_id": "sds-target-0012",
+      "source_type": "image_search",
+      "query_raw": "M* 2024 Mattel Hotwheels Maroon Jaguar MK1 HW Race Day Series 2/10 75/250 - Etsy New Zealand",
+      "query_cleaned": "m 2024 mattel hotwheels maroon jaguar mk1 hw",
+      "expected_casting": "Jaguar Mk1",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Jaguar Mk1",
+        "release_year": 2025,
+        "series": "HW Race Day",
+        "collector_number": "075",
+        "series_position": "2/10",
+        "toy_number": "HYX19"
+      }
+    },
+    {
+      "id": "sds-0024",
+      "target_id": "sds-target-0012",
+      "source_type": "shopping",
+      "query_raw": "2025 Mk1 Hyx19 75/250 Race Day Diecast Car",
+      "query_cleaned": "2025 mk1 hyx19 race day",
+      "expected_casting": "Jaguar Mk1",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Jaguar Mk1",
+        "release_year": 2025,
+        "series": "HW Race Day",
+        "collector_number": "075",
+        "series_position": "2/10",
+        "toy_number": "HYX19"
+      }
+    },
+    {
+      "id": "sds-0025",
+      "target_id": "sds-target-0013",
+      "source_type": "image_search",
+      "query_raw": "2024 HOT WHEELS MAGNUS WALKER ' 96 PORSCHE CARRERA | eBay",
+      "query_cleaned": "2024 hot wheels magnus walker 96 porsche carrera",
+      "expected_casting": "'96 Porsche Carrera",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'96 Porsche Carrera",
+        "release_year": 2024,
+        "series": "HW: The '90s",
+        "collector_number": "174",
+        "series_position": "1/10",
+        "toy_number": "HTB03"
+      }
+    },
+    {
+      "id": "sds-0026",
+      "target_id": "sds-target-0013",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels '96 Porsche Carrera Blue With Gold Rims 2024 Series Hw The",
+      "query_cleaned": "hot wheels 96 porsche carrera with gold rims 2024 hw the",
+      "expected_casting": "'96 Porsche Carrera",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'96 Porsche Carrera",
+        "release_year": 2024,
+        "series": "HW: The '90s",
+        "collector_number": "174",
+        "series_position": "1/10",
+        "toy_number": "HTB03"
+      }
+    },
+    {
+      "id": "sds-0027",
+      "target_id": "sds-target-0014",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels 2025 - Hoto Roto - 158/250 - YouTube",
+      "query_cleaned": "hot wheels 2025 hoto roto youtube",
+      "expected_casting": "Hoto Roto",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Hoto Roto",
+        "release_year": 2025,
+        "series": "Rod Squad New for 2025!",
+        "collector_number": "158",
+        "series_position": "10/10",
+        "toy_number": "JBB74",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0028",
+      "target_id": "sds-target-0014",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels 2025 Mainline Rod Squad Series Cars (US Card) - Hoto Roto 10/10 158/250 JBB74",
+      "query_cleaned": "hot wheels 2025 rod squad hoto roto jbb74",
+      "expected_casting": "Hoto Roto",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Hoto Roto",
+        "release_year": 2025,
+        "series": "Rod Squad New for 2025!",
+        "collector_number": "158",
+        "series_position": "10/10",
+        "toy_number": "JBB74",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0029",
+      "target_id": "sds-target-0015",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels - Baja Bison T5 (New model for 2023) - YouTube",
+      "query_cleaned": "hot wheels baja bison t5 youtube",
+      "expected_casting": "Baja Bison T5",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Baja Bison T5",
+        "release_year": 2023,
+        "series": "HW Green Speed New for 2023!",
+        "collector_number": "143",
+        "series_position": "7/10",
+        "toy_number": "HKG44"
+      }
+    },
+    {
+      "id": "sds-0030",
+      "target_id": "sds-target-0015",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Baja Bison T5",
+      "query_cleaned": "hot wheels baja bison t5",
+      "expected_casting": "Baja Bison T5",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Baja Bison T5",
+        "release_year": 2023,
+        "series": "HW Green Speed New for 2023!",
+        "collector_number": "143",
+        "series_position": "7/10",
+        "toy_number": "HKG44"
+      }
+    },
+    {
+      "id": "sds-0031",
+      "target_id": "sds-target-0016",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels 2026 197/250 - Sweet Rides 5/5 - Mad Drip (JJH57) #hotwheels hotwheels2026 hw hw2026 #mattel mattel2027 matteltoys #diecast diecast2026 love photography #hotwheelssweetrides #hotwheelsmadd",
+      "query_cleaned": "hot wheels 2026 sweet rides mad drip hotwheels hotwheels2026 hw hw2026 mattel mattel2027 matteltoys",
+      "expected_casting": "Mad Drip",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Mad Drip",
+        "release_year": 2026,
+        "series": "Sweet Rides New for 2026!",
+        "collector_number": "197",
+        "series_position": "5/5",
+        "toy_number": "JJH57"
+      }
+    },
+    {
+      "id": "sds-0032",
+      "target_id": "sds-target-0016",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels 2026 Mainline Sweet Rides Series Cars (International Card) - Mad Drip 5/5 197/250 JJH57",
+      "query_cleaned": "hot wheels 2026 sweet rides mad drip jjh57",
+      "expected_casting": "Mad Drip",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Mad Drip",
+        "release_year": 2026,
+        "series": "Sweet Rides New for 2026!",
+        "collector_number": "197",
+        "series_position": "5/5",
+        "toy_number": "JJH57"
+      }
+    },
+    {
+      "id": "sds-0033",
+      "target_id": "sds-target-0017",
+      "source_type": "image_search",
+      "query_raw": "New Release Hot Wheels Humvee HW Dirt Series Bilstein Red 2025 Free Shipping | eBay",
+      "query_cleaned": "hot wheels humvee hw dirt bilstein red 2025",
+      "expected_casting": "Humvee",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Humvee",
+        "release_year": 2025,
+        "series": "HW Dirt",
+        "collector_number": "055",
+        "series_position": "1/10",
+        "toy_number": "HYX05"
+      }
+    },
+    {
+      "id": "sds-0034",
+      "target_id": "sds-target-0017",
+      "source_type": "shopping",
+      "query_raw": "2025 Hot Wheels - Humvee - 1/10 - Hw Dirt - 55/250 - Hyx05",
+      "query_cleaned": "2025 hot wheels humvee hw dirt hyx05",
+      "expected_casting": "Humvee",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Humvee",
+        "release_year": 2025,
+        "series": "HW Dirt",
+        "collector_number": "055",
+        "series_position": "1/10",
+        "toy_number": "HYX05"
+      }
+    },
+    {
+      "id": "sds-0035",
+      "target_id": "sds-target-0018",
+      "source_type": "image_search",
+      "query_raw": "1978 DODGE LI'L RED EXPRESS TRUCK",
+      "query_cleaned": "1978 dodge li l red express truck",
+      "expected_casting": "1978 Dodge Li'l Red Express Truck",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "1978 Dodge Li'l Red Express Truck",
+        "release_year": 2024,
+        "series": "HW Celebration Racers Valentine's Day",
+        "collector_number": "053",
+        "series_position": "3/10",
+        "toy_number": "HRY97"
+      }
+    },
+    {
+      "id": "sds-0036",
+      "target_id": "sds-target-0018",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels 1978 Dodge Li'L Red Express Truck Boulevard Premium",
+      "query_cleaned": "hot wheels 1978 dodge li l red express truck boulevard premium",
+      "expected_casting": "1978 Dodge Li'l Red Express Truck",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "1978 Dodge Li'l Red Express Truck",
+        "release_year": 2024,
+        "series": "HW Celebration Racers Valentine's Day",
+        "collector_number": "053",
+        "series_position": "3/10",
+        "toy_number": "HRY97"
+      }
+    },
+    {
+      "id": "sds-0037",
+      "target_id": "sds-target-0019",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels - VW ID Buzz Bomb - JJH46 - HW Euro 4/10 - Short Card - Pink - Official Licensed Model - Volkswagen Bus - Mattel 2026 (86/250) - 1:64: Buy Online at Best Price in UAE - Amazon.ae",
+      "query_cleaned": "hot wheels vw id buzz bomb jjh46 hw euro short pink official licensed model",
+      "expected_casting": "VW ID. Buzz Bomb",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "VW ID. Buzz Bomb",
+        "release_year": 2026,
+        "series": "HW Euro New for 2026!",
+        "collector_number": "086",
+        "series_position": "4/10",
+        "toy_number": "JJH46"
+      }
+    },
+    {
+      "id": "sds-0038",
+      "target_id": "sds-target-0019",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Vw ID Buzz Bomb Van White And Purple Hw Euro 4/10 86/250 For 2026! 1",
+      "query_cleaned": "hot wheels vw id buzz bomb and purple hw euro 2026",
+      "expected_casting": "VW ID. Buzz Bomb",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "VW ID. Buzz Bomb",
+        "release_year": 2026,
+        "series": "HW Euro New for 2026!",
+        "collector_number": "086",
+        "series_position": "4/10",
+        "toy_number": "JJH46"
+      }
+    },
+    {
+      "id": "sds-0039",
+      "target_id": "sds-target-0020",
+      "source_type": "image_search",
+      "query_raw": "2024 HOT WHEELS, TRACK DWAGON 4/5 HW TRACK CHAMPS #189/250 LETS RACE 🆕 | eBay",
+      "query_cleaned": "2024 hot wheels track dwagon hw track champs lets race",
+      "expected_casting": "Track Dwagon",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Track Dwagon",
+        "release_year": 2025,
+        "series": "HW Wagons",
+        "collector_number": "184",
+        "series_position": "2/5",
+        "toy_number": "JBB10"
+      }
+    },
+    {
+      "id": "sds-0040",
+      "target_id": "sds-target-0020",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels 2025 Mainline HW Wagons Series Cars (US Card) - Track Dwagon 2/5 184/250 JBB10 White",
+      "query_cleaned": "hot wheels 2025 hw wagons track dwagon jbb10",
+      "expected_casting": "Track Dwagon",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Track Dwagon",
+        "release_year": 2025,
+        "series": "HW Wagons",
+        "collector_number": "184",
+        "series_position": "2/5",
+        "toy_number": "JBB10"
+      }
+    },
+    {
+      "id": "sds-0041",
+      "target_id": "sds-target-0021",
+      "source_type": "image_search",
+      "query_raw": "Drone Duty (HW Metro 4/10) 102/250 2023",
+      "query_cleaned": "drone duty 2023",
+      "expected_casting": "Drone Duty",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Drone Duty",
+        "release_year": 2023,
+        "series": "HW Metro",
+        "collector_number": "102",
+        "series_position": "4/10",
+        "toy_number": "HKG93"
+      }
+    },
+    {
+      "id": "sds-0042",
+      "target_id": "sds-target-0021",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Drone Duty HW Rescue 10/10 239/250",
+      "query_cleaned": "hot wheels drone duty hw rescue",
+      "expected_casting": "Drone Duty",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Drone Duty",
+        "release_year": 2023,
+        "series": "HW Metro",
+        "collector_number": "102",
+        "series_position": "4/10",
+        "toy_number": "HKG93"
+      }
+    },
+    {
+      "id": "sds-0043",
+      "target_id": "sds-target-0022",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels 2023 Surfin' School Bus - Surf's Up Series 1/5 NEW Yellow & Brown New | eBay",
+      "query_cleaned": "hot wheels 2023 surfin school bus surf up brown",
+      "expected_casting": "Surfin' School Bus",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Surfin' School Bus",
+        "release_year": 2023,
+        "series": "Surf's Up",
+        "collector_number": "024",
+        "series_position": "1/5",
+        "toy_number": "HKJ32"
+      }
+    },
+    {
+      "id": "sds-0044",
+      "target_id": "sds-target-0022",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels kisautó hkj32",
+      "query_cleaned": "hot wheels kisaut hkj32",
+      "expected_casting": "Surfin' School Bus",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Surfin' School Bus",
+        "release_year": 2023,
+        "series": "Surf's Up",
+        "collector_number": "024",
+        "series_position": "1/5",
+        "toy_number": "HKJ32"
+      }
+    },
+    {
+      "id": "sds-0045",
+      "target_id": "sds-target-0023",
+      "source_type": "image_search",
+      "query_raw": "Hot-Wheels Dodge Van (Grey/Green) 2/5 HW Drift 2021 - 50/250 (Short Card) GRX21 : Amazon.com.be: Automotive",
+      "query_cleaned": "hot wheels dodge hw drift 2021 grx21 be automotive",
+      "expected_casting": "Dodge Van",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Dodge Van",
+        "release_year": 2023,
+        "series": "HW 55 Race Team",
+        "collector_number": "066",
+        "series_position": "2/5",
+        "toy_number": "HKK28",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0046",
+      "target_id": "sds-target-0023",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Tekli Arabalar Dodge Van Hkk28",
+      "query_cleaned": "hot wheels tekli arabalar dodge hkk28",
+      "expected_casting": "Dodge Van",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Dodge Van",
+        "release_year": 2023,
+        "series": "HW 55 Race Team",
+        "collector_number": "066",
+        "series_position": "2/5",
+        "toy_number": "HKK28",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0047",
+      "target_id": "sds-target-0024",
+      "source_type": "image_search",
+      "query_raw": "Blue Hot Wheels 68 Shelby Gt 500 1968 FORD MUSTANG SHELBY GT500 BLUE By HOT WHEELS",
+      "query_cleaned": "hot wheels shelby gt 500 1968 ford mustang shelby gt500 by hot wheels",
+      "expected_casting": "'68 Shelby GT500",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'68 Shelby GT500",
+        "release_year": 2026,
+        "series": "HW Torque",
+        "collector_number": "184",
+        "series_position": "2/10",
+        "toy_number": "JJK24"
+      }
+    },
+    {
+      "id": "sds-0048",
+      "target_id": "sds-target-0024",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels 2026 Mainline HW Torque Series Cars (Short Card) - '68 Shelby GT500 2/10 184/250 JJK24",
+      "query_cleaned": "hot wheels 2026 hw torque 68 shelby gt500 jjk24",
+      "expected_casting": "'68 Shelby GT500",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'68 Shelby GT500",
+        "release_year": 2026,
+        "series": "HW Torque",
+        "collector_number": "184",
+        "series_position": "2/10",
+        "toy_number": "JJK24"
+      }
+    },
+    {
+      "id": "sds-0049",
+      "target_id": "sds-target-0025",
+      "source_type": "image_search",
+      "query_raw": "2023 Hot Wheels HW GASSERS 3/5 '62 Corvette Gasser 174/250 (Red) | eBay",
+      "query_cleaned": "2023 hot wheels hw gassers 62 corvette gasser",
+      "expected_casting": "'62 Corvette Gasser",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'62 Corvette Gasser",
+        "release_year": 2023,
+        "series": "HW Gassers",
+        "collector_number": "174",
+        "series_position": "3/5",
+        "toy_number": "HKH64"
+      }
+    },
+    {
+      "id": "sds-0050",
+      "target_id": "sds-target-0025",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Super Treasure Hunt 62 Corvette Gasser Sth",
+      "query_cleaned": "hot wheels super treasure hunt 62 corvette gasser sth",
+      "expected_casting": "'62 Corvette Gasser",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'62 Corvette Gasser",
+        "release_year": 2023,
+        "series": "HW Gassers",
+        "collector_number": "174",
+        "series_position": "3/5",
+        "toy_number": "HKH64"
+      }
+    },
+    {
+      "id": "sds-0051",
+      "target_id": "sds-target-0026",
+      "source_type": "image_search",
+      "query_raw": "Some of last weeks finds HOP HorWHeeLs WHeeLs 131/250 2026 5/5 76 FIAT BEAST FATBEASTOFTURIN FIATBEASTOFTURIN OF TURIN DRUPTOPS TOPS DRÚP 3+MATTEL 3+ MATTEL 170/250 170/ 250 HoEWHeeLs 1/10 PaI 3+MATTE",
+      "query_cleaned": "some of last weeks finds hop horwheels wheels",
+      "expected_casting": "Fiat Beast of Turin",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Fiat Beast of Turin",
+        "release_year": 2026,
+        "series": "Drop Tops New for 2026! Walmart Exclusive",
+        "collector_number": "131",
+        "series_position": "5/5",
+        "toy_number": "JJM66",
+        "variant_note": "2nd Color - Zamac"
+      }
+    },
+    {
+      "id": "sds-0052",
+      "target_id": "sds-target-0026",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels 2026 Mainline Drop Tops Series Cars (US Card) - Fiat Beast of Turin 5/5 131/250 JJH48 New For 2026",
+      "query_cleaned": "hot wheels 2026 drop tops fiat beast of turin jjh48 2026",
+      "expected_casting": "Fiat Beast of Turin",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Fiat Beast of Turin",
+        "release_year": 2026,
+        "series": "Drop Tops New for 2026! Walmart Exclusive",
+        "collector_number": "131",
+        "series_position": "5/5",
+        "toy_number": "JJM66",
+        "variant_note": "2nd Color - Zamac"
+      }
+    },
+    {
+      "id": "sds-0053",
+      "target_id": "sds-target-0027",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels 2025 HW First Response 3/5 039 Dodge 2020 Ram 1500 Rebel WHITE GBLOR | eBay",
+      "query_cleaned": "hot wheels 2025 hw first response 039 dodge 2020 ram 1500 rebel gblor",
+      "expected_casting": "2020 Ram 1500 Rebel",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "2020 Ram 1500 Rebel",
+        "release_year": 2025,
+        "series": "Red Edition Target Exclusive",
+        "collector_number": "039",
+        "series_position": "5/12",
+        "toy_number": "HYY42",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0054",
+      "target_id": "sds-target-0027",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels 2020 Ram 1500 Rebel HW First Response New 2025",
+      "query_cleaned": "hot wheels 2020 ram 1500 rebel hw first response 2025",
+      "expected_casting": "2020 Ram 1500 Rebel",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "2020 Ram 1500 Rebel",
+        "release_year": 2025,
+        "series": "Red Edition Target Exclusive",
+        "collector_number": "039",
+        "series_position": "5/12",
+        "toy_number": "HYY42",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0055",
+      "target_id": "sds-target-0028",
+      "source_type": "image_search",
+      "query_raw": "Buy 2 Hot Wheels Porsche 911 Turbo Cabriolet Diecast 1/64 Scale Models Set | German Luxury Sport Cars | Gift for Friend, Car Collector, Husband Online in India - Etsy",
+      "query_cleaned": "hot wheels porsche 911 turbo cabriolet models set",
+      "expected_casting": "Porsche 911 Turbo Cabriolet",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Porsche 911 Turbo Cabriolet",
+        "release_year": 2026,
+        "series": "Drop Tops",
+        "collector_number": "052",
+        "series_position": "3/5",
+        "toy_number": "JJJ22"
+      }
+    },
+    {
+      "id": "sds-0056",
+      "target_id": "sds-target-0028",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Porsche 911 Turbo Cabriolet 52/250 - 2026 Mainline A",
+      "query_cleaned": "hot wheels porsche 911 turbo cabriolet 2026 a",
+      "expected_casting": "Porsche 911 Turbo Cabriolet",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Porsche 911 Turbo Cabriolet",
+        "release_year": 2026,
+        "series": "Drop Tops",
+        "collector_number": "052",
+        "series_position": "3/5",
+        "toy_number": "JJJ22"
+      }
+    },
+    {
+      "id": "sds-0057",
+      "target_id": "sds-target-0029",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels '89 Mercedes-Benz 560 SEC AMG – Wild Widebody 2/5, Dark Blue Metallic 1:64 Die-Cast, 2025 Release (186/250)",
+      "query_cleaned": "hot wheels 89 mercedes benz 560 sec amg wild widebody dark metallic 64 die",
+      "expected_casting": "'89 Mercedes-Benz 560 SEC AMG",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'89 Mercedes-Benz 560 SEC AMG",
+        "release_year": 2024,
+        "series": "HW Modified",
+        "collector_number": "082",
+        "series_position": "8/10",
+        "toy_number": "HTB70"
+      }
+    },
+    {
+      "id": "sds-0058",
+      "target_id": "sds-target-0029",
+      "source_type": "shopping",
+      "query_raw": "2024 Hot Wheels Super Error '89 Mercedes-benz 560 Sec Amg",
+      "query_cleaned": "2024 hot wheels super error 89 mercedes benz 560 sec amg",
+      "expected_casting": "'89 Mercedes-Benz 560 SEC AMG",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'89 Mercedes-Benz 560 SEC AMG",
+        "release_year": 2024,
+        "series": "HW Modified",
+        "collector_number": "082",
+        "series_position": "8/10",
+        "toy_number": "HTB70"
+      }
+    },
+    {
+      "id": "sds-0059",
+      "target_id": "sds-target-0030",
+      "source_type": "image_search",
+      "query_raw": "Chop 'N Bloc #182 Red Rod Squad 7/10 2026 Hot Wheels Mix P",
+      "query_cleaned": "2026 hot wheels mix p",
+      "expected_casting": "Chop 'n Bloc",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Chop 'n Bloc",
+        "release_year": 2026,
+        "series": "Rod Squad New for 2026!",
+        "collector_number": "182",
+        "series_position": "7/10",
+        "toy_number": "JJL77",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0060",
+      "target_id": "sds-target-0030",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels 2026 Case J Chop N Bloc",
+      "query_cleaned": "hot wheels 2026 case j chop n bloc",
+      "expected_casting": "Chop 'n Bloc",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Chop 'n Bloc",
+        "release_year": 2026,
+        "series": "Rod Squad New for 2026!",
+        "collector_number": "182",
+        "series_position": "7/10",
+        "toy_number": "JJL77",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0061",
+      "target_id": "sds-target-0031",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels - Raijin Express - JJK85 - HW Heavyweights 3/5 - Short Card - Black Custom Food Truck - Fantasy Model - Mattel 2026 (57/250) - 1:64: Buy Online at Best Price in UAE - Amazon.ae",
+      "query_cleaned": "hot wheels raijin express jjk85 hw heavyweights short black custom food truck fantasy model",
+      "expected_casting": "Raijin Express",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Raijin Express",
+        "release_year": 2026,
+        "series": "HW Heavyweights",
+        "collector_number": "057",
+        "series_position": "3/5",
+        "toy_number": "JJK85",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0062",
+      "target_id": "sds-target-0031",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Raijin Express",
+      "query_cleaned": "hot wheels raijin express",
+      "expected_casting": "Raijin Express",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Raijin Express",
+        "release_year": 2026,
+        "series": "HW Heavyweights",
+        "collector_number": "057",
+        "series_position": "3/5",
+        "toy_number": "JJK85",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0063",
+      "target_id": "sds-target-0032",
+      "source_type": "image_search",
+      "query_raw": "HW Poppa Wheelie (Art Cars 6/10) 2018 | Jayhow's Hot Wheels and Collectibles",
+      "query_cleaned": "hw poppa wheelie 2018",
+      "expected_casting": "HW Poppa Wheelie",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "HW Poppa Wheelie",
+        "release_year": 2023,
+        "series": "HW Drag Strip",
+        "collector_number": "186",
+        "series_position": "8/10",
+        "toy_number": "HKK06",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0064",
+      "target_id": "sds-target-0032",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels HW Drag Strip HW poppa wheelie",
+      "query_cleaned": "hot wheels hw drag strip hw poppa wheelie",
+      "expected_casting": "HW Poppa Wheelie",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "HW Poppa Wheelie",
+        "release_year": 2023,
+        "series": "HW Drag Strip",
+        "collector_number": "186",
+        "series_position": "8/10",
+        "toy_number": "HKK06",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0065",
+      "target_id": "sds-target-0033",
+      "source_type": "image_search",
+      "query_raw": "2022 Hot Wheels MAX STEEL Rod Squad 4/5 | eBay",
+      "query_cleaned": "2022 hot wheels max steel rod squad",
+      "expected_casting": "Max Steel",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Max Steel",
+        "release_year": 2025,
+        "series": "Rod Squad",
+        "collector_number": "025",
+        "series_position": "2/10",
+        "toy_number": "HYW78"
+      }
+    },
+    {
+      "id": "sds-0066",
+      "target_id": "sds-target-0033",
+      "source_type": "shopping",
+      "query_raw": "2025 Hot Wheels - Max Steel - 2/10 - Rod Squad - 25/250 - Hyw78",
+      "query_cleaned": "2025 hot wheels max steel rod squad hyw78",
+      "expected_casting": "Max Steel",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Max Steel",
+        "release_year": 2025,
+        "series": "Rod Squad",
+        "collector_number": "025",
+        "series_position": "2/10",
+        "toy_number": "HYW78"
+      }
+    },
+    {
+      "id": "sds-0067",
+      "target_id": "sds-target-0034",
+      "source_type": "image_search",
+      "query_raw": "2024 Hot Wheels Mercedes-Benz Unimog 1300L Orange 1/10 HW Dirt freeship | eBay",
+      "query_cleaned": "2024 hot wheels mercedes benz unimog 1300l orange hw dirt freeship",
+      "expected_casting": "Mercedes-Benz Unimog 1300L",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Mercedes-Benz Unimog 1300L",
+        "release_year": 2026,
+        "series": "Truckin' Along",
+        "collector_number": "064",
+        "series_position": "4/5",
+        "toy_number": "JJJ32"
+      }
+    },
+    {
+      "id": "sds-0068",
+      "target_id": "sds-target-0034",
+      "source_type": "shopping",
+      "query_raw": "2026 Hot Wheels Mercedes-benz Unimog 1300l 64/250 Trucking Along 4/5",
+      "query_cleaned": "2026 hot wheels mercedes benz unimog 1300l trucking along",
+      "expected_casting": "Mercedes-Benz Unimog 1300L",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Mercedes-Benz Unimog 1300L",
+        "release_year": 2026,
+        "series": "Truckin' Along",
+        "collector_number": "064",
+        "series_position": "4/5",
+        "toy_number": "JJJ32"
+      }
+    },
+    {
+      "id": "sds-0069",
+      "target_id": "sds-target-0035",
+      "source_type": "image_search",
+      "query_raw": "2026 Hot Wheels : Drift Box Red Dot #2026 #hotwheels #hotwheelscollection #hotwheelscollector - YouTube",
+      "query_cleaned": "2026 hot wheels drift box red dot 2026 hotwheels hotwheelscollection hotwheelscollector youtube",
+      "expected_casting": "Drift Box",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Drift Box",
+        "release_year": 2026,
+        "series": "HW Euro New for 2026!",
+        "collector_number": "065",
+        "series_position": "1/10",
+        "toy_number": "JJH40"
+      }
+    },
+    {
+      "id": "sds-0070",
+      "target_id": "sds-target-0035",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels 2026 Mainline Hot Wheels HW Euro Series Cars (US Card) - Drift Box 1/10 65/250 JJH40",
+      "query_cleaned": "hot wheels 2026 hot wheels hw euro drift box jjh40",
+      "expected_casting": "Drift Box",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Drift Box",
+        "release_year": 2026,
+        "series": "HW Euro New for 2026!",
+        "collector_number": "065",
+        "series_position": "1/10",
+        "toy_number": "JJH40"
+      }
+    },
+    {
+      "id": "sds-0071",
+      "target_id": "sds-target-0036",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels Ford F-150 Lightning Custom Red HW Green Speed 2024. | eBay",
+      "query_cleaned": "hot wheels ford f 150 lightning custom red hw green speed 2024",
+      "expected_casting": "Ford F-150 Lightning Custom",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Ford F-150 Lightning Custom",
+        "release_year": 2023,
+        "series": "HW Hot Trucks New for 2023!",
+        "collector_number": "226",
+        "series_position": "9/10",
+        "toy_number": "HKG66"
+      }
+    },
+    {
+      "id": "sds-0072",
+      "target_id": "sds-target-0036",
+      "source_type": "shopping",
+      "query_raw": "Ford F 150 Lightning Custom HW Hot Trucks Ages 3 and Up",
+      "query_cleaned": "ford f 150 lightning custom hw hot ages",
+      "expected_casting": "Ford F-150 Lightning Custom",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Ford F-150 Lightning Custom",
+        "release_year": 2023,
+        "series": "HW Hot Trucks New for 2023!",
+        "collector_number": "226",
+        "series_position": "9/10",
+        "toy_number": "HKG66"
+      }
+    },
+    {
+      "id": "sds-0073",
+      "target_id": "sds-target-0037",
+      "source_type": "image_search",
+      "query_raw": "HOT WHEELS HEAVY HITCHER TOW TRUCK | 2024 COLLECTION - YouTube",
+      "query_cleaned": "hot wheels heavy hitcher tow truck",
+      "expected_casting": "Heavy Hitcher",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Heavy Hitcher",
+        "release_year": 2024,
+        "series": "HW Metro",
+        "collector_number": "135",
+        "series_position": "4/10",
+        "toy_number": "HTD68",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0074",
+      "target_id": "sds-target-0037",
+      "source_type": "shopping",
+      "query_raw": "2024 Hot Wheels 135/250 Htd68 Heavy Hitcher Hw Metro 4/10",
+      "query_cleaned": "2024 hot wheels htd68 heavy hitcher hw metro",
+      "expected_casting": "Heavy Hitcher",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Heavy Hitcher",
+        "release_year": 2024,
+        "series": "HW Metro",
+        "collector_number": "135",
+        "series_position": "4/10",
+        "toy_number": "HTD68",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0075",
+      "target_id": "sds-target-0038",
+      "source_type": "image_search",
+      "query_raw": "2026 Hot Wheels Drop Tops 4/5 2019 Audi R8 Spyder Black – Cars N Cards",
+      "query_cleaned": "2026 hot wheels drop tops 2019 audi r8 spyder black n cards",
+      "expected_casting": "2019 Audi R8 Spyder",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "2019 Audi R8 Spyder",
+        "release_year": 2026,
+        "series": "Drop Tops",
+        "collector_number": "130",
+        "series_position": "4/5",
+        "toy_number": "JJJ84"
+      }
+    },
+    {
+      "id": "sds-0076",
+      "target_id": "sds-target-0038",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels 2019 Audi R8 Spyder Black Drop Tops Mainline Jjj84 2026",
+      "query_cleaned": "hot wheels 2019 audi r8 spyder black drop tops jjj84 2026",
+      "expected_casting": "2019 Audi R8 Spyder",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "2019 Audi R8 Spyder",
+        "release_year": 2026,
+        "series": "Drop Tops",
+        "collector_number": "130",
+        "series_position": "4/5",
+        "toy_number": "JJJ84"
+      }
+    },
+    {
+      "id": "sds-0077",
+      "target_id": "sds-target-0039",
+      "source_type": "image_search",
+      "query_raw": "2022 HOT WHEELS 1:64 RACING CIRCUIT SERIES 5/5 BLUE 2020 KOENIGSEGG JESKO | eBay",
+      "query_cleaned": "2022 hot wheels 64 racing circuit 2020 koenigsegg jesko",
+      "expected_casting": "2020 Koenigsegg Jesko",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "2020 Koenigsegg Jesko",
+        "release_year": 2024,
+        "series": "HW Exotics",
+        "collector_number": "184",
+        "series_position": "2/10",
+        "toy_number": "HTC21"
+      }
+    },
+    {
+      "id": "sds-0078",
+      "target_id": "sds-target-0039",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels 2020 Koenigsegg Jesko HW Exotics 3/10 2020 Short card",
+      "query_cleaned": "hot wheels 2020 koenigsegg jesko hw exotics 2020 short",
+      "expected_casting": "2020 Koenigsegg Jesko",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "2020 Koenigsegg Jesko",
+        "release_year": 2024,
+        "series": "HW Exotics",
+        "collector_number": "184",
+        "series_position": "2/10",
+        "toy_number": "HTC21"
+      }
+    },
+    {
+      "id": "sds-0079",
+      "target_id": "sds-target-0040",
+      "source_type": "image_search",
+      "query_raw": "2025 HOT WHEELS 1:64 HW '70S VS. '90S 2/10 WHITE '94 AUDI AVANT RS2 HW 29/250 | eBay",
+      "query_cleaned": "2025 hot wheels 64 hw 70s vs 90s 94 audi avant rs2 hw",
+      "expected_casting": "'94 Audi Avant RS2",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'94 Audi Avant RS2",
+        "release_year": 2024,
+        "series": "Factory Fresh",
+        "collector_number": "133",
+        "series_position": "9/10",
+        "toy_number": "HTD49",
+        "variant_note": "3rd Color"
+      }
+    },
+    {
+      "id": "sds-0080",
+      "target_id": "sds-target-0040",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels 2024 '94 Audi Avant Rs2 (3rd Color) (htd49)",
+      "query_cleaned": "hot wheels 2024 94 audi avant rs2",
+      "expected_casting": "'94 Audi Avant RS2",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'94 Audi Avant RS2",
+        "release_year": 2024,
+        "series": "Factory Fresh",
+        "collector_number": "133",
+        "series_position": "9/10",
+        "toy_number": "HTD49",
+        "variant_note": "3rd Color"
+      }
+    },
+    {
+      "id": "sds-0081",
+      "target_id": "sds-target-0041",
+      "source_type": "image_search",
+      "query_raw": "Unboxing Hot Wheels 2023 Tesla Model Y - YouTube",
+      "query_cleaned": "hot wheels 2023 tesla model y youtube",
+      "expected_casting": "Tesla Model Y",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Tesla Model Y",
+        "release_year": 2023,
+        "series": "Red Edition New for 2023! Target Exclusive",
+        "collector_number": "037",
+        "series_position": "3/12",
+        "toy_number": "HKL53",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0082",
+      "target_id": "sds-target-0041",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Tesla Model Y 37/250 - Red Edition - 2023 Mainline A",
+      "query_cleaned": "hot wheels tesla model y red edition 2023 a",
+      "expected_casting": "Tesla Model Y",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Tesla Model Y",
+        "release_year": 2023,
+        "series": "Red Edition New for 2023! Target Exclusive",
+        "collector_number": "037",
+        "series_position": "3/12",
+        "toy_number": "HKL53",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0083",
+      "target_id": "sds-target-0042",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels Bugatti Bolide: Collectible Exotic Car Model - Etsy",
+      "query_cleaned": "hot wheels bugatti bolide collectible exotic car model etsy",
+      "expected_casting": "Bugatti Bolide",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Bugatti Bolide",
+        "release_year": 2024,
+        "series": "HW Exotics",
+        "collector_number": "185",
+        "series_position": "3/10",
+        "toy_number": "HTC22"
+      }
+    },
+    {
+      "id": "sds-0084",
+      "target_id": "sds-target-0042",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Bugatti Bolide",
+      "query_cleaned": "hot wheels bugatti bolide",
+      "expected_casting": "Bugatti Bolide",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Bugatti Bolide",
+        "release_year": 2024,
+        "series": "HW Exotics",
+        "collector_number": "185",
+        "series_position": "3/10",
+        "toy_number": "HTC22"
+      }
+    },
+    {
+      "id": "sds-0085",
+      "target_id": "sds-target-0043",
+      "source_type": "image_search",
+      "query_raw": "BRICKING TRAILS || Brick Rides 1/5 || HOT WHEELS - YouTube",
+      "query_cleaned": "hot wheels youtube",
+      "expected_casting": "Bricking Trails",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Bricking Trails",
+        "release_year": 2023,
+        "series": "Brick Rides",
+        "collector_number": "007",
+        "series_position": "1/5",
+        "toy_number": "HKJ85",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0086",
+      "target_id": "sds-target-0043",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels - 2023 Brick Rides 1/5 Bricking Trails 7/250 (bbhkj85)",
+      "query_cleaned": "hot wheels 2023 brick rides bricking trails",
+      "expected_casting": "Bricking Trails",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Bricking Trails",
+        "release_year": 2023,
+        "series": "Brick Rides",
+        "collector_number": "007",
+        "series_position": "1/5",
+        "toy_number": "HKJ85",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0087",
+      "target_id": "sds-target-0044",
+      "source_type": "image_search",
+      "query_raw": "2020 Hot Wheels #70 HW Speed Graphics 5/10 '68 DODGE DART Blue Variant w/MC5 Sp | eBay",
+      "query_cleaned": "2020 hot wheels 70 hw speed graphics 68 dodge dart variant w mc5 sp",
+      "expected_casting": "'68 Dodge Dart",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'68 Dodge Dart",
+        "release_year": 2026,
+        "series": "Drag Racers",
+        "collector_number": "104",
+        "series_position": "5/10",
+        "toy_number": "JJJ63"
+      }
+    },
+    {
+      "id": "sds-0088",
+      "target_id": "sds-target-0044",
+      "source_type": "shopping",
+      "query_raw": "2026 Hot Wheels '68 Dodge Dart Orange Drag Racers 5/10 Jjj63 104/250",
+      "query_cleaned": "2026 hot wheels 68 dodge dart orange drag racers jjj63",
+      "expected_casting": "'68 Dodge Dart",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'68 Dodge Dart",
+        "release_year": 2026,
+        "series": "Drag Racers",
+        "collector_number": "104",
+        "series_position": "5/10",
+        "toy_number": "JJJ63"
+      }
+    },
+    {
+      "id": "sds-0089",
+      "target_id": "sds-target-0045",
+      "source_type": "image_search",
+      "query_raw": "Amazon.com: Hot Wheels Ferrari 365 GTB4 Competizione [White] 2/5, 62/250, 1:64 Scale Diecast Toy Vehicle : Toys & Games",
+      "query_cleaned": "hot wheels ferrari 365 gtb4 competizione 64",
+      "expected_casting": "Ferrari 365 GTB4 Competizione",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Ferrari 365 GTB4 Competizione",
+        "release_year": 2025,
+        "series": "HW Race Day New for 2025!",
+        "collector_number": "222",
+        "series_position": "10/10",
+        "toy_number": "JBC19",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0090",
+      "target_id": "sds-target-0045",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Ferrari 365 GTB4 Competizione",
+      "query_cleaned": "hot wheels ferrari 365 gtb4 competizione",
+      "expected_casting": "Ferrari 365 GTB4 Competizione",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Ferrari 365 GTB4 Competizione",
+        "release_year": 2025,
+        "series": "HW Race Day New for 2025!",
+        "collector_number": "222",
+        "series_position": "10/10",
+        "toy_number": "JBC19",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0091",
+      "target_id": "sds-target-0046",
+      "source_type": "image_search",
+      "query_raw": "Matchbox Bus Hot Wheels Road Bandit Blue #30 30/250 - 2024 HW Fast Transit White Hot Rx 7",
+      "query_cleaned": "hot wheels road bandit 30 2024 hw fast transit hot rx",
+      "expected_casting": "Road Bandit",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Road Bandit",
+        "release_year": 2024,
+        "series": "HW Fast Transit",
+        "collector_number": "030",
+        "series_position": "2/5",
+        "toy_number": "HTD27",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0092",
+      "target_id": "sds-target-0046",
+      "source_type": "shopping",
+      "query_raw": "HOT WHEELS 2024 ROAD BANDIT METALFLAKE GREEN 30/250 HTD27 LET'S RACE SHOW",
+      "query_cleaned": "hot wheels 2024 road bandit metalflake green htd27 let race show",
+      "expected_casting": "Road Bandit",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Road Bandit",
+        "release_year": 2024,
+        "series": "HW Fast Transit",
+        "collector_number": "030",
+        "series_position": "2/5",
+        "toy_number": "HTD27",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0093",
+      "target_id": "sds-target-0047",
+      "source_type": "image_search",
+      "query_raw": "Chevy Treasure Hunt Hot Wheels Classic Cars Hot Wheels Drag Strip Demons '65 Mercury Comet Cyclone",
+      "query_cleaned": "hot wheels classic hot wheels drag strip demons 65 mercury comet cyclone",
+      "expected_casting": "'65 Mercury Comet Cyclone",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'65 Mercury Comet Cyclone",
+        "release_year": 2023,
+        "series": "HW Gassers New in Mainline Super Treasure Hunt",
+        "collector_number": "199",
+        "series_position": "4/5",
+        "toy_number": "HKL14"
+      }
+    },
+    {
+      "id": "sds-0094",
+      "target_id": "sds-target-0047",
+      "source_type": "shopping",
+      "query_raw": "2023 Hot Wheels Super Treasure Hunt 65 Mercury Comet Cyclone",
+      "query_cleaned": "2023 hot wheels super treasure hunt 65 mercury comet cyclone",
+      "expected_casting": "'65 Mercury Comet Cyclone",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'65 Mercury Comet Cyclone",
+        "release_year": 2023,
+        "series": "HW Gassers New in Mainline Super Treasure Hunt",
+        "collector_number": "199",
+        "series_position": "4/5",
+        "toy_number": "HKL14"
+      }
+    },
+    {
+      "id": "sds-0095",
+      "target_id": "sds-target-0048",
+      "source_type": "image_search",
+      "query_raw": "2024 HOT WHEELS MINECRAFT MINECART 136/250 HW SCREEN TIME 8/10 Diecast Toy Car | eBay",
+      "query_cleaned": "2024 hot wheels minecraft minecart hw screen time car",
+      "expected_casting": "Minecart",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Minecart",
+        "release_year": 2024,
+        "series": "HW Screen Time",
+        "collector_number": "136",
+        "series_position": "8/10",
+        "toy_number": "HTB38"
+      }
+    },
+    {
+      "id": "sds-0096",
+      "target_id": "sds-target-0048",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels - Minecart - 15 Years Minecraft - Htb38",
+      "query_cleaned": "hot wheels minecart 15 years minecraft htb38",
+      "expected_casting": "Minecart",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Minecart",
+        "release_year": 2024,
+        "series": "HW Screen Time",
+        "collector_number": "136",
+        "series_position": "8/10",
+        "toy_number": "HTB38"
+      }
+    },
+    {
+      "id": "sds-0097",
+      "target_id": "sds-target-0049",
+      "source_type": "image_search",
+      "query_raw": "4 Hot Wheels Set - Mercedes-benz 500E, Porsche 911 GT3, Audi Quattro, BMW 507 Diecast 1/64 Scale Models | Gift for Car Collector, Boyfriend - Etsy Canada",
+      "query_cleaned": "hot wheels set mercedes benz 500e porsche 911 gt3 audi quattro bmw 507 models",
+      "expected_casting": "Porsche 911 GT3",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Porsche 911 GT3",
+        "release_year": 2025,
+        "series": "HW Race Day",
+        "collector_number": "074",
+        "series_position": "1/10",
+        "toy_number": "HYX17"
+      }
+    },
+    {
+      "id": "sds-0098",
+      "target_id": "sds-target-0049",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Porsche 911 GT3 HW Race Day 1/10",
+      "query_cleaned": "hot wheels porsche 911 gt3 hw race day",
+      "expected_casting": "Porsche 911 GT3",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Porsche 911 GT3",
+        "release_year": 2025,
+        "series": "HW Race Day",
+        "collector_number": "074",
+        "series_position": "1/10",
+        "toy_number": "HYX17"
+      }
+    },
+    {
+      "id": "sds-0099",
+      "target_id": "sds-target-0050",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels - Mighty K - HW Hot Trucks 7/10 - HKJ03 - Short card - Ryula Circuit - Red - Mattel 2023-1:64 : Amazon.com.be: Toys",
+      "query_cleaned": "hot wheels mighty k hw hot hkj03 short ryula circuit red mattel 2023 64",
+      "expected_casting": "Mighty K",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Mighty K",
+        "release_year": 2024,
+        "series": "Compact Kings Walmart Exclusive",
+        "collector_number": "021",
+        "series_position": "1/5",
+        "toy_number": "HTF45",
+        "variant_note": "2nd Color - Zamac"
+      }
+    },
+    {
+      "id": "sds-0100",
+      "target_id": "sds-target-0050",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Die-Cast Vehicle Trucks Mighty K",
+      "query_cleaned": "hot wheels die cast mighty k",
+      "expected_casting": "Mighty K",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Mighty K",
+        "release_year": 2024,
+        "series": "Compact Kings Walmart Exclusive",
+        "collector_number": "021",
+        "series_position": "1/5",
+        "toy_number": "HTF45",
+        "variant_note": "2nd Color - Zamac"
+      }
+    },
+    {
+      "id": "sds-0101",
+      "target_id": "sds-target-0051",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels - HW450F - HW Xtreme Sports 5/5 - HTD59 - Carte courte - Netflix Let's Race - Motocross - Mattel 2024-1:64 : Amazon.com.be: Jouets",
+      "query_cleaned": "hot wheels hw450f hw xtreme sports htd59 carte courte netflix let race motocross mattel",
+      "expected_casting": "HW450F",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "HW450F",
+        "release_year": 2024,
+        "series": "HW Xtreme Sports",
+        "collector_number": "130",
+        "series_position": "5/5",
+        "toy_number": "HTD59",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0102",
+      "target_id": "sds-target-0051",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels HW450F Motorcycle HTD59 Treasure Hunt 2024 Collectible Rare Perfect Condition Model",
+      "query_cleaned": "hot wheels hw450f motorcycle htd59 treasure hunt 2024 collectible rare perfect condition model",
+      "expected_casting": "HW450F",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "HW450F",
+        "release_year": 2024,
+        "series": "HW Xtreme Sports",
+        "collector_number": "130",
+        "series_position": "5/5",
+        "toy_number": "HTD59",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0103",
+      "target_id": "sds-target-0052",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels NEW Case K 2025 Volkswagen VW T3 Custom (Box Packaging) | eBay",
+      "query_cleaned": "hot wheels case k 2025 volkswagen vw t3 custom",
+      "expected_casting": "VW T3 Custom",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "VW T3 Custom",
+        "release_year": 2025,
+        "series": "Peak Pursuit",
+        "collector_number": "200",
+        "series_position": "3/10",
+        "toy_number": "JBC05",
+        "variant_note": "3rd Color"
+      }
+    },
+    {
+      "id": "sds-0104",
+      "target_id": "sds-target-0052",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels 2025 VW T3 Custom",
+      "query_cleaned": "hot wheels 2025 vw t3 custom",
+      "expected_casting": "VW T3 Custom",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "VW T3 Custom",
+        "release_year": 2025,
+        "series": "Peak Pursuit",
+        "collector_number": "200",
+        "series_position": "3/10",
+        "toy_number": "JBC05",
+        "variant_note": "3rd Color"
+      }
+    },
+    {
+      "id": "sds-0105",
+      "target_id": "sds-target-0053",
+      "source_type": "image_search",
+      "query_raw": "2024 Hot Wheels PUNK ROD 1/5 LETS RACE - Rod Squad | eBay",
+      "query_cleaned": "2024 hot wheels punk rod lets race rod squad",
+      "expected_casting": "Punk Rod",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Punk Rod",
+        "release_year": 2024,
+        "series": "Rod Squad New for 2024!",
+        "collector_number": "026",
+        "series_position": "1/5",
+        "toy_number": "HTC98",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0106",
+      "target_id": "sds-target-0053",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Tekli Arabalar Punk Rod Htc98",
+      "query_cleaned": "hot wheels tekli arabalar punk rod htc98",
+      "expected_casting": "Punk Rod",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Punk Rod",
+        "release_year": 2024,
+        "series": "Rod Squad New for 2024!",
+        "collector_number": "026",
+        "series_position": "1/5",
+        "toy_number": "HTC98",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0107",
+      "target_id": "sds-target-0054",
+      "source_type": "image_search",
+      "query_raw": "HOT WHEELS MAZDA RX-3 WHITE TOONED 2024 Series J IMPORTS CAR",
+      "query_cleaned": "hot wheels mazda rx tooned 2024 j imports car",
+      "expected_casting": "Mazda RX-3",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Mazda RX-3",
+        "release_year": 2024,
+        "series": "HW J-Imports New for 2024!",
+        "collector_number": "156",
+        "series_position": "7/10",
+        "toy_number": "HTD77",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0108",
+      "target_id": "sds-target-0054",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels - 2024 Hw J-imports 7/10 Mazda Rx-3 156/250 (bbhtd77)",
+      "query_cleaned": "hot wheels 2024 hw j imports mazda rx",
+      "expected_casting": "Mazda RX-3",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Mazda RX-3",
+        "release_year": 2024,
+        "series": "HW J-Imports New for 2024!",
+        "collector_number": "156",
+        "series_position": "7/10",
+        "toy_number": "HTD77",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0109",
+      "target_id": "sds-target-0055",
+      "source_type": "image_search",
+      "query_raw": "2021 HOT WHEELS '99 FORD F-150 SVT LIGHTNING (RED) HW HOT TRUCKS | eBay",
+      "query_cleaned": "2021 hot wheels 99 ford f 150 svt lightning hw hot",
+      "expected_casting": "'99 Ford F-150 SVT Lightning",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'99 Ford F-150 SVT Lightning",
+        "release_year": 2025,
+        "series": "HW Hot Trucks",
+        "collector_number": "094",
+        "series_position": "7/10",
+        "toy_number": "HYX37"
+      }
+    },
+    {
+      "id": "sds-0110",
+      "target_id": "sds-target-0055",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Premium Car Culture Power Trip '99 Ford F-150 SVT Lightning",
+      "query_cleaned": "hot wheels premium car culture power trip 99 ford f 150 svt lightning",
+      "expected_casting": "'99 Ford F-150 SVT Lightning",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'99 Ford F-150 SVT Lightning",
+        "release_year": 2025,
+        "series": "HW Hot Trucks",
+        "collector_number": "094",
+        "series_position": "7/10",
+        "toy_number": "HYX37"
+      }
+    },
+    {
+      "id": "sds-0111",
+      "target_id": "sds-target-0056",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels La Troca Green Layin Low 5/5 137/250 Diecast Lowrider Truck Lot of 2 verdexim.ae",
+      "query_cleaned": "hot wheels la troca green layin low lowrider truck of verdexim ae",
+      "expected_casting": "La Troca",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "La Troca",
+        "release_year": 2026,
+        "series": "Layin' Low",
+        "collector_number": "137",
+        "series_position": "5/5",
+        "toy_number": "JJJ90"
+      }
+    },
+    {
+      "id": "sds-0112",
+      "target_id": "sds-target-0056",
+      "source_type": "shopping",
+      "query_raw": "2026 Hot Wheels La Troca Green Layin' Low 5/5 Jjj90 137/250",
+      "query_cleaned": "2026 hot wheels la troca green layin low jjj90",
+      "expected_casting": "La Troca",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "La Troca",
+        "release_year": 2026,
+        "series": "Layin' Low",
+        "collector_number": "137",
+        "series_position": "5/5",
+        "toy_number": "JJJ90"
+      }
+    },
+    {
+      "id": "sds-0113",
+      "target_id": "sds-target-0057",
+      "source_type": "image_search",
+      "query_raw": "2023 Hot Wheels HW ART CARS 10/10 Cloak And Dagger 157/250 (White) | eBay",
+      "query_cleaned": "2023 hot wheels hw art cloak and dagger",
+      "expected_casting": "Cloak and Dagger",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Cloak and Dagger",
+        "release_year": 2023,
+        "series": "HW Art Cars",
+        "collector_number": "157",
+        "series_position": "10/10",
+        "toy_number": "HKK19",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0114",
+      "target_id": "sds-target-0057",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Cloak and Dagger",
+      "query_cleaned": "hot wheels cloak and dagger",
+      "expected_casting": "Cloak and Dagger",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Cloak and Dagger",
+        "release_year": 2023,
+        "series": "HW Art Cars",
+        "collector_number": "157",
+        "series_position": "10/10",
+        "toy_number": "HKK19",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0115",
+      "target_id": "sds-target-0058",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels Delorean Dmc-light Blue With Black Interior-short Card-hard to Find Collector Miniature Model 1/64 - Etsy",
+      "query_cleaned": "hot wheels delorean dmc light with black interior short hard to find miniature model",
+      "expected_casting": "DMC DeLorean",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "DMC DeLorean",
+        "release_year": 2023,
+        "series": "HW: The '80s",
+        "collector_number": "101",
+        "series_position": "8/10",
+        "toy_number": "HKJ65",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0116",
+      "target_id": "sds-target-0058",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Tekli Arabalar Dmc Delorean-hkj65",
+      "query_cleaned": "hot wheels tekli arabalar dmc delorean hkj65",
+      "expected_casting": "DMC DeLorean",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "DMC DeLorean",
+        "release_year": 2023,
+        "series": "HW: The '80s",
+        "collector_number": "101",
+        "series_position": "8/10",
+        "toy_number": "HKJ65",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0117",
+      "target_id": "sds-target-0059",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels 2022 #218/250 X-Raycers #5/5 - Lightnin' Bug (HCT45) Hot Wheels 2023 #179/250 HW Rescue #1/10 - Lightnin' Bug (HKJ18) #hotwheels #hotwheels2023 #hotwheels2022 #hw #hw2022 #hw2023 #diecast",
+      "query_cleaned": "hot wheels 2022 x raycers lightnin bug hot wheels 2023 hw rescue lightnin bug",
+      "expected_casting": "Lightnin' Bug",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Lightnin' Bug",
+        "release_year": 2023,
+        "series": "HW Rescue",
+        "collector_number": "179",
+        "series_position": "1/10",
+        "toy_number": "HKJ18"
+      }
+    },
+    {
+      "id": "sds-0118",
+      "target_id": "sds-target-0059",
+      "source_type": "shopping",
+      "query_raw": "Lightnin' Bug : Hw Rescue Series By Hot Wheels : Hkj18 : 1:64 Scale",
+      "query_cleaned": "hot wheels hkj18 64",
+      "expected_casting": "Lightnin' Bug",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Lightnin' Bug",
+        "release_year": 2023,
+        "series": "HW Rescue",
+        "collector_number": "179",
+        "series_position": "1/10",
+        "toy_number": "HKJ18"
+      }
+    },
+    {
+      "id": "sds-0119",
+      "target_id": "sds-target-0060",
+      "source_type": "image_search",
+      "query_raw": "2014 Hot Wheels 1937 Ford Coupe Pass 'N Gasser #209 HW Workshop Reyna &Cook HW14 · Whatnot: Shop, Sell, Connect",
+      "query_cleaned": "2014 hot wheels 1937 ford coupe pass n gasser 209 hw workshop reyna cook",
+      "expected_casting": "Pass'n Gasser",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Pass'n Gasser",
+        "release_year": 2023,
+        "series": "HW Gassers",
+        "collector_number": "212",
+        "series_position": "5/5",
+        "toy_number": "HKH65"
+      }
+    },
+    {
+      "id": "sds-0120",
+      "target_id": "sds-target-0060",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Tekli Arabalar Pass'n Gasser Hkh65",
+      "query_cleaned": "hot wheels tekli arabalar pass n gasser hkh65",
+      "expected_casting": "Pass'n Gasser",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Pass'n Gasser",
+        "release_year": 2023,
+        "series": "HW Gassers",
+        "collector_number": "212",
+        "series_position": "5/5",
+        "toy_number": "HKH65"
+      }
+    },
+    {
+      "id": "sds-0121",
+      "target_id": "sds-target-0061",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels 1976 Chevy Chevette Blue 76/250 Drag Racers 1/10 – Toy Wrangler",
+      "query_cleaned": "hot wheels 1976 chevy chevette drag racers wrangler",
+      "expected_casting": "'76 Chevy Chevette",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'76 Chevy Chevette",
+        "release_year": 2026,
+        "series": "Drag Racers",
+        "collector_number": "076",
+        "series_position": "1/10",
+        "toy_number": "JJJ40"
+      }
+    },
+    {
+      "id": "sds-0122",
+      "target_id": "sds-target-0061",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels '76 Chevy Chevette Blue Drag Racers Mainline Jjj40 2026",
+      "query_cleaned": "hot wheels 76 chevy chevette drag racers jjj40 2026",
+      "expected_casting": "'76 Chevy Chevette",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'76 Chevy Chevette",
+        "release_year": 2026,
+        "series": "Drag Racers",
+        "collector_number": "076",
+        "series_position": "1/10",
+        "toy_number": "JJJ40"
+      }
+    },
+    {
+      "id": "sds-0123",
+      "target_id": "sds-target-0062",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels 2026 STH '94 Toyota Supra Tooned Super Treasure Hunt - Loose | eBay",
+      "query_cleaned": "hot wheels 2026 sth 94 toyota supra tooned super treasure hunt loose",
+      "expected_casting": "'94 Toyota Supra",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'94 Toyota Supra",
+        "release_year": 2026,
+        "series": "Tooned",
+        "collector_number": "222",
+        "series_position": "5/5",
+        "toy_number": "JJK51"
+      }
+    },
+    {
+      "id": "sds-0124",
+      "target_id": "sds-target-0062",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels 94 Toyota Supra Tooned 4/5",
+      "query_cleaned": "hot wheels 94 toyota supra tooned",
+      "expected_casting": "'94 Toyota Supra",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'94 Toyota Supra",
+        "release_year": 2026,
+        "series": "Tooned",
+        "collector_number": "222",
+        "series_position": "5/5",
+        "toy_number": "JJK51"
+      }
+    },
+    {
+      "id": "sds-0125",
+      "target_id": "sds-target-0063",
+      "source_type": "image_search",
+      "query_raw": "2025 HOT WHEELS SUBARU BRZ 3/5 HW: J-IMPORTS WALMART #003 ZAMAC SERIES | eBay",
+      "query_cleaned": "2025 hot wheels subaru brz hw j imports walmart 003 zamac",
+      "expected_casting": "Subaru BRZ",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Subaru BRZ",
+        "release_year": 2025,
+        "series": "HW J-Imports New in Mainline",
+        "collector_number": "048",
+        "series_position": "3/5",
+        "toy_number": "JBB55",
+        "variant_note": "3rd Color"
+      }
+    },
+    {
+      "id": "sds-0126",
+      "target_id": "sds-target-0063",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Subaru BRZ J-Import New 2025, Size: Large, White",
+      "query_cleaned": "hot wheels subaru brz j import 2025 size large",
+      "expected_casting": "Subaru BRZ",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Subaru BRZ",
+        "release_year": 2025,
+        "series": "HW J-Imports New in Mainline",
+        "collector_number": "048",
+        "series_position": "3/5",
+        "toy_number": "JBB55",
+        "variant_note": "3rd Color"
+      }
+    },
+    {
+      "id": "sds-0127",
+      "target_id": "sds-target-0064",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels Chevy Big-air Bel-air - Safari Mode - Etsy Norway",
+      "query_cleaned": "hot wheels chevy big air bel air safari mode etsy norway",
+      "expected_casting": "Big-Air Bel-Air",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Big-Air Bel-Air",
+        "release_year": 2025,
+        "series": "Safari Mode",
+        "collector_number": "155",
+        "series_position": "3/5",
+        "toy_number": "HYY89"
+      }
+    },
+    {
+      "id": "sds-0128",
+      "target_id": "sds-target-0064",
+      "source_type": "shopping",
+      "query_raw": "2025 Hot Wheels Big-air Bel-air Error",
+      "query_cleaned": "2025 hot wheels big air bel air error",
+      "expected_casting": "Big-Air Bel-Air",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Big-Air Bel-Air",
+        "release_year": 2025,
+        "series": "Safari Mode",
+        "collector_number": "155",
+        "series_position": "3/5",
+        "toy_number": "HYY89"
+      }
+    },
+    {
+      "id": "sds-0129",
+      "target_id": "sds-target-0065",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels Cadillac Celestiq | Hotwheels® Die-Cast #cadillac #celectiq #mainline #hotwheels #mattel",
+      "query_cleaned": "hot wheels cadillac celestiq",
+      "expected_casting": "Cadillac Celestiq",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Cadillac Celestiq",
+        "release_year": 2026,
+        "series": "HW EV New for 2026!",
+        "collector_number": "163",
+        "series_position": "10/10",
+        "toy_number": "JJH49"
+      }
+    },
+    {
+      "id": "sds-0130",
+      "target_id": "sds-target-0065",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels 2026 Mainline Hot Wheels HW EV Series Cars (US Card) - Cadillac Celestiq 10/10 163/250 JJH49 New For 2026",
+      "query_cleaned": "hot wheels 2026 hot wheels hw ev cadillac celestiq jjh49 2026",
+      "expected_casting": "Cadillac Celestiq",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Cadillac Celestiq",
+        "release_year": 2026,
+        "series": "HW EV New for 2026!",
+        "collector_number": "163",
+        "series_position": "10/10",
+        "toy_number": "JJH49"
+      }
+    },
+    {
+      "id": "sds-0131",
+      "target_id": "sds-target-0066",
+      "source_type": "image_search",
+      "query_raw": "2025 Hot Wheels '19 CHEVY SILVERADO TRAIL BOSS LT 152/250 HW DIRT#8/10 (KEEPER) | eBay",
+      "query_cleaned": "2025 hot wheels 19 chevy silverado trail boss lt hw dirt",
+      "expected_casting": "'19 Chevy Silverado Trail Boss LT",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'19 Chevy Silverado Trail Boss LT",
+        "release_year": 2025,
+        "series": "HW Dirt",
+        "collector_number": "152",
+        "series_position": "8/10",
+        "toy_number": "HYY97"
+      }
+    },
+    {
+      "id": "sds-0132",
+      "target_id": "sds-target-0066",
+      "source_type": "shopping",
+      "query_raw": "HOT WHEEL 19' SILVERADO TRAIL BOSS LT",
+      "query_cleaned": "hot wheel 19 silverado trail boss lt",
+      "expected_casting": "'19 Chevy Silverado Trail Boss LT",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'19 Chevy Silverado Trail Boss LT",
+        "release_year": 2025,
+        "series": "HW Dirt",
+        "collector_number": "152",
+        "series_position": "8/10",
+        "toy_number": "HYY97"
+      }
+    },
+    {
+      "id": "sds-0133",
+      "target_id": "sds-target-0067",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels Roadster Bmw I8 2023 Hw Roadsters Silver 10/10 156/250 Case 156 New | eBay",
+      "query_cleaned": "hot wheels roadster bmw i8 2023 hw roadsters silver case 156",
+      "expected_casting": "BMW i8 Roadster",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "BMW i8 Roadster",
+        "release_year": 2023,
+        "series": "HW Roadsters New in Mainline",
+        "collector_number": "156",
+        "series_position": "10/10",
+        "toy_number": "HKK13",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0134",
+      "target_id": "sds-target-0067",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Die-Cast Vehicle Roadsters BMW i8 Roadster Black",
+      "query_cleaned": "hot wheels die cast roadsters bmw i8 roadster black",
+      "expected_casting": "BMW i8 Roadster",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "BMW i8 Roadster",
+        "release_year": 2023,
+        "series": "HW Roadsters New in Mainline",
+        "collector_number": "156",
+        "series_position": "10/10",
+        "toy_number": "HKK13",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0135",
+      "target_id": "sds-target-0068",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels Mobil Sedan Balap 15 Jaguar F-Type Project 7 Merah Lot L 2024 HW Roadster | Lazada Indonesia",
+      "query_cleaned": "hot wheels mobil sedan balap 15 jaguar f type project merah l 2024 hw",
+      "expected_casting": "'15 Jaguar F-Type Project 7",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'15 Jaguar F-Type Project 7",
+        "release_year": 2024,
+        "series": "HW Roadsters",
+        "collector_number": "116",
+        "series_position": "5/5",
+        "toy_number": "HTD74",
+        "variant_note": "3rd Color"
+      }
+    },
+    {
+      "id": "sds-0136",
+      "target_id": "sds-target-0068",
+      "source_type": "shopping",
+      "query_raw": "15 Jaguar F Type Project 7 Magenta HW Roadsters 5 5 1 64 Scale, Pink",
+      "query_cleaned": "15 jaguar f type project magenta hw roadsters",
+      "expected_casting": "'15 Jaguar F-Type Project 7",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'15 Jaguar F-Type Project 7",
+        "release_year": 2024,
+        "series": "HW Roadsters",
+        "collector_number": "116",
+        "series_position": "5/5",
+        "toy_number": "HTD74",
+        "variant_note": "3rd Color"
+      }
+    },
+    {
+      "id": "sds-0137",
+      "target_id": "sds-target-0069",
+      "source_type": "image_search",
+      "query_raw": "HOT WHEELS 2024 QUARTER MILE HEROES 4/5 - RETRO-ACTIVE METALLIC BURNT ORANGE | eBay",
+      "query_cleaned": "hot wheels 2024 quarter mile heroes retro active metallic burnt orange",
+      "expected_casting": "Retro-Active",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Retro-Active",
+        "release_year": 2024,
+        "series": "Quarter Mile Heroes",
+        "collector_number": "237",
+        "series_position": "4/5",
+        "toy_number": "HTB86"
+      }
+    },
+    {
+      "id": "sds-0138",
+      "target_id": "sds-target-0069",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Tekli Arabalar Retro-active",
+      "query_cleaned": "hot wheels tekli arabalar retro active",
+      "expected_casting": "Retro-Active",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Retro-Active",
+        "release_year": 2024,
+        "series": "Quarter Mile Heroes",
+        "collector_number": "237",
+        "series_position": "4/5",
+        "toy_number": "HTB86"
+      }
+    },
+    {
+      "id": "sds-0139",
+      "target_id": "sds-target-0070",
+      "source_type": "image_search",
+      "query_raw": "Achados do dia. Tooned Purple Passion. Honda Odyssey. 🤜🤛 #hotwheels #hotwheelscollector #hotwheelsbr",
+      "query_cleaned": "achados do dia tooned purple passion honda odyssey",
+      "expected_casting": "Tooned Purple Passion",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Tooned Purple Passion",
+        "release_year": 2026,
+        "series": "HW Dream Garage New for 2026!",
+        "collector_number": "148",
+        "series_position": "5/5",
+        "toy_number": "JJH54"
+      }
+    },
+    {
+      "id": "sds-0140",
+      "target_id": "sds-target-0070",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Tooned Purple Passion",
+      "query_cleaned": "hot wheels tooned purple passion",
+      "expected_casting": "Tooned Purple Passion",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Tooned Purple Passion",
+        "release_year": 2026,
+        "series": "HW Dream Garage New for 2026!",
+        "collector_number": "148",
+        "series_position": "5/5",
+        "toy_number": "JJH54"
+      }
+    },
+    {
+      "id": "sds-0141",
+      "target_id": "sds-target-0071",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels - 2025 Track Champs 2/5 Blitzspeeder 215/250 (BBJBB83)",
+      "query_cleaned": "hot wheels 2025 track champs blitzspeeder",
+      "expected_casting": "Blitzspeeder",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Blitzspeeder",
+        "release_year": 2025,
+        "series": "HW Track Champs",
+        "collector_number": "215",
+        "series_position": "2/5",
+        "toy_number": "JBB83",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0142",
+      "target_id": "sds-target-0071",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Blitzspeeder",
+      "query_cleaned": "hot wheels blitzspeeder",
+      "expected_casting": "Blitzspeeder",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Blitzspeeder",
+        "release_year": 2025,
+        "series": "HW Track Champs",
+        "collector_number": "215",
+        "series_position": "2/5",
+        "toy_number": "JBB83",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0143",
+      "target_id": "sds-target-0072",
+      "source_type": "image_search",
+      "query_raw": "Inogen One G4 Strap Hot Wheels Mercedes Benz 500 E Die Cast Car - Black Factory Fresh 1:64 Scale Model Black Mercedes Toy Car",
+      "query_cleaned": "hot wheels mercedes benz 500 e die cast car black factory fresh 64 model",
+      "expected_casting": "Mercedes-Benz 500 E",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Mercedes-Benz 500 E",
+        "release_year": 2025,
+        "series": "HW: '70s vs. '90s",
+        "collector_number": "052",
+        "series_position": "3/10",
+        "toy_number": "JBB60",
+        "variant_note": "3rd Color"
+      }
+    },
+    {
+      "id": "sds-0144",
+      "target_id": "sds-target-0072",
+      "source_type": "shopping",
+      "query_raw": "2025 Hot Wheels Mercedes-benz 500 E (target Red) 52 Custom Wheel Swap",
+      "query_cleaned": "2025 hot wheels mercedes benz 500 e 52 custom wheel swap",
+      "expected_casting": "Mercedes-Benz 500 E",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Mercedes-Benz 500 E",
+        "release_year": 2025,
+        "series": "HW: '70s vs. '90s",
+        "collector_number": "052",
+        "series_position": "3/10",
+        "toy_number": "JBB60",
+        "variant_note": "3rd Color"
+      }
+    },
+    {
+      "id": "sds-0145",
+      "target_id": "sds-target-0073",
+      "source_type": "image_search",
+      "query_raw": "Toyota Prius Hot Wheels J Imports 2026 Hot Wheels J-imports Toyota Prius Custom 2026 MercadoLibre",
+      "query_cleaned": "hot wheels j imports 2026 hot wheels j imports toyota prius custom 2026 mercadolibre",
+      "expected_casting": "Toyota Prius Custom",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Toyota Prius Custom",
+        "release_year": 2026,
+        "series": "HW J-Imports New for 2026!",
+        "collector_number": "060",
+        "series_position": "1/10",
+        "toy_number": "JJH37"
+      }
+    },
+    {
+      "id": "sds-0146",
+      "target_id": "sds-target-0073",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Toyota Prius Custom",
+      "query_cleaned": "hot wheels toyota prius custom",
+      "expected_casting": "Toyota Prius Custom",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Toyota Prius Custom",
+        "release_year": 2026,
+        "series": "HW J-Imports New for 2026!",
+        "collector_number": "060",
+        "series_position": "1/10",
+        "toy_number": "JJH37"
+      }
+    },
+    {
+      "id": "sds-0147",
+      "target_id": "sds-target-0074",
+      "source_type": "image_search",
+      "query_raw": "Hot wheels Ford Mustang GTD New | Mercari",
+      "query_cleaned": "hot wheels ford mustang gtd",
+      "expected_casting": "Ford Mustang GTD",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Ford Mustang GTD",
+        "release_year": 2025,
+        "series": "Mustang 60th New for 2025!",
+        "collector_number": "034",
+        "series_position": "1/5",
+        "toy_number": "JBB93",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0148",
+      "target_id": "sds-target-0074",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Ford Mustang GTD 1:64 Scale Diecast Car",
+      "query_cleaned": "hot wheels ford mustang gtd 64",
+      "expected_casting": "Ford Mustang GTD",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Ford Mustang GTD",
+        "release_year": 2025,
+        "series": "Mustang 60th New for 2025!",
+        "collector_number": "034",
+        "series_position": "1/5",
+        "toy_number": "JBB93",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0149",
+      "target_id": "sds-target-0075",
+      "source_type": "image_search",
+      "query_raw": "2024 🔥Hot Wheels 🛞 Rod Squad 3/5 Limited Grip #50/250 | eBay",
+      "query_cleaned": "2024 hot wheels rod squad limited grip",
+      "expected_casting": "Limited Grip",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Limited Grip",
+        "release_year": 2024,
+        "series": "Rod Squad",
+        "collector_number": "050",
+        "series_position": "3/5",
+        "toy_number": "HTD50",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0150",
+      "target_id": "sds-target-0075",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Let's Race - Limited Grip - Netflix - Rod Squad 2024 - HTD50",
+      "query_cleaned": "hot wheels let race limited grip netflix rod squad 2024 htd50",
+      "expected_casting": "Limited Grip",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Limited Grip",
+        "release_year": 2024,
+        "series": "Rod Squad",
+        "collector_number": "050",
+        "series_position": "3/5",
+        "toy_number": "HTD50",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0151",
+      "target_id": "sds-target-0076",
+      "source_type": "image_search",
+      "query_raw": "2025 Hot Wheels F Case 3/5! Follow me at @tandphwguide! 134/250 '68 Corvette - Gas Monkey Garage / HW Dream Garage 5/5 / HYY74 136/250 Salt Shaker / X-Raycers 10/10 / HYY75",
+      "query_cleaned": "2025 hot wheels f case follow me at tandphwguide 68 corvette gas monkey garage",
+      "expected_casting": "Salt Shaker",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Salt Shaker",
+        "release_year": 2025,
+        "series": "X-Raycers",
+        "collector_number": "136",
+        "series_position": "10/10",
+        "toy_number": "HYY75"
+      }
+    },
+    {
+      "id": "sds-0152",
+      "target_id": "sds-target-0076",
+      "source_type": "shopping",
+      "query_raw": "HOT WHEELS 2025 SALT SHAKER GREEN 136/250 HYY75 X-RAYCERS LETS RACE NETFLIX SHOW",
+      "query_cleaned": "hot wheels 2025 salt shaker green hyy75 x raycers lets race netflix show",
+      "expected_casting": "Salt Shaker",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Salt Shaker",
+        "release_year": 2025,
+        "series": "X-Raycers",
+        "collector_number": "136",
+        "series_position": "10/10",
+        "toy_number": "HYY75"
+      }
+    },
+    {
+      "id": "sds-0153",
+      "target_id": "sds-target-0077",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels Mainline / '70 Dodge Charger - Black / 2024 HW Tooned 1/5 – Salty Wheels Collects",
+      "query_cleaned": "hot wheels 70 dodge charger black 2024 hw tooned salty wheels collects",
+      "expected_casting": "'70 Dodge Charger",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'70 Dodge Charger",
+        "release_year": 2024,
+        "series": "Tooned",
+        "collector_number": "161",
+        "series_position": "1/5",
+        "toy_number": "HTD86",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0154",
+      "target_id": "sds-target-0077",
+      "source_type": "shopping",
+      "query_raw": "NEW Hot Wheels Tooned 1/5 '70 Dodge Charger 161/250 (BBHTD86",
+      "query_cleaned": "hot wheels tooned 70 dodge charger bbhtd86",
+      "expected_casting": "'70 Dodge Charger",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'70 Dodge Charger",
+        "release_year": 2024,
+        "series": "Tooned",
+        "collector_number": "161",
+        "series_position": "1/5",
+        "toy_number": "HTD86",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0155",
+      "target_id": "sds-target-0078",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels Cadillac Project GTP Hypercar HW Turbo 3/5 HRY60 2024 123/250 Error! | eBay UK",
+      "query_cleaned": "hot wheels cadillac project gtp hypercar hw turbo hry60 2024 error",
+      "expected_casting": "Cadillac Project GTP Hypercar",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Cadillac Project GTP Hypercar",
+        "release_year": 2024,
+        "series": "HW Turbo New for 2024!",
+        "collector_number": "123",
+        "series_position": "3/5",
+        "toy_number": "HRY60"
+      }
+    },
+    {
+      "id": "sds-0156",
+      "target_id": "sds-target-0078",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Mattel Brick Shop Cadillac Project GTP Hypercar Building Set",
+      "query_cleaned": "hot wheels mattel brick cadillac project gtp hypercar building set",
+      "expected_casting": "Cadillac Project GTP Hypercar",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Cadillac Project GTP Hypercar",
+        "release_year": 2024,
+        "series": "HW Turbo New for 2024!",
+        "collector_number": "123",
+        "series_position": "3/5",
+        "toy_number": "HRY60"
+      }
+    },
+    {
+      "id": "sds-0157",
+      "target_id": "sds-target-0079",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels - BMW M3 Wagon - HW Wagons 5/5 - JBB48 - Short Card - Stanley - Castrol - Michelin - Green - Mattel 2025 - Licensed BMW Model - 1:64 : Amazon.in: Fashion",
+      "query_cleaned": "hot wheels bmw m3 wagon hw wagons jbb48 short stanley castrol michelin green mattel",
+      "expected_casting": "BMW M3 Wagon",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "BMW M3 Wagon",
+        "release_year": 2025,
+        "series": "HW Wagons",
+        "collector_number": "245",
+        "series_position": "5/5",
+        "toy_number": "JBB48"
+      }
+    },
+    {
+      "id": "sds-0158",
+      "target_id": "sds-target-0079",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Bmw M3 Wagon 245/250 - 2025 Mainline A",
+      "query_cleaned": "hot wheels bmw m3 wagon 2025 a",
+      "expected_casting": "BMW M3 Wagon",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "BMW M3 Wagon",
+        "release_year": 2025,
+        "series": "HW Wagons",
+        "collector_number": "245",
+        "series_position": "5/5",
+        "toy_number": "JBB48"
+      }
+    },
+    {
+      "id": "sds-0159",
+      "target_id": "sds-target-0080",
+      "source_type": "image_search",
+      "query_raw": "HOT WHEELS 2023 HW MOTO 4/5 - HONDA CB750 CAFE BLUE AND BLACK | eBay",
+      "query_cleaned": "hot wheels 2023 hw moto honda cb750 cafe and black",
+      "expected_casting": "Honda CB750 Café",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Honda CB750 Café",
+        "release_year": 2023,
+        "series": "HW Moto New for 2023!",
+        "collector_number": "141",
+        "series_position": "4/5",
+        "toy_number": "HKG49"
+      }
+    },
+    {
+      "id": "sds-0160",
+      "target_id": "sds-target-0080",
+      "source_type": "shopping",
+      "query_raw": "Honda Cb750 Cafe 141/250 Hot Wheels 2023 Hkg49 Blue & Hkk34 White Hw",
+      "query_cleaned": "hot wheels 2023 hkg49 hkk34 hw",
+      "expected_casting": "Honda CB750 Café",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Honda CB750 Café",
+        "release_year": 2023,
+        "series": "HW Moto New for 2023!",
+        "collector_number": "141",
+        "series_position": "4/5",
+        "toy_number": "HKG49"
+      }
+    },
+    {
+      "id": "sds-0161",
+      "target_id": "sds-target-0081",
+      "source_type": "image_search",
+      "query_raw": "REVIEW & UNBOXING: HOT WHEELS 2024 || CHRYSLER PACIFICA || HW Vans 1/5 - YouTube",
+      "query_cleaned": "hot wheels 2024 chrysler pacifica hw youtube",
+      "expected_casting": "Chrysler Pacifica",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Chrysler Pacifica",
+        "release_year": 2024,
+        "series": "HW Vans",
+        "collector_number": "182",
+        "series_position": "1/5",
+        "toy_number": "HTB93"
+      }
+    },
+    {
+      "id": "sds-0162",
+      "target_id": "sds-target-0081",
+      "source_type": "shopping",
+      "query_raw": "HOT WHEELS 2024 CHRYSLER PACIFICA BEIGE 182/250 HTB93 ASADA DESIGN HW VANS",
+      "query_cleaned": "hot wheels 2024 chrysler pacifica beige htb93 asada design hw",
+      "expected_casting": "Chrysler Pacifica",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Chrysler Pacifica",
+        "release_year": 2024,
+        "series": "HW Vans",
+        "collector_number": "182",
+        "series_position": "1/5",
+        "toy_number": "HTB93"
+      }
+    },
+    {
+      "id": "sds-0163",
+      "target_id": "sds-target-0082",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels Mainline Review: Jaguar XJC V12 Coupe | 2025 Wild Widebody / ZAMAC Edition - YouTube",
+      "query_cleaned": "hot wheels review jaguar xjc v12 coupe",
+      "expected_casting": "Jaguar XJC V12 Coupe",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Jaguar XJC V12 Coupe",
+        "release_year": 2025,
+        "series": "Wild Widebody New for 2025! Walmart Exclusive",
+        "collector_number": "238",
+        "series_position": "4/5",
+        "toy_number": "HYY21",
+        "variant_note": "2nd Color - Zamac"
+      }
+    },
+    {
+      "id": "sds-0164",
+      "target_id": "sds-target-0082",
+      "source_type": "shopping",
+      "query_raw": "2025 Hot Wheels Jaguar Xjc V12 Coupe 238 Wild Widebody 4/5",
+      "query_cleaned": "2025 hot wheels jaguar xjc v12 coupe 238 wild widebody",
+      "expected_casting": "Jaguar XJC V12 Coupe",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Jaguar XJC V12 Coupe",
+        "release_year": 2025,
+        "series": "Wild Widebody New for 2025! Walmart Exclusive",
+        "collector_number": "238",
+        "series_position": "4/5",
+        "toy_number": "HYY21",
+        "variant_note": "2nd Color - Zamac"
+      }
+    },
+    {
+      "id": "sds-0165",
+      "target_id": "sds-target-0083",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels 2026 45/250 Layin' Low 3/5 - '47 Chevy Fleetline (JJJ16) #hotwheels hotwheels2026 hw hw2026 #mattel mattel2026 matteltoys #diecast diecast2026 love photography hotwheelslayinlow #hotwheels",
+      "query_cleaned": "hot wheels 2026 layin low 47 chevy fleetline hotwheels hotwheels2026 hw hw2026 mattel mattel2026",
+      "expected_casting": "'47 Chevy Fleetline",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'47 Chevy Fleetline",
+        "release_year": 2026,
+        "series": "Layin' Low",
+        "collector_number": "045",
+        "series_position": "3/5",
+        "toy_number": "JJJ16"
+      }
+    },
+    {
+      "id": "sds-0166",
+      "target_id": "sds-target-0083",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels '47 Chevy Fleetline Rod Squad 1/5",
+      "query_cleaned": "hot wheels 47 chevy fleetline rod squad",
+      "expected_casting": "'47 Chevy Fleetline",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'47 Chevy Fleetline",
+        "release_year": 2026,
+        "series": "Layin' Low",
+        "collector_number": "045",
+        "series_position": "3/5",
+        "toy_number": "JJJ16"
+      }
+    },
+    {
+      "id": "sds-0167",
+      "target_id": "sds-target-0084",
+      "source_type": "image_search",
+      "query_raw": "HOT WHEELS 2025 HW RACE DAY 4/10 - FUTURISMO METALLIC SILVER | eBay",
+      "query_cleaned": "hot wheels 2025 hw race day futurismo metallic silver",
+      "expected_casting": "Futurismo",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Futurismo",
+        "release_year": 2025,
+        "series": "HW Race Day",
+        "collector_number": "124",
+        "series_position": "4/10",
+        "toy_number": "HYY65"
+      }
+    },
+    {
+      "id": "sds-0168",
+      "target_id": "sds-target-0084",
+      "source_type": "shopping",
+      "query_raw": "2025 Hot Wheels 4/10 Race Day Green Futurismo Hyy65 124/250",
+      "query_cleaned": "2025 hot wheels race day green futurismo hyy65",
+      "expected_casting": "Futurismo",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Futurismo",
+        "release_year": 2025,
+        "series": "HW Race Day",
+        "collector_number": "124",
+        "series_position": "4/10",
+        "toy_number": "HYY65"
+      }
+    },
+    {
+      "id": "sds-0169",
+      "target_id": "sds-target-0085",
+      "source_type": "image_search",
+      "query_raw": "88 Mitsubishi Starion Hot Wheels car - € 2,50 - Vendora.cy",
+      "query_cleaned": "hot wheels car 50 vendora cy",
+      "expected_casting": "'88 Mitsubishi Starion",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'88 Mitsubishi Starion",
+        "release_year": 2026,
+        "series": "HW J-Imports New for 2026! Kroger Exclusive",
+        "collector_number": "177",
+        "series_position": "8/10",
+        "toy_number": "JJM54",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0170",
+      "target_id": "sds-target-0085",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels 2026 NEW Case J '88 Mitsubishi Starion",
+      "query_cleaned": "hot wheels 2026 case j 88 mitsubishi starion",
+      "expected_casting": "'88 Mitsubishi Starion",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'88 Mitsubishi Starion",
+        "release_year": 2026,
+        "series": "HW J-Imports New for 2026! Kroger Exclusive",
+        "collector_number": "177",
+        "series_position": "8/10",
+        "toy_number": "JJM54",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0171",
+      "target_id": "sds-target-0086",
+      "source_type": "image_search",
+      "query_raw": "2023 Hot Wheels CLASSIC TV SERIES BATMOBILE #3/250 RED ,Tooned BATMAN 1/5 | eBay",
+      "query_cleaned": "2023 hot wheels classic tv batmobile red tooned batman",
+      "expected_casting": "Classic TV Series Batmobile",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Classic TV Series Batmobile",
+        "release_year": 2023,
+        "series": "Batman",
+        "collector_number": "003",
+        "series_position": "1/5",
+        "toy_number": "HKG97"
+      }
+    },
+    {
+      "id": "sds-0172",
+      "target_id": "sds-target-0086",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Tekli Arabalar - Classic Tv Series Batmobile - Hkg97",
+      "query_cleaned": "hot wheels tekli arabalar classic tv batmobile hkg97",
+      "expected_casting": "Classic TV Series Batmobile",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Classic TV Series Batmobile",
+        "release_year": 2023,
+        "series": "Batman",
+        "collector_number": "003",
+        "series_position": "1/5",
+        "toy_number": "HKG97"
+      }
+    },
+    {
+      "id": "sds-0173",
+      "target_id": "sds-target-0087",
+      "source_type": "image_search",
+      "query_raw": "2023 Hot Wheels - CUSTOM SMALL BLOCK - 30/250 BRICK RIDES 2/5 Long Card HKH16 | eBay",
+      "query_cleaned": "2023 hot wheels custom small block brick rides long hkh16",
+      "expected_casting": "Custom Small Block",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Custom Small Block",
+        "release_year": 2023,
+        "series": "Brick Rides",
+        "collector_number": "030",
+        "series_position": "2/5",
+        "toy_number": "HKH16"
+      }
+    },
+    {
+      "id": "sds-0174",
+      "target_id": "sds-target-0087",
+      "source_type": "shopping",
+      "query_raw": "2023 Hot Wheels 30/250 Hkh16 Custom Small Block Brick Rides 2/5",
+      "query_cleaned": "2023 hot wheels hkh16 custom small block brick rides",
+      "expected_casting": "Custom Small Block",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Custom Small Block",
+        "release_year": 2023,
+        "series": "Brick Rides",
+        "collector_number": "030",
+        "series_position": "2/5",
+        "toy_number": "HKH16"
+      }
+    },
+    {
+      "id": "sds-0175",
+      "target_id": "sds-target-0088",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels New 2026 Toyota AE86 Sprinter Trueno Un-Spun | eBay",
+      "query_cleaned": "hot wheels 2026 toyota ae86 sprinter trueno un spun",
+      "expected_casting": "Toyota AE86 Sprinter Trueno",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Toyota AE86 Sprinter Trueno",
+        "release_year": 2026,
+        "series": "HW J-Imports",
+        "collector_number": "198",
+        "series_position": "9/10",
+        "toy_number": "JJK34"
+      }
+    },
+    {
+      "id": "sds-0176",
+      "target_id": "sds-target-0088",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Car Culture Japan Historics 5 Toyota AE86 Sprinter Trueno",
+      "query_cleaned": "hot wheels car culture japan historics toyota ae86 sprinter trueno",
+      "expected_casting": "Toyota AE86 Sprinter Trueno",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Toyota AE86 Sprinter Trueno",
+        "release_year": 2026,
+        "series": "HW J-Imports",
+        "collector_number": "198",
+        "series_position": "9/10",
+        "toy_number": "JJK34"
+      }
+    },
+    {
+      "id": "sds-0177",
+      "target_id": "sds-target-0089",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels Exoticars Pagani Zonda Cinque 2026",
+      "query_cleaned": "hot wheels exoticars pagani zonda cinque 2026",
+      "expected_casting": "Pagani Zonda Cinque",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Pagani Zonda Cinque",
+        "release_year": 2026,
+        "series": "Exoticars New for 2026! Walmart Exclusive",
+        "collector_number": "026",
+        "series_position": "4/10",
+        "toy_number": "JJM32",
+        "variant_note": "3rd Color - Zamac"
+      }
+    },
+    {
+      "id": "sds-0178",
+      "target_id": "sds-target-0089",
+      "source_type": "shopping",
+      "query_raw": "2026 Hot Wheels Pagani Zonda Cinque Tooned Factory Error",
+      "query_cleaned": "2026 hot wheels pagani zonda cinque tooned factory error",
+      "expected_casting": "Pagani Zonda Cinque",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Pagani Zonda Cinque",
+        "release_year": 2026,
+        "series": "Exoticars New for 2026! Walmart Exclusive",
+        "collector_number": "026",
+        "series_position": "4/10",
+        "toy_number": "JJM32",
+        "variant_note": "3rd Color - Zamac"
+      }
+    },
+    {
+      "id": "sds-0179",
+      "target_id": "sds-target-0090",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels 2025 Treasure Hunt X-Raycers #110 Rig Storm Clear Purple w/ AEROs | eBay",
+      "query_cleaned": "hot wheels 2025 treasure hunt x raycers 110 rig storm clear purple w aeros",
+      "expected_casting": "Rig Storm",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Rig Storm",
+        "release_year": 2025,
+        "series": "X-Raycers Treasure Hunt",
+        "collector_number": "110",
+        "series_position": "9/10",
+        "toy_number": "JBC24"
+      }
+    },
+    {
+      "id": "sds-0180",
+      "target_id": "sds-target-0090",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Rig Storm 2025 Treasure Hunt Short Card Jbc24 Toy Race",
+      "query_cleaned": "hot wheels rig storm 2025 treasure hunt short jbc24 race",
+      "expected_casting": "Rig Storm",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Rig Storm",
+        "release_year": 2025,
+        "series": "X-Raycers Treasure Hunt",
+        "collector_number": "110",
+        "series_position": "9/10",
+        "toy_number": "JBC24"
+      }
+    },
+    {
+      "id": "sds-0181",
+      "target_id": "sds-target-0091",
+      "source_type": "image_search",
+      "query_raw": "2022 Hot Wheels '21 Ford Bronco 68/250 MUD STUDS 1/5 | eBay",
+      "query_cleaned": "2022 hot wheels 21 ford bronco mud studs",
+      "expected_casting": "'21 Ford Bronco",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'21 Ford Bronco",
+        "release_year": 2025,
+        "series": "HW Hot Trucks Kroger Exclusive",
+        "collector_number": "020",
+        "series_position": "1/10",
+        "toy_number": "HYY32",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0182",
+      "target_id": "sds-target-0091",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels RLC Exclusive ’21 Ford Bronco With Chase Version",
+      "query_cleaned": "hot wheels rlc exclusive 21 ford bronco with chase version",
+      "expected_casting": "'21 Ford Bronco",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'21 Ford Bronco",
+        "release_year": 2025,
+        "series": "HW Hot Trucks Kroger Exclusive",
+        "collector_number": "020",
+        "series_position": "1/10",
+        "toy_number": "HYY32",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0183",
+      "target_id": "sds-target-0092",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels - Gone Mad - JJK09 - Wagons 7/10 - Short Card - Bronze - Fantasy Model - Mattel 2026 (165/250) - 1:64 : Amazon.sg: Toys",
+      "query_cleaned": "hot wheels gone mad jjk09 wagons short bronze fantasy model mattel 2026 64 sg",
+      "expected_casting": "Gone Mad",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Gone Mad",
+        "release_year": 2026,
+        "series": "Wagons",
+        "collector_number": "165",
+        "series_position": "7/10",
+        "toy_number": "JJL67",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0184",
+      "target_id": "sds-target-0092",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Gone Mad 2026",
+      "query_cleaned": "hot wheels gone mad 2026",
+      "expected_casting": "Gone Mad",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Gone Mad",
+        "release_year": 2026,
+        "series": "Wagons",
+        "collector_number": "165",
+        "series_position": "7/10",
+        "toy_number": "JJL67",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0185",
+      "target_id": "sds-target-0093",
+      "source_type": "image_search",
+      "query_raw": "Mazda Autozam - Hot Wheels HW Dream Garage 2024 (3/5) (1/250) - Etsy",
+      "query_cleaned": "hot wheels hw dream garage 2024 etsy",
+      "expected_casting": "Mazda Autozam",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Mazda Autozam",
+        "release_year": 2024,
+        "series": "HW Dream Garage New for 2024!",
+        "collector_number": "001",
+        "series_position": "3/5",
+        "toy_number": "HTC86",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0186",
+      "target_id": "sds-target-0093",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels 2024 Mazda Autozam Matte \"moody\" Blue 1/250 Htc86 Legends",
+      "query_cleaned": "hot wheels 2024 mazda autozam matte moody htc86 legends",
+      "expected_casting": "Mazda Autozam",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Mazda Autozam",
+        "release_year": 2024,
+        "series": "HW Dream Garage New for 2024!",
+        "collector_number": "001",
+        "series_position": "3/5",
+        "toy_number": "HTC86",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0187",
+      "target_id": "sds-target-0094",
+      "source_type": "image_search",
+      "query_raw": "Buy Nissan Gordon Murray Automotive T.50s Online in India - Etsy",
+      "query_cleaned": "buy nissan gordon murray automotive t 50s in",
+      "expected_casting": "Gordon Murray Automotive T.50s",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Gordon Murray Automotive T.50s",
+        "release_year": 2025,
+        "series": "Red Edition Target Exclusive",
+        "collector_number": "190",
+        "series_position": "11/12",
+        "toy_number": "HYY48",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0188",
+      "target_id": "sds-target-0094",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels 2025 Gordon Murray Automotive T.50s Hyy48 Red Edition",
+      "query_cleaned": "hot wheels 2025 gordon murray automotive t 50s hyy48 red edition",
+      "expected_casting": "Gordon Murray Automotive T.50s",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Gordon Murray Automotive T.50s",
+        "release_year": 2025,
+        "series": "Red Edition Target Exclusive",
+        "collector_number": "190",
+        "series_position": "11/12",
+        "toy_number": "HYY48",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0189",
+      "target_id": "sds-target-0095",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels Mario Standard Kart 2018 Mattel Die Cast Model | eBay",
+      "query_cleaned": "hot wheels mario standard kart 2018 mattel die cast model",
+      "expected_casting": "Standard Kart",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Standard Kart",
+        "release_year": 2026,
+        "series": "Screen Time",
+        "collector_number": "129",
+        "series_position": "4/10",
+        "toy_number": "JJJ83"
+      }
+    },
+    {
+      "id": "sds-0190",
+      "target_id": "sds-target-0095",
+      "source_type": "shopping",
+      "query_raw": "Standard Kart Mario Kart Hot Wheels 2026 Jjj83-n9coh",
+      "query_cleaned": "hot wheels 2026 jjj83 n9coh",
+      "expected_casting": "Standard Kart",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Standard Kart",
+        "release_year": 2026,
+        "series": "Screen Time",
+        "collector_number": "129",
+        "series_position": "4/10",
+        "toy_number": "JJJ83"
+      }
+    },
+    {
+      "id": "sds-0191",
+      "target_id": "sds-target-0096",
+      "source_type": "image_search",
+      "query_raw": "2023 Hot Wheels HW SPORTS 1/5 Skate Grom 42/250 (Tony Hawk) | eBay",
+      "query_cleaned": "2023 hot wheels hw sports skate grom",
+      "expected_casting": "Skate Grom",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Skate Grom",
+        "release_year": 2023,
+        "series": "HW Sports",
+        "collector_number": "042",
+        "series_position": "1/5",
+        "toy_number": "HKH79"
+      }
+    },
+    {
+      "id": "sds-0192",
+      "target_id": "sds-target-0096",
+      "source_type": "shopping",
+      "query_raw": "2023 Hot Wheels Hw Sports 1/5 Skate Grom 42/250 Die Cast Hkh79",
+      "query_cleaned": "2023 hot wheels hw sports skate grom die cast hkh79",
+      "expected_casting": "Skate Grom",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Skate Grom",
+        "release_year": 2023,
+        "series": "HW Sports",
+        "collector_number": "042",
+        "series_position": "1/5",
+        "toy_number": "HKH79"
+      }
+    },
+    {
+      "id": "sds-0193",
+      "target_id": "sds-target-0097",
+      "source_type": "image_search",
+      "query_raw": "HOT WHEELS HTB73 MUSTANG FUNNY CAR 2024 (HW ART CARS) 5/10 112/250 | eBay",
+      "query_cleaned": "hot wheels htb73 mustang funny car 2024",
+      "expected_casting": "Mustang Funny Car",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Mustang Funny Car",
+        "release_year": 2024,
+        "series": "HW Art Cars Walmart Exclusive",
+        "collector_number": "112",
+        "series_position": "5/10",
+        "toy_number": "HTF49",
+        "variant_note": "2nd Color - Zamac"
+      }
+    },
+    {
+      "id": "sds-0194",
+      "target_id": "sds-target-0097",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Mustang Funny Car 112/250 - Zamac - 2024 Mainline A",
+      "query_cleaned": "hot wheels mustang funny car zamac 2024 a",
+      "expected_casting": "Mustang Funny Car",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Mustang Funny Car",
+        "release_year": 2024,
+        "series": "HW Art Cars Walmart Exclusive",
+        "collector_number": "112",
+        "series_position": "5/10",
+        "toy_number": "HTF49",
+        "variant_note": "2nd Color - Zamac"
+      }
+    },
+    {
+      "id": "sds-0195",
+      "target_id": "sds-target-0098",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels Track Stars 2023 Roadster Bite, Mach It Go, Drone Duty, Rollin Solo | eBay",
+      "query_cleaned": "hot wheels track stars 2023 roadster bite mach it go drone duty rollin solo",
+      "expected_casting": "Mach It Go",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Mach It Go",
+        "release_year": 2023,
+        "series": "HW Track Champs",
+        "collector_number": "112",
+        "series_position": "4/5",
+        "toy_number": "HKH78"
+      }
+    },
+    {
+      "id": "sds-0196",
+      "target_id": "sds-target-0098",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels - 2023 Hw Track Champs 4/5 Mach It Go 112/250 (bbhkh78)",
+      "query_cleaned": "hot wheels 2023 hw track champs mach it go",
+      "expected_casting": "Mach It Go",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Mach It Go",
+        "release_year": 2023,
+        "series": "HW Track Champs",
+        "collector_number": "112",
+        "series_position": "4/5",
+        "toy_number": "HKH78"
+      }
+    },
+    {
+      "id": "sds-0197",
+      "target_id": "sds-target-0099",
+      "source_type": "image_search",
+      "query_raw": "2024 HOT WHEELS PROTOTYPE FACTORY TEST RUN Ford Performance Supervan 4 - RR.Z698 | eBay",
+      "query_cleaned": "2024 hot wheels prototype factory test run ford performance supervan rr z698",
+      "expected_casting": "Ford Performance SuperVan 4",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Ford Performance SuperVan 4",
+        "release_year": 2024,
+        "series": "HW Green Speed New for 2024!",
+        "collector_number": "128",
+        "series_position": "9/10",
+        "toy_number": "HTD33",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0198",
+      "target_id": "sds-target-0099",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels HW Green Speed Ford Performance Supervan 4 Diecast Car",
+      "query_cleaned": "hot wheels hw green speed ford performance supervan",
+      "expected_casting": "Ford Performance SuperVan 4",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Ford Performance SuperVan 4",
+        "release_year": 2024,
+        "series": "HW Green Speed New for 2024!",
+        "collector_number": "128",
+        "series_position": "9/10",
+        "toy_number": "HTD33",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0199",
+      "target_id": "sds-target-0100",
+      "source_type": "image_search",
+      "query_raw": "MASERATI SHAMAL, Hot Wheels 2026, Die cast JJH92N521, Niebieski, 1:64 • Cena • Opinie - Allegro",
+      "query_cleaned": "hot wheels 2026 die cast jjh92n521 niebieski 64 cena opinie allegro",
+      "expected_casting": "Maserati Shamal",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Maserati Shamal",
+        "release_year": 2026,
+        "series": "Red Edition Target Exclusive",
+        "collector_number": "016",
+        "series_position": "3/12",
+        "toy_number": "JJM57",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0200",
+      "target_id": "sds-target-0100",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Maserati Shamal 16/250 - White - 2026 Mainline A",
+      "query_cleaned": "hot wheels maserati shamal 2026 a",
+      "expected_casting": "Maserati Shamal",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Maserati Shamal",
+        "release_year": 2026,
+        "series": "Red Edition Target Exclusive",
+        "collector_number": "016",
+        "series_position": "3/12",
+        "toy_number": "JJM57",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0201",
+      "target_id": "sds-target-0101",
+      "source_type": "image_search",
+      "query_raw": "Rimac Nevera Hw Green Speed 2023 Hot Wheels Rimac Nevera 70/250 HW Green Speed 4/",
+      "query_cleaned": "2023 hot wheels rimac nevera hw green speed",
+      "expected_casting": "Rimac Nevera",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Rimac Nevera",
+        "release_year": 2023,
+        "series": "HW Green Speed New for 2023!",
+        "collector_number": "070",
+        "series_position": "4/10",
+        "toy_number": "HKK21",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0202",
+      "target_id": "sds-target-0101",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels HW Green Speed Rimac Nevera",
+      "query_cleaned": "hot wheels hw green speed rimac nevera",
+      "expected_casting": "Rimac Nevera",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Rimac Nevera",
+        "release_year": 2023,
+        "series": "HW Green Speed New for 2023!",
+        "collector_number": "070",
+        "series_position": "4/10",
+        "toy_number": "HKK21",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0203",
+      "target_id": "sds-target-0102",
+      "source_type": "image_search",
+      "query_raw": "2023 Hot Wheels Godzilla Nissan Skyline GT-R (R32) · Whatnot: Shop, Sell, Connect",
+      "query_cleaned": "2023 hot wheels godzilla nissan skyline gt r whatnot sell connect",
+      "expected_casting": "Nissan Skyline GT-R (R32)",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Nissan Skyline GT-R (R32)",
+        "release_year": 2023,
+        "series": "HW J-Imports",
+        "collector_number": "069",
+        "series_position": "5/10",
+        "toy_number": "HKJ13"
+      }
+    },
+    {
+      "id": "sds-0204",
+      "target_id": "sds-target-0102",
+      "source_type": "shopping",
+      "query_raw": "2023 Hot Wheels Godzilla Nissan Skyline Gt-r R32 J-imports 5/10 Hkj13",
+      "query_cleaned": "2023 hot wheels godzilla nissan skyline gt r r32 j imports hkj13",
+      "expected_casting": "Nissan Skyline GT-R (R32)",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Nissan Skyline GT-R (R32)",
+        "release_year": 2023,
+        "series": "HW J-Imports",
+        "collector_number": "069",
+        "series_position": "5/10",
+        "toy_number": "HKJ13"
+      }
+    },
+    {
+      "id": "sds-0205",
+      "target_id": "sds-target-0103",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels 40/250 RALLY SPECIALE 1/5 HW TRACK CHAMPS, WHITE new for 2023 | eBay",
+      "query_cleaned": "hot wheels rally speciale hw track champs 2023",
+      "expected_casting": "Rally Speciale",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Rally Speciale",
+        "release_year": 2024,
+        "series": "HW Dirt Dollar General Exclusive",
+        "collector_number": "179",
+        "series_position": "2/10",
+        "toy_number": "HYY25",
+        "variant_note": "3rd Color"
+      }
+    },
+    {
+      "id": "sds-0206",
+      "target_id": "sds-target-0103",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels 2024 Rally Speciale Dark Green 179/250 Hyy25 Dollar General",
+      "query_cleaned": "hot wheels 2024 rally speciale dark green hyy25 dollar general",
+      "expected_casting": "Rally Speciale",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Rally Speciale",
+        "release_year": 2024,
+        "series": "HW Dirt Dollar General Exclusive",
+        "collector_number": "179",
+        "series_position": "2/10",
+        "toy_number": "HYY25",
+        "variant_note": "3rd Color"
+      }
+    },
+    {
+      "id": "sds-0207",
+      "target_id": "sds-target-0104",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels 2026 Super Treasure Hunt STH Dodge '23 Ram 1500 , Loose | eBay",
+      "query_cleaned": "hot wheels 2026 super treasure hunt sth dodge 23 ram 1500 loose",
+      "expected_casting": "'23 Ram 1500",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'23 Ram 1500",
+        "release_year": 2026,
+        "series": "HW Dirt",
+        "collector_number": "234",
+        "series_position": "9/10",
+        "toy_number": "JJK58"
+      }
+    },
+    {
+      "id": "sds-0208",
+      "target_id": "sds-target-0104",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels 23 Ram 1500",
+      "query_cleaned": "hot wheels 23 ram 1500",
+      "expected_casting": "'23 Ram 1500",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'23 Ram 1500",
+        "release_year": 2026,
+        "series": "HW Dirt",
+        "collector_number": "234",
+        "series_position": "9/10",
+        "toy_number": "JJK58"
+      }
+    },
+    {
+      "id": "sds-0209",
+      "target_id": "sds-target-0105",
+      "source_type": "image_search",
+      "query_raw": "2023 HOT WHEELS - FAST-BED HAULER 11/250 - HW HAULERS 2/5- 1:64 ROLLBACK | eBay",
+      "query_cleaned": "2023 hot wheels fast bed hauler hw haulers 64 rollback",
+      "expected_casting": "Fast-Bed Hauler",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Fast-Bed Hauler",
+        "release_year": 2023,
+        "series": "HW Haulers",
+        "collector_number": "011",
+        "series_position": "2/5",
+        "toy_number": "HKH24"
+      }
+    },
+    {
+      "id": "sds-0210",
+      "target_id": "sds-target-0105",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Die-Cast Vehicle Fast-Bed Hauler Brown",
+      "query_cleaned": "hot wheels die cast fast bed hauler brown",
+      "expected_casting": "Fast-Bed Hauler",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Fast-Bed Hauler",
+        "release_year": 2023,
+        "series": "HW Haulers",
+        "collector_number": "011",
+        "series_position": "2/5",
+        "toy_number": "HKH24"
+      }
+    },
+    {
+      "id": "sds-0211",
+      "target_id": "sds-target-0106",
+      "source_type": "image_search",
+      "query_raw": "Amazon.com: HotWheels '84 Pontiac Firebird (White) 2023 Muscle Mania",
+      "query_cleaned": "hotwheels 84 pontiac firebird 2023 muscle mania",
+      "expected_casting": "'84 Pontiac Firebird",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'84 Pontiac Firebird",
+        "release_year": 2023,
+        "series": "Muscle Mania",
+        "collector_number": "180",
+        "series_position": "8/10",
+        "toy_number": "HKK92",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0212",
+      "target_id": "sds-target-0106",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels 2023 Muscle Mania 8/10 ‘84 Pontiac Firebird - Hkk92",
+      "query_cleaned": "hot wheels 2023 muscle mania 84 pontiac firebird hkk92",
+      "expected_casting": "'84 Pontiac Firebird",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'84 Pontiac Firebird",
+        "release_year": 2023,
+        "series": "Muscle Mania",
+        "collector_number": "180",
+        "series_position": "8/10",
+        "toy_number": "HKK92",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0213",
+      "target_id": "sds-target-0107",
+      "source_type": "image_search",
+      "query_raw": "Amazon.com: Hot Wheels - Renault Espace F1 - HW Modified 5/5 - HYW32 - Short Card - Yellow - Mattel 2025-1:64 : Toys & Games",
+      "query_cleaned": "hot wheels renault espace f1 hw modified hyw32 short mattel 2025 64",
+      "expected_casting": "Renault Espace F1",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Renault Espace F1",
+        "release_year": 2026,
+        "series": "HW Starting Grid",
+        "collector_number": "099",
+        "series_position": "6/10",
+        "toy_number": "JJL40",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0214",
+      "target_id": "sds-target-0107",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels 2026 Mainline HW Starting Grid Series Cars (International Card) - Renault Espace F1 6/10 99/250 JJL40",
+      "query_cleaned": "hot wheels 2026 hw starting grid renault espace f1 jjl40",
+      "expected_casting": "Renault Espace F1",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Renault Espace F1",
+        "release_year": 2026,
+        "series": "HW Starting Grid",
+        "collector_number": "099",
+        "series_position": "6/10",
+        "toy_number": "JJL40",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0215",
+      "target_id": "sds-target-0108",
+      "source_type": "image_search",
+      "query_raw": "2025 HOT WHEELS MAINLINE SHORT CARD CASE L 94 BUGATTI EB110 SS | eBay",
+      "query_cleaned": "2025 hot wheels short case l 94 bugatti eb110 ss",
+      "expected_casting": "'94 Bugatti EB110 SS",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'94 Bugatti EB110 SS",
+        "release_year": 2025,
+        "series": "HW Race Day",
+        "collector_number": "221",
+        "series_position": "9/10",
+        "toy_number": "JBB36"
+      }
+    },
+    {
+      "id": "sds-0216",
+      "target_id": "sds-target-0108",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels HW 94 Bugatti Eb110 SS",
+      "query_cleaned": "hot wheels hw 94 bugatti eb110 ss",
+      "expected_casting": "'94 Bugatti EB110 SS",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'94 Bugatti EB110 SS",
+        "release_year": 2025,
+        "series": "HW Race Day",
+        "collector_number": "221",
+        "series_position": "9/10",
+        "toy_number": "JBB36"
+      }
+    },
+    {
+      "id": "sds-0217",
+      "target_id": "sds-target-0109",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels 2021 HW METRO SPEED DOZER 3/10 54/250 GRX81 | eBay",
+      "query_cleaned": "hot wheels 2021 hw metro speed dozer grx81",
+      "expected_casting": "Speed Dozer",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Speed Dozer",
+        "release_year": 2024,
+        "series": "HW Metro",
+        "collector_number": "147",
+        "series_position": "5/10",
+        "toy_number": "HTF03",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0218",
+      "target_id": "sds-target-0109",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels 2024 Hw Metro 5/10 Speed Dozer 147/250 Error Car",
+      "query_cleaned": "hot wheels 2024 hw metro speed dozer error car",
+      "expected_casting": "Speed Dozer",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Speed Dozer",
+        "release_year": 2024,
+        "series": "HW Metro",
+        "collector_number": "147",
+        "series_position": "5/10",
+        "toy_number": "HTF03",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0219",
+      "target_id": "sds-target-0110",
+      "source_type": "image_search",
+      "query_raw": "2025 HOT WHEELS PREMIUM OFF ROAD 2017 FORD F-150 RAPTOR NO 4/5 | eBay",
+      "query_cleaned": "2025 hot wheels premium off road 2017 ford f 150 raptor no",
+      "expected_casting": "'17 Ford F-150 Raptor",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'17 Ford F-150 Raptor",
+        "release_year": 2025,
+        "series": "HW Dirt Walmart Exclusive",
+        "collector_number": "178",
+        "series_position": "9/10",
+        "toy_number": "HYY19",
+        "variant_note": "2nd Color - Zamac"
+      }
+    },
+    {
+      "id": "sds-0220",
+      "target_id": "sds-target-0110",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels 2025 Car Culture Off-Road ’17 Ford F-150 Raptor",
+      "query_cleaned": "hot wheels 2025 car culture off road 17 ford f 150 raptor",
+      "expected_casting": "'17 Ford F-150 Raptor",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'17 Ford F-150 Raptor",
+        "release_year": 2025,
+        "series": "HW Dirt Walmart Exclusive",
+        "collector_number": "178",
+        "series_position": "9/10",
+        "toy_number": "HYY19",
+        "variant_note": "2nd Color - Zamac"
+      }
+    },
+    {
+      "id": "sds-0221",
+      "target_id": "sds-target-0111",
+      "source_type": "image_search",
+      "query_raw": "Koenigsegg Gemera Gray/ HW Turbo / Hot Wheels 2022 | eBay",
+      "query_cleaned": "hot wheels 2022",
+      "expected_casting": "Koenigsegg Gemera",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Koenigsegg Gemera",
+        "release_year": 2023,
+        "series": "HW Exotics",
+        "collector_number": "188",
+        "series_position": "4/10",
+        "toy_number": "HKK56",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0222",
+      "target_id": "sds-target-0111",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Die-Cast Vehicle Exotics Koenigsegg Gemera",
+      "query_cleaned": "hot wheels die cast exotics koenigsegg gemera",
+      "expected_casting": "Koenigsegg Gemera",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Koenigsegg Gemera",
+        "release_year": 2023,
+        "series": "HW Exotics",
+        "collector_number": "188",
+        "series_position": "4/10",
+        "toy_number": "HKK56",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0223",
+      "target_id": "sds-target-0112",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels - Ducati DesertX - HW Moto 1/5 - HKG32 - Short Card - Motorcycle - White - Mattel 2023: Buy Online at Best Price in UAE - Amazon.ae",
+      "query_cleaned": "hot wheels ducati desertx hw moto hkg32 short motorcycle mattel 2023 buy at best",
+      "expected_casting": "Ducati DesertX",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Ducati DesertX",
+        "release_year": 2023,
+        "series": "HW Moto New for 2023!",
+        "collector_number": "067",
+        "series_position": "1/5",
+        "toy_number": "HKG32"
+      }
+    },
+    {
+      "id": "sds-0224",
+      "target_id": "sds-target-0112",
+      "source_type": "shopping",
+      "query_raw": "Mainline Hot Wheels Ducati Desertx Hkg32 Moto Series",
+      "query_cleaned": "hot wheels ducati desertx hkg32 moto",
+      "expected_casting": "Ducati DesertX",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Ducati DesertX",
+        "release_year": 2023,
+        "series": "HW Moto New for 2023!",
+        "collector_number": "067",
+        "series_position": "1/5",
+        "toy_number": "HKG32"
+      }
+    },
+    {
+      "id": "sds-0225",
+      "target_id": "sds-target-0113",
+      "source_type": "image_search",
+      "query_raw": "2024 Hot Wheels El Segundo Coupe 51/250 HW Turbo 1/5 NEW FREE SHIPPING | eBay",
+      "query_cleaned": "2024 hot wheels el segundo coupe hw turbo",
+      "expected_casting": "El Segundo Coupe",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "El Segundo Coupe",
+        "release_year": 2026,
+        "series": "HW Fan Driven",
+        "collector_number": "096",
+        "series_position": "4/5",
+        "toy_number": "JJJ57"
+      }
+    },
+    {
+      "id": "sds-0226",
+      "target_id": "sds-target-0113",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels 2026 El Segundo Coupe White 96/250 Jjj57 Hw Fan Driven",
+      "query_cleaned": "hot wheels 2026 el segundo coupe jjj57 hw fan driven",
+      "expected_casting": "El Segundo Coupe",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "El Segundo Coupe",
+        "release_year": 2026,
+        "series": "HW Fan Driven",
+        "collector_number": "096",
+        "series_position": "4/5",
+        "toy_number": "JJJ57"
+      }
+    },
+    {
+      "id": "sds-0227",
+      "target_id": "sds-target-0114",
+      "source_type": "image_search",
+      "query_raw": "2025 Hot Wheels Black Small Bloc 2/5 HW Metro 7/250 HYX56 | eBay",
+      "query_cleaned": "2025 hot wheels black small bloc hw metro hyx56",
+      "expected_casting": "Small Bloc",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Small Bloc",
+        "release_year": 2025,
+        "series": "HW Metro",
+        "collector_number": "007",
+        "series_position": "2/5",
+        "toy_number": "HYX56",
+        "variant_note": "3rd Color"
+      }
+    },
+    {
+      "id": "sds-0228",
+      "target_id": "sds-target-0114",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels 2025 Small Bloc Black 7/250 Hyx56 Hw Metro Let's Race",
+      "query_cleaned": "hot wheels 2025 small bloc black hyx56 hw metro let race",
+      "expected_casting": "Small Bloc",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Small Bloc",
+        "release_year": 2025,
+        "series": "HW Metro",
+        "collector_number": "007",
+        "series_position": "2/5",
+        "toy_number": "HYX56",
+        "variant_note": "3rd Color"
+      }
+    },
+    {
+      "id": "sds-0229",
+      "target_id": "sds-target-0115",
+      "source_type": "image_search",
+      "query_raw": "ALFA ROMEO GIULIA TI SUPER vs 2002 BMW ምቃ 9 PIAA อ SeE S GE ሞዱዱ momo es TI SPR 8 GE яатее momo 2E มดพด",
+      "query_cleaned": "alfa romeo giulia ti super vs 2002 bmw",
+      "expected_casting": "Alfa Romeo Giulia TI Super",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Alfa Romeo Giulia TI Super",
+        "release_year": 2025,
+        "series": "Compact Kings New for 2025!",
+        "collector_number": "195",
+        "series_position": "7/10",
+        "toy_number": "HYW40"
+      }
+    },
+    {
+      "id": "sds-0230",
+      "target_id": "sds-target-0115",
+      "source_type": "shopping",
+      "query_raw": "Alfa Romeo Giulia Ti Super 195/250 Hot Wheels 2025 Hyw40 Compact Kings",
+      "query_cleaned": "hot wheels 2025 hyw40 compact kings",
+      "expected_casting": "Alfa Romeo Giulia TI Super",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Alfa Romeo Giulia TI Super",
+        "release_year": 2025,
+        "series": "Compact Kings New for 2025!",
+        "collector_number": "195",
+        "series_position": "7/10",
+        "toy_number": "HYW40"
+      }
+    },
+    {
+      "id": "sds-0231",
+      "target_id": "sds-target-0116",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels 2018 HW Hot Trucks '15 Land Rover Defender Double Cab (tan)",
+      "query_cleaned": "hot wheels 2018 hw hot 15 land rover defender double cab",
+      "expected_casting": "'15 Land Rover Defender Double Cab",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'15 Land Rover Defender Double Cab",
+        "release_year": 2025,
+        "series": "HW Dirt",
+        "collector_number": "179",
+        "series_position": "10/10",
+        "toy_number": "JBC00",
+        "variant_note": "3rd Color"
+      }
+    },
+    {
+      "id": "sds-0232",
+      "target_id": "sds-target-0116",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels '15 Land Rover Defender Double Cab Dirt 10/10 JBC00",
+      "query_cleaned": "hot wheels 15 land rover defender double cab dirt jbc00",
+      "expected_casting": "'15 Land Rover Defender Double Cab",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'15 Land Rover Defender Double Cab",
+        "release_year": 2025,
+        "series": "HW Dirt",
+        "collector_number": "179",
+        "series_position": "10/10",
+        "toy_number": "JBC00",
+        "variant_note": "3rd Color"
+      }
+    },
+    {
+      "id": "sds-0233",
+      "target_id": "sds-target-0117",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels 52 Chevy | eBay UK",
+      "query_cleaned": "hot wheels 52 chevy",
+      "expected_casting": "'52 Chevy",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'52 Chevy",
+        "release_year": 2024,
+        "series": "HW Hot Trucks",
+        "collector_number": "139",
+        "series_position": "8/10",
+        "toy_number": "HTC36"
+      }
+    },
+    {
+      "id": "sds-0234",
+      "target_id": "sds-target-0117",
+      "source_type": "shopping",
+      "query_raw": "NEW Hot Wheels 52 Chevy White Chevrolet Pickup 2024 139 / 250 HTC36 Long Card",
+      "query_cleaned": "hot wheels 52 chevy chevrolet pickup 2024 htc36 long",
+      "expected_casting": "'52 Chevy",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'52 Chevy",
+        "release_year": 2024,
+        "series": "HW Hot Trucks",
+        "collector_number": "139",
+        "series_position": "8/10",
+        "toy_number": "HTC36"
+      }
+    },
+    {
+      "id": "sds-0235",
+      "target_id": "sds-target-0118",
+      "source_type": "image_search",
+      "query_raw": "HOT WHEELS PAGANI UTOPIA 2024 | eBay",
+      "query_cleaned": "hot wheels pagani utopia 2024",
+      "expected_casting": "Pagani Utopia",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Pagani Utopia",
+        "release_year": 2024,
+        "series": "HW Exotics New for 2024!",
+        "collector_number": "205",
+        "series_position": "5/10",
+        "toy_number": "HRY83"
+      }
+    },
+    {
+      "id": "sds-0236",
+      "target_id": "sds-target-0118",
+      "source_type": "shopping",
+      "query_raw": "PAGANI UTOPIA GRIGIO RENASCIMENTO 205/250 HRY83 HW EXOTICS",
+      "query_cleaned": "pagani utopia grigio renascimento hry83 hw exotics",
+      "expected_casting": "Pagani Utopia",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Pagani Utopia",
+        "release_year": 2024,
+        "series": "HW Exotics New for 2024!",
+        "collector_number": "205",
+        "series_position": "5/10",
+        "toy_number": "HRY83"
+      }
+    },
+    {
+      "id": "sds-0237",
+      "target_id": "sds-target-0119",
+      "source_type": "image_search",
+      "query_raw": "2010#45 Custom 53 Cadillac Treasure Hunt 2019/106 Custom 53 Cadillac 2/cars B8 | eBay",
+      "query_cleaned": "2010 45 custom 53 cadillac treasure hunt 2019",
+      "expected_casting": "Custom '53 Cadillac",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Custom '53 Cadillac",
+        "release_year": 2025,
+        "series": "Rod Squad",
+        "collector_number": "139",
+        "series_position": "9/10",
+        "toy_number": "HYY78"
+      }
+    },
+    {
+      "id": "sds-0238",
+      "target_id": "sds-target-0119",
+      "source_type": "shopping",
+      "query_raw": "Custom 53 Cadillac Rod Squad 9/10 139/250 Diecast Car Hyy78",
+      "query_cleaned": "custom 53 cadillac rod squad hyy78",
+      "expected_casting": "Custom '53 Cadillac",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Custom '53 Cadillac",
+        "release_year": 2025,
+        "series": "Rod Squad",
+        "collector_number": "139",
+        "series_position": "9/10",
+        "toy_number": "HYY78"
+      }
+    },
+    {
+      "id": "sds-0239",
+      "target_id": "sds-target-0120",
+      "source_type": "image_search",
+      "query_raw": "🔥 RARE 2024 Hot Wheels Family Dollar Tree EXCLUSIVE Mod Rod Roadster HW Art NEW | eBay",
+      "query_cleaned": "2024 hot wheels family dollar tree exclusive mod rod roadster hw art",
+      "expected_casting": "Mod Rod",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Mod Rod",
+        "release_year": 2024,
+        "series": "HW Art Cars",
+        "collector_number": "061",
+        "series_position": "1/10",
+        "toy_number": "HTD31",
+        "variant_note": "3rd Color"
+      }
+    },
+    {
+      "id": "sds-0240",
+      "target_id": "sds-target-0120",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Factory Error 2024 Mod Rod Blue 61/250 Missing Wheels",
+      "query_cleaned": "hot wheels factory error 2024 mod rod missing wheels",
+      "expected_casting": "Mod Rod",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Mod Rod",
+        "release_year": 2024,
+        "series": "HW Art Cars",
+        "collector_number": "061",
+        "series_position": "1/10",
+        "toy_number": "HTD31",
+        "variant_note": "3rd Color"
+      }
+    },
+    {
+      "id": "sds-0241",
+      "target_id": "sds-target-0121",
+      "source_type": "image_search",
+      "query_raw": "2022 HOT WHEELS 1:64 HW TOONED 4/5 BLUE TOON'D '83 CHEVY SILVERADO | eBay",
+      "query_cleaned": "2022 hot wheels 64 hw tooned toon d 83 chevy silverado",
+      "expected_casting": "Toon'd '83 Chevy Silverado",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Toon'd '83 Chevy Silverado",
+        "release_year": 2023,
+        "series": "HW Hot Trucks",
+        "collector_number": "093",
+        "series_position": "1/10",
+        "toy_number": "HKK57",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0242",
+      "target_id": "sds-target-0121",
+      "source_type": "shopping",
+      "query_raw": "2023 Hot Wheels 93/250 Hkk57 Toon'd '83 Chevy Silverado Hw Hot Trucks",
+      "query_cleaned": "2023 hot wheels hkk57 toon d 83 chevy silverado hw hot",
+      "expected_casting": "Toon'd '83 Chevy Silverado",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Toon'd '83 Chevy Silverado",
+        "release_year": 2023,
+        "series": "HW Hot Trucks",
+        "collector_number": "093",
+        "series_position": "1/10",
+        "toy_number": "HKK57",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0243",
+      "target_id": "sds-target-0122",
+      "source_type": "image_search",
+      "query_raw": "Mattel Hot Wheels 2014 Purple Green Pedal Driver Die Cast Model Car | eBay Australia",
+      "query_cleaned": "hot wheels 2014 purple green pedal driver die cast model car",
+      "expected_casting": "Pedal Driver",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Pedal Driver",
+        "release_year": 2026,
+        "series": "Rod Squad",
+        "collector_number": "118",
+        "series_position": "2/10",
+        "toy_number": "JJJ77"
+      }
+    },
+    {
+      "id": "sds-0244",
+      "target_id": "sds-target-0122",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels - 2026 Rod Squad 2/10 Pedal Driver 118/250 (bbjjj77)",
+      "query_cleaned": "hot wheels 2026 rod squad pedal driver",
+      "expected_casting": "Pedal Driver",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Pedal Driver",
+        "release_year": 2026,
+        "series": "Rod Squad",
+        "collector_number": "118",
+        "series_position": "2/10",
+        "toy_number": "JJJ77"
+      }
+    },
+    {
+      "id": "sds-0245",
+      "target_id": "sds-target-0123",
+      "source_type": "image_search",
+      "query_raw": "2024 Hot Wheels - Nissan Skyline RS (KDR30) - Target Red Edition - HTF76",
+      "query_cleaned": "2024 hot wheels nissan skyline rs target red edition htf76",
+      "expected_casting": "Nissan Skyline RS (KDR30)",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Nissan Skyline RS (KDR30)",
+        "release_year": 2024,
+        "series": "Red Edition Target Exclusive",
+        "collector_number": "044",
+        "series_position": "4/12",
+        "toy_number": "HTF76",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0246",
+      "target_id": "sds-target-0123",
+      "source_type": "shopping",
+      "query_raw": "2024 Hot Wheels - Nissan Skyline Rs (kdr30) - Target Red Edition -",
+      "query_cleaned": "2024 hot wheels nissan skyline rs target red edition",
+      "expected_casting": "Nissan Skyline RS (KDR30)",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Nissan Skyline RS (KDR30)",
+        "release_year": 2024,
+        "series": "Red Edition Target Exclusive",
+        "collector_number": "044",
+        "series_position": "4/12",
+        "toy_number": "HTF76",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0247",
+      "target_id": "sds-target-0124",
+      "source_type": "image_search",
+      "query_raw": "2023 Hot Wheels '90 Honda Civic EF Red #96 HW J-Imports Car 1/64 Toy JDM NEW! | eBay",
+      "query_cleaned": "2023 hot wheels 90 honda civic ef red 96 hw j imports car jdm",
+      "expected_casting": "'90 Honda Civic EF",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'90 Honda Civic EF",
+        "release_year": 2023,
+        "series": "HW J-Imports",
+        "collector_number": "096",
+        "series_position": "7/10",
+        "toy_number": "HKJ16"
+      }
+    },
+    {
+      "id": "sds-0248",
+      "target_id": "sds-target-0124",
+      "source_type": "shopping",
+      "query_raw": "2023 Hot Wheels 1990 Honda Civic Ef 96/250 J-imports Hkj16 Red",
+      "query_cleaned": "2023 hot wheels 1990 honda civic ef j imports hkj16 red",
+      "expected_casting": "'90 Honda Civic EF",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'90 Honda Civic EF",
+        "release_year": 2023,
+        "series": "HW J-Imports",
+        "collector_number": "096",
+        "series_position": "7/10",
+        "toy_number": "HKJ16"
+      }
+    },
+    {
+      "id": "sds-0249",
+      "target_id": "sds-target-0125",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels 2024 Celebration Racers Rrroadster International Women's Day | eBay",
+      "query_cleaned": "hot wheels 2024 celebration racers rrroadster international women day",
+      "expected_casting": "RRRoadster",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "RRRoadster",
+        "release_year": 2024,
+        "series": "HW Celebration Racers International Women's Day",
+        "collector_number": "076",
+        "series_position": "4/10",
+        "toy_number": "HRY98"
+      }
+    },
+    {
+      "id": "sds-0250",
+      "target_id": "sds-target-0125",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels HW Celebration Racers Series #4/10 RRROADSTER #HRY98 1:64 Scale",
+      "query_cleaned": "hot wheels hw celebration racers rrroadster hry98 64",
+      "expected_casting": "RRRoadster",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "RRRoadster",
+        "release_year": 2024,
+        "series": "HW Celebration Racers International Women's Day",
+        "collector_number": "076",
+        "series_position": "4/10",
+        "toy_number": "HRY98"
+      }
+    },
+    {
+      "id": "sds-0251",
+      "target_id": "sds-target-0126",
+      "source_type": "image_search",
+      "query_raw": "🩶💛❤️ Hot Wheels 20 Toyota GR Supra Silver #157 Mainline 2026 Case G | eBay",
+      "query_cleaned": "hot wheels 20 toyota gr supra silver 157 2026 case g",
+      "expected_casting": "'20 Toyota GR Supra",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'20 Toyota GR Supra",
+        "release_year": 2026,
+        "series": "Then and Now",
+        "collector_number": "157",
+        "series_position": "6/10",
+        "toy_number": "JJK04"
+      }
+    },
+    {
+      "id": "sds-0252",
+      "target_id": "sds-target-0126",
+      "source_type": "shopping",
+      "query_raw": "2026 Hot Wheels'20 Toyota Gr Supra Silver Then And Now 6/10 Jjk04",
+      "query_cleaned": "2026 hot wheels 20 toyota gr supra silver then and now jjk04",
+      "expected_casting": "'20 Toyota GR Supra",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'20 Toyota GR Supra",
+        "release_year": 2026,
+        "series": "Then and Now",
+        "collector_number": "157",
+        "series_position": "6/10",
+        "toy_number": "JJK04"
+      }
+    },
+    {
+      "id": "sds-0253",
+      "target_id": "sds-target-0127",
+      "source_type": "image_search",
+      "query_raw": "2023 Hot Wheels HW GREEN SPEED 5/10 Automobili Pininfarina Battista 108/250 | eBay",
+      "query_cleaned": "2023 hot wheels hw green speed automobili pininfarina battista",
+      "expected_casting": "Automobili Pininfarina Battista",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Automobili Pininfarina Battista",
+        "release_year": 2023,
+        "series": "HW Green Speed",
+        "collector_number": "108",
+        "series_position": "5/10",
+        "toy_number": "HKK22",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0254",
+      "target_id": "sds-target-0127",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Die-Cast Vehicle Automobili Pininfarina Battista",
+      "query_cleaned": "hot wheels die cast automobili pininfarina battista",
+      "expected_casting": "Automobili Pininfarina Battista",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Automobili Pininfarina Battista",
+        "release_year": 2023,
+        "series": "HW Green Speed",
+        "collector_number": "108",
+        "series_position": "5/10",
+        "toy_number": "HKK22",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0255",
+      "target_id": "sds-target-0128",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels Cone Shaker, 2025 HW Metro Series, Die-cast Toy Car - Etsy",
+      "query_cleaned": "hot wheels cone shaker 2025 hw metro die cast car etsy",
+      "expected_casting": "Cone Shaker",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Cone Shaker",
+        "release_year": 2025,
+        "series": "HW Metro New for 2025!",
+        "collector_number": "148",
+        "series_position": "5/5",
+        "toy_number": "HYW35"
+      }
+    },
+    {
+      "id": "sds-0256",
+      "target_id": "sds-target-0128",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels HW Metro Cone Shaker Diecast Car",
+      "query_cleaned": "hot wheels hw metro cone shaker",
+      "expected_casting": "Cone Shaker",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Cone Shaker",
+        "release_year": 2025,
+        "series": "HW Metro New for 2025!",
+        "collector_number": "148",
+        "series_position": "5/5",
+        "toy_number": "HYW35"
+      }
+    },
+    {
+      "id": "sds-0257",
+      "target_id": "sds-target-0129",
+      "source_type": "image_search",
+      "query_raw": "2023 Hot Wheels 88 Honda CRX CR-X HW J-IMPORTS 10/10 G Case 148/250 VHTF · Whatnot: Shop, Sell, Connect",
+      "query_cleaned": "2023 hot wheels 88 honda crx cr x hw j imports g case vhtf",
+      "expected_casting": "'88 Honda CR-X",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'88 Honda CR-X",
+        "release_year": 2023,
+        "series": "HW J-Imports",
+        "collector_number": "148",
+        "series_position": "10/10",
+        "toy_number": "HKJ17"
+      }
+    },
+    {
+      "id": "sds-0258",
+      "target_id": "sds-target-0129",
+      "source_type": "shopping",
+      "query_raw": "1988 Cr-x Hkj17 2023 Series Car New. Hot Wheels. Play Sets. 5905701032297",
+      "query_cleaned": "hot wheels play sets",
+      "expected_casting": "'88 Honda CR-X",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'88 Honda CR-X",
+        "release_year": 2023,
+        "series": "HW J-Imports",
+        "collector_number": "148",
+        "series_position": "10/10",
+        "toy_number": "HKJ17"
+      }
+    },
+    {
+      "id": "sds-0259",
+      "target_id": "sds-target-0130",
+      "source_type": "image_search",
+      "query_raw": "2023 Hot Wheels Super Treasure Hunt STH # Renault Sport R.S.01 , Loose | eBay",
+      "query_cleaned": "2023 hot wheels super treasure hunt sth renault sport r 01 loose",
+      "expected_casting": "Renault Sport R.S. 01",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Renault Sport R.S. 01",
+        "release_year": 2023,
+        "series": "HW Turbo",
+        "collector_number": "134",
+        "series_position": "3/5",
+        "toy_number": "HKJ38"
+      }
+    },
+    {
+      "id": "sds-0260",
+      "target_id": "sds-target-0130",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels - 2023 Hw Turbo 3/5 Renault Sport R.s. 01 134/250 (bbhkj38)",
+      "query_cleaned": "hot wheels 2023 hw turbo renault sport r 01",
+      "expected_casting": "Renault Sport R.S. 01",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Renault Sport R.S. 01",
+        "release_year": 2023,
+        "series": "HW Turbo",
+        "collector_number": "134",
+        "series_position": "3/5",
+        "toy_number": "HKJ38"
+      }
+    },
+    {
+      "id": "sds-0261",
+      "target_id": "sds-target-0131",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels Cars Sushi 2024 Hot Wheels 225/250 Sushi Tuner, Fast Foodie 5/5 (HRY88) –",
+      "query_cleaned": "hot wheels sushi 2024 hot wheels sushi tuner fast foodie",
+      "expected_casting": "Sushi Tuner",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Sushi Tuner",
+        "release_year": 2025,
+        "series": "Fast Foodie",
+        "collector_number": "106",
+        "series_position": "2/5",
+        "toy_number": "HYY51"
+      }
+    },
+    {
+      "id": "sds-0262",
+      "target_id": "sds-target-0131",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Sushi Tuner",
+      "query_cleaned": "hot wheels sushi tuner",
+      "expected_casting": "Sushi Tuner",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Sushi Tuner",
+        "release_year": 2025,
+        "series": "Fast Foodie",
+        "collector_number": "106",
+        "series_position": "2/5",
+        "toy_number": "HYY51"
+      }
+    },
+    {
+      "id": "sds-0263",
+      "target_id": "sds-target-0132",
+      "source_type": "image_search",
+      "query_raw": "2025 Hot Wheels Factory Fresh PROTON SAGA WHITE Die Cast Error",
+      "query_cleaned": "2025 hot wheels factory fresh proton saga die cast error",
+      "expected_casting": "Proton Saga",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Proton Saga",
+        "release_year": 2025,
+        "series": "Factory Fresh",
+        "collector_number": "038",
+        "series_position": "3/5",
+        "toy_number": "HYW90"
+      }
+    },
+    {
+      "id": "sds-0264",
+      "target_id": "sds-target-0132",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Proton Saga White Factory Fresh 3/5 1:64 Scale Diecast Car",
+      "query_cleaned": "hot wheels proton saga factory fresh 64",
+      "expected_casting": "Proton Saga",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Proton Saga",
+        "release_year": 2025,
+        "series": "Factory Fresh",
+        "collector_number": "038",
+        "series_position": "3/5",
+        "toy_number": "HYW90"
+      }
+    },
+    {
+      "id": "sds-0265",
+      "target_id": "sds-target-0133",
+      "source_type": "image_search",
+      "query_raw": "2025 Hot Wheels Power Rocket 109/250",
+      "query_cleaned": "2025 hot wheels power rocket",
+      "expected_casting": "Power Rocket",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Power Rocket",
+        "release_year": 2025,
+        "series": "X-Raycers",
+        "collector_number": "109",
+        "series_position": "8/10",
+        "toy_number": "JBB69",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0266",
+      "target_id": "sds-target-0133",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels - 2025 X-raycers 8/10 Power Rocket 109/250 (bbjbb69)",
+      "query_cleaned": "hot wheels 2025 x raycers power rocket",
+      "expected_casting": "Power Rocket",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Power Rocket",
+        "release_year": 2025,
+        "series": "X-Raycers",
+        "collector_number": "109",
+        "series_position": "8/10",
+        "toy_number": "JBB69",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0267",
+      "target_id": "sds-target-0134",
+      "source_type": "image_search",
+      "query_raw": "2023 Hot Wheels 128/250 HKJ89 Bricking Speed Brick Rides 5/5 | eBay",
+      "query_cleaned": "2023 hot wheels hkj89 bricking speed brick rides",
+      "expected_casting": "Bricking Speed",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Bricking Speed",
+        "release_year": 2023,
+        "series": "Brick Rides",
+        "collector_number": "128",
+        "series_position": "5/5",
+        "toy_number": "HKJ89",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0268",
+      "target_id": "sds-target-0134",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Tekli Arabalar Bricking Speed",
+      "query_cleaned": "hot wheels tekli arabalar bricking speed",
+      "expected_casting": "Bricking Speed",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Bricking Speed",
+        "release_year": 2023,
+        "series": "Brick Rides",
+        "collector_number": "128",
+        "series_position": "5/5",
+        "toy_number": "HKJ89",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0269",
+      "target_id": "sds-target-0135",
+      "source_type": "image_search",
+      "query_raw": "2) 🔥2023 Hot Wheels Red Mercedes-Benz 300 SL #27/250 Retro Racers #3/10 🏁 | eBay",
+      "query_cleaned": "2023 hot wheels red mercedes benz 300 sl retro racers",
+      "expected_casting": "Mercedes-Benz 300 SL",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Mercedes-Benz 300 SL",
+        "release_year": 2023,
+        "series": "Retro Racers",
+        "collector_number": "027",
+        "series_position": "3/10",
+        "toy_number": "HKH02"
+      }
+    },
+    {
+      "id": "sds-0270",
+      "target_id": "sds-target-0135",
+      "source_type": "shopping",
+      "query_raw": "2023 Hot Wheels Mercedes-benz 300 Sl 27/250 Retro Racers Hkh02 Red",
+      "query_cleaned": "2023 hot wheels mercedes benz 300 sl retro racers hkh02 red",
+      "expected_casting": "Mercedes-Benz 300 SL",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Mercedes-Benz 300 SL",
+        "release_year": 2023,
+        "series": "Retro Racers",
+        "collector_number": "027",
+        "series_position": "3/10",
+        "toy_number": "HKH02"
+      }
+    },
+    {
+      "id": "sds-0271",
+      "target_id": "sds-target-0136",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels 2026 High-Tail Chaser HW Mods 1/5 | Mercari",
+      "query_cleaned": "hot wheels 2026 high tail chaser hw mods",
+      "expected_casting": "High-Tail Chaser",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "High-Tail Chaser",
+        "release_year": 2026,
+        "series": "HW Mods New for 2026!",
+        "collector_number": "047",
+        "series_position": "1/5",
+        "toy_number": "JJK92",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0272",
+      "target_id": "sds-target-0136",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels 2026 Mainline Hot Wheels HW Mods Series Cars (US Card) - High-Tail Chaser in Blue/Gray 1/5 47/250 JJK92",
+      "query_cleaned": "hot wheels 2026 hot wheels hw mods high tail chaser in gray jjk92",
+      "expected_casting": "High-Tail Chaser",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "High-Tail Chaser",
+        "release_year": 2026,
+        "series": "HW Mods New for 2026!",
+        "collector_number": "047",
+        "series_position": "1/5",
+        "toy_number": "JJK92",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0273",
+      "target_id": "sds-target-0137",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels - Ford GT40 - Factory Fresh 2/10 - HTC51 - Short Card - 8 Ball - Good Year - Mattel 2024 : Amazon.nl: Arts & Crafts",
+      "query_cleaned": "hot wheels ford gt40 factory fresh htc51 short ball good year mattel 2024 nl",
+      "expected_casting": "Ford GT40",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Ford GT40",
+        "release_year": 2024,
+        "series": "Factory Fresh Kroger Exclusive",
+        "collector_number": "012",
+        "series_position": "2/10",
+        "toy_number": "HTF70",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0274",
+      "target_id": "sds-target-0137",
+      "source_type": "shopping",
+      "query_raw": "2024 Hot Wheels Ford Gt40",
+      "query_cleaned": "2024 hot wheels ford gt40",
+      "expected_casting": "Ford GT40",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Ford GT40",
+        "release_year": 2024,
+        "series": "Factory Fresh Kroger Exclusive",
+        "collector_number": "012",
+        "series_position": "2/10",
+        "toy_number": "HTF70",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0275",
+      "target_id": "sds-target-0138",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels Honda Motocompo – 1:64 Scale Yellow Scooter – JBC03 – HW Moto 3/5 – 2025 Short",
+      "query_cleaned": "hot wheels honda motocompo 64 scooter jbc03 hw moto 2025 short",
+      "expected_casting": "Honda Motocompo",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Honda Motocompo",
+        "release_year": 2025,
+        "series": "HW Moto New for 2025!",
+        "collector_number": "181",
+        "series_position": "3/5",
+        "toy_number": "JBC03",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0276",
+      "target_id": "sds-target-0138",
+      "source_type": "shopping",
+      "query_raw": "2025 Hot Wheels Moto 3/5 - Honda Motocompo- Yellow - Jbc03",
+      "query_cleaned": "2025 hot wheels moto honda motocompo jbc03",
+      "expected_casting": "Honda Motocompo",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Honda Motocompo",
+        "release_year": 2025,
+        "series": "HW Moto New for 2025!",
+        "collector_number": "181",
+        "series_position": "3/5",
+        "toy_number": "JBC03",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0277",
+      "target_id": "sds-target-0139",
+      "source_type": "image_search",
+      "query_raw": "2025 Hot Wheels E Case 3/5! Follow me at @tandphwguide! 116/250 Slide Kick / Experimotors 1/10 / HYY57 117/250 Flippin Fast / Experimotors 2/10 / HYY58 118/250 Skull Shaker / Experimotors 3/10 / H",
+      "query_cleaned": "2025 hot wheels e case follow me at tandphwguide slide kick experimotors hyy57 flippin",
+      "expected_casting": "Slide Kick",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Slide Kick",
+        "release_year": 2025,
+        "series": "Experimotors",
+        "collector_number": "116",
+        "series_position": "1/10",
+        "toy_number": "HYY57"
+      }
+    },
+    {
+      "id": "sds-0278",
+      "target_id": "sds-target-0139",
+      "source_type": "shopping",
+      "query_raw": "2025 Hot Wheels - Slide Kick - 1/10 - Experimotors - 116/250 - Hyy57",
+      "query_cleaned": "2025 hot wheels slide kick experimotors hyy57",
+      "expected_casting": "Slide Kick",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Slide Kick",
+        "release_year": 2025,
+        "series": "Experimotors",
+        "collector_number": "116",
+        "series_position": "1/10",
+        "toy_number": "HYY57"
+      }
+    },
+    {
+      "id": "sds-0279",
+      "target_id": "sds-target-0140",
+      "source_type": "image_search",
+      "query_raw": "Hotwheels XL 2008 Dodge Viper SRT10 ACR - YouTube",
+      "query_cleaned": "hotwheels xl 2008 dodge viper srt10 acr youtube",
+      "expected_casting": "Dodge Viper SRT10 ACR",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Dodge Viper SRT10 ACR",
+        "release_year": 2024,
+        "series": "HW Exotics",
+        "collector_number": "241",
+        "series_position": "10/10",
+        "toy_number": "HTC27"
+      }
+    },
+    {
+      "id": "sds-0280",
+      "target_id": "sds-target-0140",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Then and Now Dodge Viper Srt10 ACR Diecast Car",
+      "query_cleaned": "hot wheels then and now dodge viper srt10 acr",
+      "expected_casting": "Dodge Viper SRT10 ACR",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Dodge Viper SRT10 ACR",
+        "release_year": 2024,
+        "series": "HW Exotics",
+        "collector_number": "241",
+        "series_position": "10/10",
+        "toy_number": "HTC27"
+      }
+    },
+    {
+      "id": "sds-0281",
+      "target_id": "sds-target-0141",
+      "source_type": "image_search",
+      "query_raw": "New 2025 hot wheels h case highlights includes Mattel dream mobile in red Decidedly go in purple The vanster in crazy color red 19 Chevy Silverado trail boss LT in blue 70",
+      "query_cleaned": "2025 hot wheels h case highlights includes mattel dream mobile in red decidedly go",
+      "expected_casting": "The Vanster",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "The Vanster",
+        "release_year": 2025,
+        "series": "HW Art Cars",
+        "collector_number": "035",
+        "series_position": "3/10",
+        "toy_number": "HYX65",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0282",
+      "target_id": "sds-target-0141",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels 2025 Mainline HW Art Cars Series Cars (US Card) - The Vanster 3/10 35/250 HYX65",
+      "query_cleaned": "hot wheels 2025 hw art the vanster hyx65",
+      "expected_casting": "The Vanster",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "The Vanster",
+        "release_year": 2025,
+        "series": "HW Art Cars",
+        "collector_number": "035",
+        "series_position": "3/10",
+        "toy_number": "HYX65",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0283",
+      "target_id": "sds-target-0142",
+      "source_type": "image_search",
+      "query_raw": "Amazon.com: Hot Wheels Super Twin Mill (White), Let's Race 1/5, New for 2025",
+      "query_cleaned": "hot wheels super twin mill let race 2025",
+      "expected_casting": "Super Twin Mill",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Super Twin Mill",
+        "release_year": 2025,
+        "series": "Hot Wheels Let's Race New for 2025!",
+        "collector_number": "019",
+        "series_position": "1/5",
+        "toy_number": "HYW12"
+      }
+    },
+    {
+      "id": "sds-0284",
+      "target_id": "sds-target-0142",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Super Twin Mill Let's Race 1/5",
+      "query_cleaned": "hot wheels super twin mill let race",
+      "expected_casting": "Super Twin Mill",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Super Twin Mill",
+        "release_year": 2025,
+        "series": "Hot Wheels Let's Race New for 2025!",
+        "collector_number": "019",
+        "series_position": "1/5",
+        "toy_number": "HYW12"
+      }
+    },
+    {
+      "id": "sds-0285",
+      "target_id": "sds-target-0143",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels Deora II Pink HW Fan Driven 18/250 Surf Style Car 1/5 2026 | eBay",
+      "query_cleaned": "hot wheels deora ii pink hw fan driven surf style car 2026",
+      "expected_casting": "Deora II",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Deora II",
+        "release_year": 2026,
+        "series": "HW Fan Driven",
+        "collector_number": "018",
+        "series_position": "1/5",
+        "toy_number": "JJK70",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0286",
+      "target_id": "sds-target-0143",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Deora II",
+      "query_cleaned": "hot wheels deora ii",
+      "expected_casting": "Deora II",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Deora II",
+        "release_year": 2026,
+        "series": "HW Fan Driven",
+        "collector_number": "018",
+        "series_position": "1/5",
+        "toy_number": "JJK70",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0287",
+      "target_id": "sds-target-0144",
+      "source_type": "image_search",
+      "query_raw": "New 2026 hot wheels J case highlights includes PT fast in blue 88 Mitsubishi starion in white Subaru Impreza WRX in blue (non sth) Amaru GTC in blue (RTH) 82 Toyota supra",
+      "query_cleaned": "2026 hot wheels j case highlights includes pt fast in 88 mitsubishi starion in",
+      "expected_casting": "Amaru GTC",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Amaru GTC",
+        "release_year": 2025,
+        "series": "Safari Mode New for 2025!",
+        "collector_number": "171",
+        "series_position": "4/5",
+        "toy_number": "HYW36"
+      }
+    },
+    {
+      "id": "sds-0288",
+      "target_id": "sds-target-0144",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Amaru GTC",
+      "query_cleaned": "hot wheels amaru gtc",
+      "expected_casting": "Amaru GTC",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Amaru GTC",
+        "release_year": 2025,
+        "series": "Safari Mode New for 2025!",
+        "collector_number": "171",
+        "series_position": "4/5",
+        "toy_number": "HYW36"
+      }
+    },
+    {
+      "id": "sds-0289",
+      "target_id": "sds-target-0145",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels Furious Fleet - Fast & Furious 1:64 -Land Rover Defender 90 5/5 | eBay",
+      "query_cleaned": "hot wheels furious fleet fast furious 64 land rover defender 90",
+      "expected_casting": "Land Rover Defender 90",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Land Rover Defender 90",
+        "release_year": 2025,
+        "series": "Then and Now Walmart Exclusive",
+        "collector_number": "210",
+        "series_position": "5/10",
+        "toy_number": "HYY18",
+        "variant_note": "2nd Color - Zamac"
+      }
+    },
+    {
+      "id": "sds-0290",
+      "target_id": "sds-target-0145",
+      "source_type": "shopping",
+      "query_raw": "Land Rover Defender 90 Hot Wheels Premium 2025 Car Culture 2025 Mix 3 Vehicle",
+      "query_cleaned": "hot wheels premium 2025 car culture 2025 mix",
+      "expected_casting": "Land Rover Defender 90",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Land Rover Defender 90",
+        "release_year": 2025,
+        "series": "Then and Now Walmart Exclusive",
+        "collector_number": "210",
+        "series_position": "5/10",
+        "toy_number": "HYY18",
+        "variant_note": "2nd Color - Zamac"
+      }
+    },
+    {
+      "id": "sds-0291",
+      "target_id": "sds-target-0146",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels 2026 32/250 - HW Heavyweights 1/5 - 5 Alarm (JJK99) Color variant #hotwheels hotwheels2026 hw hw2026 #mattel mattel2026 matteltoys #diecast diecast2026 love photography #hwheavyweights #hotwheels5alarm",
+      "query_cleaned": "hot wheels 2026 hw heavyweights alarm color variant hotwheels hotwheels2026 hw hw2026 mattel mattel2026",
+      "expected_casting": "5 Alarm",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "5 Alarm",
+        "release_year": 2026,
+        "series": "HW Heavyweights",
+        "collector_number": "032",
+        "series_position": "1/5",
+        "toy_number": "JJK99",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0292",
+      "target_id": "sds-target-0146",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Monster Trucks Attack Pack 5-Alarm Vehicle",
+      "query_cleaned": "hot wheels monster attack pack alarm",
+      "expected_casting": "5 Alarm",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "5 Alarm",
+        "release_year": 2026,
+        "series": "HW Heavyweights",
+        "collector_number": "032",
+        "series_position": "1/5",
+        "toy_number": "JJK99",
+        "variant_note": "2nd Color"
+      }
+    },
+    {
+      "id": "sds-0293",
+      "target_id": "sds-target-0147",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels - Quick Chat - Mattel 3/5 - JJJ18 - Short Card - White - Mattel 2026 - Funny Character Vehicle with Movable Details in 1:64 Scale - Fantasy Model : Amazon.sg: Toys",
+      "query_cleaned": "hot wheels quick chat mattel jjj18 short mattel 2026 funny character with movable details",
+      "expected_casting": "Quick Chat",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Quick Chat",
+        "release_year": 2025,
+        "series": "Experimotors New for 2025!",
+        "collector_number": "216",
+        "series_position": "9/10",
+        "toy_number": "HYW45"
+      }
+    },
+    {
+      "id": "sds-0294",
+      "target_id": "sds-target-0147",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Quick Chat Experimotors 9/10 New for 2025! 1:64 Scale Diecast Vehicle",
+      "query_cleaned": "hot wheels quick chat experimotors 2025 64",
+      "expected_casting": "Quick Chat",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Quick Chat",
+        "release_year": 2025,
+        "series": "Experimotors New for 2025!",
+        "collector_number": "216",
+        "series_position": "9/10",
+        "toy_number": "HYW45"
+      }
+    },
+    {
+      "id": "sds-0295",
+      "target_id": "sds-target-0148",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels Lamborghini Lot Of 2x - '71 Lamborghini Miura SV Red 2x New 2025",
+      "query_cleaned": "hot wheels lamborghini of 2x 71 lamborghini miura sv red 2x 2025",
+      "expected_casting": "'71 Lamborghini Miura SV",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'71 Lamborghini Miura SV",
+        "release_year": 2025,
+        "series": "HW: '70s vs. '90s Dollar Tree/Family Dollar Exclusive",
+        "collector_number": "078",
+        "series_position": "6/10",
+        "toy_number": "HYY27",
+        "variant_note": "3rd Color"
+      }
+    },
+    {
+      "id": "sds-0296",
+      "target_id": "sds-target-0148",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Vintage Racing Club 1971 Lamborghini Miura SV",
+      "query_cleaned": "hot wheels racing club 1971 lamborghini miura sv",
+      "expected_casting": "'71 Lamborghini Miura SV",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "'71 Lamborghini Miura SV",
+        "release_year": 2025,
+        "series": "HW: '70s vs. '90s Dollar Tree/Family Dollar Exclusive",
+        "collector_number": "078",
+        "series_position": "6/10",
+        "toy_number": "HYY27",
+        "variant_note": "3rd Color"
+      }
+    },
+    {
+      "id": "sds-0297",
+      "target_id": "sds-target-0149",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels Barbie Extra Car Tooned Silver Pink Diecast 1:64 Toy | eBay",
+      "query_cleaned": "hot wheels barbie extra car tooned silver pink 64",
+      "expected_casting": "Barbie Extra",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Barbie Extra",
+        "release_year": 2023,
+        "series": "HW Screen Time",
+        "collector_number": "057",
+        "series_position": "3/10",
+        "toy_number": "HKH11"
+      }
+    },
+    {
+      "id": "sds-0298",
+      "target_id": "sds-target-0149",
+      "source_type": "shopping",
+      "query_raw": "Hot Wheels Barbie Extra 57/250 - 2023 Mainline A",
+      "query_cleaned": "hot wheels barbie extra 2023 a",
+      "expected_casting": "Barbie Extra",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Barbie Extra",
+        "release_year": 2023,
+        "series": "HW Screen Time",
+        "collector_number": "057",
+        "series_position": "3/10",
+        "toy_number": "HKH11"
+      }
+    },
+    {
+      "id": "sds-0299",
+      "target_id": "sds-target-0150",
+      "source_type": "image_search",
+      "query_raw": "Hot Wheels Volkswagen T2 Pickup 42/250 (HW Hot Trucks 1/10 2024) HTC28 | eBay UK",
+      "query_cleaned": "hot wheels volkswagen t2 pickup htc28",
+      "expected_casting": "Volkswagen T2 Pickup",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Volkswagen T2 Pickup",
+        "release_year": 2024,
+        "series": "HW Hot Trucks",
+        "collector_number": "042",
+        "series_position": "1/10",
+        "toy_number": "HTC28"
+      }
+    },
+    {
+      "id": "sds-0300",
+      "target_id": "sds-target-0150",
+      "source_type": "shopping",
+      "query_raw": "2024 Hot Wheels 42/250 Htc28 Volkswagen T2 Pickup Hw Hot Trucks 1/10",
+      "query_cleaned": "2024 hot wheels htc28 volkswagen t2 pickup hw hot",
+      "expected_casting": "Volkswagen T2 Pickup",
+      "expected_full_identity": {
+        "brand": "Hot Wheels",
+        "casting": "Volkswagen T2 Pickup",
+        "release_year": 2024,
+        "series": "HW Hot Trucks",
+        "collector_number": "042",
+        "series_position": "1/10",
+        "toy_number": "HTC28"
+      }
+    }
+  ]
+}

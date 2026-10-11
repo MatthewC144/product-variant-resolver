@@ -1,0 +1,153 @@
+{
+  "schema_version": "pvr-serper-dual-source-raw-pointwise-development-v1",
+  "status": "development_pointwise_selected_test_unopened",
+  "dataset": {
+    "path": "data/evaluation/serper-dual-source-query-v1/dataset.json",
+    "sha256": "05213c4c8d101d844b179359aef63264b8579c2f728b14f5adbe7a3a75a56034",
+    "target_count": 150,
+    "record_count": 300
+  },
+  "split": {
+    "version": "serper-dual-source-year-stratified-grouped-split-v1",
+    "assignment_sha256": "4831d72b8b5ced2550e1dc1c35498781279d6e1ea866c4b3669638035b73ef13",
+    "development_target_count": 100,
+    "test_target_count": 50
+  },
+  "catalog": {
+    "sha256": "b4e0747450a5447c2bf66b0838c91f3f723a19ac97c90c7ac3636cf3a9a709d4",
+    "candidate_count": 1763,
+    "candidate_limit": 25
+  },
+  "pointwise_model": {
+    "model_id": "cross-encoder/ms-marco-MiniLM-L6-v2",
+    "revision": "233902d25c440f23af6f7d6e94d2946bac0bee0a",
+    "config_sha256": "3a88163cc7abc84468024f5e6410e0ca489a80a710b67b4c2474c4b4f7d7fad6",
+    "model_manifest_sha256": "32f889bb415ef5a56760a299da0635e8e1704d46fe0b11ded06c563de896feb8",
+    "prior_selection_sha256": "1f241ae3513572b0b85dd24aa5bc1dffb1efeb95275ce9f0f30ca799358399c7",
+    "prior_selection_winner": "neural_pointwise",
+    "refit_for_this_dataset": false
+  },
+  "arms": {
+    "image_search_rrf": {
+      "source_type": "image_search",
+      "ranker": "rrf",
+      "sample_count": 100,
+      "metrics": {
+        "casting_top1_accuracy": 0.88,
+        "exact_release_top1_accuracy": 0.39,
+        "exact_release_recall_at_10": 0.93,
+        "exact_release_recall_at_25": 0.99,
+        "exact_release_mrr_at_10": 0.5859404761904764,
+        "rerank_p50_latency_ms": 0.0,
+        "rerank_p95_latency_ms": 0.0
+      },
+      "raw_counts": {
+        "casting_top1_correct": 88,
+        "exact_release_top1_correct": 39,
+        "exact_release_retrieved_at_10": 93,
+        "exact_release_retrieved_at_25": 99,
+        "exact_release_reciprocal_rank_sum_at_10": 58.594047619048
+      }
+    },
+    "image_search_neural_pointwise": {
+      "source_type": "image_search",
+      "ranker": "neural_pointwise",
+      "sample_count": 100,
+      "metrics": {
+        "casting_top1_accuracy": 0.98,
+        "exact_release_top1_accuracy": 0.48,
+        "exact_release_recall_at_10": 0.97,
+        "exact_release_recall_at_25": 0.99,
+        "exact_release_mrr_at_10": 0.6755833333333334,
+        "rerank_p50_latency_ms": 112.655166,
+        "rerank_p95_latency_ms": 130.205458
+      },
+      "raw_counts": {
+        "casting_top1_correct": 98,
+        "exact_release_top1_correct": 48,
+        "exact_release_retrieved_at_10": 97,
+        "exact_release_retrieved_at_25": 99,
+        "exact_release_reciprocal_rank_sum_at_10": 67.558333333333
+      }
+    },
+    "shopping_rrf": {
+      "source_type": "shopping",
+      "ranker": "rrf",
+      "sample_count": 100,
+      "metrics": {
+        "casting_top1_accuracy": 0.95,
+        "exact_release_top1_accuracy": 0.57,
+        "exact_release_recall_at_10": 1.0,
+        "exact_release_recall_at_25": 1.0,
+        "exact_release_mrr_at_10": 0.7496904761904761,
+        "rerank_p50_latency_ms": 0.0,
+        "rerank_p95_latency_ms": 0.0
+      },
+      "raw_counts": {
+        "casting_top1_correct": 95,
+        "exact_release_top1_correct": 57,
+        "exact_release_retrieved_at_10": 100,
+        "exact_release_retrieved_at_25": 100,
+        "exact_release_reciprocal_rank_sum_at_10": 74.969047619048
+      }
+    },
+    "shopping_neural_pointwise": {
+      "source_type": "shopping",
+      "ranker": "neural_pointwise",
+      "sample_count": 100,
+      "metrics": {
+        "casting_top1_accuracy": 0.99,
+        "exact_release_top1_accuracy": 0.74,
+        "exact_release_recall_at_10": 1.0,
+        "exact_release_recall_at_25": 1.0,
+        "exact_release_mrr_at_10": 0.8481666666666667,
+        "rerank_p50_latency_ms": 105.669146,
+        "rerank_p95_latency_ms": 124.224
+      },
+      "raw_counts": {
+        "casting_top1_correct": 99,
+        "exact_release_top1_correct": 74,
+        "exact_release_retrieved_at_10": 100,
+        "exact_release_retrieved_at_25": 100,
+        "exact_release_reciprocal_rank_sum_at_10": 84.816666666667
+      }
+    }
+  },
+  "pointwise_minus_rrf": {
+    "image_search": {
+      "casting_top1_accuracy": 0.10,
+      "exact_release_top1_accuracy": 0.09,
+      "exact_release_recall_at_10": 0.04,
+      "exact_release_recall_at_25": 0.0,
+      "exact_release_mrr_at_10": 0.089642857142857
+    },
+    "shopping": {
+      "casting_top1_accuracy": 0.04,
+      "exact_release_top1_accuracy": 0.17,
+      "exact_release_recall_at_10": 0.0,
+      "exact_release_recall_at_25": 0.0,
+      "exact_release_mrr_at_10": 0.0984761904761906
+    }
+  },
+  "decision": {
+    "selected_development_ranker": "neural_pointwise",
+    "selected_query_representation": "raw",
+    "development_leader": "shopping_raw_neural_pointwise",
+    "policy_or_calibration_selected": false,
+    "runtime_activation_allowed": false,
+    "test_evaluation_allowed": false,
+    "reason": "The frozen Pointwise reranker improved casting Top-1, exact-release Top-1 and MRR@10 for both raw sources without changing Top-25 membership."
+  },
+  "guardrails": {
+    "rrf_baseline_reproduced": true,
+    "cleaned_arms_scored": 0,
+    "test_targets_scored": 0,
+    "row_level_output_persisted": false,
+    "candidate_membership_changed": false,
+    "model_refit": false,
+    "calibration_or_policy_evaluated": false,
+    "thresholds_changed": false,
+    "runtime_changed": false
+  },
+  "authority_note": "Expected identities are relative to the frozen third-party community catalog; they are not Mattel/manufacturer-certified or global truth."
+}

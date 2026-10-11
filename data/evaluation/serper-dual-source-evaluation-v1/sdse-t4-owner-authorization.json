@@ -1,0 +1,33 @@
+{
+  "schema_version": "pvr-serper-dual-source-t4-owner-authorization-v1",
+  "gate": "SDSE-T4",
+  "authorization_date": "2026-10-10",
+  "authorized_by": "project_owner",
+  "owner_statement": "繼續下一步",
+  "owner_statement_sha256": "37e6c4a73e7b5f0bafa28453bc8756ef3d45f87162d0d1f802d1ff4bc2b26389",
+  "decision": "execute_one_time_aggregate_final_test",
+  "bindings": {
+    "dataset_sha256": "05213c4c8d101d844b179359aef63264b8579c2f728b14f5adbe7a3a75a56034",
+    "split_assignment_sha256": "4831d72b8b5ced2550e1dc1c35498781279d6e1ea866c4b3669638035b73ef13",
+    "development_selection_sha256": "f760d733ecc6cbee2124d42ad539d81b2f810bff2842ee26b2a2e6b2946df362",
+    "selected_query_representation": "raw",
+    "selected_ranker": "neural_pointwise",
+    "test_target_count": 50,
+    "source_count": 2
+  },
+  "authorized_actions": [
+    "score_each_frozen_test_target_once_per_source",
+    "compare_reproduced_rrf_with_frozen_neural_pointwise",
+    "publish_aggregate_counts_metrics_and_model_bindings"
+  ],
+  "prohibited_actions": [
+    "change_dataset_membership_or_answers",
+    "refit_or_select_model",
+    "change_candidate_generation_or_limit",
+    "fit_calibration_or_retune_thresholds",
+    "evaluate_or_activate_decision_policy",
+    "persist_row_level_queries_labels_candidates_or_predictions",
+    "rerun_final_test",
+    "activate_runtime"
+  ]
+}

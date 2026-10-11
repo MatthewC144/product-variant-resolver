@@ -1,0 +1,212 @@
+{
+  "schema_version": "pvr-serper-dual-source-development-baseline-v1",
+  "status": "development_baseline_frozen_test_unopened",
+  "dataset": {
+    "path": "data/evaluation/serper-dual-source-query-v1/dataset.json",
+    "sha256": "05213c4c8d101d844b179359aef63264b8579c2f728b14f5adbe7a3a75a56034",
+    "target_count": 150,
+    "record_count": 300
+  },
+  "split": {
+    "version": "serper-dual-source-year-stratified-grouped-split-v1",
+    "assignment_sha256": "4831d72b8b5ced2550e1dc1c35498781279d6e1ea866c4b3669638035b73ef13",
+    "development_target_count": 100,
+    "development_record_count": 200,
+    "test_target_count": 50,
+    "test_record_count": 100
+  },
+  "catalog": {
+    "sha256": "b4e0747450a5447c2bf66b0838c91f3f723a19ac97c90c7ac3636cf3a9a709d4",
+    "candidate_count": 1763
+  },
+  "configuration": {
+    "backend": "offline",
+    "dense_provider": "hashing-v1",
+    "dense_dimensions": 192,
+    "candidate_limit": 25,
+    "reranker_enabled": false,
+    "reranker_provider": "heuristic-v1",
+    "policy_version": "fixture-v1-rrf-trained-v2"
+  },
+  "arms": {
+    "image_search_raw": {
+      "source_type": "image_search",
+      "query_variant": "raw",
+      "sample_count": 100,
+      "metrics": {
+        "casting_top1_accuracy": 0.88,
+        "exact_release_top1_accuracy": 0.39,
+        "exact_release_recall_at_10": 0.93,
+        "exact_release_recall_at_25": 0.99,
+        "exact_release_mrr_at_10": 0.5859404761904764,
+        "policy_exact_accuracy": 0.07,
+        "policy_precision": 0.7777777777777778,
+        "policy_coverage": 0.09,
+        "policy_abstention_rate": 0.91,
+        "pipeline_p50_latency_ms": 15.992917,
+        "pipeline_p95_latency_ms": 17.888334
+      },
+      "raw_counts": {
+        "casting_top1_correct": 88,
+        "exact_release_top1_correct": 39,
+        "exact_release_retrieved_at_10": 93,
+        "exact_release_retrieved_at_25": 99,
+        "exact_release_reciprocal_rank_sum_at_10": 58.594047619048,
+        "policy_matches": 9,
+        "policy_exact_correct": 7,
+        "policy_status_counts": {
+          "matched": 9,
+          "ambiguous": 56,
+          "no_match": 35
+        }
+      }
+    },
+    "image_search_cleaned": {
+      "source_type": "image_search",
+      "query_variant": "cleaned",
+      "sample_count": 100,
+      "metrics": {
+        "casting_top1_accuracy": 0.8,
+        "exact_release_top1_accuracy": 0.33,
+        "exact_release_recall_at_10": 0.91,
+        "exact_release_recall_at_25": 0.93,
+        "exact_release_mrr_at_10": 0.5335277777777779,
+        "policy_exact_accuracy": 0.04,
+        "policy_precision": 0.5714285714285714,
+        "policy_coverage": 0.07,
+        "policy_abstention_rate": 0.93,
+        "pipeline_p50_latency_ms": 13.80952,
+        "pipeline_p95_latency_ms": 15.239625
+      },
+      "raw_counts": {
+        "casting_top1_correct": 80,
+        "exact_release_top1_correct": 33,
+        "exact_release_retrieved_at_10": 91,
+        "exact_release_retrieved_at_25": 93,
+        "exact_release_reciprocal_rank_sum_at_10": 53.352777777778,
+        "policy_matches": 7,
+        "policy_exact_correct": 4,
+        "policy_status_counts": {
+          "matched": 7,
+          "ambiguous": 47,
+          "no_match": 46
+        }
+      }
+    },
+    "shopping_raw": {
+      "source_type": "shopping",
+      "query_variant": "raw",
+      "sample_count": 100,
+      "metrics": {
+        "casting_top1_accuracy": 0.95,
+        "exact_release_top1_accuracy": 0.57,
+        "exact_release_recall_at_10": 1.0,
+        "exact_release_recall_at_25": 1.0,
+        "exact_release_mrr_at_10": 0.7496904761904761,
+        "policy_exact_accuracy": 0.05,
+        "policy_precision": 0.8333333333333334,
+        "policy_coverage": 0.06,
+        "policy_abstention_rate": 0.94,
+        "pipeline_p50_latency_ms": 14.329375,
+        "pipeline_p95_latency_ms": 16.940834
+      },
+      "raw_counts": {
+        "casting_top1_correct": 95,
+        "exact_release_top1_correct": 57,
+        "exact_release_retrieved_at_10": 100,
+        "exact_release_retrieved_at_25": 100,
+        "exact_release_reciprocal_rank_sum_at_10": 74.969047619048,
+        "policy_matches": 6,
+        "policy_exact_correct": 5,
+        "policy_status_counts": {
+          "matched": 6,
+          "ambiguous": 47,
+          "no_match": 47
+        }
+      }
+    },
+    "shopping_cleaned": {
+      "source_type": "shopping",
+      "query_variant": "cleaned",
+      "sample_count": 100,
+      "metrics": {
+        "casting_top1_accuracy": 0.84,
+        "exact_release_top1_accuracy": 0.51,
+        "exact_release_recall_at_10": 0.96,
+        "exact_release_recall_at_25": 0.98,
+        "exact_release_mrr_at_10": 0.6905396825396823,
+        "policy_exact_accuracy": 0.03,
+        "policy_precision": 0.6,
+        "policy_coverage": 0.05,
+        "policy_abstention_rate": 0.95,
+        "pipeline_p50_latency_ms": 13.674771,
+        "pipeline_p95_latency_ms": 15.279416
+      },
+      "raw_counts": {
+        "casting_top1_correct": 84,
+        "exact_release_top1_correct": 51,
+        "exact_release_retrieved_at_10": 96,
+        "exact_release_retrieved_at_25": 98,
+        "exact_release_reciprocal_rank_sum_at_10": 69.053968253968,
+        "policy_matches": 5,
+        "policy_exact_correct": 3,
+        "policy_status_counts": {
+          "matched": 5,
+          "ambiguous": 44,
+          "no_match": 51
+        }
+      }
+    }
+  },
+  "comparisons": {
+    "image_search_cleaned_minus_raw": {
+      "casting_top1_accuracy": -0.08,
+      "exact_release_top1_accuracy": -0.06,
+      "exact_release_recall_at_10": -0.02,
+      "exact_release_recall_at_25": -0.06,
+      "exact_release_mrr_at_10": -0.0524126984126985,
+      "policy_precision": -0.2063492063492064,
+      "policy_coverage": -0.02
+    },
+    "shopping_cleaned_minus_raw": {
+      "casting_top1_accuracy": -0.11,
+      "exact_release_top1_accuracy": -0.06,
+      "exact_release_recall_at_10": -0.04,
+      "exact_release_recall_at_25": -0.02,
+      "exact_release_mrr_at_10": -0.0591507936507938,
+      "policy_precision": -0.2333333333333334,
+      "policy_coverage": -0.01
+    },
+    "shopping_raw_minus_image_search_raw": {
+      "casting_top1_accuracy": 0.07,
+      "exact_release_top1_accuracy": 0.18,
+      "exact_release_recall_at_10": 0.07,
+      "exact_release_recall_at_25": 0.01,
+      "exact_release_mrr_at_10": 0.1637499999999997,
+      "policy_precision": 0.0555555555555556,
+      "policy_coverage": -0.03
+    }
+  },
+  "decision": {
+    "development_leader": "shopping_raw",
+    "primary_representation_by_source": {
+      "image_search": "raw",
+      "shopping": "raw"
+    },
+    "cleaned_representation_role": "ablation_only_not_primary_input",
+    "next_development_experiment": "compare_frozen_pointwise_reranker_on_raw_arms_only",
+    "runtime_activation_allowed": false,
+    "threshold_retuning_allowed": false,
+    "test_evaluation_allowed": false,
+    "reason": "Cleaning reduced casting Top-1, exact-release Top-1, Recall@10 and MRR@10 for both sources; raw provider text remains the development input."
+  },
+  "guardrails": {
+    "test_targets_scored": 0,
+    "row_level_output_persisted": false,
+    "model_changed": false,
+    "features_changed": false,
+    "thresholds_changed": false,
+    "runtime_changed": false
+  },
+  "authority_note": "Expected identities are relative to the frozen third-party community catalog; they are not Mattel/manufacturer-certified or global truth."
+}
