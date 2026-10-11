@@ -2,7 +2,7 @@
   "allowed_current_wrapper_sources": {
     "src/product_variant_resolver/api.py": "1b206098d8a2adec3ddbfa8cc05be1eec66c819a0f0556a409ae31cd0b7e25da",
     "src/product_variant_resolver/config.py": "7f4a1c945368ef6bf111c338a99b55d54dc3bde32015029e220b4399ac24470c",
-    "src/product_variant_resolver/service.py": "aafd416b0fd0dd72367a23c0a56fd9bd66d9ed807df44130594a68f7252c7bea"
+    "src/product_variant_resolver/service.py": "9636758221f4c6f1b33e839cdb754d01e17b03ddf5deb13917778176863b2838"
   },
   "artifact_version": "human-storage-v4-runtime-compatibility-v1",
   "bindings": {

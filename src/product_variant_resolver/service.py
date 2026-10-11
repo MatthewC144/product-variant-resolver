@@ -3,6 +3,7 @@ from __future__ import annotations
 import logging
 import time
 import uuid
+from typing import cast
 
 from .calibration import (
     DEFAULT_HEURISTIC_ARTIFACT,
@@ -102,7 +103,7 @@ class ResolverService:
         self.dense_retriever = dense_retriever or DenseRetriever(catalog, embedding)
         self.database_version = database_version
         self.retrieval = CandidateRetrievalService(
-            [self.sparse_retriever, self.dense_retriever, structured], structured,
+            [self.sparse_retriever, self.dense_retriever, cast(Retriever, structured)], structured,
         )
         self.reranker_ablation = PointwiseReranker(HeuristicPointwiseModel())
         self.reranker: CandidateReranker = self.reranker_ablation

@@ -3201,3 +3201,26 @@ Future evidence can reopen them without rewriting the historical reason they wer
 - **Impact:** the current suite completes with 1,572 passes, 86 transparent historical skips and one
   dependency warning. Runtime behavior, model selection, thresholds and evaluation results remain
   unchanged.
+
+## D75 — Build a three-layer public reading path without rewriting research history
+
+- **Choice:** make the README a 150–250 line portfolio landing page, route technical readers through
+  a docs index/architecture/results/code tour, and preserve detailed governance and experiment
+  chronology as deep evidence. Use “authority-separated dual-corpus retrieval” rather than
+  Dual-RAG in public positioning, and make the paired `55% → 64%` result the sole headline metric.
+- **Reason:** the repository already has strong AI-engineering content, but a 367-line README made
+  recruiters process historical fixtures, multiple denominators, internal acronyms, and release QA
+  before understanding the product. Navigation and hierarchy solve this without weakening proof.
+- **Alternatives:** delete old evidence; move every historical file; keep all metrics in README; or
+  rename the system around RAG. These respectively damage reproducibility, create broad hash/link
+  churn, preserve reader confusion, or imply a generation stage that does not exist.
+- **10x alternative considered:** publish an interactive portfolio site with animated architecture,
+  live queries, model cards, and artifact downloads. That could improve presentation, but it does
+  not replace a readable GitHub repository and adds a separate deployment surface.
+- **Most likely failure:** simplified documentation drifts away from frozen metrics. A claim test now
+  reads the final result JSON, verifies values/denominator/positioning, and resolves all links in the
+  curated public path.
+- **Impact:** README is 194 lines; public docs now have one metric hierarchy, a Mermaid system view,
+  a seven-file Code Tour, canonical limitations, artifact policy, and archive entry. Active-core
+  Ruff/MyPy pass. A type-only `service.py` cast required updating the exact current-wrapper hash;
+  historical source/math hashes and runtime behavior remain unchanged and parity tests pass.

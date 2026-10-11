@@ -13358,3 +13358,52 @@ holdout 與 FastAPI default 全部未改。
 仍有兩項公開技術債：whole-repo Ruff 為 235 findings／92 files，strict MyPy 為 45 errors／17 source files；不可宣稱全綠。86 個
 skip 僅限舊 commit 的 exact-byte replay，新的 compatibility coverage 已通過。另有一個 Starlette／AnyIO deprecation warning。
 這個 release 可作為履歷展示與本機 demo，但不代表 production networking、TLS、concurrency、load 或 Pointwise runtime activation。
+
+## 2026-10-11 — RRC-v1：把研究型 repository 整理成三層 portfolio 閱讀路徑
+
+### 新執行了什麼、解決什麼問題
+
+本輪依 Repository Readability & Portfolio Cleanup PRD 執行 Lite cleanup，不新增模型、benchmark、RAG、LLM 或 evaluation。
+原 README 有 367 行，同時放入 dual-source final、舊 53-case benchmark、100-case saturated fixture、兩版 domain ranker、
+calibration、ONNX 修復、release QA 與多組治理縮寫。內容都是真實證據，但 recruiter 必須先理解研究年表才能知道專案做什麼。
+
+新的 194 行 README 將專案統一定位為 `Confidence-Aware Product Entity Resolution & Learning-to-Rank`，只以前景化的
+`55% → 64%` exact-release Top-1 作為 primary ranking headline，並清楚寫出 denominator 是 50 個 held-out identities 的
+100 筆 source observations，而不是 100 個獨立產品。首層只保留 problem、Mermaid architecture、AI components、primary result、
+四個 engineering decisions、scope、run instructions 與 deep links。歷史結果沒有刪除，而是集中到 `docs/RESULTS.md`。
+
+這解決的不是模型準確度，而是 repo 的理解成本與 claim collision：recruiter 可在 30 秒看到問題與結果，interviewer 可由
+Code Tour 進入核心模組，deep reviewer 仍能追到 immutable manifest、負面結果與 Owner Gate。
+
+### 代碼／文件修改了哪一部分、原因與技術選型
+
+新增 `docs/README.md` 作技術索引、`architecture/system-overview.md` 作 Mermaid 架構與 component rationale、`CODE-TOUR.md`
+列出七個 active files、`RESULTS.md` 分開 current／historical／negative result、`LIMITATIONS.md` 作單一人類可讀限制來源、
+`ARTIFACT-POLICY.md` 說明 tracked/generated/local-only/reconstructible artifact，以及 `archive/README.md` 導向舊證據。
+Portfolio Guide 也改用 authority-separated dual-corpus retrieval；不再把沒有 generation stage 的架構以 Dual-RAG 作 headline。
+
+沒有大搬移 evidence，因為大量 specs、tests、manifest 與 Markdown link 已綁定路徑；在 readability cleanup 中移動它們會帶來
+廣泛 hash/link churn，卻不比新增清楚入口更能改善第一閱讀體驗。四個約 43.3 MiB checkpoint 與 7–41 MiB 歷史 reports 也未
+直接刪除。Artifact policy 說明它們保留負面 fine-tuning 實驗的可檢查性；Git LFS／Releases 被列為獨立 P2 migration，而不是
+趁 cleanup 靜默改寫 reproducibility。
+
+Active core 靜態品質方面，`calibration.py` 更新 forward annotation，並對沒有 typing metadata 的 optional scikit-learn import 使用
+精確的 `import-untyped` suppression；`service.py` 在既有 structured retriever composition point 加入純型別 `cast`。最初嘗試在
+`StructuredRetriever` 新增 version 會觸發 historical runtime hash boundary，因此立即撤回，保持 `retrieval.py` 原 hash。由於
+`service.py` 本來就是允許演進、但必須 exact-bound 的 wrapper，新 SHA 只更新到 current-wrapper allowlist；historical selection
+source、identity math 與 retrieval hash 全部未改。
+
+### 驗證結果、限制與後續
+
+新增四個 documentation tests：從 frozen dual-source JSON 核對 README 的 55/64、86/95、MRR 與 Recall；驗證 100/50 paired
+denominator；禁止 README／Portfolio Guide 重新以 Dual-RAG 定位；並解析 curated public docs 的所有本機 link。舊
+measured-artifact tests 改到 `docs/RESULTS.md` 檢查 100-case null result 與 v2 `winner:null`，不再要求 README 前景化歷史表格。
+
+Focused pytest 共 83 passed；包含 docs、全部 API tests、retrieval policy、catalog integration、historical compatibility、domain v2
+closure 與 measured artifacts，只有既有 Starlette／AnyIO deprecation warning。Active six-file Ruff 為 0，strict MyPy 為 0；
+`git diff --check`、public link validation 與 secret scan 通過。Runtime scores、candidate order、model、threshold、policy、dataset、
+holdout、canonical authority 與 FastAPI default 均未改。
+
+Whole-repo historical Ruff/MyPy debt仍不在本次範圍；`.git` 約 327 MiB 的 artifact 負擔也只完成 inventory/policy，未做 history
+rewrite。若後續再改善 repo，P2 應作為獨立 Gate 評估 LFS／Release migration 或 experiment module 重整，而不是繼續擴大本次
+文件 cleanup。

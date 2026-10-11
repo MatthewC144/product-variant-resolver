@@ -1,367 +1,194 @@
 # Product Variant Resolver
 
-## Confidence-Aware Product Entity Resolution for Noisy Marketplace Listings
+## Confidence-Aware Product Entity Resolution & Learning-to-Rank
 
-Product Variant Resolver maps noisy Hot Wheels marketplace titles to canonical product variants
-using hybrid retrieval, structured evidence, calibrated abstention, and a provenance-aware
-human-review boundary.
+Product Variant Resolver maps noisy marketplace and search-result text to exact product releases.
+It combines high-recall candidate retrieval, a MiniLM cross-encoder, and calibrated abstention
+instead of forcing every query to a match.
 
-The project was motivated by an earlier FlipRadar livestream workflow: a frame was captured,
-reverse image search returned noisy product titles, those titles were cleaned, and a downstream API
-looked up comparable prices. That is predecessor-project context only. Product Variant Resolver
-remains a standalone entity-resolution system whose responsibility is to turn noisy product text
-and structured evidence into a trustworthy catalog identity without guessing.
+The project is a portfolio-grade AI engineering system, not a deployed marketplace service or a
+manufacturer-certified catalog. It was motivated by identity errors in an earlier livestream
+price-checking workflow, but this repository is a standalone text/evidence-to-identity resolver.
 
-> **Scope disclosure:** current headline ranking evidence uses a frozen **1,763-release third-party
-> community snapshot** plus 150 paired targets collected through Serper Image/Lens and Shopping
-> (300 source-specific query records; 100 development / 50 final-test targets). The separate
-> calibrated-policy evidence still uses 153 image-search-derived positives and an independently
-> frozen 20-query catalog-relative no-match holdout. None of these are Mattel-certified,
-> live-marketplace traffic, production accuracy, or runtime authorization.
+> **Current portfolio headline:** on a paired Image/Lens and Shopping benchmark, Pointwise
+> cross-encoder reranking improved exact-release Top-1 from **55% to 64%** across 100 source
+> observations from 50 held-out product identities.
 
-[Architecture](#architecture) · [Evaluation](#measured-evaluation) ·
-[Dual-source final](#dual-source-serper-evidence) ·
-[Neural comparison](#neural-pointwise-versus-listwise-comparison) ·
-[Limitations](#limitations) · [Run locally](#run-locally) ·
-[Deep evidence](#deep-evidence) · [Portfolio guide](docs/PORTFOLIO-GUIDE.md)
+[Architecture](#architecture) · [Results](#current-best-evidence) ·
+[AI/ML components](#aiml-components) · [Code tour](docs/CODE-TOUR.md) ·
+[Limitations](docs/LIMITATIONS.md) · [Technical docs](docs/README.md)
 
-## Problem
+## Why this problem is hard
 
-Marketplace listings rarely follow a reliable schema. A title can abbreviate a casting name, omit a
-year or color, mix a collector number with a seller lot number, or contain incorrect metadata.
-Near-identical variants may differ only by year, series, color, or identifier, so a strong token
-match is not always the correct product identity.
-
-The resolver therefore treats a confident wrong match as worse than an honest abstention. Every
-request ends in one of three observable outcomes:
-
-- `matched` — evidence is sufficient to return one canonical UUID;
-- `ambiguous` — plausible candidates remain, but the resolver cannot safely choose one;
-- `no_match` — the catalog does not contain a sufficiently supported candidate.
+Marketplace titles can omit the year, use abbreviations, contain an incorrect color, mix seller lot
+numbers with collector numbers, or describe several releases that share the same casting. Finding
+the right casting is easier than identifying the exact release. A useful resolver must therefore
+rank close siblings and be able to say `ambiguous` or `no_match` when the evidence is insufficient.
 
 ## Architecture
 
-```text
-noisy marketplace title
-          |
-   signal extraction
-          |
-          +--> sparse retrieval -------------------------+
-          +--> hashing-v1 similarity --------------------+--> RRF candidate fusion
-          |    deterministic, non-neural                 |          |
-          +--> structured evidence (soft conflicts) -----+          +--> optional local
-                                                                     Pointwise reranking
-                                                                              |
-                                                               frozen calibration + policy
-                                                                              |
-                                                       matched | ambiguous | no_match
-
-Human Knowledge retrieval --------------------------------> explanation and review evidence
-                                                           only; never canonical UUID authority
+```mermaid
+flowchart TD
+    A[Noisy product text] --> B[Signal extraction]
+    B --> C[Sparse retrieval]
+    B --> D[Hashing similarity]
+    B --> E[Structured evidence]
+    C --> F[RRF fusion]
+    D --> F
+    E --> F
+    F --> G[Top-K candidates]
+    G --> H[MiniLM Pointwise cross-encoder]
+    H --> I[Confidence calibration]
+    I --> J{Decision policy}
+    J --> K[matched]
+    J --> L[ambiguous]
+    J --> M[no_match]
+    N[Human-reviewed knowledge] --> O[Supporting evidence only]
+    O -. never creates canonical identity .-> J
 ```
 
-The FastAPI and resolver architecture continue to accept a noisy title and return a canonical
-identity decision. Screenshot capture, reverse-image-search orchestration and price lookup remain
-outside this repository. A separate multi-result corpus is retained only as an auxiliary offline
-benchmark inspired by the predecessor workflow; it does not replace this runtime contract.
+The runtime uses **authority-separated dual-corpus retrieval**:
 
-The default similarity path uses `hashing-v1`, a deterministic hashing-based representation. It is
-**not a learned neural embedding model**. Sparse, similarity-based, and structured retrieval create
-independent rankings; Reciprocal Rank Fusion (RRF) combines them without assuming their raw scores
-share a scale. Structured conflicts are soft ranking evidence rather than hard filters because
-seller-supplied year, color, series, and identifier fields can be incomplete or wrong.
+- The catalog corpus is the only source allowed to produce a canonical UUID.
+- Human Knowledge provides review and explanation evidence but cannot promote or replace identity.
 
-The internal **Dual-RAG** architecture separates two retrieval corpora by authority:
+No LLM generates the final answer. The default `hashing-v1` representation is deterministic,
+hashing-based similarity—not a learned neural embedding. PostgreSQL full-text search and pgvector
+are available as optional retrieval/storage infrastructure; the dependency-light in-memory path
+remains the default.
 
-1. The **canonical catalog branch** is the only branch allowed to produce a canonical UUID.
-2. The **Human Knowledge branch** retrieves provisional variants and accepted review-family
-   evidence for explanation and debugging. It cannot silently create, promote, or replace a
-   canonical identity.
+### Why these components?
 
-No LLM generates the final answer. PostgreSQL full-text search and pgvector are available as an
-optional canonical retrieval/storage backend, while the dependency-light RRF path remains the
-runtime default. The measured Pointwise ranker now has one-shot final-test evidence on both Image
-and Shopping query sources, but it remains an offline evaluation path: its frozen decision policy
-is explicitly `runtime_eligible=false`.
+| Component | Purpose |
+|---|---|
+| Sparse retrieval | Preserve exact names, identifiers, and lexical clues |
+| Hashing similarity | Add dependency-light fuzzy similarity |
+| Structured evidence | Compare year, series, collector number, and other release fields |
+| Reciprocal Rank Fusion | Combine rankings without equating incompatible raw score scales |
+| Pointwise cross-encoder | Model fine-grained query/candidate interaction |
+| Calibration | Separate ranking score from probability of correctness |
+| Abstention | Reduce confident wrong matches when support is weak |
 
-## Key engineering decisions
+See the [system overview](docs/architecture/system-overview.md) for the component boundaries and
+[code tour](docs/CODE-TOUR.md) for the implementation path.
 
-- **Use soft structured conflicts.** Contradictory marketplace metadata lowers support without
-  prematurely deleting the correct candidate.
-- **Fuse ranks with RRF.** The resolver can combine lexical, hashing-similarity, and structured
-  evidence without treating incomparable raw scores as equivalent probabilities.
-- **Calibrate before deciding.** A confidence model and explicit policy turn ranking evidence into
-  `matched`, `ambiguous`, or `no_match`, making false-match risk visible.
-- **Separate evidence from identity authority.** Human-reviewed knowledge can explain a decision but
-  cannot bypass the canonical catalog contract.
-- **Require measured value before adding model complexity.** Neural reranking first showed no gain
-  on a saturated fixture; after expanding to a 1,763-release corpus, Pointwise improved frozen-test
-  exact-release Top-1. A later dual-source final test confirmed a combined `55% → 64%` gain over RRF,
-  but the calibrated policy still abstains too often for runtime activation.
+## AI/ML components
 
-## Data and authority boundaries
+### Cross-encoder reranking
 
-The owner-supplied 2023–2026 export contains 1,763 third-party community release observations. It is
-an evaluation/staging snapshot, not a manufacturer catalog. A separate owner-gated Canonical
-Authority Review established 20 exact variants across seven multi-release families relative to one
-frozen community revision; unsupported color and edition remain null.
+A revision-pinned MiniLM model jointly scores each noisy query and candidate release. It reranks an
+unchanged Top-25 pool, which isolates ranking quality from candidate-generation recall.
 
-The latest query benchmark contains 150 distinct catalog-backed targets. Each target contributes
-one Image/Lens result title and one Google Shopping result title, with both the provider text and a
-deterministically cleaned form retained. The final test compares source behavior; it does not treat
-the two records for one target as 100 independent product identities.
+### Learning-to-rank experiments
 
-A separate development-only
-[result-set dataset](data/evaluation/image-search-result-set-query-v1/dataset.json) is an auxiliary
-transfer benchmark inspired by the predecessor project's upstream search results: 140 frozen
-identities retain an ordered list of up to ten Lens titles, for 1,108 title hits total. Twenty-three
-targets have empty result sets and remain in the corpus as provider-coverage failures. It does not
-change the current API or architecture and has not been used to select an aggregation method or
-claim screenshot-level accuracy.
+The repository compares a Pointwise cross-encoder, a candidate-set Listwise reranker, and
+RankNet-style pairwise domain adaptation. Model selection follows frozen development and test
+boundaries; a more complex model is retained as a negative result when it fails its preregistered
+gate.
 
-Query authoring, label review, canonical promotion, development selection, final evaluation, and
-runtime activation use separate hash-bound Gates. Historical blocked audits remain intact beside
-later versioned passes instead of being rewritten. See the [CAR evidence](docs/evidence/canonical-authority-review-v1.md),
-[release-source documentation](data/external/hot-wheels-wiki/README.md), and
-[decision history](docs/decisions/product-variant-resolver.md).
+### Hard-negative mining
 
-## Measured evaluation
+Training pairs emphasize difficult same-casting, wrong-release siblings and only admit conflicts
+supported by fields present in the query. Unsupported examples are held rather than forced into a
+label.
 
-### Dual-source Serper evidence
+### Confidence calibration
 
-The newest benchmark asks whether ranking behavior transfers across two realistic search-result
-sources. All 150 targets were grouped before a year-stratified split, so the Image and Shopping
-records for the same car can never land on opposite sides. Development used 100 targets per source;
-the remaining 50 targets per source were opened exactly once after raw text and the frozen
-Pointwise ranker had been selected.
+Logistic, isotonic, and temperature calibration experiments measure Brier score, expected
+calibration error, and risk/coverage. Ranking logits are never presented as calibrated probability.
+Current calibration evidence is conservative and does not qualify the neural policy for runtime.
 
-Development first showed that aggressive cleaning removed useful identity evidence:
+### Inference optimization
 
-| Development representation | Casting Top-1 | Exact-release Top-1 |
+Float32 ONNX export preserved all frozen Top-25 orderings within a maximum logit delta of
+`1.48e-05` and reduced the measured one-thread CPU p95 used by the domain-ranker experiment. The
+ONNX path is reproducible experiment infrastructure, not the FastAPI default.
+
+## Current best evidence
+
+The primary benchmark contains 150 catalog-backed identities, each represented by one Image/Lens
+and one Shopping result. The split is grouped by identity: 100 identities were used for development
+and 50 were opened once for final evaluation. The two source records for each final identity produce
+100 observations; they are not 100 independent products.
+
+| Metric (`n=100` observations / 50 identities) | RRF | Pointwise cross-encoder |
 |---|---:|---:|
-| Image raw | **88%** | **39%** |
-| Image cleaned | 80% | 33% |
-| Shopping raw | **95%** | **57%** |
-| Shopping cleaned | 84% | 51% |
+| Exact-release Top-1 | 55% | **64%** |
+| Casting Top-1 | 86% | **95%** |
+| MRR@10 | 0.722 | **0.792** |
+| Recall@25 | 99% | 99% |
 
-The one-shot final test then compared RRF with the already selected Pointwise reranker over the
-same Top-25 candidate membership:
+The nine-point exact-release improvement is the portfolio headline. It is a ranking result, not
+runtime-policy accuracy: the evaluated Pointwise model and calibration policy remain offline.
+Image and Shopping behavior, the one-point Recall@10 trade-off, historical benchmarks, calibration,
+negative domain-adaptation results, and ONNX measurements are organized in
+[Results](docs/RESULTS.md).
 
-| Frozen final-test source | RRF exact Top-1 | Pointwise exact Top-1 | Pointwise casting Top-1 | Pointwise Recall@25 |
-|---|---:|---:|---:|---:|
-| Image raw (`n=50`) | 50% | **56%** | 92% | 98% |
-| Shopping raw (`n=50`) | 60% | **72%** | 98% | 100% |
-| Combined source observations (`n=100`) | 55% | **64%** | 95% | 99% |
+## Engineering decisions
 
-Combined MRR@10 improved from `0.722` to `0.792`. The result also records the tradeoff instead of
-hiding it: combined Recall@10 moved from 99% to 98% because Image fell from 98% to 96%, while
-Recall@25 remained 99%. The final artifact is aggregate-only, bound to an owner authorization, and
-cannot be rerun by the evaluator once present. See the
-[final result](data/evaluation/serper-dual-source-evaluation-v1/raw-pointwise-final-test.json),
-[Lean QA review](specs/serper-dual-source-evaluation-v1/review.md), and
-[AI-eval evidence](docs/evidence/ai-evals/serper-dual-source-raw-pointwise-final-test-v1.md).
+1. **Preserve evidence instead of over-cleaning.** Raw search-result text outperformed aggressive
+   cleaning because identifiers and release clues were otherwise lost.
+2. **Separate retrieval from ranking.** Recall@25 showed that the correct release was usually in the
+   pool; the measured bottleneck was candidate ordering.
+3. **Do not equate relevance with correctness confidence.** Cross-encoder scores rank candidates;
+   a separate calibrator and policy decide whether to match or abstain.
+4. **Reject marginal model improvements.** Domain-finetuned checkpoints were not selected when
+   they failed preregistered quality gates, even when one metric improved slightly.
 
-### Release-ranking evidence
+## Data and authority boundary
 
-The main ranking benchmark contains 153 unique image-search-derived queries bound to the frozen
-1,763-release snapshot. Model selection used 100 development rows; the selected Pointwise ranker was
-then evaluated once on the fixed 53-case test. Test labels did not fit either neural model.
+- Catalog: 1,763 third-party community release observations; not Mattel/global truth.
+- Primary benchmark: 150 identities / 300 paired source records; search-result-derived, not organic
+  marketplace traffic.
+- Exact authority subset: 20 owner-reviewed releases across seven families relative to one frozen
+  community revision; unsupported color and edition remain null.
+- API outcomes: `matched`, `ambiguous`, or `no_match`; only `matched` returns a canonical UUID.
 
-| Frozen 53-case test metric | RRF | Release heuristic | Pointwise | Listwise |
-|---|---:|---:|---:|---:|
-| Casting Top-1 | `46/53` (86.79%) | `46/53` (86.79%) | **`52/53` (98.11%)** | `51/53` (96.23%) |
-| Exact-release Top-1 | `29/53` (54.72%) | `33/53` (62.26%) | **`36/53` (67.92%)** | `32/53` (60.38%) |
-| Exact-release Recall@25 | `53/53` | `53/53` | `53/53` | `53/53` |
-| Rerank p95 | `0 ms` | `0.20 ms` | `130.49 ms` | `130.91 ms` |
-
-Pointwise improved exact-release Top-1 by 7/53, or 13.21 percentage points, over RRF and remained
-the winner selected on development. This is catalog-relative ranking evidence, not a deployed
-runtime claim. See the [frozen final comparison](data/evaluation/image-search-release-ranking-v1/final-comparison.json)
-and [ranking specification](specs/image-search-release-ranking/mvp-brief.md).
-
-### Calibrated policy evidence
-
-The selected ranker was wrapped in a five-feature logistic calibrator and frozen three-state policy.
-An output-blind evaluation combined the fixed 53 catalog-present policy test with an independently
-frozen 20-query catalog-relative no-match holdout. Only aggregate outputs were retained.
-
-| Policy evidence | Result | Interpretation |
-|---|---:|---|
-| Accepted positive exact precision | `5/5` (100%) | every accepted positive had the correct full release |
-| Positive exact recall | `5/53` (9.43%) | very low match coverage |
-| Positive false no-match | `3/53` (5.66%) | below the pre-registered 10% ceiling |
-| Negative no-match recall | `11/20` (55%) | 9/20 negatives remained ambiguous |
-| Negative false matches | `0/20` (0%) | no known negative was incorrectly matched |
-| Combined abstention | `54/73` (73.97%) | policy is conservative and not runtime-ready |
-
-The pre-registered safety gate passed, but QA kept runtime on **HOLD** because coverage is too low.
-Neither holdout may be used to lower thresholds or retune the model. See the
-[balanced aggregate result](data/evaluation/image-search-pointwise-balanced-holdout-v1/results.json),
-[QA review](specs/pointwise-balanced-holdout-evaluation-v1/review.md), and
-[AI-eval rubric](docs/evidence/ai-evals/pointwise-balanced-holdout-v1.md).
-
-## Neural pointwise versus listwise comparison
-
-Both neural arms consume the same frozen Top-25 candidates. Pointwise scores each query/candidate
-pair independently with a revision-pinned MiniLM cross-encoder. Listwise adds a project-trained
-candidate-set attention head over shared candidate features. Neither is active in FastAPI.
-
-The first experiment used a **100-case synthetic/curated fixture benchmark** over a 120-product
-catalog. Its 21-case Test split contained only 12 matched ranking targets and was saturated:
-
-| Arm | Top-1 | MRR@10 | Hard-negative | Recall@25 | Resolver p95 | Gate result |
-|---|---:|---:|---:|---:|---:|---|
-| RRF | `12/12` | `12/12` | `4/4` | `12/12` | `1.398 ms` | Runtime baseline |
-| Neural pointwise | `12/12` | `12/12` | `4/4` | `12/12` | `89.164 ms` | FAIL: no Top-1 gain |
-| Neural listwise | `12/12` | `12/12` | `4/4` | `12/12` | `89.583 ms` | FAIL: no Top-1 gain |
-
-The formal result is **`winner: null`**. This fixture does not establish production accuracy or statistical generality.
-That negative result motivated a harder corpus instead of a stronger claim.
-On the later 1,763-release benchmark, Pointwise achieved `36/53` exact-release Top-1 versus RRF
-`29/53` and Listwise `32/53`. The project therefore demonstrates both outcomes: rejecting neural
-complexity when it added no value, and selecting it when a harder benchmark measured a gain—while
-still withholding runtime activation when calibration produced inadequate coverage.
-
-See the [fixture null-result report](reports/neural-reranker-comparison-v1/comparison.md) and the
-[real-catalog final comparison](data/evaluation/image-search-release-ranking-v1/final-comparison.json).
-
-### Domain fine-tuning experiment
-
-The project also completed a governed domain-adaptation loop: deterministic one-shot hard-negative
-mining produced 345 binary pairs, and two fixed-seed MiniLM checkpoints were trained and packaged as
-safetensors. On the preregistered 30-query selection comparison, however, the generic model scored
-`24/30` exact Top-1 and `0.8778` MRR@10, while both domain checkpoints scored `23/30` and `0.8611`.
-Same-family accuracy also moved from `41/52` to `40/52`, and measured CPU p95 exceeded the 200 ms
-budget. The honest result is therefore `winner: null`: the checkpoints remain reproducible training
-artifacts, but neither is selected for calibration or runtime. See the
-[aggregate selection result](config/domain-ranker-selection-v1.json) and
-[AI-eval evidence](docs/evidence/ai-evals/domain-ranker-selection-v1.md).
-
-The separately governed v2 remediation first froze 180 new synthetic,
-catalog-present queries from 180 distinct casting families as 120 train, 30 validation
-and 30 untouched selection rows, with zero cross-partition family overlap. Only aggregate manifests
-are public; row-level queries and answers remain local and Git-ignored. See the
-[v2 split manifest](data/evaluation/domain-ranker-v2-remediation/split-manifest.json) and
-[Lite QA review](specs/domain-ranker-v2-remediation/review.md).
-
-The next readiness check froze 180 query-only Top-25 pools with zero retrieval misses and zero target
-injection. However, the unchanged generic CPU benchmark measured p95 `217.70 ms`, above the `200 ms`
-budget. V2 therefore stops before hard-negative labels or pairwise training; this is a latency Gate
-failure, not evidence about domain-model quality. See the
-[latency readiness report](data/evaluation/domain-ranker-v2-remediation/latency-readiness.json).
-
-A bounded inference repair then exported the unchanged generic weights to float32 ONNX. Across all
-4,500 frozen pairs, maximum logit delta was `1.48e-05` and all 180 Top-25 orderings were identical.
-The repeated validation benchmark reduced CPU p95 to `103.65 ms`, passing the same 200 ms budget.
-The ONNX graph stays local/reconstructible; Git stores its manifest and aggregate
-[repair result](data/evaluation/domain-ranker-v2-remediation/latency-repair.json). This does not
-activate ONNX in FastAPI.
-
-The next bounded stage mined only the 120 train pools. A negative must share the casting and conflict
-on an exact-release field actually present in the frozen query template; generic rank alone cannot
-create a label. The gate admitted 112 train queries and produced 332 pairwise triples, while 27
-sibling records remained held instead of being forced into binary labels. Validation/selection
-label reads and training runs remain zero. Git retains only the aggregate
-[hard-negative manifest](data/evaluation/domain-ranker-v2-remediation/hard-negative-manifest.json);
-row-level triples remain local, ignored and mode `0600`. This is training-data readiness, not a
-fine-tuning quality result.
-
-The preregistered T5 run then trained exactly two RankNet-style pairwise MiniLM checkpoints. Seed 17
-selected epoch 2 and seed 29 selected epoch 3; both reached validation MRR@10 `0.95`. The two 43.3
-MiB float16 safetensors checkpoints, tokenizer/configs, license, model card and aggregate manifest
-are published in the [v2 checkpoint package](artifacts/domain-ranker-v2-remediation/checkpoint-v1/).
-Selection, holdouts, calibration, final evaluation and runtime were not accessed during T5.
-
-The V2 selection result is also `winner: null`. Under gates committed before the sole evaluation,
-generic reached 23/30 exact Top-1 and `0.8778` MRR@10. Seed 17 improved exact Top-1 from `23/30` to
-`24/30`, MRR by `0.0167`, and same-family accuracy by `0.0115`, but missed the required +3 cases,
-`+0.02`, and `+0.10`; seed 29 did not improve exact Top-1 and regressed the other two measures.
-Both checkpoints passed ONNX equivalence and the 200 ms/1.25x CPU latency gates. No v2 checkpoint
-is selected for calibration, final evaluation, or runtime. See the
-[aggregate v2 selection](data/evaluation/domain-ranker-v2-remediation/ranker-selection.json),
-[closure evidence](docs/evidence/domain-ranker-v2-selection.md), and
-[AI-eval rubric](docs/evidence/ai-evals/domain-ranker-v2-selection.md).
-
-## Limitations
-
-- The 1,763-release source is an attributed third-party community snapshot, not Mattel or global
-  canonical truth; unsupported color and edition remain unknown.
-- The 300 dual-source records are API-collected search-result titles, not organic user traffic; the
-  153 older positives and 20 negatives are also image-search-derived/catalog-relative evidence.
-- The dual-source final denominator is 50 targets per source, or 100 source observations, not 100
-  independent product identities. Larger temporal and marketplace samples are still required.
-- The 53 positives were previously used for ranker evaluation, although not for Pointwise v2
-  calibration or threshold selection; only the 20 negatives were fully frozen before policy access.
-- Pointwise ranking improved, but the calibrated policy abstains on 73.97% of the combined test and
-  is explicitly not runtime-authorized.
-- The source-matched policy dataset now exists, but the
-  [development calibration result](data/evaluation/serper-dual-source-policy-calibration-v1/selection.json)
-  cannot meet the preregistered 90%-precision/five-accept match Gate. No policy was emitted, the
-  fresh 40-target policy holdout remains unopened, and runtime stays blocked.
-- Default `hashing-v1` similarity is deterministic and non-neural; it is not a learned embedding
-  model. Pointwise/Listwise remain local offline evaluation paths.
-- Production concurrency, remote networking, TLS, sustained PostgreSQL load, broad marketplace
-  coverage and statistical generality have not been established.
+Historical blocked audits and `winner: null` experiments are preserved for reproducibility, but are
+not required reading for the portfolio overview. See [Known limitations](docs/LIMITATIONS.md),
+[artifact policy](docs/ARTIFACT-POLICY.md), and the [historical archive](docs/archive/README.md).
 
 ## Run locally
 
-### Verified portfolio release
-
-The 2026-10-11 Lite release audit completed with `1572 passed, 86 skipped, 1 warning`. The skips are
-explicit historical source-byte replays whose old commit bindings and current exact compatibility
-allowlist are covered by dedicated tests. Active offline runtime files pass Ruff, both frozen-data
-validators pass, and the local API reproduces `matched`, `ambiguous` and `no_match` examples.
-
-This is not a claim that every static-analysis item is closed: whole-repository Ruff still reports
-235 findings across 92 files and strict package MyPy reports 45 errors across 17 files. See the
-[release QA](specs/portfolio-release-closure-v1/review.md) and
-[evidence record](docs/evidence/portfolio-release-closure-v1.md).
-
-The default path is offline and requires no external model or API key:
+Requires Python 3.12.
 
 ```bash
-python -m pip install -e '.[dev]'
-PYTHONPATH=src uvicorn product_variant_resolver.api:app --reload
+python3.12 -m venv .venv
+.venv/bin/pip install -e '.[dev]'
+PYTHONPATH=src .venv/bin/uvicorn product_variant_resolver.api:app --reload
 ```
 
-Resolve one title:
+Resolve one noisy title:
 
 ```bash
-curl --fail --json '{"title":"2022 Chevy Nomad Red #101","debug":true}' \
-  http://127.0.0.1:8000/resolve
+curl -s http://127.0.0.1:8000/resolve \
+  -H 'Content-Type: application/json' \
+  -d '{"title":"Hot Wheels Subaru BRZ JBB55"}'
 ```
 
-Check dependency readiness:
+Health and readiness are exposed at `GET /health`. Optional PostgreSQL and ML dependencies are
+documented through `pyproject.toml` extras; local secrets belong in `.env`, which is ignored.
 
-```bash
-curl --fail http://127.0.0.1:8000/health
-```
+## Tech stack
 
-The debug UI is available at `http://127.0.0.1:8000/`. Normal responses omit internal candidates,
-ranks, scores, and timings; `debug=true` returns a bounded explanation payload. Resolution logs omit
-raw marketplace titles. For PostgreSQL and storage workflows, use the linked evidence and runbooks
-below rather than treating the optional database profile as a prerequisite.
+Python 3.12 · FastAPI · Pydantic · PyTorch / Sentence Transformers · ONNX Runtime · PostgreSQL /
+pgvector · Pytest · Ruff · MyPy
 
-## Deep evidence
+## Start a deeper review
 
-The landing page intentionally keeps chronological batch histories, checksums, adjudication notes,
-staging audits, and validation transcripts out of the primary reading path. No underlying artifact
-was deleted; the checked-in sources below remain the authoritative evidence.
-
-| Category | Durable repository evidence |
+| Topic | Start here |
 |---|---|
-| Core MVP, contract, and QA | [MVP brief](specs/product-variant-resolver/mvp-brief.md), [QA review](specs/product-variant-resolver/review.md), [public evidence](docs/evidence/product-variant-resolver-mvp.md), [fixture report](reports/fixture-v1/evaluation-fixture-v1-test.md) |
-| Neural comparison | [comparison report](reports/neural-reranker-comparison-v1/comparison.md), [public evidence](docs/evidence/neural-reranker-comparison-v1.md), [QA review](specs/neural-reranker-comparison/review.md) |
-| Dual-source Image/Shopping ranking and policy calibration | [300-row positive dataset](data/evaluation/serper-dual-source-query-v1/dataset.json), [160-row policy dataset](data/evaluation/serper-dual-source-policy-query-v1/dataset.json), [one-shot ranking final](data/evaluation/serper-dual-source-evaluation-v1/raw-pointwise-final-test.json), [development calibration shortfall](data/evaluation/serper-dual-source-policy-calibration-v1/selection.json), [calibration QA](specs/serper-dual-source-policy-calibration-v1/review.md), [AI-eval evidence](docs/evidence/ai-evals/serper-dual-source-policy-calibration-v1.md) |
-| Auxiliary multi-result Image/Lens benchmark | [140-record/1,108-title development dataset](data/evaluation/image-search-result-set-query-v1/dataset.json), [dataset QA](specs/image-search-result-set-resolution-v1/review.md), [readiness evidence](docs/evidence/ai-evals/image-search-result-set-readiness-v1.md) |
-| Real-catalog ranking and calibrated policy | [53-case final comparison](data/evaluation/image-search-release-ranking-v1/final-comparison.json), [three-class QA](specs/pointwise-three-class-development-calibration/review.md), [balanced policy QA](specs/pointwise-balanced-holdout-evaluation-v1/review.md), [AI-eval evidence](docs/evidence/ai-evals/pointwise-balanced-holdout-v1.md) |
-| Human-labeled import and catalog alignment | [source manifest](data/human_labeled_names_manifest.json), [real-noisy-data evaluation](docs/evidence/ai-evals/human-labeled-real-noisy-v1.md), [alignment evaluation](docs/evidence/ai-evals/human-catalog-alignment-v1.md), [human-backed catalog evaluation](docs/evidence/ai-evals/human-backed-catalog-v1.md) |
-| Human Knowledge, review-family authority, and retrieval evaluation | [family-level contract](specs/family-level-human-knowledge/requirements.md), [family QA](specs/family-level-human-knowledge/review.md), [v2 final evaluation](reports/family-retrieval-v2/evaluation.md), [final evidence](docs/evidence/family-retrieval-final-v2.md), [identity-bounded QA](specs/human-knowledge-identity-bounded-retrieval/review.md) |
-| Human Knowledge experiments and negative results | [retriever redesign evidence](docs/evidence/human-knowledge-retriever-v3-implementation.md), [v4 identity development](reports/human-knowledge-identity-development-v1/selection.md), [identity contradiction](reports/human-knowledge-identity-contradiction-development-v1/selection.md), [identity envelope](reports/human-knowledge-identity-envelope-development-v2/historical-calibration.md), [claim graph](reports/human-knowledge-identity-claim-graph-development-v3/historical-calibration.md), [identity certificate](reports/human-knowledge-identity-certificate-development-v4/historical-calibration.md) |
-| External Wiki pilot, adjudication, and review-family materialization | [source and license README](data/external/hot-wheels-wiki/README.md), [final family decisions](docs/evidence/fandom-priority-two-decisions-t44.md), [materialization evidence](docs/evidence/review-family-materialization-t46.md), [family projection evidence](docs/evidence/family-level-human-knowledge-t47.md) |
-| Canonical Authority Review and versioned RHB-T4 Gate | [CAR requirements](specs/canonical-authority-review-v1/requirements.md), [final QA](specs/canonical-authority-review-v1/review.md), [final evidence](docs/evidence/canonical-authority-review-v1.md), [RHB-T4 re-audit](docs/evidence/representative-hard-benchmark-authority-reaudit.md) |
-| Owner-supplied 2023–2026 staging and review | [staging report](reports/local-release-staging-v1/report.md), [casting review](reports/local-release-casting-review-v1/report.md), [owner-decision report](reports/local-release-casting-review-decisions-v1/report.md), [materialization report](reports/local-release-casting-review-family-materialization-v1/report.md), [knowledge projection](reports/local-release-casting-review-family-knowledge-v1/report.md), [shadow evaluation](reports/local-release-review-family-retrieval-evaluation-v1/report.md) |
-| PostgreSQL, pgvector, and Human Knowledge storage | [catalog ingestion](docs/evidence/postgres-ingestion-t07.md), [sparse retrieval](docs/evidence/postgres-sparse-retrieval-t09.md), [dense retrieval](docs/evidence/postgres-dense-retrieval-t10.md), [isolated Human Knowledge storage](docs/evidence/t49-2-human-knowledge-postgres.md), [storage-profile SQL](docs/evidence/t49-3-storage-profile-sql.md), [file-runtime runbook](docs/runbooks/human-storage-file-runtime.md) |
-| Runtime and Docker validation | [raw Docker loopback latency](reports/runtime-validation/docker-python312-http-latency.json), [runtime-package evidence](docs/evidence/t49-4-human-storage-runtime-package.md), [MVP evidence](docs/evidence/product-variant-resolver-mvp.md) |
-| Portfolio positioning | [portfolio guide](docs/PORTFOLIO-GUIDE.md), [original positioning spec](specs/portfolio-positioning-v1/requirements.md), [current evidence-refresh QA](specs/portfolio-evidence-refresh-v3/review.md) |
-| Engineering rationale and chronology | [decision record](docs/decisions/product-variant-resolver.md), [project log](docs/PROJECT-LOG.md), [real-catalog roadmap](docs/REAL-CATALOG-ROADMAP.md) |
+| Documentation map | [docs/README.md](docs/README.md) |
+| Architecture and component rationale | [docs/architecture/system-overview.md](docs/architecture/system-overview.md) |
+| Current and historical results | [docs/RESULTS.md](docs/RESULTS.md) |
+| Important implementation files | [docs/CODE-TOUR.md](docs/CODE-TOUR.md) |
+| Resume and interview claims | [docs/PORTFOLIO-GUIDE.md](docs/PORTFOLIO-GUIDE.md) |
+| Limitations and claim boundaries | [docs/LIMITATIONS.md](docs/LIMITATIONS.md) |
+| Artifact retention | [docs/ARTIFACT-POLICY.md](docs/ARTIFACT-POLICY.md) |
+| Frozen evidence and governance history | [docs/archive/README.md](docs/archive/README.md) |
+
+## License and source note
+
+Repository code and third-party data have different provenance. Review the source-specific
+documentation before redistributing catalog material or model artifacts. This project does not
+claim manufacturer certification or global product coverage.

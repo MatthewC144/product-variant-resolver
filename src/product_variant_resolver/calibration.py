@@ -56,7 +56,7 @@ class CalibrationArtifact:
         path.write_text(json.dumps(asdict(self), indent=2), encoding="utf-8")
 
     @classmethod
-    def load(cls, path: Path) -> "CalibrationArtifact":
+    def load(cls, path: Path) -> CalibrationArtifact:
         payload = json.loads(path.read_text(encoding="utf-8"))
         artifact = cls(
             dataset_version=payload["dataset_version"], model_version=payload["model_version"],
@@ -147,7 +147,7 @@ def train_with_sklearn(
     if not rows:
         raise ValueError("training rows are empty")
     try:
-        from sklearn.linear_model import LogisticRegression
+        from sklearn.linear_model import LogisticRegression  # type: ignore[import-untyped]
     except ImportError as error:  # pragma: no cover - optional dependency
         raise RuntimeError("install the 'ml' optional dependency to use sklearn") from error
     vectors, labels = zip(*rows, strict=True)

@@ -57,8 +57,8 @@ def test_t7_public_selection_artifacts_are_aggregate_only() -> None:
     assert payloads[1]["guardrails"]["runtime_activations"] == 0
 
 
-def test_t7_readme_states_negative_selection_result_without_runtime_claim() -> None:
-    readme = " ".join((ROOT / "README.md").read_text(encoding="utf-8").split())
-    assert "V2 selection result is also `winner: null`" in readme
-    assert "Seed 17 improved exact Top-1 from `23/30` to `24/30`" in readme
-    assert "No v2 checkpoint is selected for calibration, final evaluation, or runtime" in readme
+def test_t7_results_page_states_negative_selection_result_without_runtime_claim() -> None:
+    results = " ".join((ROOT / "docs/RESULTS.md").read_text(encoding="utf-8").split())
+    assert "V2 selection result is also `winner: null`" in results
+    assert "Seed 17 improved exact Top-1 from `23/30` to `24/30`" in results
+    assert "No v2 checkpoint is selected for calibration, final evaluation, or runtime" in results

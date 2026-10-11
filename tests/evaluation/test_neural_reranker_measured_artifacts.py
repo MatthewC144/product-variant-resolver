@@ -116,13 +116,13 @@ def test_frozen_raw_remains_label_blind_and_candidate_sets_are_shared() -> None:
         }
 
 
-def test_readme_publishes_the_same_null_result_without_inflated_claims() -> None:
-    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+def test_results_page_publishes_the_same_null_result_without_inflated_claims() -> None:
+    results = (ROOT / "docs/RESULTS.md").read_text(encoding="utf-8")
 
-    assert "**100-case synthetic/curated fixture benchmark**" in readme
-    assert "The formal result is **`winner: null`**" in readme
-    assert "| RRF | `12/12` | `12/12` | `4/4` | `12/12` | `1.398 ms` | Runtime baseline |" in readme
-    assert "| Neural pointwise | `12/12` | `12/12` | `4/4` | `12/12` | `89.164 ms`" in readme
-    assert "| Neural listwise | `12/12` | `12/12` | `4/4` | `12/12` | `89.583 ms`" in readme
-    assert "does not establish production" in readme
-    assert "accuracy or statistical generality" in readme
+    assert "**100-case synthetic/curated fixture benchmark**" in results
+    assert "The formal result is **`winner: null`**" in results
+    assert "| RRF | `12/12` | `12/12` | `4/4` | `12/12` | `1.398 ms` | Runtime baseline |" in results
+    assert "| Neural pointwise | `12/12` | `12/12` | `4/4` | `12/12` | `89.164 ms`" in results
+    assert "| Neural listwise | `12/12` | `12/12` | `4/4` | `12/12` | `89.583 ms`" in results
+    assert "does not establish production" in results
+    assert "accuracy or statistical" in results
