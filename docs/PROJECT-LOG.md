@@ -1,5 +1,43 @@
 # Project Log
 
+## 2026-10-10 — SDSRR-T1–T4：確認 dual-source ranking 尚不能直接變成 runtime policy
+
+### 新執行了什麼，解決什麼問題
+
+上一階段已證明 Pointwise 在 Image／Shopping final ranking 上優於 RRF，但「排序第一名更準」不等於
+`matched / ambiguous / no_match` 的信心門檻也已經適用。本輪建立可重現的 runtime-readiness audit，將
+dual-source dataset、100/50 grouped split、development winner、one-shot final，以及舊 v2 calibration、
+policy、balanced holdout 全部綁定 SHA-256 後再判斷是否能進入校準或上線。
+
+Audit 結果是 fail-closed：現有 100 個 positive development identities 可以重用，但 dual-source
+no-match development 為 0，新的 positive/no-match policy holdout 也都是 0。舊 policy 來自較早的
+image-search positives 與 human no-match distribution，不能直接宣稱適用 Shopping；既有 50-target final
+已開封，只能保留為 ranking evidence，不能再拿來調 threshold 或驗證新 policy。
+
+### 代碼修改了哪一部分、原因與決策
+
+新增 `serper_dual_source_runtime_readiness.py`，只讀取 frozen metadata 與 aggregate artifacts，不載入
+resolver 或 MiniLM，也不執行任何 Serper API。`--run` 只允許建立一次 aggregate `readiness.json`；`--check`
+會重算完整 payload，來源 hash、schema、status、runtime flag 或輸出內容有任何漂移都會失敗。遞迴 privacy
+guard 禁止 query、target ID、identity、label、candidate 與 prediction 等 row-level 欄位進入 artifact。
+Readiness artifact SHA-256 為
+`d19fe5acdc1603eb7e0781c8e757f183c232efba1ad6f43d6d4aace168cc5364`。
+
+下一批最小資料 contract 被固定為 80 個新 identities／160 筆 paired observations：40 個 no-match
+development，另外凍結 20 個 fresh positive 與 20 個 fresh no-match holdout。每個 identity 都必須各有一筆
+Image/Lens 與 Shopping raw observation，並先按 identity 分組再切分，避免同一產品跨 partition 洩漏。
+
+### 技術棧／方法選型、驗證與下一步
+
+選擇 deterministic Python audit 而不是再寫一份人工 checklist，是因為後續資料或 policy artifact 一旦改變，
+程式可以立即拒絕過期結論。這一步也沒有重做 runtime adapter；現有 adapter 已具備 local-only loading 與
+fail-closed policy binding，真正缺少的是與新 query distribution 相符的 calibration/evaluation evidence。
+
+新舊 dual-source 測試共 25 個 focused tests 通過，Ruff、strict MyPy 與 artifact `--check` 全數通過。
+本輪沒有網路請求、API credit、secret、模型載入、resolver scoring、calibration、threshold change 或 runtime
+activation。下一個唯一允許的動作是先收集並封存上述最小 policy dataset；臨時 collector、圖片與 API key
+仍須 Git-ignored，只有最終精簡資料集可以進入 repository。
+
 ## 2026-10-10 — Portfolio evidence refresh v3：把 dual-source final 結果放進履歷首頁
 
 ### 新執行了什麼，解決什麼問題

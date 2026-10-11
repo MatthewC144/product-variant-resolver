@@ -3111,3 +3111,20 @@ Future evidence can reopen them without rewriting the historical reason they wer
 - **Impact:** all 18 expanded human-storage API cases and 168 scoped regressions pass. Default
   runtime, v4 math, catalog data and historical evidence remain unchanged. A new real runtime still
   requires a separately frozen profile/package.
+
+## D71 — Require source-matched policy data before dual-source runtime activation
+
+- **Choice:** Treat the completed Image/Lens plus Shopping result as ranking evidence only. Reuse
+  the 100 positive development identities, but require 40 new paired no-match development identities
+  and a fresh paired 20-positive/20-no-match holdout before recalibration or runtime review.
+- **Reason:** The existing v2 decision policy was calibrated on older image-search positives plus
+  human no-match queries. Its transfer to Shopping is untested, it abstained on 73.97% of the prior
+  balanced evaluation, and the new 50-target ranking final has already been opened.
+- **Alternatives:** Activate Pointwise with the old policy; tune on the opened final; calibrate only
+  match confidence without source-matched no-match evidence.
+- **Impact:** Runtime remains RRF/default and fail-closed. The next work is bounded to 80 new
+  identities/160 paired observations; temporary collectors, images and secrets remain untracked.
+- **Most likely failure:** Search-result titles may be too clean or correlated across sources, so
+  even a passed policy Gate would still not establish organic marketplace generalization.
+- **10x condition:** Only a much larger independently sampled traffic corpus with stable precision,
+  coverage and operational evidence would justify replacing this bounded portfolio Gate.
