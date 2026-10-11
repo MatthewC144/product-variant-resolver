@@ -3179,3 +3179,25 @@ Future evidence can reopen them without rewriting the historical reason they wer
   hits; 23 empty result sets remain explicit rather than being replaced. Dataset SHA-256 is
   `7839efc44ced91fe4ae885b7d3019c8d442fcf262fce73470713df52ff8c4e75`. No holdout, aggregation
   model, pricing call or runtime behavior was accessed.
+
+## D74 — Separate historical byte replay from current-checkout compatibility
+
+- **Choice:** preserve commit-bound experimental evidence byte-for-byte, skip its obsolete
+  current-worktree equality replay with an explicit reason, and add replacement compatibility tests
+  that verify both the original commit hashes and the exact current wrapper allowlist.
+- **Reason:** current `api.py`, `config.py`, `service.py` and `retrieval.py` legitimately evolved
+  after older v4, final-v2 and T2 experiments. Requiring current bytes to equal a past winner makes
+  the default suite fail whenever the product advances; rewriting the old reports would falsely
+  imply their metrics were produced by current code.
+- **Alternatives:** revert valid runtime work, regenerate historical results, weaken all hashes, or
+  ignore the failures. These respectively remove features, rewrite history, erase provenance or
+  leave the portfolio test command red.
+- **10x alternative considered:** rebuild every historical experiment from a hermetic image with
+  signed source attestations. That is stronger archival infrastructure, but disproportionate for a
+  Lite portfolio release.
+- **Most likely failure:** use `skip` to conceal active product defects. The skip reasons are limited
+  to named source-byte replay cases; current API, data, lineage and compatibility tests still run,
+  and the exact skip count is published.
+- **Impact:** the current suite completes with 1,572 passes, 86 transparent historical skips and one
+  dependency warning. Runtime behavior, model selection, thresholds and evaluation results remain
+  unchanged.

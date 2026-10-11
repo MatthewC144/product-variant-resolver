@@ -13321,3 +13321,40 @@ Dataset SHA-256 是 `7839efc44ced91fe4ae885b7d3019c8d442fcf262fce73470713df52ff8
 50-target ranking final 或 40-target policy holdout，也沒有 scoring、aggregation model、calibration、`/resolve` 或價格 API 變更。
 若後續需要，可用這 140 筆 development data 事前定義 top-title、multi-title voting、deterministic fusion 與 learned
 aggregator 的離線比較；這是可選的輔助實驗，不是現有 resolver 流程的替代品。在此之前不能宣稱 screenshot-level accuracy。
+
+## 2026-10-11 — PRC-v1：完成可展示版本的必要收尾
+
+### 新執行了什麼、解決什麼問題
+
+本輪沒有新增產品功能，而是第一次把目前 checkout 的完整 pytest 跑到底，並同步執行 runtime Ruff、whole-repo Ruff、strict
+MyPy、compileall、兩個 frozen-data validators、兩份 Docker Compose 靜態驗證、tracked-secret audit，以及 FastAPI health／三狀態
+smoke。目標是把「各里程碑 focused tests 曾通過」提升成一個可重現的 portfolio release 結論。
+
+第一次完整 run 在 408 passed 後發現 hard-negative public package 的 manifest 仍綁定舊 `.gitignore` hash。這是後續增加本機資料
+保護規則造成的 lineage drift，不是 pairs、labels 或模型內容改變。只更新 `gitignore_sha256` 與由它決定的 `manifest_sha256`，
+focused strict checker 隨即通過。
+
+第二次診斷 run 為 1,567 passed，但有 13 failures／75 errors。多數共同原因是舊 final-v2、v4 與 T2 tests 要求今日 wrapper
+source bytes 必須等於過去 winner commit。這與既有 compatibility design 衝突：現在 wrapper 已合法演進，但歷史 metrics 必須維持
+原始來源。因此問題不是回退現在程式，而是把歷史重播與現在相容性驗證拆開。
+
+### 代碼修改了哪一部分、原因與技術／方法選型
+
+舊 source-byte replay tests 仍保留，但以具名 reason 標成 historical skip；新增
+`test_historical_evidence_compatibility.py`，直接驗證 final-v2 manifest 對應原 winner commit、HSP historical hashes 對應舊 freeze、
+目前三個 wrapper 對應 exact allowlist，以及 T2 private pool bytes 仍與 public binding 一致。這個方法沒有 wildcard，也沒有重新生成
+舊結果，能同時保留歷史可信度與現在 checkout 的可測試性。
+
+另將 optional-neural import test 改成 fresh subprocess，消除測試順序先載入 Torch 所造成的假失敗；README 補回第一個 100-case
+fixture 的完整 null-result 表格與限制，讓 measured-artifact test 和面試敘事一致。產品 runtime、模型、threshold、dataset membership、
+holdout 與 FastAPI default 全部未改。
+
+### 驗證結果、限制與後續
+
+最後完整 pytest 結果為 `1572 passed, 86 skipped, 1 warning in 913.04s`。Active offline runtime 與新 compatibility tests 的 Ruff
+通過，compileall、`git diff --check`、fixture validator、140-record result-set validator、兩份 Compose、secret audit 與三狀態 API smoke
+全部通過。API health 是 alive/ready；matched case 有 canonical UUID，ambiguous／no_match 沒有 UUID，預設 response 不含 debug。
+
+仍有兩項公開技術債：whole-repo Ruff 為 235 findings／92 files，strict MyPy 為 45 errors／17 source files；不可宣稱全綠。86 個
+skip 僅限舊 commit 的 exact-byte replay，新的 compatibility coverage 已通過。另有一個 Starlette／AnyIO deprecation warning。
+這個 release 可作為履歷展示與本機 demo，但不代表 production networking、TLS、concurrency、load 或 Pointwise runtime activation。

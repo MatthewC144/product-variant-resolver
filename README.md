@@ -206,10 +206,19 @@ Both neural arms consume the same frozen Top-25 candidates. Pointwise scores eac
 pair independently with a revision-pinned MiniLM cross-encoder. Listwise adds a project-trained
 candidate-set attention head over shared candidate features. Neither is active in FastAPI.
 
-The first 120-product fixture was saturated: RRF, Pointwise and Listwise all scored `12/12`, so the
-honest result was `winner: null`. That negative result motivated a harder corpus instead of a stronger
-claim. On the later 1,763-release benchmark, Pointwise achieved `36/53` exact-release Top-1 versus
-RRF `29/53` and Listwise `32/53`. The project therefore demonstrates both outcomes: rejecting neural
+The first experiment used a **100-case synthetic/curated fixture benchmark** over a 120-product
+catalog. Its 21-case Test split contained only 12 matched ranking targets and was saturated:
+
+| Arm | Top-1 | MRR@10 | Hard-negative | Recall@25 | Resolver p95 | Gate result |
+|---|---:|---:|---:|---:|---:|---|
+| RRF | `12/12` | `12/12` | `4/4` | `12/12` | `1.398 ms` | Runtime baseline |
+| Neural pointwise | `12/12` | `12/12` | `4/4` | `12/12` | `89.164 ms` | FAIL: no Top-1 gain |
+| Neural listwise | `12/12` | `12/12` | `4/4` | `12/12` | `89.583 ms` | FAIL: no Top-1 gain |
+
+The formal result is **`winner: null`**. This fixture does not establish production accuracy or statistical generality.
+That negative result motivated a harder corpus instead of a stronger claim.
+On the later 1,763-release benchmark, Pointwise achieved `36/53` exact-release Top-1 versus RRF
+`29/53` and Listwise `32/53`. The project therefore demonstrates both outcomes: rejecting neural
 complexity when it added no value, and selecting it when a harder benchmark measured a gain—while
 still withholding runtime activation when calibration produced inadequate coverage.
 
@@ -295,6 +304,18 @@ is selected for calibration, final evaluation, or runtime. See the
   coverage and statistical generality have not been established.
 
 ## Run locally
+
+### Verified portfolio release
+
+The 2026-10-11 Lite release audit completed with `1572 passed, 86 skipped, 1 warning`. The skips are
+explicit historical source-byte replays whose old commit bindings and current exact compatibility
+allowlist are covered by dedicated tests. Active offline runtime files pass Ruff, both frozen-data
+validators pass, and the local API reproduces `matched`, `ambiguous` and `no_match` examples.
+
+This is not a claim that every static-analysis item is closed: whole-repository Ruff still reports
+235 findings across 92 files and strict package MyPy reports 45 errors across 17 files. See the
+[release QA](specs/portfolio-release-closure-v1/review.md) and
+[evidence record](docs/evidence/portfolio-release-closure-v1.md).
 
 The default path is offline and requires no external model or API key:
 

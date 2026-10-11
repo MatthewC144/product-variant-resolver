@@ -3,6 +3,7 @@ from __future__ import annotations
 import copy
 import json
 import math
+import subprocess
 import sys
 from collections.abc import Mapping, Sequence
 from pathlib import Path
@@ -356,8 +357,19 @@ def test_committed_fixture_satisfies_exact_counts_and_family_isolation() -> None
 
 
 def test_import_does_not_load_optional_neural_dependencies() -> None:
-    assert "torch" not in sys.modules
-    assert "sentence_transformers" not in sys.modules
+    probe = subprocess.run(
+        [
+            sys.executable,
+            "-c",
+            (
+                "import sys; import product_variant_resolver.neural_reranking; "
+                "raise SystemExit(int('torch' in sys.modules or "
+                "'sentence_transformers' in sys.modules))"
+            ),
+        ],
+        check=False,
+    )
+    assert probe.returncode == 0
 
 
 def test_pointwise_config_pins_model_revision_license_and_offline_runtime(tmp_path: Path) -> None:
