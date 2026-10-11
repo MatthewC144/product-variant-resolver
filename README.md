@@ -6,12 +6,15 @@ Product Variant Resolver maps noisy Hot Wheels marketplace titles to canonical p
 using hybrid retrieval, structured evidence, calibrated abstention, and a provenance-aware
 human-review boundary.
 
-> **Scope disclosure:** current headline evidence uses a frozen **1,763-release third-party
-> community snapshot** and 153 image-search-derived queries (100 development / 53 test), plus an
-> independently frozen 20-query catalog-relative no-match holdout. It is not Mattel-certified,
+> **Scope disclosure:** current headline ranking evidence uses a frozen **1,763-release third-party
+> community snapshot** plus 150 paired targets collected through Serper Image/Lens and Shopping
+> (300 source-specific query records; 100 development / 50 final-test targets). The separate
+> calibrated-policy evidence still uses 153 image-search-derived positives and an independently
+> frozen 20-query catalog-relative no-match holdout. None of these are Mattel-certified,
 > live-marketplace traffic, production accuracy, or runtime authorization.
 
 [Architecture](#architecture) · [Evaluation](#measured-evaluation) ·
+[Dual-source final](#dual-source-serper-evidence) ·
 [Neural comparison](#neural-pointwise-versus-listwise-comparison) ·
 [Limitations](#limitations) · [Run locally](#run-locally) ·
 [Deep evidence](#deep-evidence) · [Portfolio guide](docs/PORTFOLIO-GUIDE.md)
@@ -66,8 +69,9 @@ The internal **Dual-RAG** architecture separates two retrieval corpora by author
 
 No LLM generates the final answer. PostgreSQL full-text search and pgvector are available as an
 optional canonical retrieval/storage backend, while the dependency-light RRF path remains the
-runtime default. The measured Pointwise path is local and development-only: its frozen policy is
-explicitly `runtime_eligible=false`.
+runtime default. The measured Pointwise ranker now has one-shot final-test evidence on both Image
+and Shopping query sources, but it remains an offline evaluation path: its frozen decision policy
+is explicitly `runtime_eligible=false`.
 
 ## Key engineering decisions
 
@@ -81,7 +85,8 @@ explicitly `runtime_eligible=false`.
   cannot bypass the canonical catalog contract.
 - **Require measured value before adding model complexity.** Neural reranking first showed no gain
   on a saturated fixture; after expanding to a 1,763-release corpus, Pointwise improved frozen-test
-  exact-release Top-1, but its calibrated policy still abstains too often for runtime activation.
+  exact-release Top-1. A later dual-source final test confirmed a combined `55% → 64%` gain over RRF,
+  but the calibrated policy still abstains too often for runtime activation.
 
 ## Data and authority boundaries
 
@@ -90,6 +95,11 @@ an evaluation/staging snapshot, not a manufacturer catalog. A separate owner-gat
 Authority Review established 20 exact variants across seven multi-release families relative to one
 frozen community revision; unsupported color and edition remain null.
 
+The latest query benchmark contains 150 distinct catalog-backed targets. Each target contributes
+one Image/Lens result title and one Google Shopping result title, with both the provider text and a
+deterministically cleaned form retained. The final test compares source behavior; it does not treat
+the two records for one target as 100 independent product identities.
+
 Query authoring, label review, canonical promotion, development selection, final evaluation, and
 runtime activation use separate hash-bound Gates. Historical blocked audits remain intact beside
 later versioned passes instead of being rewritten. See the [CAR evidence](docs/evidence/canonical-authority-review-v1.md),
@@ -97,6 +107,40 @@ later versioned passes instead of being rewritten. See the [CAR evidence](docs/e
 [decision history](docs/decisions/product-variant-resolver.md).
 
 ## Measured evaluation
+
+### Dual-source Serper evidence
+
+The newest benchmark asks whether ranking behavior transfers across two realistic search-result
+sources. All 150 targets were grouped before a year-stratified split, so the Image and Shopping
+records for the same car can never land on opposite sides. Development used 100 targets per source;
+the remaining 50 targets per source were opened exactly once after raw text and the frozen
+Pointwise ranker had been selected.
+
+Development first showed that aggressive cleaning removed useful identity evidence:
+
+| Development representation | Casting Top-1 | Exact-release Top-1 |
+|---|---:|---:|
+| Image raw | **88%** | **39%** |
+| Image cleaned | 80% | 33% |
+| Shopping raw | **95%** | **57%** |
+| Shopping cleaned | 84% | 51% |
+
+The one-shot final test then compared RRF with the already selected Pointwise reranker over the
+same Top-25 candidate membership:
+
+| Frozen final-test source | RRF exact Top-1 | Pointwise exact Top-1 | Pointwise casting Top-1 | Pointwise Recall@25 |
+|---|---:|---:|---:|---:|
+| Image raw (`n=50`) | 50% | **56%** | 92% | 98% |
+| Shopping raw (`n=50`) | 60% | **72%** | 98% | 100% |
+| Combined source observations (`n=100`) | 55% | **64%** | 95% | 99% |
+
+Combined MRR@10 improved from `0.722` to `0.792`. The result also records the tradeoff instead of
+hiding it: combined Recall@10 moved from 99% to 98% because Image fell from 98% to 96%, while
+Recall@25 remained 99%. The final artifact is aggregate-only, bound to an owner authorization, and
+cannot be rerun by the evaluator once present. See the
+[final result](data/evaluation/serper-dual-source-evaluation-v1/raw-pointwise-final-test.json),
+[Lean QA review](specs/serper-dual-source-evaluation-v1/review.md), and
+[AI-eval evidence](docs/evidence/ai-evals/serper-dual-source-raw-pointwise-final-test-v1.md).
 
 ### Release-ranking evidence
 
@@ -214,8 +258,10 @@ is selected for calibration, final evaluation, or runtime. See the
 
 - The 1,763-release source is an attributed third-party community snapshot, not Mattel or global
   canonical truth; unsupported color and edition remain unknown.
-- The 153 positive queries and 20 negatives are image-search-derived/catalog-relative evidence, not
-  sampled live-marketplace traffic.
+- The 300 dual-source records are API-collected search-result titles, not organic user traffic; the
+  153 older positives and 20 negatives are also image-search-derived/catalog-relative evidence.
+- The dual-source final denominator is 50 targets per source, or 100 source observations, not 100
+  independent product identities. Larger temporal and marketplace samples are still required.
 - The 53 positives were previously used for ranker evaluation, although not for Pointwise v2
   calibration or threshold selection; only the 20 negatives were fully frozen before policy access.
 - Pointwise ranking improved, but the calibrated policy abstains on 73.97% of the combined test and
@@ -262,6 +308,7 @@ was deleted; the checked-in sources below remain the authoritative evidence.
 |---|---|
 | Core MVP, contract, and QA | [MVP brief](specs/product-variant-resolver/mvp-brief.md), [QA review](specs/product-variant-resolver/review.md), [public evidence](docs/evidence/product-variant-resolver-mvp.md), [fixture report](reports/fixture-v1/evaluation-fixture-v1-test.md) |
 | Neural comparison | [comparison report](reports/neural-reranker-comparison-v1/comparison.md), [public evidence](docs/evidence/neural-reranker-comparison-v1.md), [QA review](specs/neural-reranker-comparison/review.md) |
+| Dual-source Image/Shopping ranking | [300-row dataset](data/evaluation/serper-dual-source-query-v1/dataset.json), [development ablation](data/evaluation/serper-dual-source-evaluation-v1/raw-pointwise-development.json), [one-shot final](data/evaluation/serper-dual-source-evaluation-v1/raw-pointwise-final-test.json), [QA review](specs/serper-dual-source-evaluation-v1/review.md), [AI-eval evidence](docs/evidence/ai-evals/serper-dual-source-raw-pointwise-final-test-v1.md) |
 | Real-catalog ranking and calibrated policy | [53-case final comparison](data/evaluation/image-search-release-ranking-v1/final-comparison.json), [three-class QA](specs/pointwise-three-class-development-calibration/review.md), [balanced policy QA](specs/pointwise-balanced-holdout-evaluation-v1/review.md), [AI-eval evidence](docs/evidence/ai-evals/pointwise-balanced-holdout-v1.md) |
 | Human-labeled import and catalog alignment | [source manifest](data/human_labeled_names_manifest.json), [real-noisy-data evaluation](docs/evidence/ai-evals/human-labeled-real-noisy-v1.md), [alignment evaluation](docs/evidence/ai-evals/human-catalog-alignment-v1.md), [human-backed catalog evaluation](docs/evidence/ai-evals/human-backed-catalog-v1.md) |
 | Human Knowledge, review-family authority, and retrieval evaluation | [family-level contract](specs/family-level-human-knowledge/requirements.md), [family QA](specs/family-level-human-knowledge/review.md), [v2 final evaluation](reports/family-retrieval-v2/evaluation.md), [final evidence](docs/evidence/family-retrieval-final-v2.md), [identity-bounded QA](specs/human-knowledge-identity-bounded-retrieval/review.md) |
@@ -271,5 +318,5 @@ was deleted; the checked-in sources below remain the authoritative evidence.
 | Owner-supplied 2023–2026 staging and review | [staging report](reports/local-release-staging-v1/report.md), [casting review](reports/local-release-casting-review-v1/report.md), [owner-decision report](reports/local-release-casting-review-decisions-v1/report.md), [materialization report](reports/local-release-casting-review-family-materialization-v1/report.md), [knowledge projection](reports/local-release-casting-review-family-knowledge-v1/report.md), [shadow evaluation](reports/local-release-review-family-retrieval-evaluation-v1/report.md) |
 | PostgreSQL, pgvector, and Human Knowledge storage | [catalog ingestion](docs/evidence/postgres-ingestion-t07.md), [sparse retrieval](docs/evidence/postgres-sparse-retrieval-t09.md), [dense retrieval](docs/evidence/postgres-dense-retrieval-t10.md), [isolated Human Knowledge storage](docs/evidence/t49-2-human-knowledge-postgres.md), [storage-profile SQL](docs/evidence/t49-3-storage-profile-sql.md), [file-runtime runbook](docs/runbooks/human-storage-file-runtime.md) |
 | Runtime and Docker validation | [raw Docker loopback latency](reports/runtime-validation/docker-python312-http-latency.json), [runtime-package evidence](docs/evidence/t49-4-human-storage-runtime-package.md), [MVP evidence](docs/evidence/product-variant-resolver-mvp.md) |
-| Portfolio positioning | [portfolio guide](docs/PORTFOLIO-GUIDE.md), [original positioning spec](specs/portfolio-positioning-v1/requirements.md), [current evidence-refresh QA](specs/portfolio-evidence-refresh-v2/review.md) |
+| Portfolio positioning | [portfolio guide](docs/PORTFOLIO-GUIDE.md), [original positioning spec](specs/portfolio-positioning-v1/requirements.md), [current evidence-refresh QA](specs/portfolio-evidence-refresh-v3/review.md) |
 | Engineering rationale and chronology | [decision record](docs/decisions/product-variant-resolver.md), [project log](docs/PROJECT-LOG.md), [real-catalog roadmap](docs/REAL-CATALOG-ROADMAP.md) |

@@ -1,5 +1,40 @@
 # Project Log
 
+## 2026-10-10 — Portfolio evidence refresh v3：把 dual-source final 結果放進履歷首頁
+
+### 新執行了什麼，解決什麼問題
+
+SDSE-T1–T4 雖然已完成並推送，但 GitHub README 與 Portfolio Guide 仍只展示先前的 153-query ranking 與 73-case policy
+evidence，讀者無法在首頁看見新收集的 Image／Shopping paired dataset、raw-versus-cleaned 結果或 one-shot
+final test。本輪更新首頁的 scope disclosure、architecture boundary、measured evaluation、limitations 與
+deep-evidence index，也同步更新三條履歷 bullet、interview pitch、code-review path 與 claim guardrails，讓
+最新 AI ranking 成果能在不閱讀長篇 Project Log 的情況下被理解與查證。
+
+### 代碼修改了哪一部分、原因與決策
+
+修改 `README.md`、`docs/PORTFOLIO-GUIDE.md` 與 v3 Lean spec／QA 文件，沒有更動 resolver、模型、dataset、
+artifact、policy 或 runtime。新增 dual-source
+evaluation 段落，先說明 150 targets／300 source records 的分母，再分開呈現 development 的 raw-cleaned
+ablation，以及 50 targets × 2 sources 的 final RRF-versus-Pointwise 比較。首頁同時連到 frozen final JSON、
+Lean QA review 與 AI-eval evidence，避免漂亮數字脫離可驗證來源。
+
+文案刻意把 combined final denominator 寫成 100 source observations，而不是 100 個獨立產品；也保留
+Image Recall@10 下降 2 個百分點及 combined Recall@10 下降 1 點的負面結果。這是為了防止將 paired rows
+錯當獨立樣本，或只展示 Top-1 gain 而隱藏排序 tradeoff。
+
+Portfolio Guide 仍維持三條主要履歷 bullet：第一條呈現 dual-source ranking，第二條保留較保守的
+calibrated-policy 結果，第三條說明 Dual-RAG authority 與 provenance。沒有把新 ranking 結果覆寫成 policy
+accuracy，因為兩者使用不同資料、問題定義與 Gate。
+
+### 技術棧／方法選型、驗證與下一步
+
+README 沿用現有 Markdown 架構，不新增生成器或依賴。最新 headline claim 綁定 catalog-relative frozen
+artifacts：Pointwise combined exact-release Top-1 `55%→64%`、casting Top-1 `86%→95%`、MRR@10
+`0.722→0.792`，並明確說明這不是 policy accuracy、live marketplace traffic 或 runtime authorization。
+
+下一個技術工作仍是獨立的 runtime-readiness/calibration 規劃；不能使用已開封 final test 調整模型或門檻。
+在此之前，RRF 保持 FastAPI default，Pointwise 只具備 offline ranking evidence。
+
 ## 2026-10-10 — SDSE-T4：完成唯一一次 50-target final test，Pointwise 優勢獲得確認
 
 ### 新執行了什麼，解決什麼問題

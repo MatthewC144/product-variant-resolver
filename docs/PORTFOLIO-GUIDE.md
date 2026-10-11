@@ -19,7 +19,7 @@ the final answer.
 
 ## 2. Three resume bullets
 
-- Built a confidence-aware product entity resolver in Python/FastAPI over a frozen 1,763-release third-party catalog, combining sparse search, deterministic hashing similarity, structured signals, RRF fusion, and a revision-pinned MiniLM Pointwise reranker; on a frozen 53-query catalog-present test, Pointwise improved exact-release Top-1 from `29/53` (54.72%) to `36/53` (67.92%) and casting Top-1 from `46/53` to `52/53`.
+- Built a confidence-aware product entity resolver in Python/FastAPI over a frozen 1,763-release third-party catalog and created a paired 150-target/300-record Image/Lens plus Shopping benchmark; on the one-shot 50-target-per-source final test, a revision-pinned MiniLM Pointwise reranker improved combined exact-release Top-1 from `55%` to `64%` and casting Top-1 from `86%` to `95%` over RRF (`n=100` source observations).
 - Designed a hash-bound, output-blind evaluation pipeline for a calibrated `matched` / `ambiguous` / `no_match` policy; across 53 catalog-present and 20 catalog-relative negative cases, accepted positive precision was `5/5`, negative false matches were `0/20`, and the system honestly retained 73.97% abstention and a runtime HOLD instead of tuning on final holdouts.
 - Implemented a Dual-RAG trust boundary and provenance workflow that keeps canonical UUID authority separate from Human Knowledge, stages 1,763 third-party release observations through optional PostgreSQL/pgvector infrastructure, and uses explicit owner Gates to freeze 20 evidence-backed exact variants while leaving unsupported color/edition null.
 
@@ -40,19 +40,27 @@ same frozen candidates, and a calibrated policy returns `matched`, `ambiguous`, 
 
 The architecture is Dual RAG because canonical catalog retrieval and Human Knowledge retrieval have
 different authority: only the catalog branch can return a canonical UUID, while Human Knowledge can
-explain or support review without silently becoming product truth. On a frozen 53-query test over a
-1,763-release community snapshot, Pointwise improved exact-release Top-1 by 13.21 percentage points
-over RRF. I then evaluated the frozen decision policy output-blind on 53 positives plus 20 negatives.
-It made no false matches on the negative holdout and every accepted positive was exact, but it
-abstained on 74% of cases. I kept runtime disabled and documented that low coverage instead of
-lowering thresholds on the test. That governance decision is as important as the model result.
+explain or support review without silently becoming product truth. I built a second, paired benchmark
+from Image/Lens and Shopping search results: 150 product identities produced 300 source-specific
+records, with 100 identities reserved for development and 50 for a one-shot final test. Across the
+100 final source observations, Pointwise improved exact-release Top-1 from 55% to 64%, casting Top-1
+from 86% to 95%, and MRR@10 from 0.722 to 0.792 over RRF. I also reported the trade-off: Recall@10
+fell from 99% to 98% while Recall@25 stayed at 99%.
+
+That ranking experiment is separate from the frozen decision policy. In its earlier output-blind
+evaluation on 53 positives plus 20 catalog-relative negatives, the policy made no false matches on
+the negative holdout and every accepted positive was exact, but it abstained on 74% of cases. I kept
+runtime disabled instead of lowering thresholds on final holdouts. The project therefore demonstrates
+both measurable neural ranking gains and a willingness to hold deployment when calibrated coverage
+is still too low.
 
 ## 4. What to show during a code review
 
 1. Start with the [README architecture](../README.md#architecture) and explain why canonical and
    Human Knowledge retrieval have different authority.
-2. Open the [53-case final ranking comparison](../data/evaluation/image-search-release-ranking-v1/final-comparison.json)
-   and compare RRF, release heuristic, Pointwise and Listwise under identical Top-25 candidates.
+2. Open the [dual-source one-shot final result](../data/evaluation/serper-dual-source-evaluation-v1/raw-pointwise-final-test.json)
+   and compare RRF with frozen Pointwise across Image/Lens and Shopping, including the Recall@10
+   trade-off and the paired-observation denominator.
 3. Open the [balanced policy QA review](../specs/pointwise-balanced-holdout-evaluation-v1/review.md)
    and discuss precision, recall, abstention, output blindness and why runtime remains held.
 4. Open the [domain ranker v2 selection evidence](evidence/domain-ranker-v2-selection.md) and explain
@@ -67,6 +75,9 @@ lowering thresholds on the test. That governance decision is as important as the
 |---|---|---|---|
 | Project category | Confidence-aware entity resolution with a Dual-RAG authority boundary | Generative RAG chatbot or LLM-generated answer system | [MVP evidence](evidence/product-variant-resolver-mvp.md) |
 | Catalog | Frozen 1,763-release third-party community snapshot for staging/evaluation | Mattel-certified, complete or global Hot Wheels catalog | [source README](../data/external/hot-wheels-wiki/README.md) |
+| Dual-source query data | 150 catalog-bound identities, each represented by one Image/Lens and one Shopping record: 300 records total, split 100/50 by identity | 300 independent products, organic marketplace traffic or representative production traffic | [dataset](../data/evaluation/serper-dual-source-query-v1/dataset.json) |
+| Dual-source ranking result | On the one-shot final, combined Pointwise exact Top-1 `55% → 64%`, casting Top-1 `86% → 95%`, MRR@10 `0.722 → 0.792`; `n=100` source observations from 50 identities | Runtime-policy accuracy, universal superiority or 100 independent final products | [final result](../data/evaluation/serper-dual-source-evaluation-v1/raw-pointwise-final-test.json) |
+| Ranking trade-off | Combined Recall@10 `99% → 98%`; Recall@25 remained 99% | Improvement on every ranking metric | [final AI-eval](evidence/ai-evals/serper-dual-source-raw-pointwise-final-test-v1.md) |
 | Positive query data | 153 unique image-search-derived, catalog-bound queries; 100 development and 53 test | Representative live-marketplace traffic | [dataset](../data/evaluation/image-search-resolver-v1/dataset.json) |
 | Ranking result | Pointwise exact Top-1 `36/53` vs RRF `29/53` on the frozen test | Production accuracy or universal superiority | [final comparison](../data/evaluation/image-search-release-ranking-v1/final-comparison.json) |
 | Pointwise/Listwise | Local offline reranking arms over identical frozen Top-25 candidates | Active default FastAPI neural reranking | [ranking spec](../specs/image-search-release-ranking/mvp-brief.md) |
@@ -94,13 +105,15 @@ lowering thresholds on the test. That governance decision is as important as the
 
 ## 7. Honest limitations and next engineering step
 
-The strongest current result is not “100% accuracy.” It is a governed trade-off: accepted matches
-were precise, but the frozen policy resolved too few positives and abstained on 54/73 combined cases.
-The source is community-maintained, query generation is image-search-derived, and production traffic,
-concurrency and broad catalog coverage are not established.
+The strongest ranking evidence is now the paired dual-source final test, not “100% accuracy.” It
+shows a nine-point combined exact-release Top-1 gain, but also a one-point Recall@10 loss. Its 100
+observations come from two sources for the same 50 identities, so they are not 100 independent
+products. Search-result titles are API-collected rather than organic marketplace traffic, and the
+catalog remains a community-maintained snapshot.
 
-Do not reuse the 53 positive or 20 negative holdouts to lower thresholds. A legitimate coverage
-improvement needs new development queries, a separately trained/recalibrated candidate policy, and a
-fresh final test. Until then, present the system as a high-precision abstaining prototype whose
-engineering strength is measurable ranking improvement plus explicit authority and evaluation
-governance.
+The newer ranking result does not activate or validate the older decision policy. That frozen policy
+still resolved too few positives and abstained on 54/73 combined cases. Do not reuse either final
+test—or the 20 negative holdout—to tune thresholds. A legitimate runtime upgrade needs new
+development-only calibration data, a separately frozen policy, and a fresh untouched final test.
+Until then, present the system as a high-precision abstaining prototype with measured dual-source
+ranking gains, explicit authority boundaries and honest deployment governance.
