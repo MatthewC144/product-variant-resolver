@@ -3153,3 +3153,28 @@ Future evidence can reopen them without rewriting the historical reason they wer
 - **Impact:** 196 fit and 84 selection observations were scored; the selection artifact SHA-256 is
   `11caad121fa32a006abdc7cb08e8138a651bfcea5f76837471268fd65cee14e6`. The next work must remain on
   development data and predeclare source-specific diagnosis or ranking remediation before execution.
+
+## D73 — Make the ordered image-search result set the product boundary
+
+- **Choice:** define the next development input as up to ten ordered Lens title hits for one image,
+  each retaining raw and conservatively cleaned text. Keep the current single-title resolver intact
+  until result-set aggregation has its own development evidence.
+- **Reason:** the project exists to improve FlipRadar's frame → image search → title cleaning → price
+  lookup seam. The current 150-target benchmark stores one Image/Lens title per identity, so it
+  measures title-to-catalog ranking but not the actual multi-result evidence problem. Earlier four-arm
+  evidence also shows aggressive cleaning removes useful identifiers.
+- **Alternatives:** keep optimizing one cleaned title; feed Shopping results back into identity;
+  promote the predecessor's casting-only labels to exact releases; or open policy holdouts. These
+  mismatch the live workflow, create circular price-search evidence, fabricate exact truth or leak
+  final evidence into development.
+- **10x alternative considered:** collect independently sampled livestream frames across many product
+  categories and providers, retain expert-adjudicated full identities and train a multimodal model
+  jointly over pixels and result sets. That would be stronger production research, but the smallest
+  honest bridge is a 140-identity Hot Wheels development result-set corpus.
+- **Most likely failure:** evaluate a convenient single result while calling it screenshot-level
+  accuracy. The new schema preserves the full bounded title set and keeps empty provider outcomes
+  instead of replacing difficult targets.
+- **Impact:** the strict 100-positive/40-no-match development dataset contains 1,108 ordered title
+  hits; 23 empty result sets remain explicit rather than being replaced. Dataset SHA-256 is
+  `7839efc44ced91fe4ae885b7d3019c8d442fcf262fce73470713df52ff8c4e75`. No holdout, aggregation
+  model, pricing call or runtime behavior was accessed.

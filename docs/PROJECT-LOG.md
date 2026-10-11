@@ -13277,3 +13277,46 @@ Calibrators SHA-256 為 `dd0be892626729b77a707b4cc7955724e25497d6e87d3a420f21f00
 本輪結果證明 calibration／selective-prediction 工程流程已實作，但不證明 policy 可上線。Fresh 40-target holdout 仍封存，
 FastAPI default、model weights、candidate features 與 runtime 都未改。下一個必要工作不是 final evaluation，而是在 development
 資料內診斷 Image/Lens ranking failure，並在新版本執行前決定要測 source-conditional policy 還是補強 ranking evidence。
+
+## 2026-10-11 — ISRS-v1 T1–T2：重新對齊直播截圖產品目標並建立 result-set contract
+
+### 新執行了什麼、解決什麼問題
+
+Owner 補充本專案真正來源：前一個 FlipRadar 會擷取直播畫面，交給 image search，再清理搜尋結果後呼叫價格 API；最想改善的
+不是價格運算，而是 image-search evidence 到正確商品身分的中間層。本輪重新讀取前專案實作，確認 Serper Lens 實際最多取
+10 個 title-like hits，經品質分數與 cluster consensus 產生至多三個 candidates，再由 identity normalizer 形成 pricing keyword。
+相對地，目前 Product Variant Resolver 的 headline benchmark 每個 identity 只保存一條 Image/Lens title，並未測到多結果融合。
+
+前專案的 101 筆人工 identity labels 中有 95 筆 Hot Wheels；85 筆 Hot Wheels case 仍保留 2–3 個 recognition candidates。
+但這批人工資料主要是 casting-level label，缺少可普遍支持 toy number 與完整 release 的 authority，所以沒有把它們硬升格成
+exact-release 答案。這解決了方向上的風險：不能因為資料方便，就把 candidate selection benchmark 假裝成完整 variant resolver。
+
+### 代碼修改了哪一部分、原因與技術／方法選型
+
+新增 `image_search_result_set_dataset.py`、CLI 與六項 focused tests。正式 contract 從已凍結資料只選 100 positive development
+與 40 no-match development identities；每筆要求 casting-level 與完整 expected identity 同時存在，並允許最多十個 ordered
+results。每個 result 以同一 object 保存 `raw` 與 `cleaned`，避免平行陣列錯位。Empty result set 是合法 provider outcome，
+不能用較容易的 identity 替換。Strict schema 會拒絕 URL、額外 API metadata、secret 欄位、重複 title 與 parent membership 漂移。
+
+暫存 collector 放在既有 Git-ignore 規則涵蓋的 `.local-image-search-collection-result-set-v1/`，流程為 Serper Images 取得暫時
+image reference，再由 Serper Lens 取得最多十個 title hits。Cleaning 只做 Unicode／whitespace 正規化與明顯尾端 marketplace
+wrapper 移除，保留所有 year、series、collector number、toy identifier、color 與 edition token。選擇 conservative cleaning，
+是因先前 development 已量到 aggressive cleaning 讓 Image 與 Shopping exact Top-1 各下降六個百分點。
+
+### 驗證結果、限制與下一步
+
+Schema module、tests 與 temporary collector 全部通過 Ruff；tracked module/tests 通過 strict MyPy；dataset focused tests `7 passed`。
+第一次 live smoke 真正連到 Serper，但前專案 `.env` 的舊 credential 回覆 `Not enough credits`，因此在第一筆 response 前停止。
+之後依 Owner 先前明確指示，將新 key 只注入 collector process memory，沒有修改 `.env` 或建立 secret file。2/2 smoke records
+各取得 10 titles 後，checkpoint 接續完成 140/140 frozen development identities。
+
+最終資料共有 1,108 個 ordered title hits；100 positive records 中 79 筆有結果、21 筆為空，40 no-match records 中 38 筆有
+結果、2 筆為空。Set-size 分布為 23×0、6×3、5×6、106×10；609/1,108 titles 的 conservative cleaned form 與 raw 不同。
+Aggregate signal audit 顯示 117/140 sets 含至少 80% casting tokens、60/140 含 toy number、113/140 含 release year、60/140
+同時含 casting/year/toy-number。這些只是資料輪廓，不是 Resolver accuracy。
+
+Dataset SHA-256 是 `7839efc44ced91fe4ae885b7d3019c8d442fcf262fce73470713df52ff8c4e75`。正式目錄只保留
+`dataset.json`；key、URL、image、payload、timestamp、collector 與 checkpoint 都不進 Git，暫存目錄在驗證後刪除。沒有讀取
+50-target ranking final 或 40-target policy holdout，也沒有 scoring、aggregation model、calibration、`/resolve` 或價格 API 變更。
+下一步才是用這 140 筆 development data 事前定義 top-title、multi-title voting、deterministic fusion 與 learned aggregator
+的公平比較；在此之前不能宣稱 screenshot-level accuracy。
