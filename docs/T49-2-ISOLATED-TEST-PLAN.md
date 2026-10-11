@@ -1,4 +1,7 @@
-# T49.2 隔離資料庫方案
+# Historical Test Plan — T49.2 隔離資料庫方案
+
+> **Historical status:** 此方案已執行並完成清理，只保留作為 SQL evidence 的環境與安全邊界。
+> 它不是建立新資料庫或重跑測試的指令。現行 PostgreSQL 說明請由 [docs index](README.md) 進入。
 
 2026-09-14，Lite mode。Owner 在此方案說明後指示「執行測試」，授權本次限定隔離測試。
 這不是整份後續 T49.3／蒐集／正式部署方案的確認，也未捏造三次獨立 G1 確認。

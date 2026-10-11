@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "product-variant-resolver"
 version = "0.1.0"
-description = "Deterministic offline-first product variant resolver MVP"
+description = "Confidence-aware product entity resolution and learning-to-rank"
 requires-python = ">=3.12"
 dependencies = [
   "fastapi>=0.115,<1",

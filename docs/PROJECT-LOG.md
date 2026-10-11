@@ -13407,3 +13407,49 @@ holdout、canonical authority 與 FastAPI default 均未改。
 Whole-repo historical Ruff/MyPy debt仍不在本次範圍；`.git` 約 327 MiB 的 artifact 負擔也只完成 inventory/policy，未做 history
 rewrite。若後續再改善 repo，P2 應作為獨立 Gate 評估 LFS／Release migration 或 experiment module 重整，而不是繼續擴大本次
 文件 cleanup。
+
+## 2026-10-11 — RHC-v1：完成 GitHub repository hygiene 與 active／historical 分層
+
+### 新執行了什麼、解決什麼問題
+
+上一輪已把 README 整理成 portfolio landing page，但 GitHub 使用者若直接點進 `src`、`data`、`specs`、`reports`、
+`artifacts` 或 `scripts`，仍會看到大量檔案而不知道哪些是目前 runtime、哪些是失敗實驗、哪些只是 generated evidence。
+本輪先盤點 Git 真正追蹤的 1,112 個檔案：data 247、docs 219、specs 174、tests 144、src 100、reports 88、scripts 77、
+artifacts 28。確認 `.env`、`.venv`、cache、HW data、model-cache 與本機 collection workspace 都沒有進 GitHub。
+
+新的 root repository map 與十三份 directory README 讓每個主要目錄先回答「這裡是什麼、哪些是 active、哪些是 historical、
+不能從檔案存在推論什麼」。`src` 明列七個 active core modules 與 optional／offline module families；`data` 分開 runtime、
+evaluation、authority-review、external 與 local-only；`specs` 說明舊 task ID 是 lineage 而不是現在 backlog；`reports`、
+`artifacts` 與 `runtime` 明確否認 generated／published 等於 deployed。
+
+### 代碼／文件調整與取捨原因
+
+`pyproject.toml` 的 description 從過時的 deterministic MVP 改為 confidence-aware product entity resolution and learning-to-rank。
+README 新增完整 repository map，並明確說明目前沒有選定 project-wide open-source license，避免把沒有 LICENSE 誤解成任意再發布
+權。`.gitattributes` 將 safetensors 標為 binary、reports/evaluation JSON 標為 GitHub generated；這只改善 diff／language
+呈現，不修改任何 artifact bytes。
+
+三份仍被 specs/evidence 引用、不能直接搬移的舊文件加上 Historical banner：real catalog roadmap、human storage profile guide、
+T49.2 isolated plan。舊 Dual-RAG 說法在這些 public-looking 文件中改成 authority-separated dual-corpus retrieval，docs index 也不再
+把完成的 storage experiment 放在現行 architecture。這種原地降級比大搬移安全，因為大量 relative link 與 hash-bound lineage
+依賴現有路徑。
+
+唯一刪除的是 `docs/FANDOM-SOURCE-PERMISSION-GUIDE.md`。它開頭已明示沒有送出 email/form，只是 2026-09 當時的 time-sensitive
+request template，不是 permission、license、source snapshot、測試結果或 runtime contract。保留它反而容易讓人誤認為本專案已獲
+爬取授權。Roadmap 改為說明草稿已移除且 Git history 可恢復；真正的 source provenance 仍由 `data/external/` 與 evidence 保存。
+
+大型內容沒有用「看起來很多」作刪除理由。四個 43.3 MiB checkpoint 代表兩個獨立 two-seed experiment packages；六份
+7–41 MiB reports 受 selection/evidence 綁定。盤點只找到兩組超過 100 KiB 的 exact duplicates：tokenizer.json 與 vocab.txt，
+但它們讓兩個 checkpoint package 各自 self-contained 並受 manifest 約束，因此保留比 symlink／跨包依賴更可靠。
+
+### 驗證結果、限制與後續
+
+新增四個 repository-hygiene tests，檢查十三個 directory index、Historical banner、obsolete draft 已移除、package metadata、
+GitHub attributes，以及 `.env`／cache／HW data 等 local-only path 未被 track。既有 public-doc link test 擴充到所有 index。
+文件、全部 API、historical compatibility、domain-v2 closure 與 measured-artifact focused suite 共 70 tests 通過；Ruff 通過，active
+六檔 strict MyPy 通過，README 213 行，link／terminology／secret／`git diff --check` 均通過。唯一 warning 仍是上游
+Starlette／AnyIO deprecation。
+
+本輪沒有改 Python runtime source、模型、threshold、policy、dataset membership、holdout、canonical authority 或 frozen metrics。
+`.git` history 大小不會因 current checkout 刪檔而下降；若未來 clone size 真正成為問題，必須另開 Gate 做 LFS／Release migration
+與歷史 hash/link 轉換，不能在 repo cleanup 中偷偷 rewrite history。

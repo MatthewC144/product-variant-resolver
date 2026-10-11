@@ -1,8 +1,12 @@
-# 下一階段：從「找到車型」走向「找到具體版本」
+# Historical Roadmap — 從「找到車型」走向「找到具體版本」
+
+> **Historical status:** 這是 2026-09 的執行年表，不是目前的下一步清單。多數里程碑已由後續
+> versioned specs／evidence 取代。現行專案定位、結果與限制請從 [docs index](README.md)、
+> [Results](RESULTS.md) 與 [Limitations](LIMITATIONS.md) 開始；下列 task ID 只保留 lineage。
 
 2026-09-16，Lite mode。T49.1–T49.4 儲存與可選file runtime已完成；VAR-REVIEW1也已完成第一批
 11筆人工欄位審查。另有1,763筆owner提供的2023–2026 release資料已進入獨立PostgreSQL staging；
-它們尚未成為已驗證版本、canonical商品或Dual RAG輸入，顏色仍全部未知。
+它們當時尚未成為已驗證版本、canonical商品或 authority-separated dual-corpus retrieval 輸入，顏色仍全部未知。
 
 ## 現在已經能證明什麼？
 
@@ -107,9 +111,9 @@ CC BY-SA3.0，可在遵守署名與相同授權條件下重用；但目前Terms 
 collection false、permission null、approved endpoints空白、已執行與各milestone request budget均為0，
 圖片/OCR也禁止。100筆只代表既有離線baseline；500、1,500與約3,000筆都還沒開始。
 
-下一個外部動作不是啟動crawler，而是由owner依
-[許可指南](FANDOM-SOURCE-PERMISSION-GUIDE.md)向Fandom取得針對本專案、endpoint、用途、規模、
-保存與再發布條件的書面同意。若取得，再透過獲准方式確認Hot Wheels Wiki當下license、robots與
+當時規劃的下一個外部動作不是啟動crawler，而是先取得針對本專案、endpoint、用途、規模、
+保存與再發布條件的書面同意。未執行的 permission-request 草稿已從目前 checkout 移除，避免被
+誤認為有效授權；歷史版本仍可由 Git history 還原。若取得同意，再透過獲准方式確認來源當下 license、robots 與
 endpoint，凍結頁面/revision清單，然後再次請owner批准最多3個GET的canary。沒有回覆、拒絕或範圍
 不清楚時都必須維持blocked；不能改用proxy、browser impersonation、CAPTCHA繞過或搜尋快取補資料。
 
@@ -143,7 +147,7 @@ normalization collision，而不是靜默宣告同一identity。
 與現有兩個catalog來源做exact-key比較後，1個cluster同時有synthetic fixture與human draft候選，2個只有
 synthetic fixture候選，40個只有human draft候選，633個沒有exact候選；對應observations為1／8／126／
 1,628。這些都是review routing，不是canonical truth。676個clusters仍全部unresolved，approved links、
-canonical promotions、reviewed colors、SQL writes、network requests與Dual RAG changes都為0。
+canonical promotions、reviewed colors、SQL writes、network requests與 dual-corpus retrieval changes都為0。
 
 完整queue包含來源IDs、toy numbers、raw labels與candidate IDs，因此只存在gitignored local data；公開repo
 只保存`reports/local-release-casting-review-v1/`的aggregate counts與input/private-queue hashes。下一步應從
@@ -177,7 +181,7 @@ Review-family materialization現已完成。新的獨立registry把5個owner-con
 review-layer relationships，引用18筆互不合併且仍為`held_for_variant_review`的source releases。Registry
 本體留在gitignored local data，公開repo只保存input／registry hashes與5 relationships／18 references／
 0 exclusions aggregate。Candidate evidence維持`context_only_not_selected`；canonical、color、PostgreSQL、
-evaluation與Dual RAG indexing全部仍為0。下一個gate應評估這個registry是否要投影成非canonical的human
+evaluation與 dual-corpus retrieval indexing全部仍為0。下一個gate應評估這個registry是否要投影成非canonical的human
 knowledge source，不能直接跳到release promotion。
 
 五個local review families現已另行投影為5個private knowledge documents，涵蓋18筆source references。
@@ -232,8 +236,8 @@ development data與既有199題positive dev pack上比較admission policies；�
 - [x] HICS-T4 immutable historical loaders、223／22／24 exact-gate scoring、conditional protocol/inventory/pack/raw/selection lifecycle與五階段installed CLI已完成；58 focused／179 related tests通過，正式branch gate仍未執行，維持0 retrieval／0 formal v4 artifact。
 - [x] HICS-T5正式historical branch gate已完成且FAIL：exact／structural／bounded只保留42／82／137個existing positive hits（門檻168），雖然三者皆達成0 absent-identity output、2/2 secondary vetoes與0 computation/retrieval errors，仍無profile通過全部223／22／24 gates；`winner: null`，只保存三個calibration artifacts，HICS-T6–T8 blocked。
 - [x] HICS-T9 historical-FAIL closure已完成：QA review、public evidence、AI-eval、README／decision／Project Log與60 focused、181 related、924 full tests均已整理；v4不建立holdout或runtime integration，也不自動建立v5。
-- [x] Neural reranker comparison v1已完成NRC-T1–T10與GitHub交付。100-case synthetic/curated fixture benchmark的12個matched Test targets在RRF、Neural Pointwise、Neural Listwise皆為Top-1／MRR／Recall 12/12，4個matched hard negatives皆4/4；兩個neural arms的resolver p95為89.164／89.583 ms且0 error，但相對已滿分RRF的Top-1 gain皆為0.00，未達0.05 gate。正式結果為`winner: null`，RRF維持runtime default，沒有API／calibration／Dual RAG／PostgreSQL／canonical／Human Knowledge／release變更。Report/raw hashes、4項measured regressions、QA review、public evidence、AI-eval、README、Decision與Project Log一致；62 related與975 full tests全數通過。
-- [ ] Shadow evaluation通過後，才規劃opt-in Dual RAG runtime integration與API regression QA。
+- [x] Neural reranker comparison v1已完成NRC-T1–T10與GitHub交付。100-case synthetic/curated fixture benchmark的12個matched Test targets在RRF、Neural Pointwise、Neural Listwise皆為Top-1／MRR／Recall 12/12，4個matched hard negatives皆4/4；兩個neural arms的resolver p95為89.164／89.583 ms且0 error，但相對已滿分RRF的Top-1 gain皆為0.00，未達0.05 gate。正式結果為`winner: null`，RRF維持runtime default，沒有API／calibration／dual-corpus retrieval／PostgreSQL／canonical／Human Knowledge／release變更。Report/raw hashes、4項measured regressions、QA review、public evidence、AI-eval、README、Decision與Project Log一致；62 related與975 full tests全數通過。
+- [ ] 當時規劃：Shadow evaluation通過後，才評估 opt-in dual-corpus runtime integration 與 API regression QA。
 - [ ] 1,763筆release staging仍須逐批完成variant-level review；目前只有5個family relationships。
 - [ ] Color、wheel、tampo、edition與packaging大多仍未知，尚不能可靠辨識具體版本。
 - [ ] 約3,000筆真實來源資料擴充尚未完成；新增來源仍須先通過permission/provenance gate。

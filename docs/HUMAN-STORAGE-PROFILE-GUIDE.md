@@ -1,4 +1,8 @@
-# 下一步：讓服務選用人工知識儲存來源
+# Historical Guide — 人工知識儲存來源實驗
+
+> **Historical status:** 這份文件解釋已完成的 T49.3／T49.4 storage experiment，不是目前的
+> deployment 指南或下一步。現行架構請讀 [system overview](architecture/system-overview.md)；
+> runtime claim boundaries 請讀 [Limitations](LIMITATIONS.md)。
 
 2026-09-15，Lite mode。T49.3需求、實作與限定驗證均已完成：HSP-1封存輸入，HSP-2新增
 可選storage app，HSP-3證明file／PostgreSQL結果一致與失敗安全，HSP-4完成本機成本測量。
@@ -19,11 +23,12 @@ T49.2 證明142筆人工知識可以安全存進資料庫；測試庫已清理�
 Profile 可以理解成「明確選用的一組設定」，不是另一套商品真相。Snapshot 是指定版本
 的整份知識，不能選最新一份就算數，也不能少幾筆而悄悄補成另一個版本。
 
-## 資料庫與 RAG 各做什麼
+## 資料庫與 retrieval 各做什麼
 
 PostgreSQL負責保存、提供完整知識；服務啟動時驗證後在記憶體建索引，檢索仍使用原有
 casting identity gate、hashing embedding、RRF。這一步不是把向量 TopK 搬到 SQL。
-Dual RAG 的兩路仍分開：canonical RAG決定正式商品答案，human RAG只提供debug證據。
+Authority-separated dual-corpus retrieval 的兩路仍分開：catalog branch 才能決定正式商品答案，
+Human Knowledge branch 只提供 debug／review 證據。
 顏色／輪圈／tampo 的正式版本證據仍是後续release review，不會從casting結果自行推定。
 
 提議每次 `/health` 或有效 `/resolve` 前，再唯讀核對完整snapshot。若只啟動時讀一次，
@@ -108,7 +113,7 @@ canonical backend。正式nondebug response沒有storage欄，human仍只在debu
 HSP-3把固定199題分別交給file與真實PostgreSQL profile。兩路候選順序、分數、型別、
 UUID、payload與work counters全數相同，原canonical正式答案也沒有變；reader只能SELECT，
 資料缺失、被改或連線中斷會503且同一process不會偷偷恢復。這證明更換「保存位置」沒有
-更換Dual RAG的數學或答案權限，詳見[SQL正確性證據](evidence/t49-3-storage-profile-sql.md)。
+更換 retrieval 數學或答案權限，詳見[SQL正確性證據](evidence/t49-3-storage-profile-sql.md)。
 
 HSP-4再量「這個安全做法要花多久」。每組5次初始化、3次預熱後199次真實Uvicorn HTTP
 與199次純human retrieval，先保存raw再評分。p95如下；斜線前是file，後是PostgreSQL：

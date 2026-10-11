@@ -174,6 +174,24 @@ documented through `pyproject.toml` extras; local secrets belong in `.env`, whic
 Python 3.12 · FastAPI · Pydantic · PyTorch / Sentence Transformers · ONNX Runtime · PostgreSQL /
 pgvector · Pytest · Ruff · MyPy
 
+## Repository map
+
+| Path | Purpose |
+|---|---|
+| [`src/product_variant_resolver/`](src/product_variant_resolver/README.md) | Active runtime plus clearly classified experiment/governance modules |
+| [`tests/`](tests/README.md) | API, unit, integration, evaluation, authority, UI, and documentation checks |
+| [`data/`](data/README.md) | Runtime catalogs, frozen evaluation inputs/results, and source provenance |
+| [`docs/`](docs/README.md) | Current technical story, limitations, decisions, evidence, and historical index |
+| [`specs/`](specs/README.md) | Versioned requirements, designs, tasks, approvals, and QA reviews |
+| [`reports/`](reports/README.md) | Generated historical reports; evidence, not the product entry point |
+| [`artifacts/`](artifacts/README.md) | Published model packages retained for reproducibility |
+| [`scripts/`](scripts/README.md) | Maintenance and experiment CLIs; not all are active runtime operations |
+| [`runtime/`](runtime/README.md) | Frozen optional human-storage package metadata, not production deployment |
+| [`config/`](config/README.md) | Public, versioned model/retrieval configuration; never secrets |
+| [`constraints/`](constraints/README.md) | Pinned dependency sets for reproducible Python environments |
+| [`migrations/`](migrations/README.md) | Optional PostgreSQL/Alembic schema history |
+| [`ui/`](ui/README.md) | Minimal local demonstration UI |
+
 ## Start a deeper review
 
 | Topic | Start here |
@@ -189,6 +207,7 @@ pgvector · Pytest · Ruff · MyPy
 
 ## License and source note
 
-Repository code and third-party data have different provenance. Review the source-specific
-documentation before redistributing catalog material or model artifacts. This project does not
-claim manufacturer certification or global product coverage.
+No project-wide open-source license has been selected, so the absence of a root `LICENSE` must not
+be interpreted as redistribution permission. Repository code, third-party data, and model artifacts
+have different provenance; review source/package-specific documentation before reuse. This project
+does not claim manufacturer certification or global product coverage.

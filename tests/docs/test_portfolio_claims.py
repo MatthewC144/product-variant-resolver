@@ -20,6 +20,18 @@ PUBLIC_DOCS = (
     ROOT / "docs/ARTIFACT-POLICY.md",
     ROOT / "docs/architecture/system-overview.md",
     ROOT / "docs/archive/README.md",
+    ROOT / "artifacts/README.md",
+    ROOT / "config/README.md",
+    ROOT / "constraints/README.md",
+    ROOT / "data/README.md",
+    ROOT / "migrations/README.md",
+    ROOT / "reports/README.md",
+    ROOT / "runtime/README.md",
+    ROOT / "scripts/README.md",
+    ROOT / "specs/README.md",
+    ROOT / "src/product_variant_resolver/README.md",
+    ROOT / "tests/README.md",
+    ROOT / "ui/README.md",
 )
 MARKDOWN_LINK = re.compile(r"(?<!!)\[[^]]+\]\(([^)]+)\)")
 

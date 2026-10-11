@@ -3224,3 +3224,25 @@ Future evidence can reopen them without rewriting the historical reason they wer
   a seven-file Code Tour, canonical limitations, artifact policy, and archive entry. Active-core
   Ruff/MyPy pass. A type-only `service.py` cast required updating the exact current-wrapper hash;
   historical source/math hashes and runtime behavior remain unchanged and parity tests pass.
+
+## D76 — Organize by reader intent instead of deleting reproducibility evidence
+
+- **Choice:** add directory-level GitHub indexes and historical status banners, remove one obsolete
+  non-evidentiary permission-request draft, and retain every hash-bound model/report/snapshot. Use
+  `.gitattributes` to improve binary/generated rendering without changing artifact bytes.
+- **Reason:** the repository's 1,112 tracked files are mostly deliberate experiment lineage, not
+  accidental cache. Mass deletion would make the repo look smaller while invalidating the evidence
+  behind its AI-engineering claims. The real ambiguity was that active and historical material had
+  no entry-point classification.
+- **Alternatives:** delete all non-runtime modules; move all evidence into archive paths; deduplicate
+  checkpoint packages with symlinks; or rewrite Git history. These break tests/manifests, relative
+  links, cross-platform package independence, or recovery expectations.
+- **10x alternative considered:** migrate binaries to signed GitHub Releases/LFS, publish a generated
+  evidence catalog, and split runtime/experiments into separate installable packages. This could
+  reduce clone size and import surface, but requires a separate hash/link/release migration.
+- **Most likely failure:** an old roadmap is mistaken for current work, or a published checkpoint is
+  mistaken for an active model. Historical banners, folder indexes, claim language, and hygiene
+  tests now make those statuses explicit.
+- **Impact:** thirteen directory indexes and one root repository map create a navigable checkout;
+  README remains within 250 lines. One recoverable unexecuted permission draft was removed. Models,
+  metrics, runtime, data, authority, and historical lineage remain unchanged.

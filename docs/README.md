@@ -18,7 +18,6 @@ or `reports/` only when exact lineage is needed.
 |---|---|
 | End-to-end resolver | [System overview](architecture/system-overview.md) |
 | MVP contracts and original architecture | [MVP evidence](evidence/product-variant-resolver-mvp.md) |
-| Human Knowledge storage profile | [Storage profile guide](HUMAN-STORAGE-PROFILE-GUIDE.md) |
 
 ## AI / ML experiments
 
@@ -53,3 +52,7 @@ The repository intentionally retains rejected models, blocked gates, frozen mani
 benchmarks. They are evidence of experimental discipline, not the recommended first reading path.
 Use the [historical archive entry](archive/README.md) to choose the relevant lineage.
 
+Completed storage/catalog plans that still live at stable paths are explicitly bannered historical:
+[storage profile](HUMAN-STORAGE-PROFILE-GUIDE.md),
+[catalog roadmap](REAL-CATALOG-ROADMAP.md), and
+[isolated PostgreSQL plan](T49-2-ISOLATED-TEST-PLAN.md).

@@ -31,3 +31,8 @@ not deleted or rewritten.
 - [`specs/`](../../specs/) for requirement/design/task/review contracts
 - [`reports/`](../../reports/) for generated historical reports
 
+## Retired planning content
+
+The unexecuted Fandom permission-request template was removed during repository hygiene cleanup
+because it was time-sensitive guidance, not evidence that permission existed. Its prior bytes remain
+recoverable from Git history; current source provenance is documented under `data/external/`.

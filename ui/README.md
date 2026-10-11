@@ -1,12 +1,15 @@
-# Debug UI
+# Local Demo UI
 
-This directory contains a dependency-free HTML/CSS/Vanilla JavaScript diagnostic page for the
-documented `POST /resolve` API.
+This directory contains a minimal static interface for local resolver demonstrations. It is served
+by the FastAPI application and does not have a separate frontend build pipeline.
 
-The page intentionally requests the same-origin `/resolve` route with `debug=true`. Serve these
-files from the API origin (for example, mount `ui/` as the application's static root) so the UI
-does not require an additional CORS policy. Static-file routing is an integration concern; the UI
-does not change the FastAPI contract or implement resolution logic.
+The UI displays resolver outcomes and bounded debug evidence when enabled. It does not capture
+livestream frames, call image search, query prices, activate neural checkpoints, or prove a deployed
+product experience.
 
-All API-supplied values are rendered through `textContent`. Candidate depth is clamped to the
-contracted range of 1–25 before a request is sent.
+It requests same-origin `POST /resolve` with `debug=true`, renders API-supplied values through
+`textContent`, and clamps candidate depth to the contracted 1–25 range. Serving it from another
+origin would require a separately reviewed CORS policy.
+
+For the API contract, start with [`api.py`](../src/product_variant_resolver/api.py) and the
+[Code Tour](../docs/CODE-TOUR.md).

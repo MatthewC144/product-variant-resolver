@@ -1,0 +1,4 @@
+*.safetensors binary
+reports/**/*.json linguist-generated=true
+data/evaluation/**/*.json linguist-generated=true
+
