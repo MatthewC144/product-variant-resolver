@@ -3128,3 +3128,28 @@ Future evidence can reopen them without rewriting the historical reason they wer
   even a passed policy Gate would still not establish organic marketplace generalization.
 - **10x condition:** Only a much larger independently sampled traffic corpus with stable precision,
   coverage and operational evidence would justify replacing this bounded portfolio Gate.
+
+## D72 — Reject a cross-source policy when calibration cannot satisfy the frozen match Gate
+
+- **Choice:** combine the 100 existing positive development identities with 40 newly collected
+  no-match development identities, keep paired Image/Lens and Shopping observations in the same
+  fit/selection group, compare logistic, isotonic and temperature calibration, and emit no policy
+  when the winning method cannot accept five observations at 90% exact precision.
+- **Reason:** five-feature logistic has the best selection Brier score (`0.190535`), but only 29/60
+  catalog-present observations are exact Top-1, including 8/30 for Image/Lens. Calibration can map
+  ranking evidence to probability; it cannot repair an incorrect Top-1 release. Lowering the Gate
+  after observing this result would convert a safety criterion into a post-hoc target.
+- **Alternatives:** choose isotonic because its ECE is lower; select a threshold with fewer than five
+  observations; lower precision; open the fresh holdout; or reuse the already-opened ranking final.
+  These violate the predeclared selection rule, produce an unstable operating point or leak final
+  evidence into development.
+- **10x alternative considered:** collect a much larger organic marketplace corpus with independent
+  exact-release adjudication and fit hierarchical source-conditional calibration with uncertainty
+  intervals. That is a stronger production study; it is not a valid reinterpretation of this
+  bounded development result.
+- **Most likely failure:** treating a successful calibration pipeline as a successful policy. The
+  artifact therefore reports `development_calibration_gate_shortfall`, omits `policy.json`, records
+  zero fresh-holdout scoring and leaves runtime ineligible.
+- **Impact:** 196 fit and 84 selection observations were scored; the selection artifact SHA-256 is
+  `11caad121fa32a006abdc7cb08e8138a651bfcea5f76837471268fd65cee14e6`. The next work must remain on
+  development data and predeclare source-specific diagnosis or ranking remediation before execution.

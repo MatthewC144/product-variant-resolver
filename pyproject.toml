@@ -52,6 +52,7 @@ pvr-calibrate-pointwise-three-class = "product_variant_resolver.pointwise_three_
 pvr-audit-pointwise-policy-holdout = "product_variant_resolver.pointwise_policy_holdout_readiness:main"
 pvr-evaluate-pointwise-no-match-holdout = "product_variant_resolver.pointwise_no_match_holdout_evaluation:main"
 pvr-evaluate-pointwise-balanced-holdout = "product_variant_resolver.pointwise_balanced_holdout_evaluation:main"
+pvr-calibrate-serper-dual-source-policy = "product_variant_resolver.serper_dual_source_policy_calibration:main"
 pvr-ingest = "product_variant_resolver.postgres_ingestion:main"
 pvr-stage-releases = "product_variant_resolver.release_staging:main"
 pvr-import-release-staging = "product_variant_resolver.postgres_release_staging:main"

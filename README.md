@@ -266,9 +266,10 @@ is selected for calibration, final evaluation, or runtime. See the
   calibration or threshold selection; only the 20 negatives were fully frozen before policy access.
 - Pointwise ranking improved, but the calibrated policy abstains on 73.97% of the combined test and
   is explicitly not runtime-authorized.
-- A deterministic [dual-source runtime-readiness audit](data/evaluation/serper-dual-source-runtime-readiness-v1/readiness.json)
-  blocks recalibration until source-matched no-match development data and a fresh positive/negative
-  policy holdout exist; the opened 50-target ranking final cannot be reused.
+- The source-matched policy dataset now exists, but the
+  [development calibration result](data/evaluation/serper-dual-source-policy-calibration-v1/selection.json)
+  cannot meet the preregistered 90%-precision/five-accept match Gate. No policy was emitted, the
+  fresh 40-target policy holdout remains unopened, and runtime stays blocked.
 - Default `hashing-v1` similarity is deterministic and non-neural; it is not a learned embedding
   model. Pointwise/Listwise remain local offline evaluation paths.
 - Production concurrency, remote networking, TLS, sustained PostgreSQL load, broad marketplace
@@ -311,7 +312,7 @@ was deleted; the checked-in sources below remain the authoritative evidence.
 |---|---|
 | Core MVP, contract, and QA | [MVP brief](specs/product-variant-resolver/mvp-brief.md), [QA review](specs/product-variant-resolver/review.md), [public evidence](docs/evidence/product-variant-resolver-mvp.md), [fixture report](reports/fixture-v1/evaluation-fixture-v1-test.md) |
 | Neural comparison | [comparison report](reports/neural-reranker-comparison-v1/comparison.md), [public evidence](docs/evidence/neural-reranker-comparison-v1.md), [QA review](specs/neural-reranker-comparison/review.md) |
-| Dual-source Image/Shopping ranking | [300-row dataset](data/evaluation/serper-dual-source-query-v1/dataset.json), [development ablation](data/evaluation/serper-dual-source-evaluation-v1/raw-pointwise-development.json), [one-shot final](data/evaluation/serper-dual-source-evaluation-v1/raw-pointwise-final-test.json), [runtime-readiness audit](data/evaluation/serper-dual-source-runtime-readiness-v1/readiness.json), [QA review](specs/serper-dual-source-runtime-readiness-v1/review.md), [AI-eval evidence](docs/evidence/ai-evals/serper-dual-source-runtime-readiness-v1.md) |
+| Dual-source Image/Shopping ranking and policy calibration | [300-row positive dataset](data/evaluation/serper-dual-source-query-v1/dataset.json), [160-row policy dataset](data/evaluation/serper-dual-source-policy-query-v1/dataset.json), [one-shot ranking final](data/evaluation/serper-dual-source-evaluation-v1/raw-pointwise-final-test.json), [development calibration shortfall](data/evaluation/serper-dual-source-policy-calibration-v1/selection.json), [calibration QA](specs/serper-dual-source-policy-calibration-v1/review.md), [AI-eval evidence](docs/evidence/ai-evals/serper-dual-source-policy-calibration-v1.md) |
 | Real-catalog ranking and calibrated policy | [53-case final comparison](data/evaluation/image-search-release-ranking-v1/final-comparison.json), [three-class QA](specs/pointwise-three-class-development-calibration/review.md), [balanced policy QA](specs/pointwise-balanced-holdout-evaluation-v1/review.md), [AI-eval evidence](docs/evidence/ai-evals/pointwise-balanced-holdout-v1.md) |
 | Human-labeled import and catalog alignment | [source manifest](data/human_labeled_names_manifest.json), [real-noisy-data evaluation](docs/evidence/ai-evals/human-labeled-real-noisy-v1.md), [alignment evaluation](docs/evidence/ai-evals/human-catalog-alignment-v1.md), [human-backed catalog evaluation](docs/evidence/ai-evals/human-backed-catalog-v1.md) |
 | Human Knowledge, review-family authority, and retrieval evaluation | [family-level contract](specs/family-level-human-knowledge/requirements.md), [family QA](specs/family-level-human-knowledge/review.md), [v2 final evaluation](reports/family-retrieval-v2/evaluation.md), [final evidence](docs/evidence/family-retrieval-final-v2.md), [identity-bounded QA](specs/human-knowledge-identity-bounded-retrieval/review.md) |

@@ -47,12 +47,14 @@ records, with 100 identities reserved for development and 50 for a one-shot fina
 from 86% to 95%, and MRR@10 from 0.722 to 0.792 over RRF. I also reported the trade-off: Recall@10
 fell from 99% to 98% while Recall@25 stayed at 99%.
 
-That ranking experiment is separate from the frozen decision policy. In its earlier output-blind
-evaluation on 53 positives plus 20 catalog-relative negatives, the policy made no false matches on
-the negative holdout and every accepted positive was exact, but it abstained on 74% of cases. I kept
-runtime disabled instead of lowering thresholds on final holdouts. The project therefore demonstrates
-both measurable neural ranking gains and a willingness to hold deployment when calibrated coverage
-is still too low.
+That ranking experiment is separate from the decision policy. In the earlier output-blind evaluation
+on 53 positives plus 20 catalog-relative negatives, the policy made no false matches on the negative
+holdout and every accepted positive was exact, but it abstained on 74% of cases. A newer source-matched
+development experiment compared logistic, isotonic and temperature calibration across paired
+Image/Lens and Shopping observations. Logistic had the best Brier score (`0.1905`), but no threshold
+could accept five observations at 90% exact precision, so the system emitted no policy and kept the
+fresh 40-target holdout sealed. The project therefore demonstrates both measurable neural ranking
+gains and a willingness to hold deployment when calibrated safety/coverage is insufficient.
 
 ## 4. What to show during a code review
 
@@ -61,8 +63,9 @@ is still too low.
 2. Open the [dual-source one-shot final result](../data/evaluation/serper-dual-source-evaluation-v1/raw-pointwise-final-test.json)
    and compare RRF with frozen Pointwise across Image/Lens and Shopping, including the Recall@10
    trade-off and the paired-observation denominator.
-3. Open the [balanced policy QA review](../specs/pointwise-balanced-holdout-evaluation-v1/review.md)
-   and discuss precision, recall, abstention, output blindness and why runtime remains held.
+3. Open the [dual-source calibration QA](../specs/serper-dual-source-policy-calibration-v1/review.md)
+   and discuss Brier/NLL/ECE, risk/coverage, holdout isolation and why the failed match Gate emits no
+   policy.
 4. Open the [domain ranker v2 selection evidence](evidence/domain-ranker-v2-selection.md) and explain
    how hard-negative mining, validation-only early stopping, ONNX equivalence and frozen selection
    gates can legitimately end in `winner: null`.
@@ -78,6 +81,7 @@ is still too low.
 | Dual-source query data | 150 catalog-bound identities, each represented by one Image/Lens and one Shopping record: 300 records total, split 100/50 by identity | 300 independent products, organic marketplace traffic or representative production traffic | [dataset](../data/evaluation/serper-dual-source-query-v1/dataset.json) |
 | Dual-source ranking result | On the one-shot final, combined Pointwise exact Top-1 `55% → 64%`, casting Top-1 `86% → 95%`, MRR@10 `0.722 → 0.792`; `n=100` source observations from 50 identities | Runtime-policy accuracy, universal superiority or 100 independent final products | [final result](../data/evaluation/serper-dual-source-evaluation-v1/raw-pointwise-final-test.json) |
 | Ranking trade-off | Combined Recall@10 `99% → 98%`; Recall@25 remained 99% | Improvement on every ranking metric | [final AI-eval](evidence/ai-evals/serper-dual-source-raw-pointwise-final-test-v1.md) |
+| Dual-source calibration | Logistic won the development comparison at Brier `0.1905`, but no cross-source threshold met the five-accept/90%-precision match Gate; no policy emitted and 40-target holdout unopened | Runtime readiness, successful selective prediction or final-test performance | [calibration AI-eval](evidence/ai-evals/serper-dual-source-policy-calibration-v1.md) |
 | Positive query data | 153 unique image-search-derived, catalog-bound queries; 100 development and 53 test | Representative live-marketplace traffic | [dataset](../data/evaluation/image-search-resolver-v1/dataset.json) |
 | Ranking result | Pointwise exact Top-1 `36/53` vs RRF `29/53` on the frozen test | Production accuracy or universal superiority | [final comparison](../data/evaluation/image-search-release-ranking-v1/final-comparison.json) |
 | Pointwise/Listwise | Local offline reranking arms over identical frozen Top-25 candidates | Active default FastAPI neural reranking | [ranking spec](../specs/image-search-release-ranking/mvp-brief.md) |

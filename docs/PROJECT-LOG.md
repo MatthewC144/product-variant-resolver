@@ -13239,3 +13239,41 @@ Validation 同值只顯示兩個固定 seeds 的最佳 checkpoint 在這一區�
 `generic_vs_domain_winner_selected=false`，selection rows read/scored、model-selection runs、calibration、fresh final evaluation 與
 runtime activation 全是 0。下一步 DRV2-T6 必須另經 Owner Gate，先凍結 exact Top-1、casting Top-1、MRR@10、Recall@25、
 same-family accuracy、latency 與 two-seed qualification/tie rules，再一次性打開 30 筆 selection；T5 不自動授權該比較。
+
+## 2026-10-11 — SDSPC-v1：完成雙來源 development calibration，安全 Gate 阻擋 policy
+
+### 新執行了什麼、解決什麼問題
+
+本輪把新收集的 80 identities／160 records 真正接入 policy calibration，而不只停留在資料存在。流程沿用既有 100 個
+positive development identities，加入 40 個 no-match development identities；同一 identity 的 Image/Lens 與 Shopping
+兩筆觀察永遠進入同一 partition。最終 fit 為 98 identities／196 observations，threshold selection 為 42 identities／84
+observations。新資料內另有 20 positive 與 20 no-match holdout identities，正式執行時 scoring count 維持 0；先前已打開的
+50-target ranking final 也完全未重用。
+
+這一步解決的是「Pointwise 排名分數能否轉成可採取 match／ambiguous／no_match 決策」的問題。比較結果中，five-feature
+logistic 以 Brier `0.190535`、NLL `0.566745`、ECE `0.184484`、AURC `0.479008` 勝出；isotonic 雖然 ECE 較低，
+但 Brier 較差，因此依事前規則不入選。勝出方法仍無法在至少五筆輸出的條件下達到 90% exact precision，故產物狀態為
+`development_calibration_gate_shortfall`，沒有建立 `policy.json`，也沒有啟用 runtime。
+
+### 代碼修改了哪一部分、原因與技術／方法選型
+
+新增 `serper_dual_source_policy_calibration.py` 與 CLI，負責 dataset/schema/hash 驗證、identity-grouped deterministic split、
+既有 RRF Top-25 + generic MiniLM Pointwise scoring、三種 calibration 比較、reliability/risk-coverage 統計、threshold Gate 及
+aggregate-only integrity check。Logistic 使用既有五個 ranking features，可利用 margin、rank 與衝突訊號；isotonic 提供
+不假設函數形狀的單分數 baseline；temperature scaling 則是最小參數的單調 baseline。三者使用完全相同的 fit/selection
+rows，避免資料差異污染方法比較。
+
+沒有因 Image/Lens 表現較差就臨時改成 source-specific threshold，也沒有在看到結果後降低門檻。在每來源 30 筆
+catalog-present selection observations 中，exact Top-1 為 Image/Lens `8/30`、Shopping `21/30`；另外各有 12 筆 no-match。
+校準只能重新解釋信心，無法修復錯誤排序。Fail closed 比產生一個看似完整但不安全的 policy 更符合 resolver 的目標。
+公開 JSON 只保留 calibrator parameters 與 aggregate metrics，遞迴 guard 禁止 query、target、label、prediction 等逐筆欄位。
+
+### 驗證結果、限制與下一步
+
+Calibrators SHA-256 為 `dd0be892626729b77a707b4cc7955724e25497d6e87d3a420f21f00dae1cbb08`；selection SHA-256
+為 `11caad121fa32a006abdc7cb08e8138a651bfcea5f76837471268fd65cee14e6`。新模組與測試通過 Ruff、format、strict MyPy；
+新 calibration、既有 dual-source evaluation 與既有 three-class calibration 共 29 tests 通過；CLI `--check` 回傳 valid。
+
+本輪結果證明 calibration／selective-prediction 工程流程已實作，但不證明 policy 可上線。Fresh 40-target holdout 仍封存，
+FastAPI default、model weights、candidate features 與 runtime 都未改。下一個必要工作不是 final evaluation，而是在 development
+資料內診斷 Image/Lens ranking failure，並在新版本執行前決定要測 source-conditional policy 還是補強 ranking evidence。
