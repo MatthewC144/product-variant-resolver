@@ -2,10 +2,11 @@
 
 ## Overview
 
-The existing benchmark evaluates one result title at a time. FlipRadar actually receives several
-Serper Lens hits for one screenshot before identity normalization. This milestone adds the missing
-dataset boundary so a later experiment can compare top-title, deterministic consensus and learned
-result-set aggregation fairly.
+The existing Product Variant Resolver benchmark evaluates one result title at a time. The previous
+FlipRadar project received several Serper Lens hits for one screenshot before identity
+normalization. This milestone adds an auxiliary offline dataset so a later experiment can compare
+top-title, deterministic consensus and learned result-set aggregation fairly. It does not change
+the resolver's runtime architecture or API contract.
 
 ## Architecture
 
@@ -65,7 +66,6 @@ dataset directory containing only `dataset.json`.
 
 ## Decision
 
-Freeze result-set evidence before designing aggregation. This prevents the next AI experiment from
-being optimized against synthetic single-title inputs that do not match the livestream product
-flow.
-
+Freeze auxiliary result-set evidence before designing any optional aggregation experiment. This
+supports upstream transfer research while preserving the current single-title resolver, Dual-RAG,
+ranking and calibration architecture unchanged.

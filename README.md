@@ -6,11 +6,11 @@ Product Variant Resolver maps noisy Hot Wheels marketplace titles to canonical p
 using hybrid retrieval, structured evidence, calibrated abstention, and a provenance-aware
 human-review boundary.
 
-It was created as the identity layer missing from the earlier FlipRadar livestream workflow:
-a frame is captured, reverse image search returns several noisy product titles, those results must
-be converted into one trustworthy catalog identity, and only then should a downstream API search
-for comparable prices. The core problem is therefore not image hosting or price arithmetic; it is
-turning uncertain search evidence into the correct product variant without guessing.
+The project was motivated by an earlier FlipRadar livestream workflow: a frame was captured,
+reverse image search returned noisy product titles, those titles were cleaned, and a downstream API
+looked up comparable prices. That is predecessor-project context only. Product Variant Resolver
+remains a standalone entity-resolution system whose responsibility is to turn noisy product text
+and structured evidence into a trustworthy catalog identity without guessing.
 
 > **Scope disclosure:** current headline ranking evidence uses a frozen **1,763-release third-party
 > community snapshot** plus 150 paired targets collected through Serper Image/Lens and Shopping
@@ -42,15 +42,7 @@ request ends in one of three observable outcomes:
 ## Architecture
 
 ```text
-livestream frame (FlipRadar / external capture layer)
-          |
-   reverse image search
-          |
- ordered noisy title hits
-          |
- result-set normalization / evidence aggregation
-          |
-noisy product identity evidence
+noisy marketplace title
           |
    signal extraction
           |
@@ -62,18 +54,16 @@ noisy product identity evidence
                                                                               |
                                                                frozen calibration + policy
                                                                               |
-                                                        matched | ambiguous | no_match
-                                                                     |
-                                                        downstream pricing query/API
+                                                       matched | ambiguous | no_match
 
 Human Knowledge retrieval --------------------------------> explanation and review evidence
                                                            only; never canonical UUID authority
 ```
 
-The current FastAPI endpoint resolves one title at a time. The new result-set contract is being
-added as a separate development boundary before any multi-title aggregation is activated. This
-keeps the existing measured single-title path intact while making the actual screenshot-to-price
-product flow explicit and testable.
+The FastAPI and resolver architecture continue to accept a noisy title and return a canonical
+identity decision. Screenshot capture, reverse-image-search orchestration and price lookup remain
+outside this repository. A separate multi-result corpus is retained only as an auxiliary offline
+benchmark inspired by the predecessor workflow; it does not replace this runtime contract.
 
 The default similarity path uses `hashing-v1`, a deterministic hashing-based representation. It is
 **not a learned neural embedding model**. Sparse, similarity-based, and structured retrieval create
@@ -122,11 +112,12 @@ deterministically cleaned form retained. The final test compares source behavior
 the two records for one target as 100 independent product identities.
 
 A separate development-only
-[result-set dataset](data/evaluation/image-search-result-set-query-v1/dataset.json) now models the
-original livestream boundary more faithfully: 140 frozen identities retain an ordered list of up
-to ten Lens titles, for 1,108 title hits total. Twenty-three targets have empty result sets and remain
-in the corpus as provider-coverage failures. This dataset has not yet been used to select an
-aggregation method or claim screenshot-level accuracy.
+[result-set dataset](data/evaluation/image-search-result-set-query-v1/dataset.json) is an auxiliary
+transfer benchmark inspired by the predecessor project's upstream search results: 140 frozen
+identities retain an ordered list of up to ten Lens titles, for 1,108 title hits total. Twenty-three
+targets have empty result sets and remain in the corpus as provider-coverage failures. It does not
+change the current API or architecture and has not been used to select an aggregation method or
+claim screenshot-level accuracy.
 
 Query authoring, label review, canonical promotion, development selection, final evaluation, and
 runtime activation use separate hash-bound Gates. Historical blocked audits remain intact beside
@@ -341,7 +332,7 @@ was deleted; the checked-in sources below remain the authoritative evidence.
 | Core MVP, contract, and QA | [MVP brief](specs/product-variant-resolver/mvp-brief.md), [QA review](specs/product-variant-resolver/review.md), [public evidence](docs/evidence/product-variant-resolver-mvp.md), [fixture report](reports/fixture-v1/evaluation-fixture-v1-test.md) |
 | Neural comparison | [comparison report](reports/neural-reranker-comparison-v1/comparison.md), [public evidence](docs/evidence/neural-reranker-comparison-v1.md), [QA review](specs/neural-reranker-comparison/review.md) |
 | Dual-source Image/Shopping ranking and policy calibration | [300-row positive dataset](data/evaluation/serper-dual-source-query-v1/dataset.json), [160-row policy dataset](data/evaluation/serper-dual-source-policy-query-v1/dataset.json), [one-shot ranking final](data/evaluation/serper-dual-source-evaluation-v1/raw-pointwise-final-test.json), [development calibration shortfall](data/evaluation/serper-dual-source-policy-calibration-v1/selection.json), [calibration QA](specs/serper-dual-source-policy-calibration-v1/review.md), [AI-eval evidence](docs/evidence/ai-evals/serper-dual-source-policy-calibration-v1.md) |
-| Screenshot-to-search result-set boundary | [140-record/1,108-title development dataset](data/evaluation/image-search-result-set-query-v1/dataset.json), [dataset QA](specs/image-search-result-set-resolution-v1/review.md), [readiness evidence](docs/evidence/ai-evals/image-search-result-set-readiness-v1.md) |
+| Auxiliary multi-result Image/Lens benchmark | [140-record/1,108-title development dataset](data/evaluation/image-search-result-set-query-v1/dataset.json), [dataset QA](specs/image-search-result-set-resolution-v1/review.md), [readiness evidence](docs/evidence/ai-evals/image-search-result-set-readiness-v1.md) |
 | Real-catalog ranking and calibrated policy | [53-case final comparison](data/evaluation/image-search-release-ranking-v1/final-comparison.json), [three-class QA](specs/pointwise-three-class-development-calibration/review.md), [balanced policy QA](specs/pointwise-balanced-holdout-evaluation-v1/review.md), [AI-eval evidence](docs/evidence/ai-evals/pointwise-balanced-holdout-v1.md) |
 | Human-labeled import and catalog alignment | [source manifest](data/human_labeled_names_manifest.json), [real-noisy-data evaluation](docs/evidence/ai-evals/human-labeled-real-noisy-v1.md), [alignment evaluation](docs/evidence/ai-evals/human-catalog-alignment-v1.md), [human-backed catalog evaluation](docs/evidence/ai-evals/human-backed-catalog-v1.md) |
 | Human Knowledge, review-family authority, and retrieval evaluation | [family-level contract](specs/family-level-human-knowledge/requirements.md), [family QA](specs/family-level-human-knowledge/review.md), [v2 final evaluation](reports/family-retrieval-v2/evaluation.md), [final evidence](docs/evidence/family-retrieval-final-v2.md), [identity-bounded QA](specs/human-knowledge-identity-bounded-retrieval/review.md) |

@@ -13278,14 +13278,15 @@ Calibrators SHA-256 為 `dd0be892626729b77a707b4cc7955724e25497d6e87d3a420f21f00
 FastAPI default、model weights、candidate features 與 runtime 都未改。下一個必要工作不是 final evaluation，而是在 development
 資料內診斷 Image/Lens ranking failure，並在新版本執行前決定要測 source-conditional policy 還是補強 ranking evidence。
 
-## 2026-10-11 — ISRS-v1 T1–T2：重新對齊直播截圖產品目標並建立 result-set contract
+## 2026-10-11 — ISRS-v1 T1–T2：記錄前專案動機並建立輔助 result-set benchmark
 
 ### 新執行了什麼、解決什麼問題
 
-Owner 補充本專案真正來源：前一個 FlipRadar 會擷取直播畫面，交給 image search，再清理搜尋結果後呼叫價格 API；最想改善的
-不是價格運算，而是 image-search evidence 到正確商品身分的中間層。本輪重新讀取前專案實作，確認 Serper Lens 實際最多取
-10 個 title-like hits，經品質分數與 cluster consensus 產生至多三個 candidates，再由 identity normalizer 形成 pricing keyword。
-相對地，目前 Product Variant Resolver 的 headline benchmark 每個 identity 只保存一條 Image/Lens title，並未測到多結果融合。
+Owner 補充並再次確認：前一個 FlipRadar 的核心流程是擷取直播畫面、交給 image search、清理搜尋結果，再呼叫價格 API；這段
+流程是 Product Variant Resolver 的問題來源與整合背景，不是本 repo 的 runtime architecture。現有 entity-resolution、Dual-RAG、
+ranking 與 calibration 流程全部保留。本輪重新讀取前專案實作，確認 Serper Lens 實際最多取 10 個 title-like hits，經品質分數與
+cluster consensus 產生至多三個 candidates，再由 identity normalizer 形成 pricing keyword。新增資料只作為輔助 offline benchmark，
+用來研究多結果 evidence 是否能改善既有 title-to-catalog resolution，不改寫專案邊界。
 
 前專案的 101 筆人工 identity labels 中有 95 筆 Hot Wheels；85 筆 Hot Wheels case 仍保留 2–3 個 recognition candidates。
 但這批人工資料主要是 casting-level label，缺少可普遍支持 toy number 與完整 release 的 authority，所以沒有把它們硬升格成
@@ -13318,5 +13319,5 @@ Aggregate signal audit 顯示 117/140 sets 含至少 80% casting tokens、60/140
 Dataset SHA-256 是 `7839efc44ced91fe4ae885b7d3019c8d442fcf262fce73470713df52ff8c4e75`。正式目錄只保留
 `dataset.json`；key、URL、image、payload、timestamp、collector 與 checkpoint 都不進 Git，暫存目錄在驗證後刪除。沒有讀取
 50-target ranking final 或 40-target policy holdout，也沒有 scoring、aggregation model、calibration、`/resolve` 或價格 API 變更。
-下一步才是用這 140 筆 development data 事前定義 top-title、multi-title voting、deterministic fusion 與 learned aggregator
-的公平比較；在此之前不能宣稱 screenshot-level accuracy。
+若後續需要，可用這 140 筆 development data 事前定義 top-title、multi-title voting、deterministic fusion 與 learned
+aggregator 的離線比較；這是可選的輔助實驗，不是現有 resolver 流程的替代品。在此之前不能宣稱 screenshot-level accuracy。

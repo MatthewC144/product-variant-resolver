@@ -6,12 +6,15 @@ abstaining prototype, not a production or manufacturer-certified resolver.
 
 ## 1. Positioning
 
-**Headline:** Confidence-aware identity resolution between reverse image search and pricing APIs.
+**Headline:** Confidence-aware product entity resolution for noisy marketplace listings.
 
-**One-line description:** Product Variant Resolver converts noisy title evidence returned from a
-livestream screenshot's reverse-image search into a canonical release identity before downstream
-price lookup, using hybrid retrieval, Pointwise reranking, calibrated abstention, and a Dual-RAG
+**One-line description:** Product Variant Resolver maps noisy product titles to canonical release
+identities using hybrid retrieval, Pointwise reranking, calibrated abstention, and a Dual-RAG
 authority boundary.
+
+The earlier FlipRadar screenshot → reverse-image-search → title-cleaning → price-API flow explains
+why this resolver was created, but it is not this repository's runtime architecture. This project
+starts from noisy product text/evidence and ends at an identity decision.
 
 Use **entity resolution** as the primary category. “Dual RAG” describes the internal two-corpus
 architecture, not a generative answer system: only canonical catalog retrieval may emit a UUID;
@@ -37,7 +40,9 @@ system captured the current frame, sent it to reverse image search, cleaned the 
 titles, then used the resulting keyword for price lookup. The weak link was identity: cleaning one
 title could drop useful identifiers or retain the wrong year and series. I therefore built Product
 Variant Resolver as confidence-aware entity resolution rather than asking an LLM to generate a nicer
-keyword. It extracts structured signals, retrieves catalog candidates through sparse search,
+keyword. That predecessor flow is motivation and integration context only: this repository keeps
+its standalone title/evidence-to-identity boundary and does not own screenshot capture or pricing.
+It extracts structured signals, retrieves catalog candidates through sparse search,
 deterministic non-neural hashing similarity and structured evidence, then fuses ranks with RRF. A
 local MiniLM Pointwise cross-encoder can rerank the same frozen candidates, and a calibrated policy
 returns `matched`, `ambiguous`, or `no_match`.
@@ -83,7 +88,7 @@ gains and a willingness to hold deployment when calibrated safety/coverage is in
 | Project category | Confidence-aware entity resolution with a Dual-RAG authority boundary | Generative RAG chatbot or LLM-generated answer system | [MVP evidence](evidence/product-variant-resolver-mvp.md) |
 | Catalog | Frozen 1,763-release third-party community snapshot for staging/evaluation | Mattel-certified, complete or global Hot Wheels catalog | [source README](../data/external/hot-wheels-wiki/README.md) |
 | Dual-source query data | 150 catalog-bound identities, each represented by one Image/Lens and one Shopping record: 300 records total, split 100/50 by identity | 300 independent products, organic marketplace traffic or representative production traffic | [dataset](../data/evaluation/serper-dual-source-query-v1/dataset.json) |
-| Image-search result-set data | 140 development identities with up to ten ordered Lens titles each; 1,108 titles total and 23 empty sets retained | Resolver accuracy, live screenshot accuracy or an aggregation-model result | [dataset](../data/evaluation/image-search-result-set-query-v1/dataset.json) |
+| Auxiliary image-search result-set data | 140 development identities with up to ten ordered Lens titles each; 1,108 titles total and 23 empty sets retained | A changed runtime boundary, resolver accuracy, live screenshot accuracy or an aggregation-model result | [dataset](../data/evaluation/image-search-result-set-query-v1/dataset.json) |
 | Dual-source ranking result | On the one-shot final, combined Pointwise exact Top-1 `55% → 64%`, casting Top-1 `86% → 95%`, MRR@10 `0.722 → 0.792`; `n=100` source observations from 50 identities | Runtime-policy accuracy, universal superiority or 100 independent final products | [final result](../data/evaluation/serper-dual-source-evaluation-v1/raw-pointwise-final-test.json) |
 | Ranking trade-off | Combined Recall@10 `99% → 98%`; Recall@25 remained 99% | Improvement on every ranking metric | [final AI-eval](evidence/ai-evals/serper-dual-source-raw-pointwise-final-test-v1.md) |
 | Dual-source calibration | Logistic won the development comparison at Brier `0.1905`, but no cross-source threshold met the five-accept/90%-precision match Gate; no policy emitted and 40-target holdout unopened | Runtime readiness, successful selective prediction or final-test performance | [calibration AI-eval](evidence/ai-evals/serper-dual-source-policy-calibration-v1.md) |

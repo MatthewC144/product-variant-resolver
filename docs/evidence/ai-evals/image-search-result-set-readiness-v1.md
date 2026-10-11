@@ -1,6 +1,6 @@
 # AI eval evidence — image-search result-set readiness v1
 
-Date: 2026-10-11. Scope: product-boundary and data-readiness audit only.
+Date: 2026-10-11. Scope: auxiliary upstream benchmark and data-readiness audit only.
 Status: **dataset ready; aggregation and resolver scoring not yet evaluated**.
 
 Dataset SHA-256:
@@ -8,7 +8,7 @@ Dataset SHA-256:
 
 | Dimension | Criterion | Observed | Verdict |
 |---|---|---|---|
-| Product boundary | Model the evidence between livestream screenshot search and pricing lookup. | Predecessor path is frame → Serper Lens → up to 10 titles → candidate consensus → pricing keyword. | PASS |
+| Previous-project context | Record the predecessor evidence shape without redefining the current resolver. | FlipRadar used frame → Serper Lens → up to 10 titles → candidate consensus → pricing keyword; the current resolver remains title/evidence → identity. | PASS |
 | Current benchmark gap | Distinguish single-title ranking from full result-set resolution. | Current 150-target benchmark stores one Image/Lens title per identity. | PASS |
 | Legacy evidence | Reuse prior data only within its label authority. | 101 identity labels: 95 Hot Wheels; 85 Hot Wheels cases retain 2–3 candidates; labels are primarily casting-level. | PASS |
 | Full-identity safety | Do not infer exact releases from casting-only legacy labels. | Legacy candidates are not promoted to complete release truth. | PASS |
@@ -20,10 +20,11 @@ Dataset SHA-256:
 
 ## Interpretation
 
-The existing ranking and calibration evidence answers whether one noisy title maps to a catalog
-release. It does not yet answer the original FlipRadar question: how multiple reverse-image-search
-results should be combined before price lookup. The next dataset must retain the ordered result set
-instead of only the provider's first or locally selected title.
+The existing ranking and calibration evidence remains the primary evidence for Product Variant
+Resolver: it answers whether noisy title evidence maps to a catalog release. The predecessor
+FlipRadar workflow motivates a separate question—whether multiple reverse-image-search results can
+improve that resolution—but does not redefine the current product or runtime boundary. This corpus
+retains the ordered result set solely for that optional offline experiment.
 
 The predecessor data is useful for casting-level candidate-selection analysis, but most rows do not
 contain authority-backed toy identifiers or full release fields. Treating those labels as exact
@@ -42,6 +43,7 @@ together. These are data-profile counts, not resolver accuracy.
 
 ## Next permitted experiment
 
-Use only these 140 development identities to compare top-title versus multi-title evidence fusion.
+If this auxiliary experiment is continued, use only these 140 development identities to compare
+top-title versus multi-title evidence fusion.
 Do not open the existing fresh 40-target policy holdout, call a pricing API, or claim screenshot-level
 accuracy until an independent full-pipeline holdout exists.

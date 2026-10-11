@@ -3154,23 +3154,24 @@ Future evidence can reopen them without rewriting the historical reason they wer
   `11caad121fa32a006abdc7cb08e8138a651bfcea5f76837471268fd65cee14e6`. The next work must remain on
   development data and predeclare source-specific diagnosis or ranking remediation before execution.
 
-## D73 — Make the ordered image-search result set the product boundary
+## D73 — Add ordered image-search result sets as an auxiliary upstream benchmark
 
-- **Choice:** define the next development input as up to ten ordered Lens title hits for one image,
-  each retaining raw and conservatively cleaned text. Keep the current single-title resolver intact
-  until result-set aggregation has its own development evidence.
-- **Reason:** the project exists to improve FlipRadar's frame → image search → title cleaning → price
-  lookup seam. The current 150-target benchmark stores one Image/Lens title per identity, so it
-  measures title-to-catalog ranking but not the actual multi-result evidence problem. Earlier four-arm
-  evidence also shows aggressive cleaning removes useful identifiers.
+- **Choice:** keep the existing title-to-identity runtime and architecture unchanged, while adding an
+  auxiliary development corpus with up to ten ordered Lens title hits per image. Each hit retains raw
+  and conservatively cleaned text. This corpus is an offline benchmark, not a new product boundary.
+- **Reason:** the previous FlipRadar frame → image search → title cleaning → price lookup flow is the
+  motivation for testing richer upstream evidence. The current 150-target benchmark stores one
+  Image/Lens title per identity, so the auxiliary corpus can test multi-result transfer without
+  redefining Product Variant Resolver or its FastAPI contract. Earlier four-arm evidence also shows
+  aggressive cleaning removes useful identifiers.
 - **Alternatives:** keep optimizing one cleaned title; feed Shopping results back into identity;
   promote the predecessor's casting-only labels to exact releases; or open policy holdouts. These
-  mismatch the live workflow, create circular price-search evidence, fabricate exact truth or leak
-  final evidence into development.
+  create circular price-search evidence, fabricate exact truth or leak final evidence into
+  development.
 - **10x alternative considered:** collect independently sampled livestream frames across many product
   categories and providers, retain expert-adjudicated full identities and train a multimodal model
-  jointly over pixels and result sets. That would be stronger production research, but the smallest
-  honest bridge is a 140-identity Hot Wheels development result-set corpus.
+  jointly over pixels and result sets. That would be stronger production research, but it is outside
+  this resolver's current scope; the smaller 140-identity corpus remains an optional transfer test.
 - **Most likely failure:** evaluate a convenient single result while calling it screenshot-level
   accuracy. The new schema preserves the full bounded title set and keeps empty provider outcomes
   instead of replacing difficult targets.

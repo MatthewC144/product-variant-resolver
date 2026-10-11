@@ -33,8 +33,9 @@ Dataset SHA-256:
 
 ## Finding and next action
 
-The dataset now represents the actual ordered evidence boundary but does not prove that consensus
-improves identity resolution. The next version should freeze an identity-grouped fit/selection split
-and compare top-title, independent-title voting, deterministic evidence fusion and one learned
+The auxiliary dataset represents the predecessor project's ordered evidence shape but does not
+change the current resolver boundary or prove that consensus improves identity resolution. If the
+experiment continues, the next version should freeze an identity-grouped fit/selection split and
+compare top-title, independent-title voting, deterministic evidence fusion and one learned
 aggregator on these development records only. Empty result sets must remain explicit provider
 failures. Fresh policy holdouts remain sealed.

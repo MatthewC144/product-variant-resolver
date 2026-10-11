@@ -8,5 +8,6 @@
   only the final dataset. _(→ISRS-R2–R7)_
 - [x] **ISRS-T4** Delete temporary collection artifacts and run schema, privacy, membership and
   regression QA. _(→ISRS-R2–R8)_
-- [x] **ISRS-T5** Update positioning, AI-eval evidence, decision record and Project Log to reflect
-  the screenshot→result-set→identity product boundary. _(→ISRS-R1,R8)_
+- [x] **ISRS-T5** Update positioning, AI-eval evidence, decision record and Project Log to record
+  predecessor motivation and the auxiliary benchmark scope without changing the current resolver
+  boundary. _(→ISRS-R1,R8)_

@@ -4,15 +4,16 @@ Date: 2026-10-11. Mode: Lite / Lean Industrial. Status: complete.
 
 ## Product goal
 
-Bridge the real FlipRadar workflow boundary: a livestream frame is sent to image search, the
-provider returns several noisy title-like results, and the resolver must convert that evidence into
-one catalog identity suitable for a downstream pricing query. This version first freezes the
-multi-result development evidence; it does not activate a runtime endpoint or open policy holdouts.
+Create an auxiliary offline benchmark inspired by the previous FlipRadar workflow, where image
+search returned several noisy title-like results before identity normalization. This milestone
+freezes multi-result development evidence without redefining Product Variant Resolver's existing
+title-to-identity architecture, activating a runtime endpoint or opening policy holdouts.
 
 ## Observable requirements
 
-- **ISRS-R1 — Real boundary.** WHEN the dataset is created, THE SYSTEM SHALL represent one image
-  search as an ordered set of up to ten title hits rather than one preselected title.
+- **ISRS-R1 — Auxiliary scope.** WHEN the dataset is created, THE SYSTEM SHALL represent one image
+  search as an ordered set of up to ten title hits rather than one preselected title, and SHALL
+  identify this artifact as an offline benchmark rather than the current runtime input contract.
 - **ISRS-R2 — Frozen development membership.** WHEN targets are selected, THE SYSTEM SHALL use only
   the existing 100 positive development identities and 40 no-match development identities, and
   SHALL NOT use the 50-target opened ranking final or the 40-target fresh policy holdout.
